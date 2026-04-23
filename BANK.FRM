@@ -29,7 +29,7 @@ Begin VB.Form bankfrm
    ScaleWidth      =   9180
    Begin VB.Frame Frame2 
       Height          =   1590
-      Left            =   135
+      Left            =   180
       TabIndex        =   41
       Top             =   630
       Width           =   2085
@@ -866,21 +866,21 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim formMode As Byte
-Public bedit As Boolean
-Dim con As New adodb.Connection
-Dim CardTable As New adodb.Recordset
+Public bEdit As Boolean
+Dim con As New ADODB.Connection
+Dim CardTable As New ADODB.Recordset
 Const LoadMode = 1, DefineMode = 2
 Sub Handlecontrols(nMode)
-CmdAdd.Enabled = (nMode = LoadMode And bedit)
-CmdDel.Enabled = (nMode = LoadMode And bedit)
-cmdSave.Enabled = bedit
-CmdInform.Enabled = (nMode = LoadMode)
+cmdAdd.Enabled = (nMode = LoadMode And bEdit)
+cmddel.Enabled = (nMode = LoadMode And bEdit)
+cmdSave.Enabled = bEdit
+cmdInform.Enabled = (nMode = LoadMode)
 cmdPrevious.Enabled = (nMode = LoadMode)
 cmdNext.Enabled = (nMode = LoadMode)
 cmdLast.Enabled = (nMode = LoadMode)
-cmdGroup.Enabled = bedit
+cmdGroup.Enabled = bEdit
 cmdFirst.Enabled = (nMode = LoadMode)
-Xcode.Enabled = Not (nMode = LoadMode)
+xCode.Enabled = Not (nMode = LoadMode)
 End Sub
 Sub CardLookup()
 Dim Generalarray(5)
@@ -910,11 +910,11 @@ Search3.Show 1
 End Sub
 Sub myDefine()
 
-Xcode.text = RetZero(Val(Newflag("FILE5_10", "CODE", con)))
+xCode.text = RetZero(Val(Newflag("FILE5_10", "CODE", con)))
 xdesca.text = ""
 xID.text = ""
 xF_Bal.text = ""
-xF_date.text = ""
+xf_Date.text = ""
 xPhone.text = ""
 xAddress.text = ""
 xSUMIN.text = ""
@@ -926,7 +926,7 @@ xSUMOUT.text = ""
 xPlusChq.text = ""
 xMinusChq.text = ""
 xBalance.text = ""
-xGroup.BoundText = ""
+xgroup.BoundText = ""
 Handlecontrols DefineMode
 End Sub
 Sub myProc()
@@ -935,17 +935,17 @@ myload
 Unload Search3
 End Sub
 Sub myload()
-Xcode.text = CardTable!code
+xCode.text = CardTable!code
 xdesca.text = TurnValue(CardTable!DESCA, Null, "")
 xID.text = TurnValue(CardTable!ID, Null, "")
 xF_Bal.text = Format(Val(CardTable!F_BAL & ""), "Fixed")
 XISSHIP.Value = IIf(CardTable!ISSHIP, 1, 0)
 xisstop.Value = IIf(CardTable!ISSTOP, 1, 0)
 xis_Visa.Value = IIf(CardTable!is_visa, 1, 0)
-xF_date.text = TurnValue(Format(CardTable!F_DATE, "dd-mm-yyyy"), Null, "")
+xf_Date.text = TurnValue(Format(CardTable!F_DATE, "dd-mm-yyyy"), Null, "")
 xIs_Branch.Value = IIf(CardTable!is_Branch, 1, 0)
-xGroup.BoundText = CardTable!Group & ""
-xPhone.text = CardTable!phone & ""
+xgroup.BoundText = CardTable!Group & ""
+xPhone.text = CardTable!Phone & ""
 xAddress.text = CardTable!Address & ""
 
 'xSUMIN.text = CardTable!sumIn & ""
@@ -959,7 +959,7 @@ End Sub
 Private Function myreplace() As Boolean
 Dim aInsert(11, 1)
 aInsert(0, 0) = "Code"
-aInsert(0, 1) = addstring(Xcode.text)
+aInsert(0, 1) = addstring(xCode.text)
 
 aInsert(1, 0) = "desca"
 aInsert(1, 1) = addstring(xdesca.text)
@@ -974,10 +974,10 @@ aInsert(4, 0) = "f_bal"
 aInsert(4, 1) = Val(xF_Bal.text)
 
 aInsert(5, 0) = "f_date"
-aInsert(5, 1) = DateSq(xF_date.text)
+aInsert(5, 1) = DateSq(xf_Date.text)
 
 aInsert(6, 0) = "[group]"
-aInsert(6, 1) = addvalue(xGroup.BoundText)
+aInsert(6, 1) = addvalue(xgroup.BoundText)
 
 aInsert(7, 0) = "phone"
 aInsert(7, 1) = addstring(xPhone.text)
@@ -996,27 +996,27 @@ aInsert(11, 1) = xis_Visa.Value
 
 
 con.BeginTrans
-If Xcode.Enabled Then
-    Xcode.text = RetZero(Val(Newflag("FILE5_10", "CODE", con)))
-    aInsert(0, 1) = addstring(Xcode.text)
+If xCode.Enabled Then
+    xCode.text = RetZero(Val(Newflag("FILE5_10", "CODE", con)))
+    aInsert(0, 1) = addstring(xCode.text)
     con.Execute CreateInsert(aInsert, "FILE5_10")
 Else
-    con.Execute CreateUpdate(aInsert, "FILE5_10", " WHERE CODE = " & MyParn(Xcode.text))
+    con.Execute CreateUpdate(aInsert, "FILE5_10", " WHERE CODE = " & MyParn(xCode.text))
 End If
 con.CommitTrans
 myreplace = True
 Exit Function
-myError:
+myerror:
 con.RollbackTrans
 MsgBox Err.Description
 Err.Clear
 End Function
 Function MYVALID() As Boolean
-If Xcode.text = "" Then
+If xCode.text = "" Then
     MsgBox " ”ÃÌ· „”·”· "
     Exit Function
 End If
-If Not IsDate(xF_date.text) Then
+If Not IsDate(xf_Date.text) Then
     MsgBox " «—ÌŒ «Ê· «·„œ… €Ì— „”Ã· «Ê €Ì— ’ÕÌÕ"
     Exit Function
 End If
@@ -1024,13 +1024,13 @@ MYVALID = True
 End Function
 Private Sub CmdAdd_Click()
 myDefine
-If Xcode.Enabled Then Xcode.SetFocus Else xID.SetFocus
+If xCode.Enabled Then xCode.SetFocus Else xID.SetFocus
 End Sub
 
 Private Sub cmdAddVisa_Click()
 Dim sb As New ChilkatStringBuilder
 
-Dim loctable As New adodb.Recordset
+Dim loctable As New ADODB.Recordset
 Set loctable = mycmd("select * from visa_codes", con)
 Do Until loctable.EOF
     aInsert = AddFlag(Empty, "[CODE]", addvalue(loctable!code))
@@ -1057,10 +1057,10 @@ If success = 1 Then MsgBox " „  ”ÃÌ· «·„·› »‰Ã«Õ"
 End Sub
 Private Sub CmdDel_Click()
 If MsgBox("«·€«¡ «·”Ã· «·Õ«·Ï : Â· «‰  „Ê«›ﬁ ø", 4) = 6 Then
-con.Execute "Delete  From FILE5_10  Where Code = " & MyParn(Xcode.text)
+con.Execute "Delete  From FILE5_10  Where Code = " & MyParn(xCode.text)
 CardTable.Requery
 If Not (CardTable.EOF And CardTable.BOF) Then
-    CardTable.Find "Code < " & MyParn(Xcode.text), , adSearchBackward, adBookmarkFirst
+    CardTable.Find "Code < " & MyParn(xCode.text), , adSearchBackward, adBookmarkFirst
     If CardTable.EOF Then CardTable.MoveFirst
     myload
 Else
@@ -1068,7 +1068,7 @@ Else
 End If
 End If
 End Sub
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
     Unload Me
 End Sub
 Private Sub CmdFirst_Click()
@@ -1078,19 +1078,19 @@ End Sub
 
 Private Sub cmdGroup_Click()
 ReDim aPublic(5)
-nCode = xGroup.BoundText
+nCode = xgroup.BoundText
 aPublic(0) = "FILE5_50"
 aPublic(1) = "Code"
 aPublic(2) = "Desca"
 aPublic(3) = "ﬂÊœ «·„Ã„Ê⁄…"
 aPublic(4) = "≈”„ «·„Ã„Ê⁄…"
 aPublic(5) = "„Ã„Ê⁄«  «·»‰Êﬂ"
-FlagFrm.bedit = True
+FlagFrm.bEdit = True
 FlagFrm.aPublic = aPublic
 FlagFrm.Show 1
 data1.Refresh
-xGroup.BoundText = nCode
-If Not xGroup.MatchedWithList Then xGroup.BoundText = ""
+xgroup.BoundText = nCode
+If Not xgroup.MatchedWithList Then xgroup.BoundText = ""
 End Sub
 
 Private Sub CmdInform_Click()
@@ -1121,10 +1121,10 @@ If Not MYVALID Then Exit Sub
 If Not myreplace Then Exit Sub
 Inform " „ Õ›Ÿ »Ì«‰«  «·»‰ﬂ »‰Ã«Õ"
 CardTable.Requery
-If Xcode.Enabled Then
+If xCode.Enabled Then
     CmdAdd_Click
 Else
-    CardTable.Find "code = " & Xcode.text, , adSearchForward, adBookmarkFirst
+    CardTable.Find "code = " & xCode.text, , adSearchForward, adBookmarkFirst
     If CardTable.EOF Then CardTable.MoveLast
     myload
 End If
@@ -1133,7 +1133,7 @@ Private Sub CmdUndo_Click()
 If (CardTable.EOF And CardTable.BOF) Then
     myDefine
 Else
-    If Xcode.Enabled Then
+    If xCode.Enabled Then
         CardTable.MoveLast
         myload
     Else
@@ -1144,7 +1144,7 @@ End Sub
 
 Private Sub Command1_Click()
 Dim sb As New ChilkatJsonObject
-Dim loctable As New adodb.Recordset
+Dim loctable As New ADODB.Recordset
 
 
 
@@ -1156,7 +1156,7 @@ If KeyAscii = 13 Then SendKeys "{TAB}"
 End Sub
 Private Sub Form_Load()
 openCon con
-Set CardTable = New adodb.Recordset
+Set CardTable = New ADODB.Recordset
 cField1 = myiif("[TYPE] = 2", "VALUE1") & " as SumIn"
 cField2 = myiif("[TYPE] = 2", "VALUE2") & " as SumOut"
 cField3 = myiif("[TYPE] = 3", "VALUE1") & " as PlusChq"
@@ -1174,9 +1174,9 @@ CardTable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
 data1.ConnectionString = strCon
 data1.RecordSource = "Select * from file5_50  Order by Desca"
 
-Set xGroup.RowSource = data1
-xGroup.ListField = "Desca"
-xGroup.BoundColumn = "Code"
+Set xgroup.RowSource = data1
+xgroup.ListField = "Desca"
+xgroup.BoundColumn = "Code"
 
 If Not (CardTable.EOF And CardTable.BOF) Then
     CardTable.MoveLast
@@ -1191,8 +1191,8 @@ Set CardTable = Nothing
 closeCon con
 End Sub
 Private Sub xcode_LostFocus()
-Xcode.text = RetZero(Xcode.text, 6)
-CardTable.Find "Code = " & MyParn(Xcode.text), , adSearchForward, adBookmarkFirst
+xCode.text = RetZero(xCode.text, 6)
+CardTable.Find "Code = " & MyParn(xCode.text), , adSearchForward, adBookmarkFirst
 If Not CardTable.EOF Then myload
 End Sub
 
@@ -1206,8 +1206,8 @@ xAddress.SelStart = 0
 xAddress.SelLength = Len(xAddress.text)
 End Sub
 Private Sub xcode_GotFocus()
-Xcode.SelStart = 0
-Xcode.SelLength = Len(Xcode.text)
+xCode.SelStart = 0
+xCode.SelLength = Len(xCode.text)
 End Sub
 Private Sub xdesca_GotFocus()
 xdesca.SelStart = 0
@@ -1242,6 +1242,6 @@ xPlusChq.SelStart = 0
 xPlusChq.SelLength = Len(xPlusChq.text)
 End Sub
 Private Sub xf_Date_GotFocus()
-xF_date.SelStart = 0
-xF_date.SelLength = Len(xF_date.text)
+xf_Date.SelStart = 0
+xf_Date.SelLength = Len(xf_Date.text)
 End Sub
