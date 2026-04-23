@@ -29,7 +29,7 @@ Begin VB.Form bankfrm
    ScaleWidth      =   9180
    Begin VB.Frame Frame2 
       Height          =   1590
-      Left            =   180
+      Left            =   135
       TabIndex        =   41
       Top             =   630
       Width           =   2085

@@ -1,5 +1,6 @@
 # Force VB6 source files to always use CRLF
 *.frm  text eol=crlf
+*.FRM  text eol=crlf
 *.bas  text eol=crlf
 *.cls  text eol=crlf
 *.ctl  text eol=crlf
