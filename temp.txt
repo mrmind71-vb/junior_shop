@@ -1,0 +1,33 @@
+Private Sub XPHONE_GotFocus()
+mygotFocus XPHONE
+End Sub
+Private Sub XPHONE_LostFocus()
+myLostFocus XPHONE
+End Sub
+Private Sub XDATE2_GotFocus()
+mygotFocus XDATE2
+End Sub
+Private Sub XDATE2_LostFocus()
+myLostFocus XDATE2
+myvalidDate XDATE2
+End Sub
+Private Sub XDATE1_GotFocus()
+mygotFocus XDATE1
+End Sub
+Private Sub XDATE1_LostFocus()
+myLostFocus XDATE1
+myvalidDate XDATE1
+End Sub
+Private Sub xDesca_GotFocus()
+mygotFocus xDesca
+End Sub
+Private Sub xDesca_LostFocus()
+myLostFocus xDesca
+End Sub
+Private Sub XSTORE_GotFocus()
+mygotFocus XSTORE
+End Sub
+Private Sub XSTORE_LostFocus()
+myLostFocus XSTORE
+IF NOT XSTORE.MatchedWithList THEN XSTORE.BoundText = ""
+End Sub
