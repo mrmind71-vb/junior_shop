@@ -1,6 +1,7 @@
 # Force VB6 source files to always use CRLF
 *.frm  text eol=crlf
 *.FRM  text eol=crlf
+*.Frm  text eol=crlf
 *.bas  text eol=crlf
 *.cls  text eol=crlf
 *.ctl  text eol=crlf
@@ -11,6 +12,7 @@
 
 # Treat VB6 binary files as binary (never mangle these)
 *.frx  binary
+*.FRX  binary
 *.res  binary
 *.exe  binary
 *.dll  binary

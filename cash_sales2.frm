@@ -1340,7 +1340,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Public sDoc_no As String, nTotal As Double, sDate As String, myform As salesfrm
+Public sDoc_no As String, nTotal As Double, sDate As String, myForm As salesfrm
 Public bEditRecord As Boolean
 Dim bAct As Boolean
 Public nTag As Integer
@@ -1356,26 +1356,25 @@ Private Sub cmdExit_Click()
 Unload Me
 End Sub
 Private Sub cmdSave_Click()
-If Not myValid Then Exit Sub
+If Not MYVALID Then Exit Sub
 'If MsgBox("≈÷«›… «·”œ«œ ··›« Ê—… !! ‰⁄„ √„ ·« ", vbOKCancel + vbDefaultButton2) <> vbOK Then Exit Sub
 
 
 If myreplaceGrd(, True) Then
-    myform.xPay.Caption = xPay.text
-    myform.xRest.Caption = xChange.Caption
-    myform.xCash.Caption = xCash.Caption
+    myForm.xPay.Caption = xPay.text
+    myForm.xRest.Caption = xChange.Caption
+    myForm.xCash.Caption = xCash.Caption
+    myForm.xVisa.Caption = xvisa_no_install.Caption
+    myForm.XVISA2.Caption = xinstall.Caption
+    myForm.XPOINT.Caption = xPoints.Caption
+    myForm.xlate.Caption = xlate.Caption
     
-    myform.xVisa.Caption = xvisa_no_install.Caption
-    myform.XVISA2.Caption = xinstall.Caption
-    myform.XPOINT.Caption = xPoints.Caption
-    myform.xLate.Caption = xLate.Caption
-    
-    myform.xPhone.Caption = xPhone.text
-    myform.XONLINE(0).Value = XONLINE(0).Value
-    myform.XONLINE(1).Value = XONLINE(1).Value
-    myform.XONLINE(2).Value = XONLINE(2).Value
+    myForm.xPhone.Caption = xPhone.text
+    myForm.XONLINE(0).Value = XONLINE(0).Value
+    myForm.XONLINE(1).Value = XONLINE(1).Value
+    myForm.XONLINE(2).Value = XONLINE(2).Value
         
-    myform.lSave = True
+    myForm.lSave = True
     Unload Me
 End If
 End Sub
@@ -1416,7 +1415,7 @@ Else
         Exit Function
     End If
 
-    If Val(xLate.Caption) <> 0 And myform.xCode.text = cDefClient Then
+    If Val(xlate.Caption) <> 0 And myForm.xCode.text = cDefClient Then
          MsgBox "€Ì— „”„ÊÕ »¬Ã· ·⁄„Ì· ‰ﬁœÌ"
          Exit Function
     End If
@@ -1424,8 +1423,8 @@ End If
 
 myValidVisa = True
 End Function
-Private Function myValid() As Boolean
-If Val(xLate.Caption) <> 0 And myform.xCode.text = "0000" Then
+Private Function MYVALID() As Boolean
+If Val(xlate.Caption) <> 0 And myForm.xCode.text = "0000" Then
      MsgBox "€Ì— „”„ÊÕ »¬Ã· ·⁄„Ì· ‰ﬁœÌ"
     Exit Function
 End If
@@ -1457,7 +1456,7 @@ For i = 1 To grid1.Rows - 1
 Next
 
 If Not myValidVisa Then Exit Function
-myValid = True
+MYVALID = True
 End Function
 
 Private Sub Form_Activate()
@@ -1491,7 +1490,7 @@ Dim nRest As Double
 Dim nRateInstall As Double
 Dim nRateVisa As Double
 
-If grid1.Col = 1 Then
+If grid1.col = 1 Then
     grid1.TextMatrix(grid1.Row, 0) = oSearchBank.grid1.TextMatrix(oSearchBank.grid1.Row, 0)
     grid1.TextMatrix(grid1.Row, 1) = oSearchBank.grid1.TextMatrix(oSearchBank.grid1.Row, 1)
    
@@ -1505,14 +1504,14 @@ If grid1.Col = 1 Then
             If grid1.ValueMatrix(grid1.Row, 4) <> 0 Then
                 nRest = mRound(grid1.ValueMatrix(grid1.Row, 4))
             Else
-                nRest = mRound(xLate.Caption)
+                nRest = mRound(xlate.Caption)
             End If
             
             nRateInstall = loctable!rate_install
             nRateVisa = loctable!Rate
             
             grid1.TextMatrix(grid1.Row, 2) = loctable!code
-            grid1.TextMatrix(grid1.Row, 3) = loctable!desca
+            grid1.TextMatrix(grid1.Row, 3) = loctable!DESCA
             
             If Val(xTotal.Caption) > 0 Then
                 grid1.TextMatrix(grid1.Row, 4) = nRest
@@ -1526,11 +1525,11 @@ If grid1.Col = 1 Then
                 grid1.TextMatrix(grid1.Row, 9 + 1) = nRateVisa
                 grid1.TextMatrix(grid1.Row, 10 + 1) = IIf(loctable!with_points, 1, 0)
             End If
-            Grid1_AfterEdit grid1.Row, grid1.Col
+            Grid1_AfterEdit grid1.Row, grid1.col
             CellPos 13, grid1.Row, IIf(nRateInstall = 0, grid1.Cols - 1, 7)
         End If
     Else
-        CellPos 13, grid1.Row, grid1.Col
+        CellPos 13, grid1.Row, grid1.col
     End If
 Else
     grid1.TextMatrix(grid1.Row, 2) = oSearchVisa.grid1.TextMatrix(oSearchVisa.grid1.Row, 0)
@@ -1539,7 +1538,7 @@ Else
     If grid1.ValueMatrix(grid1.Row, 4) <> 0 Then
         nRest = mRound(grid1.ValueMatrix(grid1.Row, 4))
     Else
-        nRest = Val(xLate.Caption)
+        nRest = Val(xlate.Caption)
     End If
     
     nRateInstall = oSearchVisa.grid1.TextMatrix(oSearchVisa.grid1.Row, 4)
@@ -1558,7 +1557,7 @@ Else
         grid1.TextMatrix(grid1.Row, 10 + 1) = IIf(oSearchVisa.grid1.ValueMatrix(oSearchVisa.grid1.Row, 6) = 0, 0, 1)
     End If
     Unload oSearchVisa
-    Grid1_AfterEdit grid1.Row, grid1.Col
+    Grid1_AfterEdit grid1.Row, grid1.col
     CellPos 13, grid1.Row, IIf(nRateInstall = 0, grid1.Cols - 1, 7)
 End If
 End Sub
@@ -1567,23 +1566,23 @@ Private Sub myload()
 'Set loctable = myCmd("[dbo].[sp_invoice_total]", con, adStoredProc, AddFlag(aPrm, "doc_no", sDoc_no))
 'If loctable.EOF Then Exit Sub
 
-xTotal.Caption = mRound(myform.xTotal.text)
-xDoc_no.Tag = myform.xDoc_no.text
-xDoc_no.Caption = myform.xDoc_no2.text
-xDate.Caption = myFormat_p(myform.xDate.text)
+xTotal.Caption = mRound(myForm.xTotal.text)
+xDoc_no.Tag = myForm.xDoc_no.text
+xDoc_no.Caption = myForm.xDoc_no2.text
+xDate.Caption = myFormat_p(myForm.xDate.text)
 
 bIg = True
-xPhone.text = myform.xPhone.Caption
+xPhone.text = myForm.xPhone.Caption
 bIg = False
 
-myform.XONLINE(0).Value = XONLINE(0).Value
-myform.XONLINE(1).Value = XONLINE(1).Value
-myform.XONLINE(2).Value = XONLINE(2).Value
+myForm.XONLINE(0).Value = XONLINE(0).Value
+myForm.XONLINE(1).Value = XONLINE(1).Value
+myForm.XONLINE(2).Value = XONLINE(2).Value
 
 xPay.Enabled = Val(xTotal.Caption) > 0
 
 bIg = True
-xPay.text = myform.xPay.Caption
+xPay.text = myForm.xPay.Caption
 bIg = False
 If xPhone.text <> "" Then loadCust
 
@@ -1664,7 +1663,7 @@ Private Sub grdPhone_LostFocus()
 grdPhone.Visible = False
 End Sub
 
-Private Sub Grid1_AfterEdit(ByVal Row As Long, ByVal Col As Long)
+Private Sub Grid1_AfterEdit(ByVal Row As Long, ByVal col As Long)
 If (Not myValidVisa) Then
     On Error Resume Next
     grid1.SetFocus
@@ -1674,7 +1673,7 @@ If (Not myValidVisa) Then
     CalcTotals
     
     If Row < grid1.Rows - 1 Then
-        grid1.Select Row, Col
+        grid1.Select Row, col
     Else
         CellPos 13, grid1.Rows - 2, grid1.Cols - 1
     End If
@@ -1750,24 +1749,24 @@ Else
 End If
 
 xtotal_install.Caption = mRound(xTotal.Caption) + nInstall
-xLate.Caption = mRound(Val(xTotal.Caption) - Val(xCash.Caption) - mRound(xvisa_no_install.Caption) - Val(xPoints.Caption))
+xlate.Caption = mRound(Val(xTotal.Caption) - Val(xCash.Caption) - mRound(xvisa_no_install.Caption) - Val(xPoints.Caption))
 End With
 End Sub
-Private Sub grid1_CellButtonClick(ByVal Row As Long, ByVal Col As Long)
-If Col = 1 And Row = grid1.Rows - 1 And grid1.TextMatrix(Row, 3) = "" Then
+Private Sub grid1_CellButtonClick(ByVal Row As Long, ByVal col As Long)
+If col = 1 And Row = grid1.Rows - 1 And grid1.TextMatrix(Row, 3) = "" Then
     If Val(xTotal.Caption) < 0 And Val(xvisa_no_install.Caption) = Val(xTotal.Caption) And grid1.TextMatrix(grid1.Row, grid1.Cols - 1) = "" Then Exit Sub
-    If Val(xLate.Caption) = 0 And Val(xTotal.Caption) > 0 And grid1.TextMatrix(grid1.Row, 0) = "" Then Exit Sub
+    If Val(xlate.Caption) = 0 And Val(xTotal.Caption) > 0 And grid1.TextMatrix(grid1.Row, 0) = "" Then Exit Sub
     BankVisaLookup Me, oSearchBank
-ElseIf Col = 3 And grid1.TextMatrix(Row, 0) <> "" Then
+ElseIf col = 3 And grid1.TextMatrix(Row, 0) <> "" Then
     If Val(xTotal.Caption) < 0 And Val(xvisa_no_install.Caption) = Val(xTotal.Caption) And grid1.TextMatrix(grid1.Row, grid1.Cols - 1) = "" Then Exit Sub
-    If Val(xLate.Caption) = 0 And Val(xTotal.Caption) > 0 And grid1.TextMatrix(grid1.Row, 2) = "" Then Exit Sub
+    If Val(xlate.Caption) = 0 And Val(xTotal.Caption) > 0 And grid1.TextMatrix(grid1.Row, 2) = "" Then Exit Sub
     visaLookup Me, oSearchVisa, grid1.TextMatrix(Row, 0), "VISA_CODES.STOPED = 0"
 End If
 End Sub
 Private Sub grid1_EnterCell()
 If Not bEditRecord Then
     grid1.Editable = flexEDNone
-ElseIf grid1.Col = 1 Or grid1.Col = 3 Or grid1.Col = 4 Or grid1.Col = 8 Or grid1.Col = 9 Then
+ElseIf grid1.col = 1 Or grid1.col = 3 Or grid1.col = 4 Or grid1.col = 8 Or grid1.col = 9 Then
     grid1.Editable = flexEDKbdMouse
 Else
     grid1.Editable = flexEDNone
@@ -1781,46 +1780,46 @@ If KeyCode = 46 And grid1.Row > 0 And bEditRecord Then
             CalcTotals
         End If
     Else
-        For Col = 0 To grid1.Cols - 1
-            grid1.TextMatrix(grid1.Row, Col) = ""
+        For col = 0 To grid1.Cols - 1
+            grid1.TextMatrix(grid1.Row, col) = ""
         Next
         CalcTotals
     End If
 ElseIf KeyCode = 13 Then
-    CellPos KeyCode, grid1.Row, grid1.Col
+    CellPos KeyCode, grid1.Row, grid1.col
 End If
 End Sub
 Private Sub grid1_KeyPress(KeyAscii As Integer)
 If KeyAscii = 13 Then
-    If grid1.Col = 1 And grid1.TextMatrix(grid1.Row, grid1.Col) = "" Then Exit Sub
-    If grid1.Col = 3 And grid1.TextMatrix(grid1.Row, grid1.Col) = "" Then Exit Sub
+    If grid1.col = 1 And grid1.TextMatrix(grid1.Row, grid1.col) = "" Then Exit Sub
+    If grid1.col = 3 And grid1.TextMatrix(grid1.Row, grid1.col) = "" Then Exit Sub
     KeyAscii = 0
 End If
 End Sub
-Private Sub grid1_KeyUpEdit(ByVal Row As Long, ByVal Col As Long, KeyCode As Integer, ByVal Shift As Integer)
+Private Sub grid1_KeyUpEdit(ByVal Row As Long, ByVal col As Long, KeyCode As Integer, ByVal Shift As Integer)
 If KeyCode = 13 Then
-    If Col = 1 And grid1.TextMatrix(Row, Col) = "" Then Exit Sub
-    If Col = 3 And grid1.TextMatrix(Row, Col) = "" Then Exit Sub
-    CellPos KeyCode, Row, Col
+    If col = 1 And grid1.TextMatrix(Row, col) = "" Then Exit Sub
+    If col = 3 And grid1.TextMatrix(Row, col) = "" Then Exit Sub
+    CellPos KeyCode, Row, col
 End If
 End Sub
-Private Sub CellPos(ByRef KeyCode, ByVal Row As Long, ByVal Col As Long)
+Private Sub CellPos(ByRef KeyCode, ByVal Row As Long, ByVal col As Long)
 KeyCode = 0
-If Col < 4 Then
-     grid1.Col = NextEmpty(grid1, Row, Col + 1, 4)
-ElseIf Col < 8 Then
-     grid1.Col = 8
-ElseIf Col = 8 Then
-    grid1.Col = 9
+If col < 4 Then
+     grid1.col = NextEmpty(grid1, Row, col + 1, 4)
+ElseIf col < 8 Then
+     grid1.col = 8
+ElseIf col = 8 Then
+    grid1.col = 9
 ElseIf Row < grid1.Rows - 1 Then
     grid1.Select Row + 1, NextEmpty(grid1, Row + 1, 1, 4)
     grid1.ShowCell grid1.Row, 0
 Else
-    grid1.Select Row, Col
+    grid1.Select Row, col
 End If
 End Sub
-Private Sub grid1_ValidateEdit(ByVal Row As Long, ByVal Col As Long, Cancel As Boolean)
-If Col = 4 Then
+Private Sub grid1_ValidateEdit(ByVal Row As Long, ByVal col As Long, Cancel As Boolean)
+If col = 4 Then
     If Val(grid1.EditText) = 0 Then
         Cancel = True
         Exit Sub
@@ -1883,7 +1882,7 @@ Dim nAffect As Long
 With grid1
 con.BeginTrans
 
-On Error GoTo myError
+On Error GoTo myerror
 Dim sid As String
 If bDone Then
     con.Execute "UPDATE FILE6_20H SET " & _
@@ -1893,7 +1892,7 @@ If bDone Then
                 "FILE6_20H.VISA = " & Val(xvisa_no_install.Caption) & "," & _
                 "FILE6_20H.VISA2 = " & Val(xinstall.Caption) & "," & _
                 "FILE6_20H.POINT = " & Val(xPoints.Caption) & "," & _
-                "FILE6_20H.LATE = " & Val(xLate.Caption) & "," & _
+                "FILE6_20H.LATE = " & Val(xlate.Caption) & "," & _
                 "FILE6_20H.PHONE = " & addstring(xPhone.text) & "," & _
                 "FILE6_20H.ISNEW = 1 " & _
                 " FROM FILE6_20H WHERE DOC_NO = " & MyParn(xDoc_no.Tag)
@@ -1943,7 +1942,7 @@ End With
 con.CommitTrans
 myreplaceGrd = True
 Exit Function
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 con.RollbackTrans
@@ -1960,7 +1959,7 @@ grdPhone.ColWidth(0) = 2000
 grdPhone.ColWidth(1) = 2500
 grdPhone.ColWidth(2) = 1000
 grdPhone.ColWidth(3) = 1300
-'grdPhone.ColHidden(2) = True
+grdPhone.ColHidden(2) = True
 If grdPhone.Rows > 1 Then
     grdPhone.Cell(flexcpBackColor, 1, 2, grdPhone.Rows - 1, 2) = &H8000000F
     GrdHi grdPhone, 2, -1, grdPhone.Row
@@ -1995,16 +1994,10 @@ If KeyCode = 27 Then
     If grdPhone.Visible Then grdPhone.Visible = False
 End If
 End Sub
+
 Private Sub XPHONE_LostFocus()
-'sLastControl = xPhone.Name
+sLastControl = xPhone.Name
 myLostFocus xPhone
-
-If Trim(xPhone.text) <> "" Then
-    If IsValidMobile(xPhone.text) Then
-        xPhone.text = ""
-    End If
-End If
-
 grdPhone.Visible = (ActiveControl.Name = grdPhone.Name)
 End Sub
 Private Sub xPhone_Change()
@@ -2014,7 +2007,7 @@ End Sub
 Private Sub myLoadList(Optional pName As String = "", Optional pPhone As String = "")
 Dim cString As String
 If Not grdPhone.Visible Then grdPhone.Visible = True
-cString = "Select top 100 Phone,desca,e_mail,format(f_date,'yyyy/M/d') From SUBCUST"
+cString = "Select top 100 Phone,desca,e_mail,convert(varchar(10),f_date,111) From SUBCUST"
 If Trim(pName) <> "" Then
     cString = cString & " WHERE desca like " & MyParn(pName & "%")
 ElseIf Trim(pPhone) <> "" Then
@@ -2036,8 +2029,8 @@ Dim loctable As New ADODB.Recordset
 Set loctable = mycmd("select top 1 * from SUBCUST WHERE PHONE = " & MyParn(xPhone.text), con)
 bIg = True
 If Not loctable.EOF Then
-    xName.text = loctable!desca & ""
-    'xE_mail.text = loctable!E_MAIL & ""
+    xName.text = loctable!DESCA & ""
+    xE_mail.text = loctable!E_MAIL & ""
 End If
 bIg = False
 loctable.Close
