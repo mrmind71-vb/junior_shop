@@ -4,14 +4,12 @@ Public Function IncrementString(ByVal currentStr As String) As String
     Dim numericPart As String
     Dim alphaPart As String
     Dim maxNumeric As Long
-    Dim currentNum As Long
+    Dim currentNum As Double
     Dim i As Integer
-    
-    
     length = Len(currentStr)
     If IsNumeric(currentStr) Then
         length = Len(currentStr)
-        currentNum = CLng(currentStr) + 1
+        currentNum = Val(currentStr) + 1
         
         ' ??? ????? ????? ???? ?????? (??? 999)? ???? ?? A01
         If Len(CStr(currentNum)) > length Then

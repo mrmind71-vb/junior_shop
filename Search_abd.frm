@@ -662,7 +662,7 @@ Private Sub grid1_GotFocus()
 End Sub
 Sub myLoadGrd()
 Dim cString As String, nRow As Long
-On Error GoTo myerror
+'On Error GoTo myerror
 cString = Generalarray(1)
 
 If Val(xRecords.text) <> 0 Then
