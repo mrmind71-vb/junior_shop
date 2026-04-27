@@ -4319,7 +4319,7 @@ aInsert(23, 0) = "CODEVISA"
 aInsert(23, 1) = addvalue(XCODEVISA.BoundText)
 
 aInsert(24, 0) = "NOTE_DISC"
-aInsert(24, 1) = addstring(xNOTE_DISC.Caption)
+aInsert(24, 1) = addstring(xNote_disc.Caption)
 
 aInsert(32, 0) = "DOC_DISC"
 aInsert(32, 1) = addstring(xdoc_disc.Caption)
@@ -4491,10 +4491,10 @@ On Error GoTo myerror
     
     myUndo
 
-    If XONLINE_DOC.Caption <> "" Then
+    If xonline_doc.Caption <> "" Then
         Dim con_SERVER As New Connection
         If openCon(con_SERVER, LoadConString_OnLine) = "ok" Then
-            con_SERVER.Execute " UPDATE FILE6_90H SET SHIP_NO = " & addstring(XSHIP_NO.Caption) & " WHERE doc_no = " & MyParn(XONLINE_DOC.Caption), nRec
+            con_SERVER.Execute " UPDATE FILE6_90H SET SHIP_NO = " & addstring(xship_no.Caption) & " WHERE doc_no = " & MyParn(xonline_doc.Caption), nRec
         End If
         con_SERVER.Close
     End If
@@ -4713,7 +4713,7 @@ If xPrinted.Value <> 0 Then Exit Sub
             xDiscount.Locked = False
             xRate.Locked = False
             XUSERNAME_DISC.Caption = sUserDisc
-            xNOTE_DISC.Caption = ""
+            xNote_disc.Caption = ""
             xdoc_disc.Caption = ""
         End If
     Else
@@ -4870,10 +4870,10 @@ If MsgBox("Õ–› «·„” ‰œ »«·ﬂ«„·  ?, Â· «‰  „Ê«›ﬁ ø", 1 + 256) = vbOK Then
     con.Execute "Delete  From FILE6_20 where Doc_No = " & MyParn(xDoc_No.text)
     con.Execute "Delete  From FILE6_20H where Doc_No = " & MyParn(xDoc_No.text)
 
-    If XONLINE_DOC.Caption <> "" Then
+    If xonline_doc.Caption <> "" Then
         Dim con_SERVER As New Connection
         If openCon(con_SERVER, LoadConString_OnLine) = "ok" Then
-            con_SERVER.Execute " UPDATE FILE6_90H SET SHIP_NO  = NULL , SALES_DOC = NULL , SALES_DATE = NULL WHERE doc_no = " & MyParn(XONLINE_DOC.Caption), nRec
+            con_SERVER.Execute " UPDATE FILE6_90H SET SHIP_NO  = NULL , SALES_DOC = NULL , SALES_DATE = NULL WHERE doc_no = " & MyParn(xonline_doc.Caption), nRec
             If nRec = 1 Then Inform "  „ «·€«¡  —ÕÌ· «·ÿ·»  "
         End If
         con_SERVER.Close
@@ -5048,7 +5048,7 @@ End If
 If cBranch <> "00" And xcard_disc.text <> "" Then
     xDiscount.text = CheckCardDisc
     xdoc_disc.Caption = ""
-    xNOTE_DISC.Caption = ""
+    xNote_disc.Caption = ""
     CalcTotals
 End If
 
@@ -5066,14 +5066,14 @@ If cBranch <> "00" And (XSALES_RET.Caption = "") And Not lISNOGRDISC And xcard_d
             If Val(GetDesca(cStr1, con) & "") = 0 Then
                 aRet = CalcDisc3(cDoc1)
                 xDiscount.text = Val(aRet(1))
-                xNOTE_DISC.Caption = aRet(3)
+                xNote_disc.Caption = aRet(3)
                 xdoc_disc.Caption = aRet(2)
-                Inform xNOTE_DISC.Caption
+                Inform xNote_disc.Caption
                 xinv_no.text = cDoc1
             Else
-                xNOTE_DISC.Caption = aRet(3)
+                xNote_disc.Caption = aRet(3)
                 xdoc_disc.Caption = aRet(2)
-                Inform xNOTE_DISC.Caption
+                Inform xNote_disc.Caption
                 
                 MsgBox " ÌÊÃœ «’‰«› Œ«—Ã «·⁄—÷ ·« Ì„ﬂ‰ Õ›Ÿ «·⁄„·Ì… "
                 For nRow = 1 To grid1.Rows - 2
@@ -5717,7 +5717,7 @@ End If
 End Sub
 
 Private Sub grid1_LostFocus()
-imgx1.Images.Clear
+ImgX1.Images.Clear
 End Sub
 Private Sub grid1_Validate(Cancel As Boolean)
 If (Not validRow(grid1.Row)) And grid1.Row <> grid1.Rows - 1 And grid1.Row <> 0 And grid1.TextMatrix(grid1.Row, grid1.Cols - 1) = "" Then
@@ -6032,7 +6032,7 @@ XISONEST.Value = 0
 XISONEST.Value = IIf(CardTable!ISONEST, 1, 0)
 XISNODEL.Value = IIf(CardTable!ISNODEL, 1, 0)
 xIpName.Caption = CardTable!user_ip & ""
-XSHIP_NO.Caption = CardTable!ship_no & ""
+xship_no.Caption = CardTable!ship_no & ""
 
 
 If CardTable!ISCLOSED Then
@@ -6067,11 +6067,11 @@ XVISADOC.Caption = CardTable!VISADOC & ""
 XCODEVISA.BoundText = CardTable!CODEVISA & ""
 xisbankahly.Value = IIf(CardTable!isbankahly, 1, 0)
 xNotes.text = CardTable!NOTES & ""
-XONLINE_DOC.Caption = CardTable!ONLINE_DOC & ""
+xonline_doc.Caption = CardTable!ONLINE_DOC & ""
 XTRANS_DOC.Caption = CardTable!TRANS_DOC & ""
 XSALES_RET.Caption = CardTable!SALES_RET & ""
 xusername_RET.Caption = CardTable!username_ret & ""
-xNOTE_DISC.Caption = CardTable!NOTE_DISC & ""
+xNote_disc.Caption = CardTable!NOTE_DISC & ""
 xdoc_disc.Caption = CardTable!DOC_DISC & ""
 
 xCode.text = CardTable!code & ""
@@ -6096,7 +6096,7 @@ XVISA2.Caption = TurnValue(CardTable!VISA2)
 
 XTYPEVISA.Caption = CardTable!TYPEVISA & ""
 
-XISRET.Value = 0
+xIsRet.Value = 0
 xPay.Caption = Myvalue(CardTable!PAY)
 XPOINT.Caption = Format(CardTable!Point, "#0.00")
 
@@ -6115,7 +6115,7 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Private Sub myDefine()
-XISRET.Value = 0
+xIsRet.Value = 0
 If cBranch <> "00" Then
     If CheckOpen(False, xBox.BoundText) > 0 Then
         cmdOpen.BackColor = vbRed
@@ -6131,8 +6131,8 @@ xSendRc.Value = 0
 bIgClick = False
 
 XBRANCH.Caption = cBranch
-XSHIP_NO.Caption = ""
-XONLINE_DOC.Caption = ""
+xship_no.Caption = ""
+xonline_doc.Caption = ""
 lDiscModelRet = False
 xIpName.Caption = GetComputerName
 XONLINE(0).Value = 1
@@ -6153,9 +6153,9 @@ cmd_closed.Caption = "› Õ „” ‰œ"
 XVISADOC.Caption = ""
 xClosed.Visible = False
 xClosed.Value = ssCBUnchecked
-XGIFT.Value = 0
+xGift.Value = 0
 xusername_RET = ""
-xNOTE_DISC.Caption = ""
+xNote_disc.Caption = ""
 xdoc_disc.Caption = ""
 
 xcard_disc.text = ""
@@ -6230,7 +6230,7 @@ grid1.TextMatrix(grid1.Rows - 1, 0) = grid1.Rows - 1
 
 xDoc_No.Tag = 0
 xTotal.text = ""
-imgx1.Images.Clear
+ImgX1.Images.Clear
 fixGrd
 
 'If lManSales Then
@@ -6622,14 +6622,14 @@ Private Sub XONLINE_DOC_Click()
 Dim cAddre As String
 If ((xClosed.Value <> 0 Or lMainShow Or lSupperVisor) And cBranch <> "00") Then
     On erorr GoTo myerror
-    XONLINE_DOC.Caption = InputBox(" —ﬁ„ «Ê—œ— «Ê‰ ·«Ì‰ ", , XONLINE_DOC.Caption)
+    xonline_doc.Caption = InputBox(" —ﬁ„ «Ê—œ— «Ê‰ ·«Ì‰ ", , xonline_doc.Caption)
     If MsgBox("  ⁄œÌ· —ﬁ„ «Ê—œ— «Ê‰ ·«Ì‰ ··›« Ê—… ", vbYesNo + vbDefaultButton2) = vbYes Then
         Dim con_SERVER As New Connection
         If openCon(con_SERVER, LoadConString_OnLine) = "ok" Then
-            con_SERVER.Execute " UPDATE FILE6_90H SET SHIP_NO = " & addstring(XSHIP_NO.Caption) & " , sales_doc = " & addstring(xDoc_No.text) & " , sales_date = " & addDate(xDate.text) & " WHERE doc_no = " & MyParn(XONLINE_DOC.Caption), nRec
+            con_SERVER.Execute " UPDATE FILE6_90H SET SHIP_NO = " & addstring(xship_no.Caption) & " , sales_doc = " & addstring(xDoc_No.text) & " , sales_date = " & addDate(xDate.text) & " WHERE doc_no = " & MyParn(xonline_doc.Caption), nRec
         
             If nRec > 0 Then
-                aRet = aGetDesca("select name , Shipping_City , STREET , phone from file6_90h where doc_no = " & MyParn(XONLINE_DOC.Caption), con_SERVER)
+                aRet = aGetDesca("select name , Shipping_City , STREET , phone from file6_90h where doc_no = " & MyParn(xonline_doc.Caption), con_SERVER)
                 If UBound(aRet) > 0 Then
                     cAddre = aRet(2) + "   " + aRet(3)
                     con.Execute " UPDATE  FILE6_20H SET file6_20h.NAME = " & addstring(aRet(1)) & " , file6_20h.ADDRESS = " & addstring(cAddre) & " ,  file6_20h.PHONE = " & addstring(aRet(4)) & "   WHERE file6_20h.doc_no = " & MyParn(xDoc_No.text)
@@ -6879,7 +6879,7 @@ Private Sub xStore_Validate(Cancel As Boolean)
     If Trim(xStore.BoundText) = "" Then Cancel = True
 End Sub
 Private Sub xTax_LostFocus()
-    xTax.BackColor = &H80000005
+    xtax.BackColor = &H80000005
     CalcTotals
 End Sub
 Private Function RemoveItem(nRow) As Boolean
@@ -7040,8 +7040,8 @@ Private Sub xDiscount_GotFocus()
 myGotFocus xDiscount
 End Sub
 Private Sub xTax_GotFocus()
-xTax.SelStart = 0
-xTax.SelLength = Len(xTax.text)
+xtax.SelStart = 0
+xtax.SelLength = Len(xtax.text)
 End Sub
 Private Function mysave(Optional bEnd As Boolean = True, Optional bPrint As Boolean = True, Optional bSendReceipt As Boolean = False) As Boolean
 If Not MYVALID Then Exit Function
@@ -7179,10 +7179,10 @@ Do Until loctable.EOF
     If XONLINE(2).Value = 0 Then
         If Val(xDiscount.text) <> 0 Then
             If lIsdisc2 Then
-                temptable!str10 = TurnValue(xNOTE_DISC.Caption, "", Null) & " Buy 2 GET 1 free"
+                temptable!str10 = TurnValue(xNote_disc.Caption, "", Null) & " Buy 2 GET 1 free"
                 temptable!str14 = "«·≈” »œ«· Ê«·„— Ã⁄ ·⁄—÷ ﬁÿ⁄ Ì‰ Ê ﬁÿ⁄… „Ã«‰«  ”«—Ï Œ·«· › —… «·⁄—÷ ›ﬁÿ "
             Else
-                temptable!str10 = TurnValue(xNOTE_DISC.Caption, "", Null)
+                temptable!str10 = TurnValue(xNote_disc.Caption, "", Null)
             End If
         End If
     Else
@@ -7240,7 +7240,7 @@ Do Until loctable.EOF
 Loop
 End With
 
-If XGIFT.Value = 0 Then
+If xGift.Value = 0 Then
     Set loctable = Nothing
     Set loctable = New ADODB.Recordset
     Dim sSql As String
@@ -7275,7 +7275,7 @@ If Not lNotBranch Then
 End If
 
 
-If XGIFT.Value = 1 Then
+If xGift.Value = 1 Then
     REPORT1.ReportFileName = App.Path & "\Reports\sales_G.rpt"
 ElseIf sQRCode <> "" Then
     REPORT1.ReportFileName = App.Path & "\Reports\sales_qrcode.rpt"
@@ -8029,7 +8029,7 @@ Function IsDayDisc(pDate) As Double
                 lIsPrice_2 = IIf(!ISPRICE_2, True, False)
                 lIsdisc2 = IIf(!ISdisc2, True, False)
                 cDescDiscout = TurnValue(!DESCA, Null, "")
-                xNOTE_DISC.Caption = TurnValue(!DESCA, Null, "")
+                xNote_disc.Caption = TurnValue(!DESCA, Null, "")
                 xdoc_disc.Caption = TurnValue(!DOC_NO, Null, "")
             End If
             .MoveNext
@@ -8793,17 +8793,17 @@ End Function
 Private Sub myLoadPicture(pModel As String)
 On Error Resume Next
     If Not lServerPict Then Exit Sub
-    imgx1.Images.Clear
+    ImgX1.Images.Clear
     If pModel = "" Then Exit Sub
     If conPict Is Nothing Then Exit Sub
     Dim loctable As Recordset
     Dim bytes() As Byte, nSize As Long
-    imgx1.Images.Clear
+    ImgX1.Images.Clear
     Set loctable = myRecordSet("select PICT,size from PICT where MODELNO = " & MyParn(pModel), conPict)
     If loctable.EOF Then Exit Sub
     nSize = CLng(loctable("size").Value)
     bytes = loctable("PICT").GetChunk(nSize)
-    imgx1.Import.FromMemoryFile bytes, ixmfJPG
+    ImgX1.Import.FromMemoryFile bytes, ixmfJPG
     Err.Clear
 End Sub
 Private Sub XVISADOC_Click()
@@ -8868,9 +8868,9 @@ Private Sub cmd_showdoc_Click_AMR()
     pDocRet = xdoc_ret.text
     xdoc_ret.text = pDocRet
     If Len(xdoc_ret.text) >= 11 Then
-        XISRET.Value = IIf(GetBoolean("SELECT ISRET FROM FILE6_20H WHERE DOC_NO = " & MyParn(xdoc_ret.text), con), 1, 0)
+        xIsRet.Value = IIf(GetBoolean("SELECT ISRET FROM FILE6_20H WHERE DOC_NO = " & MyParn(xdoc_ret.text), con), 1, 0)
         dDateRet = DateValue(Format(Mid(xdoc_ret.text, 1, 2) & "-" & Mid(xdoc_ret.text, 3, 2) & "-" & Mid(xdoc_ret.text, 5, 2), "DD-MM-YYYY"))
-        If DateDiff("D", dDateRet, dSalesDate) > 30 And XISRET.Value = 0 Then
+        If DateDiff("D", dDateRet, dSalesDate) > 30 And xIsRet.Value = 0 Then
             MsgBox " »Ê‰ „»Ì⁄«   «—ÌŒ… «ﬂ»— „‰ 30 ÌÊ„"
             Exit Sub
         End If
@@ -8884,7 +8884,7 @@ Private Sub cmd_showdoc_Click_AMR()
         aUser = aGetDesca("SELECT CODE , DESCA FROM SUB_USER WHERE ( ( PASSWORD = " & MyParn(cPassword) & " AND STOP1 = 0 ) OR ( STOP2 = 0 AND PASSWORD2 = " & MyParn(cPassword) & "))", con)
         If UBound(aUser) > 0 Then
             lRetDoc = True
-            XISRET.Value = 1
+            xIsRet.Value = 1
             xusername_RET.Caption = aUser(2)
         Else
             Exit Sub
@@ -8910,7 +8910,7 @@ If xPrinted.Value <> 0 Then Exit Sub
         xDiscount.Locked = False
         xRate.Locked = False
         XUSERNAME_DISC.Caption = aUser(2)
-        xNOTE_DISC.Caption = ""
+        xNote_disc.Caption = ""
         xdoc_disc.Caption = ""
     Else
         Exit Sub
@@ -9369,8 +9369,8 @@ Function CalcDiscRateDoc() As Boolean
     
     With DiscDocTable
         xdoc_disc.Caption = DiscDocTable!DOC_NO
-        xNOTE_DISC.Caption = DiscDocTable!DESCA
-        con.Execute " update file6_20h set doc_disc = " & addstring(xdoc_disc.Caption) & " , note_disc = " & addstring(xNOTE_DISC.Caption) & " where doc_no = " & MyParn(xDoc_No.text)
+        xNote_disc.Caption = DiscDocTable!DESCA
+        con.Execute " update file6_20h set doc_disc = " & addstring(xdoc_disc.Caption) & " , note_disc = " & addstring(xNote_disc.Caption) & " where doc_no = " & MyParn(xDoc_No.text)
         
         Do While Not .EOF
             CalcDiscRateDoc = True
@@ -9389,7 +9389,7 @@ Function CalcDiscRateDoc() As Boolean
               
             If nRec > 0 Then
                 MsgBox " ÌÊÃœ Œ’„ Œ«’ »«·›—⁄ "
-                xNOTE_DISC.Caption = "Œ’„ Œ«’ »«·›—⁄ "
+                xNote_disc.Caption = "Œ’„ Œ«’ »«·›—⁄ "
                 myLoadGrd
             End If
         End If
@@ -9491,7 +9491,7 @@ Private Sub cmd_showdoc_Click()
         
         If UBound(aUser) > 0 Then
             lRetDoc = True
-            XISRET.Value = 1
+            xIsRet.Value = 1
             xusername_RET.Caption = aUser(2)
         Else
             Exit Sub
@@ -9718,7 +9718,6 @@ For i = 1 To grid1.Rows - 1
         If nType <> IIf(grid1.ValueMatrix(i, 10) > 0, 1, 2) Then Exit Function
     End If
 Next
-'If nType = 0 Then Exit Function
 ValidQuant = True
 End Function
 

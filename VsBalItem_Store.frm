@@ -103,20 +103,20 @@ Begin VB.Form VsBalItem_Store
       End
    End
    Begin VB.Frame Frame3 
-      Height          =   8025
+      Height          =   7350
       Left            =   90
       RightToLeft     =   -1  'True
       TabIndex        =   14
       Top             =   2385
       Width           =   18645
       Begin VSFlex7Ctl.VSFlexGrid grid1 
-         Height          =   7665
+         Height          =   7035
          Left            =   135
          TabIndex        =   15
          Top             =   225
          Width           =   18375
          _cx             =   32411
-         _cy             =   13520
+         _cy             =   12409
          _ConvInfo       =   1
          Appearance      =   0
          BorderStyle     =   1
@@ -562,7 +562,6 @@ Begin VB.Form VsBalItem_Store
          BeginProperty Panel1 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
             Object.Width           =   17639
             MinWidth        =   17639
-            Key             =   ""
             Object.Tag             =   ""
          EndProperty
       EndProperty
@@ -1051,7 +1050,7 @@ Dim StoreTable As New ADODB.Recordset
 Private Sub cmd_excel_Click()
    ToFileExel2 grid1, , , , , 1.1, , , , , , Me
 End Sub
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
     Unload Me
 End Sub
 Private Sub cmdGo_Click()
@@ -1061,32 +1060,32 @@ Private Sub Form_Load()
     openCon con
     StoreTable.Open "SELECT * FROM FILE0_40 WHERE isstop = 0 ORDER BY CODE ", con, adOpenStatic, adLockReadOnly, adCmdText
     
-    Set DATA1.Recordset = myRecordSet("Select code,desca From File0_40 where isstop = 0 ORDER BY code ", con)
+    Set data1.Recordset = myRecordSet("Select code,desca From File0_40 where isstop = 0 ORDER BY code ", con)
     
     Set data3.Recordset = myRecordSet("Select Code,DescA From File1_50 ORDER BY DESCA", con)
-    Set xgroup.RowSource = data3
-    xgroup.ListField = "Desca"
-    xgroup.BoundColumn = "Code"
+    Set xGroup.RowSource = data3
+    xGroup.ListField = "Desca"
+    xGroup.BoundColumn = "Code"
     
     
     Set data4.Recordset = myRecordSet("Select mosm ,descA From mosm ORDER BY date DESC ", con)
-    Set xmosm.RowSource = data4
-    xmosm.ListField = "Desca"
-    xmosm.BoundColumn = "MOSM"
-    xmosm.BoundText = cPMosm
+    Set xMosm.RowSource = data4
+    xMosm.ListField = "Desca"
+    xMosm.BoundColumn = "MOSM"
+    xMosm.BoundText = cPMosm
     
     
     Set data5.Recordset = myRecordSet("Select code ,desca From fact ORDER BY code ", con)
-    Set xfact.RowSource = data5
-    xfact.ListField = "Desca"
-    xfact.BoundColumn = "Code"
-    xfact.BoundText = sM_Fact
+    Set xFact.RowSource = data5
+    xFact.ListField = "Desca"
+    xFact.BoundColumn = "Code"
+    xFact.BoundText = sM_Fact
     
     
-    Set data7.Recordset = myRecordSet("Select Code,DescA From File1_10SC ORDER BY DESCA", con)
-    Set xSection.RowSource = data7
-    xSection.ListField = "Desca"
-    xSection.BoundColumn = "Code"
+    Set DATA7.Recordset = myRecordSet("Select Code,DescA From File1_10SC ORDER BY DESCA", con)
+    Set XSECTION.RowSource = DATA7
+    XSECTION.ListField = "Desca"
+    XSECTION.BoundColumn = "Code"
     
     Set grid1.DataSource = data6
     grid1.Rows = 1
@@ -1096,6 +1095,7 @@ End Sub
 Private Sub myload()
     Dim cString As String, pstore As String
     Dim cWhere As String, cFiled1 As String
+    Dim cWherePur As String
     xModelFact.text = DelZero(xModelFact.text)
     
     With grdStore
@@ -1103,6 +1103,7 @@ Private Sub myload()
             If .TextMatrix(nRow, 2) <> 0 Then
                 cFiled1 = cFiled1 & " , ( SELECT SUM([IN]-[OUT])  FROM FILE1_11 AS FILE1_11_2 WHERE FILE1_11_2.ITEM = FILE1_10.ITEM AND STORE = " & MyParn(.TextMatrix(nRow, 0)) & " ) AS '" & .TextMatrix(nRow, 1) & " ' "
                 cWhere = cWhere & " OR FILE1_11.STORE = " & MyParn(.TextMatrix(nRow, 0))
+                cWherePur = cWherePur & Tr(cWherePur, " OR ") & "FILE7_20H.STORE = " & MyParn(.TextMatrix(nRow, 0))
                 pstore = .TextMatrix(nRow, 0)
             End If
         Next nRow
@@ -1111,26 +1112,58 @@ Private Sub myload()
     cFiled2 = ",(SELECT SUM(QUANT) FROM FILE6_90  INNER JOIN FILE6_90H ON FILE6_90H.DOC_NO = FILE6_90.DOC_NO WHERE  SALES_DOC IS NULL AND DelOrder_Date IS NULL AND FILE6_90.ITEM = FILE1_10.ITEM AND FILE6_90H.STORE = " & MyParn(pstore) & ")"
     
     If cWhere <> "" Then cWhere = Mid(cWhere, 5)
-   '                        0               1                           2               3                   4                                                                                                   5
-    cString = " SELECT  FILE1_10.ITEM ,FACT.DESCA, FILE1_10.MODELFACT0 ,FILE1_10.DESCA,  FILE1_10.SCAL ,  CASE WHEN FILE1_10.BARCODE13 IS NULL THEN CAST(FILE1_10.ITEM AS CHAR(10)) ELSE FILE1_10.BARCODE13 END , FILE1_10.BARCODE_GS1 " & cFiled1 & cFiled2 & ",0" & _
-                " FROM  FILE1_10 INNER JOIN FACT ON FILE1_10.FACT = FACT.CODE INNER JOIN FILE1_11 ON FILE1_10.ITEM = FILE1_11.ITEM where file1_10.item is not null "
-    If xmosm.BoundText <> "" Then cString = cString & " AND FILE1_10.MOSM = " & MyParn(xmosm.BoundText)
+    
+    If xMosm.BoundText <> "" Then cString = cString & " AND FILE1_10.MOSM = " & MyParn(xMosm.BoundText)
     If xModelFact.text <> "" Then cString = cString & " AND  FILE1_10.MODELFACT0 = " & MyParn(xModelFact.text)
-    If xgroup.BoundText <> "" Then cString = cString & " AND  FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
-    If xSection.BoundText <> "" Then cString = cString & " AND   FILE1_10.[SECTION] = " & Val(xSection.BoundText)
-    If xfact.BoundText <> "" Then cString = cString & " AND   FILE1_10.FACT = " & MyParn(xfact.BoundText)
+    If xGroup.BoundText <> "" Then cString = cString & " AND  FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
+    If XSECTION.BoundText <> "" Then cString = cString & " AND   FILE1_10.[SECTION] = " & Val(XSECTION.BoundText)
+    If xFact.BoundText <> "" Then cString = cString & " AND   FILE1_10.FACT = " & MyParn(xFact.BoundText)
     If xDesca.text <> "" Then cString = cString & " AND " & MyParnAnd(xDesca.text, "file1_10.desca")
     If xbarcode.text <> "" Then cString = cString & " AND   ( FILE1_10.item = " & Val(xbarcode.text) & " OR  BARCODE2 = " & MyParn(xbarcode.text) & " OR BARCODE_GS1 =  " & MyParn(xbarcode.text) & " OR BARCODE13 =  " & MyParn(xbarcode.text) & " ) "
     If Trim(xScal.text) <> "" Then cString = cString & " AND  FILE1_10.SCAL = " & MyParn(xScal.text)
     If Trim(xColor.text) <> "" Then cString = cString & " AND " & MyParnAnd(xColor, "FILE1_10.COLOR")
-    If XISONLINE.Value <> 0 Then cString = cString & " AND   FILE1_10.isonline = 1 "
+    If xisonline.Value <> 0 Then cString = cString & " AND   FILE1_10.isonline = 1 "
     If cWhere <> "" Then cString = cString & " AND ( " & cWhere & " ) "
-    cString = cString & " GROUP BY FILE1_10.FACT , FACT.DESCA,FILE1_10.DESCA, FILE1_10.ITEM , FILE1_10.MODELFACT0 , FILE1_10.MODELFACT ,  FILE1_10.SCAL ,  BARCODE13 , FILE1_10.BARCODE_GS1  "
+    cString = Mid(cString, 6)
+    If Trim(cString) <> "" Then cString = " WHERE " & cString
+    
+    cString = cString & " GROUP BY FILE1_10.FACT , FACT.DESCA,FILE1_10.DESCA, FILE1_10.ITEM , FILE1_10.MODELFACT0 , FILE1_10.MODELFACT ,  FILE1_10.SCAL ,  BARCODE13 , FILE1_10.BARCODE_GS1,tb_pur.QUANT_PUR  "
     cString = cString & " ORDER BY FILE1_10.FACT , FACT.DESCA,FILE1_10.DESCA, FILE1_10.MODELFACT ,  FILE1_10.SCAL  "
+    
+    Dim cStringJoin As String
+    cStringJoin = "SELECT ITEM,SUM(FILE7_20.QUANT) AS QUANT_PUR " & _
+                  " FROM FILE7_20 " & _
+                  " INNER JOIN FILE7_20H ON FILE7_20.DOC_NO = FILE7_20H.DOC_NO" & _
+                  " WHERE FILE7_20H.received = 0"
+                  
+    If cWherePur <> "" Then
+        cStringJoin = cStringJoin & " AND (" & cWherePur & ")"
+    End If
+    cStringJoin = cStringJoin & " GROUP BY FILE7_20.ITEM"
+    
+    cString = " SELECT  FILE1_10.ITEM," & _
+              "FACT.DESCA," & _
+              "FILE1_10.MODELFACT0," & _
+              "FILE1_10.DESCA," & _
+              "FILE1_10.SCAL," & _
+              "CASE WHEN FILE1_10.BARCODE13 IS NULL THEN CAST(FILE1_10.ITEM AS CHAR(10)) ELSE FILE1_10.BARCODE13 END , FILE1_10.BARCODE_GS1 " & _
+              cFiled1 & _
+              cFiled2 & _
+              ",COALESCE(tb_pur.QUANT_PUR,0)" & _
+              ",0" & _
+              " FROM  FILE1_10 " & _
+              " INNER JOIN FACT ON FILE1_10.FACT = FACT.CODE" & _
+              " INNER JOIN FILE1_11 ON FILE1_10.ITEM = FILE1_11.ITEM" & _
+              " LEFT JOIN (" & _
+              cStringJoin & _
+              ") AS tb_pur ON FILE1_10.item = tb_pur.ITEM" & _
+              cString
+                                
+    
     Set data6.Recordset = myRecordSet(cString, con)
-    Fixgrd
+    fixGrd
 End Sub
-Sub Fixgrd()
+Sub fixGrd()
     With grid1
     .ExplorerBar = flexExSortShow
     .FixedRows = 1
@@ -1144,7 +1177,10 @@ Sub Fixgrd()
     .TextMatrix(0, 4) = " „ﬁ«”"
     .TextMatrix(0, 5) = " »«—ﬂÊœ"
     .TextMatrix(0, 6) = "BARCODE GS1 "
-    .TextMatrix(0, .Cols - 2) = " ≈Ã„«·Ï ÿ·»Ì« "
+    
+    .TextMatrix(0, .Cols - 4) = "«·—’Ìœ"
+    .TextMatrix(0, .Cols - 3) = "≈Ã„«·Ï ÿ·»Ì« "
+    .TextMatrix(0, .Cols - 2) = " ﬂ„Ì«  €Ì— „”·„…"
     .TextMatrix(0, .Cols - 1) = " «·—’Ìœ »⁄œ «·ÿ·»Ì«  —’Ìœ "
     
     .ColWidth(0) = 0
@@ -1160,7 +1196,7 @@ Sub Fixgrd()
             A = A
         End If
         
-        .TextMatrix(nRow, .Cols - 1) = Val(.TextMatrix(nRow, .Cols - 3)) - Val(.TextMatrix(nRow, .Cols - 2))
+        .TextMatrix(nRow, .Cols - 1) = Val(.TextMatrix(nRow, .Cols - 4)) - Val(.TextMatrix(nRow, .Cols - 3)) - Val(.TextMatrix(nRow, .Cols - 2))
     Next nRow
     
     For nCol = 7 To .Cols - 1
@@ -1192,8 +1228,8 @@ Private Sub Form_Unload(Cancel As Integer)
     closeCon con
 End Sub
 Sub myProc()
-If ActiveControl.Name = xfact.Name Then
-    xfact.BoundText = Search3.grid1.TextMatrix(Search3.grid1.Row, 0)
+If ActiveControl.Name = xFact.Name Then
+    xFact.BoundText = Search3.grid1.TextMatrix(Search3.grid1.Row, 0)
     Unload Search3
 End If
 End Sub
@@ -1242,7 +1278,7 @@ With grdStore
 .ColDataType(2) = flexDTBoolean
 Do Until loctable.EOF
     .AddItem ""
-    .TextMatrix(.Rows - 1, 0) = loctable!CODE
+    .TextMatrix(.Rows - 1, 0) = loctable!code
     .TextMatrix(.Rows - 1, 1) = loctable!DESCA & ""
     .TextMatrix(.Rows - 1, 2) = -1
     loctable.MoveNext

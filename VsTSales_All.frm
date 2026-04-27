@@ -930,7 +930,7 @@ Begin VB.Form VSTSALES_ALL
       _ExtentY        =   11377
       _Version        =   393216
       Tabs            =   12
-      Tab             =   9
+      Tab             =   11
       TabsPerRow      =   6
       TabHeight       =   520
       TabCaption(0)   =   "›—Ê⁄"
@@ -980,9 +980,8 @@ Begin VB.Form VSTSALES_ALL
       Tab(8).ControlCount=   1
       TabCaption(9)   =   "„ﬁ«”« "
       TabPicture(9)   =   "VsTSales_All.frx":0102
-      Tab(9).ControlEnabled=   -1  'True
+      Tab(9).ControlEnabled=   0   'False
       Tab(9).Control(0)=   "grid9"
-      Tab(9).Control(0).Enabled=   0   'False
       Tab(9).ControlCount=   1
       TabCaption(10)  =   "„ÊœÌ·« "
       TabPicture(10)  =   "VsTSales_All.frx":011E
@@ -991,8 +990,9 @@ Begin VB.Form VSTSALES_ALL
       Tab(10).ControlCount=   1
       TabCaption(11)  =   "ÌÊ„Ï ›—Ê⁄"
       TabPicture(11)  =   "VsTSales_All.frx":013A
-      Tab(11).ControlEnabled=   0   'False
+      Tab(11).ControlEnabled=   -1  'True
       Tab(11).Control(0)=   "GRID11"
+      Tab(11).Control(0).Enabled=   0   'False
       Tab(11).ControlCount=   1
       Begin VSFlex7Ctl.VSFlexGrid grid10 
          Height          =   5685
@@ -1936,7 +1936,7 @@ Begin VB.Form VSTSALES_ALL
       End
       Begin VSFlex7Ctl.VSFlexGrid GRID11 
          Height          =   5685
-         Left            =   -74910
+         Left            =   90
          TabIndex        =   66
          Top             =   675
          Width           =   19860
@@ -2030,7 +2030,7 @@ Begin VB.Form VSTSALES_ALL
       End
       Begin VSFlex7Ctl.VSFlexGrid grid9 
          Height          =   5640
-         Left            =   90
+         Left            =   -74910
          TabIndex        =   78
          TabStop         =   0   'False
          Top             =   675
@@ -2882,7 +2882,6 @@ Begin VB.Form VSTSALES_ALL
       BeginProperty Panels {0713E89E-850A-101B-AFC0-4210102A8DA7} 
          NumPanels       =   1
          BeginProperty Panel1 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.Tag             =   ""
          EndProperty
       EndProperty
@@ -3798,27 +3797,27 @@ Private Sub CMD_PRINT_Click()
     Dim cHead2 As String
     Dim cHead3 As String
     cHead1 = "≈Ã„«·Ï „»Ì⁄«  „ÊœÌ·«  ·› —… " & xStore.text
-    cHead2 = " „‰  «—ÌŒ " & Format(xDate1.text, "DD-MM-YYYY") & " Õ Ï  «—ÌŒ " & Format(xDate2.text, "DD-MM-YYYY")
+    cHead2 = " „‰  «—ÌŒ " & Format(xdate1.text, "DD-MM-YYYY") & " Õ Ï  «—ÌŒ " & Format(xdate2.text, "DD-MM-YYYY")
     cHead3 = ""
     If xFact.BoundText <> "" Then cHead3 = cHead3 & " „’‰⁄ " & xFact.text
     If xSupp.BoundText <> "" Then cHead3 = cHead3 & " „Ê—œ " & xSupp.text & "  " & xGrCust.text
-    If xgroup.BoundText <> "" Then cHead3 = cHead3 & " „Ã„Ê⁄…" & xgroup.text & "  " & xage.text & "  " & xsex.text
+    If xGroup.BoundText <> "" Then cHead3 = cHead3 & " „Ã„Ê⁄…" & xGroup.text & "  " & xage.text & "  " & xsex.text
     If xSection.text <> "" Then cHead3 = cHead3 & " ﬁ”„ " & xSection.text
     
     If xMosm.BoundText <> "" Then cHead3 = cHead3 & " „Ê”„ " & xMosm.text
     
-    printGrdNew.doprint GRID1, 1, , cHead1, cHead2, cHead3, , False, 8
+    printGrdNew.doprint grid1, 1, , cHead1, cHead2, cHead3, , False, 8
     printGrdNew.Show 1
 End Sub
 Private Sub cmdExel_Click()
-If SSTab1.Tab = 0 Then ToFileExel2 grid0, , , , , 1.1, , , , , , Me
-If SSTab1.Tab = 1 Then ToFileExel2 GRID1, , , , , 1.1, , , , , , Me
+If SSTab1.Tab = 0 Then ToFileExel2 GRID0, , , , , 1.1, , , , , , Me
+If SSTab1.Tab = 1 Then ToFileExel2 grid1, , , , , 1.1, , , , , , Me
 If SSTab1.Tab = 2 Then ToFileExel2 grid2, , , , , 1.1, , , , , , Me
-If SSTab1.Tab = 3 Then ToFileExel2 GRID3, , , , , 1.1, , , , , , Me
-If SSTab1.Tab = 4 Then ToFileExel2 GRID4, , , , , 1.1, , , , , , Me
+If SSTab1.Tab = 3 Then ToFileExel2 grid3, , , , , 1.1, , , , , , Me
+If SSTab1.Tab = 4 Then ToFileExel2 grid4, , , , , 1.1, , , , , , Me
 If SSTab1.Tab = 5 Then ToFileExel2 grid5, , , , , 1.1, , , , , , Me
-If SSTab1.Tab = 6 Then ToFileExel2 GRID6, , , , , 1.1, , , , , , Me
-If SSTab1.Tab = 7 Then ToFileExel2 GRID7, , , , , 1.1, , , , , , Me
+If SSTab1.Tab = 6 Then ToFileExel2 grid6, , , , , 1.1, , , , , , Me
+If SSTab1.Tab = 7 Then ToFileExel2 grid7, , , , , 1.1, , , , , , Me
 If SSTab1.Tab = 8 Then ToFileExel2 grid8, , , , , 1.1, , , , , , Me
 If SSTab1.Tab = 9 Then ToFileExel2 grid9, , , , , 1.1, , , , , , Me
 If SSTab1.Tab = 10 Then ToFileExel2 grid10, , , , , 1.1, , , , , , Me
@@ -3860,7 +3859,7 @@ Private Sub cmdGo_Click()
         MYLOAD11
     End If
     Exit Sub
-myError:
+myerror:
     MsgBox Err.Description
 End Sub
 Private Sub Form_Load()
@@ -3874,10 +3873,10 @@ Private Sub Form_Load()
         
     FillCheckbox chkType, "SELECT CODE,DESCA FROM BRANCH_TYPE ORDER BY CODE", con
         
-    xMosm22.AddItem " "
-    xMosm22.AddItem "S"
-    xMosm22.AddItem "W"
-    xMosm22.AddItem "M"
+    xmosm22.AddItem " "
+    xmosm22.AddItem "S"
+    xmosm22.AddItem "W"
+    xmosm22.AddItem "M"
     
     Set DATA11.Recordset = myRecordSet("Select Code,DescA From File0_82  order by Desca", con)
     Set xage.RowSource = DATA11
@@ -3916,15 +3915,15 @@ Private Sub Form_Load()
     End If
     
     
-    Set DATA2.Recordset = myRecordSet("Select Code,DescA From File4_10 order by Desca", con)
-    Set xSupp.RowSource = DATA2
+    Set data2.Recordset = myRecordSet("Select Code,DescA From File4_10 order by Desca", con)
+    Set xSupp.RowSource = data2
     xSupp.ListField = "Desca"
     xSupp.BoundColumn = "Code"
     
     Set DATA3.Recordset = myRecordSet("Select Code,DescA From File1_50 ORDER BY DESCA", con)
-    Set xgroup.RowSource = DATA3
-    xgroup.ListField = "Desca"
-    xgroup.BoundColumn = "Code"
+    Set xGroup.RowSource = DATA3
+    xGroup.ListField = "Desca"
+    xGroup.BoundColumn = "Code"
     
     Set data4.Recordset = myRecordSet("Select mosm ,descA From mosm ORDER BY date DESC ", con)
     Set xMosm.RowSource = data4
@@ -3932,30 +3931,30 @@ Private Sub Form_Load()
     xMosm.BoundColumn = "MOSM"
     
     
-    Set DATA5.Recordset = myRecordSet("Select code ,desca From fact ORDER BY DESCA ", con)
-    Set xFact.RowSource = DATA5
+    Set data5.Recordset = myRecordSet("Select code ,desca From fact ORDER BY DESCA ", con)
+    Set xFact.RowSource = data5
     xFact.ListField = "Desca"
     xFact.BoundColumn = "Code"
     
     Set DATA13.Recordset = myRecordSet("Select DOC_NO ,DescA From File0_90H order by DOC_NO DESC ", con)
-    Set XDOC_DISC.RowSource = DATA13
-    XDOC_DISC.ListField = "Desca"
-    XDOC_DISC.BoundColumn = "DOC_NO"
+    Set xdoc_disc.RowSource = DATA13
+    xdoc_disc.ListField = "Desca"
+    xdoc_disc.BoundColumn = "DOC_NO"
     
     Set DATA14.Recordset = myRecordSet("SELECT * FROM SHIP ", con)
-    Set xship.RowSource = DATA14
-    xship.ListField = "Desca"
-    xship.BoundColumn = "Code"
+    Set XSHIP.RowSource = DATA14
+    XSHIP.ListField = "Desca"
+    XSHIP.BoundColumn = "Code"
     
     
-    Set grid0.DataSource = data20
-    Set GRID1.DataSource = data21
+    Set GRID0.DataSource = data20
+    Set grid1.DataSource = DATA21
     Set grid2.DataSource = DATA22
-    Set GRID3.DataSource = DATA23
-    Set GRID4.DataSource = DATA24
-    Set grid5.DataSource = DATA25
-    Set GRID6.DataSource = data26
-    Set GRID7.DataSource = data27
+    Set grid3.DataSource = DATA23
+    Set grid4.DataSource = DATA24
+    Set grid5.DataSource = data25
+    Set grid6.DataSource = data26
+    Set grid7.DataSource = data27
     Set grid8.DataSource = data28
     Set grid9.DataSource = data29
     Set grid10.DataSource = data30
@@ -4020,26 +4019,26 @@ With grid10
         If XMOSM2.text <> "" Then cWhere = cWhere & Tr(cWhere) & " ( SUBSTRING(FILE1_10.MOSM ,1,1) = 'W' OR SUBSTRING(FILE1_10.MOSM ,1,1) = 'M'  OR FILE1_10.MOSM  = '000' ) "
     End If
     
-    If xMosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xMosm22.text)
+    If xmosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xmosm22.text)
     If xsex.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
     If xage.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
     
-    If XDOC_DISC.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.DOC_DISC = " & MyParn(XDOC_DISC.BoundText)
+    If xdoc_disc.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.DOC_DISC = " & MyParn(xdoc_disc.BoundText)
     
     If XOutlet.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " file1_10.Outlet = 1 "
     
     If xSupp.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.CODE = " & MyParn(xSupp.BoundText)
     If xGrCust.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE4_10.[group] = " & MyParn(xGrCust.BoundText)
-    If xgroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+    If xGroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.FACT = " & MyParn(xFact.BoundText)
     If Not bOpt5 Then cWhere = cWhere & Tr(cWhere) & " [store] IN (SELECT STORE FROM USERSHOP WHERE CODE = " & nusercode & " ) "
     
     
-    If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.doc_no = " & MyParn(xdoc_no.text)
+    If xDoc_No.text <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.doc_no = " & MyParn(xDoc_No.text)
     If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " STORE = " & MyParn(xStore.BoundText)
     If xSection.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[Section] = " & MyParn(xSection.BoundText)
-    If IsDate(xDate1.text) Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[DATE] >= " & DateSq(xDate1.text)
-    If IsDate(xDate2.text) Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[DATE] <= " & DateSq(xDate2.text)
+    If IsDate(xdate1.text) Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[DATE] >= " & DateSq(xdate1.text)
+    If IsDate(xdate2.text) Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[DATE] <= " & DateSq(xdate2.text)
     
     If xall(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.ISBRANCH = 1 "
     If xall(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.ISBRANCH = 0 "
@@ -4047,7 +4046,7 @@ With grid10
     If xonest(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 0 "
     If xonest(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 1 "
     If XISONLINE.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.online <> 0 "
-    If xship.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[SHIP] = " & MyParn(xship.BoundText)
+    If XSHIP.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[SHIP] = " & MyParn(XSHIP.BoundText)
     
     If getCheckBox(chkType) <> "" Then
         cWhere = cWhere & Tr(cWhere) & "STORE_BR.TYPE_STORE IN (" & getCheckBox(chkType) & ")"
@@ -4155,14 +4154,14 @@ Dim nHeight As Long
 nHeight = Me.Height - SSTab1.Top - 1000
 If nHeight < 5000 Then Exit Sub
 SSTab1.Height = Me.Height - SSTab1.Top - 1000
-grid0.Height = SSTab1.Height - 750
-GRID1.Height = SSTab1.Height - 750
+GRID0.Height = SSTab1.Height - 750
+grid1.Height = SSTab1.Height - 750
 grid2.Height = SSTab1.Height - 750
-GRID3.Height = SSTab1.Height - 750
-GRID4.Height = SSTab1.Height - 750
+grid3.Height = SSTab1.Height - 750
+grid4.Height = SSTab1.Height - 750
 grid5.Height = SSTab1.Height - 750
-GRID6.Height = SSTab1.Height - 750
-GRID7.Height = SSTab1.Height - 750
+grid6.Height = SSTab1.Height - 750
+grid7.Height = SSTab1.Height - 750
 grid8.Height = SSTab1.Height - 750
 grid9.Height = SSTab1.Height - 750
 grid10.Height = SSTab1.Height - 750
@@ -4199,15 +4198,15 @@ Private Sub xSupp_KeyUp(KeyCode As Integer, Shift As Integer)
 End Sub
 Sub myProc()
 If ActiveControl.Name = xSupp.Name Then
-    xSupp.BoundText = oSearch.GRID1.TextMatrix(oSearch.GRID1.Row, 0)
+    xSupp.BoundText = oSearch.grid1.TextMatrix(oSearch.grid1.Row, 0)
     oSearch.Hide
 End If
 If ActiveControl.Name = xFact.Name Then
-    xFact.BoundText = Search3.GRID1.TextMatrix(Search3.GRID1.Row, 0)
+    xFact.BoundText = Search3.grid1.TextMatrix(Search3.grid1.Row, 0)
     Unload Search3
 End If
-If ActiveControl.Name = XDOC_DISC.Name Then
-    XDOC_DISC.BoundText = Search31.GRID1.TextMatrix(Search31.GRID1.Row, 0)
+If ActiveControl.Name = xdoc_disc.Name Then
+    xdoc_disc.BoundText = Search31.grid1.TextMatrix(Search31.grid1.Row, 0)
     Unload Search31
 End If
 
@@ -4242,19 +4241,19 @@ Search3.Show 1
 End If
 End Sub
 Private Sub LoadPhoto(sModelNo As String)
-On Error GoTo myError
+On Error GoTo myerror
 ImgX1.Images.Clear
 ImgX1.Import.FromFile retFile(sModelNo)
 Exit Sub
-myError:
+myerror:
 Err.Clear
 End Sub
 
 Private Sub ImgX1_Click()
-If validPhoto(retFile(GRID1.TextMatrix(GRID1.Row, 0))) Then
+If validPhoto(retFile(grid1.TextMatrix(grid1.Row, 0))) Then
     Dim oMaxPhoto As New maxPhoto
-    oMaxPhoto.cFile = retFile(GRID1.TextMatrix(GRID1.Row, 0))
-    oMaxPhoto.cDesca = GRID1.TextMatrix(GRID1.Row, 4)
+    oMaxPhoto.cFile = retFile(grid1.TextMatrix(grid1.Row, 0))
+    oMaxPhoto.cDesca = grid1.TextMatrix(grid1.Row, 4)
     oMaxPhoto.Show 1
 End If
 End Sub
@@ -4330,26 +4329,26 @@ Dim cString  As String, cWhere As String
     End If
     
     
-    If xMosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xMosm22.text)
+    If xmosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xmosm22.text)
     If xsex.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
     If xage.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
     
-    If XDOC_DISC.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.DOC_DISC = " & MyParn(XDOC_DISC.BoundText)
+    If xdoc_disc.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.DOC_DISC = " & MyParn(xdoc_disc.BoundText)
     
     If XOutlet.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " file1_10.Outlet = 1 "
     
     If xSupp.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.CODE = " & MyParn(xSupp.BoundText)
     If xGrCust.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE4_10.[group] = " & MyParn(xGrCust.BoundText)
-    If xgroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+    If xGroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.FACT = " & MyParn(xFact.BoundText)
     If Not bOpt5 Then cWhere = cWhere & Tr(cWhere) & " [store] IN (SELECT STORE FROM USERSHOP WHERE CODE = " & nusercode & " ) "
     
     
-    If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.doc_no = " & MyParn(xdoc_no.text)
+    If xDoc_No.text <> "" Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.doc_no = " & MyParn(xDoc_No.text)
     If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " STORE = " & MyParn(xStore.BoundText)
     If xSection.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[Section] = " & MyParn(xSection.BoundText)
-    If IsDate(xDate1.text) Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.[DATE] >= " & DateSq(xDate1.text)
-    If IsDate(xDate2.text) Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.[DATE] <= " & DateSq(xDate2.text)
+    If IsDate(xdate1.text) Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.[DATE] >= " & DateSq(xdate1.text)
+    If IsDate(xdate2.text) Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.[DATE] <= " & DateSq(xdate2.text)
     
     If xall(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.ISBRANCH = 1 "
     If xall(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.ISBRANCH = 0 "
@@ -4357,7 +4356,7 @@ Dim cString  As String, cWhere As String
     If xonest(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 0 "
     If xonest(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 1 "
     If XISONLINE.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.online <> 0 "
-    If xship.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.[SHIP] = " & MyParn(xship.BoundText)
+    If XSHIP.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.[SHIP] = " & MyParn(XSHIP.BoundText)
     
     If getCheckBox(chkType) <> "" Then
         cWhere = cWhere & Tr(cWhere) & "STORE_BR.TYPE_STORE IN (" & getCheckBox(chkType) & ")"
@@ -4432,9 +4431,9 @@ With grid9
 .MergeCells = flexMergeRestrictRows
 
 
-For Col = 10 To .Cols - 1
-    .ColDataType(Col) = flexDTDouble
-    .Subtotal flexSTSum, -1, Col, "#0", vbYellow, , True, ""
+For col = 10 To .Cols - 1
+    .ColDataType(col) = flexDTDouble
+    .Subtotal flexSTSum, -1, col, "#0", vbYellow, , True, ""
 Next
 .ExplorerBar = flexExSort
 .Cell(flexcpAlignment, 0, 0, .Rows - 1, .Cols - 1) = 4
@@ -4456,28 +4455,28 @@ Else
 End If
 
 
-If xMosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xMosm22.text)
+If xmosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xmosm22.text)
 If xsex.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
 If xage.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
 
-If XDOC_DISC.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.DOC_DISC = " & MyParn(XDOC_DISC.BoundText)
+If xdoc_disc.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.DOC_DISC = " & MyParn(xdoc_disc.BoundText)
 
 If XOutlet.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " file1_10.Outlet = 1 "
 
 If xSupp.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.CODE = " & MyParn(xSupp.BoundText)
 If xGrCust.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE4_10.[group] = " & MyParn(xGrCust.BoundText)
-If xgroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+If xGroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
 If xFact.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.FACT = " & MyParn(xFact.BoundText)
 
 If Not bOpt5 Then
     cWhere = cWhere & Tr(cWhere) & " [store] IN (SELECT STORE FROM USERSHOP WHERE CODE = " & nusercode & " ) "
 End If
      
-If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.doc_no = " & MyParn(xdoc_no.text)
+If xDoc_No.text <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.doc_no = " & MyParn(xDoc_No.text)
 If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " STORE = " & MyParn(xStore.BoundText)
 If xSection.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[Section] = " & MyParn(xSection.BoundText)
-If IsDate(xDate1.text) Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[DATE] >= " & DateSq(xDate1.text)
-If IsDate(xDate2.text) Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[DATE] <= " & DateSq(xDate2.text)
+If IsDate(xdate1.text) Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[DATE] >= " & DateSq(xdate1.text)
+If IsDate(xdate2.text) Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[DATE] <= " & DateSq(xdate2.text)
 
 If xall(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.ISBRANCH = 1 "
 If xall(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.ISBRANCH = 0 "
@@ -4485,7 +4484,7 @@ If xall(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.ISBRANCH
 If xonest(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 0 "
 If xonest(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 1 "
 If XISONLINE.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.online <> 0 "
-If xship.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[SHIP] = " & MyParn(xship.BoundText)
+If XSHIP.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[SHIP] = " & MyParn(XSHIP.BoundText)
     
 If getCheckBox(chkType) <> "" Then
     cWhere = cWhere & Tr(cWhere) & "STORE_BR.TYPE_STORE IN (" & getCheckBox(chkType) & ")"
@@ -4570,9 +4569,9 @@ With grid9
     .MergeCells = flexMergeRestrictRows
     
     
-    For Col = 10 To .Cols - 1
-        .ColDataType(Col) = flexDTDouble
-        .Subtotal flexSTSum, -1, Col, "#0", vbYellow, , True, ""
+    For col = 10 To .Cols - 1
+        .ColDataType(col) = flexDTDouble
+        .Subtotal flexSTSum, -1, col, "#0", vbYellow, , True, ""
     Next
     .ExplorerBar = flexExSort
     .Cell(flexcpAlignment, 0, 0, .Rows - 1, .Cols - 1) = 4
@@ -4602,27 +4601,27 @@ Dim cString  As String, cWhere As String, cString2 As String
         If XMOSM2.text <> "" Then cWhere = cWhere & Tr(cWhere) & " ( SUBSTRING(FILE1_10.MOSM ,1,1) = 'W' OR SUBSTRING(FILE1_10.MOSM ,1,1) = 'M'  OR FILE1_10.MOSM  = '000' ) "
     End If
     
-    If xMosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xMosm22.text)
+    If xmosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xmosm22.text)
     If xsex.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
     If xage.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
-    If XDOC_DISC.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.DOC_DISC = " & MyParn(XDOC_DISC.BoundText)
+    If xdoc_disc.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.DOC_DISC = " & MyParn(xdoc_disc.BoundText)
     If XOutlet.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " file1_10.Outlet = 1 "
     If xSupp.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.CODE = " & MyParn(xSupp.BoundText)
     If xGrCust.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE4_10.[group] = " & MyParn(xGrCust.BoundText)
-    If xgroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+    If xGroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.FACT = " & MyParn(xFact.BoundText)
     If Not bOpt5 Then cWhere = cWhere & Tr(cWhere) & " [store] IN (SELECT STORE FROM USERSHOP WHERE CODE = " & nusercode & " ) "
-    If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.doc_no = " & MyParn(xdoc_no.text)
+    If xDoc_No.text <> "" Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.doc_no = " & MyParn(xDoc_No.text)
     If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " STORE = " & MyParn(xStore.BoundText)
     If xSection.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[Section] = " & MyParn(xSection.BoundText)
-    If IsDate(xDate1.text) Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.[DATE] >= " & DateSq(xDate1.text)
-    If IsDate(xDate2.text) Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.[DATE] <= " & DateSq(xDate2.text)
+    If IsDate(xdate1.text) Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.[DATE] >= " & DateSq(xdate1.text)
+    If IsDate(xdate2.text) Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.[DATE] <= " & DateSq(xdate2.text)
     If xall(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.ISBRANCH = 1 "
     If xall(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.ISBRANCH = 0 "
     If xonest(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 0 "
     If xonest(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 1 "
     If XISONLINE.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.online <> 0 "
-    If xship.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.[SHIP] = " & MyParn(xship.BoundText)
+    If XSHIP.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " QFILE6_20.[SHIP] = " & MyParn(XSHIP.BoundText)
     
     If getCheckBox(chkType) <> "" Then
         cWhere = cWhere & Tr(cWhere) & "STORE_BR.TYPE_STORE IN (" & getCheckBox(chkType) & ")"
@@ -4754,27 +4753,27 @@ Else
     If XMOSM2.text <> "" Then cWhere = cWhere & Tr(cWhere) & " ( SUBSTRING(FILE1_10.MOSM ,1,1) = 'W' OR SUBSTRING(FILE1_10.MOSM ,1,1) = 'M'  OR FILE1_10.MOSM  = '000' ) "
 End If
 
-If xMosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xMosm22.text)
+If xmosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xmosm22.text)
 If xsex.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
 If xage.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
-If XDOC_DISC.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.DOC_DISC = " & MyParn(XDOC_DISC.BoundText)
+If xdoc_disc.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.DOC_DISC = " & MyParn(xdoc_disc.BoundText)
 If XOutlet.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " file1_10.Outlet = 1 "
 If xSupp.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.CODE = " & MyParn(xSupp.BoundText)
 If xGrCust.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE4_10.[group] = " & MyParn(xGrCust.BoundText)
-If xgroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+If xGroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
 If xFact.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.FACT = " & MyParn(xFact.BoundText)
 If Not bOpt5 Then cWhere = cWhere & Tr(cWhere) & " [store] IN (SELECT STORE FROM USERSHOP WHERE CODE = " & nusercode & " ) "
-If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.doc_no = " & MyParn(xdoc_no.text)
+If xDoc_No.text <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.doc_no = " & MyParn(xDoc_No.text)
 If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " STORE = " & MyParn(xStore.BoundText)
 If xSection.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[Section] = " & MyParn(xSection.BoundText)
-If IsDate(xDate1.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] >= " & DateSq(xDate1.text)
-If IsDate(xDate2.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] <= " & DateSq(xDate2.text)
+If IsDate(xdate1.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] >= " & DateSq(xdate1.text)
+If IsDate(xdate2.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] <= " & DateSq(xdate2.text)
 If xall(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.ISBRANCH = 1 "
 If xall(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.ISBRANCH = 0 "
 If xonest(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 0 "
 If xonest(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 1 "
 If XISONLINE.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.online <> 0 "
-If xship.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(xship.BoundText)
+If XSHIP.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(XSHIP.BoundText)
 
 If getCheckBox(chkType) <> "" Then
     cWhere = cWhere & Tr(cWhere) & "STORE_BR.TYPE_STORE IN (" & getCheckBox(chkType) & ")"
@@ -4800,7 +4799,7 @@ XTEXT1.text = cString
 FIXGRID7
 End Sub
 Sub FIXGRID7()
-With GRID7
+With grid7
     .FixedRows = 1
     .RowHeight(0) = 600
     .WordWrap = True
@@ -4942,28 +4941,28 @@ Dim cString  As String, cWhere As String
         If XMOSM2.text <> "" Then cWhere = cWhere & Tr(cWhere) & " ( SUBSTRING(FILE1_10.MOSM ,1,1) = 'W' OR SUBSTRING(FILE1_10.MOSM ,1,1) = 'M'  OR FILE1_10.MOSM  = '000' ) "
     End If
     
-    If xMosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xMosm22.text)
+    If xmosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xmosm22.text)
     If xsex.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
     If xage.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
-    If XDOC_DISC.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.DOC_DISC = " & MyParn(XDOC_DISC.BoundText)
+    If xdoc_disc.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.DOC_DISC = " & MyParn(xdoc_disc.BoundText)
     If XOutlet.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " file1_10.Outlet = 1 "
     If xSupp.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.CODE = " & MyParn(xSupp.BoundText)
     If xGrCust.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE4_10.[group] = " & MyParn(xGrCust.BoundText)
-    If xgroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+    If xGroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.FACT = " & MyParn(xFact.BoundText)
     If Not bOpt5 Then cWhere = cWhere & Tr(cWhere) & " [store] IN (SELECT STORE FROM USERSHOP WHERE CODE = " & nusercode & " ) "
-    If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.doc_no = " & MyParn(xdoc_no.text)
+    If xDoc_No.text <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.doc_no = " & MyParn(xDoc_No.text)
     If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " STORE = " & MyParn(xStore.BoundText)
     If xSection.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[Section] = " & MyParn(xSection.BoundText)
-    If IsDate(xDate1.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] >= " & DateSq(xDate1.text)
-    If IsDate(xDate2.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] <= " & DateSq(xDate2.text)
+    If IsDate(xdate1.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] >= " & DateSq(xdate1.text)
+    If IsDate(xdate2.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] <= " & DateSq(xdate2.text)
     If xall(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.ISBRANCH = 1 "
     If xall(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.ISBRANCH = 0 "
     If xonest(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 0 "
     If xonest(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 1 "
-    If xship.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(xship.BoundText)
+    If XSHIP.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(XSHIP.BoundText)
     If XISONLINE.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.online <> 0 "
-    If xship.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(xship.BoundText)
+    If XSHIP.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(XSHIP.BoundText)
     If getCheckBox(chkType) <> "" Then
         cWhere = cWhere & Tr(cWhere) & "STORE_BR.TYPE_STORE IN (" & getCheckBox(chkType) & ")"
     End If
@@ -4990,7 +4989,7 @@ Dim cString  As String, cWhere As String
     FIXGRID6
 End Sub
 Sub FIXGRID6()
-With GRID6
+With grid6
     .RowHeight(0) = 600
     .Cols = 9
     .FixedRows = 1
@@ -5132,27 +5131,27 @@ Dim cString  As String, cWhere As String
         If XMOSM2.text <> "" Then cWhere = cWhere & Tr(cWhere) & " ( SUBSTRING(FILE1_10.MOSM ,1,1) = 'W' OR SUBSTRING(FILE1_10.MOSM ,1,1) = 'M'  OR FILE1_10.MOSM  = '000' ) "
     End If
     
-    If xMosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xMosm22.text)
+    If xmosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xmosm22.text)
     If xsex.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
     If xage.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
-    If XDOC_DISC.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.DOC_DISC = " & MyParn(XDOC_DISC.BoundText)
+    If xdoc_disc.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.DOC_DISC = " & MyParn(xdoc_disc.BoundText)
     If XOutlet.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " file1_10.Outlet = 1 "
     If xSupp.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.CODE = " & MyParn(xSupp.BoundText)
     If xGrCust.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE4_10.[group] = " & MyParn(xGrCust.BoundText)
-    If xgroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+    If xGroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.FACT = " & MyParn(xFact.BoundText)
     If Not bOpt5 Then cWhere = cWhere & Tr(cWhere) & " [store] IN (SELECT STORE FROM USERSHOP WHERE CODE = " & nusercode & " ) "
-    If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.doc_no = " & MyParn(xdoc_no.text)
+    If xDoc_No.text <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.doc_no = " & MyParn(xDoc_No.text)
     If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " STORE = " & MyParn(xStore.BoundText)
     If xSection.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[Section] = " & MyParn(xSection.BoundText)
-    If IsDate(xDate1.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] >= " & DateSq(xDate1.text)
-    If IsDate(xDate2.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] <= " & DateSq(xDate2.text)
+    If IsDate(xdate1.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] >= " & DateSq(xdate1.text)
+    If IsDate(xdate2.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] <= " & DateSq(xdate2.text)
     If xall(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.ISBRANCH = 1 "
     If xall(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.ISBRANCH = 0 "
     If xonest(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 0 "
     If xonest(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 1 "
     If XISONLINE.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.online <> 0 "
-    If xship.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(xship.BoundText)
+    If XSHIP.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(XSHIP.BoundText)
 
     If getCheckBox(chkType) <> "" Then
         cWhere = cWhere & Tr(cWhere) & "STORE_BR.TYPE_STORE IN (" & getCheckBox(chkType) & ")"
@@ -5164,7 +5163,7 @@ Dim cString  As String, cWhere As String
     If SEC(1).Value <> 0 Then cString = cString & " GROUP BY FILE1_10.[SECTION] , FILE0_81.desca    ORDER BY FILE1_10.[SECTION] "
     If SEC(2).Value <> 0 Then cString = cString & " GROUP BY FILE1_10.[SECTION] , FILE0_82.desca    ORDER BY FILE1_10.[SECTION] "
     If SEC(3).Value <> 0 Then cString = cString & " GROUP BY FILE1_10.[SECTION] ORDER BY FILE1_10.[SECTION] "
-    Set DATA25.Recordset = mycmd(cString, con)
+    Set data25.Recordset = mycmd(cString, con)
     XTEXT1.text = cString
     
     FIXGRID5
@@ -5290,28 +5289,28 @@ Dim cString  As String, cWhere As String
     End If
     
     If xMosm.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM = " & MyParn(xMosm.BoundText)
-    If xMosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xMosm22.text)
+    If xmosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xmosm22.text)
     If xsex.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
     If xage.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
-    If XDOC_DISC.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.DOC_DISC = " & MyParn(XDOC_DISC.BoundText)
+    If xdoc_disc.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.DOC_DISC = " & MyParn(xdoc_disc.BoundText)
     If XOutlet.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " file1_10.Outlet = 1 "
     If xSupp.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.CODE = " & MyParn(xSupp.BoundText)
     If xGrCust.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE4_10.[group] = " & MyParn(xGrCust.BoundText)
-    If xgroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+    If xGroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.FACT = " & MyParn(xFact.BoundText)
     If Not bOpt5 Then cWhere = cWhere & Tr(cWhere) & " [store] IN (SELECT STORE FROM USERSHOP WHERE CODE = " & nusercode & " ) "
-    If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.doc_no = " & MyParn(xdoc_no.text)
+    If xDoc_No.text <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.doc_no = " & MyParn(xDoc_No.text)
     If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " STORE = " & MyParn(xStore.BoundText)
     If xSection.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[Section] = " & MyParn(xSection.BoundText)
-    If IsDate(xDate1.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] >= " & DateSq(xDate1.text)
-    If IsDate(xDate2.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] <= " & DateSq(xDate2.text)
+    If IsDate(xdate1.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] >= " & DateSq(xdate1.text)
+    If IsDate(xdate2.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] <= " & DateSq(xdate2.text)
     If xall(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.ISBRANCH = 1 "
     If xall(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.ISBRANCH = 0 "
     If xonest(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 0 "
     If xonest(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 1 "
     If xcust.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.CUST = " & MyParn(xcust.BoundText)
     If XISONLINE.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.online <> 0 "
-    If xship.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(xship.BoundText)
+    If XSHIP.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(XSHIP.BoundText)
     
     If getCheckBox(chkType) <> "" Then
         cWhere = cWhere & Tr(cWhere) & "STORE_BR.TYPE_STORE IN (" & getCheckBox(chkType) & ")"
@@ -5339,7 +5338,7 @@ Dim cString  As String, cWhere As String
     FIXGRID4
 End Sub
 Sub FIXGRID4()
-With GRID4
+With grid4
     .RowHeight(0) = 600
     .WordWrap = True
     .ColHidden(2) = False
@@ -5438,27 +5437,27 @@ Dim cString  As String, cWhere As String
     Else
         If XMOSM2.text <> "" Then cWhere = cWhere & Tr(cWhere) & " ( SUBSTRING(FILE1_10.MOSM ,1,1) = 'W' OR SUBSTRING(FILE1_10.MOSM ,1,1) = 'M'  OR FILE1_10.MOSM  = '000' ) "
     End If
-    If xMosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xMosm22.text)
+    If xmosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xmosm22.text)
     If xsex.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
     If xage.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
-    If XDOC_DISC.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.DOC_DISC = " & MyParn(XDOC_DISC.BoundText)
+    If xdoc_disc.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.DOC_DISC = " & MyParn(xdoc_disc.BoundText)
     If XOutlet.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " file1_10.Outlet = 1 "
     If xSupp.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.CODE = " & MyParn(xSupp.BoundText)
     If xGrCust.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE4_10.[group] = " & MyParn(xGrCust.BoundText)
-    If xgroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+    If xGroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.FACT = " & MyParn(xFact.BoundText)
     If Not bOpt5 Then cWhere = cWhere & Tr(cWhere) & " [store] IN (SELECT STORE FROM USERSHOP WHERE CODE = " & nusercode & " ) "
-    If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.doc_no = " & MyParn(xdoc_no.text)
+    If xDoc_No.text <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.doc_no = " & MyParn(xDoc_No.text)
     If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " STORE = " & MyParn(xStore.BoundText)
     If xSection.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[Section] = " & MyParn(xSection.BoundText)
-    If IsDate(xDate1.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] >= " & DateSq(xDate1.text)
-    If IsDate(xDate2.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] <= " & DateSq(xDate2.text)
+    If IsDate(xdate1.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] >= " & DateSq(xdate1.text)
+    If IsDate(xdate2.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] <= " & DateSq(xdate2.text)
     If xall(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.ISBRANCH = 1 "
     If xall(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.ISBRANCH = 0 "
     If xonest(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 0 "
     If xonest(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 1 "
     If XISONLINE.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.online <> 0 "
-    If xship.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(xship.BoundText)
+    If XSHIP.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(XSHIP.BoundText)
     
     If getCheckBox(chkType) <> "" Then
         cWhere = cWhere & Tr(cWhere) & "STORE_BR.TYPE_STORE IN (" & getCheckBox(chkType) & ")"
@@ -5484,7 +5483,7 @@ Dim cString  As String, cWhere As String
     FixGrid3
 End Sub
 Sub FixGrid3()
-With GRID3
+With grid3
     .RowHeight(0) = 600
     .WordWrap = True
     
@@ -5533,7 +5532,7 @@ With GRID3
     For i = 3 To .Cols - 1
         .Subtotal flexSTSum, -1, i, "#0", vbRed, vbYellow, True, "  "
     Next i
-    If GRID1.Rows > 1 Then .Cell(flexcpAlignment, 1, 0, .Rows - 1, .Cols - 1) = 7
+    If grid1.Rows > 1 Then .Cell(flexcpAlignment, 1, 0, .Rows - 1, .Cols - 1) = 7
     End With
 End Sub
 Private Sub MYLOAD2()
@@ -5567,27 +5566,27 @@ Dim cString  As String, cWhere As String
     Else
         If XMOSM2.text <> "" Then cWhere = cWhere & Tr(cWhere) & " ( SUBSTRING(FILE1_10.MOSM ,1,1) = 'W' OR SUBSTRING(FILE1_10.MOSM ,1,1) = 'M'  OR FILE1_10.MOSM  = '000' ) "
     End If
-    If xMosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xMosm22.text)
+    If xmosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xmosm22.text)
     If xsex.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
     If xage.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
-    If XDOC_DISC.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.DOC_DISC = " & MyParn(XDOC_DISC.BoundText)
+    If xdoc_disc.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.DOC_DISC = " & MyParn(xdoc_disc.BoundText)
     If XOutlet.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " file1_10.Outlet = 1 "
     If xSupp.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.CODE = " & MyParn(xSupp.BoundText)
     If xGrCust.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE4_10.[group] = " & MyParn(xGrCust.BoundText)
-    If xgroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+    If xGroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.FACT = " & MyParn(xFact.BoundText)
     If Not bOpt5 Then cWhere = cWhere & Tr(cWhere) & " [store] IN (SELECT STORE FROM USERSHOP WHERE CODE = " & nusercode & " ) "
-    If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.doc_no = " & MyParn(xdoc_no.text)
+    If xDoc_No.text <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.doc_no = " & MyParn(xDoc_No.text)
     If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " STORE = " & MyParn(xStore.BoundText)
     If xSection.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[Section] = " & MyParn(xSection.BoundText)
-    If IsDate(xDate1.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] >= " & DateSq(xDate1.text)
-    If IsDate(xDate2.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] <= " & DateSq(xDate2.text)
+    If IsDate(xdate1.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] >= " & DateSq(xdate1.text)
+    If IsDate(xdate2.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] <= " & DateSq(xdate2.text)
     If xall(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.ISBRANCH = 1 "
     If xall(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.ISBRANCH = 0 "
     If xonest(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 0 "
     If xonest(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 1 "
     If XISONLINE.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.online <> 0 "
-    If xship.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(xship.BoundText)
+    If XSHIP.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(XSHIP.BoundText)
     
     If getCheckBox(chkType) <> "" Then
         cWhere = cWhere & Tr(cWhere) & "STORE_BR.TYPE_STORE IN (" & getCheckBox(chkType) & ")"
@@ -5681,8 +5680,8 @@ Dim cString  As String
    
 CW = ""
 Dim cWhere As String
-If IsDate(xDate1.text) Then CW = " AND DATE >= " & DateSq(xDate1.text)
-If IsDate(xDate2.text) Then CW = CW & " AND DATE <= " & DateSq(xDate2.text)
+If IsDate(xdate1.text) Then CW = " AND DATE >= " & DateSq(xdate1.text)
+If IsDate(xdate2.text) Then CW = CW & " AND DATE <= " & DateSq(xdate2.text)
     'cF1 = " - Coalesce(( SELECT SUM(VALUE) FROM FILE8_00 INNER JOIN FILE8_00H ON FILE8_00.DOC_NO = FILE8_00H.DOC_NO WHERE STORE = STORE_BR.CODE " & CW & " ),0) "
     cString = " SELECT 1 AS FLAG ," & _
                 "STORE_BR.S_BRANCH ," & _
@@ -5712,30 +5711,30 @@ If IsDate(xDate2.text) Then CW = CW & " AND DATE <= " & DateSq(xDate2.text)
     Else
         If XMOSM2.text <> "" Then cWhere = cWhere & Tr(cWhere) & " ( SUBSTRING(FILE1_10.MOSM ,1,1) = 'W' OR SUBSTRING(FILE1_10.MOSM ,1,1) = 'M'  OR FILE1_10.MOSM  = '000' ) "
     End If
-    If xMosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xMosm22.text)
+    If xmosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xmosm22.text)
     If xsex.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
     If xage.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
-    If XDOC_DISC.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.DOC_DISC = " & MyParn(XDOC_DISC.BoundText)
+    If xdoc_disc.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.DOC_DISC = " & MyParn(xdoc_disc.BoundText)
     If XOutlet.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " file1_10.Outlet = 1 "
     If xSupp.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.CODE = " & MyParn(xSupp.BoundText)
     If xGrCust.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE4_10.[group] = " & MyParn(xGrCust.BoundText)
-    If xgroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+    If xGroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.FACT = " & MyParn(xFact.BoundText)
     If Not bOpt5 Then cWhere = cWhere & Tr(cWhere) & " [store] IN (SELECT STORE FROM USERSHOP WHERE CODE = " & nusercode & " ) "
-    If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.doc_no = " & MyParn(xdoc_no.text)
+    If xDoc_No.text <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.doc_no = " & MyParn(xDoc_No.text)
     If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " STORE = " & MyParn(xStore.BoundText)
     If xSection.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[Section] = " & MyParn(xSection.BoundText)
-    If IsDate(xDate1.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] >= " & DateSq(xDate1.text)
-    If IsDate(xDate2.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] <= " & DateSq(xDate2.text)
+    If IsDate(xdate1.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] >= " & DateSq(xdate1.text)
+    If IsDate(xdate2.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] <= " & DateSq(xdate2.text)
     If xall(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.ISBRANCH = 1 "
     If xall(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.ISBRANCH = 0 "
     If xonest(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 0 "
     If xonest(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 1 "
-    If xship.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(xship.BoundText)
+    If XSHIP.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(XSHIP.BoundText)
     
     
     If XISONLINE.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.online <> 0 "
-    If xship.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(xship.BoundText)
+    If XSHIP.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(XSHIP.BoundText)
     
     If getCheckBox(chkType) <> "" Then
         cWhere = cWhere & Tr(cWhere) & "STORE_BR.TYPE_STORE IN (" & getCheckBox(chkType) & ")"
@@ -5750,7 +5749,7 @@ If IsDate(xDate2.text) Then CW = CW & " AND DATE <= " & DateSq(xDate2.text)
     FIXGRID0
 End Sub
 Sub FIXGRID0()
-With grid0
+With GRID0
     .RowHeight(0) = 600
     .WordWrap = True
     .ColHidden(0) = True
@@ -5849,27 +5848,27 @@ Dim cString  As String, cWhere As String
     Else
         If XMOSM2.text <> "" Then cWhere = cWhere & Tr(cWhere) & " ( SUBSTRING(FILE1_10.MOSM ,1,1) = 'W' OR SUBSTRING(FILE1_10.MOSM ,1,1) = 'M'  OR FILE1_10.MOSM  = '000' ) "
     End If
-    If xMosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xMosm22.text)
+    If xmosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xmosm22.text)
     If xsex.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
     If xage.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
-    If XDOC_DISC.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.DOC_DISC = " & MyParn(XDOC_DISC.BoundText)
+    If xdoc_disc.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.DOC_DISC = " & MyParn(xdoc_disc.BoundText)
     If XOutlet.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " file1_10.Outlet = 1 "
     If xSupp.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.CODE = " & MyParn(xSupp.BoundText)
     If xGrCust.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE4_10.[group] = " & MyParn(xGrCust.BoundText)
-    If xgroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+    If xGroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.FACT = " & MyParn(xFact.BoundText)
     If Not bOpt5 Then cWhere = cWhere & Tr(cWhere) & " [store] IN (SELECT STORE FROM USERSHOP WHERE CODE = " & nusercode & " ) "
-    If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.doc_no = " & MyParn(xdoc_no.text)
+    If xDoc_No.text <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.doc_no = " & MyParn(xDoc_No.text)
     If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " STORE = " & MyParn(xStore.BoundText)
     If xSection.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[Section] = " & MyParn(xSection.BoundText)
-    If IsDate(xDate1.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] >= " & DateSq(xDate1.text)
-    If IsDate(xDate2.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] <= " & DateSq(xDate2.text)
+    If IsDate(xdate1.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] >= " & DateSq(xdate1.text)
+    If IsDate(xdate2.text) Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[DATE] <= " & DateSq(xdate2.text)
     If xall(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.ISBRANCH = 1 "
     If xall(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.ISBRANCH = 0 "
     If xonest(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 0 "
     If xonest(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 1 "
     If XISONLINE.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.online <> 0 "
-    If xship.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(xship.BoundText)
+    If XSHIP.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " vw_FILE6_20.[SHIP] = " & MyParn(XSHIP.BoundText)
     
     If getCheckBox(chkType) <> "" Then
         cWhere = cWhere & Tr(cWhere) & "STORE_BR.TYPE_STORE IN (" & getCheckBox(chkType) & ")"
@@ -5879,13 +5878,13 @@ Dim cString  As String, cWhere As String
     If cWhere <> "" Then cString = cString & " WHERE " & cWhere
 
     cString = cString & " GROUP BY  YEAR(vw_FILE6_20.date ), MONTH (vw_FILE6_20.date )  ORDER BY YEAR(vw_FILE6_20.date ), MONTH (vw_FILE6_20.date )  "
-    Set data21.Recordset = myRecordSet(cString, con)
+    Set DATA21.Recordset = myRecordSet(cString, con)
     XTEXT1.text = cString
     FixGrid1
 
 End Sub
 Sub FixGrid1()
-With GRID1
+With grid1
     .RowHeight(0) = 600
     .WordWrap = True
     .Cols = 13
@@ -5985,27 +5984,27 @@ Dim i As Double
     Else
         If XMOSM2.text <> "" Then cWhere = cWhere & Tr(cWhere) & " ( SUBSTRING(FILE1_10.MOSM ,1,1) = 'W' OR SUBSTRING(FILE1_10.MOSM ,1,1) = 'M'  OR FILE1_10.MOSM  = '000' ) "
     End If
-    If xMosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xMosm22.text)
+    If xmosm22.text <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xmosm22.text)
     If xsex.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
     If xage.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
-    If XDOC_DISC.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.DOC_DISC = " & MyParn(XDOC_DISC.BoundText)
+    If xdoc_disc.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.DOC_DISC = " & MyParn(xdoc_disc.BoundText)
     If XOutlet.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " file1_10.Outlet = 1 "
     If xSupp.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.CODE = " & MyParn(xSupp.BoundText)
     If xGrCust.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE4_10.[group] = " & MyParn(xGrCust.BoundText)
-    If xgroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+    If xGroup.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.FACT = " & MyParn(xFact.BoundText)
     If Not bOpt5 Then cWhere = cWhere & Tr(cWhere) & " [store] IN (SELECT STORE FROM USERSHOP WHERE CODE = " & nusercode & " ) "
-    If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.doc_no = " & MyParn(xdoc_no.text)
+    If xDoc_No.text <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.doc_no = " & MyParn(xDoc_No.text)
     If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " STORE = " & MyParn(xStore.BoundText)
     If xSection.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.[Section] = " & MyParn(xSection.BoundText)
-    If IsDate(xDate1.text) Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[DATE] >= " & DateSq(xDate1.text)
-    If IsDate(xDate2.text) Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[DATE] <= " & DateSq(xDate2.text)
+    If IsDate(xdate1.text) Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[DATE] >= " & DateSq(xdate1.text)
+    If IsDate(xdate2.text) Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[DATE] <= " & DateSq(xdate2.text)
     If xall(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.ISBRANCH = 1 "
     If xall(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.ISBRANCH = 0 "
     If xonest(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 0 "
     If xonest(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " FILE1_10.ISONEST = 1 "
     If XISONLINE.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.online <> 0 "
-    If xship.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[SHIP] = " & MyParn(xship.BoundText)
+    If XSHIP.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " VW_FILE6_20.[SHIP] = " & MyParn(XSHIP.BoundText)
     
     If getCheckBox(chkType) <> "" Then
         cWhere = cWhere & Tr(cWhere) & "STORE_BR.TYPE_STORE IN (" & getCheckBox(chkType) & ")"

@@ -448,6 +448,9 @@ Begin VB.MDIForm main
       Begin VB.Menu tm_grd_online_detail 
          Caption         =   "„ «»⁄… ÿ·»Ì«  «Ê‰ ·«Ì‰"
       End
+      Begin VB.Menu tmbalstore_scal 
+         Caption         =   " ›’Ì·Ì —’Ìœ „Œ«“‰ «Ê‰ ·«Ì‰"
+      End
    End
    Begin VB.Menu mnMAINCash 
       Caption         =   "‰ﬁœÌ…"
@@ -588,9 +591,6 @@ Begin VB.MDIForm main
       End
       Begin VB.Menu tmlookitem 
          Caption         =   "≈” ⁄·«„ «—’œ… „ÊœÌ·«  -  ›’Ì·Ï „ﬁ«”« "
-      End
-      Begin VB.Menu tmbalstore_scal 
-         Caption         =   " ›’Ì·Ï —’Ìœ „ﬁ«”«  „ÊœÌ·«  ·›—⁄ «Ê ›—Ê⁄"
       End
       Begin VB.Menu tmnewprice 
          Caption         =   "«”⁄«—  „  ⁄œÌ·Â«"
@@ -923,7 +923,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Dim Con As New ADODB.Connection
+Dim con As New ADODB.Connection
 
 Private Sub cmd_tm_grd_balance_all_Click()
 tm_grd_balance_all_Click
@@ -979,14 +979,14 @@ Else
     tmmodelfact.Visible = False
 End If
 
-If Con.State = adStateOpen Then Con.Close
+If con.State = adStateOpen Then con.Close
 
-openCon Con
+openCon con
 
 FIXDATA
 
 '''''''  ADDRESS
-TableAddress.Open "ADDRESS", Con, adOpenStatic, adLockReadOnly, adCmdTable
+TableAddress.Open "ADDRESS", con, adOpenStatic, adLockReadOnly, adCmdTable
 If TableAddress.RecordCount > 0 Then
     cComp_Name = TableAddress!DESCA
 End If
@@ -1008,9 +1008,9 @@ If cComp_Name = "" Then cComp_Name = "JUNIOR"
 Firsttitle = cComp_Name
 If cBranch <> "00" Then
     bOpt5 = True
-    pServerIp = GetDesca("SELECT IPSERVER FROM BRANCH", Con)
+    pServerIp = GetDesca("SELECT IPSERVER FROM BRANCH", con)
     If pServerIp = "ONLINE" Then lServerOnLineShop = True
-    pServerData = GetDesca("SELECT DATASERVER FROM BRANCH", Con)
+    pServerData = GetDesca("SELECT DATASERVER FROM BRANCH", con)
     If lServerOnLineShop Then
         If Not vpn Then
             pServerIp = "junior-sql.database.windows.net"
@@ -1018,10 +1018,10 @@ If cBranch <> "00" Then
             pServerIp = servername_vpn
         End If
     End If
-    pServerData = GetDesca("SELECT DATASERVER FROM BRANCH", Con)
+    pServerData = GetDesca("SELECT DATASERVER FROM BRANCH", con)
 End If
 
-If cPMosm = "" Then cPMosm = GetDesca("select mosm from mosm order by date desc ", Con)
+If cPMosm = "" Then cPMosm = GetDesca("select mosm from mosm order by date desc ", con)
 
 '
 'FIXDATA
@@ -1032,10 +1032,10 @@ If cPMosm = "" Then cPMosm = GetDesca("select mosm from mosm order by date desc 
 
 Dim PriceTable As New ADODB.Recordset
 'PriceTable.Open "PRICE", con, adOpenStatic, adLockReadOnly, adCmdTable
-Set PriceTable = mycmd("SELECT TOP 1 * FROM PRICE", Con)
+Set PriceTable = mycmd("SELECT TOP 1 * FROM PRICE", con)
 
 Dim File0_00Table As New ADODB.Recordset
-File0_00Table.Open "FILE0_00", Con, adOpenStatic, adLockReadOnly, adCmdTable
+File0_00Table.Open "FILE0_00", con, adOpenStatic, adLockReadOnly, adCmdTable
 
 If Not PriceTable.EOF Then
     cRet = PriceTable!price
@@ -1043,19 +1043,19 @@ If Not PriceTable.EOF Then
     
     'If File0_00Table.RecordCount > 0 Then cRet = File0_00Table!OKAZ_ITEM2
     lokazItem = IIf(cRet = "True", True, False)
-    lOneVisa = IIf(Val(GetDesca("SELECT COUNT(CODE) FROM VISA ", Con) & "") = 1, True, False)
-    If lOneVisa Then sCodeVisaBranch = GetDesca("SELECT CODE FROM VISA ", Con)
+    lOneVisa = IIf(Val(GetDesca("SELECT COUNT(CODE) FROM VISA ", con) & "") = 1, True, False)
+    If lOneVisa Then sCodeVisaBranch = GetDesca("SELECT CODE FROM VISA ", con)
 End If
 
 If cBranch = "00" Then
     dSalesDate = Date
 Else
     If lIsBranchStore Then
-        dSalesDate = Format(GetDesca("SELECT TOP 1 DSALES FROM DSALES WHERE BRANCH  = " & MyParn(cBranch), Con), "DD-MM-YYYY")
-        If Not IsDate(dSalesDate) Then Con.Execute " INSERT INTO [dsales] (BRANCH,dsales) VALUES ( " & addstring(cBranch) & " ," & addDate(Date) & " ) "
+        dSalesDate = Format(GetDesca("SELECT TOP 1 DSALES FROM DSALES WHERE BRANCH  = " & MyParn(cBranch), con), "DD-MM-YYYY")
+        If Not IsDate(dSalesDate) Then con.Execute " INSERT INTO [dsales] (BRANCH,dsales) VALUES ( " & addstring(cBranch) & " ," & addDate(Date) & " ) "
         dSalesDate = Date
     Else
-        dSalesDate = Format(GetDesca("SELECT DSALES FROM DSALES", Con), "DD-MM-YYYY")
+        dSalesDate = Format(GetDesca("SELECT DSALES FROM DSALES", con), "DD-MM-YYYY")
     End If
 End If
 If IsDate(dSalesDate) Then
@@ -1069,7 +1069,7 @@ If Not IsDate(dSalesDate) Then dSalesDate = DateValue("01-01-2000")
 
 Me.Caption = Firsttitle
 
-sStore = GetDesca("SELECT STORE FROM BRANCH WHERE CODE = " & MyParn(cBranch), Con)
+sStore = GetDesca("SELECT STORE FROM BRANCH WHERE CODE = " & MyParn(cBranch), con)
 cBranchStore = sStore
 If cUserBox = "" Then cBranchBox = ""
 
@@ -1077,8 +1077,8 @@ On Error Resume Next
 fixBranchMenu
 FixCommand
 
-nCountBranch = Val(GetDesca("SELECT MAX(CODE ) FROM BRANCH ", Con) & "")
-nCountBranch_fr = Val(GetDesca("SELECT MAX(CODE ) FROM BRANCH_FR ", Con) & "")
+nCountBranch = Val(GetDesca("SELECT MAX(CODE ) FROM BRANCH ", con) & "")
+nCountBranch_fr = Val(GetDesca("SELECT MAX(CODE ) FROM BRANCH_FR ", con) & "")
 
 If Not lServerOnLine Then
     'checkCopy
@@ -1088,7 +1088,7 @@ Set obj = New ChilkatGlobal
 success = obj.UnlockBundle("MABFTH.CB4082022_DqFFZRYK0Rmf")
 
 If cBranch <> "00" And (Not bopt2) And (Not lShowBranch) And cBranchStore <> "" Then
-    If myField("select online from file0_40 where code = " & MyParn(cBranchStore), Con, , , False) Then
+    If myField("select online from file0_40 where code = " & MyParn(cBranchStore), con, , , False) Then
         sales_onlinefrm.bEdit = True
         sales_onlinefrm.Show
     Else
@@ -1098,23 +1098,23 @@ If cBranch <> "00" And (Not bopt2) And (Not lShowBranch) And cBranchStore <> "" 
 End If
 If retFlag(aBranch, "code") = 1 Then Me.BackColor = RGB(226, 218, 209)
 Err.Clear
-closeCon Con
+closeCon con
 End Sub
 Private Sub LoadMenu()
 Dim cConStr As String
 
 If lShowBranch Then
     cConStr = LoadConStringServer
-    openCon Con, cConStr
+    openCon con, cConStr
 Else
-   openCon Con
+   openCon con
 End If
 
 Dim sectable As New ADODB.Recordset
 cString = "SELECT users.code,users.title1,users.title2, users.Password, users.desca,USERS.option1,users.option2,users.option3,users.option4,users.option5 ,Menusetting.Visible, Menusetting.Editable, Menu.Control, Menu.MenuNo,Menu.mainMenu " & _
           " FROM (users INNER JOIN Menusetting ON users.Code = Menusetting.code) INNER JOIN Menu ON Menusetting.control = Menu.Control " & _
           " where users.code = " & nusercode
-sectable.Open cString, Con, adOpenStatic, adLockReadOnly, adCmdText
+sectable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
 For i = 0 To Main.Count - 1
     If TypeOf Main(i) Is Menu And Mid(Main(i).Name, 1, 2) = "mn" Then
         Main(i).Visible = False
@@ -1737,8 +1737,8 @@ Private Sub TMGRCUST_Click()
     'VsTBalCustGR.Show
 End Sub
 Private Sub tmfixcostsales_Click()
-    openCon Con
-    AddLod_Data cUserName, 0, " Ÿ»ÿ  ﬂ·›… «·„ÊœÌ·«  ", Con
+    openCon con
+    AddLod_Data cUserName, 0, " Ÿ»ÿ  ﬂ·›… «·„ÊœÌ·«  ", con
     Dim DDate1 As String, dDateSales As Date
     DDate1 = InputBox(" „‰  «—ÌŒ  ", , Format("01-01-" & Year(Date), "DD-MM-YY"))
     If DDate1 = "" Then Exit Sub
@@ -1749,47 +1749,47 @@ Private Sub tmfixcostsales_Click()
     End If
 '    On Error GoTo myerror
     If MsgBox("Ÿ»ÿ  ﬂ·›… «·„»Ì⁄«  Ê «· ÕÊÌ·«  „‰ " & Format(dDateSales, "DD-MM-YYYY"), vbYesNo + vbDefaultButton2) = vbYes Then
-        Con.CommandTimeout = 5000
+        con.CommandTimeout = 5000
         cStr1 = " UPDATE    FILE6_20 SET  cost = (SELECT TOP 1 (COST ) FROM Q_ITEMCOST WHERE FILE6_20.ITEM = Q_ITEMCOST.ITEM AND Q_ITEMCOST.DATE <= FILE6_20H.DATE ORDER BY DATE DESC ) " & _
                 " FROM      FILE6_20 INNER JOIN FILE6_20H ON FILE6_20.DOC_NO = FILE6_20H.DOC_NO where (file6_20h.date) >= " & DateSq(dDateSales)
-        Con.Execute cStr1, nRec
+        con.Execute cStr1, nRec
         Inform "  „ Ÿ»ÿ  ﬂ·›… «·„»Ì⁄«  " & nRec
         If cBranch = "00" Then
             cStr1 = " UPDATE    FR6_20 SET  cost = (SELECT TOP 1 (COST ) FROM Q_ITEMCOST_FR WHERE FR6_20.ITEM = Q_ITEMCOST_FR.ITEM  AND FR6_20H.STORE = Q_ITEMCOST_FR.STORE AND Q_ITEMCOST_FR.DATE <= FR6_20H.DATE ORDER BY DATE DESC ) " & _
                     " FROM      FR6_20 INNER JOIN FR6_20H ON FR6_20.DOC_NO = FR6_20H.DOC_NO where (FR6_20H.date) >= " & DateSq(dDateSales)
-            Con.Execute cStr1, nRec
+            con.Execute cStr1, nRec
             Inform "  „ Ÿ»ÿ  ﬂ·›… «·„»Ì⁄«  «· ÊﬂÌ·« " & nRec
         End If
         If cBranch = "00" Then
             cStr1 = " UPDATE    FILE1_60 SET  cost = Coalesce((SELECT TOP 1 (COST ) FROM Q_ITEMCOST WHERE FILE1_60.ITEM = Q_ITEMCOST.ITEM AND Q_ITEMCOST.DATE <= FILE1_60H.DATE ORDER BY DATE DESC ),0) " & _
                     " FROM      FILE1_60 INNER JOIN FILE1_60H ON FILE1_60.DOC_NO = FILE1_60H.DOC_NO where (file1_60h.date) >= " & DateSq(dDateSales)
-            Con.Execute cStr1, nRec
+            con.Execute cStr1, nRec
             Inform "  „ Ÿ»ÿ  ﬂ·›… «· ÕÊÌ·«  1" & nRec
         
             cStr1 = " UPDATE    FILE1_60 SET  cost = Coalesce((SELECT TOP 1 (COST ) FROM Q_ITEMCOST WHERE FILE1_60.ITEM = Q_ITEMCOST.ITEM AND Q_ITEMCOST.DATE > FILE1_60H.DATE ORDER BY DATE ),0) " & _
                     " FROM      FILE1_60 INNER JOIN FILE1_60H ON FILE1_60.DOC_NO = FILE1_60H.DOC_NO where file1_60.cost = 0 and (file1_60h.date) >= " & DateSq(dDateSales)
-            Con.Execute cStr1, nRec
+            con.Execute cStr1, nRec
             Inform "  „ Ÿ»ÿ  ﬂ·›… «· ÕÊÌ·«  2" & nRec
         
             cStr1 = " UPDATE    FR1_60 SET  cost = (SELECT TOP 1 (COST ) FROM Q_ITEMCOST_FR WHERE FR1_60.ITEM = Q_ITEMCOST_FR.ITEM AND Q_ITEMCOST_FR.DATE <= FR1_60H.DATE ORDER BY DATE DESC ) " & _
                     " FROM      FR1_60 INNER JOIN FR1_60H ON FR1_60.DOC_NO = FR1_60H.DOC_NO where (FR1_60h.date) >= " & DateSq(dDateSales)
-            Con.Execute cStr1, nRec
+            con.Execute cStr1, nRec
             Inform "  „ Ÿ»ÿ  ﬂ·›… «· ÕÊÌ·« " & nRec
         
         End If
         cStr1 = " UPDATE   FILE1_10 SET  COSTITEM = (SELECT TOP 1 ( COST ) FROM Q_ITEMCOST WHERE FILE1_10.ITEM = Q_ITEMCOST.ITEM ORDER BY DATE DESC ) From FILE1_10 "
-        Con.Execute cStr1, nRec
+        con.Execute cStr1, nRec
         Inform "  „ Ÿ»ÿ  ﬂ·›… 1 «·„ÊœÌ·«  " & nRec
         
         If cBranch = "00" Then
             cStr1 = " UPDATE   FILE1_10 SET  COSTITEM_FR = (SELECT TOP 1 (COST ) FROM Q_ITEMCOST_FR WHERE FILE1_10.ITEM = Q_ITEMCOST_FR.ITEM ORDER BY DATE DESC ) From FILE1_10 "
-            Con.Execute cStr1, nRec
+            con.Execute cStr1, nRec
             Inform "  „ Ÿ»ÿ  ﬂ·›… 2 «·„ÊœÌ·«  " & nRec
         End If
         MsgBox "  „ Ÿ»ÿ «· ﬂ·›…"
     End If
 Finally:
-    closeCon Con
+    closeCon con
 Exit Sub
 myerror:
     MsgBox Err.Description
@@ -2984,83 +2984,83 @@ FlagFrm2.Show 1
 End Sub
 Private Sub FixData1()
 Dim FS1 As New ADODB.command
-openCon Con
+openCon con
 On Error Resume Next
 
 
 cString = "ALTER TABLE [dbo].[FILE6_20] ADD [S_OKAZ] [decimal](18, 2) NULL "
 
 FS1.CommandType = adCmdText
-Set FS1.ActiveConnection = Con
+Set FS1.ActiveConnection = con
 FS1.CommandText = cString
 FS1.Execute
-closeCon Con
+closeCon con
 Err.Clear
 End Sub
 Private Sub FixData2()
 Dim FS1 As New ADODB.command, cDesca As String
 cDesca = "’·«ÕÌ… „— Ã⁄"
-openCon Con
+openCon con
 On Error Resume Next
-If GetDesca("SELECT ID FROM [option] WHERE ID = 7 ", Con) = "" Then
+If GetDesca("SELECT ID FROM [option] WHERE ID = 7 ", con) = "" Then
     cStr1 = " INSERT INTO [option] ([desca]) VALUES ( " & addstring(cDesca) & " ) "
-    Con.Execute cStr1
+    con.Execute cStr1
 End If
 Err.Clear
 End Sub
 
 Private Sub FixData4()
 Dim FS1 As New ADODB.command
-openCon Con
+openCon con
 On Error Resume Next
 cString = "alter TABLE [dbo].[FILE0_10H] add   [branch] [nvarchar](50) COLLATE Arabic_CI_AS NULL"
 
 FS1.CommandType = adCmdText
-Set FS1.ActiveConnection = Con
+Set FS1.ActiveConnection = con
 FS1.CommandText = cString
 FS1.Execute
-closeCon Con
+closeCon con
 Err.Clear
 End Sub
 
 Private Sub FixData12()
 Dim FS1 As New ADODB.command
-openCon Con
+openCon con
 On Error Resume Next
 cString = "ALTER TABLE [dbo].[FILE7_20h] ADD [isnew2] [bit] NULL"
 FS1.CommandType = adCmdText
-Set FS1.ActiveConnection = Con
+Set FS1.ActiveConnection = con
 FS1.CommandText = cString
 FS1.Execute
-closeCon Con
+closeCon con
 Err.Clear
 End Sub
 Private Sub FixData13()
 Dim FS1 As New ADODB.command
-openCon Con
+openCon con
 On Error Resume Next
 cString = "ALTER TABLE [dbo].[FILE7_20h] ADD [isnew3] [bit] NULL"
 FS1.CommandType = adCmdText
-Set FS1.ActiveConnection = Con
+Set FS1.ActiveConnection = con
 FS1.CommandText = cString
 FS1.Execute
-closeCon Con
+closeCon con
 Err.Clear
 End Sub
 
 Private Sub FixData5()
 Dim FS1 As New ADODB.command
-openCon Con
+openCon con
 On Error Resume Next
 
 cString = " ALTER VIEW [dbo].[FILE1_10H] AS SELECT     model, MAX(desca) AS DESCA, MAX([GROUP]) AS [GROUP], MAX(RATE) AS RATE, MAX(OKAZ) AS OKAZ, MAX(FACT) AS FACT, MAX(MOSM) AS MOSM, MAX(modelno)  AS MODELNO, MAX(MODELFACT) AS MODELFACT, MAX(code) AS code, MAX(SUPP) AS SUPP, MAX(MODELFACT0) AS MODELFACT0, REDEM, FIXPRICE,  SHOWSALES, ISOKAZITEM, SECTION " & _
              " FROM         dbo.FILE1_10 GROUP BY model, REDEM, FIXPRICE, SHOWSALES, ISOKAZITEM, SECTION "
 
 FS1.CommandType = adCmdText
-Set FS1.ActiveConnection = Con
+Set FS1.ActiveConnection = con
 FS1.CommandText = cString
 FS1.Execute
-closeCon Con
+closeCon con
 Err.Clear
 End Sub
 
@@ -3131,12 +3131,12 @@ Sub fixGrd()
 End With
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
-    closeCon Con
+    closeCon con
 End Sub
 Private Sub checkCopy()
 On Error GoTo myerror
 Dim aDrive As Variant, fs As New FileSystemObject, cBackDrive As String
-cBackDrive = GetDesca("SELECT BACK FROM ADDRESS", Con)
+cBackDrive = GetDesca("SELECT BACK FROM ADDRESS", con)
 aDrive = aLastDrive(False)
 cDir = retFlag(aDrive, "LETTER") & ":\DataBackup"
 cFileName = cDir & "\" & sCatalog & "_" & Format(Date, "yyyymmdd") & ".bak"
@@ -3168,8 +3168,8 @@ Err.Clear
 End Function
 Private Function createBackUp(pFileName) As Boolean
 Dim cFile As String
-Dim Con As New ADODB.Connection
-openCon Con
+Dim con As New ADODB.Connection
+openCon con
 
 Dim cmd
 'Set cmd = con.CreateObject("ADODB.Command")
@@ -3178,44 +3178,44 @@ Dim FS1 As New ADODB.command
 FS1.CommandType = adCmdText
 
 
-Set FS1.ActiveConnection = Con
+Set FS1.ActiveConnection = con
 cString = "BACKUP DATABASE " & sCatalog & " TO  DISK = N'" & pFileName & "' WITH  RETAINDAYS = 1, NOFORMAT, INIT,  NAME = N'over-Full Database Backup', SKIP,  NOREWIND, NOUNLOAD, STATS = 10"
 FS1.CommandText = cString
 FS1.CommandTimeout = 6000
 FS1.Execute
 Set FS1 = Nothing
-closeCon Con
+closeCon con
 createBackUp = True
 End Function
 Sub ClosedCashDoc()
-    openCon Con
+    openCon con
     Dim pDate As Date
 '    con.Execute " UPDATE FILE7_10H SET CLOSED = 1   WHERE CLOSED  = 0 AND DATE < " & DateSq(Date)
 '    con.Execute " UPDATE FILE7_20H SET CLOSED = 1   WHERE CLOSED  = 0 AND DATE < " & DateSq(Date)
 '    con.Execute " UPDATE FILE1_60H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
     
     If lIsBranchStore Then
-        Con.Execute " UPDATE FILE8_50H SET ISCLOSED = 1 WHERE BRANCH = " & MyParn(cBranch) & " AND ISCLOSED  = 0 AND DATE < " & DateSq(Date)
-        Con.Execute " UPDATE FILE8_60H SET ISCLOSED = 1 WHERE BRANCH = " & MyParn(cBranch) & " AND ISCLOSED  = 0 AND DATE < " & DateSq(Date)
+        con.Execute " UPDATE FILE8_50H SET ISCLOSED = 1 WHERE BRANCH = " & MyParn(cBranch) & " AND ISCLOSED  = 0 AND DATE < " & DateSq(Date)
+        con.Execute " UPDATE FILE8_60H SET ISCLOSED = 1 WHERE BRANCH = " & MyParn(cBranch) & " AND ISCLOSED  = 0 AND DATE < " & DateSq(Date)
 '        con.Execute " UPDATE FILE8_70H SET ISCLOSED = 1 WHERE BRANCH = " & MyParn(cBranch) & " AND ISCLOSED  = 0 AND DATE < " & DateSq(Date)
 '        con.Execute " UPDATE FILE0_51  SET ISCLOSED = 1 WHERE BRANCH = " & MyParn(cBranch) & " AND ISCLOSED  = 0 AND DATE < " & DateSq(Date)
 '        con.Execute " UPDATE FILE0_52  SET ISCLOSED = 1 WHERE BRANCH = " & MyParn(cBranch) & " AND ISCLOSED  = 0 AND DATE < " & DateSq(Date)
     Else
-        Con.Execute " UPDATE FILE8_00H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
-        Con.Execute " UPDATE FILE8_10H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
-        Con.Execute " UPDATE FILE8_20H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
-        Con.Execute " UPDATE FILE8_30H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
-        Con.Execute " UPDATE FILE8_40H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
-        Con.Execute " UPDATE FILE8_50H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
-        Con.Execute " UPDATE FILE8_60H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
-        Con.Execute " UPDATE FILE8_70H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
-        Con.Execute " UPDATE FILE0_51  SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
+        con.Execute " UPDATE FILE8_00H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
+        con.Execute " UPDATE FILE8_10H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
+        con.Execute " UPDATE FILE8_20H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
+        con.Execute " UPDATE FILE8_30H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
+        con.Execute " UPDATE FILE8_40H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
+        con.Execute " UPDATE FILE8_50H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
+        con.Execute " UPDATE FILE8_60H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
+        con.Execute " UPDATE FILE8_70H SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
+        con.Execute " UPDATE FILE0_51  SET ISCLOSED = 1 WHERE ISCLOSED  = 0 AND DATE < " & DateSq(Date)
     End If
 
 End Sub
 Sub FixData_ALL_FR()
 Dim cString As String
-openCon Con
+openCon con
 On Error Resume Next
 Inform cBranch
 
@@ -3278,7 +3278,7 @@ Inform cBranch
 'If cBranch > "60" Then
 '    con.Execute " update ADDRESS set branch = " & addstring(cBranch)
 'End If
-closeCon Con
+closeCon con
 Err.Clear
 End Sub
 Private Sub CopyServer()
@@ -3326,7 +3326,7 @@ LoadConStringServer = "provider=SQLOLEDB;data source=" & cServerName & ";initial
 End Function
 Sub FixData_ALL()
 Dim cString As String
-openCon Con
+openCon con
 On Error Resume Next
 
 
@@ -3502,7 +3502,7 @@ On Error Resume Next
 '    cString = "ALTER TABLE [dbo].[FILE0_00] DROP  COLUMN [OKAZ_ITEM]"
 '    createCommand cString, con
 '
-closeCon Con
+closeCon con
 Err.Clear
 End Sub
 Private Sub FixCommand()
@@ -3732,6 +3732,6 @@ tmbranchdata.Visible = bSupermode And cBranch = "00"
 End Sub
 Private Function FIXDATA()
 If Not lServerOnLine Then
-    fixSql Con
+    fixSql con
 End If
 End Function

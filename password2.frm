@@ -684,8 +684,8 @@ Else
               
     sectable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
     If Not (sectable.EOF And sectable.BOF) Then
-        nusercode = sectable!code
-        cUserName = sectable!DESCA & ""
+        nusercode = sectable!CODE
+        cUserName = sectable!desca & ""
         bopt1 = sectable!Option1
         bopt2 = sectable!Option2
         bopt3 = sectable!Option3
@@ -1368,7 +1368,7 @@ Sub FixAddress()
 Dim loctable As New ADODB.Recordset
 loctable.Open "select * From Address", con, adOpenStatic, adLockReadOnly
 If Not (loctable.EOF And loctable.BOF) Then
-    cComp_Name = loctable!DESCA & ""
+    cComp_Name = loctable!desca & ""
     cComp_address = loctable!Address & ""
     cComp_Phone = loctable!Phone & ""
     cComp_Head1 = loctable!HEAD1 & ""
@@ -1441,7 +1441,7 @@ Else
     nUser = enUser.User
 End If
 If DefUser Then
-  servername_vpn = "MRMIND\MRMIND71"
+    servername_vpn = "MRMIND\MRMIND71"
 Else
     servername_vpn = "154.236.187.105"
 End If

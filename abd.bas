@@ -974,7 +974,7 @@ For Row = grid1.FixedRows To grid1.Rows - 1
 Next
 End Function
 Public Function DefUser() As Boolean
-DefUser = RetSetting("DefUser", "C:\USERS\Users.txt") = "1"
+'DefUser = RetSetting("DefUser", "C:\USERS\Users.txt") = "1"
 End Function
 Function isNum(pNumber As Variant) As Boolean
 If Round(Val(pNumber & ""), 0) & "" <> Trim(pNumber & "") Then Exit Function
