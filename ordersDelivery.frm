@@ -613,7 +613,6 @@ Begin VB.Form OrderOnline_New
       BeginProperty Panels {0713E89E-850A-101B-AFC0-4210102A8DA7} 
          NumPanels       =   1
          BeginProperty Panel1 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.Tag             =   ""
          EndProperty
       EndProperty
@@ -1514,7 +1513,7 @@ Private Sub Form_Load()
     Frame2.Visible = (cBranch = "00")
     Check1.Visible = (cBranch = "00")
     'cmd_addexel.Visible = (cBranch = "00")
-    cmdCSV.Enabled = (cBranch = "00")
+    cmdCsv.Enabled = (cBranch = "00")
     
     Set DATA3.Recordset = myRecordSet("SELECT Payment_Method FROM file6_90h GROUP BY Payment_Method ", con)
     Set xPay.RowSource = DATA3
@@ -1586,7 +1585,7 @@ With grid1
               " NOTES,DelOrder_Date,DelOrder_Date2,Note_main,Note_branch," & _
               " FILE6_25.DESCA,FILE6_90H.MAN" & _
               " FROM FILE6_90H LEFT JOIN FILE6_25 ON FILE6_90H.MAN = FILE6_25.CODE"
-    If xDoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xDoc_no.text)
+    If xDoc_No.text <> "" Then cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xDoc_No.text)
     If xPhone.text <> "" Then cWhere = cWhere & Tr(cWhere) & " [phone] = " & MyParn(xPhone.text)
     If xPay.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " [Payment_Method] = " & MyParn(xPay.text)
     If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " [STORE] = " & MyParn(xStore.BoundText)
@@ -2262,8 +2261,8 @@ cString.Append "SELECT  FILE6_90H.DOC_NO," & _
                "LEFT JOIN FILE0_40 ON FILE0_40.CODE = FILE6_90H.STORE "
 cString.Append "WHERE  SALES_DOC IS NULL"
 
-If xDoc_no.text <> "" Then
-    cString.Append " AND [DOC_NO] = " & MyParn(xDoc_no.text)
+If xDoc_No.text <> "" Then
+    cString.Append " AND [DOC_NO] = " & MyParn(xDoc_No.text)
 End If
 
 If xPay.MatchedWithList Then
@@ -2372,10 +2371,10 @@ Private Sub XPHONE_LostFocus()
 myLostFocus xPhone
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xDoc_no
+myGotFocus xDoc_No
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus xDoc_no
+myLostFocus xDoc_No
 End Sub
 Private Sub xDate2_GotFocus()
 myGotFocus xdate2
@@ -2574,12 +2573,12 @@ Do Until loctable.EOF
     aInsert = AddFlag(aInsert, "PRICE", loctable!price)
     aInsert = AddFlag(aInsert, "QUANT", loctable!Quant)
     aInsert = AddFlag(aInsert, "MODEL", addstring(loctable!MODEL))
-    If IsEmpty(myField("SELECT DOC_NO FROM " & cFile & " WHERE DOC_NO = " & MyParn(xDoc_no.text) & " AND ITEM = " & addvalue(loctable!Item), con)) Then
-        aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_no.text))
+    If IsEmpty(myField("SELECT DOC_NO FROM " & cFile & " WHERE DOC_NO = " & MyParn(xDoc_No.text) & " AND ITEM = " & addvalue(loctable!Item), con)) Then
+        aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_No.text))
         con.Execute addInsert(aInsert, cFile), nAffect
         nAffect = 1
     Else
-        con.Execute addUpdate(aInsert, cFile, "DOC_NO = " & MyParn(xDoc_no.text) & " AND ITEM = " & addvalue(loctable!Item)), nAffect
+        con.Execute addUpdate(aInsert, cFile, "DOC_NO = " & MyParn(xDoc_No.text) & " AND ITEM = " & addvalue(loctable!Item)), nAffect
     End If
     nAffectAll = nAffectAll + nAffect
     loctable.MoveNext

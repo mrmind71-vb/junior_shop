@@ -182,9 +182,9 @@ Begin VB.Form salesTax
          End
          Begin VSFlex7Ctl.VSFlexGrid GRID2 
             Height          =   3570
-            Left            =   90
+            Left            =   135
             TabIndex        =   113
-            Top             =   405
+            Top             =   135
             Width           =   17205
             _cx             =   30348
             _cy             =   6297
@@ -3004,7 +3004,7 @@ aInsert(10, 0) = "ISINVOICE"
 aInsert(10, 1) = 1
 
 aInsert(11, 0) = "TAX"
-aInsert(11, 1) = Val(xTax.text)
+aInsert(11, 1) = Val(xtax.text)
 
 aInsert(12, 0) = "RTAX"
 aInsert(12, 1) = Val(xRTax.text)
@@ -3025,7 +3025,7 @@ aInsert(20, 0) = "PO_NO"
 aInsert(20, 1) = addstring(xpo_no.text)
 
 aInsert(21, 0) = "INV_TAX"
-aInsert(21, 1) = addstring(XINV_TAX.text)
+aInsert(21, 1) = addstring(xinv_Tax.text)
 
 con.BeginTrans
 ''On Error GoTo myerror
@@ -3263,7 +3263,6 @@ If MsgBox(" ÊÌãíÚ ÝæÇÊíÑ ÇáÝÊÑÉ ááÚãíá áÝÇÊæÑÉ ãÈíÚÇÊ ÖÑíÈíÈÉ ", vbYesNo + vbDef
     con.Execute " UPDATE FILE6_20H SET INV_NO = NULL WHERE INV_NO =  " & MyParn(xDoc_No.text)
     con.Execute " UPDATE FILE6_20H SET INV_NO = " & addstring(xDoc_No.text) & " WHERE ISINVOICE = 0 AND CODE = " & MyParn(xCode.text) & " AND DATE >= " & DateSq(XDATESALES1.text) & " AND DATE <= " & DateSq(XDATESALES2.text)
     AddLod_Data cUserName, 0, " ÊÑÍíá ÝæÇÊíÑ ãÌãÚÉ " & Me.Caption, con, , XDATESALES1.text, , XDATESALES2.text
-
 End If
 End Sub
 Private Sub cmdAddItems_Click()
@@ -3758,8 +3757,8 @@ End If
 End Sub
 Private Sub LoadPhoto(sModelNo As String)
 On Error GoTo myerror
-imgx1.Images.Clear
-imgx1.Import.FromFile retFile(sModelNo)
+ImgX1.Images.Clear
+ImgX1.Import.FromFile retFile(sModelNo)
 Exit Sub
 myerror:
 Err.Clear
@@ -3818,7 +3817,7 @@ If KeyAscii = 13 Then
 End If
 End Sub
 Private Sub grid1_LostFocus()
-    imgx1.Images.Clear
+    ImgX1.Images.Clear
 End Sub
 Private Sub Grid1_StartEdit(ByVal Row As Long, ByVal col As Long, Cancel As Boolean)
     If col = 10 Then
@@ -3965,13 +3964,13 @@ xDoc_no2.text = CardTable!Doc_no2
 xDate.text = Format(CardTable!Date, "dd-mm-yyyy")
 
 
-XDATESALES1.text = Format(CardTable!DATESALES1, "dd-mm-yyyy")
-XDATESALES2.text = Format(CardTable!DATESALES2, "dd-mm-yyyy")
+XDATESALES1.text = Format(CardTable!Datesales1, "dd-mm-yyyy")
+XDATESALES2.text = Format(CardTable!datesales2, "dd-mm-yyyy")
 
 xStore.BoundText = CardTable!STORE & ""
 xMan.BoundText = CardTable!MAN & ""
 xNotes.text = CardTable!NOTES & ""
-XINV_TAX.text = CardTable!inv_tax & ""
+xinv_Tax.text = CardTable!inv_tax & ""
 xpo_no.text = CardTable!PO_NO & ""
 xCode.text = CardTable!code & ""
 xCodeDesca.Caption = CardTable!ClientDesca & ""
@@ -3979,7 +3978,7 @@ xCodeDesca2.Caption = CardTable!Manager & ""
 xDisc.text = CardTable!disc & ""
 xDiscount.text = TurnValue(Val(CardTable!discount & ""), 0, "")
 xRate.text = TurnValue(Val(CardTable!Rate & ""), 0, "")
-xTax.text = TurnValue(Val(CardTable!tax & ""), 0, "")
+xtax.text = TurnValue(Val(CardTable!tax & ""), 0, "")
 xRTax.text = TurnValue(Val(CardTable!RTAX & ""), 0, "")
 
 'xTotal.Enabled = IIf(xPrinted.Value = 0, True, False)
@@ -4010,12 +4009,12 @@ xDoc_no2.text = Mid(xDoc_No.text, 7, 6)
 xpo_no.text = ""
 XDATESALES1.text = ""
 XDATESALES2.text = ""
-XINV_TAX.text = ""
+xinv_Tax.text = ""
 xRTax2.Caption = ""
 xCode.Enabled = True
 xDiscount.Locked = False
 xRate.Locked = False
-xTax.text = ""
+xtax.text = ""
 xRTax.text = "14"
 xMan.BoundText = "0001"
 xDoc_No.Tag = DefineMode
@@ -4047,7 +4046,7 @@ grid1.AddItem ""
 grid1.TextMatrix(grid1.Rows - 1, 0) = grid1.Rows - 1
 xDoc_No.Tag = 0
 xTotal.text = ""
-imgx1.Images.Clear
+ImgX1.Images.Clear
 fixGrd
 Fixgrd2
 If lManSales Then
@@ -4074,8 +4073,8 @@ xDiscount.Locked = (xClosed.Value <> 0)
 
 CMD_ADD_RECEVD.Enabled = nMode = DefineMode
 
-cmdSign.Enabled = Trim(XINV_TAX.text = "") And nMode = LoadMode
-cmdSignGroup.Enabled = Trim(XINV_TAX.text = "") And nMode = LoadMode
+cmdSign.Enabled = Trim(xinv_Tax.text = "") And nMode = LoadMode
+cmdSignGroup.Enabled = Trim(xinv_Tax.text = "") And nMode = LoadMode
 End Sub
 Private Function retBool(cFieldName) As Boolean
 If Not (CardTable.EOF Or CardTable.BOF) Then
@@ -4179,10 +4178,10 @@ If Val(xTotalItem.Caption) <> 0 Then
 Else
     xRate.text = ""
 End If
-xTotal.text = Round(nTotalItem - Val(xDiscount.text) + Val(xTax.text), 2)
+xTotal.text = Round(nTotalItem - Val(xDiscount.text) + Val(xtax.text), 2)
 xTotDisc.Caption = Round(nTotalItem - Val(xDiscount.text), 2)
 xRTax2.Caption = ""
-If Val(xTotalItem.Caption) <> 0 Then xRTax2.Caption = Round((Val(xTax.text) / Val(xTotalItem.Caption)) * 100, 2)
+If Val(xTotalItem.Caption) <> 0 Then xRTax2.Caption = Round((Val(xtax.text) / Val(xTotalItem.Caption)) * 100, 2)
 End With
 End Function
 Private Sub CardLookup(Optional pFilter As String = "")
@@ -4365,7 +4364,7 @@ End Sub
 
 
 Private Sub xRTax_DblClick()
-    xTax.text = Round(Val(xTotDisc.Caption) * ((Val(xRTax.text)) / 100), 2)
+    xtax.text = Round(Val(xTotDisc.Caption) * ((Val(xRTax.text)) / 100), 2)
 End Sub
 Private Sub XSTORE_GotFocus()
 myGotFocus xStore
@@ -4378,7 +4377,7 @@ Private Sub xStore_Validate(Cancel As Boolean)
     If Trim(xStore.BoundText) = "" Then Cancel = True
 End Sub
 Private Sub xTax_LostFocus()
-    xTax.BackColor = &H80000005
+    xtax.BackColor = &H80000005
     CalcTotals
 End Sub
 Private Function RemoveItem(nRow) As Boolean
@@ -4494,8 +4493,8 @@ Private Sub xDiscount_GotFocus()
 myGotFocus xDiscount
 End Sub
 Private Sub xTax_GotFocus()
-xTax.SelStart = 0
-xTax.SelLength = Len(xTax.text)
+xtax.SelStart = 0
+xtax.SelLength = Len(xtax.text)
 End Sub
 Private Function mysave(Optional bEnd As Boolean = True, Optional bPrint As Boolean = True) As Boolean
 If Not MYVALID Then Exit Function
@@ -4622,7 +4621,7 @@ Do While Not .EOF
         temptable!val18 = Val(xTotalItem.Caption) * -1
         temptable!val17 = 0
         temptable!STR19 = 0
-        temptable!val15 = Val(xTax.text) * -1
+        temptable!val15 = Val(xtax.text) * -1
         temptable!val16 = Val(xTotal.text) * -1
         temptable!str16 = MyOnly(Val(xTotal.text) * -1)
         temptable!VAL7 = Val(xDiscount.text) * -1
@@ -4637,7 +4636,7 @@ Do While Not .EOF
         temptable!val18 = Val(xTotalItem.Caption)
         temptable!val17 = 0
         temptable!STR19 = 0
-        temptable!val15 = Val(xTax.text)
+        temptable!val15 = Val(xtax.text)
         temptable!val16 = Val(xTotal.text)
         temptable!str16 = MyOnly(Val(xTotal.text))
         temptable!VAL7 = Val(xDiscount.text)
@@ -4956,7 +4955,7 @@ Do While Not .EOF
         temptable!val18 = Val(xTotalItem.Caption) * -1
         temptable!val17 = 0
         temptable!STR19 = 0
-        temptable!val15 = Val(xTax.text) * -1
+        temptable!val15 = Val(xtax.text) * -1
         temptable!val16 = Val(xTotal.text) * -1
         temptable!str16 = MyOnly(Val(xTotal.text) * -1)
         temptable!VAL7 = Val(xDiscount.text) * -1
@@ -4971,7 +4970,7 @@ Do While Not .EOF
         temptable!val18 = Val(xTotalItem.Caption)
         temptable!val17 = 0
         temptable!STR19 = 0
-        temptable!val15 = Val(xTax.text)
+        temptable!val15 = Val(xtax.text)
         temptable!val16 = Val(xTotal.text)
         temptable!str16 = MyOnly(Val(xTotal.text))
         temptable!VAL7 = Val(xDiscount.text)
@@ -5060,15 +5059,15 @@ Do While Not .EOF
     End If
     .MoveNext
 Loop
-xTax.text = Round((nTotalItem * nRate), 2) - Round((nTotalItem * nRate) / 1.14, 2)
+xtax.text = Round((nTotalItem * nRate), 2) - Round((nTotalItem * nRate) / 1.14, 2)
 xTotalQuant.Caption = nTotalQuant
 xTotal.text = Round(nTotalItem, 2) - Val(xDiscount.text)
-xTotDisc.Caption = Round(nTotalItem, 2) - Val(xDiscount.text) - Val(xTax.text)
+xTotDisc.Caption = Round(nTotalItem, 2) - Val(xDiscount.text) - Val(xtax.text)
 'grid1.Cell(flexcpAlignment, 1, 0, .Rows - 1, .Cols - 1) = 7
 End With
 End Sub
 
-Private Sub xpo_no_KeyUp(KeyCode As Integer, Shift As Integer)
+Private Sub xPO_NO_KeyUp(KeyCode As Integer, Shift As Integer)
     If KeyCode = 112 Then OrderNo_LooK
 End Sub
 Sub OrderNo_LooK()

@@ -54,7 +54,7 @@ Begin VB.Form orders_soldfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "order_sold2.frx":0000
+         Picture         =   "order_sold3.frx":0000
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
@@ -82,14 +82,14 @@ Begin VB.Form orders_soldfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "order_sold2.frx":2323
+         Picture         =   "order_sold3.frx":2323
          Caption         =   " ”ÃÌ· «’‰«› «·ÿ·»Ì…"
          ButtonStyle     =   3
          PictureAlignment=   10
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "order_sold2.frx":498A
+         PictureDisabled =   "order_sold3.frx":498A
       End
    End
    Begin VSFlex7Ctl.VSFlexGrid grid1 
@@ -404,14 +404,14 @@ Begin VB.Form orders_soldfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "order_sold2.frx":6C80
+         Picture         =   "order_sold3.frx":6C80
          Caption         =   "«Œ Ì«— ﬂ· «·›« Ê—…"
          ButtonStyle     =   3
          PictureAlignment=   10
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "order_sold2.frx":9156
+         PictureDisabled =   "order_sold3.frx":9156
       End
    End
 End
@@ -716,10 +716,10 @@ If Not myForm.xStore.MatchedWithList Then
     Exit Function
 End If
 
-If Not myForm.xMan.MatchedWithList Then
-    MsgBox "«·»«∆⁄ €Ì— „”Ã·"
-    Exit Function
-End If
+'If Not myForm.xMan.MatchedWithList Then
+'    MsgBox "«·»«∆⁄ €Ì— „”Ã·"
+'    Exit Function
+'End If
 
 MYVALID = True
 End With
@@ -771,18 +771,24 @@ Private Function myreplace() As String
     
   
     cString.Clear
-    aInsert = AddFlag(aInsert, "DOC_NO", addstring(myForm.xDoc_No.text))
+    
+    Dim sdoc_no_new As String
+    addNewDoc = IncData("FILE6_20H", "DOC_NO", con, "FILE6_20H.INV_TYPE = 2")
+
+    
+    aInsert = AddFlag(aInsert, "DOC_NO", addstring(addNewDoc))
     aInsert = AddFlag(aInsert, "CODE", addstring(orderTable!code))
     aInsert = AddFlag(aInsert, "[Date]", addDate(myForm.xDate.text))
     aInsert = AddFlag(aInsert, "STORE", addstring(myForm.xStore.BoundText))
+    aInsert = AddFlag(aInsert, "BRANCH", addstring("00"))
     aInsert = AddFlag(aInsert, "CASH", "0")
     aInsert = AddFlag(aInsert, "ORDER_NO", addstring(orderTable!DOC_NO))
     aInsert = AddFlag(aInsert, "PO_NO", addstring(orderTable!PO_NO))
-    aInsert = AddFlag(aInsert, "USERNAME", addstring(myForm.xusername.Caption))
+    aInsert = AddFlag(aInsert, "USERNAME", addstring(cUserName))
     aInsert = AddFlag(aInsert, "TIME1", addDate("GETDATE()"))
     aInsert = AddFlag(aInsert, "USER_IP", addstring(cIpName))
-    aInsert = AddFlag(aInsert, "MAN", addstring(myForm.xMan.BoundText))
-    aInsert = AddFlag(aInsert, "ISINVOICE", "1")
+    aInsert = AddFlag(aInsert, "MAN", addstring("0001"))
+    aInsert = AddFlag(aInsert, "ISINVOICE", "0")
     aInsert = AddFlag(aInsert, "ISRET", "0")
     
     con.BeginTrans
@@ -817,12 +823,12 @@ Private Function myreplace() As String
                     "VALUES"
             End If
             cString.Append "("
-            cString.Append addstring(myForm.xDoc_No.text) & ","
+            cString.Append addstring(myForm.xDoc_no.text) & ","
             cString.Append addstring(.TextMatrix(i, 0 + 1)) & ","
             cString.Append .ValueMatrix(i, 8 + 1) & ","
             cString.Append .ValueMatrix(i, 9 + 1) & ","
             cString.Append i & ","
-            cString.Append addstring(myForm.xMan.BoundText) & ","
+            cString.Append addstring("001") & ","
             cString.Append addstring(GetComputerNamecIpName) & ","
             cString.Append .ValueMatrix(i, 7 + 1) & ","
             cString.Append .ValueMatrix(i, 11 + 1) & ","
@@ -840,7 +846,7 @@ Private Function myreplace() As String
     
     con.CommitTrans
     
-    myreplace = myForm.xDoc_No.text
+    myreplace = myForm.xDoc_no.text
 Exit Function
 myerror:
 MsgBox Err.Description

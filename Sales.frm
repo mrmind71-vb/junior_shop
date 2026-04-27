@@ -30,6 +30,100 @@ Begin VB.Form sales_abdfrm
    WhatsThisButton =   -1  'True
    WhatsThisHelp   =   -1  'True
    WindowState     =   2  'Maximized
+   Begin VSFlex7Ctl.VSFlexGrid grid1 
+      Height          =   4695
+      Left            =   90
+      TabIndex        =   3
+      Top             =   2430
+      Width           =   15135
+      _cx             =   26696
+      _cy             =   8281
+      _ConvInfo       =   1
+      Appearance      =   0
+      BorderStyle     =   1
+      Enabled         =   -1  'True
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Arial"
+         Size            =   11.25
+         Charset         =   178
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      MousePointer    =   0
+      BackColor       =   -2147483643
+      ForeColor       =   -2147483640
+      BackColorFixed  =   14737632
+      ForeColorFixed  =   0
+      BackColorSel    =   12648447
+      ForeColorSel    =   -2147483630
+      BackColorBkg    =   -2147483636
+      BackColorAlternate=   -2147483643
+      GridColor       =   12632256
+      GridColorFixed  =   -2147483632
+      TreeColor       =   -2147483632
+      FloodColor      =   192
+      SheetBorder     =   -2147483642
+      FocusRect       =   2
+      HighLight       =   1
+      AllowSelection  =   -1  'True
+      AllowBigSelection=   0   'False
+      AllowUserResizing=   0
+      SelectionMode   =   0
+      GridLines       =   1
+      GridLinesFixed  =   1
+      GridLineWidth   =   1
+      Rows            =   1
+      Cols            =   19
+      FixedRows       =   1
+      FixedCols       =   1
+      RowHeightMin    =   0
+      RowHeightMax    =   0
+      ColWidthMin     =   0
+      ColWidthMax     =   0
+      ExtendLastCol   =   0   'False
+      FormatString    =   ""
+      ScrollTrack     =   0   'False
+      ScrollBars      =   2
+      ScrollTips      =   0   'False
+      MergeCells      =   0
+      MergeCompare    =   0
+      AutoResize      =   0   'False
+      AutoSizeMode    =   0
+      AutoSearch      =   0
+      AutoSearchDelay =   2
+      MultiTotals     =   -1  'True
+      SubtotalPosition=   1
+      OutlineBar      =   0
+      OutlineCol      =   0
+      Ellipsis        =   0
+      ExplorerBar     =   0
+      PicturesOver    =   0   'False
+      FillStyle       =   0
+      RightToLeft     =   -1  'True
+      PictureType     =   0
+      TabBehavior     =   1
+      OwnerDraw       =   0
+      Editable        =   0
+      ShowComboButton =   -1  'True
+      WordWrap        =   0   'False
+      TextStyle       =   0
+      TextStyleFixed  =   0
+      OleDragMode     =   0
+      OleDropMode     =   0
+      DataMode        =   0
+      VirtualData     =   -1  'True
+      DataMember      =   ""
+      ComboSearch     =   3
+      AutoSizeMouse   =   0   'False
+      FrozenRows      =   0
+      FrozenCols      =   0
+      AllowUserFreezing=   0
+      BackColorFrozen =   0
+      ForeColorFrozen =   0
+      WallPaperAlignment=   9
+   End
    Begin VB.Frame Frame3 
       BackColor       =   &H00FFFFFF&
       Height          =   735
@@ -1308,100 +1402,6 @@ Begin VB.Form sales_abdfrm
       Visible         =   0   'False
       Width           =   1995
    End
-   Begin VSFlex7Ctl.VSFlexGrid grid1 
-      Height          =   4695
-      Left            =   135
-      TabIndex        =   3
-      Top             =   2475
-      Width           =   15135
-      _cx             =   26696
-      _cy             =   8281
-      _ConvInfo       =   1
-      Appearance      =   0
-      BorderStyle     =   1
-      Enabled         =   -1  'True
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Arial"
-         Size            =   11.25
-         Charset         =   178
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      MousePointer    =   0
-      BackColor       =   -2147483643
-      ForeColor       =   -2147483640
-      BackColorFixed  =   14737632
-      ForeColorFixed  =   0
-      BackColorSel    =   12648447
-      ForeColorSel    =   -2147483630
-      BackColorBkg    =   -2147483636
-      BackColorAlternate=   -2147483643
-      GridColor       =   12632256
-      GridColorFixed  =   -2147483632
-      TreeColor       =   -2147483632
-      FloodColor      =   192
-      SheetBorder     =   -2147483642
-      FocusRect       =   2
-      HighLight       =   1
-      AllowSelection  =   -1  'True
-      AllowBigSelection=   0   'False
-      AllowUserResizing=   0
-      SelectionMode   =   0
-      GridLines       =   1
-      GridLinesFixed  =   1
-      GridLineWidth   =   1
-      Rows            =   1
-      Cols            =   19
-      FixedRows       =   1
-      FixedCols       =   1
-      RowHeightMin    =   0
-      RowHeightMax    =   0
-      ColWidthMin     =   0
-      ColWidthMax     =   0
-      ExtendLastCol   =   0   'False
-      FormatString    =   ""
-      ScrollTrack     =   0   'False
-      ScrollBars      =   2
-      ScrollTips      =   0   'False
-      MergeCells      =   0
-      MergeCompare    =   0
-      AutoResize      =   0   'False
-      AutoSizeMode    =   0
-      AutoSearch      =   0
-      AutoSearchDelay =   2
-      MultiTotals     =   -1  'True
-      SubtotalPosition=   1
-      OutlineBar      =   0
-      OutlineCol      =   0
-      Ellipsis        =   0
-      ExplorerBar     =   0
-      PicturesOver    =   0   'False
-      FillStyle       =   0
-      RightToLeft     =   -1  'True
-      PictureType     =   0
-      TabBehavior     =   1
-      OwnerDraw       =   0
-      Editable        =   0
-      ShowComboButton =   -1  'True
-      WordWrap        =   0   'False
-      TextStyle       =   0
-      TextStyleFixed  =   0
-      OleDragMode     =   0
-      OleDropMode     =   0
-      DataMode        =   0
-      VirtualData     =   -1  'True
-      DataMember      =   ""
-      ComboSearch     =   3
-      AutoSizeMouse   =   0   'False
-      FrozenRows      =   0
-      FrozenCols      =   0
-      AllowUserFreezing=   0
-      BackColorFrozen =   0
-      ForeColorFrozen =   0
-      WallPaperAlignment=   9
-   End
    Begin VB.PictureBox Picture1 
       Align           =   2  'Align Bottom
       BackColor       =   &H00FFFFFF&
@@ -2509,7 +2509,7 @@ Begin VB.Form sales_abdfrm
       Height          =   645
       Left            =   90
       TabIndex        =   81
-      Top             =   1800
+      Top             =   1755
       Width           =   2580
       Begin Threed.SSCommand xphone 
          Height          =   465
@@ -3669,10 +3669,10 @@ Begin VB.Form sales_abdfrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   555
+      Height          =   600
       Left            =   2700
       TabIndex        =   41
-      Top             =   1845
+      Top             =   1800
       Width           =   3615
       Begin VB.CheckBox xSendRc 
          Appearance      =   0  'Flat
@@ -3683,7 +3683,7 @@ Begin VB.Form sales_abdfrm
          Left            =   135
          TabIndex        =   42
          TabStop         =   0   'False
-         Top             =   180
+         Top             =   225
          Width           =   465
       End
       Begin Threed.SSCommand cmdGo 
@@ -3691,7 +3691,7 @@ Begin VB.Form sales_abdfrm
          Left            =   2160
          TabIndex        =   43
          TabStop         =   0   'False
-         Top             =   135
+         Top             =   180
          Width           =   1320
          _ExtentX        =   2328
          _ExtentY        =   582
@@ -3731,7 +3731,7 @@ Begin VB.Form sales_abdfrm
          Left            =   630
          RightToLeft     =   -1  'True
          TabIndex        =   44
-         Top             =   135
+         Top             =   180
          Width           =   1470
       End
    End
