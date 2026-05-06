@@ -6,6 +6,7 @@ Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
 Object = "{00025600-0000-0000-C000-000000000046}#5.2#0"; "Crystl32.OCX"
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "Comdlg32.ocx"
 Object = "{648A5603-2C6E-101B-82B6-000000000014}#1.1#0"; "MSCOMM32.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Begin VB.Form sales_abdfrm 
    BackColor       =   &H00FFFFFF&
    BorderStyle     =   1  'Fixed Single
@@ -30,10 +31,985 @@ Begin VB.Form sales_abdfrm
    WhatsThisButton =   -1  'True
    WhatsThisHelp   =   -1  'True
    WindowState     =   2  'Maximized
+   Begin VB.PictureBox Picture1 
+      Align           =   2  'Align Bottom
+      BackColor       =   &H00FFFFFF&
+      BorderStyle     =   0  'None
+      Height          =   3210
+      Left            =   0
+      ScaleHeight     =   3210
+      ScaleWidth      =   20355
+      TabIndex        =   121
+      Top             =   7260
+      Width           =   20355
+      Begin VB.Frame frPayment 
+         BackColor       =   &H00FFFFFF&
+         Height          =   1995
+         Left            =   7560
+         TabIndex        =   159
+         Top             =   0
+         Width           =   2850
+         Begin Threed.SSCommand xcash 
+            Height          =   375
+            Left            =   135
+            TabIndex        =   160
+            Top             =   225
+            Width           =   1275
+            _ExtentX        =   2249
+            _ExtentY        =   661
+            _Version        =   196610
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Arial"
+               Size            =   11.25
+               Charset         =   178
+               Weight          =   700
+               Underline       =   -1  'True
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            TagVariant      =   "«Œ «— «·Œ«„…"
+            Alignment       =   4
+            ButtonStyle     =   3
+         End
+         Begin VB.Label xvisa 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BorderStyle     =   1  'Fixed Single
+            ForeColor       =   &H00000040&
+            Height          =   375
+            Left            =   135
+            TabIndex        =   167
+            Top             =   630
+            Width           =   1275
+         End
+         Begin VB.Label Label3 
+            AutoSize        =   -1  'True
+            BackColor       =   &H00E0E0E0&
+            BackStyle       =   0  'Transparent
+            Caption         =   "”œ«œ ‰ﬁœÏ"
+            BeginProperty Font 
+               Name            =   "Arial"
+               Size            =   12
+               Charset         =   178
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   285
+            Left            =   1485
+            RightToLeft     =   -1  'True
+            TabIndex        =   166
+            Top             =   270
+            Width           =   780
+         End
+         Begin VB.Label Label6 
+            AutoSize        =   -1  'True
+            BackColor       =   &H00E0E0E0&
+            BackStyle       =   0  'Transparent
+            Caption         =   "”œ«œ ›Ì“«"
+            BeginProperty Font 
+               Name            =   "Arial"
+               Size            =   12
+               Charset         =   178
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   285
+            Left            =   1485
+            RightToLeft     =   -1  'True
+            TabIndex        =   165
+            Top             =   675
+            Width           =   720
+         End
+         Begin VB.Label xPay 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BorderStyle     =   1  'Fixed Single
+            ForeColor       =   &H00000040&
+            Height          =   375
+            Left            =   135
+            TabIndex        =   164
+            Top             =   1035
+            Width           =   1275
+         End
+         Begin VB.Label xRest 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BorderStyle     =   1  'Fixed Single
+            ForeColor       =   &H00000040&
+            Height          =   375
+            Left            =   135
+            TabIndex        =   163
+            Top             =   1440
+            Width           =   1275
+         End
+         Begin VB.Label Label9 
+            AutoSize        =   -1  'True
+            BackColor       =   &H00E0E0E0&
+            BackStyle       =   0  'Transparent
+            Caption         =   "«·„œ›Ê⁄ ‰ﬁœÌ"
+            BeginProperty Font 
+               Name            =   "Arial"
+               Size            =   12
+               Charset         =   178
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   285
+            Left            =   1440
+            RightToLeft     =   -1  'True
+            TabIndex        =   162
+            Top             =   1080
+            Width           =   1035
+         End
+         Begin VB.Label Label12 
+            AutoSize        =   -1  'True
+            BackColor       =   &H00E0E0E0&
+            BackStyle       =   0  'Transparent
+            Caption         =   "«·»«ﬁÌ «·‰ﬁœÌ"
+            BeginProperty Font 
+               Name            =   "Arial"
+               Size            =   12
+               Charset         =   178
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   285
+            Left            =   1485
+            RightToLeft     =   -1  'True
+            TabIndex        =   161
+            Top             =   1485
+            Width           =   990
+         End
+      End
+      Begin VB.Frame Frame6 
+         BackColor       =   &H00FFFFFF&
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   178
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   645
+         Left            =   90
+         RightToLeft     =   -1  'True
+         TabIndex        =   154
+         Top             =   1440
+         Width           =   3525
+         Begin Threed.SSCommand cmdFirst 
+            Height          =   420
+            Left            =   2610
+            TabIndex        =   155
+            TabStop         =   0   'False
+            Top             =   135
+            Width           =   825
+            _ExtentX        =   1455
+            _ExtentY        =   741
+            _Version        =   196610
+            BackColor       =   16777215
+            PictureFrames   =   1
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Arial"
+               Size            =   11.25
+               Charset         =   178
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Picture         =   "Sales.frx":0000
+            Caption         =   "√Ê·"
+            ButtonStyle     =   3
+            PictureAlignment=   10
+            BevelWidth      =   0
+            PictureDisabledFrames=   1
+            PictureDisabled =   "Sales.frx":21A7
+         End
+         Begin Threed.SSCommand cmdPrevious 
+            Height          =   420
+            Left            =   1710
+            TabIndex        =   156
+            TabStop         =   0   'False
+            Top             =   135
+            Width           =   870
+            _ExtentX        =   1535
+            _ExtentY        =   741
+            _Version        =   196610
+            BackColor       =   16777215
+            PictureFrames   =   1
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Arial"
+               Size            =   11.25
+               Charset         =   178
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Picture         =   "Sales.frx":41EE
+            Caption         =   "”«»ﬁ"
+            ButtonStyle     =   3
+            PictureAlignment=   10
+            BevelWidth      =   0
+            PictureDisabledFrames=   1
+            PictureDisabled =   "Sales.frx":62D9
+         End
+         Begin Threed.SSCommand cmdNext 
+            Height          =   420
+            Left            =   855
+            TabIndex        =   157
+            TabStop         =   0   'False
+            Top             =   135
+            Width           =   825
+            _ExtentX        =   1455
+            _ExtentY        =   741
+            _Version        =   196610
+            BackColor       =   16777215
+            PictureFrames   =   1
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Arial"
+               Size            =   11.25
+               Charset         =   178
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Picture         =   "Sales.frx":82D3
+            Caption         =   "·«Õﬁ"
+            ButtonStyle     =   3
+            PictureAlignment=   9
+            BevelWidth      =   0
+            PictureDisabledFrames=   1
+            PictureDisabled =   "Sales.frx":A3E4
+         End
+         Begin Threed.SSCommand cmdLast 
+            Height          =   420
+            Left            =   45
+            TabIndex        =   158
+            TabStop         =   0   'False
+            Top             =   135
+            Width           =   780
+            _ExtentX        =   1376
+            _ExtentY        =   741
+            _Version        =   196610
+            BackColor       =   16777215
+            PictureFrames   =   1
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Arial"
+               Size            =   11.25
+               Charset         =   178
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Picture         =   "Sales.frx":C3DE
+            Caption         =   "√ŒÌ—"
+            ButtonStyle     =   3
+            PictureAlignment=   9
+            BevelWidth      =   0
+            PictureDisabledFrames=   1
+            PictureDisabled =   "Sales.frx":E602
+         End
+      End
+      Begin VB.Frame FrOffer 
+         BackColor       =   &H00FFFFFF&
+         Caption         =   "„— Ã⁄ Ê«” »œ«· ⁄—Ê÷"
+         Height          =   1410
+         Left            =   90
+         RightToLeft     =   -1  'True
+         TabIndex        =   149
+         Top             =   45
+         Width           =   3480
+         Begin VB.TextBox xdoc_ret 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BackColor       =   &H00FFFFFF&
+            Height          =   360
+            Left            =   90
+            MaxLength       =   12
+            TabIndex        =   150
+            TabStop         =   0   'False
+            Top             =   315
+            Width           =   2850
+         End
+         Begin Threed.SSCommand cmdRefund 
+            Height          =   510
+            Left            =   1575
+            TabIndex        =   151
+            TabStop         =   0   'False
+            Top             =   765
+            Width           =   1365
+            _ExtentX        =   2408
+            _ExtentY        =   900
+            _Version        =   196610
+            ForeColor       =   0
+            BackColor       =   16777215
+            PictureFrames   =   1
+            Enabled         =   0   'False
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Arial"
+               Size            =   11.25
+               Charset         =   178
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Picture         =   "Sales.frx":106D3
+            Caption         =   "„— Ã⁄"
+            ButtonStyle     =   3
+            PictureAlignment=   9
+            BevelWidth      =   0
+            PictureDisabledFrames=   1
+            ShapeSize       =   1
+            PictureDisabled =   "Sales.frx":12B7E
+         End
+         Begin Threed.SSCommand cmdReplace 
+            Height          =   510
+            Left            =   90
+            TabIndex        =   152
+            TabStop         =   0   'False
+            Top             =   765
+            Width           =   1455
+            _ExtentX        =   2566
+            _ExtentY        =   900
+            _Version        =   196610
+            ForeColor       =   0
+            BackColor       =   16777215
+            PictureFrames   =   1
+            Enabled         =   0   'False
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Arial"
+               Size            =   11.25
+               Charset         =   178
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Picture         =   "Sales.frx":14E65
+            Caption         =   "«” »œ«·"
+            ButtonStyle     =   3
+            PictureAlignment=   9
+            BevelWidth      =   0
+            PictureDisabledFrames=   1
+            ShapeSize       =   1
+            PictureDisabled =   "Sales.frx":17310
+         End
+         Begin VB.Label Label14 
+            BackColor       =   &H00FFFFFF&
+            Caption         =   "—ﬁ„"
+            Height          =   285
+            Left            =   3060
+            TabIndex        =   153
+            Top             =   405
+            Width           =   375
+         End
+      End
+      Begin VB.Frame Frame16 
+         BackColor       =   &H00FFFFFF&
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   178
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   2535
+         Left            =   10485
+         TabIndex        =   130
+         Top             =   135
+         Width           =   4830
+         Begin VB.CheckBox xIsRet 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BackColor       =   &H80000005&
+            Caption         =   "”„«Õ »„— Ã⁄"
+            ForeColor       =   &H80000008&
+            Height          =   375
+            Left            =   135
+            RightToLeft     =   -1  'True
+            TabIndex        =   14
+            TabStop         =   0   'False
+            Top             =   1980
+            Visible         =   0   'False
+            Width           =   1410
+         End
+         Begin VB.TextBox xDiscount_add_rate 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BackColor       =   &H00FFFFFF&
+            Enabled         =   0   'False
+            ForeColor       =   &H00400000&
+            Height          =   330
+            Left            =   2115
+            MaxLength       =   10
+            TabIndex        =   9
+            TabStop         =   0   'False
+            Top             =   1260
+            Width           =   555
+         End
+         Begin VB.TextBox xRate 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BackColor       =   &H00FFFFFF&
+            Enabled         =   0   'False
+            ForeColor       =   &H00400000&
+            Height          =   330
+            Left            =   2115
+            MaxLength       =   10
+            TabIndex        =   12
+            TabStop         =   0   'False
+            Top             =   1620
+            Width           =   555
+         End
+         Begin VB.TextBox xDiscount_add 
+            Alignment       =   2  'Center
+            Appearance      =   0  'Flat
+            Enabled         =   0   'False
+            ForeColor       =   &H00400000&
+            Height          =   330
+            Left            =   2700
+            MaxLength       =   15
+            TabIndex        =   8
+            TabStop         =   0   'False
+            Top             =   1260
+            Width           =   870
+         End
+         Begin VB.TextBox xDiscount 
+            Alignment       =   2  'Center
+            Appearance      =   0  'Flat
+            Enabled         =   0   'False
+            ForeColor       =   &H00400000&
+            Height          =   330
+            Left            =   2700
+            MaxLength       =   15
+            TabIndex        =   11
+            TabStop         =   0   'False
+            Top             =   1620
+            Width           =   870
+         End
+         Begin Threed.SSCommand cmd_disc 
+            Height          =   330
+            Left            =   1710
+            TabIndex        =   13
+            TabStop         =   0   'False
+            Top             =   1620
+            Width           =   375
+            _ExtentX        =   661
+            _ExtentY        =   582
+            _Version        =   196610
+            ForeColor       =   0
+            BackColor       =   16777215
+            Enabled         =   0   'False
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Arial"
+               Size            =   11.25
+               Charset         =   178
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Caption         =   "%"
+            Alignment       =   8
+            ButtonStyle     =   3
+            PictureAlignment=   11
+            BevelWidth      =   0
+            ShapeSize       =   1
+         End
+         Begin Threed.SSCommand cmdDiscount_rate_add 
+            Height          =   330
+            Left            =   1710
+            TabIndex        =   10
+            TabStop         =   0   'False
+            Top             =   1260
+            Width           =   375
+            _ExtentX        =   661
+            _ExtentY        =   582
+            _Version        =   196610
+            ForeColor       =   0
+            BackColor       =   16777215
+            Enabled         =   0   'False
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Arial"
+               Size            =   11.25
+               Charset         =   178
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Caption         =   "%"
+            Alignment       =   8
+            ButtonStyle     =   3
+            PictureAlignment=   11
+            BevelWidth      =   0
+            ShapeSize       =   1
+         End
+         Begin VB.Shape Shape1 
+            Height          =   330
+            Left            =   2115
+            Top             =   1980
+            Width           =   1455
+         End
+         Begin VB.Label xTotal 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BorderStyle     =   1  'Fixed Single
+            Height          =   330
+            Left            =   2115
+            TabIndex        =   148
+            Top             =   1980
+            Width           =   1455
+         End
+         Begin VB.Label lblOffer 
+            AutoSize        =   -1  'True
+            BackColor       =   &H00E0E0E0&
+            BackStyle       =   0  'Transparent
+            Caption         =   "«·’«›Ì"
+            Height          =   270
+            Left            =   1395
+            RightToLeft     =   -1  'True
+            TabIndex        =   147
+            Top             =   945
+            Visible         =   0   'False
+            Width           =   570
+         End
+         Begin VB.Label xtotalitem_offer 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BorderStyle     =   1  'Fixed Single
+            Height          =   330
+            Left            =   135
+            TabIndex        =   146
+            Top             =   900
+            Visible         =   0   'False
+            Width           =   1185
+         End
+         Begin VB.Label Label20 
+            AutoSize        =   -1  'True
+            BackColor       =   &H00E0E0E0&
+            BackStyle       =   0  'Transparent
+            Caption         =   "Œ’„ «÷«›Ì"
+            Height          =   270
+            Left            =   3645
+            RightToLeft     =   -1  'True
+            TabIndex        =   145
+            Top             =   1305
+            Width           =   945
+         End
+         Begin VB.Label xDiscount_offer_rate 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BorderStyle     =   1  'Fixed Single
+            Height          =   330
+            Left            =   2115
+            TabIndex        =   144
+            Top             =   900
+            Width           =   555
+         End
+         Begin VB.Label xDiscount_offer 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BorderStyle     =   1  'Fixed Single
+            Height          =   330
+            Left            =   2700
+            TabIndex        =   143
+            Top             =   900
+            Width           =   870
+         End
+         Begin VB.Label xtotalitem 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BorderStyle     =   1  'Fixed Single
+            Height          =   330
+            Left            =   135
+            TabIndex        =   142
+            Top             =   540
+            Visible         =   0   'False
+            Width           =   1185
+         End
+         Begin VB.Label lblTotalitem 
+            AutoSize        =   -1  'True
+            BackColor       =   &H00E0E0E0&
+            BackStyle       =   0  'Transparent
+            Caption         =   "«·’«›Ì"
+            Height          =   270
+            Left            =   1395
+            RightToLeft     =   -1  'True
+            TabIndex        =   141
+            Top             =   585
+            Visible         =   0   'False
+            Width           =   570
+         End
+         Begin VB.Label lblDiscount_offer 
+            AutoSize        =   -1  'True
+            BackColor       =   &H00E0E0E0&
+            BackStyle       =   0  'Transparent
+            Caption         =   "Œ’„ ⁄—Ê÷"
+            Height          =   270
+            Left            =   3645
+            RightToLeft     =   -1  'True
+            TabIndex        =   140
+            Top             =   945
+            Width           =   990
+         End
+         Begin VB.Label xTotalItemDiscount_rate 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BorderStyle     =   1  'Fixed Single
+            Height          =   330
+            Left            =   2115
+            TabIndex        =   139
+            Top             =   540
+            Width           =   555
+         End
+         Begin VB.Label Label18 
+            AutoSize        =   -1  'True
+            BackColor       =   &H00E0E0E0&
+            BackStyle       =   0  'Transparent
+            Caption         =   "Œ’„ «’‰«›"
+            Height          =   270
+            Left            =   3645
+            RightToLeft     =   -1  'True
+            TabIndex        =   138
+            Top             =   585
+            Width           =   960
+         End
+         Begin VB.Label Label55 
+            AutoSize        =   -1  'True
+            BackColor       =   &H00E0E0E0&
+            BackStyle       =   0  'Transparent
+            Caption         =   "’«›Ì «·›« Ê—…"
+            Height          =   270
+            Left            =   3645
+            RightToLeft     =   -1  'True
+            TabIndex        =   137
+            Top             =   2025
+            Width           =   1095
+         End
+         Begin VB.Label Label54 
+            AutoSize        =   -1  'True
+            BackColor       =   &H00E0E0E0&
+            BackStyle       =   0  'Transparent
+            Caption         =   "Œ’„ ›« Ê—…"
+            Height          =   270
+            Left            =   3645
+            RightToLeft     =   -1  'True
+            TabIndex        =   136
+            Top             =   1665
+            Width           =   900
+         End
+         Begin VB.Label xTotalItemDiscount 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BorderStyle     =   1  'Fixed Single
+            Height          =   330
+            Left            =   2700
+            TabIndex        =   135
+            Top             =   540
+            Width           =   870
+         End
+         Begin VB.Label xTotalItemNoDiscount 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BorderStyle     =   1  'Fixed Single
+            Height          =   330
+            Left            =   2115
+            TabIndex        =   134
+            Top             =   180
+            Width           =   1455
+         End
+         Begin VB.Label Label40 
+            AutoSize        =   -1  'True
+            BackColor       =   &H00E0E0E0&
+            BackStyle       =   0  'Transparent
+            Caption         =   "ﬁÌ„… «’‰«›"
+            Height          =   270
+            Left            =   3645
+            RightToLeft     =   -1  'True
+            TabIndex        =   133
+            Top             =   225
+            Width           =   900
+         End
+         Begin VB.Label xTotalQuant 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BorderStyle     =   1  'Fixed Single
+            Height          =   330
+            Left            =   135
+            TabIndex        =   132
+            Top             =   180
+            Width           =   1185
+         End
+         Begin VB.Label lblQuant 
+            AutoSize        =   -1  'True
+            BackColor       =   &H00E0E0E0&
+            BackStyle       =   0  'Transparent
+            Caption         =   "⁄œœ ﬁÿ⁄"
+            Height          =   270
+            Left            =   1395
+            RightToLeft     =   -1  'True
+            TabIndex        =   131
+            Top             =   225
+            Width           =   630
+         End
+      End
+      Begin VB.Frame Frame11 
+         BackColor       =   &H00FFFFFF&
+         Height          =   735
+         Index           =   0
+         Left            =   90
+         TabIndex        =   126
+         Top             =   1980
+         Width           =   3525
+         Begin VB.OptionButton optType 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BackColor       =   &H80000005&
+            Caption         =   "„— Ã⁄« "
+            ForeColor       =   &H80000008&
+            Height          =   270
+            Index           =   2
+            Left            =   135
+            TabIndex        =   129
+            Top             =   270
+            Width           =   1050
+         End
+         Begin VB.OptionButton optType 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BackColor       =   &H80000005&
+            Caption         =   "„»Ì⁄« "
+            ForeColor       =   &H80000008&
+            Height          =   270
+            Index           =   1
+            Left            =   1260
+            TabIndex        =   128
+            Top             =   270
+            Width           =   915
+         End
+         Begin VB.OptionButton optType 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BackColor       =   &H80000005&
+            Caption         =   "«·ﬂ·"
+            ForeColor       =   &H80000008&
+            Height          =   270
+            Index           =   0
+            Left            =   2565
+            TabIndex        =   127
+            Top             =   270
+            Value           =   -1  'True
+            Width           =   690
+         End
+      End
+      Begin VB.Frame frClose 
+         BackColor       =   &H00FFFFFF&
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   9.75
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   690
+         Left            =   7515
+         TabIndex        =   122
+         Top             =   1980
+         Width           =   2895
+         Begin VB.OptionButton optclosed 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BackColor       =   &H80000005&
+            Caption         =   "„› ÊÕ…"
+            ForeColor       =   &H80000008&
+            Height          =   270
+            Index           =   1
+            Left            =   990
+            TabIndex        =   125
+            TabStop         =   0   'False
+            Top             =   270
+            Width           =   915
+         End
+         Begin VB.OptionButton optclosed 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BackColor       =   &H80000005&
+            Caption         =   "„€·ﬁ…"
+            ForeColor       =   &H80000008&
+            Height          =   270
+            Index           =   2
+            Left            =   135
+            TabIndex        =   124
+            TabStop         =   0   'False
+            Top             =   270
+            Width           =   735
+         End
+         Begin VB.OptionButton optclosed 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BackColor       =   &H80000005&
+            Caption         =   "«·ﬂ·"
+            ForeColor       =   &H80000008&
+            Height          =   270
+            Index           =   0
+            Left            =   2115
+            TabIndex        =   123
+            TabStop         =   0   'False
+            Top             =   270
+            Value           =   -1  'True
+            Width           =   690
+         End
+      End
+      Begin Threed.SSCommand cmdAddOffer 
+         Height          =   555
+         Left            =   3645
+         TabIndex        =   168
+         TabStop         =   0   'False
+         Top             =   2115
+         Width           =   3840
+         _ExtentX        =   6773
+         _ExtentY        =   979
+         _Version        =   196610
+         ForeColor       =   0
+         BackColor       =   16777215
+         PictureFrames   =   1
+         Enabled         =   0   'False
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Picture         =   "Sales.frx":19601
+         Caption         =   "«÷«›… ⁄—÷"
+         ButtonStyle     =   2
+         PictureAlignment=   9
+         BevelWidth      =   0
+         PictureDisabledFrames=   1
+         ShapeSize       =   1
+         PictureDisabled =   "Sales.frx":1BA61
+      End
+      Begin VSFlex7Ctl.VSFlexGrid GrdOffer 
+         Height          =   1860
+         Left            =   3645
+         TabIndex        =   169
+         Top             =   180
+         Width           =   3840
+         _cx             =   6773
+         _cy             =   3281
+         _ConvInfo       =   1
+         Appearance      =   0
+         BorderStyle     =   1
+         Enabled         =   -1  'True
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         MousePointer    =   0
+         BackColor       =   -2147483643
+         ForeColor       =   -2147483640
+         BackColorFixed  =   14737632
+         ForeColorFixed  =   0
+         BackColorSel    =   12648447
+         ForeColorSel    =   -2147483630
+         BackColorBkg    =   -2147483636
+         BackColorAlternate=   -2147483643
+         GridColor       =   12632256
+         GridColorFixed  =   -2147483632
+         TreeColor       =   -2147483632
+         FloodColor      =   192
+         SheetBorder     =   -2147483642
+         FocusRect       =   2
+         HighLight       =   1
+         AllowSelection  =   -1  'True
+         AllowBigSelection=   0   'False
+         AllowUserResizing=   0
+         SelectionMode   =   3
+         GridLines       =   1
+         GridLinesFixed  =   1
+         GridLineWidth   =   1
+         Rows            =   1
+         Cols            =   2
+         FixedRows       =   1
+         FixedCols       =   0
+         RowHeightMin    =   0
+         RowHeightMax    =   0
+         ColWidthMin     =   0
+         ColWidthMax     =   0
+         ExtendLastCol   =   0   'False
+         FormatString    =   ""
+         ScrollTrack     =   0   'False
+         ScrollBars      =   3
+         ScrollTips      =   0   'False
+         MergeCells      =   0
+         MergeCompare    =   0
+         AutoResize      =   0   'False
+         AutoSizeMode    =   0
+         AutoSearch      =   0
+         AutoSearchDelay =   2
+         MultiTotals     =   -1  'True
+         SubtotalPosition=   1
+         OutlineBar      =   0
+         OutlineCol      =   0
+         Ellipsis        =   0
+         ExplorerBar     =   0
+         PicturesOver    =   0   'False
+         FillStyle       =   0
+         RightToLeft     =   -1  'True
+         PictureType     =   0
+         TabBehavior     =   1
+         OwnerDraw       =   0
+         Editable        =   0
+         ShowComboButton =   -1  'True
+         WordWrap        =   -1  'True
+         TextStyle       =   0
+         TextStyleFixed  =   0
+         OleDragMode     =   0
+         OleDropMode     =   0
+         DataMode        =   0
+         VirtualData     =   -1  'True
+         DataMember      =   ""
+         ComboSearch     =   3
+         AutoSizeMouse   =   0   'False
+         FrozenRows      =   0
+         FrozenCols      =   0
+         AllowUserFreezing=   0
+         BackColorFrozen =   0
+         ForeColorFrozen =   0
+         WallPaperAlignment=   9
+      End
+   End
    Begin VSFlex7Ctl.VSFlexGrid grid1 
       Height          =   4695
       Left            =   90
-      TabIndex        =   3
+      TabIndex        =   7
       Top             =   2430
       Width           =   15135
       _cx             =   26696
@@ -128,13 +1104,13 @@ Begin VB.Form sales_abdfrm
       BackColor       =   &H00FFFFFF&
       Height          =   735
       Left            =   90
-      TabIndex        =   166
+      TabIndex        =   117
       Top             =   -45
       Width           =   3795
       Begin Threed.SSCommand cmdinformbarcode 
          Height          =   510
          Left            =   1890
-         TabIndex        =   167
+         TabIndex        =   118
          TabStop         =   0   'False
          Top             =   180
          Width           =   1860
@@ -161,7 +1137,7 @@ Begin VB.Form sales_abdfrm
       Begin Threed.SSCommand SSCommand1 
          Height          =   510
          Left            =   45
-         TabIndex        =   168
+         TabIndex        =   119
          TabStop         =   0   'False
          Top             =   180
          Width           =   1815
@@ -200,7 +1176,7 @@ Begin VB.Form sales_abdfrm
       EndProperty
       Height          =   600
       Left            =   765
-      TabIndex        =   162
+      TabIndex        =   115
       Top             =   1215
       Visible         =   0   'False
       Width           =   1770
@@ -213,7 +1189,7 @@ Begin VB.Form sales_abdfrm
          Height          =   285
          Left            =   315
          RightToLeft     =   -1  'True
-         TabIndex        =   163
+         TabIndex        =   116
          TabStop         =   0   'False
          Top             =   225
          Width           =   1275
@@ -232,7 +1208,7 @@ Begin VB.Form sales_abdfrm
       EndProperty
       Height          =   4875
       Left            =   15390
-      TabIndex        =   26
+      TabIndex        =   34
       Top             =   8775
       Visible         =   0   'False
       Width           =   9285
@@ -244,7 +1220,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H80000008&
          Height          =   285
          Left            =   2025
-         TabIndex        =   161
+         TabIndex        =   114
          TabStop         =   0   'False
          Top             =   2520
          Visible         =   0   'False
@@ -263,7 +1239,7 @@ Begin VB.Form sales_abdfrm
          EndProperty
          Height          =   645
          Left            =   -450
-         TabIndex        =   139
+         TabIndex        =   106
          Top             =   -90
          Width           =   3570
          Begin VB.TextBox xdate1 
@@ -274,14 +1250,14 @@ Begin VB.Form sales_abdfrm
             Left            =   945
             MaxLength       =   10
             RightToLeft     =   -1  'True
-            TabIndex        =   140
+            TabIndex        =   107
             Top             =   180
             Width           =   1185
          End
          Begin Threed.SSCommand DAYALL1 
             Height          =   375
             Left            =   90
-            TabIndex        =   141
+            TabIndex        =   108
             TabStop         =   0   'False
             Top             =   180
             Width           =   825
@@ -300,21 +1276,21 @@ Begin VB.Form sales_abdfrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Picture         =   "Sales.frx":0000
+            Picture         =   "Sales.frx":1DCC3
             Alignment       =   8
             ButtonStyle     =   3
             PictureAlignment=   11
             BevelWidth      =   0
             PictureDisabledFrames=   1
             ShapeSize       =   1
-            PictureDisabled =   "Sales.frx":2202
+            PictureDisabled =   "Sales.frx":1FEC5
          End
          Begin VB.Label Label7 
             BackColor       =   &H00FFFFFF&
             Caption         =   "«· «—ÌŒ"
             Height          =   285
             Left            =   2610
-            TabIndex        =   142
+            TabIndex        =   109
             Tag             =   "Color"
             Top             =   225
             Width           =   555
@@ -327,7 +1303,7 @@ Begin VB.Form sales_abdfrm
          Left            =   540
          MaxLength       =   6
          RightToLeft     =   -1  'True
-         TabIndex        =   130
+         TabIndex        =   100
          TabStop         =   0   'False
          Top             =   1440
          Visible         =   0   'False
@@ -351,7 +1327,7 @@ Begin VB.Form sales_abdfrm
          Height          =   285
          Left            =   225
          RightToLeft     =   -1  'True
-         TabIndex        =   128
+         TabIndex        =   98
          Top             =   3645
          Width           =   1005
       End
@@ -359,7 +1335,7 @@ Begin VB.Form sales_abdfrm
          Caption         =   "—’Ìœ «·’‰›"
          Height          =   690
          Left            =   4680
-         TabIndex        =   83
+         TabIndex        =   91
          Top             =   3105
          Width           =   1365
          Begin VB.Label xBalance 
@@ -380,7 +1356,7 @@ Begin VB.Form sales_abdfrm
             ForeColor       =   &H80000008&
             Height          =   420
             Left            =   45
-            TabIndex        =   84
+            TabIndex        =   92
             Top             =   180
             Width           =   1275
          End
@@ -399,7 +1375,7 @@ Begin VB.Form sales_abdfrm
          Height          =   1050
          Left            =   1530
          RightToLeft     =   -1  'True
-         TabIndex        =   61
+         TabIndex        =   69
          Top             =   3645
          Width           =   6090
          Begin VB.TextBox xfilter 
@@ -418,7 +1394,7 @@ Begin VB.Form sales_abdfrm
             Height          =   375
             Left            =   3510
             RightToLeft     =   -1  'True
-            TabIndex        =   65
+            TabIndex        =   73
             TabStop         =   0   'False
             ToolTipText     =   "»ÕÀ"
             Top             =   180
@@ -440,7 +1416,7 @@ Begin VB.Form sales_abdfrm
             Height          =   375
             Left            =   45
             RightToLeft     =   -1  'True
-            TabIndex        =   64
+            TabIndex        =   72
             TabStop         =   0   'False
             ToolTipText     =   "»ÕÀ"
             Top             =   180
@@ -462,7 +1438,7 @@ Begin VB.Form sales_abdfrm
             Height          =   375
             Left            =   45
             RightToLeft     =   -1  'True
-            TabIndex        =   63
+            TabIndex        =   71
             TabStop         =   0   'False
             ToolTipText     =   "»ÕÀ"
             Top             =   585
@@ -484,7 +1460,7 @@ Begin VB.Form sales_abdfrm
             Height          =   375
             Left            =   2565
             RightToLeft     =   -1  'True
-            TabIndex        =   62
+            TabIndex        =   70
             TabStop         =   0   'False
             ToolTipText     =   "»ÕÀ"
             Top             =   585
@@ -504,7 +1480,7 @@ Begin VB.Form sales_abdfrm
             Height          =   240
             Left            =   5040
             RightToLeft     =   -1  'True
-            TabIndex        =   69
+            TabIndex        =   77
             Top             =   270
             Width           =   885
          End
@@ -522,7 +1498,7 @@ Begin VB.Form sales_abdfrm
             Height          =   240
             Left            =   1890
             RightToLeft     =   -1  'True
-            TabIndex        =   68
+            TabIndex        =   76
             Top             =   180
             Width           =   885
          End
@@ -540,7 +1516,7 @@ Begin VB.Form sales_abdfrm
             Height          =   240
             Left            =   1980
             RightToLeft     =   -1  'True
-            TabIndex        =   67
+            TabIndex        =   75
             Top             =   630
             Width           =   885
          End
@@ -558,7 +1534,7 @@ Begin VB.Form sales_abdfrm
             Height          =   240
             Left            =   4995
             RightToLeft     =   -1  'True
-            TabIndex        =   66
+            TabIndex        =   74
             Top             =   630
             Width           =   885
          End
@@ -575,14 +1551,14 @@ Begin VB.Form sales_abdfrm
          EndProperty
          Height          =   780
          Left            =   1890
-         TabIndex        =   56
+         TabIndex        =   64
          Top             =   2430
          Width           =   4695
          Begin Threed.SSCommand LOOKPH 
             CausesValidation=   0   'False
             Height          =   600
             Left            =   90
-            TabIndex        =   57
+            TabIndex        =   65
             TabStop         =   0   'False
             Top             =   135
             Width           =   1185
@@ -601,7 +1577,7 @@ Begin VB.Form sales_abdfrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Picture         =   "Sales.frx":431E
+            Picture         =   "Sales.frx":21FE1
             Caption         =   "≈” ⁄·«„ ’Ê—"
             Alignment       =   1
             ButtonStyle     =   1
@@ -613,7 +1589,7 @@ Begin VB.Form sales_abdfrm
             CausesValidation=   0   'False
             Height          =   600
             Left            =   3420
-            TabIndex        =   58
+            TabIndex        =   66
             Top             =   135
             Width           =   1230
             _ExtentX        =   2170
@@ -647,7 +1623,7 @@ Begin VB.Form sales_abdfrm
          EndProperty
          Height          =   330
          Left            =   810
-         TabIndex        =   55
+         TabIndex        =   63
          Top             =   2835
          Width           =   1230
       End
@@ -665,7 +1641,7 @@ Begin VB.Form sales_abdfrm
          EndProperty
          Height          =   285
          Left            =   2745
-         TabIndex        =   51
+         TabIndex        =   59
          Top             =   1170
          Visible         =   0   'False
          Width           =   195
@@ -683,7 +1659,7 @@ Begin VB.Form sales_abdfrm
          EndProperty
          Height          =   285
          Left            =   3555
-         TabIndex        =   49
+         TabIndex        =   57
          Top             =   2070
          Width           =   195
       End
@@ -705,7 +1681,7 @@ Begin VB.Form sales_abdfrm
          Height          =   285
          Left            =   405
          RightToLeft     =   -1  'True
-         TabIndex        =   48
+         TabIndex        =   56
          Top             =   2070
          Width           =   1005
       End
@@ -725,7 +1701,7 @@ Begin VB.Form sales_abdfrm
          Height          =   330
          Left            =   2430
          MaxLength       =   10
-         TabIndex        =   45
+         TabIndex        =   53
          TabStop         =   0   'False
          Top             =   765
          Width           =   1185
@@ -746,7 +1722,7 @@ Begin VB.Form sales_abdfrm
          ScaleHeight     =   118
          ScaleMode       =   3  'Pixel
          ScaleWidth      =   151
-         TabIndex        =   28
+         TabIndex        =   36
          Top             =   1305
          Visible         =   0   'False
          Width           =   2325
@@ -754,7 +1730,7 @@ Begin VB.Form sales_abdfrm
       Begin MSDataListLib.DataCombo xMosm 
          Height          =   315
          Left            =   2970
-         TabIndex        =   52
+         TabIndex        =   60
          Top             =   0
          Width           =   1005
          _ExtentX        =   1773
@@ -965,7 +1941,7 @@ Begin VB.Form sales_abdfrm
       Begin MSDataListLib.DataCombo xStore 
          Height          =   315
          Left            =   675
-         TabIndex        =   70
+         TabIndex        =   78
          TabStop         =   0   'False
          Top             =   3195
          Width           =   2040
@@ -990,7 +1966,7 @@ Begin VB.Form sales_abdfrm
       Begin MSDataListLib.DataCombo xBoxVISA 
          Height          =   315
          Left            =   5805
-         TabIndex        =   72
+         TabIndex        =   80
          TabStop         =   0   'False
          Top             =   315
          Visible         =   0   'False
@@ -1156,7 +2132,7 @@ Begin VB.Form sales_abdfrm
       Begin Threed.SSCommand cmdShowPhones 
          Height          =   510
          Left            =   675
-         TabIndex        =   138
+         TabIndex        =   105
          TabStop         =   0   'False
          Top             =   450
          Width           =   2400
@@ -1176,7 +2152,7 @@ Begin VB.Form sales_abdfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "Sales.frx":687C
+         Picture         =   "Sales.frx":2453F
          Caption         =   "⁄—÷ «·⁄„·«¡"
          ButtonStyle     =   2
          PictureAlignment=   9
@@ -1192,7 +2168,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H80000008&
          Height          =   330
          Left            =   0
-         TabIndex        =   136
+         TabIndex        =   104
          Top             =   0
          Width           =   1005
       End
@@ -1212,7 +2188,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H00000040&
          Height          =   375
          Left            =   90
-         TabIndex        =   135
+         TabIndex        =   103
          Top             =   1170
          Width           =   915
       End
@@ -1232,7 +2208,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H00000040&
          Height          =   375
          Left            =   0
-         TabIndex        =   121
+         TabIndex        =   96
          Top             =   0
          Visible         =   0   'False
          Width           =   1455
@@ -1253,7 +2229,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H00000040&
          Height          =   375
          Left            =   4005
-         TabIndex        =   120
+         TabIndex        =   95
          Top             =   270
          Visible         =   0   'False
          Width           =   1455
@@ -1263,7 +2239,7 @@ Begin VB.Form sales_abdfrm
          Caption         =   "«·„” Œœ„"
          Height          =   285
          Left            =   0
-         TabIndex        =   85
+         TabIndex        =   93
          Top             =   0
          Width           =   555
       End
@@ -1283,7 +2259,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H00000040&
          Height          =   375
          Left            =   360
-         TabIndex        =   73
+         TabIndex        =   81
          Top             =   2385
          Visible         =   0   'False
          Width           =   1455
@@ -1295,7 +2271,7 @@ Begin VB.Form sales_abdfrm
          Height          =   270
          Left            =   2805
          RightToLeft     =   -1  'True
-         TabIndex        =   71
+         TabIndex        =   79
          Top             =   3285
          Width           =   540
       End
@@ -1315,7 +2291,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H00000040&
          Height          =   555
          Left            =   4950
-         TabIndex        =   60
+         TabIndex        =   68
          Top             =   855
          Width           =   2535
       End
@@ -1328,7 +2304,7 @@ Begin VB.Form sales_abdfrm
          Height          =   540
          Left            =   7200
          RightToLeft     =   -1  'True
-         TabIndex        =   59
+         TabIndex        =   67
          Top             =   90
          Width           =   1050
          WordWrap        =   -1  'True
@@ -1339,7 +2315,7 @@ Begin VB.Form sales_abdfrm
          Height          =   270
          Left            =   3690
          RightToLeft     =   -1  'True
-         TabIndex        =   47
+         TabIndex        =   55
          Top             =   825
          Width           =   450
       End
@@ -1361,7 +2337,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H80000008&
          Height          =   330
          Left            =   90
-         TabIndex        =   46
+         TabIndex        =   54
          Top             =   780
          Width           =   2310
       End
@@ -1374,7 +2350,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H000000C0&
          Height          =   315
          Left            =   1440
-         TabIndex        =   27
+         TabIndex        =   35
          Top             =   405
          Visible         =   0   'False
          Width           =   675
@@ -1395,978 +2371,12 @@ Begin VB.Form sales_abdfrm
       Height          =   330
       Left            =   1665
       MaxLength       =   12
-      TabIndex        =   127
+      TabIndex        =   97
       TabStop         =   0   'False
       Tag             =   "1"
       Top             =   720
       Visible         =   0   'False
       Width           =   1995
-   End
-   Begin VB.PictureBox Picture1 
-      Align           =   2  'Align Bottom
-      BackColor       =   &H00FFFFFF&
-      BorderStyle     =   0  'None
-      Height          =   3210
-      Left            =   0
-      ScaleHeight     =   3210
-      ScaleWidth      =   20355
-      TabIndex        =   87
-      Top             =   7410
-      Width           =   20355
-      Begin Threed.SSCommand cmdAddOffer 
-         Height          =   555
-         Left            =   3645
-         TabIndex        =   137
-         TabStop         =   0   'False
-         Top             =   2115
-         Width           =   3840
-         _ExtentX        =   6773
-         _ExtentY        =   979
-         _Version        =   196610
-         ForeColor       =   0
-         BackColor       =   16777215
-         PictureFrames   =   1
-         Enabled         =   0   'False
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Picture         =   "Sales.frx":8D85
-         Caption         =   "«÷«›… ⁄—÷"
-         ButtonStyle     =   2
-         PictureAlignment=   9
-         BevelWidth      =   0
-         PictureDisabledFrames=   1
-         ShapeSize       =   1
-         PictureDisabled =   "Sales.frx":B1E5
-      End
-      Begin VB.Frame frPayment 
-         BackColor       =   &H00FFFFFF&
-         Height          =   1995
-         Left            =   7560
-         TabIndex        =   110
-         Top             =   0
-         Width           =   2850
-         Begin Threed.SSCommand xcash 
-            Height          =   375
-            Left            =   135
-            TabIndex        =   111
-            Top             =   225
-            Width           =   1275
-            _ExtentX        =   2249
-            _ExtentY        =   661
-            _Version        =   196610
-            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   -1  'True
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            TagVariant      =   "«Œ «— «·Œ«„…"
-            Alignment       =   4
-            ButtonStyle     =   3
-         End
-         Begin VB.Label xvisa 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BorderStyle     =   1  'Fixed Single
-            ForeColor       =   &H00000040&
-            Height          =   375
-            Left            =   135
-            TabIndex        =   118
-            Top             =   630
-            Width           =   1275
-         End
-         Begin VB.Label Label3 
-            AutoSize        =   -1  'True
-            BackColor       =   &H00E0E0E0&
-            BackStyle       =   0  'Transparent
-            Caption         =   "”œ«œ ‰ﬁœÏ"
-            BeginProperty Font 
-               Name            =   "Arial"
-               Size            =   12
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            Height          =   285
-            Left            =   1485
-            RightToLeft     =   -1  'True
-            TabIndex        =   117
-            Top             =   270
-            Width           =   780
-         End
-         Begin VB.Label Label6 
-            AutoSize        =   -1  'True
-            BackColor       =   &H00E0E0E0&
-            BackStyle       =   0  'Transparent
-            Caption         =   "”œ«œ ›Ì“«"
-            BeginProperty Font 
-               Name            =   "Arial"
-               Size            =   12
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            Height          =   285
-            Left            =   1485
-            RightToLeft     =   -1  'True
-            TabIndex        =   116
-            Top             =   675
-            Width           =   720
-         End
-         Begin VB.Label xPay 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BorderStyle     =   1  'Fixed Single
-            ForeColor       =   &H00000040&
-            Height          =   375
-            Left            =   135
-            TabIndex        =   115
-            Top             =   1035
-            Width           =   1275
-         End
-         Begin VB.Label xRest 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BorderStyle     =   1  'Fixed Single
-            ForeColor       =   &H00000040&
-            Height          =   375
-            Left            =   135
-            TabIndex        =   114
-            Top             =   1440
-            Width           =   1275
-         End
-         Begin VB.Label Label9 
-            AutoSize        =   -1  'True
-            BackColor       =   &H00E0E0E0&
-            BackStyle       =   0  'Transparent
-            Caption         =   "«·„œ›Ê⁄ ‰ﬁœÌ"
-            BeginProperty Font 
-               Name            =   "Arial"
-               Size            =   12
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            Height          =   285
-            Left            =   1440
-            RightToLeft     =   -1  'True
-            TabIndex        =   113
-            Top             =   1080
-            Width           =   1035
-         End
-         Begin VB.Label Label12 
-            AutoSize        =   -1  'True
-            BackColor       =   &H00E0E0E0&
-            BackStyle       =   0  'Transparent
-            Caption         =   "«·»«ﬁÌ «·‰ﬁœÌ"
-            BeginProperty Font 
-               Name            =   "Arial"
-               Size            =   12
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            Height          =   285
-            Left            =   1485
-            RightToLeft     =   -1  'True
-            TabIndex        =   112
-            Top             =   1485
-            Width           =   990
-         End
-      End
-      Begin VSFlex7Ctl.VSFlexGrid GrdOffer 
-         Height          =   1860
-         Left            =   3645
-         TabIndex        =   119
-         Top             =   180
-         Width           =   3840
-         _cx             =   6773
-         _cy             =   3281
-         _ConvInfo       =   1
-         Appearance      =   0
-         BorderStyle     =   1
-         Enabled         =   -1  'True
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         MousePointer    =   0
-         BackColor       =   -2147483643
-         ForeColor       =   -2147483640
-         BackColorFixed  =   14737632
-         ForeColorFixed  =   0
-         BackColorSel    =   12648447
-         ForeColorSel    =   -2147483630
-         BackColorBkg    =   -2147483636
-         BackColorAlternate=   -2147483643
-         GridColor       =   12632256
-         GridColorFixed  =   -2147483632
-         TreeColor       =   -2147483632
-         FloodColor      =   192
-         SheetBorder     =   -2147483642
-         FocusRect       =   2
-         HighLight       =   1
-         AllowSelection  =   -1  'True
-         AllowBigSelection=   0   'False
-         AllowUserResizing=   0
-         SelectionMode   =   3
-         GridLines       =   1
-         GridLinesFixed  =   1
-         GridLineWidth   =   1
-         Rows            =   1
-         Cols            =   2
-         FixedRows       =   1
-         FixedCols       =   0
-         RowHeightMin    =   0
-         RowHeightMax    =   0
-         ColWidthMin     =   0
-         ColWidthMax     =   0
-         ExtendLastCol   =   0   'False
-         FormatString    =   ""
-         ScrollTrack     =   0   'False
-         ScrollBars      =   3
-         ScrollTips      =   0   'False
-         MergeCells      =   0
-         MergeCompare    =   0
-         AutoResize      =   0   'False
-         AutoSizeMode    =   0
-         AutoSearch      =   0
-         AutoSearchDelay =   2
-         MultiTotals     =   -1  'True
-         SubtotalPosition=   1
-         OutlineBar      =   0
-         OutlineCol      =   0
-         Ellipsis        =   0
-         ExplorerBar     =   0
-         PicturesOver    =   0   'False
-         FillStyle       =   0
-         RightToLeft     =   -1  'True
-         PictureType     =   0
-         TabBehavior     =   1
-         OwnerDraw       =   0
-         Editable        =   0
-         ShowComboButton =   -1  'True
-         WordWrap        =   -1  'True
-         TextStyle       =   0
-         TextStyleFixed  =   0
-         OleDragMode     =   0
-         OleDropMode     =   0
-         DataMode        =   0
-         VirtualData     =   -1  'True
-         DataMember      =   ""
-         ComboSearch     =   3
-         AutoSizeMouse   =   0   'False
-         FrozenRows      =   0
-         FrozenCols      =   0
-         AllowUserFreezing=   0
-         BackColorFrozen =   0
-         ForeColorFrozen =   0
-         WallPaperAlignment=   9
-      End
-      Begin VB.Frame Frame6 
-         BackColor       =   &H00FFFFFF&
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   8.25
-            Charset         =   178
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   645
-         Left            =   90
-         RightToLeft     =   -1  'True
-         TabIndex        =   122
-         Top             =   1440
-         Width           =   3525
-         Begin Threed.SSCommand cmdFirst 
-            Height          =   420
-            Left            =   2610
-            TabIndex        =   123
-            TabStop         =   0   'False
-            Top             =   135
-            Width           =   825
-            _ExtentX        =   1455
-            _ExtentY        =   741
-            _Version        =   196610
-            BackColor       =   16777215
-            PictureFrames   =   1
-            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            Picture         =   "Sales.frx":D447
-            Caption         =   "√Ê·"
-            ButtonStyle     =   3
-            PictureAlignment=   10
-            BevelWidth      =   0
-            PictureDisabledFrames=   1
-            PictureDisabled =   "Sales.frx":F5EE
-         End
-         Begin Threed.SSCommand cmdPrevious 
-            Height          =   420
-            Left            =   1710
-            TabIndex        =   124
-            TabStop         =   0   'False
-            Top             =   135
-            Width           =   870
-            _ExtentX        =   1535
-            _ExtentY        =   741
-            _Version        =   196610
-            BackColor       =   16777215
-            PictureFrames   =   1
-            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            Picture         =   "Sales.frx":11635
-            Caption         =   "”«»ﬁ"
-            ButtonStyle     =   3
-            PictureAlignment=   10
-            BevelWidth      =   0
-            PictureDisabledFrames=   1
-            PictureDisabled =   "Sales.frx":13720
-         End
-         Begin Threed.SSCommand cmdNext 
-            Height          =   420
-            Left            =   855
-            TabIndex        =   125
-            TabStop         =   0   'False
-            Top             =   135
-            Width           =   825
-            _ExtentX        =   1455
-            _ExtentY        =   741
-            _Version        =   196610
-            BackColor       =   16777215
-            PictureFrames   =   1
-            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            Picture         =   "Sales.frx":1571A
-            Caption         =   "·«Õﬁ"
-            ButtonStyle     =   3
-            PictureAlignment=   9
-            BevelWidth      =   0
-            PictureDisabledFrames=   1
-            PictureDisabled =   "Sales.frx":1782B
-         End
-         Begin Threed.SSCommand cmdLast 
-            Height          =   420
-            Left            =   45
-            TabIndex        =   126
-            TabStop         =   0   'False
-            Top             =   135
-            Width           =   780
-            _ExtentX        =   1376
-            _ExtentY        =   741
-            _Version        =   196610
-            BackColor       =   16777215
-            PictureFrames   =   1
-            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            Picture         =   "Sales.frx":19825
-            Caption         =   "√ŒÌ—"
-            ButtonStyle     =   3
-            PictureAlignment=   9
-            BevelWidth      =   0
-            PictureDisabledFrames=   1
-            PictureDisabled =   "Sales.frx":1BA49
-         End
-      End
-      Begin VB.Frame FrOffer 
-         BackColor       =   &H00FFFFFF&
-         Caption         =   "„— Ã⁄ Ê«” »œ«· ⁄—Ê÷"
-         Height          =   1410
-         Left            =   90
-         RightToLeft     =   -1  'True
-         TabIndex        =   88
-         Top             =   45
-         Width           =   3480
-         Begin VB.TextBox xdoc_ret 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H00FFFFFF&
-            Height          =   360
-            Left            =   90
-            MaxLength       =   12
-            TabIndex        =   89
-            Top             =   315
-            Width           =   2850
-         End
-         Begin Threed.SSCommand cmdRefund 
-            Height          =   510
-            Left            =   1575
-            TabIndex        =   90
-            TabStop         =   0   'False
-            Top             =   765
-            Width           =   1365
-            _ExtentX        =   2408
-            _ExtentY        =   900
-            _Version        =   196610
-            ForeColor       =   0
-            BackColor       =   16777215
-            PictureFrames   =   1
-            Enabled         =   0   'False
-            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            Picture         =   "Sales.frx":1DB1A
-            Caption         =   "„— Ã⁄"
-            ButtonStyle     =   3
-            PictureAlignment=   9
-            BevelWidth      =   0
-            PictureDisabledFrames=   1
-            ShapeSize       =   1
-            PictureDisabled =   "Sales.frx":1FFC5
-         End
-         Begin Threed.SSCommand cmdReplace 
-            Height          =   510
-            Left            =   90
-            TabIndex        =   131
-            TabStop         =   0   'False
-            Top             =   765
-            Width           =   1455
-            _ExtentX        =   2566
-            _ExtentY        =   900
-            _Version        =   196610
-            ForeColor       =   0
-            BackColor       =   16777215
-            PictureFrames   =   1
-            Enabled         =   0   'False
-            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            Picture         =   "Sales.frx":222AC
-            Caption         =   "«” »œ«·"
-            ButtonStyle     =   3
-            PictureAlignment=   9
-            BevelWidth      =   0
-            PictureDisabledFrames=   1
-            ShapeSize       =   1
-            PictureDisabled =   "Sales.frx":24757
-         End
-         Begin VB.Label Label14 
-            BackColor       =   &H00FFFFFF&
-            Caption         =   "—ﬁ„"
-            Height          =   285
-            Left            =   3060
-            TabIndex        =   134
-            Top             =   405
-            Width           =   375
-         End
-      End
-      Begin VB.Frame Frame16 
-         BackColor       =   &H00FFFFFF&
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   8.25
-            Charset         =   178
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   2535
-         Left            =   10485
-         TabIndex        =   99
-         Top             =   135
-         Width           =   4830
-         Begin VB.CheckBox xIsRet 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H80000005&
-            Caption         =   "”„«Õ »„— Ã⁄"
-            ForeColor       =   &H80000008&
-            Height          =   375
-            Left            =   135
-            RightToLeft     =   -1  'True
-            TabIndex        =   165
-            Top             =   1980
-            Visible         =   0   'False
-            Width           =   1410
-         End
-         Begin VB.TextBox xDiscount_add_rate 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H00FFFFFF&
-            Enabled         =   0   'False
-            ForeColor       =   &H00400000&
-            Height          =   330
-            Left            =   2115
-            MaxLength       =   10
-            TabIndex        =   154
-            Top             =   1260
-            Width           =   555
-         End
-         Begin VB.TextBox xRate 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H00FFFFFF&
-            Enabled         =   0   'False
-            ForeColor       =   &H00400000&
-            Height          =   330
-            Left            =   2115
-            MaxLength       =   10
-            TabIndex        =   100
-            Top             =   1620
-            Width           =   555
-         End
-         Begin VB.TextBox xDiscount_add 
-            Alignment       =   2  'Center
-            Appearance      =   0  'Flat
-            Enabled         =   0   'False
-            ForeColor       =   &H00400000&
-            Height          =   330
-            Left            =   2700
-            MaxLength       =   15
-            TabIndex        =   148
-            Top             =   1260
-            Width           =   870
-         End
-         Begin VB.TextBox xDiscount 
-            Alignment       =   2  'Center
-            Appearance      =   0  'Flat
-            Enabled         =   0   'False
-            ForeColor       =   &H00400000&
-            Height          =   330
-            Left            =   2700
-            MaxLength       =   15
-            TabIndex        =   101
-            Top             =   1620
-            Width           =   870
-         End
-         Begin Threed.SSCommand cmd_disc 
-            Height          =   330
-            Left            =   1710
-            TabIndex        =   102
-            TabStop         =   0   'False
-            Top             =   1620
-            Width           =   375
-            _ExtentX        =   661
-            _ExtentY        =   582
-            _Version        =   196610
-            ForeColor       =   0
-            BackColor       =   16777215
-            Enabled         =   0   'False
-            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            Caption         =   "%"
-            Alignment       =   8
-            ButtonStyle     =   3
-            PictureAlignment=   11
-            BevelWidth      =   0
-            ShapeSize       =   1
-         End
-         Begin Threed.SSCommand cmdDiscount_rate_add 
-            Height          =   330
-            Left            =   1710
-            TabIndex        =   155
-            TabStop         =   0   'False
-            Top             =   1260
-            Width           =   375
-            _ExtentX        =   661
-            _ExtentY        =   582
-            _Version        =   196610
-            ForeColor       =   0
-            BackColor       =   16777215
-            Enabled         =   0   'False
-            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            Caption         =   "%"
-            Alignment       =   8
-            ButtonStyle     =   3
-            PictureAlignment=   11
-            BevelWidth      =   0
-            ShapeSize       =   1
-         End
-         Begin VB.Shape Shape1 
-            Height          =   330
-            Left            =   2115
-            Top             =   1980
-            Width           =   1455
-         End
-         Begin VB.Label xTotal 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BorderStyle     =   1  'Fixed Single
-            Height          =   330
-            Left            =   2115
-            TabIndex        =   159
-            Top             =   1980
-            Width           =   1455
-         End
-         Begin VB.Label lblOffer 
-            AutoSize        =   -1  'True
-            BackColor       =   &H00E0E0E0&
-            BackStyle       =   0  'Transparent
-            Caption         =   "«·’«›Ì"
-            Height          =   270
-            Left            =   1395
-            RightToLeft     =   -1  'True
-            TabIndex        =   157
-            Top             =   945
-            Visible         =   0   'False
-            Width           =   570
-         End
-         Begin VB.Label xtotalitem_offer 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BorderStyle     =   1  'Fixed Single
-            Height          =   330
-            Left            =   135
-            TabIndex        =   156
-            Top             =   900
-            Visible         =   0   'False
-            Width           =   1185
-         End
-         Begin VB.Label Label20 
-            AutoSize        =   -1  'True
-            BackColor       =   &H00E0E0E0&
-            BackStyle       =   0  'Transparent
-            Caption         =   "Œ’„ «÷«›Ì"
-            Height          =   270
-            Left            =   3645
-            RightToLeft     =   -1  'True
-            TabIndex        =   153
-            Top             =   1305
-            Width           =   945
-         End
-         Begin VB.Label xDiscount_offer_rate 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BorderStyle     =   1  'Fixed Single
-            Height          =   330
-            Left            =   2115
-            TabIndex        =   152
-            Top             =   900
-            Width           =   555
-         End
-         Begin VB.Label xDiscount_offer 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BorderStyle     =   1  'Fixed Single
-            Height          =   330
-            Left            =   2700
-            TabIndex        =   151
-            Top             =   900
-            Width           =   870
-         End
-         Begin VB.Label xtotalitem 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BorderStyle     =   1  'Fixed Single
-            Height          =   330
-            Left            =   135
-            TabIndex        =   150
-            Top             =   540
-            Visible         =   0   'False
-            Width           =   1185
-         End
-         Begin VB.Label lblTotalitem 
-            AutoSize        =   -1  'True
-            BackColor       =   &H00E0E0E0&
-            BackStyle       =   0  'Transparent
-            Caption         =   "«·’«›Ì"
-            Height          =   270
-            Left            =   1395
-            RightToLeft     =   -1  'True
-            TabIndex        =   149
-            Top             =   585
-            Visible         =   0   'False
-            Width           =   570
-         End
-         Begin VB.Label lblDiscount_offer 
-            AutoSize        =   -1  'True
-            BackColor       =   &H00E0E0E0&
-            BackStyle       =   0  'Transparent
-            Caption         =   "Œ’„ ⁄—Ê÷"
-            Height          =   270
-            Left            =   3645
-            RightToLeft     =   -1  'True
-            TabIndex        =   145
-            Top             =   945
-            Width           =   990
-         End
-         Begin VB.Label xTotalItemDiscount_rate 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BorderStyle     =   1  'Fixed Single
-            Height          =   330
-            Left            =   2115
-            TabIndex        =   144
-            Top             =   540
-            Width           =   555
-         End
-         Begin VB.Label Label18 
-            AutoSize        =   -1  'True
-            BackColor       =   &H00E0E0E0&
-            BackStyle       =   0  'Transparent
-            Caption         =   "Œ’„ «’‰«›"
-            Height          =   270
-            Left            =   3645
-            RightToLeft     =   -1  'True
-            TabIndex        =   143
-            Top             =   585
-            Width           =   960
-         End
-         Begin VB.Label Label55 
-            AutoSize        =   -1  'True
-            BackColor       =   &H00E0E0E0&
-            BackStyle       =   0  'Transparent
-            Caption         =   "’«›Ì «·›« Ê—…"
-            Height          =   270
-            Left            =   3645
-            RightToLeft     =   -1  'True
-            TabIndex        =   109
-            Top             =   2025
-            Width           =   1095
-         End
-         Begin VB.Label Label54 
-            AutoSize        =   -1  'True
-            BackColor       =   &H00E0E0E0&
-            BackStyle       =   0  'Transparent
-            Caption         =   "Œ’„ ›« Ê—…"
-            Height          =   270
-            Left            =   3645
-            RightToLeft     =   -1  'True
-            TabIndex        =   108
-            Top             =   1665
-            Width           =   900
-         End
-         Begin VB.Label xTotalItemDiscount 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BorderStyle     =   1  'Fixed Single
-            Height          =   330
-            Left            =   2700
-            TabIndex        =   107
-            Top             =   540
-            Width           =   870
-         End
-         Begin VB.Label xTotalItemNoDiscount 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BorderStyle     =   1  'Fixed Single
-            Height          =   330
-            Left            =   2115
-            TabIndex        =   106
-            Top             =   180
-            Width           =   1455
-         End
-         Begin VB.Label Label40 
-            AutoSize        =   -1  'True
-            BackColor       =   &H00E0E0E0&
-            BackStyle       =   0  'Transparent
-            Caption         =   "ﬁÌ„… «’‰«›"
-            Height          =   270
-            Left            =   3645
-            RightToLeft     =   -1  'True
-            TabIndex        =   105
-            Top             =   225
-            Width           =   900
-         End
-         Begin VB.Label xTotalQuant 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BorderStyle     =   1  'Fixed Single
-            Height          =   330
-            Left            =   135
-            TabIndex        =   104
-            Top             =   180
-            Width           =   1185
-         End
-         Begin VB.Label lblQuant 
-            AutoSize        =   -1  'True
-            BackColor       =   &H00E0E0E0&
-            BackStyle       =   0  'Transparent
-            Caption         =   "⁄œœ ﬁÿ⁄"
-            Height          =   270
-            Left            =   1395
-            RightToLeft     =   -1  'True
-            TabIndex        =   103
-            Top             =   225
-            Width           =   630
-         End
-      End
-      Begin VB.Frame Frame11 
-         BackColor       =   &H00FFFFFF&
-         Height          =   735
-         Index           =   0
-         Left            =   90
-         TabIndex        =   91
-         Top             =   1980
-         Width           =   3525
-         Begin VB.OptionButton optType 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H80000005&
-            Caption         =   "„— Ã⁄« "
-            ForeColor       =   &H80000008&
-            Height          =   270
-            Index           =   2
-            Left            =   135
-            TabIndex        =   94
-            Top             =   270
-            Width           =   1050
-         End
-         Begin VB.OptionButton optType 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H80000005&
-            Caption         =   "„»Ì⁄« "
-            ForeColor       =   &H80000008&
-            Height          =   270
-            Index           =   1
-            Left            =   1260
-            TabIndex        =   93
-            Top             =   270
-            Width           =   915
-         End
-         Begin VB.OptionButton optType 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H80000005&
-            Caption         =   "«·ﬂ·"
-            ForeColor       =   &H80000008&
-            Height          =   270
-            Index           =   0
-            Left            =   2565
-            TabIndex        =   92
-            Top             =   270
-            Value           =   -1  'True
-            Width           =   690
-         End
-      End
-      Begin VB.Frame frClose 
-         BackColor       =   &H00FFFFFF&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   9.75
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   690
-         Left            =   7515
-         TabIndex        =   95
-         Top             =   1980
-         Width           =   2895
-         Begin VB.OptionButton optclosed 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H80000005&
-            Caption         =   "„› ÊÕ…"
-            ForeColor       =   &H80000008&
-            Height          =   270
-            Index           =   1
-            Left            =   990
-            TabIndex        =   98
-            Top             =   270
-            Width           =   915
-         End
-         Begin VB.OptionButton optclosed 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H80000005&
-            Caption         =   "„€·ﬁ…"
-            ForeColor       =   &H80000008&
-            Height          =   270
-            Index           =   2
-            Left            =   135
-            TabIndex        =   97
-            Top             =   270
-            Width           =   735
-         End
-         Begin VB.OptionButton optclosed 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H80000005&
-            Caption         =   "«·ﬂ·"
-            ForeColor       =   &H80000008&
-            Height          =   270
-            Index           =   0
-            Left            =   2115
-            TabIndex        =   96
-            Top             =   270
-            Value           =   -1  'True
-            Width           =   690
-         End
-      End
    End
    Begin VB.Frame Frame99 
       BeginProperty Font 
@@ -2380,7 +2390,7 @@ Begin VB.Form sales_abdfrm
       EndProperty
       Height          =   1860
       Left            =   17280
-      TabIndex        =   15
+      TabIndex        =   24
       Top             =   5715
       Visible         =   0   'False
       Width           =   3300
@@ -2389,7 +2399,7 @@ Begin VB.Form sales_abdfrm
          Height          =   450
          Left            =   135
          Style           =   1  'Graphical
-         TabIndex        =   16
+         TabIndex        =   25
          Top             =   270
          Width           =   2310
       End
@@ -2401,7 +2411,7 @@ Begin VB.Form sales_abdfrm
          Height          =   270
          Left            =   1035
          RightToLeft     =   -1  'True
-         TabIndex        =   147
+         TabIndex        =   111
          Top             =   1080
          Width           =   525
       End
@@ -2422,7 +2432,7 @@ Begin VB.Form sales_abdfrm
          Height          =   375
          Left            =   0
          RightToLeft     =   -1  'True
-         TabIndex        =   146
+         TabIndex        =   110
          Top             =   1035
          Width           =   1005
       End
@@ -2435,7 +2445,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H000000C0&
          Height          =   330
          Left            =   2610
-         TabIndex        =   20
+         TabIndex        =   29
          Top             =   990
          Width           =   1950
       End
@@ -2448,7 +2458,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H000000C0&
          Height          =   330
          Left            =   2610
-         TabIndex        =   19
+         TabIndex        =   28
          Top             =   1350
          Width           =   1950
       End
@@ -2469,7 +2479,7 @@ Begin VB.Form sales_abdfrm
          EndProperty
          Height          =   285
          Left            =   675
-         TabIndex        =   18
+         TabIndex        =   27
          Top             =   765
          Width           =   960
       End
@@ -2490,7 +2500,7 @@ Begin VB.Form sales_abdfrm
          EndProperty
          Height          =   285
          Left            =   3195
-         TabIndex        =   17
+         TabIndex        =   26
          Top             =   720
          Width           =   735
       End
@@ -2508,13 +2518,13 @@ Begin VB.Form sales_abdfrm
       EndProperty
       Height          =   645
       Left            =   90
-      TabIndex        =   81
+      TabIndex        =   89
       Top             =   1755
       Width           =   2580
       Begin Threed.SSCommand xphone 
          Height          =   465
          Left            =   45
-         TabIndex        =   82
+         TabIndex        =   90
          Top             =   135
          Width           =   2490
          _ExtentX        =   4392
@@ -2552,7 +2562,7 @@ Begin VB.Form sales_abdfrm
       EndProperty
       Height          =   600
       Left            =   4410
-      TabIndex        =   80
+      TabIndex        =   88
       Top             =   1215
       Width           =   1905
       Begin VB.CheckBox xGift 
@@ -2563,7 +2573,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H80000008&
          Height          =   240
          Left            =   180
-         TabIndex        =   158
+         TabIndex        =   112
          TabStop         =   0   'False
          Top             =   225
          Width           =   1545
@@ -2584,13 +2594,13 @@ Begin VB.Form sales_abdfrm
       Index           =   4
       Left            =   6345
       RightToLeft     =   -1  'True
-      TabIndex        =   38
+      TabIndex        =   46
       Top             =   1215
       Width           =   1275
       Begin Threed.SSCommand cmdSave 
          Height          =   465
          Left            =   45
-         TabIndex        =   39
+         TabIndex        =   47
          Top             =   135
          Width           =   1185
          _ExtentX        =   2090
@@ -2621,7 +2631,7 @@ Begin VB.Form sales_abdfrm
       Begin Threed.SSCommand cmdUndo 
          Height          =   465
          Left            =   45
-         TabIndex        =   40
+         TabIndex        =   48
          TabStop         =   0   'False
          Top             =   630
          Width           =   1185
@@ -2664,13 +2674,13 @@ Begin VB.Form sales_abdfrm
       Height          =   690
       Left            =   9450
       RightToLeft     =   -1  'True
-      TabIndex        =   32
+      TabIndex        =   40
       Top             =   0
       Width           =   5775
       Begin Threed.SSCommand cmdInform 
          Height          =   510
          Left            =   4635
-         TabIndex        =   33
+         TabIndex        =   41
          TabStop         =   0   'False
          Top             =   135
          Width           =   1095
@@ -2701,7 +2711,7 @@ Begin VB.Form sales_abdfrm
       Begin Threed.SSCommand cmdNewInv 
          Height          =   510
          Left            =   3510
-         TabIndex        =   34
+         TabIndex        =   42
          TabStop         =   0   'False
          Top             =   135
          Width           =   1095
@@ -2732,7 +2742,7 @@ Begin VB.Form sales_abdfrm
       Begin Threed.SSCommand cmddel 
          Height          =   510
          Left            =   2340
-         TabIndex        =   35
+         TabIndex        =   43
          TabStop         =   0   'False
          Top             =   135
          Width           =   1140
@@ -2763,7 +2773,7 @@ Begin VB.Form sales_abdfrm
       Begin Threed.SSCommand cmdExit 
          Height          =   510
          Left            =   45
-         TabIndex        =   36
+         TabIndex        =   44
          TabStop         =   0   'False
          Top             =   135
          Width           =   1095
@@ -2792,7 +2802,7 @@ Begin VB.Form sales_abdfrm
       Begin Threed.SSCommand cmdPrint 
          Height          =   510
          Left            =   1170
-         TabIndex        =   37
+         TabIndex        =   45
          TabStop         =   0   'False
          Top             =   135
          Width           =   1140
@@ -2833,13 +2843,13 @@ Begin VB.Form sales_abdfrm
       Height          =   690
       Left            =   3915
       RightToLeft     =   -1  'True
-      TabIndex        =   29
+      TabIndex        =   37
       Top             =   0
       Width           =   5505
       Begin Threed.SSCommand cmd_tsal 
          Height          =   510
          Left            =   1710
-         TabIndex        =   30
+         TabIndex        =   38
          TabStop         =   0   'False
          Top             =   135
          Width           =   1590
@@ -2871,7 +2881,7 @@ Begin VB.Form sales_abdfrm
       Begin Threed.SSCommand cmdPrintDay 
          Height          =   510
          Left            =   45
-         TabIndex        =   31
+         TabIndex        =   39
          TabStop         =   0   'False
          Top             =   135
          Width           =   1635
@@ -2903,7 +2913,7 @@ Begin VB.Form sales_abdfrm
       Begin Threed.SSCommand cmdPrintDayTotal 
          Height          =   510
          Left            =   3330
-         TabIndex        =   53
+         TabIndex        =   61
          TabStop         =   0   'False
          Top             =   135
          Width           =   2130
@@ -3089,13 +3099,14 @@ Begin VB.Form sales_abdfrm
       EndProperty
       Height          =   1680
       Left            =   7650
-      TabIndex        =   8
+      TabIndex        =   17
       Top             =   720
       Width           =   7575
       Begin Threed.SSCommand cmdMan 
          Height          =   330
          Left            =   3150
-         TabIndex        =   164
+         TabIndex        =   3
+         TabStop         =   0   'False
          Top             =   540
          Width           =   375
          _ExtentX        =   661
@@ -3122,7 +3133,7 @@ Begin VB.Form sales_abdfrm
          Height          =   330
          Left            =   5040
          MaxLength       =   200
-         TabIndex        =   23
+         TabIndex        =   6
          TabStop         =   0   'False
          Top             =   1260
          Width           =   1500
@@ -3166,7 +3177,7 @@ Begin VB.Form sales_abdfrm
          Left            =   5355
          MaxLength       =   15
          PasswordChar    =   "*"
-         TabIndex        =   4
+         TabIndex        =   15
          Top             =   2460
          Visible         =   0   'False
          Width           =   1185
@@ -3178,7 +3189,7 @@ Begin VB.Form sales_abdfrm
          Height          =   330
          Left            =   3150
          MaxLength       =   200
-         TabIndex        =   6
+         TabIndex        =   5
          TabStop         =   0   'False
          Top             =   900
          Width           =   3390
@@ -3199,7 +3210,7 @@ Begin VB.Form sales_abdfrm
       Begin MSDataListLib.DataCombo xBox 
          Height          =   315
          Left            =   90
-         TabIndex        =   5
+         TabIndex        =   4
          TabStop         =   0   'False
          Top             =   540
          Width           =   2040
@@ -3250,7 +3261,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H80000008&
          Height          =   330
          Left            =   3150
-         TabIndex        =   133
+         TabIndex        =   102
          Top             =   180
          Visible         =   0   'False
          Width           =   870
@@ -3262,7 +3273,7 @@ Begin VB.Form sales_abdfrm
          Height          =   270
          Left            =   2205
          RightToLeft     =   -1  'True
-         TabIndex        =   86
+         TabIndex        =   94
          Top             =   945
          Width           =   675
       End
@@ -3273,7 +3284,7 @@ Begin VB.Form sales_abdfrm
          Height          =   270
          Left            =   2160
          RightToLeft     =   -1  'True
-         TabIndex        =   50
+         TabIndex        =   58
          Top             =   1305
          Width           =   870
       End
@@ -3284,7 +3295,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H000000C0&
          Height          =   315
          Left            =   90
-         TabIndex        =   25
+         TabIndex        =   33
          Top             =   1260
          Width           =   2025
       End
@@ -3295,7 +3306,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H000000C0&
          Height          =   330
          Left            =   3150
-         TabIndex        =   24
+         TabIndex        =   32
          Top             =   1260
          Width           =   1860
       End
@@ -3306,7 +3317,7 @@ Begin VB.Form sales_abdfrm
          Height          =   270
          Left            =   6615
          RightToLeft     =   -1  'True
-         TabIndex        =   22
+         TabIndex        =   31
          Top             =   1305
          Width           =   810
       End
@@ -3318,7 +3329,7 @@ Begin VB.Form sales_abdfrm
          Height          =   315
          Left            =   90
          RightToLeft     =   -1  'True
-         TabIndex        =   21
+         TabIndex        =   30
          Top             =   900
          Width           =   2025
       End
@@ -3329,7 +3340,7 @@ Begin VB.Form sales_abdfrm
          Height          =   270
          Left            =   6615
          RightToLeft     =   -1  'True
-         TabIndex        =   14
+         TabIndex        =   23
          Top             =   585
          Width           =   405
       End
@@ -3339,7 +3350,7 @@ Begin VB.Form sales_abdfrm
          Height          =   285
          Left            =   6615
          RightToLeft     =   -1  'True
-         TabIndex        =   9
+         TabIndex        =   18
          Top             =   225
          Width           =   885
       End
@@ -3358,7 +3369,7 @@ Begin VB.Form sales_abdfrm
          Height          =   195
          Left            =   6615
          RightToLeft     =   -1  'True
-         TabIndex        =   13
+         TabIndex        =   22
          Top             =   2430
          Visible         =   0   'False
          Width           =   900
@@ -3371,7 +3382,7 @@ Begin VB.Form sales_abdfrm
          Height          =   330
          Left            =   90
          RightToLeft     =   -1  'True
-         TabIndex        =   7
+         TabIndex        =   16
          Top             =   180
          Width           =   780
       End
@@ -3382,7 +3393,7 @@ Begin VB.Form sales_abdfrm
          Height          =   270
          Left            =   6615
          RightToLeft     =   -1  'True
-         TabIndex        =   12
+         TabIndex        =   21
          Top             =   945
          Width           =   660
       End
@@ -3393,7 +3404,7 @@ Begin VB.Form sales_abdfrm
          Height          =   270
          Left            =   2250
          RightToLeft     =   -1  'True
-         TabIndex        =   11
+         TabIndex        =   20
          Top             =   585
          Width           =   480
       End
@@ -3405,7 +3416,7 @@ Begin VB.Form sales_abdfrm
          Height          =   270
          Left            =   2265
          RightToLeft     =   -1  'True
-         TabIndex        =   10
+         TabIndex        =   19
          Top             =   270
          Width           =   510
       End
@@ -3418,7 +3429,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H00008000&
          Height          =   330
          Left            =   4050
-         TabIndex        =   132
+         TabIndex        =   101
          Top             =   180
          Visible         =   0   'False
          Width           =   1545
@@ -3430,7 +3441,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H000000C0&
          Height          =   330
          Left            =   4050
-         TabIndex        =   129
+         TabIndex        =   99
          Top             =   180
          Visible         =   0   'False
          Width           =   1545
@@ -3440,7 +3451,7 @@ Begin VB.Form sales_abdfrm
       Align           =   2  'Align Bottom
       Height          =   465
       Left            =   0
-      TabIndex        =   74
+      TabIndex        =   82
       Top             =   10620
       Width           =   20355
       _ExtentX        =   35904
@@ -3462,7 +3473,7 @@ Begin VB.Form sales_abdfrm
          Height          =   405
          Index           =   0
          Left            =   0
-         TabIndex        =   75
+         TabIndex        =   83
          Top             =   45
          Width           =   4005
          _ExtentX        =   7064
@@ -3486,7 +3497,7 @@ Begin VB.Form sales_abdfrm
          Height          =   330
          Index           =   1
          Left            =   4095
-         TabIndex        =   76
+         TabIndex        =   84
          Top             =   45
          Width           =   4005
          _ExtentX        =   7064
@@ -3510,7 +3521,7 @@ Begin VB.Form sales_abdfrm
          Height          =   330
          Index           =   2
          Left            =   8100
-         TabIndex        =   77
+         TabIndex        =   85
          Top             =   45
          Width           =   4000
          _ExtentX        =   7064
@@ -3534,7 +3545,7 @@ Begin VB.Form sales_abdfrm
          Height          =   330
          Index           =   3
          Left            =   12150
-         TabIndex        =   78
+         TabIndex        =   86
          Top             =   45
          Width           =   3960
          _ExtentX        =   6985
@@ -3558,7 +3569,7 @@ Begin VB.Form sales_abdfrm
          Height          =   330
          Index           =   4
          Left            =   16155
-         TabIndex        =   79
+         TabIndex        =   87
          Top             =   45
          Width           =   4185
          _ExtentX        =   7382
@@ -3640,7 +3651,7 @@ Begin VB.Form sales_abdfrm
       EndProperty
       Height          =   600
       Left            =   2565
-      TabIndex        =   54
+      TabIndex        =   62
       Top             =   1215
       Width           =   1815
       Begin VB.CheckBox xPrinted 
@@ -3652,7 +3663,7 @@ Begin VB.Form sales_abdfrm
          Height          =   270
          Left            =   315
          RightToLeft     =   -1  'True
-         TabIndex        =   160
+         TabIndex        =   113
          TabStop         =   0   'False
          Top             =   225
          Width           =   1320
@@ -3671,7 +3682,7 @@ Begin VB.Form sales_abdfrm
       EndProperty
       Height          =   600
       Left            =   2700
-      TabIndex        =   41
+      TabIndex        =   49
       Top             =   1800
       Width           =   3615
       Begin VB.CheckBox xSendRc 
@@ -3681,7 +3692,7 @@ Begin VB.Form sales_abdfrm
          ForeColor       =   &H80000008&
          Height          =   285
          Left            =   135
-         TabIndex        =   42
+         TabIndex        =   50
          TabStop         =   0   'False
          Top             =   225
          Width           =   465
@@ -3689,7 +3700,7 @@ Begin VB.Form sales_abdfrm
       Begin Threed.SSCommand cmdGo 
          Height          =   330
          Left            =   2160
-         TabIndex        =   43
+         TabIndex        =   51
          TabStop         =   0   'False
          Top             =   180
          Width           =   1320
@@ -3730,10 +3741,24 @@ Begin VB.Form sales_abdfrm
          Height          =   345
          Left            =   630
          RightToLeft     =   -1  'True
-         TabIndex        =   44
+         TabIndex        =   52
          Top             =   180
          Width           =   1470
       End
+   End
+   Begin MSComctlLib.ProgressBar prog1 
+      Align           =   2  'Align Bottom
+      Height          =   150
+      Left            =   0
+      TabIndex        =   120
+      Top             =   10470
+      Visible         =   0   'False
+      Width           =   20355
+      _ExtentX        =   35904
+      _ExtentY        =   265
+      _Version        =   393216
+      Appearance      =   0
+      Scrolling       =   1
    End
 End
 Attribute VB_Name = "sales_abdfrm"
@@ -3741,7 +3766,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Dim temptable As New ADODB.Recordset, cMsgDisplay As String, nDayDiscout As Double, cDescDiscout As String
+Dim temptable As New adodb.Recordset, cMsgDisplay As String, nDayDiscout As Double, cDescDiscout As String
 Dim lManSales As Boolean, nCountPrint As Double
 Dim bAct As Boolean
 Dim cFilter As String
@@ -3751,7 +3776,7 @@ Public sDoc_no As String, lSave As Boolean, sUserDisc As String, lIsPrice_2 As B
 Public subUserCode As String, subUserName As String
 Dim cFilterLook As String
 Dim nRound As Long, cList1 As String, lIsBoxOnline As Boolean
-Dim CardTable As ADODB.Recordset
+Dim CardTable As adodb.Recordset
 Dim cDefClient As String, cDefClientDesca As String
 Dim oSearchItem As New Search_abd, oSearchDoc   As New Search_abd, oSearchMan As New Search_abd
 Dim cQrCode As New ClsQrCode
@@ -3763,7 +3788,7 @@ Dim frmOfferReplace As New offerReplacefrm
 Dim oSalesRefund As New sales_refundfrm
 Dim oCash As cash_sales_newfrm
 
-Dim con As New ADODB.Connection
+Dim con As New adodb.Connection
 Dim formMode
 Const LoadMode = 0, DefineMode = 1
 Dim nUser As Long
@@ -3809,7 +3834,7 @@ ElseIf xMan.MatchedWithList Then
 End If
 
 aInsert = AddFlag(aInsert, "[NOTE_DISC]", addstring(xNote_disc.Caption))
-aInsert = AddFlag(aInsert, "[DOC_DISC]", addstring(xdoc_disc.Caption))
+aInsert = AddFlag(aInsert, "[DOC_DISC]", addstring(XDOC_DISC.Caption))
 aInsert = AddFlag(aInsert, "[INV_NO]", addstring(xinv_no.text))
 aInsert = AddFlag(aInsert, "[ISNODEL]", XISNODEL.Value)
 aInsert = AddFlag(aInsert, "[CARD_DISC]", addstring(xcard_disc.text))
@@ -3819,31 +3844,31 @@ aInsert = AddFlag(aInsert, "[CARD_DOC]", addstring(xcard_doc.Caption))
 
 On Error GoTo myerror
 con.BeginTrans
-If xDoc_No.Tag = DefineMode Then
+If xDoc_no.Tag = DefineMode Then
     dSalesDate = fnDateSales(con)
     If myFormat(dSalesDate) <> myFormat(xDate.text) Then
         MsgBox " „  €Ì— «· «—ÌŒ"
     End If
     
     xDate.text = myFormat_p(dSalesDate)
-    xDoc_No.text = NewflagDoc(xDate.text, cBranchBox, con)
-    xDoc_no2.text = Mid(xDoc_No.text, 7, 6)
+    xDoc_no.text = NewflagDoc(xDate.text, cBranchBox, con)
+    xDoc_no2.text = Mid(xDoc_no.text, 7, 6)
     
     aInsert = AddFlag(aInsert, "[DATE]", addDate(xDate.text))
-    aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_No.text))
+    aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_no.text))
     aInsert = AddFlag(aInsert, "[USERNAME]", addstring(cUserName))
     aInsert = AddFlag(aInsert, "[USER_IP]", addstring(GetComputerName))
     con.Execute addInsert(aInsert, "FILE6_20H")
 Else
-    con.Execute addUpdate(aInsert, "FILE6_20H", "DOC_NO = " & addstring(xDoc_No.text))
+    con.Execute addUpdate(aInsert, "FILE6_20H", "DOC_NO = " & addstring(xDoc_no.text))
 End If
 
 If bOffer Then
     myreplaceGrdOffer
-    UpdateDiscount xDoc_No.text, con
+    UpdateDiscount xDoc_no.text, con
 ElseIf bReplace Then
     myreplaceGrdReplace
-    UpdateDiscount xDoc_No.text, con, frmOfferReplace.nDiscount_Add
+    UpdateDiscount xDoc_no.text, con, frmOfferReplace.nDiscount_Add
 Else
     myreplaceGrd Row
 End If
@@ -3872,21 +3897,21 @@ If ActiveControl.Name = grid1.Name Then
     GrdDesc grid1.TextMatrix(grid1.Row, 1), grid1.Row
     Grid1_AfterEdit grid1.Row, grid1.col
 ElseIf ActiveControl.Name = cmdInform.Name Then
-    xDoc_No.text = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
+    xDoc_no.text = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
     Unload oSearchDoc
     myUndo
 ElseIf ActiveControl.Name = cmdAddOffer.Name Then
     If myreplace(, True) Then
         Inform " „  «÷«›… «·⁄—÷ »‰Ã«Õ"
         'Unload frmOffer
-        If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+        If Not openCardTable(tbMode.tbFind, xDoc_no.text) Then
             If Not openCardTable Then myDefine
         End If
     End If
 ElseIf ActiveControl.Name = cmdReplace.Name Then
     If myreplace(, , True) Then
         MsgBox " „ «” »œ«· «·⁄—÷ »‰Ã«Õ"
-        If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+        If Not openCardTable(tbMode.tbFind, xDoc_no.text) Then
             If Not openCardTable Then myDefine
         End If
     End If
@@ -3917,18 +3942,18 @@ ElseIf xMan.MatchedWithList Then
 End If
 aInsert = AddFlag(aInsert, "[MOSM]", addstring(xMosm.BoundText))
 aInsert = AddFlag(aInsert, "[TIME]", addTime(xtime.Caption))
-aInsert = AddFlag(aInsert, "[SALES_RET]", addstring(.xDoc_No.Caption))
+aInsert = AddFlag(aInsert, "[SALES_RET]", addstring(.xDoc_no.Caption))
 dSalesDate = fnDateSales(con)
 If myFormat(dSalesDate) <> myFormat(xDate.text) Then
     MsgBox " „  €Ì— «· «—ÌŒ"
 End If
 
 xDate.text = myFormat_p(dSalesDate)
-xDoc_No.text = NewflagDoc(xDate.text, cBranchBox, con)
-xDoc_no2.text = Mid(xDoc_No.text, 7, 6)
+xDoc_no.text = NewflagDoc(xDate.text, cBranchBox, con)
+xDoc_no2.text = Mid(xDoc_no.text, 7, 6)
 
 aInsert = AddFlag(aInsert, "[DATE]", addDate(xDate.text))
-aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_No.text))
+aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_no.text))
 aInsert = AddFlag(aInsert, "[USERNAME]", addstring(cUserName))
 aInsert = AddFlag(aInsert, "[USER_IP]", addstring(GetComputerName))
 
@@ -3950,12 +3975,12 @@ With oSalesRefund.grid1
         aInsert = AddFlag(aInsert, "OFFER_NO", addstring(.TextMatrix(i, 11)))
         aInsert = AddFlag(aInsert, "DOC_OFFER", addstring(.TextMatrix(i, 12)))
         aInsert = AddFlag(aInsert, "DISCOUNT_OFFER", -1 * .ValueMatrix(i, 13))
-        aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_No.text))
+        aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_no.text))
         con.Execute addInsert(aInsert, "FILE6_20")
     Next
 End With
 
-UpdateDiscount xDoc_No.text, con, pDiscount_add, pDiscount_total
+UpdateDiscount xDoc_no.text, con, pDiscount_add, pDiscount_total
 
 con.CommitTrans
 myReplaceRefund = True
@@ -3964,7 +3989,7 @@ MsgBox " „ Õ›Ÿ «·„” ‰œ »‰Ã«Õ"
 
 Unload oSalesRefund
 
-If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then Exit Function
+If Not openCardTable(tbMode.tbFind, xDoc_no.text) Then Exit Function
 Exit Function
 myerror:
 MsgBox Err.Description
@@ -4051,8 +4076,8 @@ End If
 'AddLod_Data cUserName, 2, " Õ–› „»Ì⁄«  ", con, xDoc_no.text, xDate.text, , xCodeDesca.Caption
 
 con.BeginTrans
-con.Execute "Delete  From FILE6_20 where Doc_No = " & MyParn(xDoc_No.text)
-con.Execute "Delete  From FILE6_20H where Doc_No = " & MyParn(xDoc_No.text)
+con.Execute "Delete  From FILE6_20 where Doc_No = " & MyParn(xDoc_no.text)
+con.Execute "Delete  From FILE6_20H where Doc_No = " & MyParn(xDoc_no.text)
 con.CommitTrans
     
 CmdNewInv_Click
@@ -4062,12 +4087,12 @@ con.RollbackTrans
 MsgBox Err.Description
 Err.Clear
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
     sDoc_no = ""
     Unload Me
 End Sub
-Private Sub cmdGo_Click()
-If mySendReceipt(xDoc_No.text) Then
+Private Sub CmdGo_Click()
+If mySendReceipt(xDoc_no.text) Then
     myUndo
 End If
 End Sub
@@ -4146,7 +4171,7 @@ doprint_cash
 End Sub
 
 Private Sub cmdRefund_Click()
-Dim loctable As New ADODB.Recordset
+Dim loctable As New adodb.Recordset
 Dim cString As String
 cString = "select TOP 1 FILE6_20H.BRANCH," & _
           " FILE6_20H.PRINTED," & _
@@ -4229,7 +4254,7 @@ oSalesRefund.Show 1
 End Sub
 
 Private Sub cmdReplace_Click()
-Dim loctable As New ADODB.Recordset
+Dim loctable As New adodb.Recordset
 Dim nDiscount_add_replace As Double
 Dim cString As String
 
@@ -4326,8 +4351,6 @@ frmOfferReplace.sDoc_Offer = xdoc_ret.text
 frmOfferReplace.Show 1
 End Sub
 Private Sub cmdSave_Click()
-'On Error GoTo myerror
-
 If grid1.Rows = 2 Then Exit Sub
 
 If Not MYVALID Then Exit Sub
@@ -4384,17 +4407,13 @@ On Error Resume Next
 grid1.SetFocus
 End Sub
 
-Private Sub Command1_Click()
-MsgBox LoadConStringshop
-End Sub
-
 Private Sub Form_Activate()
 If Not validOpen Then
     Unload Me
     Exit Sub
 End If
 If Not bAct Then
-    If xDoc_No.Tag = LoadMode Then
+    If xDoc_no.Tag = LoadMode Then
         On Error Resume Next
         grid1.SetFocus
         'CellPos 13, 0, grid1.Cols - 1
@@ -4476,16 +4495,16 @@ xStore.ListField = "Desca"
 xStore.BoundColumn = "Code"
 xStore.BoundText = cBranchStore
 
-Set data2.Recordset = cmd("SELECT * FROM MOSM ", con).Execute
-Set xMosm.RowSource = data2
+Set DATA2.Recordset = cmd("SELECT * FROM MOSM ", con).Execute
+Set xMosm.RowSource = DATA2
 xMosm.ListField = "DESCA"
 xMosm.BoundColumn = "MOSM"
 If nUser = enUser.Admin Then
-    Set data4.Recordset = cmd("SELECT * FROM FILE0_50", con).Execute
+    Set DATA4.Recordset = cmd("SELECT * FROM FILE0_50", con).Execute
 Else
-    Set data4.Recordset = cmd("SELECT * FROM FILE0_50 WHERE BRANCH = " & MyParn(cBranch), con).Execute
+    Set DATA4.Recordset = cmd("SELECT * FROM FILE0_50 WHERE BRANCH = " & MyParn(cBranch), con).Execute
 End If
-Set xBox.RowSource = data4
+Set xBox.RowSource = DATA4
 xBox.ListField = "Desca"
 xBox.BoundColumn = "Code"
 xBox.BoundText = cBranchBox
@@ -4589,13 +4608,13 @@ If KeyCode = 46 Then
     Dim nDiscount As Long
     con.BeginTrans
     con.Execute "delete from file6_20 " & _
-                " where doc_no = " & MyParn(xDoc_No.text) & _
+                " where doc_no = " & MyParn(xDoc_no.text) & _
                 " and offer_no = " & grdOffer.TextMatrix(grdOffer.Row, 0)
     
-    UpdateDiscount xDoc_No.text, con
+    UpdateDiscount xDoc_no.text, con
     con.CommitTrans
     
-    If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable(tbMode.tbFind, xDoc_no.text) Then
         If Not openCardTable Then myDefine
     End If
     
@@ -4638,8 +4657,8 @@ End If
 CalcTotals
 
 If myreplace(Row) Then
-    If xDoc_No.Tag = DefineMode Then
-        openCardTable tbMode.tbFind, xDoc_No.text
+    If xDoc_no.Tag = DefineMode Then
+        openCardTable tbMode.tbFind, xDoc_no.text
     ElseIf grid1.TextMatrix(Row, grid1.Cols - 1) = "" Then
         myLoadGrd
     End If
@@ -4798,7 +4817,7 @@ End Sub
 
 
 Private Sub optclosed_Click(Index As Integer)
-If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbFind, xDoc_no.text) Then
     If Not openCardTable Then
         myDefine
     End If
@@ -4806,7 +4825,7 @@ End If
 End Sub
 
 Private Sub optType_Click(Index As Integer)
-If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbFind, xDoc_no.text) Then
     If Not openCardTable Then
         myDefine
     End If
@@ -4852,9 +4871,9 @@ End Sub
 Private Sub xDiscount_add_rate_Change()
 If bIg Then Exit Sub
 bIg = True
-If Val(xTotalItem.Caption) - Val(xDiscount_offer.Caption) <> 0 Then
-    If Round(Val(xDiscount_add_rate.text), 0) <> Round(Val(xDiscount_add.text) / (Val(xTotalItem.Caption) - Val(xDiscount_offer.Caption)) * 100, 0) Then
-        xDiscount_add.text = Round((Val(xDiscount_add_rate.text) * (Val(xTotalItem.Caption) - Val(xDiscount_offer.Caption))) / 100, 2)
+If Val(xtotalitem.Caption) - Val(xDiscount_offer.Caption) <> 0 Then
+    If Round(Val(xDiscount_add_rate.text), 0) <> Round(Val(xDiscount_add.text) / (Val(xtotalitem.Caption) - Val(xDiscount_offer.Caption)) * 100, 0) Then
+        xDiscount_add.text = Round((Val(xDiscount_add_rate.text) * (Val(xtotalitem.Caption) - Val(xDiscount_offer.Caption))) / 100, 2)
     End If
 Else
     xDiscount_add.text = ""
@@ -4942,7 +4961,7 @@ xCode.Enabled = False
 
 XISNODEL.Value = IIf(CardTable!ISNODEL, 1, 0)
 'xIpName.Caption = CardTable!user_ip & ""
-xDoc_No.text = CardTable!DOC_NO
+xDoc_no.text = CardTable!DOC_NO
 xinv_no.text = CardTable!INV_NO & ""
 xDoc_no2.text = CardTable!Doc_no2
 xPhone.Caption = CardTable!Phone & ""
@@ -4962,11 +4981,11 @@ xNotes.text = CardTable!NOTES & ""
 
 xIsOffer.Value = IIf(CardTable!isoffer, 1, 0)
 
-xusername.Caption = CardTable!UserName & ""
+xUserName.Caption = CardTable!UserName & ""
 XSALES_RET.Caption = CardTable!SALES_RET & ""
 xusername_RET.Caption = CardTable!username_ret & ""
 xNote_disc.Caption = CardTable!NOTE_DISC & ""
-xdoc_disc.Caption = CardTable!DOC_DISC & ""
+XDOC_DISC.Caption = CardTable!DOC_DISC & ""
 
 xCode.text = CardTable!code & ""
 'xCodeDesca.Caption = CardTable!ClientDesca & ""
@@ -4994,7 +5013,7 @@ xVisa.Caption = Myvalue(Val(CardTable!visa & "") + Val(CardTable!VISA3 & ""))
 
 xPay.Caption = Myvalue(CardTable!PAY)
 xRest.Caption = Myvalue(CardTable!rest)
-xlate.Caption = Myvalue(CardTable!late)
+xLate.Caption = Myvalue(CardTable!late)
 bIg = True
 xPrinted.Value = IIf(CardTable!PRINTED, 1, 0)
 bIg = False
@@ -5037,7 +5056,7 @@ sUserDisc = ""
 lIsDocRet = False
 xMan.BoundText = ""
 XUSERNAME_DISC.Caption = ""
-xusername.Caption = cUserName
+xUserName.Caption = cUserName
 
 'xRate.Locked = True
 'xDiscount.Locked = True
@@ -5054,7 +5073,7 @@ xcard_doc.Caption = ""
 
 XSALES_RET.Caption = ""
 xPhone.Caption = ""
-xDoc_No.text = ""
+xDoc_no.text = ""
 
 
 'xDoc_No.Tag = DefineMode
@@ -5077,7 +5096,7 @@ xMosm.BoundText = cPMosm
 chkCash.Value = 1
 xTotalQuant.Caption = ""
 xTotalItemNoDiscount.Caption = ""
-xTotalItem.Caption = ""
+xtotalitem.Caption = ""
 xTotalItemDiscount.Caption = ""
 xTotalItemDiscount_rate.Caption = ""
 xtotalitem_offer.Caption = ""
@@ -5095,7 +5114,7 @@ bIg = False
 xDiscount_offer.Caption = ""
 xTotal.Caption = ""
 
-xlate.Caption = ""
+xLate.Caption = ""
 xVisa.Caption = ""
 xCash.Caption = ""
 xNotes.text = ""
@@ -5108,7 +5127,7 @@ grid1.Rows = 1
 
 myAddItem
 
-fixGrd
+Fixgrd
 
 grdOffer.Rows = 1
 Fixgrd2
@@ -5140,15 +5159,15 @@ cmdAddOffer.Enabled = bEditRecord And XSALES_RET.Caption = "" And xdoc_replace.C
 
 cmdNewInv.Enabled = bEdit And cBranchBox <> ""
 
-cmddel.Enabled = bEditRecord And nMode = LoadMode
+cmdDel.Enabled = bEditRecord And nMode = LoadMode
 
 xIsRet.Visible = Val(xTotalItemNoDiscount.Caption) > 0 And nUser > enUser.Super And nMode = LoadMode
 If xIsRet.Visible Then
     xIsRet.Enabled = xPrinted.Value = 1 And nMode = LoadMode
 End If
 
-cmdRefund.Enabled = bEditRecord And IsDgt(xdoc_ret.text) And xDoc_No.Tag = DefineMode
-cmdReplace.Enabled = bEditRecord And IsDgt(xdoc_ret.text) And xDoc_No.Tag = DefineMode
+cmdRefund.Enabled = bEditRecord And IsDgt(xdoc_ret.text) And xDoc_no.Tag = DefineMode
+cmdReplace.Enabled = bEditRecord And IsDgt(xdoc_ret.text) And xDoc_no.Tag = DefineMode
 
 xCash.Enabled = nUser = enUser.Super Or nUser = enUser.Admin And xPrinted.Value = 1
 
@@ -5159,7 +5178,7 @@ xDiscount_add_rate.Enabled = False
 
 
 Dim nRecord As Long, nRecords As Long
-retRecords xDoc_No.text, nRecords, nRecord
+retRecords xDoc_no.text, nRecords, nRecord
 
 cmdNext.Enabled = nRecord < nRecords And nRecords <> 0 And nMode = LoadMode
 cmdPrevious.Enabled = nRecord <> 1 And nRecords <> 0 And nMode = LoadMode
@@ -5173,7 +5192,7 @@ Else
     panel1(0).Caption = "”Ã· ÃœÌœ (" & (nRecords + 1) & ")"
 End If
 
-xDoc_No.Tag = nMode
+xDoc_no.Tag = nMode
 
 cmdGo.Enabled = (xUUID_RC.Caption = "" Or xSendRc.Value = 0) And nMode = LoadMode And xPrinted.Value = 1
 xSendRc.Enabled = nMode = LoadMode And xUUID_RC.Caption <> "" And xPrinted.Value = 1
@@ -5208,7 +5227,7 @@ If Trim(pItem) = "" Or Len(pItem) < 3 Or Len(pItem) > 30 Then
     Exit Function
 End If
 
-Dim cm As New ADODB.command
+Dim cm As New adodb.command
 Set cm = cmd("dbo.sp_item", con, adStoredProc, AddFlag(Empty, "BARCODE_FIND", pItem))
 cm.Execute
 
@@ -5228,7 +5247,7 @@ If Not cm.Parameters("@ISNOITEM").Value Then
     End If
 End If
 
-Dim cmDiscount As New ADODB.command
+Dim cmDiscount As New adodb.command
 aPrm = AddFlag(Empty, "ITEM", cm.Parameters("@ITEM").Value)
 aPrm = AddFlag(aPrm, "DATE", myFormat_sp(xDate.text))
 Set cmDiscount = cmd("dbo.sp_offer_price", con, adStoredProc, aPrm)
@@ -5285,7 +5304,7 @@ Next
 xTotalQuant.Caption = Myvalue(nTotalQuant)
 xTotalItemNoDiscount.Caption = Myvalue(nTotalItemNoDiscount)
 xTotalItemDiscount.Caption = Myvalue(nTotalItemDiscount)
-xTotalItem.Caption = Myvalue(nTotalItem)
+xtotalitem.Caption = Myvalue(nTotalItem)
 xtotalitem_offer.Caption = Myvalue(nTotalItem - Val(xDiscount_offer.Caption))
 
 
@@ -5317,9 +5336,9 @@ ElseIf xIsOffer.Value = 0 And Val(xDiscount_add.text) <> 0 Then
     xDiscount_add.text = 0
 End If
 
-If Val(xTotalItem.Caption) <> 0 Then
-    If Round(Val(xRate.text), nRound) <> Round(Val(xDiscount.text) / Val(xTotalItem.Caption) * 100, nRound) Then
-        xRate.text = Myvalue(Round((Val(xDiscount.text) / Val(xTotalItem.Caption)) * 100, nRound))
+If Val(xtotalitem.Caption) <> 0 Then
+    If Round(Val(xRate.text), nRound) <> Round(Val(xDiscount.text) / Val(xtotalitem.Caption) * 100, nRound) Then
+        xRate.text = Myvalue(Round((Val(xDiscount.text) / Val(xtotalitem.Caption)) * 100, nRound))
     End If
 Else
     xRate.text = ""
@@ -5400,8 +5419,8 @@ Else
 End If
 End Sub
 Private Sub xdoc_ret_Change()
-cmdReplace.Enabled = IsDgt(xdoc_ret.text) And xDoc_No.Tag = DefineMode And (Len(Trim(xdoc_ret.text)) >= 11)
-cmdRefund.Enabled = IsDgt(xdoc_ret.text) And xDoc_No.Tag = DefineMode And (Len(Trim(xdoc_ret.text)) >= 11)
+cmdReplace.Enabled = IsDgt(xdoc_ret.text) And xDoc_no.Tag = DefineMode And (Len(Trim(xdoc_ret.text)) >= 11)
+cmdRefund.Enabled = IsDgt(xdoc_ret.text) And xDoc_no.Tag = DefineMode And (Len(Trim(xdoc_ret.text)) >= 11)
 End Sub
 
 Private Sub xdoc_ret_KeyPress(KeyAscii As Integer)
@@ -5411,7 +5430,7 @@ End Sub
 Private Sub xIsRet_Click()
 If bIg Then Exit Sub
 If MsgBox("«·”„«Õ »„— Ã⁄ ··›« Ê—…", vbYesNo + vbDefaultButton2) = vbYes Then
-    con.Execute " UPDATE FILE6_20H SET ISRET = " & xIsRet.Value & " , ISNEW = 1 WHERE DOC_NO = " & MyParn(xDoc_No.text), nRec
+    con.Execute " UPDATE FILE6_20H SET ISRET = " & xIsRet.Value & " , ISNEW = 1 WHERE DOC_NO = " & MyParn(xDoc_no.text), nRec
     If nRec = 1 Then MsgBox "  „  ⁄œÌ· «·„” ‰œ "
 End If
 End Sub
@@ -5449,9 +5468,9 @@ End Sub
 Private Sub xPrinted_Click()
 If bIg Then Exit Sub
 'If xPrinted.Value = 1 Then Exit Sub
-con.Execute "update file6_20h set printed = " & xPrinted.Value & ",closed = " & xPrinted.Value & " from file6_20h where doc_no = " & MyParn(xDoc_No.text)
+con.Execute "update file6_20h set printed = " & xPrinted.Value & ",closed = " & xPrinted.Value & " from file6_20h where doc_no = " & MyParn(xDoc_no.text)
 MsgBox " „ › Õ «·›« Ê—… »‰Ã«Õ"
-If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbFind, xDoc_no.text) Then
     If Not openCardTable Then
         myDefine
     End If
@@ -5460,9 +5479,9 @@ End Sub
 Private Sub xRate_Change()
 If bIg Then Exit Sub
 bIg = True
-If Val(xTotalItem.Caption) <> 0 Then
-    If Round(Val(xRate.text), 0) <> Round(Val(xDiscount.text) / Val(xTotalItem.Caption) * 100, 0) Then
-        xDiscount.text = Round((Val(xRate.text) * Val(xTotalItem.Caption)) / 100, 2)
+If Val(xtotalitem.Caption) <> 0 Then
+    If Round(Val(xRate.text), 0) <> Round(Val(xDiscount.text) / Val(xtotalitem.Caption) * 100, 0) Then
+        xDiscount.text = Round((Val(xRate.text) * Val(xtotalitem.Caption)) / 100, 2)
     End If
 Else
     xDiscount.text = ""
@@ -5497,7 +5516,7 @@ For i = 1 To grid1.Rows - 1
     grid1.TextMatrix(i, 0) = i
 Next
 End Sub
-Private Sub fixGrd()
+Private Sub Fixgrd()
 With grid1
 '                 0          1          2         3        4          5              6          7          8            9           10          11             12           13            14                15            16            17           18              19              20
 .FormatString = "„.|" & "»«—ﬂÊœ|" & "„Ê”„|" & "„’‰⁄|" & "„ﬂ »|" & "—ﬁ„ „ÊœÌ·|" & "«·’‰›|" & "„ﬁ«”|" & "«··Ê‰|" & "”⁄— „” Â·ﬂ|" & "⁄œœ|" & "”⁄— «·»Ì⁄|" & "‰”»… Œ’„|" & "«·≈Ã„«·Ï|" & "”⁄— √Êﬂ«“ÌÊ‰|" & "ﬂÊœ «·»«∆⁄|" & "«·»«∆⁄|" & "«· ﬂ·›…|" & "„” ‰œ «·⁄—÷|" & "—ﬁ„ «·⁄—÷|" & "Œ’„ «·⁄—÷|"
@@ -5584,7 +5603,7 @@ End If
 End With
 End Sub
 Private Sub xRateDis_Lostfocus()
-xDiscount.text = Fix((Val(xTotalItem.Caption) * Val(xRateDis.text) / 100))
+xDiscount.text = Fix((Val(xtotalitem.Caption) * Val(xRateDis.text) / 100))
 End Sub
 
 Private Sub XSALES_RET_Change()
@@ -5593,19 +5612,19 @@ End Sub
 
 Private Sub xSendRc_Click()
 If bIgClick Then Exit Sub
-If xDoc_No.text <> "" Then
+If xDoc_no.text <> "" Then
     On Error GoTo myerror
     If xUUID_RC.Caption <> "" Then
         If Not IsEmpty(myField("select doc_no from file6_20h where PREVIOUS_UUID = " & MyParn(xUUID_RC.Caption), con)) Then
-            MsgBox "—ﬁ„ „”·”· „—Ã⁄Ì ”«»ﬁ ··›« Ê—… —ﬁ„ " & MyParn(xDoc_No.text)
+            MsgBox "—ﬁ„ „”·”· „—Ã⁄Ì ”«»ﬁ ··›« Ê—… —ﬁ„ " & MyParn(xDoc_no.text)
             'xSendRc.Value = IIf(xSendRc.Value = 1, 0, 1)
         End If
     End If
-    con.Execute "UPDATE FILE6_20H SET FILE6_20H.sendRc = " & xSendRc.Value & " FROM FILE6_20H WHERE FILE6_20H.DOC_NO = " & MyParn(xDoc_No.text)
+    con.Execute "UPDATE FILE6_20H SET FILE6_20H.sendRc = " & xSendRc.Value & " FROM FILE6_20H WHERE FILE6_20H.DOC_NO = " & MyParn(xDoc_no.text)
     Inform " „ «· ⁄œÌ· »‰Ã«Õ"
 End If
 Finaly:
-Handlecontrols xDoc_No.Tag
+Handlecontrols xDoc_no.Tag
 Exit Sub
 myerror:
 MsgBox Err.Description
@@ -5649,7 +5668,7 @@ MsgBox Err.Description
 Err.Clear
 End Function
 Sub myproc2(nDoc_no)
-xDoc_No = nDoc_no
+xDoc_no = nDoc_no
 myUndo
 'CardTable.Find "Doc_no = " & MyParn(nDoc_no), , adSearchForward, adBookmarkFirst
 'If Not CardTable.EOF Then
@@ -5679,7 +5698,7 @@ With grid1
         aInsert = AddFlag(aInsert, "OFFER_NO", addstring(grid1.TextMatrix(i, 19)))
         
         If grid1.TextMatrix(i, grid1.Cols - 1) = "" Then
-            aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_No.text))
+            aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_no.text))
             con.Execute addInsert(aInsert, "FILE6_20")
         Else
             con.Execute addUpdate(aInsert, "FILE6_20", "ID = " & grid1.TextMatrix(i, .Cols - 1))
@@ -5693,7 +5712,7 @@ Dim aInsert As Variant
 Dim cString As String
 cString = "select Max(Offer_no) " & _
           " from file6_20 " & _
-          " where doc_no = " & MyParn(xDoc_No.text)
+          " where doc_no = " & MyParn(xDoc_no.text)
 Dim nOffer As Long
 If Val(frmOfferReplace.xQty2.Caption) > 0 Then
     nOffer = Val(myField(cString, con) & "") + 1
@@ -5701,7 +5720,7 @@ End If
                                     
 With frmOfferReplace.grid1
     For i = 1 To .Rows - 2
-        aInsert = AddFlag(Empty, "DOC_NO", addstring(xDoc_No.text))
+        aInsert = AddFlag(Empty, "DOC_NO", addstring(xDoc_no.text))
         aInsert = AddFlag(aInsert, "ITEM", addstring(.TextMatrix(i, 1)))
         aInsert = AddFlag(aInsert, "QUANT", .ValueMatrix(i, 10))
         aInsert = AddFlag(aInsert, "PRICE", .ValueMatrix(i, 9))
@@ -5713,7 +5732,7 @@ With frmOfferReplace.grid1
             aInsert = AddFlag(aInsert, "MAN", addstring(xMan.BoundText))
         End If
         aInsert = AddFlag(aInsert, "OFFER_NO", nOffer)
-        aInsert = AddFlag(aInsert, "DOC_OFFER", addstring(frmOfferReplace.xDoc_No.Caption))
+        aInsert = AddFlag(aInsert, "DOC_OFFER", addstring(frmOfferReplace.xDoc_no.Caption))
         aInsert = AddFlag(aInsert, "DISCOUNT_OFFER", Val(frmOfferReplace.xDiscount.Caption))
         aInsert = AddFlag(aInsert, "DISCOUNT_OFFER_RATE", Val(frmOfferReplace.xRate.Caption))
         aInsert = AddFlag(aInsert, "USER_IP", addstring(cIpName))
@@ -5727,13 +5746,13 @@ Dim aInsert As Variant
 Dim cString As String
 cString = "select Max(Offer_no) " & _
           " from file6_20 " & _
-          " where doc_no = " & MyParn(xDoc_No.text)
+          " where doc_no = " & MyParn(xDoc_no.text)
 Dim nOffer As Long
 nOffer = Val(myField(cString, con) & "") + 1
                                     
 With frmOffer.grid1
     For i = 1 To frmOffer.grid1.Rows - 2
-        aInsert = AddFlag(Empty, "DOC_NO", addstring(xDoc_No.text))
+        aInsert = AddFlag(Empty, "DOC_NO", addstring(xDoc_no.text))
         aInsert = AddFlag(aInsert, "ITEM", addstring(.TextMatrix(i, 1)))
         aInsert = AddFlag(aInsert, "QUANT", .ValueMatrix(i, 10))
         aInsert = AddFlag(aInsert, "PRICE", .ValueMatrix(i, 9))
@@ -5741,7 +5760,7 @@ With frmOffer.grid1
         aInsert = AddFlag(aInsert, "COST", .ValueMatrix(i, 13))
         aInsert = AddFlag(aInsert, "MAN", addstring(xMan.BoundText))
         aInsert = AddFlag(aInsert, "OFFER_NO", nOffer)
-        aInsert = AddFlag(aInsert, "DOC_OFFER", addstring(frmOffer.xDoc_No.Caption))
+        aInsert = AddFlag(aInsert, "DOC_OFFER", addstring(frmOffer.xDoc_no.Caption))
         aInsert = AddFlag(aInsert, "DISCOUNT_OFFER", Val(frmOffer.xDiscount.Caption))
         aInsert = AddFlag(aInsert, "DISCOUNT_OFFER_RATE", Val(frmOffer.xRate.Caption))
         aInsert = AddFlag(aInsert, "USER_IP", addstring(cIpName))
@@ -5778,13 +5797,13 @@ Dim cString As String
               " INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM" & _
               " LEFT JOIN FACT ON FACT.CODE = FILE1_10.FACT" & _
               " LEFT JOIN FILE6_25 ON FILE6_20.MAN  = FILE6_25.CODE "
-    cString = cString & " WHERE FILE6_20.DOC_NO = " & MyParn(xDoc_No.text)
+    cString = cString & " WHERE FILE6_20.DOC_NO = " & MyParn(xDoc_no.text)
     cString = cString & " ORDER BY FILE6_20.ID"
     Set DATA11.Recordset = cmd(cString, con).Execute
     myAddItem
 End With
 CalcTotals
-fixGrd
+Fixgrd
 End Sub
 Private Function mysave(Optional bEnd As Boolean = True, Optional bPrint As Boolean = True, Optional bSendReceipt As Boolean = False) As Boolean
 
@@ -5793,7 +5812,7 @@ If Not MYVALID Then Exit Function
 CalcTotals
 
 If Not myreplace Then Exit Function
-con.Execute " update file6_20 set item = item where doc_no = " & MyParn(xDoc_No.text)
+con.Execute " update file6_20 set item = item where doc_no = " & MyParn(xDoc_no.text)
     
          
 UpdatePhones xPhone.Caption, xPhone.Tag, xDate.text, con
@@ -5808,7 +5827,7 @@ Inform_OK " „ Õ›Ÿ «·„” ‰œ »‰Ã«Õ", " «·»«ﬁÏ " & Format(xRest.Caption, "#0.00")
 SavePrint
                            
 If bSendReceipt Then
-    If xUUID_RC.Caption = "" Then mySendReceipt (xDoc_No.text)
+    If xUUID_RC.Caption = "" Then mySendReceipt (xDoc_no.text)
 End If
                        
 doprint_cash (False)
@@ -5819,7 +5838,7 @@ End Function
 Private Sub SavePrint()
 On Error GoTo myerror
 'con.BeginTrans
-con.Execute "update file6_20h set isnew = 1 ,ISRET = 1, FILE6_20H.PRINTED = 1 , ISCLOSED = 1  WHERE DOC_NO = " & MyParn(xDoc_No.text)
+con.Execute "update file6_20h set isnew = 1 ,ISRET = 1, FILE6_20H.PRINTED = 1 , ISCLOSED = 1  WHERE DOC_NO = " & MyParn(xDoc_no.text)
 'con.CommitTrans
 bIg = True
 xPrinted.Value = 1
@@ -5830,8 +5849,8 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Private Function doprint_cash(Optional bCopy As Boolean = False)
-Dim loctable As New ADODB.Recordset
-Set loctable = cmd("dbo.sp_invoice_print", con, adStoredProc, AddFlag(Empty, "DOC_NO", xDoc_No.text)).Execute
+Dim loctable As New adodb.Recordset
+Set loctable = cmd("dbo.sp_invoice_print", con, adStoredProc, AddFlag(Empty, "DOC_NO", xDoc_no.text)).Execute
 
 contemp.Execute "DELETE * FROM TEMP"
 If temptable.State = adStateOpen Then temptable.Close
@@ -5840,7 +5859,7 @@ temptable.Open "temp", contemp, adOpenStatic, adLockOptimistic, adCmdTable
 
 
 If BranchReceipt Then
-    sQRCode = retQrCode(xDoc_No.text, con)
+    sQRCode = retQrCode(xDoc_no.text, con)
 End If
 
 With loctable
@@ -5927,7 +5946,7 @@ End With
 
 If xGift.Value = 0 Then
     Set loctable = Nothing
-    Set loctable = New ADODB.Recordset
+    Set loctable = New adodb.Recordset
     Dim sSql As String
     sSql = "SELECT FILE5_10.DESCA," & _
               "FILE6_20_VISA.VALUE," & _
@@ -5935,14 +5954,14 @@ If xGift.Value = 0 Then
               "VISA_CODES.WITH_POINTS" & _
               " FROM FILE6_20_VISA  INNER JOIN VISA_CODES ON FILE6_20_VISA.VISA_CODE = VISA_CODES.CODE " & _
               " INNER JOIN FILE5_10 ON FILE5_10.CODE = VISA_CODES.BANK " & _
-              " WHERE DOC_NO = " & MyParn(xDoc_No.text) & _
+              " WHERE DOC_NO = " & MyParn(xDoc_no.text) & _
               " ORDER BY FILE6_20_VISA.ID"
     Set loctable = mycmd(sSql, con)
     Do Until loctable.EOF
         temptable.AddNew
         temptable!str1 = loctable!DESCA
         temptable!str2 = loctable!doc_visa
-        temptable!STR20 = xDoc_No.text
+        temptable!STR20 = xDoc_no.text
         temptable!VAL1 = loctable!Value
         temptable!VAL2 = IIf(loctable!with_points, 2, 1)
         temptable!str3 = IIf(loctable!with_points, "Points", "Debit/Credit Card")
@@ -6068,7 +6087,7 @@ End Sub
 Private Sub xTotal_Change()
 If Not bIg Then
     bIg = True
-    xDiscount.text = Round(Val(xTotalItem.Caption) - Val(xTotal.Caption), 2)
+    xDiscount.text = Round(Val(xtotalitem.Caption) - Val(xTotal.Caption), 2)
     CalcTotals
     bIg = False
 End If
@@ -6255,8 +6274,8 @@ Sub myDisplay(pLine1, pLine2)
 End Sub
 
 Public Sub PrintTDay()
-Dim temptable As New ADODB.Recordset
-Dim sourcetable As New ADODB.Recordset
+Dim temptable As New adodb.Recordset
+Dim sourcetable As New adodb.Recordset
 ReDim aHeader(1)
 Dim pDate As Date, pstore As String
 Dim nFBalItem As Double
@@ -6264,7 +6283,7 @@ Dim nTInlItem As Double
 Dim nSallItem As Double
 Dim nBalItem As Double
 Dim nOverCash As Double, nVisa2 As Double
-Dim VisaTable As New ADODB.Recordset
+Dim VisaTable As New adodb.Recordset
 pDate = xDate.text
 pstore = xStore.BoundText
 contemp.Execute "DELETE * FROM TEMP"
@@ -6610,7 +6629,7 @@ Private Function IsPrinted() As Boolean
 'IsPrinted = TurnValue(GetField("SELECT PRINTED FROM FILE6_20H WHERE DOC_NO = " & MyParn(xDoc_No.text), con), Null, False)
 End Function
 Sub FixAddress()
-Dim loctable As New ADODB.Recordset
+Dim loctable As New adodb.Recordset
 Set loctable = cmd("select * From Address where branch = " & MyParn(cBranch), con).Execute
 If Not (loctable.EOF And loctable.BOF) Then
     cComp_Name = loctable!DESCA & ""
@@ -6656,16 +6675,16 @@ If subUserCode <> "" Then
     XUSERNAME_DISC.Caption = subUserName
     
     xNote_disc.Caption = ""
-    xdoc_disc.Caption = ""
+    XDOC_DISC.Caption = ""
 End If
 End Sub
 Private Sub myUndo()
-If xDoc_No.Tag = DefineMode Then
+If xDoc_no.Tag = DefineMode Then
     If Not openCardTable Then
         CmdNewInv_Click
     End If
 Else
-    If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable(tbMode.tbFind, xDoc_no.text) Then
         If Not openCardTable Then
             myDefine
         End If
@@ -6677,14 +6696,14 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Private Sub CmdNext_Click()
-If Not openCardTable(tbMode.tbNext, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbNext, xDoc_no.text) Then
     If Not openCardTable(tbMode.tblast) Then
         myDefine
     End If
 End If
 End Sub
 Private Sub CmdPrevious_Click()
-If Not openCardTable(tbMode.tbPrevious, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbPrevious, xDoc_no.text) Then
     If Not openCardTable(tbMode.tbFirst) Then
         myDefine
     End If
@@ -6716,7 +6735,7 @@ Me.MousePointer = vbHourglass
 'On Error GoTo myerror
 cFilter = retFilter
 
-Set CardTable = New ADODB.Recordset
+Set CardTable = New adodb.Recordset
 cString = "SELECT TOP 1 FILE6_20H.*," & _
           "dbo.fn_offer(FILE6_20H.DOC_NO) AS isOffer" & _
           " FROM FILE6_20H " & _
@@ -6764,8 +6783,6 @@ Dim sError As String
 Dim nCount As Long
 Dim bDone As Long
 
-Exit Sub
-
 If cBranch = "51" Or cBranch = "42" Then
     bDone = SendInvoicesArab(con, cBranch, sError, nCount)
     SendInvoicesMall con, cBranch, sError, nCount, Me
@@ -6803,7 +6820,7 @@ End Function
 Private Sub fixDisplay()
 If cBranch = "00" Then Exit Sub
     
-Dim loctable As New ADODB.Recordset
+Dim loctable As New adodb.Recordset
 Set loctable = cmd("SELECT DISPLAY , PORT , CountPrint FROM COMP ", con).Execute
 If Not loctable.EOF Then
     cMsgDisplay = loctable!display & ""
@@ -6817,7 +6834,7 @@ ClearDisplay
 myDisplay cMsgDisplay, " "
 End Sub
 Private Function retRecords(pDoc_no, ByRef nRecords As Long, ByRef nRecord As Long) As Variant
-Dim cString As String, loctable As New ADODB.Recordset
+Dim cString As String, loctable As New adodb.Recordset
 If pDoc_no <> "" Then
     cString = "SELECT Count(FILE6_20H.DOC_NO) AS records,COUNT(CASE WHEN FILE6_20H.DOC_NO <= " & MyParn(pDoc_no) & " THEN 1 END) AS record"
 Else
@@ -6868,11 +6885,11 @@ Private Sub xdoc_ret_LostFocus()
 myLostFocus xdoc_ret
 End Sub
 Private Sub xdate1_GotFocus()
-myGotFocus xdate1
+myGotFocus xDate1
 End Sub
 Private Sub xdate1_LostFocus()
-myLostFocus xdate1
-myValidDate xdate1
+myLostFocus xDate1
+myValidDate xDate1
 End Sub
 Private Sub xTotal_GotFocus()
 myGotFocus xTotal
@@ -6962,10 +6979,10 @@ Private Sub xcode_LostFocus()
 myLostFocus xCode
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xDoc_No
+myGotFocus xDoc_no
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus xDoc_No
+myLostFocus xDoc_no
 End Sub
 Private Sub xMosm_GotFocus()
 myGotFocus xMosm
@@ -6997,7 +7014,7 @@ cString = "SELECT FILE6_20.OFFER_NO," & _
           "FILE6_20.DISCOUNT_OFFER" & _
           " FROM FILE6_20" & _
           " INNER JOIN FILE0_90H ON FILE6_20.DOC_OFFER = FILE0_90H.DOC_NO" & _
-          " WHERE FILE6_20.DOC_NO = " & MyParn(xDoc_No.text) & _
+          " WHERE FILE6_20.DOC_NO = " & MyParn(xDoc_no.text) & _
           " AND FILE6_20.OFFER_NO > 0" & _
           " GROUP BY FILE6_20.DOC_OFFER," & _
           " FILE0_90H.DESCA," & _
@@ -7043,7 +7060,7 @@ Private Sub xTotal_LostFocus()
 End Sub
 
 Private Sub xTotalItemDiscount_Change()
-xTotalItem.Visible = Val(xTotalItemDiscount) <> 0
+xtotalitem.Visible = Val(xTotalItemDiscount) <> 0
 lblTotalitem.Visible = Val(xTotalItemDiscount) <> 0
 End Sub
 
@@ -7070,7 +7087,7 @@ Err.Clear
 End Function
 Public Function ChangePayment() As Boolean
 Unload oCash
-If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbFind, xDoc_no.text) Then
     If Not openCardTable Then
         myDefine
     End If

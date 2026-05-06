@@ -238,7 +238,7 @@ Begin VB.Form PassWord
    End
    Begin Threed.SSCommand cmdApply 
       Height          =   600
-      Left            =   1440
+      Left            =   1485
       TabIndex        =   8
       TabStop         =   0   'False
       Top             =   1080
@@ -599,7 +599,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim nTimes As Integer, nTime, userTable As Recordset
-Dim con As New ADODB.Connection
+Dim con As New adodb.Connection
 Dim nUser As Integer
 Private Enum enUser
 Admin = 3
@@ -611,7 +611,6 @@ Private Sub CmdApply_Click()
 'On Error GoTo LOCALERROR
 If Not xUser.MatchedWithList Then Exit Sub
 cComputerName = GetComputerName
-
 If UCase(Trim(xPass.text)) = "DATA@2023" Or (Trim(xPass.text)) = "jun!0R@95" Or DefUser Then
 'If UCase(Trim(xPass.text)) = "1" Then
     
@@ -684,8 +683,8 @@ Else
               
     sectable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
     If Not (sectable.EOF And sectable.BOF) Then
-        nusercode = sectable!CODE
-        cUserName = sectable!desca & ""
+        nusercode = sectable!code
+        cUserName = sectable!DESCA & ""
         bopt1 = sectable!Option1
         bopt2 = sectable!Option2
         bopt3 = sectable!Option3
@@ -728,7 +727,6 @@ End If
 'AddLod_Data cusername, 0, " › Õ «·»—‰«„Ã ", con
 
 Set rsAddress = createRs(cmd("select * From Address where branch = " & MyParn(cBranch), con).Execute)
-
 If lShowBranch Then
     grid1.Visible = False
     GRBRANCH.Visible = True
@@ -757,13 +755,13 @@ LOCALERROR:
     MsgBox Err.Description
     Err.Clear
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub Form_Activate()
     On Error Resume Next
     Clipboard.Clear
-    Err.Clear
+    'Err.Clear
 End Sub
 Private Sub Form_KeyPress(KeyAscii As Integer)
     If KeyAscii = 13 Then
@@ -771,7 +769,7 @@ Private Sub Form_KeyPress(KeyAscii As Integer)
     End If
 End Sub
 Private Sub Form_Load()
-On Error GoTo myerror
+'On Error GoTo myerror
 Dim fs As New FileSystemObject
 getVersion
 
@@ -849,7 +847,6 @@ End If
     
 'FixData11
 'fixSql
-
 If lServerOnLine Or lServerOnLineShop Then
     If Not vpn Then
         cServerNamePICT = "junior-sql.database.windows.net"
@@ -868,9 +865,10 @@ If cServerNamePICT = "null" Then cServerNamePICT = ""
 strConPICT = LoadConStringPICT
 If strConPICT <> "" Then openConPICT conPict
 
-Set grid1.DataSource = data2
+
+Set grid1.DataSource = DATA2
 cString = "SELECT MOSM , DESCA FROM MOSM WHERE CLOSED = 0 ORDER BY DATE DESC "
-Set data2.Recordset = myRecordSet(cString, con)
+Set DATA2.Recordset = myRecordSet(cString, con)
 
 Set GRBRANCH.DataSource = DATA3
 If cBranch = "00" Then
@@ -878,6 +876,7 @@ If cBranch = "00" Then
 Else
     cString = "SELECT CODE , DESCA FROM  QBRANCH_ALL WHERE CODE = " & MyParn(cBranch)
 End If
+
 Set DATA3.Recordset = myRecordSet(cString, con)
 
 With grid1
@@ -886,7 +885,6 @@ With grid1
     .ColWidth(1) = .Width - 700
     If .Rows = 0 Then .AddItem ""
 End With
-
 
 With GRBRANCH
     .Cols = 2
@@ -906,20 +904,16 @@ xUser.BoundColumn = "Code"
 xUser.BoundText = RetSetting("user", tempPath & "\password.txt")
 
 Set rsBranch = createRs(cmd("select * from branch where code = " & MyParn(cBranch), con).Execute)
-Set rsBranches = createRs(cmd("select * from branch", con).Execute)
-
+Set rsBranches = createRs(cmd("select * from BRANCH", con).Execute)
 If lServerOnLine Then
-    Set rsMall = createRs(cmd("select * from SettingMall", con).Execute)
+    Set rsMall = cmd("select * from SettingMall", GetCon).Execute
 End If
-
 Exit Sub
 myerror:
-    
     MsgBox Err.Description
 '    confFrm.Show 1
     Err.Clear
     End
-
 End Sub
 Private Sub MakeLocal()
 'On Error GoTo myerror
@@ -948,6 +942,7 @@ End Sub
 Private Sub GRBRANCH_DBLClick()
     sCatalog = GetDesca("SELECT DATA FROM QBRANCH_ALL WHERE CODE = " & MyParn(GRBRANCH.TextMatrix(GRBRANCH.Row, 0)), GetCon)
     strCon = LoadConString_B(GRBRANCH.TextMatrix(GRBRANCH.Row, 0))
+    
     openCon con, strCon
     
     'fixSql
@@ -1106,7 +1101,7 @@ testData = "ok"
 End Function
 Private Function CreateRemote() As String
 On Error GoTo myerror
-Dim conMaster As New ADODB.Connection
+Dim conMaster As New adodb.Connection
 Dim cString As String, cServerName As String
 cServerName = MyParn("." & turn(cExpress, "\") & cExpress)
 cString = "provider=SQLOLEDB;data source= " & cServerName & "  ;initial " _
@@ -1125,7 +1120,7 @@ myerror:
 End Function
 Private Function createLogin() As String
 On Error GoTo myerror
-Dim conMaster As New ADODB.Connection
+Dim conMaster As New adodb.Connection
 Dim cServerName As String, cString As String
 cServerName = MyParn("." & turn(cExpress, "\") & cExpress)
 cString = "provider=SQLOLEDB;data source= " & cServerName & "  ;initial " _
@@ -1143,7 +1138,7 @@ myerror:
 End Function
 Private Function AttachData() As String
 On Error GoTo myerror
-Dim conMaster As New ADODB.Connection
+Dim conMaster As New adodb.Connection
 Dim cString As String, cServerName As String
 cServerName = MyParn("." & turn(cExpress, "\") & cExpress)
 cString = "provider=SQLOLEDB;data source= " & cServerName & "  ;initial " _
@@ -1166,14 +1161,14 @@ myerror:
 End Function
 Private Function bringOnLine() As String
 On Error GoTo myerror
-Dim conMaster As New ADODB.Connection
+Dim conMaster As New adodb.Connection
 Dim cString As String, cServerName As String
 cServerName = MyParn("." & turn(cExpress, "\") & cExpress)
 cString = "provider=SQLOLEDB;data source= " & cServerName & "  ;initial " _
         & "catalog=master;Trusted_Connection=yes"
 conMaster.Open cString
 
-Dim FS1 As New ADODB.command
+Dim FS1 As New adodb.command
 FS1.CommandType = adCmdText
 Set FS1.ActiveConnection = conMaster
 cString = "alter database [" & sCatalog & "]"
@@ -1206,19 +1201,19 @@ ElseIf lServerOnLine Then
         loadConString = "provider=SQLNCLI11;data source=" & cServerName & ";initial " _
                         & "catalog=" & sCatalog & ";user id=" & cUserId & ";" & "password=" & cPassword & _
                         ";Encrypt=True" & _
-                        ";TrustServerCertificate=False" & _
+                        ";TrustServerCertificate=false" & _
                         ";Timeout=10"
     ElseIf bVersion Then
         loadConString = "provider=MSOLEDBSQL19;data source=" & cServerName & ";initial " _
                         & "catalog=" & sCatalog & ";user id=" & cUserId & ";" & "password=" & cPassword & _
                         ";Encrypt=True" & _
-                        ";TrustServerCertificate=False" & _
+                        ";TrustServerCertificate=false" & _
                         ";Timeout=10"
     Else
         loadConString = "provider=SQLOLEDB;data source=" & cServerName & ";initial " _
                         & "catalog=" & sCatalog & ";user id=" & cUserId & ";" & "password=" & cPassword & _
                         ";Encrypt=True" & _
-                        ";TrustServerCertificate=False" & _
+                        ";TrustServerCertificate=false" & _
                         ";Timeout=10"
     End If
 Else
@@ -1291,7 +1286,7 @@ LoadConStringfact3 = "provider=SQLOLEDB;data source=" & cServerName & ";initial 
 End Function
 
 Private Sub FixData2()
-Dim FS1 As New ADODB.command
+Dim FS1 As New adodb.command
 'openCon con
 On Error Resume Next
 cString = "ALTER TABLE [dbo].[FILE6_20H] ADD   [SALES_RET] [nvarchar](50) COLLATE Arabic_CI_AS NULL"
@@ -1303,7 +1298,7 @@ FS1.Execute
 Err.Clear
 End Sub
 Private Sub FixData3()
-Dim FS1 As New ADODB.command
+Dim FS1 As New adodb.command
 'openCon con
 On Error Resume Next
 cString = "alter TABLE [dbo].[users] add   [option11] [bit] NOT NULL CONSTRAINT [DF_users_option11]  DEFAULT ((0))"
@@ -1315,7 +1310,7 @@ FS1.Execute
 Err.Clear
 End Sub
 Private Sub FixData4()
-Dim FS1 As New ADODB.command
+Dim FS1 As New adodb.command
 'openCon con
 On Error Resume Next
 cString = "ALTER TABLE [dbo].[FILE6_20H] ADD [username_ret] [nvarchar](50) COLLATE Arabic_CI_AS NULL "
@@ -1327,7 +1322,7 @@ FS1.Execute
 Err.Clear
 End Sub
 Private Sub FixData5()
-Dim FS1 As New ADODB.command
+Dim FS1 As New adodb.command
 'openCon con
 On Error Resume Next
 cString = "alter TABLE [dbo].[users] add   [option9] [bit] NOT NULL CONSTRAINT [DF_users_option9]  DEFAULT ((0))"
@@ -1339,7 +1334,7 @@ FS1.Execute
 Err.Clear
 End Sub
 Private Sub FixData11()
-Dim FS1 As New ADODB.command
+Dim FS1 As New adodb.command
 'openCon con
 On Error Resume Next
 cString = "alter TABLE [dbo].[users] add   [option11] [bit] NOT NULL CONSTRAINT [DF_users_option11]  DEFAULT ((0))"
@@ -1365,10 +1360,10 @@ End Function
 
 
 Sub FixAddress()
-Dim loctable As New ADODB.Recordset
+Dim loctable As New adodb.Recordset
 loctable.Open "select * From Address", con, adOpenStatic, adLockReadOnly
 If Not (loctable.EOF And loctable.BOF) Then
-    cComp_Name = loctable!desca & ""
+    cComp_Name = loctable!DESCA & ""
     cComp_address = loctable!Address & ""
     cComp_Phone = loctable!Phone & ""
     cComp_Head1 = loctable!HEAD1 & ""

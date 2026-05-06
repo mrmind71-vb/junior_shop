@@ -9,7 +9,7 @@ Begin VB.Form grdOrdersDelivery_popfrm
    ClientHeight    =   10290
    ClientLeft      =   75
    ClientTop       =   450
-   ClientWidth     =   20370
+   ClientWidth     =   19080
    BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.25
@@ -22,7 +22,7 @@ Begin VB.Form grdOrdersDelivery_popfrm
    LinkTopic       =   "Form1"
    RightToLeft     =   -1  'True
    ScaleHeight     =   10290
-   ScaleWidth      =   20370
+   ScaleWidth      =   19080
    WindowState     =   2  'Maximized
    Begin VB.Frame Frame1 
       BackColor       =   &H00FFFFFF&
@@ -237,7 +237,7 @@ Begin VB.Form grdOrdersDelivery_popfrm
       GridLinesFixed  =   1
       GridLineWidth   =   1
       Rows            =   1
-      Cols            =   21
+      Cols            =   22
       FixedRows       =   1
       FixedCols       =   0
       RowHeightMin    =   0
@@ -293,8 +293,8 @@ Begin VB.Form grdOrdersDelivery_popfrm
       TabIndex        =   6
       Top             =   10095
       Visible         =   0   'False
-      Width           =   20370
-      _ExtentX        =   35930
+      Width           =   19080
+      _ExtentX        =   33655
       _ExtentY        =   344
       _Version        =   327682
       BorderStyle     =   1
@@ -354,7 +354,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public sPO_NO As String
-Dim con As New ADODB.Connection
+Dim con As New adodb.Connection
 Dim aHeader()
 Private Sub cmdExcel_Click()
 Me.MousePointer = 11
@@ -377,16 +377,16 @@ End If
 ToFileExelNew grid1, , , aRow, , 1.2, , , , , , Me, Array(Me.Caption, retHeader(aHeader, 0, 2), retHeader(aHeader, 2, 2), retHeader(aHeader, 4, 5))
 
 Me.MousePointer = 0
-fixGrd
+Fixgrd
 End Sub
 
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub CmdUndo_Click()
     Unload Me
 End Sub
-Private Sub cmdGo_Click()
+Private Sub CmdGo_Click()
 Me.MousePointer = vbHourglass
 myload
 Me.MousePointer = vbNormal
@@ -404,12 +404,13 @@ myload True
 End Sub
 Private Sub Form_Resize()
 grid1.Height = IIf(Me.Height - grid1.Top - 1000 < 3000, 3000, Me.Height - grid1.Top - 1000)
+grid1.Width = IIf(Me.Width < 6000, 6000, Me.Width - grid1.Left - 200)
 End Sub
 Private Sub Form_Load()
 openCon con
-XPO_NO.Caption = sPO_NO
+xPO_NO.Caption = sPO_NO
 Set grid1.DataSource = DATA11
-fixGrd
+Fixgrd
 myload
 End Sub
 Private Sub myload(Optional bString As Boolean = False)
@@ -437,7 +438,9 @@ cString.Append "SELECT FILE1_10.ITEM," & _
           "SUM(vw_orders_delivery.QUANT_SOLD) AS SALES," & _
           "COUNT(DISTINCT vw_orders_delivery.PO_NO) AS COUNT1," & _
           "COUNT(DISTINCT vw_orders_delivery.PO_NO_RCV) AS COUNT2," & _
-          "COUNT(DISTINCT vw_orders_delivery.PO_NO_SALES) AS COUNT3"
+          "COUNT(DISTINCT vw_orders_delivery.PO_NO_SALES) AS COUNT3," & _
+          "SUM(vw_orders_delivery.BALANCE_FACT) AS SALES"
+
           
 cString.Append " FROM FILE1_10" & _
                 " INNER JOIN FACT " & _
@@ -498,9 +501,9 @@ End If
 
 Set DATA11.Recordset = cmd(cString.GetAsString, con).Execute
 End With
-fixGrd
+Fixgrd
 End Sub
-Sub fixGrd()
+Sub Fixgrd()
 With grid1
     .RowHeight(0) = 600
     .WordWrap = True
@@ -530,6 +533,7 @@ With grid1
     .TextMatrix(0, 17 + 1) = "ÚÏÏ ÇáØáÈíÇÊ"
     .TextMatrix(0, 18 + 1) = "ØáÈíÇÊ ãÓÊáãÉ"
     .TextMatrix(0, 19 + 1) = "ØáÈíÇÊ ãÈÇÚÉ"
+    .TextMatrix(0, 20 + 1) = "ÑÕíÏ ÇáãÕäÚ"
     
     .ColWidth(0) = 1000
     .ColWidth(1) = 1000
@@ -555,6 +559,7 @@ With grid1
     .ColWidth(17 + 1) = 950
     .ColWidth(18 + 1) = 950
     .ColWidth(19 + 1) = 950
+    .ColWidth(20 + 1) = 950
     
     .ColHidden(6) = True
     .ColHidden(7) = True
@@ -598,7 +603,7 @@ aSub = AddFlag(aSub, "text", "ÅÌãÇáí")
 aRow = AddFlag(aRow, aSub)
 
 Set printGrdNew.myForm = Me
-printGrdNew.DOPRINT Me.grid1, 0.75, 0, "ÌæäíæÑ", Me.Caption, retHeader(aHeader, 0, 2), , True, True, 8, , aRow, Array(1)
+printGrdNew.doprint Me.grid1, 0.75, 0, "ÌæäíæÑ", Me.Caption, retHeader(aHeader, 0, 2), , True, True, 8, , aRow, Array(1)
 
 If Not bIgPreview Then
     printGrdNew.Show 1

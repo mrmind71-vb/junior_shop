@@ -1,7 +1,7 @@
 Attribute VB_Name = "data"
 Declare Function GetComputerNameA Lib "KERNEL32" (ByVal lpBuffer As String, nSize As Long) As Long
 Public strCon As String, cUserBox As String, lShowBranch As Boolean, lMainShow As Boolean, sCodeVisaBranch As String
-Public conShop As New ADODB.Connection, nMaxDisc2 As Double, conPict As New ADODB.Connection, lMainServer As Boolean
+Public conShop As New adodb.Connection, nMaxDisc2 As Double, conPict As New adodb.Connection, lMainServer As Boolean
 Public pServerIp As String, lServerPict As Boolean, cServerNamePICT As String
 Public pServerData As String, cUserStore As String
 Public strConfact As String, strConPICT As String, nCountBranch, nCountBranch_fr
@@ -11,10 +11,10 @@ Public aUser As Variant
 Public strConfact2MO As String
 Public strConShop As String
 Public strConShop_Fr As String
-Public GetCon As New ADODB.Connection
+Public GetCon As New adodb.Connection
 Public sMdfName As String, sCatalog As String, cExpress As String
-Function openCon(ByRef pCon As ADODB.Connection, Optional ByVal pString As String = "") As String
-On Error GoTo myError
+Function openCon(ByRef pCon As adodb.Connection, Optional ByVal pString As String = "") As String
+On Error GoTo myerror
 Dim cString As String
 If pString = "" Then cString = strCon Else cString = pString
 If pCon.State = adStateOpen Then pCon.Close
@@ -22,26 +22,26 @@ pCon.CursorLocation = adUseClient
 pCon.Open cString
 openCon = "ok"
 Exit Function
-myError:
+myerror:
 MsgBox Err.Description
 openCon = Err.Description
 Err.Clear
 End Function
-Function openConFACT(ByRef pCon As ADODB.Connection) As String
-On Error GoTo myError
+Function openConFACT(ByRef pCon As adodb.Connection) As String
+On Error GoTo myerror
 Dim cString As String
 If pCon.State = adStateOpen Then pCon.Close
 pCon.CursorLocation = adUseClient
 pCon.Open strConfact
 openConFACT = "ok"
 Exit Function
-myError:
+myerror:
 openConFACT = Err.Description
 MsgBox Err.Description
 Err.Clear
 End Function
-Function openConPICT(ByRef pCon As ADODB.Connection) As String
-On Error GoTo myError
+Function openConPICT(ByRef pCon As adodb.Connection) As String
+On Error GoTo myerror
 Dim cString As String
 If pCon.State = adStateOpen Then pCon.Close
 pCon.CommandTimeout = 20
@@ -50,14 +50,14 @@ pCon.Open strConPICT
 openConPICT = "ok"
 lServerPict = True
 Exit Function
-myError:
+myerror:
 openConPICT = Err.Description
 'MsgBox strConfact
 'MsgBox Err.Description
 Err.Clear
 End Function
-Function openConFACT2(ByRef pCon As ADODB.Connection) As String
-On Error GoTo myError
+Function openConFACT2(ByRef pCon As adodb.Connection) As String
+On Error GoTo myerror
 Dim cString As String
 
 If pCon.State = adStateOpen Then pCon.Close
@@ -65,35 +65,35 @@ pCon.CursorLocation = adUseClient
 pCon.Open strConfact2
 openConFACT2 = "ok"
 Exit Function
-myError:
+myerror:
 openConFACT2 = Err.Description
 Err.Clear
 End Function
-Function openConFACT3(ByRef pCon As ADODB.Connection) As String
-On Error GoTo myError
+Function openConFACT3(ByRef pCon As adodb.Connection) As String
+On Error GoTo myerror
 Dim cString As String
 If pCon.State = adStateOpen Then pCon.Close
 pCon.CursorLocation = adUseClient
 pCon.Open strConfact3
 openConFACT3 = "ok"
 Exit Function
-myError:
+myerror:
 openConFACT3 = Err.Description
 Err.Clear
 End Function
-Function closeCon(ByRef pCon As ADODB.Connection) As Boolean
-On Error GoTo myError
+Function closeCon(ByRef pCon As adodb.Connection) As Boolean
+On Error GoTo myerror
 If pCon.State = adStateOpen Then pCon.Close
 Set pCon = Nothing
 closeCon = True
 Exit Function
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Function
 Function ReadFile(cFile) As String
 Dim TextLine
-On Error GoTo myError
+On Error GoTo myerror
 Open cFile For Input As #1   ' Open file.
 Do While Not EOF(1)
     Line Input #1, TextLine  ' Read line into variable.
@@ -101,11 +101,11 @@ Do While Not EOF(1)
 Loop
 Close #1   ' Close file.
 Exit Function
-myError:
+myerror:
 Err.Clear
 ReadFile = ""
 End Function
-Function createFunc(cFile, con As ADODB.Connection) As String
+Function createFunc(cFile, con As adodb.Connection) As String
 Dim TextLine As String
 Open cFile For Input As #1   ' Open file.
 Do While Not EOF(1)
@@ -139,7 +139,7 @@ Public Sub ToFileExel(MyGrid)
         For icol = 1 To MyGrid.Cols - 1
             If Not MyGrid.ColHidden(icol) Then
                 MyGrid.Row = irow
-                MyGrid.Col = icol
+                MyGrid.col = icol
                 objSht.Cells(irow + 1, icol) = MyGrid.text
             End If
         Next icol
@@ -222,11 +222,11 @@ For tName = 1 To FileCount
 Next
 retFArray = fNames
 End Function
-Function NewflagBranch6(CTABLE, cField, pBranch, pCon As ADODB.Connection) As String
+Function NewflagBranch6(CTABLE, cField, pBranch, pCon As adodb.Connection) As String
     NewflagBranch6 = IncRec(GetDesca("SELECT MAX(" & cField & ") From " & CTABLE & " WHERE BRANCH = " & MyParn(pBranch), pCon))
     If NewflagBranch6 = "" Then NewflagBranch6 = pBranch & "0001"
 End Function
-Function NewflagBranch(CTABLE, cField, pBranch, pCon As ADODB.Connection) As String
+Function NewflagBranch(CTABLE, cField, pBranch, pCon As adodb.Connection) As String
     NewflagBranch = IncRec(GetDesca("SELECT MAX(" & cField & ") From " & CTABLE & " WHERE BRANCH = " & MyParn(cBranch), pCon))
     If NewflagBranch = "" Then NewflagBranch = cBranch & "000001"
 End Function
@@ -236,8 +236,8 @@ For i = 0 To UBound(pString)
     retFormatString = retFormatString & turn(retFormatString, "|") & pString(i)
 Next
 End Function
-Function openConShop(ByRef pCon As ADODB.Connection, Optional ByVal pString As String = "", Optional ByVal lMsg As Boolean = True, Optional nTimeOut As Integer = 600) As String
-On Error GoTo myError
+Function openConShop(ByRef pCon As adodb.Connection, Optional ByVal pString As String = "", Optional ByVal lMsg As Boolean = True, Optional nTimeOut As Integer = 600) As String
+On Error GoTo myerror
 Dim cString As String
 If pString = "" Then cString = strConShop Else cString = pString
 If pCon.State = adStateOpen Then pCon.Close
@@ -245,7 +245,7 @@ pCon.CursorLocation = adUseClient
 pCon.Open cString
 openConShop = "ok"
 Exit Function
-myError:
+myerror:
 'If lMsg Then MsgBox cString
 openConShop = Err.Description
 Err.Clear
@@ -272,8 +272,8 @@ LoadConStringshop = "provider=SQLOLEDB;data source=" & pServerIp & ";initial " _
             & "catalog=" & pServerData & ";user id = " & cUserId & ";" & "password = " & cPassword & ";Timeout=10"
 
 End Function
-Function Newflag_PurchBr(CTABLE, cField, pstore, pCon As ADODB.Connection) As String
-Dim loctable As New ADODB.Recordset
+Function Newflag_PurchBr(CTABLE, cField, pstore, pCon As adodb.Connection) As String
+Dim loctable As New adodb.Recordset
 'If pcon Is Nothing Then
 '    loctable.Open "Select Max(" & cField & ") as Maxof From " & CTABLE & " WHERE STORE = " & MyParn(pstore), GetCon, adOpenStatic, adLockReadOnly, adCmdText
 'Else
@@ -284,7 +284,7 @@ If Newflag_PurchBr = "" Then Newflag_PurchBr = pstore & "000001"
 loctable.Close
 Set loctable = Nothing
 End Function
-Public Sub ToFileExel2(MyGrid, Optional aIg As Variant, Optional nRowHead As Long = 0, Optional aRowMerge As Variant = Empty, Optional aCol As Variant = Empty, Optional nRate As Double = 0, Optional aWidth As Variant = Empty, Optional arowHeight As Variant = Empty, Optional aSetUp As Variant = Empty, Optional nSize As Integer = 12, Optional acolSplit As Variant = Empty, Optional myform As Form)
+Public Sub ToFileExel2(MyGrid, Optional aIg As Variant, Optional nRowHead As Long = 0, Optional aRowMerge As Variant = Empty, Optional aCol As Variant = Empty, Optional nRate As Double = 0, Optional aWidth As Variant = Empty, Optional arowHeight As Variant = Empty, Optional aSetUp As Variant = Empty, Optional nSize As Integer = 12, Optional acolSplit As Variant = Empty, Optional myForm As Form)
     Dim irow As Long, i As Long, i2 As Long, nCols As Long, nFixedCols As Long, nFixedRows As Long, n As Long
     Dim icol As Long
     Dim objExcl As Excel.Application
@@ -333,14 +333,14 @@ Public Sub ToFileExel2(MyGrid, Optional aIg As Variant, Optional nRowHead As Lon
         End If
     Next icol
     
-    If Not myform Is Nothing Then
-        myform.prog1.Visible = True
-        myform.prog1.Value = 0
+    If Not myForm Is Nothing Then
+        myForm.prog1.Visible = True
+        myForm.prog1.Value = 0
     End If
     
     For irow = 0 To MyGrid.Rows - 1
-        If (Not myform Is Nothing) And MyGrid.Rows > 1 Then
-            myform.prog1.Value = IIf((irow / (MyGrid.Rows - 1)) * 100 > 100, 100, (irow / (MyGrid.Rows - 1)) * 100)
+        If (Not myForm Is Nothing) And MyGrid.Rows > 1 Then
+            myForm.prog1.Value = IIf((irow / (MyGrid.Rows - 1)) * 100 > 100, 100, (irow / (MyGrid.Rows - 1)) * 100)
         End If
         If Not MyGrid.RowHidden(irow) Then
             NROWS = NROWS + 1
@@ -518,9 +518,9 @@ Public Sub ToFileExel2(MyGrid, Optional aIg As Variant, Optional nRowHead As Lon
         Next
     
     End If
-    If Not myform Is Nothing Then
-        myform.prog1.Visible = True
-        myform.prog1.Value = 0
+    If Not myForm Is Nothing Then
+        myForm.prog1.Visible = True
+        myForm.prog1.Value = 0
     End If
     objExcl.Application.Visible = True
 '    If Not IsEmpty(aRowMerge) Then
@@ -539,7 +539,7 @@ Public Sub ToFileExel2(MyGrid, Optional aIg As Variant, Optional nRowHead As Lon
 Set objSht = Nothing
 Set objWk = Nothing
 Set objExcl = Nothing
-If Not myform Is Nothing Then myform.prog1.Visible = False
+If Not myForm Is Nothing Then myForm.prog1.Visible = False
 End Sub
 Function myFormat(sDate As Variant) As String
     myFormat = Format(sDate, "YYYY-MM-DD")
@@ -548,8 +548,8 @@ Function myFormat_sp(sDate As Variant) As Variant
 myFormat_sp = TurnValue(myFormat(sDate))
 End Function
 
-Function openCon_F(ByRef pCon As ADODB.Connection, Optional ByVal pString As String = "") As String
-On Error GoTo myError
+Function openCon_F(ByRef pCon As adodb.Connection, Optional ByVal pString As String = "") As String
+On Error GoTo myerror
 Dim cString As String
 If pString = "" Then cString = strCon Else cString = pString
 If lMainShow Then cString = LoadConString_J
@@ -558,7 +558,7 @@ pCon.CursorLocation = adUseClient
 pCon.Open cString
 openCon_F = "ok"
 Exit Function
-myError:
+myerror:
 MsgBox cString
 openCon_F = Err.Description
 Err.Clear
@@ -587,7 +587,7 @@ Public Function LastDayOfMonth(dInput As Date) As Integer
 LastDayOfMonth_Done:
     On Error GoTo 0
 End Function
-Public Sub ToFileExelNew(MyGrid, Optional aIg As Variant, Optional nRowHead As Long = 0, Optional aRowMerge As Variant = Empty, Optional aCol As Variant = Empty, Optional nRate As Double = 0, Optional aWidth As Variant = Empty, Optional arowHeight As Variant = Empty, Optional aSetUp As Variant = Empty, Optional nSize As Integer = 12, Optional acolSplit As Variant = Empty, Optional myform As Form, Optional pHeader As Variant = Empty)
+Public Sub ToFileExelNew(MyGrid, Optional aIg As Variant, Optional nRowHead As Long = 0, Optional aRowMerge As Variant = Empty, Optional aCol As Variant = Empty, Optional nRate As Double = 0, Optional aWidth As Variant = Empty, Optional arowHeight As Variant = Empty, Optional aSetUp As Variant = Empty, Optional nSize As Integer = 12, Optional acolSplit As Variant = Empty, Optional myForm As Form, Optional pHeader As Variant = Empty)
     Dim irow As Long, i As Long, i2 As Long, nCols As Long, nFixedCols As Long, nFixedRows As Long, n As Long
     Dim icol As Long
     Dim objExcl As Excel.Application
@@ -637,14 +637,14 @@ Public Sub ToFileExelNew(MyGrid, Optional aIg As Variant, Optional nRowHead As L
         End If
     Next icol
     
-    If Not myform Is Nothing Then
-        myform.prog1.Visible = True
-        myform.prog1.Value = 0
+    If Not myForm Is Nothing Then
+        myForm.prog1.Visible = True
+        myForm.prog1.Value = 0
     End If
     
     For irow = 0 To MyGrid.Rows - 1
-        If (Not myform Is Nothing) And MyGrid.Rows > 1 Then
-            myform.prog1.Value = IIf((irow / (MyGrid.Rows - 1)) * 100 > 100, 100, (irow / (MyGrid.Rows - 1)) * 100)
+        If (Not myForm Is Nothing) And MyGrid.Rows > 1 Then
+            myForm.prog1.Value = IIf((irow / (MyGrid.Rows - 1)) * 100 > 100, 100, (irow / (MyGrid.Rows - 1)) * 100)
         End If
         If Not MyGrid.RowHidden(irow) Then
             NROWS = NROWS + 1
@@ -824,9 +824,9 @@ Public Sub ToFileExelNew(MyGrid, Optional aIg As Variant, Optional nRowHead As L
             End If
         Next
     End If
-    If Not myform Is Nothing Then
-        myform.prog1.Visible = True
-        myform.prog1.Value = 0
+    If Not myForm Is Nothing Then
+        myForm.prog1.Visible = True
+        myForm.prog1.Value = 0
     End If
     objExcl.Application.Visible = True
 '    If Not IsEmpty(aRowMerge) Then
@@ -845,6 +845,6 @@ Public Sub ToFileExelNew(MyGrid, Optional aIg As Variant, Optional nRowHead As L
 Set objSht = Nothing
 Set objWk = Nothing
 Set objExcl = Nothing
-If Not myform Is Nothing Then myform.prog1.Visible = False
+If Not myForm Is Nothing Then myForm.prog1.Visible = False
 End Sub
 

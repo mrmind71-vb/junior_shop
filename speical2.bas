@@ -1,11 +1,11 @@
 Attribute VB_Name = "special2"
 Public bClient As Boolean
 Public bVersion As Boolean
-Public rsBranch As ADODB.Recordset
-Public rsMall As ADODB.Recordset
-Public rsBranches As ADODB.Recordset
-Public rsUser As ADODB.Recordset
-Public rsAddress As ADODB.Recordset
+Public rsBranch As adodb.Recordset
+Public rsMall As adodb.Recordset
+Public rsBranches As adodb.Recordset
+Public rsUser As adodb.Recordset
+Public rsAddress As adodb.Recordset
 Public Const userid_vpn = "data_pro"
 Public Const password_vpn = "2010"
 Public vpn As Boolean
@@ -500,7 +500,7 @@ oSearch.nMax_records = 1000
 oSearch.Caption = "≈” ⁄·«„ «·Õ”«»« "
 oSearch.Show 1
 End Sub
-Public Sub fixSql(con As ADODB.Connection, Optional sMarker As String = "GO")
+Public Sub fixSql(con As adodb.Connection, Optional sMarker As String = "GO")
 Dim sb As New ChilkatStringBuilder
 Dim fs As New FileSystemObject
 Dim success As Long
@@ -537,9 +537,9 @@ Public Function GetNumbersFromString(ByVal inputString As String) As String
 
     GetNumbersFromString = resultString
 End Function
-Public Sub FillCheckbox(ByRef chkArray As Object, ByVal cSql As String, con As ADODB.Connection)
+Public Sub FillCheckbox(ByRef chkArray As Object, ByVal cSql As String, con As adodb.Connection)
     Dim i As Integer
-    Dim rs As New ADODB.Recordset
+    Dim rs As New adodb.Recordset
     Set rs = cmd(cSql, con).Execute
         
         
@@ -567,7 +567,7 @@ For i = 0 To chkArray.UBound
     End If
 Next
 End Function
-Public Function openConDoc(ByRef con As ADODB.Connection, Optional pCatalog As String = "SHOP_DOCS") As String
+Public Function openConDoc(ByRef con As adodb.Connection, Optional pCatalog As String = "SHOP_DOCS") As String
 Dim cServerName As String
 Dim cUserId As String
 Dim cPassword As String
@@ -601,7 +601,7 @@ Public Function CountFilesWithExt(DirectoryToSearch As String, Extension As Stri
     
     CountFilesWithExt = lCounter
 End Function
-Public Function accountRs(con As ADODB.Connection, Optional id_image As String, Optional id_cash As String) As ADODB.Recordset
+Public Function accountRs(con As adodb.Connection, Optional id_image As String, Optional id_cash As String) As adodb.Recordset
 Dim aPrm As Variant
 If id_image <> "" Then
     aPrm = AddFlag(aPrm, "id_image", id_image)
@@ -710,7 +710,7 @@ Public Function IsDgt(ByVal strData As String) As Boolean
     ' The String(Len(strData), "#") creates a pattern like "####"
     IsDgt = (Trim(strData) Like String(Len(Trim(strData)), "#"))
 End Function
-Public Function fixCostStock(con As ADODB.Connection, Optional pDoc_no As String, Optional pItem As String, Optional pDate1 As String = "", Optional pDate2 As String = "", Optional ByRef nUpdated As Long = 0, Optional ByRef sError As String) As Boolean
+Public Function fixCostStock(con As adodb.Connection, Optional pDoc_no As String, Optional pItem As String, Optional pDate1 As String = "", Optional pDate2 As String = "", Optional ByRef nUpdated As Long = 0, Optional ByRef sError As String) As Boolean
 Dim aPrm As Variant
 If pDoc_no <> "" Then
     aPrm = AddFlag(aPrm, "doc_no", pDoc_no)
@@ -729,7 +729,7 @@ If IsDate(pDate2) Then
 End If
 
 On Error GoTo myerror
-Dim Com As New ADODB.command
+Dim Com As New adodb.command
 Set Com = cmd("[dbo].[sp_stock_cost]", con, adStoredProc, aPrm)
 Com.Execute
 

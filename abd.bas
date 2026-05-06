@@ -1,12 +1,12 @@
 Attribute VB_Name = "abd"
 Public bEdit As Boolean
-Public rdItem As New ADODB.Recordset
-Public contemp As New ADODB.Connection, consec As New ADODB.Connection, condef As New ADODB.Connection
+Public rdItem As New adodb.Recordset
+Public contemp As New adodb.Connection, consec As New adodb.Connection, condef As New adodb.Connection
 Public bSupermode As Boolean
 Public aBranch As Variant
 Public searchArray
-Function Newflag(sTable, cField, pCon As ADODB.Connection, Optional pWhere As String = "") As Long
-Dim loctable As New ADODB.Recordset
+Function Newflag(sTable, cField, pCon As adodb.Connection, Optional pWhere As String = "") As Long
+Dim loctable As New adodb.Recordset
 Dim cSql As String
 cSql = "Select Max(" & cField & ") as Maxof From " & sTable
 If pWhere <> "" Then cSql = cSql & " where " & pWhere
@@ -17,8 +17,8 @@ End If
 loctable.Close
 Set loctable = Nothing
 End Function
-Function IncData(sTable As String, sField As String, con As ADODB.Connection, Optional pWhere As String = "") As String
-Dim loctable As New ADODB.Recordset
+Function IncData(sTable As String, sField As String, con As adodb.Connection, Optional pWhere As String = "") As String
+Dim loctable As New adodb.Recordset
 Dim cString As String
 cString = "Select Max(" & sField & ") as Maxof " & _
        " FROM " & sTable
@@ -35,8 +35,8 @@ loctable.Close
 Set loctable = Nothing
 End Function
 
-Function NewflagDoc(sDate As String, sStore As String, pCon As ADODB.Connection) As String
-Dim loctable As New ADODB.Recordset, cString As String
+Function NewflagDoc(sDate As String, sStore As String, pCon As adodb.Connection) As String
+Dim loctable As New adodb.Recordset, cString As String
 If cBranch <> "00" Then
     If Len(sStore) = 2 Then
         cString = "Select MAX(SUBSTRING(DOC_NO2,3,3)) as MaxofDocNo FROM FILE6_20H "
@@ -98,8 +98,8 @@ For i2 = 0 To UBound(aString)
 Next
 MyParnAnd = cString2
 End Function
-Function aGetDesca(pString, pCon As ADODB.Connection) As Variant
-Dim loctable As New ADODB.Recordset
+Function aGetDesca(pString, pCon As adodb.Connection) As Variant
+Dim loctable As New adodb.Recordset
 'If pcon Is Nothing Then
 '    loctable.Open pString, GetCon, adOpenStatic, adLockReadOnly, adCmdText
 'Else
@@ -116,8 +116,8 @@ aGetDesca = aRet
 loctable.Close
 Set loctable = Nothing
 End Function
-Function GetDesca(pString, pCon As ADODB.Connection) As String
-Dim loctable As New ADODB.Recordset
+Function GetDesca(pString, pCon As adodb.Connection) As String
+Dim loctable As New adodb.Recordset
 loctable.CursorLocation = adUseClient
 'If pcon Is Nothing Then
 '     loctable.Open pString, GetCon, adOpenStatic, adLockReadOnly, adCmdText
@@ -128,8 +128,8 @@ If Not (loctable.BOF And loctable.EOF) Then GetDesca = loctable(0) & ""
 loctable.Close
 Set loctable = Nothing
 End Function
-Function GetBoolean(pString, pCon As ADODB.Connection) As Integer
-Dim loctable As New ADODB.Recordset
+Function GetBoolean(pString, pCon As adodb.Connection) As Integer
+Dim loctable As New adodb.Recordset
 'loctable.CursorLocation = adUseClient
 'If pcon Is Nothing Then
 '    loctable.Open pString, GetCon, adOpenStatic, adLockReadOnly, adCmdTextElse
@@ -183,9 +183,9 @@ Next
 End Function
 
 
-Sub grdMake(pString As String, pFieldBound, pFieldList, pCon As ADODB.Connection, grid1 As VSFlexGrid, Optional pRows As Integer = 10)
-Dim rstLocal As ADODB.Recordset, cString As String
-Set rstLocal = New ADODB.Recordset
+Sub grdMake(pString As String, pFieldBound, pFieldList, pCon As adodb.Connection, grid1 As VSFlexGrid, Optional pRows As Integer = 10)
+Dim rstLocal As adodb.Recordset, cString As String
+Set rstLocal = New adodb.Recordset
 grid1.Rows = 0
 grid1.Rows = pRows
 rstLocal.Open pString, pCon, adOpenStatic, adLockReadOnly, adCmdText
@@ -213,7 +213,7 @@ For i = 0 To pGrid.Rows - 1
 Next
 GrdTitle = cString
 End Function
-Function retFilter(pTable As ADODB.Recordset, pFilter)
+Function retFilter(pTable As adodb.Recordset, pFilter)
 Dim aFilter
 ReDim aFilter(pTable.Fields.Count - 1)
 pTable.Filter = pFilter
@@ -305,7 +305,7 @@ End If
 Err.Clear
 End Function
 Function DefGet(sFlag, sFlagDesca) As String
-Dim loctable As New ADODB.Recordset
+Dim loctable As New adodb.Recordset
 cString = "Select * From defTable " & _
           " where Flag = " & MyParn(sFlag) & _
           " and FlagDesca = " & MyParn(sFlagDesca)
@@ -314,16 +314,16 @@ If Not (loctable.BOF And loctable.EOF) Then DefGet = loctable!FlagVAlue & ""
 loctable.Close
 Set loctable = Nothing
 End Function
-Function StrList(cString, pCon As ADODB.Connection)
-Dim listTable As New ADODB.Recordset
+Function StrList(cString, pCon As adodb.Connection)
+Dim listTable As New adodb.Recordset
 listTable.Open cString, pCon, adOpenStatic, adLockReadOnly, adCmdText
 Do Until listTable.EOF
     StrList = StrList & "|#" & listTable.Fields(0) & ";" & listTable.Fields(1)
     listTable.MoveNext
 Loop
 End Function
-Function StrListA(cString, pCon As ADODB.Connection)
-Dim listTable As New ADODB.Recordset
+Function StrListA(cString, pCon As adodb.Connection)
+Dim listTable As New adodb.Recordset
 StrListA = "|#" & "" & ";" & ""
 listTable.Open cString, pCon, adOpenStatic, adLockReadOnly, adCmdText
 Do Until listTable.EOF
@@ -556,9 +556,9 @@ InformOkfrm.Label1.Caption = Mcaption
 InformOkfrm.Show 1
 Err.Clear
 End Sub
-Function myRecordSet(pString As String, pCon As ADODB.Connection, Optional pType As Integer = adCmdText) As ADODB.Recordset
-Dim loctable As New ADODB.Recordset
-Dim cmd As New ADODB.command
+Function myRecordSet(pString As String, pCon As adodb.Connection, Optional pType As Integer = adCmdText) As adodb.Recordset
+Dim loctable As New adodb.Recordset
+Dim cmd As New adodb.command
 cmd.CommandType = pType
 cmd.CommandTimeout = 600
 If pCon Is Nothing Then
@@ -686,9 +686,9 @@ For i = IIf(col = -1, pGrid.FixedCols, col) To pGrid.Cols - 1
 Next
 emptyRow = True
 End Function
-Function createCommand(pString As String, pCon As ADODB.Connection) As Boolean
+Function createCommand(pString As String, pCon As adodb.Connection) As Boolean
 On Error GoTo myerror
-Dim FS1 As New ADODB.command
+Dim FS1 As New adodb.command
 FS1.CommandType = adCmdText
 Set FS1.ActiveConnection = pCon
 FS1.CommandText = pString
@@ -815,8 +815,8 @@ sPrinter = RetSetting("printer" & sType, tempPath & turn(tempPath, "\") & "print
 aRet = RetPrinter(sPrinter)
 If Not IsEmpty(aRet) Then RetPrinterByType = sPrinter
 End Function
-Function GetFields(pString, pCon As ADODB.Connection) As Variant
-Dim loctable As New ADODB.Recordset
+Function GetFields(pString, pCon As adodb.Connection) As Variant
+Dim loctable As New adodb.Recordset
 'If pcon Is Nothing Then
 '    loctable.Open pString, GetCon, adOpenStatic, adLockReadOnly, adCmdText
 'Else
@@ -830,8 +830,8 @@ End If
 loctable.Close
 Set loctable = Nothing
 End Function
-Function GetField(pString, pCon As ADODB.Connection) As Variant
-Dim loctable As New ADODB.Recordset
+Function GetField(pString, pCon As adodb.Connection) As Variant
+Dim loctable As New adodb.Recordset
 'If pcon Is Nothing Then
 '    loctable.Open pString, GetCon, adOpenStatic, adLockReadOnly, adCmdText
 'Else
@@ -843,8 +843,8 @@ End If
 loctable.Close
 Set loctable = Nothing
 End Function
-Function GetRows(pString, pCon As ADODB.Connection) As Variant
-Dim loctable As New ADODB.Recordset
+Function GetRows(pString, pCon As adodb.Connection) As Variant
+Dim loctable As New adodb.Recordset
 'If pcon Is Nothing Then
 '    loctable.Open pString, GetCon, adOpenStatic, adLockReadOnly, adCmdText
 'Else
@@ -919,7 +919,7 @@ End Function
 Public Function Ts(sb As ChilkatStringBuilder, Optional pReturn As String = " AND ") As String
 Ts = IIf(sb.length = 0, "", pReturn)
 End Function
-Sub SaveImageToDB(pPic As Picture, rs As ADODB.Recordset, pColName As String)
+Sub SaveImageToDB(pPic As Picture, rs As adodb.Recordset, pColName As String)
 Dim pb As PropertyBag
 Set pb = New PropertyBag
 pb.WriteProperty "MyImage", pPic
@@ -927,7 +927,7 @@ rs.Fields(pColName).AppendChunk pb.Contents
 rs.Update
 Set pb = Nothing
 End Sub
-Function GetPictureFromRecordset(rs As ADODB.Recordset, _
+Function GetPictureFromRecordset(rs As adodb.Recordset, _
                                          pColName As String) As Picture
     Dim pb As PropertyBag
     Set pb = New PropertyBag
@@ -994,8 +994,8 @@ For i = pMonth To 1 Step -1
     MonthString = MonthString & Tr(MonthString, " UNION All ") & "SELECT " & "CAST(" & i & " AS VARCHAR(2)) " & " AS [CODE]"
 Next
 End Function
-Public Function get_Id(con As ADODB.Connection) As String
-Dim loctable As New ADODB.Recordset
+Public Function get_Id(con As adodb.Connection) As String
+Dim loctable As New adodb.Recordset
 Set loctable = cmd("select SCOPE_IDENTITY() AS ID", con).Execute
 If Not loctable.EOF Then
     get_Id = loctable!ID & ""

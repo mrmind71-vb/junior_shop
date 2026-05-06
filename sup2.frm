@@ -1532,7 +1532,7 @@ End Sub
 
 Private Sub cmdGroup_Click()
 Dim sBound As String
-sBound = xgroup.BoundText
+sBound = xGroup.BoundText
 Dim oFlagfrm As New flag_mainfrm
 oFlagfrm.sFieldCode = "[CODE]"
 oFlagfrm.sFieldDesca = "[DESCA]"
@@ -1541,12 +1541,12 @@ oFlagfrm.sFieldName2 = "«·»Ì«‰"
 oFlagfrm.sCaption = "„Ã„Ê⁄… «·„Ê—œÌ‰"
 oFlagfrm.sTable = "FILE4_50"
 oFlagfrm.nZero = 2
-oFlagfrm.bedit = bedit
+oFlagfrm.bEdit = bEdit
 oFlagfrm.Show 1
 
 data1.Recordset.Requery
-xgroup.BoundText = sBound
-If Not xgroup.MatchedWithList Then xgroup.BoundText = ""
+xGroup.BoundText = sBound
+If Not xGroup.MatchedWithList Then xGroup.BoundText = ""
 End Sub
 Private Sub Form_KeyPress(KeyAscii As Integer)
 If KeyAscii = 13 Then
@@ -1560,24 +1560,24 @@ Private Sub Form_Load()
 openCon con
 
 Set data1.Recordset = myRecordSet("SELECT * FROM file4_50", con)
-Set xgroup.RowSource = data1
-xgroup.ListField = "Desca"
-xgroup.BoundColumn = "Code"
+Set xGroup.RowSource = data1
+xGroup.ListField = "Desca"
+xGroup.BoundColumn = "Code"
 
-Set data2.Recordset = cmd("SELECT * FROM file1_10sc order by desca ", con).Execute
-Set xSection.RowSource = data2
-xSection.ListField = "DESCA"
-xSection.BoundColumn = "code"
+Set DATA2.Recordset = cmd("SELECT * FROM file1_10sc order by desca ", con).Execute
+Set XSECTION.RowSource = DATA2
+XSECTION.ListField = "DESCA"
+XSECTION.BoundColumn = "code"
 
-Set data3.Recordset = cmd("SELECT * FROM file3_10 order by desca ", con).Execute
-Set xcust.RowSource = data3
+Set DATA3.Recordset = cmd("SELECT * FROM file3_10 order by desca ", con).Execute
+Set xcust.RowSource = DATA3
 xcust.ListField = "Desca"
 xcust.BoundColumn = "Code"
 
-Set data4.Recordset = cmd("SELECT * FROM branch_fr order by desca ", con).Execute
-Set xbranch.RowSource = data4
-xbranch.ListField = "Desca"
-xbranch.BoundColumn = "Code"
+Set DATA4.Recordset = cmd("SELECT * FROM branch_fr order by desca ", con).Execute
+Set XBRANCH.RowSource = DATA4
+XBRANCH.ListField = "Desca"
+XBRANCH.BoundColumn = "Code"
     
 Set DATA5.Recordset = cmd("SELECT * FROM branch_fr order by desca ", con).Execute
 Set xCode_main.RowSource = DATA5
@@ -1593,10 +1593,10 @@ If Not openCardTable Then myDefine
 End Sub
 Private Sub CmdAdd_Click()
 myDefine
-xDescA.SetFocus
+xdesca.SetFocus
 End Sub
 Private Sub CmdDel_Click()
-On Error GoTo myError
+On Error GoTo myerror
 If MsgBox("«·€«¡ «·”Ã· «·Õ«·Ï : Â· «‰  „Ê«›ﬁ ø", vbOKCancel + vbDefaultButton2) = vbOK Then
     con.Execute "Delete  From FILE4_10  Where code = " & MyParn(xCode.text)
     If Not openCardTable(tbMode.tbPrevious, xCode.text) Then
@@ -1606,15 +1606,15 @@ If MsgBox("«·€«¡ «·”Ã· «·Õ«·Ï : Â· «‰  „Ê«›ﬁ ø", vbOKCancel + vbDefaultButton2) 
     End If
 End If
 Exit Sub
-myError:
+myerror:
     MsgBox Err.Description
     Err.Clear
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub cmdSave_Click()
-If Not myValid Then Exit Sub
+If Not MYVALID Then Exit Sub
 If Not myreplace Then Exit Sub
 Inform " „ Õ›Ÿ »Ì«‰«  «·„Ê—œ »‰Ã«Õ"
 If Not openCardTable(tbMode.tbFind, xCode.text) Then
@@ -1653,8 +1653,8 @@ End If
 End Sub
 Sub Handlecontrols(nMode)
 cmdAdd.Enabled = (nMode = LoadMode)
-CmdDel.Enabled = (nMode = LoadMode)
-CmdInform.Enabled = (nMode = LoadMode)
+cmdDel.Enabled = (nMode = LoadMode)
+cmdInform.Enabled = (nMode = LoadMode)
 
 xCode.Tag = nMode
 Dim nRecord As Long, nRecords As Long
@@ -1709,17 +1709,17 @@ End If
 
 xCode.text = sCodeNew
 xCode_main.BoundText = ""
-xDescA.text = ""
+xdesca.text = ""
 xisopen.Value = 1
-xisonest.Value = 1
+XISONEST.Value = 1
 xf_Date.text = ""
 xf_balance.text = ""
 
 xManager.text = ""
 xEMAIL.text = ""
-xgroup.BoundText = ""
+xGroup.BoundText = ""
 xcust.BoundText = ""
-xbranch.BoundText = ""
+XBRANCH.BoundText = ""
 xAddress.text = ""
 xPhone1.text = ""
 xFax.text = ""
@@ -1734,13 +1734,13 @@ Handlecontrols DefineMode
 End Sub
 Sub myload()
 xisopen.Value = IIf(CardTable!IsOpen, 1, 0)
-xisonest.Value = IIf(CardTable!ISONEST, 1, 0)
+XISONEST.Value = IIf(CardTable!ISONEST, 1, 0)
 
 xf_Date.text = myFormat_p(CardTable!F_DATE)
 xf_balance.text = Myvalue(CardTable!F_Balance)
 
-xCode.text = CardTable!Code & ""
-xDescA.text = CardTable!DESCA
+xCode.text = CardTable!code & ""
+xdesca.text = CardTable!DESCA
 xManager.text = CardTable!Manager & ""
 xAddress.text = CardTable!Address & ""
 xEMAIL.text = CardTable!email & ""
@@ -1751,9 +1751,9 @@ xdisc2.text = Myvalue(CardTable!disc2)
 xRate.text = Myvalue(CardTable!Rate)
 xFact(0).Value = IIf(CardTable!Fact, 1, 0)
 xFact(1).Value = IIf(CardTable!SUPP, 1, 0)
-xgroup.BoundText = CardTable!Group & ""
+xGroup.BoundText = CardTable!Group & ""
 xcust.BoundText = CardTable!CUST & ""
-xbranch.BoundText = CardTable!branch & ""
+XBRANCH.BoundText = CardTable!branch & ""
 xRemark.text = CardTable!remark & ""
 xSubCode.text = CardTable!SUBCODE & ""
 xCode_main.BoundText = CardTable!CODE_MAIN & ""
@@ -1761,12 +1761,12 @@ Handlecontrols LoadMode
 End Sub
 Private Function myreplace() As Boolean
 Dim aInsert As Variant
-aInsert = AddFlag(Empty, "DESCA", addstring(xDescA.text))
+aInsert = AddFlag(Empty, "DESCA", addstring(xdesca.text))
 aInsert = AddFlag(aInsert, "[MANAGER]", addstring(xManager.text))
 aInsert = AddFlag(aInsert, "ADDRESS", addstring(xAddress.text))
 aInsert = AddFlag(aInsert, "PHONE1", addstring(xPhone1.text))
 aInsert = AddFlag(aInsert, "FAX", addstring(xFax.text))
-aInsert = AddFlag(aInsert, "[GROUP]", addstring(xgroup.BoundText))
+aInsert = AddFlag(aInsert, "[GROUP]", addstring(xGroup.BoundText))
 aInsert = AddFlag(aInsert, "CODE_MAIN", addstring(xCode_main.BoundText))
 aInsert = AddFlag(aInsert, "EMAIL", addstring(xEMAIL.text))
 aInsert = AddFlag(aInsert, "DISC", Val(xDisc.text))
@@ -1779,12 +1779,12 @@ aInsert = AddFlag(aInsert, "remark", addstring(xRemark.text))
 aInsert = AddFlag(aInsert, "SUBCODE", IIf(xFact(0).Value, "1", "null"))
 aInsert = AddFlag(aInsert, "ISOPEN", xisopen.Value)
 aInsert = AddFlag(aInsert, "cust", addstring(xcust.BoundText))
-aInsert = AddFlag(aInsert, "branch", addstring(xbranch.BoundText))
-aInsert = AddFlag(aInsert, "ISONEST", xisonest.Value)
+aInsert = AddFlag(aInsert, "branch", addstring(XBRANCH.BoundText))
+aInsert = AddFlag(aInsert, "ISONEST", XISONEST.Value)
 aInsert = AddFlag(aInsert, "F_DATE", addDate(xf_Date.text))
 aInsert = AddFlag(aInsert, "F_BALANCE", Val(xf_balance.text))
 aInsert = AddFlag(aInsert, "IS_SECONDARY", "1")
-On Error GoTo myError
+On Error GoTo myerror
 If xCode.Tag = DefineMode Then
     Dim sCodeNew As String
     sCodeNew = GetField("SELECT MAX(CODE) FROM FILE4_10 WHERE IS_SECONDARY = 1", con) & ""
@@ -1800,12 +1800,12 @@ Else
 End If
 myreplace = True
 Exit Function
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Function
 Sub myProc()
-If ActiveControl.Name = CmdInform.Name Then
+If ActiveControl.Name = cmdInform.Name Then
     openCardTable tbMode.tbFind, oSearch.grid1.TextMatrix(oSearch.grid1.Row, 0)
     Unload oSearch
 ElseIf ActiveControl.Name = xCode_main.Name Then
@@ -1840,18 +1840,18 @@ Else
     End If
 End If
 End Sub
-Function myValid() As Boolean
+Function MYVALID() As Boolean
 If xCode.text = "" Then
     MsgBox "«·ﬂÊœ ·« Ì„ﬂ‰ «‰ ÌﬂÊ‰ Œ«·Ì«"
     Exit Function
 End If
 
-If xgroup.BoundText = "" Then
+If xGroup.BoundText = "" Then
     MsgBox " ”ÃÌ· «·„Ã„Ê⁄… "
     Exit Function
 End If
 
-If xDescA.text = "" Then
+If xdesca.text = "" Then
     MsgBox "«·≈”„ ·« Ì„ﬂ‰ «‰ ÌﬂÊ‰ Œ«·Ì«"
     Exit Function
 End If
@@ -1860,7 +1860,7 @@ If Not IsDate(xf_Date.text) Then
     MsgBox " «—ÌŒ «Ê· «·„œ… ÷—Ê—Ì"
     Exit Function
 End If
-myValid = True
+MYVALID = True
 End Function
 Private Sub myUndo()
 If xCode.Tag = DefineMode Then
@@ -1927,7 +1927,7 @@ End If
 
 Me.MousePointer = 0
 Exit Function
-myError:
+myerror:
 Me.MousePointer = vbNormal
 MsgBox Err.Description
 Err.Clear
@@ -1963,11 +1963,11 @@ End If
 End Sub
 
 Private Sub xSection_GotFocus()
-myGotFocus xSection
+myGotFocus XSECTION
 End Sub
 Private Sub xSection_LostFocus()
-myLostFocus xSection
-If Not xSection.MatchedWithList Then xSection.BoundText = ""
+myLostFocus XSECTION
+If Not XSECTION.MatchedWithList Then XSECTION.BoundText = ""
 End Sub
 Private Sub xcust_GotFocus()
 myGotFocus xcust
@@ -1977,11 +1977,11 @@ myLostFocus xcust
 If Not xcust.MatchedWithList Then xcust.BoundText = ""
 End Sub
 Private Sub XBRANCH_GotFocus()
-myGotFocus xbranch
+myGotFocus XBRANCH
 End Sub
 Private Sub XBRANCH_LostFocus()
-myLostFocus xbranch
-If Not xbranch.MatchedWithList Then xbranch.BoundText = ""
+myLostFocus XBRANCH
+If Not XBRANCH.MatchedWithList Then XBRANCH.BoundText = ""
 End Sub
 Private Sub xf_Balance_GotFocus()
 myGotFocus xf_balance
@@ -2021,10 +2021,10 @@ Private Sub xPhone1_LostFocus()
 myLostFocus xPhone1
 End Sub
 Private Sub xdesca_GotFocus()
-myGotFocus xDescA
+myGotFocus xdesca
 End Sub
 Private Sub xDesca_LostFocus()
-myLostFocus xDescA
+myLostFocus xdesca
 End Sub
 Private Sub xcode_GotFocus()
 myGotFocus xCode
@@ -2048,11 +2048,11 @@ Private Sub xAddress_LostFocus()
 myLostFocus xAddress
 End Sub
 Private Sub xGroup_GotFocus()
-myGotFocus xgroup
+myGotFocus xGroup
 End Sub
 Private Sub xgroup_LostFocus()
-myLostFocus xgroup
-If Not xgroup.MatchedWithList Then xgroup.BoundText = ""
+myLostFocus xGroup
+If Not xGroup.MatchedWithList Then xGroup.BoundText = ""
 End Sub
 Private Sub xCode_main_GotFocus()
 myGotFocus xCode_main
@@ -2083,7 +2083,7 @@ Private Sub myLoadSub(pCode)
 Dim loctable As New adodb.Recordset
 Set loctable = cmd("SELECT * FROM FILE4_10 WHERE CODE = " & MyParn(pCode), con).Execute
 If Not loctable.EOF Then
-    xDescA.text = loctable!DESCA
+    xdesca.text = loctable!DESCA
     xManager.text = loctable!Manager & ""
     xAddress.text = loctable!Address & ""
     xEMAIL.text = loctable!email & ""
@@ -2094,9 +2094,9 @@ If Not loctable.EOF Then
     xRate.text = Myvalue(loctable!Rate)
     xFact(0).Value = IIf(loctable!Fact, 1, 0)
     xFact(1).Value = IIf(loctable!SUPP, 1, 0)
-    xgroup.BoundText = loctable!Group & ""
+    xGroup.BoundText = loctable!Group & ""
     xcust.BoundText = loctable!CUST & ""
-    xbranch.BoundText = loctable!branch & ""
+    XBRANCH.BoundText = loctable!branch & ""
     xRemark.text = loctable!remark & ""
     xSubCode.text = loctable!SUBCODE & ""
 End If

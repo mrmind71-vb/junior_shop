@@ -1313,11 +1313,11 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Dim con As New ADODB.Connection
+Dim con As New adodb.Connection
 Public myFlag As Integer
 Dim formMode As Byte, cTableName As String, cGroupname As String
 Dim oSearch As New Search3
-Dim CardTable As New ADODB.Recordset
+Dim CardTable As New adodb.Recordset
 Const LoadMode = 1, DefineMode = 2
 Private Sub cmdPerviious_Click()
 CardTable.MovePrevious
@@ -1329,9 +1329,9 @@ End If
 End Sub
 
 Private Sub CMD_FIXSEC_Click()
-If xSection.BoundText = "" Then Exit Sub
+If XSECTION.BoundText = "" Then Exit Sub
 If MsgBox(" ⁄œÌ· „ÊœÌ·«  «·›« Ê—… ··ﬁ”„", vbYesNo) = vbYes Then
-    con.Execute " UPDATE FILE1_10 SET [SECTION] = " & Val(xSection.BoundText) & " WHERE CODE = " & MyParn(xCode.text)
+    con.Execute " UPDATE FILE1_10 SET [SECTION] = " & Val(XSECTION.BoundText) & " WHERE CODE = " & MyParn(xCode.text)
     Inform " „  «· ⁄œÌ· »‰Ã«Õ"
 End If
 
@@ -1353,7 +1353,7 @@ myPublic(2) = "Desca"
 myPublic(3) = "ﬂÊœ «·„Ã„Ê⁄…"
 myPublic(4) = "≈”„ «·„Ã„Ê⁄…"
 myPublic(5) = "„Ã„Ê⁄«  «·„Ê—œÌ‰"
-FlagFrm2.bedit = True
+FlagFrm2.bEdit = True
 FlagFrm2.myPublic = myPublic
 FlagFrm2.Show 1
 data1.Refresh
@@ -1362,30 +1362,30 @@ Private Sub Form_Load()
     openCon con
 
     Set data1.Recordset = myRecordSet("SELECT * FROM file4_50", con)
-    Set xgroup.RowSource = data1
-    xgroup.ListField = "Desca"
-    xgroup.BoundColumn = "Code"
+    Set xGroup.RowSource = data1
+    xGroup.ListField = "Desca"
+    xGroup.BoundColumn = "Code"
 
-    Set data2.Recordset = myRecordSet("SELECT * FROM file1_10sc order by desca ", con)
-    Set xSection.RowSource = data2
-    xSection.ListField = "DESCA"
-    xSection.BoundColumn = "code"
+    Set DATA2.Recordset = myRecordSet("SELECT * FROM file1_10sc order by desca ", con)
+    Set XSECTION.RowSource = DATA2
+    XSECTION.ListField = "DESCA"
+    XSECTION.BoundColumn = "code"
 
-    Set data3.Recordset = myRecordSet("SELECT * FROM file3_10 order by desca ", con)
-    Set xcust.RowSource = data3
+    Set DATA3.Recordset = myRecordSet("SELECT * FROM file3_10 order by desca ", con)
+    Set xcust.RowSource = DATA3
     xcust.ListField = "Desca"
     xcust.BoundColumn = "Code"
 
-    Set data4.Recordset = myRecordSet("SELECT * FROM branch_fr order by desca ", con)
-    Set xbranch.RowSource = data4
-    xbranch.ListField = "Desca"
-    xbranch.BoundColumn = "Code"
+    Set DATA4.Recordset = myRecordSet("SELECT * FROM branch_fr order by desca ", con)
+    Set XBRANCH.RowSource = DATA4
+    XBRANCH.ListField = "Desca"
+    XBRANCH.BoundColumn = "Code"
 
     openCardTable
     myUndo
 
 cmdSave.Visible = (cBranch = "00")
-CmdDel.Visible = (cBranch = "00")
+cmdDel.Visible = (cBranch = "00")
 cmdAdd.Visible = (cBranch = "00")
 Cmd_gom.Visible = (cBranch = "00")
 End Sub
@@ -1394,34 +1394,34 @@ myDefine
 xCode.SetFocus
 End Sub
 Private Sub CmdDel_Click()
-On Error GoTo myError
+On Error GoTo myerror
 If MsgBox("«·€«¡ «·”Ã· «·Õ«·Ï : Â· «‰  „Ê«›ﬁ ø", 4) = 6 Then
     con.BeginTrans
     con.Execute "Delete  From file4_22  Where f_bal <> 0  and code = " & MyParn(xCode.text)
     con.Execute "Delete  From file4_10  Where code = " & MyParn(xCode.text)
     con.CommitTrans
     
-    AddLod_Data cusername, 2, " Õ–›  „Ê—œÌ‰ ", con, xCode.text, , , xDescA.text
+    AddLod_Data cUserName, 2, " Õ–›  „Ê—œÌ‰ ", con, xCode.text, , , xdesca.text
     
     openCardTable
     CmdAdd_Click
 End If
 Exit Sub
-myError:
+myerror:
     MsgBox Err.Description
     Err.Clear
     con.RollbackTrans
 End Sub
 
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub cmdSave_Click()
-If Not myValid Then Exit Sub
+If Not MYVALID Then Exit Sub
 If Not myreplace Then Exit Sub
 
 Inform " „ Õ›Ÿ «·»Ì«‰«  »‰Ã«Õ"
-AddLod_Data cusername, 1, " Õ÷Ÿ „Ê—œÌ‰ ", con, xCode.text, , , xDescA.text
+AddLod_Data cUserName, 1, " Õ÷Ÿ „Ê—œÌ‰ ", con, xCode.text, , , xdesca.text
 
 openCardTable
 myUndo
@@ -1459,8 +1459,8 @@ End If
 End Sub
 Sub Handlecontrols(nMode)
 cmdAdd.Enabled = (nMode = LoadMode)
-CmdDel.Enabled = (nMode = LoadMode)
-CmdInform.Enabled = (nMode = LoadMode)
+cmdDel.Enabled = (nMode = LoadMode)
+cmdInform.Enabled = (nMode = LoadMode)
 cmdPrevious.Enabled = (nMode = LoadMode)
 cmdNext.Enabled = (nMode = LoadMode)
 cmdLast.Enabled = (nMode = LoadMode)
@@ -1471,11 +1471,10 @@ xFact(0).Enabled = (nMode = DefineMode)
 xFact(1).Enabled = (nMode = DefineMode)
 End Sub
 Sub myDefine()
-
 xCode.text = RetZero(Newflag("file4_10", "code", con, "IS_SECONDARY = 0"), 3)
-xDescA.text = ""
+xdesca.text = ""
 xisopen.Value = 1
-xisonest.Value = 1
+XISONEST.Value = 1
 
 
 xf_Date.text = ""
@@ -1483,9 +1482,9 @@ xf_balance.text = ""
 
 xManager.text = ""
 xEMAIL.text = ""
-xgroup.BoundText = ""
+xGroup.BoundText = ""
 xcust.BoundText = ""
-xbranch.BoundText = ""
+XBRANCH.BoundText = ""
 xAddress.text = ""
 xPhone1.text = ""
 xFax.text = ""
@@ -1500,13 +1499,13 @@ End Sub
 Sub myload()
 Cmd_gom.Visible = xFact(0).Value = True
 xisopen.Value = IIf(CardTable!IsOpen, 1, 0)
-xisonest.Value = IIf(CardTable!ISONEST, 1, 0)
+XISONEST.Value = IIf(CardTable!ISONEST, 1, 0)
 
 xf_Date.text = Format(CardTable!F_DATE, "DD-MM-YYYY")
 xf_balance.text = Format(CardTable!F_Balance, "#0.00")
 
-xCode.text = CardTable!Code & ""
-xDescA.text = CardTable!DESCA
+xCode.text = CardTable!code & ""
+xdesca.text = CardTable!DESCA
 xManager.text = CardTable!Manager & ""
 xAddress.text = CardTable!Address & ""
 xEMAIL.text = CardTable!email & ""
@@ -1517,9 +1516,9 @@ xdisc2.text = Format(CardTable!disc2, "##0.00")
 xRate.text = Format(CardTable!Rate, "##0.00")
 xFact(0).Value = IIf(CardTable!Fact, 1, 0)
 xFact(1).Value = IIf(CardTable!SUPP, 1, 0)
-xgroup.BoundText = CardTable!Group & ""
+xGroup.BoundText = CardTable!Group & ""
 xcust.BoundText = CardTable!CUST & ""
-xbranch.BoundText = CardTable!branch & ""
+XBRANCH.BoundText = CardTable!branch & ""
 xRemark.text = CardTable!remark & ""
 xSubCode.text = CardTable!SUBCODE & ""
 xRecordNumber = "”Ã· " & CardTable.AbsolutePosition + 1 & " „‰ " & nRecordNumber
@@ -1531,7 +1530,7 @@ aInsert(0, 0) = "Code"
 aInsert(0, 1) = addstring(xCode.text)
 
 aInsert(1, 0) = "desca"
-aInsert(1, 1) = addstring(xDescA.text)
+aInsert(1, 1) = addstring(xdesca.text)
 
 aInsert(2, 0) = "Manager"
 aInsert(2, 1) = addstring(xManager.text)
@@ -1546,7 +1545,7 @@ aInsert(5, 0) = "fax"
 aInsert(5, 1) = addstring(xFax.text)
 
 aInsert(6, 0) = "[Group]"
-aInsert(6, 1) = addstring(xgroup.BoundText)
+aInsert(6, 1) = addstring(xGroup.BoundText)
 
 aInsert(7, 0) = "email"
 aInsert(7, 1) = addstring(xEMAIL.text)
@@ -1581,13 +1580,13 @@ aInsert(15, 0) = "[cust]"
 aInsert(15, 1) = addstring(xcust.BoundText)
 
 aInsert(16, 0) = "branch"
-aInsert(16, 1) = addstring(xbranch.BoundText)
+aInsert(16, 1) = addstring(XBRANCH.BoundText)
 
 aInsert(17, 0) = "disc2"
 aInsert(17, 1) = Val(xdisc2.text)
 
 aInsert(18, 0) = "isonest"
-aInsert(18, 1) = xisonest.Value
+aInsert(18, 1) = XISONEST.Value
 
 aInsert(19, 0) = "f_Balance"
 aInsert(19, 1) = Val(xf_balance.text)
@@ -1598,7 +1597,8 @@ aInsert(20, 1) = addDate(xf_Date.text)
 
 con.BeginTrans
 If xCode.Enabled Then
-    xCode.text = RetZero(Newflag("FILE4_10", "CODE", con), 3)
+    xCode.text = RetZero(Newflag("file4_10", "code", con, "IS_SECONDARY = 0"), 3)
+'    xCode.text = RetZero(Newflag("FILE4_10", "CODE", con), 3)
     aInsert(0, 1) = addstring(xCode.text)
     cString = CreateInsert(aInsert, "file4_10")
     con.Execute cString
@@ -1611,12 +1611,12 @@ If xFact(0).Value Then
         con.Execute "INSERT INTO FACT (CODE , DESCA , [RATE] )" & _
                     "VALUES( " & _
                     addstring(xCode.text) & "," & _
-                    addstring(xDescA.text) & "," & _
+                    addstring(xdesca.text) & "," & _
                     Val(xRate.text) & _
                     ")"
     Else
         con.Execute "UPDATE FACT " & _
-                    " SET DESCA = " & addstring(xDescA.text) & _
+                    " SET DESCA = " & addstring(xdesca.text) & _
                     ",[RATE] = " & Val(xRate.text) & _
                     " WHERE code = " & MyParn(xCode.text)
     End If
@@ -1624,7 +1624,7 @@ End If
 con.CommitTrans
 myreplace = True
 Exit Function
-myError:
+myerror:
 con.RollbackTrans
 If Err.Number <> 0 Then MsgBox Err.Description
 Err.Clear
@@ -1650,7 +1650,7 @@ xCode.text = xCode.text
 CardTable.Find "CODE = " & MyParn(xCode.text), , adSearchForward, adBookmarkFirst
 If Not CardTable.EOF Then myload
 End Sub
-Function myValid() As Boolean
+Function MYVALID() As Boolean
 If xCode.text = "" Then
     MsgBox "«·ﬂÊœ ·« Ì„ﬂ‰ «‰ ÌﬂÊ‰ Œ«·Ì«"
     Exit Function
@@ -1661,18 +1661,18 @@ End If
 '    Exit Function
 'End If
 
-If xDescA.text = "" Then
+If xdesca.text = "" Then
     MsgBox "«·≈”„ ·« Ì„ﬂ‰ «‰ ÌﬂÊ‰ Œ«·Ì«"
     Exit Function
 End If
 
-myValid = True
+MYVALID = True
 End Function
 Private Sub openCardTable()
 Dim cString As String
 cString = "SELECT FILE4_10.* From file4_10 WHERE IS_SECONDARY = 0"
 cString = cString & " ORDER BY CODE"
-Set CardTable = New ADODB.Recordset
+Set CardTable = New adodb.Recordset
 CardTable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
 End Sub
 Private Sub myUndo()

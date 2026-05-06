@@ -572,7 +572,7 @@ Begin VB.Form grdBalanceAll
          EndProperty
          CheckBox        =   -1  'True
          DateIsNull      =   -1  'True
-         Format          =   168558593
+         Format          =   190578689
          CurrentDate     =   43097
       End
       Begin MSComCtl2.DTPicker xdate2 
@@ -596,7 +596,7 @@ Begin VB.Form grdBalanceAll
          EndProperty
          CheckBox        =   -1  'True
          DateIsNull      =   -1  'True
-         Format          =   168558593
+         Format          =   190578689
          CurrentDate     =   43097
       End
       Begin MSDataListLib.DataCombo xage 
@@ -2750,7 +2750,7 @@ Begin VB.Form grdBalanceAll
       End
       Begin VSFlex7Ctl.VSFlexGrid grid0 
          Height          =   4335
-         Left            =   45
+         Left            =   90
          TabIndex        =   77
          Top             =   345
          Width           =   17430
@@ -3013,7 +3013,7 @@ Dim oSearchItem As New Search3
 Dim oSearch As New Search3
 Dim bCost As Boolean
 Dim bPrice As Boolean
-Dim con As New ADODB.Connection
+Dim con As New adodb.Connection
 Private Sub CMD_PRINT_Click()
 End Sub
 
@@ -3028,7 +3028,7 @@ Select Case SSTab1.Tab
     Case 1
         ToFileExel2 grid1, , , , , 1.1, , , , , , Me
     Case 2
-        ToFileExel2 GRID2, , , , , 1.1, , , , , , Me
+        ToFileExel2 grid2, , , , , 1.1, , , , , , Me
     Case 3
         ToFileExel2 GRID3, , , , , 1.1, , , , , , Me
     Case 4
@@ -3041,13 +3041,13 @@ Select Case SSTab1.Tab
         ToFileExel2 GRID7, , , , , 1.1, , , , , , Me
 End Select
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub cmdFixPrice_Click()
 PriceSalesFix.Show 1
 End Sub
-Private Sub cmdGo_Click()
+Private Sub CmdGo_Click()
 If Not IsDate(xDate1.Value) Then
     MsgBox "«· «—ÌŒ «·«Ê· ÷—Ê—Ì"
     Exit Sub
@@ -3080,10 +3080,10 @@ cHead2 = " „‰  «—ÌŒ " & Format(xDate1.Value, "DD-MM-YYYY") & " Õ Ï  «—ÌŒ " & For
 cHead3 = ""
 If xFact.MatchedWithList Then cHead3 = cHead3 & " „’‰⁄ " & xFact.text
 If xSupp.MatchedWithList Then cHead3 = cHead3 & " „Ê—œ " & xSupp.text
-If xgroup.MatchedWithList Then cHead3 = cHead3 & " „Ã„Ê⁄…" & xgroup.text
-If xSection.text <> "" Then cHead3 = cHead3 & " ﬁ”„ " & xSection.text
+If xGroup.MatchedWithList Then cHead3 = cHead3 & " „Ã„Ê⁄…" & xGroup.text
+If XSECTION.text <> "" Then cHead3 = cHead3 & " ﬁ”„ " & XSECTION.text
 If xMosm.MatchedWithList Then cHead3 = cHead3 & " „Ê”„ " & xMosm.text
-printGrdNew.DOPRINT grid1, 0.8, -2, cHead1, cHead2, , , , False, 9
+printGrdNew.doprint grid1, 0.8, -2, cHead1, cHead2, , , , False, 9
 printGrdNew.Show 1
 End Sub
 Private Sub cmdSql_Click()
@@ -3142,35 +3142,35 @@ If cBranch <> "00" Then
 End If
 
 Set data1.Recordset = myRecordSet("Select Code,DescA From File1_10SC ORDER BY code ", con)
-Set xSection.RowSource = data1
-xSection.ListField = "Desca"
-xSection.BoundColumn = "Code"
+Set XSECTION.RowSource = data1
+XSECTION.ListField = "Desca"
+XSECTION.BoundColumn = "Code"
 
-Set data2.Recordset = myRecordSet("Select Code,DescA From File4_10 order by Desca", con)
-Set xSupp.RowSource = data2
+Set DATA2.Recordset = myRecordSet("Select Code,DescA From File4_10 order by Desca", con)
+Set xSupp.RowSource = DATA2
 xSupp.ListField = "Desca"
 xSupp.BoundColumn = "Code"
 
 Set DATA3.Recordset = myRecordSet("Select Code,DescA From File1_50 ORDER BY DESCA", con)
-Set xgroup.RowSource = DATA3
-xgroup.ListField = "Desca"
-xgroup.BoundColumn = "Code"
+Set xGroup.RowSource = DATA3
+xGroup.ListField = "Desca"
+xGroup.BoundColumn = "Code"
 
-Set data4.Recordset = myRecordSet("Select mosm ,descA From mosm ORDER BY date DESC ", con)
-Set xMosm.RowSource = data4
+Set DATA4.Recordset = myRecordSet("Select mosm ,descA From mosm ORDER BY date DESC ", con)
+Set xMosm.RowSource = DATA4
 xMosm.ListField = "Desca"
 xMosm.BoundColumn = "MOSM"
 xMosm.BoundText = cPMosm
 
 
-Set data5.Recordset = myRecordSet("Select code ,desca From fact ORDER BY DESCA ", con)
-Set xFact.RowSource = data5
+Set DATA5.Recordset = myRecordSet("Select code ,desca From fact ORDER BY DESCA ", con)
+Set xFact.RowSource = DATA5
 xFact.ListField = "Desca"
 xFact.BoundColumn = "Code"
 
-Set grid0.DataSource = DATA10
+Set grid0.DataSource = data10
 Set grid1.DataSource = DATA11
-Set GRID2.DataSource = data12
+Set grid2.DataSource = data12
 Set GRID3.DataSource = DATA13
 Set GRID4.DataSource = DATA14
 Set grid5.DataSource = DATA15
@@ -3235,10 +3235,10 @@ cString = cString & _
         Exit Sub
     End If
     
-    Set DATA10.Recordset = cmd(cString, con).Execute
+    Set data10.Recordset = cmd(cString, con).Execute
 End With
 Fixgrd0
-If grid0.Rows > 0 Then grid0.TextMatrix(1, 1) = "«·≈Ã„«·Ï"
+If grid0.Rows > 1 Then grid0.TextMatrix(1, 1) = "«·≈Ã„«·Ï"
 End Sub
 Sub Fixgrd0()
 Dim colRate As Long, ColSales As Long, ColNumbers As Long, ColNet As Long
@@ -3294,7 +3294,7 @@ SSTab1.Width = IIf(Me.Width < 7000, 7000, Me.Width) - 300
 
 grid0.Height = SSTab1.Height - 500
 grid1.Height = SSTab1.Height - 500
-GRID2.Height = SSTab1.Height - 500
+grid2.Height = SSTab1.Height - 500
 GRID3.Height = SSTab1.Height - 500
 GRID4.Height = SSTab1.Height - 500
 grid5.Height = SSTab1.Height - 500
@@ -3309,7 +3309,7 @@ grid0.Width = SSTab1.Width - 200
 grid1.Width = SSTab1.Width - 200
 
 'GRID2.Left = 100
-GRID2.Width = SSTab1.Width - 200
+grid2.Width = SSTab1.Width - 200
 
 'GRID3.Left = 100
 GRID3.Width = SSTab1.Width - 200
@@ -3354,14 +3354,14 @@ If KeyCode = 112 Then
 End If
 End Sub
 Private Sub xSection_LostFocus()
-If xSection.BoundText = "" Then
+If XSECTION.BoundText = "" Then
     Set DATA3.Recordset = mycmd("Select Code,DescA From File1_50 ORDER BY DESCA", con)
 Else
-    Set DATA3.Recordset = mycmd("Select Code,DescA From File1_50 where [group] = " & Val(xSection.BoundText) & " ORDER BY DESCA", con)
+    Set DATA3.Recordset = mycmd("Select Code,DescA From File1_50 where [group] = " & Val(XSECTION.BoundText) & " ORDER BY DESCA", con)
 End If
-Set xgroup.RowSource = DATA3
-xgroup.ListField = "Desca"
-xgroup.BoundColumn = "Code"
+Set xGroup.RowSource = DATA3
+xGroup.ListField = "Desca"
+xGroup.BoundColumn = "Code"
 End Sub
 Private Sub xSupp_KeyUp(KeyCode As Integer, Shift As Integer)
     If KeyCode = 112 Then SuppLookupAll Me, oSearch
@@ -3608,7 +3608,7 @@ Private Sub MYLOAD2_org(Optional bSql As Boolean = False)
 Dim cString  As String
 Dim cWhere As String, cWhereField As String, cField As String
 
-With GRID2
+With grid2
                 
     If chkGroup.Value = 1 Then
         cField = cField & "," & "FILE1_10.[GROUP],FILE1_50.DESCA"
@@ -3702,13 +3702,13 @@ With GRID2
     Set data12.Recordset = cmd(cString, con).Execute
 End With
 Fixgrd2
-If GRID2.Rows > 0 Then GRID2.TextMatrix(1, 1) = "«·≈Ã„«·Ï"
+If grid2.Rows > 0 Then grid2.TextMatrix(1, 1) = "«·≈Ã„«·Ï"
 End Sub
 Private Sub MYLOAD2(Optional bSql As Boolean = False)
 Dim cString  As String
 Dim cWhere As String, cWhereField As String, cField As String
 
-With GRID2
+With grid2
     If chkGroup.Value = 1 Then
         cField = cField & "," & "FILE1_10.[GROUP],FILE1_50.DESCA"
     End If
@@ -3863,13 +3863,13 @@ With GRID2
     Set data12.Recordset = cmd(cString, con).Execute
 End With
 Fixgrd2
-If GRID2.Rows > 0 Then GRID2.TextMatrix(1, 1) = "«·≈Ã„«·Ï"
+If grid2.Rows > 0 Then grid2.TextMatrix(1, 1) = "«·≈Ã„«·Ï"
 End Sub
 Sub Fixgrd2()
 Dim col As Long
 Dim colRate As Long, ColSales As Long, ColNumbers As Long
 
-With GRID2
+With grid2
     .RowHeight(0) = 1000
     .WordWrap = True
     
@@ -3917,7 +3917,7 @@ With GRID2
         .ColWidth(col) = 1200
     End If
      
-    addToGrid col + 1, GRID2
+    addToGrid col + 1, grid2
     End With
 End Sub
 Private Function myTb() As String
@@ -4567,7 +4567,7 @@ With GRID7
     Set DATA17.Recordset = cmd(cString, con).Execute
 End With
 fixGrd7
-If GRID7.Rows > 0 Then GRID7.TextMatrix(1, 1) = "«·≈Ã„«·Ï"
+If GRID7.Rows > 1 Then GRID7.TextMatrix(1, 1) = "«·≈Ã„«·Ï"
 End Sub
 Sub fixGrd7()
 Dim col As Long
@@ -4848,16 +4848,16 @@ If xmosm20.text <> "" Then
     cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xmosm20.text)
 End If
 
-If xSection.MatchedWithList Then
-    cWhere = cWhere & Tr(cWhere) & " FILE1_10.[SECTION] = " & (xSection.BoundText)
+If XSECTION.MatchedWithList Then
+    cWhere = cWhere & Tr(cWhere) & " FILE1_10.[SECTION] = " & (XSECTION.BoundText)
 End If
 
 If xSupp.MatchedWithList Then
     cWhere = cWhere & Tr(cWhere) & " FILE1_10.CODE = " & MyParn(xSupp.BoundText)
 End If
 
-If xgroup.MatchedWithList Then
-    cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+If xGroup.MatchedWithList Then
+    cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
 End If
 
 If xFact.MatchedWithList Then
@@ -5082,9 +5082,9 @@ cFields = cFields & "," & _
 cFields = cFields & "," & _
         myiif(cWhereField, "(FILE1_11_ALL.[TOTAL])")
 
-'  ÕÊÌ· „‰
+'  ÕÊÌ· Ê«œ—
 If IsDate(xDate1.Value) Then
-    cWhereField = "DATE >= " & DateSq(xDate1.Value) & " AND FILE1_11_ALL.TYPE = 'F'"
+    cWhereField = "DATE >= " & DateSq(xDate1.Value) & " AND FILE1_11_ALL.TYPE = 'T'"
 End If
 
 cFields = cFields & "," & _
@@ -5100,9 +5100,9 @@ If bPrice Then
             myiif(cWhereField, "(FILE1_11_ALL.[IN]) * FILE1_11_ALL.PRICE_SALES")
 End If
 
-'  ÕÊÌ· «·Ì
+'  ÕÊÌ· ’«œ—
 If IsDate(xDate1.Value) Then
-    cWhereField = "DATE >= " & DateSq(xDate1.Value) & " AND FILE1_11_ALL.TYPE = 'T'"
+    cWhereField = "DATE >= " & DateSq(xDate1.Value) & " AND FILE1_11_ALL.TYPE = 'F'"
 End If
 
 cFields = cFields & "," & _
@@ -5206,16 +5206,16 @@ If xmosm20.text <> "" Then
     cWhere = cWhere & Tr(cWhere) & " FILE1_10.MOSM2 = " & MyParn(xmosm20.text)
 End If
         
-If xSection.MatchedWithList Then
-    cWhere = cWhere & Tr(cWhere) & " FILE1_10.[SECTION] = " & (xSection.BoundText)
+If XSECTION.MatchedWithList Then
+    cWhere = cWhere & Tr(cWhere) & " FILE1_10.[SECTION] = " & (XSECTION.BoundText)
 End If
 
 If xSupp.MatchedWithList Then
     cWhere = cWhere & Tr(cWhere) & " FILE1_10.CODE = " & MyParn(xSupp.BoundText)
 End If
 
-If xgroup.MatchedWithList Then
-    cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+If xGroup.MatchedWithList Then
+    cWhere = cWhere & Tr(cWhere) & " FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
 End If
 
 If xFact.MatchedWithList Then

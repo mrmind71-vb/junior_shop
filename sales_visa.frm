@@ -4205,15 +4205,15 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Dim temptable As New ADODB.Recordset, cMsgDisplay As String, nDayDiscout As Double, cDescDiscout As String
+Dim temptable As New adodb.Recordset, cMsgDisplay As String, nDayDiscout As Double, cDescDiscout As String
 Dim lManSales As Boolean, nCountPrint As Double
 Public sDoc_no As String, lSave As Boolean, sUserDisc As String, lIsPrice_2 As Boolean, lIsdisc2   As Boolean, lDiscModelRet As Boolean
 Public isOld As Boolean
 Dim cFilter As String, lIsDocRet As Boolean, cFilterLook As String
-Dim tCard As ADODB.Recordset, lDiscOpenDay As Boolean
+Dim tCard As adodb.Recordset, lDiscOpenDay As Boolean
 Dim nLeftMargin, nCardHeight, nPageWidth, nRightMargin, cHeadBoon As String
 Dim nRound As Long, cList1 As String, lIsBoxOnline As Boolean
-Dim CardTable As ADODB.Recordset, cId_NoDesca1 As String, cId_NoDesca2 As String
+Dim CardTable As adodb.Recordset, cId_NoDesca1 As String, cId_NoDesca2 As String
 Public bRetvalue As Boolean, cIpName As String
 Dim cDefBox As String, cDefClient As String, cDefClientDesca As String, cDefCasher As String, cDefStore As String, cdefman As String
 Dim dDiscBranch1 As Date, dDiscBranch2 As Date, nDiscBranch As Double
@@ -4223,7 +4223,7 @@ Dim cQrCode As New ClsQrCode
 Dim bEdit As Boolean, lISNOGRDISC As Boolean
 Dim bIgClick As Boolean
 Dim cFile As String, cCodeDesca As String
-Dim con As New ADODB.Connection
+Dim con As New adodb.Connection
 Dim formMode, dDateLast As String
 Public myPublic As Integer, lNotBranch As Boolean
 Const LoadMode = 0, DefineMode = 1
@@ -4235,7 +4235,7 @@ Dim pBoxDoc As String
 If IsPrinted Then Exit Function
 Dim aInsert(38, 1)
 aInsert(0, 0) = "Doc_No"
-aInsert(0, 1) = addstring(xDoc_No.text)
+aInsert(0, 1) = addstring(xDoc_no.text)
 
 aInsert(1, 0) = "code"
 aInsert(1, 1) = addstring(xCode.text)
@@ -4268,13 +4268,13 @@ aInsert(9, 1) = Val(xPay.Caption)
 'aInsert(10, 1) = Val(xvisa.Caption)
 
 aInsert(11, 0) = "late"
-aInsert(11, 1) = Val(xlate.Caption)
+aInsert(11, 1) = Val(xLate.Caption)
 
 aInsert(12, 0) = "rest"
 aInsert(12, 1) = Val(xRest.Caption)
 
 aInsert(13, 0) = "userName"
-aInsert(13, 1) = addstring(xusername.Caption)
+aInsert(13, 1) = addstring(xUserName.Caption)
 
 aInsert(14, 0) = "branch"
 aInsert(14, 1) = addstring(XBRANCH.Caption)
@@ -4322,7 +4322,7 @@ aInsert(24, 0) = "NOTE_DISC"
 aInsert(24, 1) = addstring(xNote_disc.Caption)
 
 aInsert(32, 0) = "DOC_DISC"
-aInsert(32, 1) = addstring(xdoc_disc.Caption)
+aInsert(32, 1) = addstring(XDOC_DISC.Caption)
 
 aInsert(25, 0) = "isbankahly"
 aInsert(25, 1) = IIf(xisbankahly.Value, 1, 0)
@@ -4378,7 +4378,7 @@ If cBranch > "60" Then
 Else
     pBoxDoc = cBranchBox
 End If
-If xDoc_No.Tag = DefineMode Then
+If xDoc_no.Tag = DefineMode Then
     If cBranch <> "00" Then
         If lIsBranchStore Then
             dSalesDate = Format(GetDesca("SELECT DSALES FROM DSALES WHERE BRANCH = " & MyParn(cBranch), con), "DD-MM-YYYY")
@@ -4391,14 +4391,14 @@ If xDoc_No.Tag = DefineMode Then
         xDate.text = Format(dSalesDate, "DD-MM-YYYY")
         aInsert(2, 1) = addDate(xDate.text)
     End If
-    xDoc_No.text = NewflagDoc(xDate.text, pBoxDoc, con)
-    xDoc_no2.text = Mid(xDoc_No.text, 7, 6)
-    aInsert(0, 1) = addstring(xDoc_No.text)
+    xDoc_no.text = NewflagDoc(xDate.text, pBoxDoc, con)
+    xDoc_no2.text = Mid(xDoc_no.text, 7, 6)
+    aInsert(0, 1) = addstring(xDoc_no.text)
     con.Execute CreateInsert(aInsert, "FILE6_20H")
 Else
     aInsert(7, 0) = "Cash"
     aInsert(7, 1) = Val(xCash.Caption)
-    con.Execute CreateUpdate(aInsert, "FILE6_20H", " where doc_no = " & addstring(xDoc_No.text))
+    con.Execute CreateUpdate(aInsert, "FILE6_20H", " where doc_no = " & addstring(xDoc_no.text))
 End If
 
 
@@ -4416,7 +4416,7 @@ prog1.Visible = False
 MsgBox Err.Description
 con.RollbackTrans
 Err.Clear
-xDoc_No.Tag = 1
+xDoc_no.Tag = 1
 End Function
 Sub myProc()
 'On Error GoTo myerror
@@ -4455,7 +4455,7 @@ If ActiveControl.Name = grid1.Name Or ActiveControl.Name = LOOKPH.Name Or Active
 '    GrdDesc grid1.TextMatrix(grid1.Row, 1), grid1.Row
 '    grid1_AfterEdit grid1.Row, grid1.Col
 ElseIf ActiveControl.Name = cmdInform.Name Or ActiveControl.Name = cmdOpen.Name Then
-    xDoc_No.text = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
+    xDoc_no.text = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
 '    xDate.Text = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 2)
     Unload oSearchDoc
     myUndo
@@ -4483,7 +4483,7 @@ On Error GoTo myerror
     lSave = False
     If grid1.Rows = 2 Then Exit Sub
 
-    con.Execute " UPDATE FILE6_20H SET DISCOUNT = " & Val(xDiscount.text) & "  , RATE = " & Val(xRate.text) & " , username_disc  = " & addstring(XUSERNAME_DISC.Caption) & " , DOC_disc  = " & addstring(xdoc_disc.Caption) & " , ISNEW =  1  WHERE DOC_NO = " & MyParn(xDoc_No.text)
+    con.Execute " UPDATE FILE6_20H SET DISCOUNT = " & Val(xDiscount.text) & "  , RATE = " & Val(xRate.text) & " , username_disc  = " & addstring(XUSERNAME_DISC.Caption) & " , DOC_disc  = " & addstring(XDOC_DISC.Caption) & " , ISNEW =  1  WHERE DOC_NO = " & MyParn(xDoc_no.text)
     Set CashOnLine.myForm = Me
     CashOnLine.Show 1
     
@@ -4523,7 +4523,7 @@ Private Sub CMD_PAST_PURCH_Click()
         Exit Sub
     End If
     If Not myreplace Then Exit Sub
-    con.Execute " INSERT INTO FILE6_20 (doc_no , MAN,ITEM, QUANT, PRICE, ROW ) SELECT " & addstring(xDoc_No.text) & "  , '000' ,FILE7_20.ITEM, FILE7_20.QUANT, FILE1_10.COST2 , FILE7_20.ROW  FROM  FILE7_20 INNER JOIN FILE1_10 ON FILE1_10.ITEM = FILE7_20.ITEM WHERE DOC_NO = " & MyParn(cDocCopySales)
+    con.Execute " INSERT INTO FILE6_20 (doc_no , MAN,ITEM, QUANT, PRICE, ROW ) SELECT " & addstring(xDoc_no.text) & "  , '000' ,FILE7_20.ITEM, FILE7_20.QUANT, FILE1_10.COST2 , FILE7_20.ROW  FROM  FILE7_20 INNER JOIN FILE1_10 ON FILE1_10.ITEM = FILE7_20.ITEM WHERE DOC_NO = " & MyParn(cDocCopySales)
     Inform "  „ «÷«›… «·«’‰«› "
     myUndo
 End Sub
@@ -4540,7 +4540,7 @@ End Sub
 
 Private Sub CND_PRICE3_Click()
     If InputBox("", "") = "987654321" Then
-        con.Execute "UPDATE FILE6_20 SET  file6_20.price = file1_10.cost2 , file6_20.price_C = file1_10.PRICE  FROM   FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM where DOC_NO = " & MyParn(xDoc_No.text)
+        con.Execute "UPDATE FILE6_20 SET  file6_20.price = file1_10.cost2 , file6_20.price_C = file1_10.PRICE  FROM   FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM where DOC_NO = " & MyParn(xDoc_no.text)
         myLoadGrd
     End If
 
@@ -4548,20 +4548,20 @@ End Sub
 
 Private Sub Command3_Click()
     If InputBox("", "") = "987654321" Then
-        con.Execute " UPDATE FILE6_20 SET  file6_20.price = file1_10.price, file6_20.price_C = file1_10.PRICE  FROM   FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM where DOC_NO = " & MyParn(xDoc_No.text)
+        con.Execute " UPDATE FILE6_20 SET  file6_20.price = file1_10.price, file6_20.price_C = file1_10.PRICE  FROM   FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM where DOC_NO = " & MyParn(xDoc_no.text)
         myLoadGrd
     End If
 End Sub
 
 Private Sub Command4_Click()
     If InputBox("", "") = "987654321" Then
-        con.Execute " UPDATE FILE6_20 SET  file6_20.price_C = file1_10.PRICE_2021   FROM   FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM where DOC_NO = " & MyParn(xDoc_No.text)
-        con.Execute " UPDATE FILE6_20 SET  file6_20.price_C = file1_10.PRICE        FROM   FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM where ( file6_20.price_C =0 0 OR file6_20.price_C IS NULL ) AND DOC_NO = " & MyParn(xDoc_No.text)
+        con.Execute " UPDATE FILE6_20 SET  file6_20.price_C = file1_10.PRICE_2021   FROM   FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM where DOC_NO = " & MyParn(xDoc_no.text)
+        con.Execute " UPDATE FILE6_20 SET  file6_20.price_C = file1_10.PRICE        FROM   FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM where ( file6_20.price_C =0 0 OR file6_20.price_C IS NULL ) AND DOC_NO = " & MyParn(xDoc_no.text)
         myLoadGrd
     End If
 End Sub
 Private Sub Command5_Click()
-Dim loctable As New ADODB.Recordset
+Dim loctable As New adodb.Recordset
 Dim sb As New ChilkatStringBuilder
 Dim nAffect As Integer
 
@@ -4620,7 +4620,7 @@ Private Function sendCash() As Boolean
 Dim oCash As New cash_salesfrm
 oCash.nTotal = xTotal.text
 oCash.bEditRecord = xClosed.Value = 0 Or bopt2
-oCash.sDoc_no = xDoc_No.text
+oCash.sDoc_no = xDoc_no.text
 Set oCash.myForm = Me
 oCash.Show 1
 End Function
@@ -4675,10 +4675,10 @@ End Sub
 Private Sub cmd_closed_Click()
 If (cBranch = "00" And bopt2) Or bSupermode Then
     If CardTable!ISCLOSED Then
-        AddLod_Data cUserName, 0, " › Õ „” ‰œ ·· ⁄œÌ· ", con, xDoc_No.text, xDate.text, , xCodeDesca.Caption
-        con.Execute " update file6_20h set isnew = 1  , isclosed = 0 , printed = 0 where doc_no = " & MyParn(xDoc_No.text)
+        AddLod_Data cUserName, 0, " › Õ „” ‰œ ·· ⁄œÌ· ", con, xDoc_no.text, xDate.text, , xCodeDesca.Caption
+        con.Execute " update file6_20h set isnew = 1  , isclosed = 0 , printed = 0 where doc_no = " & MyParn(xDoc_no.text)
     Else
-        con.Execute " update file6_20h set isnew = 1 , isclosed = 1 , printed = 1 where doc_no = " & MyParn(xDoc_No.text)
+        con.Execute " update file6_20h set isnew = 1 , isclosed = 1 , printed = 1 where doc_no = " & MyParn(xDoc_no.text)
     End If
     myUndo
 End If
@@ -4714,7 +4714,7 @@ If xPrinted.Value <> 0 Then Exit Sub
             xRate.Locked = False
             XUSERNAME_DISC.Caption = sUserDisc
             xNote_disc.Caption = ""
-            xdoc_disc.Caption = ""
+            XDOC_DISC.Caption = ""
         End If
     Else
         Exit Sub
@@ -4856,19 +4856,19 @@ Dim cPassword As String, aUser As Variant
 
 If MsgBox("Õ–› «·„” ‰œ »«·ﬂ«„·  ?, Â· «‰  „Ê«›ﬁ ø", 1 + 256) = vbOK Then
     
-    AddLod_Data cUserName, 2, " Õ–› „»Ì⁄«  ", con, xDoc_No.text, xDate.text, , xCodeDesca.Caption
+    AddLod_Data cUserName, 2, " Õ–› „»Ì⁄«  ", con, xDoc_no.text, xDate.text, , xCodeDesca.Caption
     
     
     con.BeginTrans
     
     cStr1 = " INSERT INTO COPY6_20 (DOC_NO, ITEM, QUANT, PRICE, TOTAL, DISCOUNT,  cost, PRICE_C, row, MAN, S_OKAZ, ISDISC2_1, DATE, DELUSER, ID2,DEL_IP) " & _
              " SELECT        DOC_NO, ITEM, QUANT, PRICE, TOTAL, DISCOUNT, cost, PRICE_C, row, MAN, S_OKAZ, ISDISC2_1, " & addDate(xDate.text) & " , " & addstring(aUser(2)) & ", ID  , " & addstring(xIpName.Caption) & _
-            "   From FILE6_20 WHERE DOC_NO = " & addstring(xDoc_No.text)
+            "   From FILE6_20 WHERE DOC_NO = " & addstring(xDoc_no.text)
     con.Execute cStr1
     
     ' Õ–› «·„” ‰œ
-    con.Execute "Delete  From FILE6_20 where Doc_No = " & MyParn(xDoc_No.text)
-    con.Execute "Delete  From FILE6_20H where Doc_No = " & MyParn(xDoc_No.text)
+    con.Execute "Delete  From FILE6_20 where Doc_No = " & MyParn(xDoc_no.text)
+    con.Execute "Delete  From FILE6_20H where Doc_No = " & MyParn(xDoc_no.text)
 
     If xonline_doc.Caption <> "" Then
         Dim con_SERVER As New Connection
@@ -4896,12 +4896,12 @@ con.RollbackTrans
 MsgBox Err.Description
 Err.Clear
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
     sDoc_no = ""
     Unload Me
 End Sub
-Private Sub cmdGo_Click()
-If mySendReceipt(xDoc_No.text) Then
+Private Sub CmdGo_Click()
+If mySendReceipt(xDoc_no.text) Then
     myUndo
 End If
 End Sub
@@ -5042,19 +5042,19 @@ If Not MYVALID Then Exit Sub
 If XONLINE(2).Value = 0 Or (XSALES_RET.Caption <> "") Then
 
 If cBranch = "00" Then
-    AddLod_Data cUserName, 1, " Õ÷Ÿ „»Ì⁄«  ", con, xDoc_No.text, xDate.text, , xCodeDesca.Caption
+    AddLod_Data cUserName, 1, " Õ÷Ÿ „»Ì⁄«  ", con, xDoc_no.text, xDate.text, , xCodeDesca.Caption
 End If
 
 If cBranch <> "00" And xcard_disc.text <> "" Then
     xDiscount.text = CheckCardDisc
-    xdoc_disc.Caption = ""
+    XDOC_DISC.Caption = ""
     xNote_disc.Caption = ""
     CalcTotals
 End If
 
 If cBranch <> "00" And (XSALES_RET.Caption = "") And Not lISNOGRDISC And xcard_disc.text = "" Then
     If XUSERNAME_DISC.Caption = "" Then
-        con.Execute "UPDATE FILE6_20 SET FILE6_20.PRICE = FILE6_20.Price_C2 , FILE6_20.S_OKAZ = FILE6_20.S_OKAZ_2 WHERE DOC_NO =  " & MyParn(xDoc_No.text)
+        con.Execute "UPDATE FILE6_20 SET FILE6_20.PRICE = FILE6_20.Price_C2 , FILE6_20.S_OKAZ = FILE6_20.S_OKAZ_2 WHERE DOC_NO =  " & MyParn(xDoc_no.text)
         myLoadGrd
         xDiscount.text = ""
         xRate.text = ""
@@ -5062,17 +5062,17 @@ If cBranch <> "00" And (XSALES_RET.Caption = "") And Not lISNOGRDISC And xcard_d
         cDoc1 = aRet(2)
         
         If cDoc1 <> "" Then
-            cStr1 = " SELECT COUNT(*) FROM  FILE1_10 INNER JOIN FILE6_20 ON FILE1_10.ITEM = FILE6_20.ITEM LEFT OUTER JOIN FILE0_90 ON FILE1_10.modelno = FILE0_90.MODELNO  WHERE  (FILE0_90.MODELNO IS NULL) AND FILE6_20.DOC_NO = " & MyParn(xDoc_No.text)
+            cStr1 = " SELECT COUNT(*) FROM  FILE1_10 INNER JOIN FILE6_20 ON FILE1_10.ITEM = FILE6_20.ITEM LEFT OUTER JOIN FILE0_90 ON FILE1_10.modelno = FILE0_90.MODELNO  WHERE  (FILE0_90.MODELNO IS NULL) AND FILE6_20.DOC_NO = " & MyParn(xDoc_no.text)
             If Val(GetDesca(cStr1, con) & "") = 0 Then
                 aRet = CalcDisc3(cDoc1)
                 xDiscount.text = Val(aRet(1))
                 xNote_disc.Caption = aRet(3)
-                xdoc_disc.Caption = aRet(2)
+                XDOC_DISC.Caption = aRet(2)
                 Inform xNote_disc.Caption
                 xinv_no.text = cDoc1
             Else
                 xNote_disc.Caption = aRet(3)
-                xdoc_disc.Caption = aRet(2)
+                XDOC_DISC.Caption = aRet(2)
                 Inform xNote_disc.Caption
                 
                 MsgBox " ÌÊÃœ «’‰«› Œ«—Ã «·⁄—÷ ·« Ì„ﬂ‰ Õ›Ÿ «·⁄„·Ì… "
@@ -5092,10 +5092,10 @@ If cBranch <> "00" And (XSALES_RET.Caption = "") And Not lISNOGRDISC And xcard_d
             End If
         End If
         
-        If nDiscBranch > 0 And IsDate(dDiscBranch1) And IsDate(dDiscBranch2) And xdoc_disc.Caption = "" Then
+        If nDiscBranch > 0 And IsDate(dDiscBranch1) And IsDate(dDiscBranch2) And XDOC_DISC.Caption = "" Then
             If dSalesDate >= dDiscBranch1 And dSalesDate <= dDiscBranch2 Then
                 nRate = ((100 - Val(nDiscBranch & "")) / 100)
-                con.Execute "UPDATE FILE6_20 SET FILE6_20.S_OKAZ =  " & Val(nDiscBranch) & " , FILE6_20.PRICE = FILE1_10.PRICE * " & nRate & "  FROM  FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM WHERE DOC_NO =  " & MyParn(xDoc_No.text) & " AND FILE6_20.S_OKAZ = 0 ", nRec
+                con.Execute "UPDATE FILE6_20 SET FILE6_20.S_OKAZ =  " & Val(nDiscBranch) & " , FILE6_20.PRICE = FILE1_10.PRICE * " & nRate & "  FROM  FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM WHERE DOC_NO =  " & MyParn(xDoc_no.text) & " AND FILE6_20.S_OKAZ = 0 ", nRec
                 If nRec > 0 Then
                     MsgBox " ÌÊÃœ Œ’„ Œ«’ »«·›—⁄ "
                     myLoadGrd
@@ -5119,7 +5119,7 @@ If xCode.text = "0000" Then
             sendCash
         End If
     Else
-        If IsOnLine(xDoc_No.text) Then
+        If IsOnLine(xDoc_no.text) Then
              lSave = True
         End If
     End If
@@ -5234,7 +5234,7 @@ Private Sub command31_Click()
 End Sub
 
 Private Sub Command1_Click()
-Dim SalTable As New ADODB.Recordset
+Dim SalTable As New adodb.Recordset
 Dim nRate As Double, nCount As Double, i As Double
 prog1.Visible = True
 cStr1 = "SELECT     FILE6_20H.DOC_NO, FILE6_20H.discount, SUM(FILE6_20.TOTAL) AS TOTAL ,rate AS Expr1 FROM         FILE6_20H INNER JOIN FILE6_20 ON FILE6_20H.DOC_NO = FILE6_20.DOC_NO where FILE6_20H.discount <> 0 GROUP BY FILE6_20H.DOC_NO, FILE6_20H.discount,rate "
@@ -5263,7 +5263,7 @@ End Sub
 Private Sub FIX_COST_Click()
     On Error GoTo myerror
     con.CommandTimeout = 500
-    cStr1 = " UPDATE    FILE6_20 SET  cost = (SELECT TOP 1 (COST ) FROM Q_ITEMCOST WHERE FILE6_20.ITEM = Q_ITEMCOST.ITEM AND Q_ITEMCOST.DATE <= FILE6_20H.DATE ORDER BY DATE DESC ) " & _
+    cStr1 = " UPDATE    FILE6_20 SET  cost = (SELECT TOP 1 (COST ) FROM Q_ITEMCOST WHERE FILE6_20.ITEM = Q_ITEMCOST.ITEM AND Q_ITEMCOST.DATE <= FILE6_20H.DATE ORDER BY DATE DESC) " & _
             " FROM      FILE6_20 INNER JOIN FILE6_20H ON FILE6_20.DOC_NO = FILE6_20H.DOC_NO where year(file6_20h.date) >= " & Year(Date) - 1
     con.Execute cStr1, nRec
     Inform "  „ Ÿ»ÿ  ﬂ·›… «·„»Ì⁄«  " & nRec
@@ -5474,17 +5474,17 @@ xStore.ListField = "Desca"
 xStore.BoundColumn = "Code"
 xStore.BoundText = cBranchStore
 
-Set data2.Recordset = myRecordSet("SELECT * FROM MOSM ", con)
-Set xMosm.RowSource = data2
+Set DATA2.Recordset = myRecordSet("SELECT * FROM MOSM ", con)
+Set xMosm.RowSource = DATA2
 xMosm.ListField = "DESCA"
 xMosm.BoundColumn = "MOSM"
 
 If lIsBranchStore Then
-    Set data4.Recordset = myRecordSet("SELECT * FROM FILE0_50 WHERE BRANCH = " & MyParn(cBranch), con)
+    Set DATA4.Recordset = myRecordSet("SELECT * FROM FILE0_50 WHERE BRANCH = " & MyParn(cBranch), con)
 Else
-    Set data4.Recordset = myRecordSet("SELECT * FROM FILE0_50", con)
+    Set DATA4.Recordset = myRecordSet("SELECT * FROM FILE0_50", con)
 End If
-Set xBox.RowSource = data4
+Set xBox.RowSource = DATA4
 xBox.ListField = "Desca"
 xBox.BoundColumn = "Code"
 xBox.BoundText = cBranchBox
@@ -5539,7 +5539,7 @@ If sDoc_no = "" And False Then
 Else
     xdate_open.text = GetDesca("SELECT DATE FROM FILE6_20H WHERE DOC_NO = " & MyParn(sDoc_no), con)
 '   myUndo
-    xDoc_No.text = sDoc_no
+    xDoc_no.text = sDoc_no
     myUndo
     Exit Sub
 End If
@@ -5893,7 +5893,7 @@ Private Sub xcard_disc_LostFocus()
     If xPrinted.Value = 0 Then CheckCardDisc
 End Sub
 Private Sub xcash_Click()
-    If bopt2 And xDoc_No.text <> "" And XONLINE(2).Value = 0 Then
+    If bopt2 And xDoc_no.text <> "" And XONLINE(2).Value = 0 Then
         'If cBranch > "60" Or isOld Then
         If cBranch > "60" Then
             Set CashReg.myForm = Me
@@ -6055,7 +6055,7 @@ Select Case CardTable!online
     Case 2
         XONLINE(2).Value = 1
 End Select
-xDoc_No.text = CardTable!DOC_NO
+xDoc_no.text = CardTable!DOC_NO
 xinv_no.text = CardTable!INV_NO & ""
 xDoc_no2.text = CardTable!Doc_no2
 xPhone.Caption = CardTable!Phone & ""
@@ -6072,7 +6072,7 @@ XTRANS_DOC.Caption = CardTable!TRANS_DOC & ""
 XSALES_RET.Caption = CardTable!SALES_RET & ""
 xusername_RET.Caption = CardTable!username_ret & ""
 xNote_disc.Caption = CardTable!NOTE_DISC & ""
-xdoc_disc.Caption = CardTable!DOC_DISC & ""
+XDOC_DISC.Caption = CardTable!DOC_DISC & ""
 
 xCode.text = CardTable!code & ""
 xCodeDesca.Caption = CardTable!ClientDesca & ""
@@ -6082,7 +6082,7 @@ xcard_desca.Caption = CardTable!card_desca & ""
 xcard_value.Caption = CardTable!card_VALUE & ""
 xcard_doc.Caption = CardTable!card_DOC & ""
 
-xusername.Caption = CardTable!UserName & ""
+xUserName.Caption = CardTable!UserName & ""
 XUSERNAME_DISC.Caption = CardTable!username_disc & ""
 xPhone.Caption = CardTable!Phone & ""
 
@@ -6101,7 +6101,7 @@ xPay.Caption = Myvalue(CardTable!PAY)
 XPOINT.Caption = Format(CardTable!Point, "#0.00")
 
 xRest.Caption = Myvalue(CardTable!rest)
-xlate.Caption = Myvalue(CardTable!late)
+xLate.Caption = Myvalue(CardTable!late)
 xPrinted.Value = IIf(CardTable!PRINTED, 1, 0)
 'xTotal.Enabled = IIf(xPrinted.Value = 0, True, False)
 
@@ -6156,7 +6156,7 @@ xClosed.Value = ssCBUnchecked
 xGift.Value = 0
 xusername_RET = ""
 xNote_disc.Caption = ""
-xdoc_disc.Caption = ""
+XDOC_DISC.Caption = ""
 
 xcard_disc.text = ""
 xcard_desca.Caption = ""
@@ -6165,11 +6165,11 @@ xcard_doc.Caption = ""
 
 XSALES_RET.Caption = ""
 xPhone.Caption = ""
-xDoc_No.text = ""
-xDoc_No.Tag = DefineMode
+xDoc_no.text = ""
+xDoc_no.Tag = DefineMode
 xDoc_no2.text = ""
 xinv_no.text = ""
-xusername.Caption = cUserName
+xUserName.Caption = cUserName
 If cBranch = "00" Then
     dSalesDate = Format(Date, "DD-MM-YYYY")
     xStore.BoundText = cBranchStore
@@ -6204,12 +6204,12 @@ xisbankahly.Value = 0
 xTotalQuant.Caption = ""
 xTotalQuant2.Caption = ""
 xTotalItemNoDiscount.Caption = ""
-xTotalItem.Caption = ""
+xtotalitem.Caption = ""
 xTotalItemDiscount.Caption = ""
 xRate.text = ""
 xTotal.text = ""
 xDiscount.text = ""
-xlate.Caption = ""
+xLate.Caption = ""
 xVisa.Caption = ""
 
 XVISA2.Caption = ""
@@ -6228,10 +6228,10 @@ grid1.Rows = 1
 grid1.AddItem ""
 grid1.TextMatrix(grid1.Rows - 1, 0) = grid1.Rows - 1
 
-xDoc_No.Tag = 0
+xDoc_no.Tag = 0
 xTotal.text = ""
 ImgX1.Images.Clear
-fixGrd
+Fixgrd
 
 'If lManSales Then
 '    grid1.TextMatrix(1, 1) = cdefman
@@ -6247,15 +6247,15 @@ xdoc_ret.Enabled = (xPrinted.Value = 0)
 cmd_showdoc.Enabled = (xPrinted.Value = 0)
 
 cmd_disc.Enabled = (bEdit And xPrinted.Value = 0 And grid1.Rows > 2)
-cmddel.Enabled = (bEdit And xPrinted.Value = 0)
+cmdDel.Enabled = (bEdit And xPrinted.Value = 0)
 cmdFirst.Enabled = (nMode = LoadMode)
 cmdLast.Enabled = (nMode = LoadMode)
 cmdNext.Enabled = (nMode = LoadMode)
 cmdPrevious.Enabled = (nMode = LoadMode)
 
 xBox.Enabled = False
-xDoc_No.Enabled = (nMode = DefineMode)
-xDoc_No.Tag = nMode
+xDoc_no.Enabled = (nMode = DefineMode)
+xDoc_no.Tag = nMode
 xCash.Enabled = (Trim(xBox.BoundText) <> "")
 xCode.Enabled = xPrinted.Value = 0 And bEdit = True
 
@@ -6263,8 +6263,8 @@ cmdGo.Enabled = (xUUID_RC.Caption = "" Or xSendRc.Value = 0) And nMode = LoadMod
 xSendRc.Enabled = nMode = LoadMode And xUUID_RC.Caption <> "" And xPrinted.Value = 1
 
 If xBox.text = "" Or xStore.text = "" Then
-    cmddel.Visible = True
-    cmddel.Enabled = True
+    cmdDel.Visible = True
+    cmdDel.Enabled = True
 End If
 End Sub
 Private Function retBool(cFieldName) As Boolean
@@ -6273,9 +6273,9 @@ If Not (CardTable.EOF Or CardTable.BOF) Then
 End If
 End Function
 Private Sub xDoc_No_LostFocus()
-myLostFocus xDoc_No
+myLostFocus xDoc_no
 If CardTable.EOF And CardTable.BOF Then Exit Sub
-CardTable.Find "Doc_no = " & MyParn(xDoc_No.text), , adSearchForward, adBookmarkFirst
+CardTable.Find "Doc_no = " & MyParn(xDoc_no.text), , adSearchForward, adBookmarkFirst
 If Not CardTable.EOF Then myload True
 End Sub
 Private Sub grid1_KeyUp(KeyCode As Integer, Shift As Integer)
@@ -6286,7 +6286,7 @@ If (XSALES_RET.Caption <> "" And grid1.ValueMatrix(grid1.Row, 10) < 0) Then Exit
 If KeyCode = 46 And grid1.Row = grid1.Rows - 1 And xPrinted.Value = 0 And bEdit And grid1.Rows > 3 Then
     grid1.Select grid1.Rows - 2, 0
 End If
-If KeyCode = 46 And grid1.Row <> grid1.Rows - 1 And cmddel.Enabled And grid1.Rows > 3 Then
+If KeyCode = 46 And grid1.Row <> grid1.Rows - 1 And cmdDel.Enabled And grid1.Rows > 3 Then
 '    If IsPrinted Then
 '        MsgBox " „  ÿ»«⁄… «·»Ê‰ „‰ ﬁ»·"
 '        Exit Sub
@@ -6320,7 +6320,7 @@ With grid1
             cBarCode = ""
             nItem = sitem
         End If
-        Dim loctable As ADODB.Recordset
+        Dim loctable As adodb.Recordset
         If nItem <> 0 Then
             Set loctable = ItemFind(sitem, con)
         Else
@@ -6405,7 +6405,7 @@ With grid1
             grid1.TextMatrix(Row, 17) = loctable!MODELNO & ""
             
             If Not lIsBranchStore Then
-                xBalance.Caption = LastBalance(grid1.TextMatrix(Row, 1), xStore.BoundText, con) - Val(GetDesca("select quant from file6_20 where ITEM = " & Val(grid1.TextMatrix(Row, 1)) & " AND doc_no = " & MyParn(xDoc_No.text), con) & "")
+                xBalance.Caption = LastBalance(grid1.TextMatrix(Row, 1), xStore.BoundText, con) - Val(GetDesca("select quant from file6_20 where ITEM = " & Val(grid1.TextMatrix(Row, 1)) & " AND doc_no = " & MyParn(xDoc_no.text), con) & "")
                 If Val(xBalance.Caption) <= 0 And Val(grid1.TextMatrix(grid1.Row, 10)) > 0 Then
                     MsgBox "«·—’Ìœ «ﬁ· „‰ «Ê = ’›—"
                 End If
@@ -6463,18 +6463,18 @@ xTotalQuant.Caption = Myvalue(nTotalQuant, "#0")
 xTotalQuant2.Caption = Myvalue(nTotalQuant2, "#0")
 xTotalItemNoDiscount.Caption = Format(nTotalItemNoDiscount, "#0.00")
 xTotalItemDiscount.Caption = Format(nTotalItemDiscount, "#0.00")
-xTotalItem.Caption = Format(nTotalItem, "#0.00")
+xtotalitem.Caption = Format(nTotalItem, "#0.00")
 
-If Val(xTotalItem.Caption) <> 0 Then
-    If Round(Val(xRate.text), nRound) <> Round(Val(xDiscount.text) / Val(xTotalItem.Caption) * 100, nRound) Then
-        xRate.text = Myvalue(Round((Val(xDiscount.text) / Val(xTotalItem.Caption)) * 100, nRound))
+If Val(xtotalitem.Caption) <> 0 Then
+    If Round(Val(xRate.text), nRound) <> Round(Val(xDiscount.text) / Val(xtotalitem.Caption) * 100, nRound) Then
+        xRate.text = Myvalue(Round((Val(xDiscount.text) / Val(xtotalitem.Caption)) * 100, nRound))
     End If
 Else
     xRate.text = ""
 End If
 
 xTotal.text = Round(nTotalItem - Val(xDiscount.text), 2)
-xlate.Caption = Format(Val(xTotal.text) - (Val(xCash.Caption) + Val(xVisa.Caption) + Val(XPOINT.Caption)), "#0.00")
+xLate.Caption = Format(Val(xTotal.text) - (Val(xCash.Caption) + Val(xVisa.Caption) + Val(XPOINT.Caption)), "#0.00")
 End With
 End Function
 Private Sub CardLookup(Optional pFilter As String = "")
@@ -6598,7 +6598,7 @@ oSearchDoc.Caption = "«” ⁄·«„"
 oSearchDoc.Show 1
 End Sub
 Private Sub xDoc_No_Validate(Cancel As Boolean)
-If xDoc_No.text = "" Then Cancel = True
+If xDoc_no.text = "" Then Cancel = True
 End Sub
 
 
@@ -6626,13 +6626,13 @@ If ((xClosed.Value <> 0 Or lMainShow Or lSupperVisor) And cBranch <> "00") Then
     If MsgBox("  ⁄œÌ· —ﬁ„ «Ê—œ— «Ê‰ ·«Ì‰ ··›« Ê—… ", vbYesNo + vbDefaultButton2) = vbYes Then
         Dim con_SERVER As New Connection
         If openCon(con_SERVER, LoadConString_OnLine) = "ok" Then
-            con_SERVER.Execute " UPDATE FILE6_90H SET SHIP_NO = " & addstring(xship_no.Caption) & " , sales_doc = " & addstring(xDoc_No.text) & " , sales_date = " & addDate(xDate.text) & " WHERE doc_no = " & MyParn(xonline_doc.Caption), nRec
+            con_SERVER.Execute " UPDATE FILE6_90H SET SHIP_NO = " & addstring(xship_no.Caption) & " , sales_doc = " & addstring(xDoc_no.text) & " , sales_date = " & addDate(xDate.text) & " WHERE doc_no = " & MyParn(xonline_doc.Caption), nRec
         
             If nRec > 0 Then
                 aRet = aGetDesca("select name , Shipping_City , STREET , phone from file6_90h where doc_no = " & MyParn(xonline_doc.Caption), con_SERVER)
                 If UBound(aRet) > 0 Then
                     cAddre = aRet(2) + "   " + aRet(3)
-                    con.Execute " UPDATE  FILE6_20H SET file6_20h.NAME = " & addstring(aRet(1)) & " , file6_20h.ADDRESS = " & addstring(cAddre) & " ,  file6_20h.PHONE = " & addstring(aRet(4)) & "   WHERE file6_20h.doc_no = " & MyParn(xDoc_No.text)
+                    con.Execute " UPDATE  FILE6_20H SET file6_20h.NAME = " & addstring(aRet(1)) & " , file6_20h.ADDRESS = " & addstring(cAddre) & " ,  file6_20h.PHONE = " & addstring(aRet(4)) & "   WHERE file6_20h.doc_no = " & MyParn(xDoc_no.text)
                 End If
             
             Else
@@ -6652,9 +6652,9 @@ Private Sub XPHONE_Click()
 End Sub
 Private Sub xRate_LostFocus()
 myLostFocus xRate
-If Val(xTotalItem.Caption) <> 0 Then
-    If Round(Val(xRate.text), nRound) <> Round(Val(xDiscount.text) / Val(xTotalItem.Caption) * 100, nRound) Or xDiscount.Locked Then
-        xDiscount.text = Round((Val(xRate.text) * Val(xTotalItem.Caption)) / 100, 0)
+If Val(xtotalitem.Caption) <> 0 Then
+    If Round(Val(xRate.text), nRound) <> Round(Val(xDiscount.text) / Val(xtotalitem.Caption) * 100, nRound) Or xDiscount.Locked Then
+        xDiscount.text = Round((Val(xRate.text) * Val(xtotalitem.Caption)) / 100, 0)
     End If
 Else
     xDiscount.text = ""
@@ -6676,7 +6676,7 @@ For i = 1 To grid1.Rows - 1
     grid1.TextMatrix(i, 0) = i
 Next
 End Sub
-Private Sub fixGrd()
+Private Sub Fixgrd()
 
 With grid1
 .Cols = 22
@@ -6837,7 +6837,7 @@ End Sub
 
 
 Private Sub xRateDis_Lostfocus()
-    xDiscount.text = Fix((Val(xTotalItem.Caption) * Val(xRateDis.text) / 100))
+    xDiscount.text = Fix((Val(xtotalitem.Caption) * Val(xRateDis.text) / 100))
 End Sub
 
 Private Sub xRet1_Change()
@@ -6845,19 +6845,19 @@ Private Sub xRet1_Change()
 End Sub
 Private Sub xSendRc_Click()
 If bIgClick Then Exit Sub
-If xDoc_No.text <> "" Then
+If xDoc_no.text <> "" Then
     On Error GoTo myerror
     If xUUID_RC.Caption <> "" Then
         If Not IsEmpty(myField("select doc_no from file6_20h where PREVIOUS_UUID = " & MyParn(xUUID_RC.Caption), con)) Then
-            MsgBox "—ﬁ„ „”·”· „—Ã⁄Ì ”«»ﬁ ··›« Ê—… —ﬁ„ " & MyParn(xDoc_No.text)
+            MsgBox "—ﬁ„ „”·”· „—Ã⁄Ì ”«»ﬁ ··›« Ê—… —ﬁ„ " & MyParn(xDoc_no.text)
             'xSendRc.Value = IIf(xSendRc.Value = 1, 0, 1)
         End If
     End If
-    con.Execute "UPDATE FILE6_20H SET FILE6_20H.sendRc = " & xSendRc.Value & " FROM FILE6_20H WHERE FILE6_20H.DOC_NO = " & MyParn(xDoc_No.text)
+    con.Execute "UPDATE FILE6_20H SET FILE6_20H.sendRc = " & xSendRc.Value & " FROM FILE6_20H WHERE FILE6_20H.DOC_NO = " & MyParn(xDoc_no.text)
     Inform " „ «· ⁄œÌ· »‰Ã«Õ"
 End If
 Finaly:
-Handlecontrols xDoc_No.Tag
+Handlecontrols xDoc_no.Tag
 Exit Sub
 myerror:
 MsgBox Err.Description
@@ -6911,7 +6911,7 @@ Err.Clear
 End Function
 Sub myproc2(nDoc_no)
 
-xDoc_No = nDoc_no
+xDoc_no = nDoc_no
 myUndo
 'CardTable.Find "Doc_no = " & MyParn(nDoc_no), , adSearchForward, adBookmarkFirst
 'If Not CardTable.EOF Then
@@ -6947,7 +6947,7 @@ With grid1
 '        End If
         
         aInsert(0, 0) = "doc_no"
-        aInsert(0, 1) = addstring(xDoc_No.text)
+        aInsert(0, 1) = addstring(xDoc_no.text)
         
         aInsert(1, 0) = "item"
         aInsert(1, 1) = addstring(grid1.TextMatrix(i, 1))
@@ -7004,13 +7004,13 @@ With grid1
 '                           1          2                3                4                   5               6             7               8                9                  10              11               12               13                 14                  15                  16                  17              18                      19                  20          21
     cString = "SELECT FILE6_20.ITEM, FILE1_10.MOSM, FACT.DESCA , FILE1_10.SUPP, FILE1_10.MODELFACT0, FILE1_10.DESCA, FILE1_10.SCAL , FILE1_10.COLOR , " & cPrice & " , file6_20.Quant, file6_20.Price, FILE6_20.S_OKAZ ,FILE6_20.TOTAL  ,   FILE6_20.PRICE_C2 ,   FILE6_20.MAN    ,FILE6_25.DESCA ,   FILE1_10.MODELNO   , FILE1_10.BARCODE13,  FILE6_20.PRICE_C2 , FILE6_20.S_OKAZ_2,ID " & _
           " FROM (FILE6_20 LEFT JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM) LEFT JOIN FACT ON FACT.CODE = FILE1_10.FACT LEFT JOIN FILE6_25 ON FILE6_20.MAN  = FILE6_25.CODE "
-    cString = cString & turn(cString) & " DOC_NO = " & MyParn(xDoc_No.text)
+    cString = cString & turn(cString) & " DOC_NO = " & MyParn(xDoc_no.text)
     cString = cString & " ORDER BY FILE6_20.ID"
     Set DATA11.Recordset = myRecordSet(cString, con)
     myAddItem
 End With
 CalcTotals
-fixGrd
+Fixgrd
 grid1.ShowCell grid1.Rows - 1, 1
 If cBranch = "00" Then
     grid1.ShowCell grid1.Row, 1
@@ -7024,7 +7024,7 @@ Private Sub xcode_GotFocus()
 myGotFocus xCode
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xDoc_No
+myGotFocus xDoc_no
 End Sub
 Private Sub xdate_GotFocus()
 myGotFocus xDate
@@ -7047,7 +7047,7 @@ Private Function mysave(Optional bEnd As Boolean = True, Optional bPrint As Bool
 If Not MYVALID Then Exit Function
 CalcTotals
 If Not myreplace Then Exit Function
-con.Execute " update file6_20 set item = item where doc_no = " & MyParn(xDoc_No.text)
+con.Execute " update file6_20 set item = item where doc_no = " & MyParn(xDoc_no.text)
 
 If bEnd And lSave Then
     SavePrint
@@ -7070,7 +7070,7 @@ If bEnd And lSave Then
             'PhoneCust.Show 1
                                    
             If bSendReceipt Then
-                If xUUID_RC.Caption = "" Then mySendReceipt (xDoc_No.text)
+                If xUUID_RC.Caption = "" Then mySendReceipt (xDoc_no.text)
             End If
                                    
             If chkprint.Value = 0 Then
@@ -7079,13 +7079,13 @@ If bEnd And lSave Then
                 SavePrint
             End If
         ElseIf bSendReceipt Then
-            If xUUID_RC.Caption = "" Then mySendReceipt (xDoc_No.text)
+            If xUUID_RC.Caption = "" Then mySendReceipt (xDoc_no.text)
         End If
     End If
 
 '        ”Ì· —ﬁ„ «·»«—ﬂÊœ ·ﬂ«—  «·Œ’„
     If lIsBranchStore And xcard_disc.text <> "" Then
-        con.Execute " UPDATE CARD_DISC SET SALES_DOC_NO = " & addstring(xDoc_No.text) & " WHERE BARCODE_DISC = " & MyParn(xcard_disc.text)
+        con.Execute " UPDATE CARD_DISC SET SALES_DOC_NO = " & addstring(xDoc_no.text) & " WHERE BARCODE_DISC = " & MyParn(xcard_disc.text)
     Else
         If xcard_disc.text <> "" Then SAveCardDisc_No
     End If
@@ -7099,7 +7099,7 @@ End Function
 Private Sub SavePrint()
 On Error GoTo myerror
 'con.BeginTrans
-con.Execute "update file6_20h set isnew = 1 , FILE6_20H.PRINTED = 1 , ISCLOSED = 1  WHERE DOC_NO = " & MyParn(xDoc_No.text)
+con.Execute "update file6_20h set isnew = 1 , FILE6_20H.PRINTED = 1 , ISCLOSED = 1  WHERE DOC_NO = " & MyParn(xDoc_no.text)
 'con.CommitTrans
 xPrinted.Value = 1
 Exit Sub
@@ -7108,10 +7108,10 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Private Function doprint(lRePrint As Boolean)
-Dim loctable As New ADODB.Recordset, cString As String
+Dim loctable As New adodb.Recordset, cString As String
 Dim n As Double, nD As Double
 cString = "SELECT FILE6_20.PRICE_C, FILE6_20.ITEM,FILE6_20.QUANT,FILE6_20.PRICE,FILE1_10.DESCA AS ITEM_DESCA,FILE6_20.TOTAL,FILE6_20.MAN,FILE6_20H.UUID_RC,FILE6_20H.TIME,FILE1_10.DESCA , file6_20.man , file1_10.modelfact , FACT.DESCA AS FACTDESCA FROM FILE6_20 INNER JOIN FILE6_20H ON FILE6_20.DOC_NO = FILE6_20H.DOC_NO  INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM LEFT JOIN FACT ON FACT.CODE = FILE1_10.[FACT]  "
-cString = cString & turn(cString) & "FILE6_20.DOC_NO = " & MyParn(xDoc_No.text)
+cString = cString & turn(cString) & "FILE6_20.DOC_NO = " & MyParn(xDoc_no.text)
 loctable.Open cString, con, adOpenKeyset, adLockReadOnly, adCmdText
 contemp.Execute "DELETE * FROM TEMP"
 If temptable.State = adStateOpen Then temptable.Close
@@ -7129,7 +7129,7 @@ If cBranch <> "00" Then AddSales_Def
 'End If
 
 If BranchReceipt Then
-    sQRCode = retQrCode(xDoc_No.text, con)
+    sQRCode = retQrCode(xDoc_no.text, con)
 End If
 
 With loctable
@@ -7163,7 +7163,7 @@ Do Until loctable.EOF
     temptable!Date1 = Format(xDate.text, "YYYY-MM-DD")
     temptable!date2 = Format(xtime.Caption, "HH:NN")
     temptable!str3 = xDoc_no2.text
-    temptable!STR20 = xDoc_No.text
+    temptable!STR20 = xDoc_no.text
     temptable!STR5 = loctable!Item
     temptable!VAL1 = Val(loctable!Quant & "")
     temptable!STR21 = TurnValue(cHeadBoon)
@@ -7204,7 +7204,7 @@ Do Until loctable.EOF
         temptable!VAL14 = Val(XPOINT.Caption)
     Else
         temptable!val12 = Val(xTotalQuant.Caption) - Val(xTotalQuant2.Caption)
-        temptable!VAL6 = Val(xTotalItem.Caption)
+        temptable!VAL6 = Val(xtotalitem.Caption)
         temptable!VAL7 = 0
         temptable!Val8 = Val(xDiscount.text)
         temptable!val9 = Val(xTotal.text)
@@ -7215,7 +7215,7 @@ Do Until loctable.EOF
     End If
     temptable!VAL25 = 0
     If XONLINE(2).Value Then
-        aRet = aGetDesca("SELECT NAME , PHONE , ADDRESS , CHARGE1 , CHARGE2 , SHIP_NO , SHIP FROM FILE6_20H WHERE DOC_NO = " & MyParn(xDoc_No.text), con)
+        aRet = aGetDesca("SELECT NAME , PHONE , ADDRESS , CHARGE1 , CHARGE2 , SHIP_NO , SHIP FROM FILE6_20H WHERE DOC_NO = " & MyParn(xDoc_no.text), con)
         temptable!STR6 = TurnValue(ArbString(GetDesca("SELECT DESCA FROM SHIP WHERE CODE = " & MyParn(aRet(7)), con)))
         temptable!str15 = TurnValue((aRet(6)))
         temptable!STR7 = TurnValue(aRet(1))
@@ -7242,14 +7242,14 @@ End With
 
 If xGift.Value = 0 Then
     Set loctable = Nothing
-    Set loctable = New ADODB.Recordset
+    Set loctable = New adodb.Recordset
     Dim sSql As String
     sSql = "SELECT FILE5_10.DESCA," & _
               "FILE6_20_VISA.VALUE," & _
               "FILE6_20_VISA.DOC_VISA" & _
               " FROM FILE6_20_VISA  INNER JOIN VISA_CODES ON FILE6_20_VISA.VISA_CODE = VISA_CODES.CODE " & _
               " INNER JOIN FILE5_10 ON FILE5_10.CODE = VISA_CODES.BANK " & _
-              " WHERE DOC_NO = " & MyParn(xDoc_No.text) & _
+              " WHERE DOC_NO = " & MyParn(xDoc_no.text) & _
               " ORDER BY FILE6_20_VISA.ID"
     
     Set loctable = mycmd(sSql, con)
@@ -7257,7 +7257,7 @@ If xGift.Value = 0 Then
         temptable.AddNew
         temptable!str1 = loctable!DESCA
         temptable!str2 = loctable!doc_visa
-        temptable!STR20 = xDoc_No.text
+        temptable!STR20 = xDoc_no.text
         temptable!VAL1 = loctable!Value
         
         temptable!VAL25 = 1
@@ -7330,9 +7330,9 @@ End With
 validRow = True
 End Function
 Private Sub HandleCntEdit()
-xDoc_No.Tag = LoadMode
-xDoc_No.Enabled = False
-cmddel.Enabled = True
+xDoc_no.Tag = LoadMode
+xDoc_no.Enabled = False
+cmdDel.Enabled = True
 cmdSave.Enabled = (bEdit) And xPrinted.Value = 0 And grid1.Rows > 2
 cmd_disc.Enabled = (bEdit) And xPrinted.Value = 0 And grid1.Rows > 2
 cmdAddItems.Enabled = (bEdit) And xPrinted.Value = 0 And grid1.Rows > 2
@@ -7375,7 +7375,7 @@ MakeSerial
 End Sub
 Private Sub xTotal_LostFocus()
 myLostFocus xTotal
-xDiscount.text = Round(Val(xTotalItem.Caption) - Val(xTotal.text), 2)
+xDiscount.text = Round(Val(xtotalitem.Caption) - Val(xTotal.text), 2)
 CalcTotals
 End Sub
 Private Sub xDoc_no2_GotFocus()
@@ -7569,8 +7569,8 @@ Sub myDisplay(pLine1, pLine2)
 End Sub
 
 Public Sub PrintTDay()
-Dim temptable As New ADODB.Recordset
-Dim sourcetable As New ADODB.Recordset
+Dim temptable As New adodb.Recordset
+Dim sourcetable As New adodb.Recordset
 ReDim aHeader(1)
 Dim pDate As Date, pstore As String
 Dim nFBalItem As Double
@@ -7578,7 +7578,7 @@ Dim nTInlItem As Double
 Dim nSallItem As Double
 Dim nBalItem As Double
 Dim nOverCash As Double, nVisa2 As Double
-Dim VisaTable As New ADODB.Recordset
+Dim VisaTable As New adodb.Recordset
 pDate = xDate.text
 pstore = xStore.BoundText
 contemp.Execute "DELETE * FROM TEMP"
@@ -7921,11 +7921,11 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Private Function IsPrinted() As Boolean
-     IsPrinted = TurnValue(GetField("SELECT PRINTED FROM FILE6_20H WHERE DOC_NO = " & MyParn(xDoc_No.text), con), Null, False)
+     IsPrinted = TurnValue(GetField("SELECT PRINTED FROM FILE6_20H WHERE DOC_NO = " & MyParn(xDoc_no.text), con), Null, False)
 '     IsPrinted = ISPRINTED_sales(xDoc_No.text, con)
 End Function
 Sub FixAddress()
-Dim loctable As New ADODB.Recordset
+Dim loctable As New adodb.Recordset
 If lIsBranchStore Then
     loctable.Open "select * From Address where branch = " & MyParn(cBranch), con, adOpenStatic, adLockReadOnly
 Else
@@ -7960,8 +7960,8 @@ Function TestRet() As Boolean
     End With
 End Function
 Public Sub Print_TimeItemSales()
-Dim temptable As New ADODB.Recordset
-Dim sourcetable As New ADODB.Recordset
+Dim temptable As New adodb.Recordset
+Dim sourcetable As New adodb.Recordset
 ReDim aHeader(1)
 Dim pDate As Date, pstore As String
 Dim nH1 As Double
@@ -8020,7 +8020,7 @@ Err.Clear
 End Sub
 Function IsDayDisc(pDate) As Double
     Dim aRetDay(2)
-    Dim DiscTable As New ADODB.Recordset
+    Dim DiscTable As New adodb.Recordset
     DiscTable.Open "DISCOUNT", con, adOpenStatic, adLockReadOnly, adCmdTable
     With DiscTable
         Do While Not .EOF
@@ -8030,7 +8030,7 @@ Function IsDayDisc(pDate) As Double
                 lIsdisc2 = IIf(!ISdisc2, True, False)
                 cDescDiscout = TurnValue(!DESCA, Null, "")
                 xNote_disc.Caption = TurnValue(!DESCA, Null, "")
-                xdoc_disc.Caption = TurnValue(!DOC_NO, Null, "")
+                XDOC_DISC.Caption = TurnValue(!DOC_NO, Null, "")
             End If
             .MoveNext
         Loop
@@ -8039,23 +8039,23 @@ End Function
 Private Sub doprint_doc()
 Dim aHeader(2)
 If Not MYVALID Then Exit Sub
-Dim temptable As New ADODB.Recordset
-Dim sourcetable As New ADODB.Recordset
+Dim temptable As New adodb.Recordset
+Dim sourcetable As New adodb.Recordset
 Dim lPrice As Boolean
 Dim nFBal As Double
 Dim nPay As Double
 Dim nBal As Double
 
-Dim loctable As New ADODB.Recordset, cString As String
+Dim loctable As New adodb.Recordset, cString As String
 cString = "SELECT FILE6_20.PRICE_C, FILE6_20.ITEM,FILE6_20.QUANT,FILE6_20.PRICE,FILE1_10.DESCA AS ITEM_DESCA,FILE6_20.TOTAL,FILE6_20.MAN,FILE6_20H.TIME,file6_20.man , file1_10.modelfact , FACT.DESCA AS FACTDESCA , FILE1_10.COLOR , FILE1_10.SCAL , FILE1_10.C_SCAL , FILE1_10.MODEL FROM FILE6_20 INNER JOIN FILE6_20H ON FILE6_20.DOC_NO = FILE6_20H.DOC_NO  INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM LEFT JOIN FACT ON FACT.CODE = FILE1_10.[FACT]  "
-cString = cString & turn(cString) & "FILE6_20.DOC_NO = " & MyParn(xDoc_No.text)
+cString = cString & turn(cString) & "FILE6_20.DOC_NO = " & MyParn(xDoc_no.text)
 loctable.Open cString, con, adOpenKeyset, adLockReadOnly, adCmdText
 
 contemp.Execute "DELETE * FROM TEMP"
 temptable.Open "temp", contemp, adOpenStatic, adLockOptimistic, adCmdTable
 Do While Not loctable.EOF
     temptable.AddNew
-    temptable!STR6 = RetZero(DelZero(xDoc_No.text), 5)
+    temptable!STR6 = RetZero(DelZero(xDoc_no.text), 5)
     temptable!Date1 = xDate.text
     
     temptable!STR7 = xCodeDesca.Caption
@@ -8121,7 +8121,7 @@ Dim cString As String, aitem As Variant
 Dim cFPrice As String
 cFPrice = "COST"
 cString = " DELETE FROM FILE6_20 FROM FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM"
-cString = cString & turn(cString) & "DOC_NO = " & MyParn(xDoc_No.text)
+cString = cString & turn(cString) & "DOC_NO = " & MyParn(xDoc_no.text)
 cString = cString & turn(cString) & "FILE1_10.MODEL = " & MyParn(salesModel.xModel.text)
 con.Execute cString, nDel
 With salesModel.grid1
@@ -8132,7 +8132,7 @@ With salesModel.grid1
                 If Not IsEmpty(aitem) Then
                     cString = "Insert into FILE6_20 (doc_no,item,price,price_c,cost,man,Quant)" & _
                                "Values(" & _
-                                addstring(xDoc_No.text) & "," & _
+                                addstring(xDoc_no.text) & "," & _
                                 addvalue(retFlag(aitem, "item")) & "," & _
                                 Val(retFlag(aitem, cFPrice) & "") & "," & _
                                 Val(retFlag(aitem, cFPrice) & "") & "," & _
@@ -8152,7 +8152,7 @@ Dim cFile As String
 cFile = "FILE1_10"
 
 cString = "SELECT * FROM FILE1_10 WHERE  ITEM  = " & Val(XBARCODEADD.text) & " OR BARCODE =  " & MyParn(XBARCODEADD.text) & " OR BARCODE2 =  " & MyParn(XBARCODEADD.text) & " OR BARCODE13 =  " & MyParn(XBARCODEADD.text) & " OR BARCODE_GS1 =  " & MyParn(XBARCODEADD.text)
-Dim loctable As New ADODB.Recordset
+Dim loctable As New adodb.Recordset
 loctable.Open cString, conShop, adOpenStatic, adLockReadOnly, adCmdText
 Dim aInsert As Variant
 Dim nRecordCount As Long, nRecord As Long, nAffect As Long, sCaption As String
@@ -8200,8 +8200,8 @@ Loop
 End Function
 Private Function SendSales() As Long
 On Error GoTo myerror
-Dim loctable As New ADODB.Recordset
-Dim locTableSub As ADODB.Recordset
+Dim loctable As New adodb.Recordset
+Dim locTableSub As adodb.Recordset
 
 Dim cStr1 As String, cStr2 As String, cDelStr1 As String, cDelStr2 As String, cStrNew As String, cStrPhone As String
 
@@ -8297,7 +8297,7 @@ Do Until loctable.EOF
     lSkip = False
     
     Set locTableSub = Nothing
-    Set locTableSub = New ADODB.Recordset
+    Set locTableSub = New adodb.Recordset
     cString = "Select FILE6_20.* from FILE6_20 WHERE FILE6_20.doc_no = " & MyParn(loctable!DOC_NO)
     locTableSub.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
     
@@ -8329,7 +8329,7 @@ Do Until loctable.EOF
     
     sb.Clear
     Set locTableSub = Nothing
-    Set locTableSub = New ADODB.Recordset
+    Set locTableSub = New adodb.Recordset
     Set locTableSub = mycmd("Select * from FILE6_20_VISA WHERE doc_no = " & MyParn(loctable!DOC_NO), con)
     Do Until locTableSub.EOF
         aInsert = AddFlag(Empty, "[DOC_NO]", addstring(locTableSub!DOC_NO))
@@ -8372,7 +8372,7 @@ SendSales = nAffectTotal
 Inform "”Õ» «· Ì·›Ê‰« "
 
 Set loctable = Nothing
-Set loctable = New ADODB.Recordset
+Set loctable = New adodb.Recordset
 cString = "Select * from SUBCUST WHERE isnew = 1 "
 loctable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
 
@@ -8422,8 +8422,8 @@ End Function
 
 Private Function sendCharge() As Long
 cFile = "FILE8_60"
-Dim loctable   As New ADODB.Recordset
-Dim loctable2  As New ADODB.Recordset
+Dim loctable   As New adodb.Recordset
+Dim loctable2  As New adodb.Recordset
 cString = "Select * from FILE8_60H WHERE ISNEW = 1 "
 
 loctable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
@@ -8482,7 +8482,7 @@ GoTo lastsub
 End Function
 
 Private Function SendTransBox() As Long
-Set loctable = New ADODB.Recordset
+Set loctable = New adodb.Recordset
 Dim cDoc As String
 
 cString = "Select * from FILE0_51 WHERE isnew = 1"
@@ -8529,7 +8529,7 @@ End Function
 Private Function SendSales_fr() As Long
 On Error GoTo myerror
 cFile = "FILE6_20"
-Set loctable = New ADODB.Recordset
+Set loctable = New adodb.Recordset
 Dim cStr1 As String, cStr2 As String, cDelStr1 As String, cDelStr2 As String, cStrNew As String, cStrPhone As String
 cString = "Select * from " & cFile & "H WHERE ( PRINTED = 1 and isnew = 1 ) or ONLINE > 0 "
 loctable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
@@ -8608,7 +8608,7 @@ Do Until loctable.EOF
     
     lSkip = False
     
-    Set loctable2 = New ADODB.Recordset
+    Set loctable2 = New adodb.Recordset
     cString = "Select FILE6_20.* from FILE6_20 WHERE FILE6_20.doc_no = " & MyParn(loctable!DOC_NO)
     loctable2.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
     Dim sitem As String
@@ -8655,7 +8655,7 @@ SendSales_fr = nAffectTotal
 
 
 Inform "”Õ» «· Ì·›Ê‰« "
-Set loctable = New ADODB.Recordset
+Set loctable = New adodb.Recordset
 cString = "Select * from SUBCUST WHERE isnew = 1 "
 loctable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
 
@@ -8712,22 +8712,22 @@ Private Sub sned_purch_Click()
         aInsert = AddFlag(aInsert, "[isdate]", "getdate()")
         aInsert = AddFlag(aInsert, "[USERSEND]", addstring(cUserName))
         aInsert = AddFlag(aInsert, "[Notes_Doc]", addstring(" „»Ì⁄«  Junior "))
-        aInsert = AddFlag(aInsert, "[TRANS_DOC]", addstring(xDoc_No.text))
+        aInsert = AddFlag(aInsert, "[TRANS_DOC]", addstring(xDoc_no.text))
         aInsert = AddFlag(aInsert, "[ISNEW1]", 1)
         cDoc = Newflag_PurchBr("FR7_20H", "DOC_NO", cStore, con)
         aInsert = AddFlag(aInsert, "DOC_NO", addstring(cDoc))
         con.Execute addInsert(aInsert, "FR7_20h")
         
-        con.Execute "  INSERT INTO FR7_20 (DOC_NO , quant, ITEM, price )  SELECT  " & addstring(cDoc) & " , quant, FILE6_20.ITEM, file6_20.price From FILE6_20 inner join file1_10 on FILE6_20.item = file1_10.item WHERE DOC_NO = " & MyParn(xDoc_No.text)
+        con.Execute "  INSERT INTO FR7_20 (DOC_NO , quant, ITEM, price )  SELECT  " & addstring(cDoc) & " , quant, FILE6_20.ITEM, file6_20.price From FILE6_20 inner join file1_10 on FILE6_20.item = file1_10.item WHERE DOC_NO = " & MyParn(xDoc_no.text)
         Inform " „  ÕÊÌ· ≈·Ï „” ‰œ „‘ —Ì«   ÊﬂÌ·«  —ﬁ„ " & cDoc
         myUndo
     End If
 End Sub
 Function CalcDisc2(pQ) As Double
-    Dim DiscTable As New ADODB.Recordset, nCountQ As Double
-    Dim SubItemTable As New ADODB.Recordset
+    Dim DiscTable As New adodb.Recordset, nCountQ As Double
+    Dim SubItemTable As New adodb.Recordset
     Dim lIsTestQty As Boolean
-    cStr1 = "SELECT FILE6_20.ITEM , FILE6_20.QUANT , FILE1_10.PRICE  , DOC_NO FROM FILE6_20 INNER JOIN FILE1_10 ON FILE1_10.ITEM = FILE6_20.ITEM INNER JOIN FILE1_10SC ON FILE1_10.[SECTION] = FILE1_10SC.CODE WHERE FILE1_10SC.ISDISC = 1 AND  ( FILE1_10.OKAZ_2 < " & nMaxDisc2 & " and FILE1_10.okaz < " & nMaxDisc2 & " )  And doc_no = " & MyParn(xDoc_No.text)
+    cStr1 = "SELECT FILE6_20.ITEM , FILE6_20.QUANT , FILE1_10.PRICE  , DOC_NO FROM FILE6_20 INNER JOIN FILE1_10 ON FILE1_10.ITEM = FILE6_20.ITEM INNER JOIN FILE1_10SC ON FILE1_10.[SECTION] = FILE1_10SC.CODE WHERE FILE1_10SC.ISDISC = 1 AND  ( FILE1_10.OKAZ_2 < " & nMaxDisc2 & " and FILE1_10.okaz < " & nMaxDisc2 & " )  And doc_no = " & MyParn(xDoc_no.text)
     SubItemTable.Open cStr1, con, adOpenStatic, adLockReadOnly, adCmdText
     lIsTestQty = True
     nQDisc = Int(pQ / 3)
@@ -8769,13 +8769,13 @@ Function CalcDisc2(pQ) As Double
         Else
             Inform_OK "⁄œœ «·ﬁÿ⁄ ›Ï «·⁄—÷ " & nCountQ & Chr(13) & " »—Ã«¡ “Ì«œ… ⁄œœ ﬁÿ⁄ ··≈” ›«œ… „‰ «·⁄—÷ 2+1"
         End If
-        con.Execute " UPDATE  FILE6_20 SET  file6_20.price = file6_20.PRICE_C , isdisc2_1 = 1  , S_OKAZ = 0 FROM   FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM INNER JOIN FILE1_10SC ON FILE1_10.SECTION = FILE1_10SC.CODE where FILE1_10SC.ISDISC = 1 AND DOC_NO = " & MyParn(xDoc_No.text)
+        con.Execute " UPDATE  FILE6_20 SET  file6_20.price = file6_20.PRICE_C , isdisc2_1 = 1  , S_OKAZ = 0 FROM   FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM INNER JOIN FILE1_10SC ON FILE1_10.SECTION = FILE1_10SC.CODE where FILE1_10SC.ISDISC = 1 AND DOC_NO = " & MyParn(xDoc_no.text)
     Else
-        con.Execute " UPDATE  FILE6_20 SET  isdisc2_1 = 0  WHERE DOC_NO = " & MyParn(xDoc_No.text)
+        con.Execute " UPDATE  FILE6_20 SET  isdisc2_1 = 0  WHERE DOC_NO = " & MyParn(xDoc_no.text)
     End If
     myLoadGrd
     CalcTotals
-    DiscTable.Open "SELECT * FROM PRICE WHERE DOC_NO = " & MyParn(xDoc_No.text) & " ORDER BY PRICE  DESC ", con, adOpenStatic, adLockReadOnly, adCmdText
+    DiscTable.Open "SELECT * FROM PRICE WHERE DOC_NO = " & MyParn(xDoc_no.text) & " ORDER BY PRICE  DESC ", con, adOpenStatic, adLockReadOnly, adCmdText
     If Not (DiscTable.EOF Or DiscTable.BOF) Then
         DiscTable.MoveFirst
         For i = 1 To 1000
@@ -8788,7 +8788,7 @@ Function CalcDisc2(pQ) As Double
     End If
     CalcDisc2 = nTDiscInv
 '   xNOTE_DISC.Caption = "Œ’„ ⁄—÷ 2+1"
-    con.Execute " DELETE FROM PRICE WHERE DOC_NO = " & MyParn(xDoc_No.text)
+    con.Execute " DELETE FROM PRICE WHERE DOC_NO = " & MyParn(xDoc_no.text)
 End Function
 Private Sub myLoadPicture(pModel As String)
 On Error Resume Next
@@ -8817,7 +8817,7 @@ Private Function myreplace_sub()
 Dim aInsert(13, 1)
 
 aInsert(0, 0) = "Doc_No"
-aInsert(0, 1) = addstring(xDoc_No.text)
+aInsert(0, 1) = addstring(xDoc_no.text)
 
 aInsert(1, 0) = "Cash"
 aInsert(1, 1) = Val(xCash.Caption)
@@ -8829,7 +8829,7 @@ aInsert(3, 0) = "visa"
 aInsert(3, 1) = Val(xVisa.Caption)
 
 aInsert(4, 0) = "late"
-aInsert(4, 1) = Val(xlate.Caption)
+aInsert(4, 1) = Val(xLate.Caption)
 
 aInsert(5, 0) = "rest"
 aInsert(5, 1) = Val(xRest.Caption)
@@ -8858,7 +8858,7 @@ aInsert(12, 1) = addstring(xPhone.Caption)
 aInsert(13, 0) = "POINT"
 aInsert(13, 1) = Val(XPOINT.Caption)
 
-con.Execute CreateUpdate(aInsert, "FILE6_20H", " where doc_no = " & addstring(xDoc_No.text))
+con.Execute CreateUpdate(aInsert, "FILE6_20H", " where doc_no = " & addstring(xDoc_no.text))
 End Function
 Private Sub cmd_showdoc_Click_AMR()
     Dim pDocRet As String
@@ -8911,14 +8911,14 @@ If xPrinted.Value <> 0 Then Exit Sub
         xRate.Locked = False
         XUSERNAME_DISC.Caption = aUser(2)
         xNote_disc.Caption = ""
-        xdoc_disc.Caption = ""
+        XDOC_DISC.Caption = ""
     Else
         Exit Sub
     End If
 End Sub
 Private Sub myUndo()
-If IsNumeric(xDoc_No.text) Then
-    openCardTable xDoc_No.text
+If IsNumeric(xDoc_no.text) Then
+    openCardTable xDoc_no.text
     If Not CardTable.EOF Then
         myload
         Exit Sub
@@ -8933,13 +8933,13 @@ Err.Clear
 End Sub
 
 Private Sub CmdNext_Click()
-openCardTable xDoc_No.text, ">"
-If CardTable.EOF Then openCardTable xDoc_No.text
+openCardTable xDoc_no.text, ">"
+If CardTable.EOF Then openCardTable xDoc_no.text
 myload
 End Sub
 Private Sub CmdPrevious_Click()
-openCardTable xDoc_No.text, "<"
-If CardTable.EOF Then openCardTable xDoc_No.text
+openCardTable xDoc_no.text, "<"
+If CardTable.EOF Then openCardTable xDoc_no.text
 myload
 End Sub
 Private Sub CmdFirst_Click()
@@ -8960,7 +8960,7 @@ End If
 End Sub
 Private Function openCardTable(Optional pDoc_no As String = "", Optional pSign As String = "=")
 Dim cString As String, cWhere As String
-Set CardTable = New ADODB.Recordset
+Set CardTable = New adodb.Recordset
 cFilter = ""
 cFilterLook = ""
 cString = "SELECT TOP 1 FILE6_20H.* , FILE3_10.DESCA AS CLIENTDESCA , FILE3_10.ISONEST from FILE6_20H inner join file3_10 on file3_10.code = FILE6_20H.code INNER JOIN FILE0_40 ON FILE0_40.CODE = FILE6_20H.STORE WHERE FILE6_20H.ISINVOICE = 0"
@@ -9017,12 +9017,12 @@ ElseIf pSign = ">=" Or pSign = ">" Then
     cString = cString & " order by doc_no ASC"
 End If
 
-Set CardTable = New ADODB.Recordset
+Set CardTable = New adodb.Recordset
 CardTable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
 End Function
 Private Sub OLDDDopenCardTable()
 Set CardTable = Nothing
-Set CardTable = New ADODB.Recordset
+Set CardTable = New adodb.Recordset
 cFilter = ""
 cString = "SELECT FILE6_20H.*,FILE3_10.DESCA AS CLIENTDESCA FROM FILE6_20H INNER JOIN FILE3_10 ON FILE6_20H.Code = FILE3_10.CODE"
 If cBranch = "00" And sDoc_no = "" Then
@@ -9129,7 +9129,7 @@ Sub AddFromExel()
                     If IsNumeric(cBarCode) And Len(cBarCode) <= 7 Then
                         cItem = cBarCode
                     End If
-                    Dim loctable As ADODB.Recordset
+                    Dim loctable As adodb.Recordset
                     If cItem <> "" Then
                         Set loctable = ItemFind(cItem, con)
                     Else
@@ -9147,7 +9147,7 @@ Sub AddFromExel()
                             
                             Dim aInsert(9, 1)
                             aInsert(0, 0) = "doc_no"
-                            aInsert(0, 1) = addstring(xDoc_No.text)
+                            aInsert(0, 1) = addstring(xDoc_no.text)
                             aInsert(1, 0) = "item"
                             aInsert(1, 1) = addstring(cItem)
                             aInsert(2, 0) = "quant"
@@ -9179,14 +9179,14 @@ Sub AddFromExel()
     End If
 End Sub
 Function CalcDisc3(Optional pDocDisc As String) As Variant
-    Dim DiscHTable As New ADODB.Recordset, cDescDisc As String, nQty1 As Double, nQTY2 As Double, nDiscModelRate    As Double
-    Dim SubItemTable As New ADODB.Recordset, nQDisc As Double, nTQty As Double, nNewCount As Double, nTDiscInv As Double
-    Dim cMaxDoc As String, nMaxDiscout, cMaxDescDisc As String, DiscTable As New ADODB.Recordset, nTTotQty As Double
+    Dim DiscHTable As New adodb.Recordset, cDescDisc As String, nQty1 As Double, nQTY2 As Double, nDiscModelRate    As Double
+    Dim SubItemTable As New adodb.Recordset, nQDisc As Double, nTQty As Double, nNewCount As Double, nTDiscInv As Double
+    Dim cMaxDoc As String, nMaxDiscout, cMaxDescDisc As String, DiscTable As New adodb.Recordset, nTTotQty As Double
     ReDim aRet(3)
-    con.Execute " DELETE FROM PRICE WHERE DOC_NO = " & MyParn(xDoc_No.text)
+    con.Execute " DELETE FROM PRICE WHERE DOC_NO = " & MyParn(xDoc_no.text)
     
     If pDocDisc = "" Then
-        cStr1 = " SELECT  FILE0_90H.DOC_NO, FILE0_90H.DESCA, FILE0_90H.QTY1, FILE0_90H.QTY2, FILE0_90H.DISC, FILE0_90H.ISSTOP , SUM(FILE6_20.QUANT) AS TQUANT FROM  FILE0_90H INNER JOIN FILE0_90 ON FILE0_90H.DOC_NO = FILE0_90.DOC_NO INNER JOIN FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM ON FILE0_90.MODELNO = FILE1_10.modelno WHERE  DATE1 <= " & DateSq(xDate.text) & " AND DATE2 >=" & DateSq(xDate.text) & " AND FILE0_90H.ISSTOP = 0  AND QTY2 > 0 AND FILE6_20.DOC_NO = " & MyParn(xDoc_No.text) & _
+        cStr1 = " SELECT  FILE0_90H.DOC_NO, FILE0_90H.DESCA, FILE0_90H.QTY1, FILE0_90H.QTY2, FILE0_90H.DISC, FILE0_90H.ISSTOP , SUM(FILE6_20.QUANT) AS TQUANT FROM  FILE0_90H INNER JOIN FILE0_90 ON FILE0_90H.DOC_NO = FILE0_90.DOC_NO INNER JOIN FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM ON FILE0_90.MODELNO = FILE1_10.modelno WHERE  DATE1 <= " & DateSq(xDate.text) & " AND DATE2 >=" & DateSq(xDate.text) & " AND FILE0_90H.ISSTOP = 0  AND QTY2 > 0 AND FILE6_20.DOC_NO = " & MyParn(xDoc_no.text) & _
                 " GROUP BY FILE0_90H.DOC_NO, FILE0_90H.DESCA, FILE0_90H.QTY1, FILE0_90H.QTY2, FILE0_90H.DISC , FILE0_90H.ISSTOP   HAVING SUM(FILE6_20.QUANT) >=  (FILE0_90H.QTY1 + FILE0_90H.QTY2 ) "
         DiscHTable.Open cStr1, con, adOpenStatic, adCmdText
     Else
@@ -9199,7 +9199,7 @@ Function CalcDisc3(Optional pDocDisc As String) As Variant
         nQTY2 = DiscHTable!QTY2
         nDiscModelRate = DiscHTable!disc
         If SubItemTable.State = adStateOpen Then SubItemTable.Close
-        cStr1 = " SELECT FILE0_90.DOC_NO AS DOC_DISC, FILE6_20.DOC_NO , FILE6_20.ITEM, FILE6_20.QUANT, FILE1_10.PRICE FROM  FILE0_90 INNER JOIN FILE1_10 ON FILE0_90.MODELNO = FILE1_10.modelno INNER JOIN FILE6_20 ON FILE1_10.ITEM = FILE6_20.ITEM WHERE FILE6_20.DOC_NO =   " & MyParn(xDoc_No.text) & " AND FILE0_90.DOC_NO = " & MyParn(DiscHTable!DOC_NO) & " ORDER BY PRICE DESC "
+        cStr1 = " SELECT FILE0_90.DOC_NO AS DOC_DISC, FILE6_20.DOC_NO , FILE6_20.ITEM, FILE6_20.QUANT, FILE1_10.PRICE FROM  FILE0_90 INNER JOIN FILE1_10 ON FILE0_90.MODELNO = FILE1_10.modelno INNER JOIN FILE6_20 ON FILE1_10.ITEM = FILE6_20.ITEM WHERE FILE6_20.DOC_NO =   " & MyParn(xDoc_no.text) & " AND FILE0_90.DOC_NO = " & MyParn(DiscHTable!DOC_NO) & " ORDER BY PRICE DESC "
         SubItemTable.Open cStr1, con, adOpenStatic, adLockReadOnly
         nTQty = (nQty1 + nQTY2)
         If Not (SubItemTable.EOF And SubItemTable.BOF) Then
@@ -9223,7 +9223,7 @@ Function CalcDisc3(Optional pDocDisc As String) As Variant
             Loop
             End With
             
-            cStr1 = "SELECT * FROM PRICE WHERE DOC_NO = " & MyParn(xDoc_No.text) & " AND DOC_DISC = " & MyParn(DiscHTable!DOC_NO) & " ORDER BY PRICE  DESC "
+            cStr1 = "SELECT * FROM PRICE WHERE DOC_NO = " & MyParn(xDoc_no.text) & " AND DOC_DISC = " & MyParn(DiscHTable!DOC_NO) & " ORDER BY PRICE  DESC "
             If DiscTable.State = adStateOpen Then DiscTable.Close
             DiscTable.Open cStr1, con, adOpenStatic, adLockReadOnly, adCmdText
             If Not (DiscTable.EOF Or DiscTable.BOF) Then
@@ -9255,7 +9255,7 @@ Function CalcDisc3(Optional pDocDisc As String) As Variant
     Loop
     
     If nMaxDiscout > 0 Then
-        con.Execute " UPDATE FILE6_20 SET  file6_20.price = file1_10.PRICE , file6_20.price_C = file1_10.PRICE , isdisc2_1 = 1  , S_OKAZ = 0 FROM   FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM where DOC_NO = " & MyParn(xDoc_No.text)
+        con.Execute " UPDATE FILE6_20 SET  file6_20.price = file1_10.PRICE , file6_20.price_C = file1_10.PRICE , isdisc2_1 = 1  , S_OKAZ = 0 FROM   FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM where DOC_NO = " & MyParn(xDoc_no.text)
         myLoadGrd
         CalcTotals
     End If
@@ -9268,13 +9268,13 @@ End Function
 '''''''''''''''''''''
 
 Function CalcDisc_Item(Optional pDocDisc As String) As Variant
-    Dim DiscHTable As New ADODB.Recordset, cDescDisc As String, nQty1 As Double, nQTY2 As Double, nDiscModelRate    As Double
-    Dim SubItemTable As New ADODB.Recordset, nQDisc As Double, nTQty As Double, nNewCount As Double, nTDiscInv As Double
-    Dim cMaxDoc As String, nMaxDiscout, cMaxDescDisc As String, DiscTable As New ADODB.Recordset, nTTotQty As Double
+    Dim DiscHTable As New adodb.Recordset, cDescDisc As String, nQty1 As Double, nQTY2 As Double, nDiscModelRate    As Double
+    Dim SubItemTable As New adodb.Recordset, nQDisc As Double, nTQty As Double, nNewCount As Double, nTDiscInv As Double
+    Dim cMaxDoc As String, nMaxDiscout, cMaxDescDisc As String, DiscTable As New adodb.Recordset, nTTotQty As Double
     ReDim aRet(3)
-    con.Execute " DELETE FROM PRICE WHERE DOC_NO = " & MyParn(xDoc_No.text)
+    con.Execute " DELETE FROM PRICE WHERE DOC_NO = " & MyParn(xDoc_no.text)
     If pDocDisc = "" Then
-        cStr1 = " SELECT  FILE0_90H.DOC_NO, FILE0_90H.DESCA, FILE0_90H.QTY1, FILE0_90H.QTY2, FILE0_90H.DISC, FILE0_90H.ISSTOP , SUM(FILE6_20.QUANT) AS TQUANT FROM  FILE0_90H INNER JOIN FILE0_90 ON FILE0_90H.DOC_NO = FILE0_90.DOC_NO INNER JOIN FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM ON FILE0_90.MODELNO = FILE1_10.modelno WHERE  DATE1 <= " & DateSq(xDate.text) & " AND DATE2 >=" & DateSq(xDate.text) & " AND FILE0_90H.ISSTOP = 0  AND QTY2 =  0 AND FILE6_20.DOC_NO = " & MyParn(xDoc_No.text) & _
+        cStr1 = " SELECT  FILE0_90H.DOC_NO, FILE0_90H.DESCA, FILE0_90H.QTY1, FILE0_90H.QTY2, FILE0_90H.DISC, FILE0_90H.ISSTOP , SUM(FILE6_20.QUANT) AS TQUANT FROM  FILE0_90H INNER JOIN FILE0_90 ON FILE0_90H.DOC_NO = FILE0_90.DOC_NO INNER JOIN FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM ON FILE0_90.MODELNO = FILE1_10.modelno WHERE  DATE1 <= " & DateSq(xDate.text) & " AND DATE2 >=" & DateSq(xDate.text) & " AND FILE0_90H.ISSTOP = 0  AND QTY2 =  0 AND FILE6_20.DOC_NO = " & MyParn(xDoc_no.text) & _
                 " GROUP BY FILE0_90H.DOC_NO, FILE0_90H.DESCA, FILE0_90H.QTY1, FILE0_90H.QTY2, FILE0_90H.DISC , FILE0_90H.ISSTOP   HAVING SUM(FILE6_20.QUANT) >=  (FILE0_90H.QTY1 + FILE0_90H.QTY2 ) "
         DiscHTable.Open cStr1, con, adOpenStatic, adCmdText
     Else
@@ -9285,7 +9285,7 @@ Function CalcDisc_Item(Optional pDocDisc As String) As Variant
         nQty1 = DiscHTable!QTY1
         nDiscModelRate = DiscHTable!disc
         If SubItemTable.State = adStateOpen Then SubItemTable.Close
-        cStr1 = " SELECT FILE0_90.DOC_NO AS DOC_DISC, FILE6_20.DOC_NO , SUM(FILE6_20.QUANT) AS QUANT , SUM(FILE6_20.QUANT * FILE1_10.PRICE) AS TOTAL FROM  FILE0_90 INNER JOIN FILE1_10 ON FILE0_90.MODELNO = FILE1_10.modelno INNER JOIN FILE6_20 ON FILE1_10.ITEM = FILE6_20.ITEM WHERE FILE6_20.DOC_NO =   " & MyParn(xDoc_No.text) & " AND FILE0_90.DOC_NO = " & MyParn(DiscHTable!DOC_NO)
+        cStr1 = " SELECT FILE0_90.DOC_NO AS DOC_DISC, FILE6_20.DOC_NO , SUM(FILE6_20.QUANT) AS QUANT , SUM(FILE6_20.QUANT * FILE1_10.PRICE) AS TOTAL FROM  FILE0_90 INNER JOIN FILE1_10 ON FILE0_90.MODELNO = FILE1_10.modelno INNER JOIN FILE6_20 ON FILE1_10.ITEM = FILE6_20.ITEM WHERE FILE6_20.DOC_NO =   " & MyParn(xDoc_no.text) & " AND FILE0_90.DOC_NO = " & MyParn(DiscHTable!DOC_NO)
         SubItemTable.Open cStr1, con, adOpenStatic, adLockReadOnly
         nTQty = nQty1
         If Not (SubItemTable.EOF And SubItemTable.BOF) Then
@@ -9309,7 +9309,7 @@ Function CalcDisc_Item(Optional pDocDisc As String) As Variant
             Loop
             End With
             
-            cStr1 = "SELECT * FROM PRICE WHERE DOC_NO = " & MyParn(xDoc_No.text) & " AND DOC_DISC = " & MyParn(DiscHTable!DOC_NO) & " ORDER BY PRICE  DESC "
+            cStr1 = "SELECT * FROM PRICE WHERE DOC_NO = " & MyParn(xDoc_no.text) & " AND DOC_DISC = " & MyParn(DiscHTable!DOC_NO) & " ORDER BY PRICE  DESC "
             If DiscTable.State = adStateOpen Then DiscTable.Close
             DiscTable.Open cStr1, con, adOpenStatic, adLockReadOnly, adCmdText
             If Not (DiscTable.EOF Or DiscTable.BOF) Then
@@ -9340,7 +9340,7 @@ Function CalcDisc_Item(Optional pDocDisc As String) As Variant
         DiscHTable.MoveNext
     Loop
     If nMaxDiscout > 0 Then
-        con.Execute " UPDATE FILE6_20 SET  file6_20.price = file1_10.PRICE , file6_20.price_C = file1_10.PRICE , isdisc2_1 = 1  , S_OKAZ = 0 FROM   FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM where DOC_NO = " & MyParn(xDoc_No.text)
+        con.Execute " UPDATE FILE6_20 SET  file6_20.price = file1_10.PRICE , file6_20.price_C = file1_10.PRICE , isdisc2_1 = 1  , S_OKAZ = 0 FROM   FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM where DOC_NO = " & MyParn(xDoc_no.text)
         myLoadGrd
         CalcTotals
     End If
@@ -9350,9 +9350,9 @@ Function CalcDisc_Item(Optional pDocDisc As String) As Variant
     CalcDisc3 = aRet
 End Function
 Function CalcDiscRateDoc() As Boolean
-    Dim DiscDocTable As New ADODB.Recordset, nRate As Double, lDiscOk As Boolean, DiscDocHTable As New ADODB.Recordset, cDoc_Disc As String
+    Dim DiscDocTable As New adodb.Recordset, nRate As Double, lDiscOk As Boolean, DiscDocHTable As New adodb.Recordset, cDoc_Disc As String
     cStr1 = " SELECT   SUM(FILE6_20.QUANT) AS Qty_Disc , FILE0_90H.DOC_NO, FILE0_90H.desca , FILE0_90H.QTY1, FILE0_90H.DISC, FILE0_90.DISC2, FILE6_20.DOC_NO AS DOC_SAL " & _
-            " FROM     FILE0_90H INNER JOIN FILE0_90 ON FILE0_90H.DOC_NO = FILE0_90.DOC_NO INNER JOIN FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM ON FILE0_90.MODELNO = FILE1_10.modelno WHERE        (FILE6_20.DOC_NO = " & MyParn(xDoc_No.text) & ") AND (FILE0_90H.QTY2 = 0) AND (FILE0_90H.ISSTOP = 0) AND FILE0_90H.DATE1 <= " & DateSq(xDate.text) & " AND FILE0_90H.DATE2 >= " & DateSq(xDate.text) & _
+            " FROM     FILE0_90H INNER JOIN FILE0_90 ON FILE0_90H.DOC_NO = FILE0_90.DOC_NO INNER JOIN FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM ON FILE0_90.MODELNO = FILE1_10.modelno WHERE        (FILE6_20.DOC_NO = " & MyParn(xDoc_no.text) & ") AND (FILE0_90H.QTY2 = 0) AND (FILE0_90H.ISSTOP = 0) AND FILE0_90H.DATE1 <= " & DateSq(xDate.text) & " AND FILE0_90H.DATE2 >= " & DateSq(xDate.text) & _
             " AND (SELECT SUM(QUANT) FROM Q_DOC_SALES_DISC WHERE DOC_SALES = FILE6_20.DOC_NO AND DOC_NO = FILE0_90H.DOC_NO ) >= QTY1 " & _
             " GROUP BY FILE0_90H.DOC_NO, FILE0_90H.desca , FILE0_90H.QTY1, FILE0_90H.DISC, FILE0_90.DISC2, FILE6_20.DOC_NO " & _
             " HAVING SUM(FILE6_20.QUANT) >= FILE0_90H.QTY1 ORDER BY QTY1 DESC"
@@ -9362,21 +9362,21 @@ Function CalcDiscRateDoc() As Boolean
     
     cStr1 = " SELECT   FILE6_20.ITEM, FILE6_20.QUANT , FILE6_20.PRICE, FILE0_90H.DOC_NO, FILE0_90H.desca , FILE0_90H.QTY1, FILE0_90H.DISC, FILE0_90.DISC2, FILE6_20.DOC_NO AS DOC_SAL " & _
             " FROM     FILE0_90H INNER JOIN FILE0_90 ON FILE0_90H.DOC_NO = FILE0_90.DOC_NO INNER JOIN FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM ON FILE0_90.MODELNO = FILE1_10.modelno " & _
-            " WHERE  FILE0_90H.DOC_NO = " & MyParn(cDoc_Disc) & " AND FILE6_20.DOC_NO = " & MyParn(xDoc_No.text)
+            " WHERE  FILE0_90H.DOC_NO = " & MyParn(cDoc_Disc) & " AND FILE6_20.DOC_NO = " & MyParn(xDoc_no.text)
     DiscDocTable.Open cStr1, con, adOpenStatic, adLockReadOnly, adCmdText
-    con.Execute " UPDATE FILE6_20 SET FILE6_20.PRICE = FILE6_20.PRICE_C2 , FILE6_20.S_OKAZ = FILE6_20.S_OKAZ_2 WHERE DOC_NO =  " & MyParn(xDoc_No.text)
+    con.Execute " UPDATE FILE6_20 SET FILE6_20.PRICE = FILE6_20.PRICE_C2 , FILE6_20.S_OKAZ = FILE6_20.S_OKAZ_2 WHERE DOC_NO =  " & MyParn(xDoc_no.text)
     myLoadGrd
     
     With DiscDocTable
-        xdoc_disc.Caption = DiscDocTable!DOC_NO
+        XDOC_DISC.Caption = DiscDocTable!DOC_NO
         xNote_disc.Caption = DiscDocTable!DESCA
-        con.Execute " update file6_20h set doc_disc = " & addstring(xdoc_disc.Caption) & " , note_disc = " & addstring(xNote_disc.Caption) & " where doc_no = " & MyParn(xDoc_No.text)
+        con.Execute " update file6_20h set doc_disc = " & addstring(XDOC_DISC.Caption) & " , note_disc = " & addstring(xNote_disc.Caption) & " where doc_no = " & MyParn(xDoc_no.text)
         
         Do While Not .EOF
             CalcDiscRateDoc = True
 '            nRate = ((100 - Val(!disc & "")) / 100)
             nRate = ((100 - Val(!disc2 & "")) / 100)
-            con.Execute " UPDATE FILE6_20 SET FILE6_20.S_OKAZ =  " & Val(!disc2) & " , FILE6_20.PRICE = FILE1_10.PRICE * " & nRate & "  FROM  FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM WHERE DOC_NO =  " & MyParn(xDoc_No.text) & " AND FILE6_20.ITEM = " & MyParn(!Item)
+            con.Execute " UPDATE FILE6_20 SET FILE6_20.S_OKAZ =  " & Val(!disc2) & " , FILE6_20.PRICE = FILE1_10.PRICE * " & nRate & "  FROM  FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM WHERE DOC_NO =  " & MyParn(xDoc_no.text) & " AND FILE6_20.ITEM = " & MyParn(!Item)
             .MoveNext
         Loop
     End With
@@ -9385,7 +9385,7 @@ Function CalcDiscRateDoc() As Boolean
         If dSalesDate >= dDiscBranch1 And dSalesDate <= dDiscBranch2 Then
             nRate = ((100 - Val(nDiscBranch & "")) / 100)
              
-            con.Execute " UPDATE FILE6_20 SET FILE6_20.S_OKAZ =  " & Val(nDiscBranch) & " , FILE6_20.PRICE = FILE1_10.PRICE * " & nRate & "  FROM  FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM WHERE DOC_NO =  " & MyParn(xDoc_No.text) & " AND FILE6_20.S_OKAZ = 0 ", nRec
+            con.Execute " UPDATE FILE6_20 SET FILE6_20.S_OKAZ =  " & Val(nDiscBranch) & " , FILE6_20.PRICE = FILE1_10.PRICE * " & nRate & "  FROM  FILE6_20 INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM WHERE DOC_NO =  " & MyParn(xDoc_no.text) & " AND FILE6_20.S_OKAZ = 0 ", nRec
               
             If nRec > 0 Then
                 MsgBox " ÌÊÃœ Œ’„ Œ«’ »«·›—⁄ "
@@ -9422,7 +9422,7 @@ Sub AddSales_Def()
 On Error GoTo myerror
     cString = "Insert into FILE6_20H (doc_no,CODE,[DATE],STORE,BOX,BRANCH,MAN,PHONE,BANK,USERID,CASH,VISA)" & _
             "Values(" & _
-             addstring(xDoc_No.text) & "," & _
+             addstring(xDoc_no.text) & "," & _
              addstring(xCode.text) & "," & _
              addDate(xDate.text) & "," & _
              addstring(xStore.text) & "," & _
@@ -9437,12 +9437,12 @@ On Error GoTo myerror
             ")"
     condef.Execute cString
     
-    condef.Execute " DELETE FROM FILE6_20 WHERE DOC_NO = " & MyParn(xDoc_No.text)
+    condef.Execute " DELETE FROM FILE6_20 WHERE DOC_NO = " & MyParn(xDoc_no.text)
     With grid1
     For nRow = 1 To .Rows - 2
         cString = "Insert into FILE6_20 (doc_no,ITEM,MAN,QUANT,PRICE,PRICE_C,PRICE_C2,TOTAL)" & _
             "Values(" & _
-             addstring(xDoc_No.text) & "," & _
+             addstring(xDoc_no.text) & "," & _
              addstring(.TextMatrix(.Row, 1)) & "," & _
              addstring(.TextMatrix(.Row, 16)) & "," & _
              Val(.TextMatrix(.Row, 10)) & "," & _
@@ -9486,7 +9486,7 @@ Private Sub cmd_showdoc_Click()
         If Trim(cPassword) = "" Then Exit Sub
         aUser = aGetDesca("SELECT CODE , DESCA FROM SUB_USER WHERE ( ( PASSWORD = " & MyParn(cPassword) & " AND STOP1 = 0 ) OR ( STOP2 = 0 AND PASSWORD2 = " & MyParn(cPassword) & "))", con)
         
-        AddLod_Data cUserName, 0, " › Õ »Ê‰ ··„— Ã⁄  ", con, xDoc_No.text, xDate.text, , xCodeDesca.Caption
+        AddLod_Data cUserName, 0, " › Õ »Ê‰ ··„— Ã⁄  ", con, xDoc_no.text, xDate.text, , xCodeDesca.Caption
         
         
         If UBound(aUser) > 0 Then
@@ -9522,12 +9522,12 @@ End Function
 Private Function doprint_online() As Boolean
 Dim aHeader(2)
 If Not MYVALID Then Exit Function
-Dim temptable As New ADODB.Recordset
-Dim sourcetable As New ADODB.Recordset
+Dim temptable As New adodb.Recordset
+Dim sourcetable As New adodb.Recordset
 
-Dim loctable As New ADODB.Recordset, cString As String
+Dim loctable As New adodb.Recordset, cString As String
 cString = "SELECT FILE6_20.ITEM,FILE6_20.QUANT,FILE6_20.SKU  ,FILE6_20.PRICE,FILE1_10.DESCA AS ITEM_DESCA,FILE6_20.DESCA2 , FILE6_20.TOTAL,FILE6_20H.TIME, file1_10.modelfact0 , FACT.DESCA AS FACTDESCA , FILE1_10.COLOR , FILE1_10.SCAL , FILE1_10.C_SCAL , FILE1_10.MODEL   , file6_20h.[name] , file6_20h.phone , file6_20h.address , file6_20h.street , file6_20h.Payment_Method , CITY , Shipping_City , ONLINE_DOC  , CHARGE1 , CHARGE2 , ship_no FROM FILE6_20 INNER JOIN FILE6_20H ON FILE6_20.DOC_NO = FILE6_20H.DOC_NO INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM LEFT JOIN FACT ON FACT.CODE = FILE1_10.[FACT]  "
-cString = cString & turn(cString) & "FILE6_20.DOC_NO = " & MyParn(xDoc_No.text)
+cString = cString & turn(cString) & "FILE6_20.DOC_NO = " & MyParn(xDoc_no.text)
 loctable.Open cString, con, adOpenKeyset, adLockReadOnly, adCmdText
 
 contemp.Execute "DELETE * FROM TEMP"
@@ -9559,7 +9559,7 @@ Do While Not loctable.EOF
     temptable!val12 = Val(xTotal.text) + Val(loctable!CHARGE1 & "") + Val(loctable!charge2 & "")
     temptable!VAL6 = Val(xTotalQuant.Caption) - Val(xTotalQuant2.Caption)
     temptable!str10 = loctable!ship_no
-    temptable!STR20 = xDoc_No.text
+    temptable!STR20 = xDoc_no.text
     
     If Val(xTotal.text) + Val(loctable!CHARGE1 & "") + Val(loctable!charge2 & "") > 0 Then
         temptable!str11 = MyOnly(Val(xTotal.text) + Val(loctable!CHARGE1 & "") + Val(loctable!charge2 & ""))
@@ -9650,7 +9650,7 @@ Function CheckCardDisc() As Double
                 xcard_value.Caption = aRet(2) & ""
                 CheckCardDisc = aRet(2) & ""
             
-                con.Execute " UPDATE FILE6_20 SET FILE6_20.PRICE = FILE6_20.Price_C2 , FILE6_20.S_OKAZ = FILE6_20.S_OKAZ_2 WHERE DOC_NO =  " & MyParn(xDoc_No.text)
+                con.Execute " UPDATE FILE6_20 SET FILE6_20.PRICE = FILE6_20.Price_C2 , FILE6_20.S_OKAZ = FILE6_20.S_OKAZ_2 WHERE DOC_NO =  " & MyParn(xDoc_no.text)
                 myLoadGrd
             End If
         Else
@@ -9672,7 +9672,7 @@ Sub SAveCardDisc_No()
             Exit Sub
         Else
             lConServerDisc = True
-            conShop.Execute " UPDATE CARD_DISC SET SALES_DOC_NO = " & addstring(xDoc_No.text) & " WHERE BARCODE_DISC = " & MyParn(xcard_disc.text)
+            conShop.Execute " UPDATE CARD_DISC SET SALES_DOC_NO = " & addstring(xDoc_no.text) & " WHERE BARCODE_DISC = " & MyParn(xcard_disc.text)
         End If
     End If
 End Sub
@@ -9693,11 +9693,11 @@ Err.Clear
 End Function
 Private Function createBackUp(pFileName) As Boolean
 Dim cFile As String
-Dim con As New ADODB.Connection
+Dim con As New adodb.Connection
 openCon con
 
 Dim cmd
-Dim FS1 As New ADODB.command
+Dim FS1 As New adodb.command
 FS1.CommandType = adCmdText
 Set FS1.ActiveConnection = con
 cString = "BACKUP DATABASE " & sCatalog & " TO  DISK = N'" & pFileName & "' WITH  RETAINDAYS = 1, NOFORMAT, INIT,  NAME = N'over-Full Database Backup', SKIP,  NOREWIND, NOUNLOAD, STATS = 10"

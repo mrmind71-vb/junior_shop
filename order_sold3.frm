@@ -422,7 +422,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public sDoc_no As String
 Public sDoc_no_order As String
-
+Public sinv_type As String
 Public myForm As sales_wholefrm
 Dim bStopCell As Boolean
 Dim con As New ADODB.Connection
@@ -773,10 +773,9 @@ Private Function myreplace() As String
     cString.Clear
     
     Dim sdoc_no_new As String
-    addNewDoc = IncData("FILE6_20H", "DOC_NO", con, "FILE6_20H.INV_TYPE = 2")
-
+    sdoc_no_new = IncData("FILE6_20H", "DOC_NO", con, "FILE6_20H.INV_TYPE = " & sinv_type)
     
-    aInsert = AddFlag(aInsert, "DOC_NO", addstring(addNewDoc))
+    aInsert = AddFlag(aInsert, "DOC_NO", addstring(sdoc_no_new))
     aInsert = AddFlag(aInsert, "CODE", addstring(orderTable!code))
     aInsert = AddFlag(aInsert, "[Date]", addDate(myForm.xDate.text))
     aInsert = AddFlag(aInsert, "STORE", addstring(myForm.xStore.BoundText))
@@ -788,9 +787,13 @@ Private Function myreplace() As String
     aInsert = AddFlag(aInsert, "TIME1", addDate("GETDATE()"))
     aInsert = AddFlag(aInsert, "USER_IP", addstring(cIpName))
     aInsert = AddFlag(aInsert, "MAN", addstring("0001"))
-    aInsert = AddFlag(aInsert, "ISINVOICE", "0")
-    aInsert = AddFlag(aInsert, "ISRET", "0")
+    If sinv_type = "2" Then
+        aInsert = AddFlag(aInsert, "ISINVOICE", "0")
+    Else
+        aInsert = AddFlag(aInsert, "ISINVOICE", "1")
+    End If
     
+    aInsert = AddFlag(aInsert, "ISRET", "0")
     con.BeginTrans
     con.Execute addInsert(aInsert, "FILE6_20H")
             
@@ -823,10 +826,14 @@ Private Function myreplace() As String
                     "VALUES"
             End If
             cString.Append "("
-            cString.Append addstring(myForm.xDoc_no.text) & ","
+            cString.Append addstring(sdoc_no_new) & ","
             cString.Append addstring(.TextMatrix(i, 0 + 1)) & ","
             cString.Append .ValueMatrix(i, 8 + 1) & ","
-            cString.Append .ValueMatrix(i, 9 + 1) & ","
+            'If sinv_type = "3" Then
+            '    cString.Append Round(.ValueMatrix(i, 9 + 1) / 1.14, 2) & ","
+            'Else
+                cString.Append .ValueMatrix(i, 9 + 1) & ","
+            'End If
             cString.Append i & ","
             cString.Append addstring("001") & ","
             cString.Append addstring(GetComputerNamecIpName) & ","
@@ -837,16 +844,21 @@ Private Function myreplace() As String
         End If
     Next
     End With
-    
+        
     If cString.length > 0 Then
         cString.Shorten 1
         con.Execute cString.GetAsString()
-        UpdateInvTotal sDoc_New, con
+        If sinv_type = "3" Then
+            con.Execute "UPDATE FILE6_20H " & _
+                        " SET FILE6_20H.TAX = ROUND(FILE6_20H.TOTAL_ITEM * 0.14,2)" & _
+                        " WHERE DOC_NO = " & MyParn(sdoc_no_new)
+        End If
+        'UpdateInvTotal sDoc_New, con
     End If
     
     con.CommitTrans
     
-    myreplace = myForm.xDoc_no.text
+    myreplace = sdoc_no_new
 Exit Function
 myerror:
 MsgBox Err.Description
