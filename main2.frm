@@ -319,6 +319,9 @@ Begin VB.MDIForm main
       Begin VB.Menu tm_sales_whole 
          Caption         =   "„»Ì⁄«  Ã„·…"
       End
+      Begin VB.Menu tm_client_phones 
+         Caption         =   " ·Ì›Ê‰«  «·⁄„·«¡"
+      End
       Begin VB.Menu tmDashBoard 
          Caption         =   "DashBoard"
       End
@@ -926,7 +929,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Dim con As New adodb.Connection
+Dim con As New ADODB.Connection
 
 Private Sub cmd_tm_grd_balance_all_Click()
 tm_grd_balance_all_Click
@@ -947,7 +950,7 @@ Private Sub cmd_tmsalesrepall_Click()
 tmsalesrepall_Click
 End Sub
 Private Sub MDIForm_Load()
-Dim TableAddress As New adodb.Recordset
+Dim TableAddress As New ADODB.Recordset
 'SetKbLayout Lang_EN
 If cUserName <> "Aymen Junior" Then
     If Not bSupermode Then LoadMenu
@@ -1033,11 +1036,11 @@ If cPMosm = "" Then cPMosm = GetDesca("select mosm from mosm order by date desc 
 
 'ClosedCashDoc
 
-Dim PriceTable As New adodb.Recordset
+Dim PriceTable As New ADODB.Recordset
 'PriceTable.Open "PRICE", con, adOpenStatic, adLockReadOnly, adCmdTable
 Set PriceTable = mycmd("SELECT TOP 1 * FROM PRICE", con)
 
-Dim File0_00Table As New adodb.Recordset
+Dim File0_00Table As New ADODB.Recordset
 File0_00Table.Open "FILE0_00", con, adOpenStatic, adLockReadOnly, adCmdTable
 
 If Not PriceTable.EOF Then
@@ -1113,7 +1116,7 @@ Else
    openCon con
 End If
 
-Dim sectable As New adodb.Recordset
+Dim sectable As New ADODB.Recordset
 cString = "SELECT users.code,users.title1,users.title2, users.Password, users.desca,USERS.option1,users.option2,users.option3,users.option4,users.option5 ,Menusetting.Visible, Menusetting.Editable, Menu.Control, Menu.MenuNo,Menu.mainMenu " & _
           " FROM (users INNER JOIN Menusetting ON users.Code = Menusetting.code) INNER JOIN Menu ON Menusetting.control = Menu.Control " & _
           " where users.code = " & nusercode
@@ -1305,6 +1308,11 @@ End Sub
 Private Sub tm_box_day_Click()
 BoxDayfrm.Show
 End Sub
+
+Private Sub tm_client_phones_Click()
+grdPhonesfrm.Show 1
+End Sub
+
 Private Sub tm_einvoice_Click()
 einvoice_menufrm.Show 1
 End Sub
@@ -2051,7 +2059,8 @@ Private Sub tmnewprice_Click()
 End Sub
 
 Private Sub tmonline_order_Click()
-OrderOnline_New.Show
+'OrderOnline_New.Show
+OrderOnline_abd.Show
 End Sub
 Private Sub tmopensal_Click()
 VsShip_Pay.Show
@@ -2991,7 +3000,7 @@ FlagFrm2.myPublic = aLocal
 FlagFrm2.Show 1
 End Sub
 Private Sub FixData1()
-Dim FS1 As New adodb.command
+Dim FS1 As New ADODB.command
 openCon con
 On Error Resume Next
 
@@ -3006,7 +3015,7 @@ closeCon con
 Err.Clear
 End Sub
 Private Sub FixData2()
-Dim FS1 As New adodb.command, cDesca As String
+Dim FS1 As New ADODB.command, cDesca As String
 cDesca = "’·«ÕÌ… „— Ã⁄"
 openCon con
 On Error Resume Next
@@ -3018,7 +3027,7 @@ Err.Clear
 End Sub
 
 Private Sub FixData4()
-Dim FS1 As New adodb.command
+Dim FS1 As New ADODB.command
 openCon con
 On Error Resume Next
 cString = "alter TABLE [dbo].[FILE0_10H] add   [branch] [nvarchar](50) COLLATE Arabic_CI_AS NULL"
@@ -3032,7 +3041,7 @@ Err.Clear
 End Sub
 
 Private Sub FixData12()
-Dim FS1 As New adodb.command
+Dim FS1 As New ADODB.command
 openCon con
 On Error Resume Next
 cString = "ALTER TABLE [dbo].[FILE7_20h] ADD [isnew2] [bit] NULL"
@@ -3044,7 +3053,7 @@ closeCon con
 Err.Clear
 End Sub
 Private Sub FixData13()
-Dim FS1 As New adodb.command
+Dim FS1 As New ADODB.command
 openCon con
 On Error Resume Next
 cString = "ALTER TABLE [dbo].[FILE7_20h] ADD [isnew3] [bit] NULL"
@@ -3057,7 +3066,7 @@ Err.Clear
 End Sub
 
 Private Sub FixData5()
-Dim FS1 As New adodb.command
+Dim FS1 As New ADODB.command
 openCon con
 On Error Resume Next
 
@@ -3084,8 +3093,8 @@ Sub FixStoreCode()
 
 End Sub
 Sub Show_NewDoc()
-    Set grid1.DataSource = data1
-    data1.ConnectionString = strCon
+    Set grid1.DataSource = DATA1
+    DATA1.ConnectionString = strCon
     grid1.Rows = 1
     Fixgrd
     myload
@@ -3094,8 +3103,8 @@ End Sub
 Private Sub myload()
     Dim cWhere As String
     cString = " SELECT     flag, desca, DOC_NO, DATE, [name], QUANT, USERSEND, TIMESEND FROM         Q_DATA_SEND "
-    data1.RecordSource = cString
-    data1.Refresh
+    DATA1.RecordSource = cString
+    DATA1.Refresh
     Fixgrd
 End Sub
 Sub Fixgrd()
@@ -3176,13 +3185,13 @@ Err.Clear
 End Function
 Private Function createBackUp(pFileName) As Boolean
 Dim cFile As String
-Dim con As New adodb.Connection
+Dim con As New ADODB.Connection
 openCon con
 
 Dim cmd
 'Set cmd = con.CreateObject("ADODB.Command")
 'cmd.CommandTimeout = 120   ' number of seconds
-Dim FS1 As New adodb.command
+Dim FS1 As New ADODB.command
 FS1.CommandType = adCmdText
 
 

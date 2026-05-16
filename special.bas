@@ -5,7 +5,7 @@ Public cSalesMan As String
 Public dSalesDate As String, aPassword As Variant, aAddModel As Variant, dMaxDate As Date
 Public aPrinterBar As Variant
 Function itemCost(cItem, Optional pDate As String = "") As Single
-Dim con As New ADODB.Connection
+Dim con As New adodb.Connection
 If con.State = adStateOpen Then con.Close
 openCon con
 
@@ -440,9 +440,9 @@ If Not ValidDate Then
 
 End If
 End Function
-Function LastBalance(cItem, cStore, pCon As ADODB.Connection) As Double
-Dim obj As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function LastBalance(cItem, cStore, pCon As adodb.Connection) As Double
+Dim obj As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 If cItem = "" Or cStore = "" Then Exit Function
 cmdTable.CommandType = adCmdStoredProc
@@ -457,9 +457,9 @@ Set obj = Nothing
 End Function
 
 
-Function lastColor(cItem As String, cDoc_No As String, pCon As ADODB.Connection) As Variant
-Dim obj As New ADODB.Recordset, aRet(1) As Double
-Dim cmdTable As New ADODB.command
+Function lastColor(cItem As String, cDoc_No As String, pCon As adodb.Connection) As Variant
+Dim obj As New adodb.Recordset, aRet(1) As Double
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("item", adVarWChar, adParamInput, 15, cItem)
@@ -474,9 +474,9 @@ aRet(1) = Val(cmdTable.Parameters(3).Value & "")
 lastColor = aRet
 Set obj = Nothing
 End Function
-Function LastCost(cItem, pCon As ADODB.Connection) As Double
-Dim obj As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function LastCost(cItem, pCon As adodb.Connection) As Double
+Dim obj As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 
 cmdTable.CommandType = adCmdStoredProc
@@ -506,9 +506,9 @@ Dim cString As String
 If Len(Mid(pModel, 4, 3) & turn(Mid(pModel, 4, 3), "\")) < 3 Then Exit Function
 retFile = App.Path & "\PICT\" & Mid(pModel, 4, 3) & turn(Mid(pModel, 4, 3), "\") & pModel & ".jpg"
 End Function
-Function RetItemBalance(cItem, cStore, dDate, pCon As ADODB.Connection, Optional pCode As String = "") As Double
-Dim obj As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function RetItemBalance(cItem, cStore, dDate, pCon As adodb.Connection, Optional pCode As String = "") As Double
+Dim obj As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("Store", adVarWChar, adParamInput, 3, cStore)
@@ -528,9 +528,9 @@ Else
 End If
 Set obj = Nothing
 End Function
-Function ItemBalanceNoStore(cItem, dDate, pCon As ADODB.Connection) As Double
-Dim obj As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function ItemBalanceNoStore(cItem, dDate, pCon As adodb.Connection) As Double
+Dim obj As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 
@@ -543,9 +543,9 @@ Set obj = cmdTable.Execute
 ItemBalanceNoStore = Val(cmdTable.Parameters(2).Value & "")
 Set obj = Nothing
 End Function
-Function ModelFind(pModel As String, pCon As ADODB.Connection) As ADODB.Recordset
-Dim obj As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function ModelFind(pModel As String, pCon As adodb.Connection) As adodb.Recordset
+Dim obj As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("MODELNO", adVarWChar, adParamInput, 30, pModel)
@@ -554,9 +554,9 @@ Set obj = cmdTable.Execute
 Set ModelFind = obj
 Set obj = Nothing
 End Function
-Function card_last(pCode As String, pCon As ADODB.Connection) As String
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function card_last(pCode As String, pCon As adodb.Connection) As String
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("CODE", adVarWChar, adParamInput, 6, pCode)
@@ -568,7 +568,7 @@ Set rdTable = cmdTable.Execute
 card_last = cmdTable.Parameters(2).Value & ""
 Set rdTable = Nothing
 End Function
-Function valid_card(pCode As String, pDate As String, pCon As ADODB.Connection) As String
+Function valid_card(pCode As String, pDate As String, pCon As adodb.Connection) As String
 Dim sDate
 sDate = Format(card_last(pCode, pCon), "yyyy-mm-dd")
 If sDate = "" Then
@@ -580,9 +580,9 @@ If sDate < Format(DateAdd("m", -6, pDate), "yyyy-mm-dd") Then
 End If
 valid_card = "ok"
 End Function
-Function card_Sales(pCode As String, pCon As ADODB.Connection) As Double
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function card_Sales(pCode As String, pCon As adodb.Connection) As Double
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("CODE", adVarWChar, adParamInput, 6, pCode)
@@ -594,9 +594,9 @@ Set rdTable = cmdTable.Execute
 card_Sales = cmdTable.Parameters(1).Value
 Set rdTable = Nothing
 End Function
-Function card_discount(pCode As String, pCon As ADODB.Connection) As Double
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function card_discount(pCode As String, pCon As adodb.Connection) As Double
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("CODE", adVarWChar, adParamInput, 6, pCode)
@@ -610,9 +610,9 @@ Set rdTable = Nothing
 End Function
 
 
-Function isOffice(pCode As String, pCon As ADODB.Connection) As Boolean
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function isOffice(pCode As String, pCon As adodb.Connection) As Boolean
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("code", adVarWChar, adParamInput, 3, pCode)
@@ -622,9 +622,9 @@ Set rdTable = cmdTable.Execute
 isOffice = cmdTable.Parameters(1).Value
 Set rdTable = Nothing
 End Function
-Function retCode(pCode As String, pCon As ADODB.Connection) As String
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function retCode(pCode As String, pCon As adodb.Connection) As String
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("code", adVarWChar, adParamInput, 3, pCode)
@@ -634,9 +634,9 @@ Set rdTable = cmdTable.Execute
 retCode = cmdTable.Parameters(1).Value
 Set rdTable = Nothing
 End Function
-Function fact_Desc(pCode As String, pCon As ADODB.Connection) As String
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function fact_Desc(pCode As String, pCon As adodb.Connection) As String
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("item", adVarWChar, adParamInput, 3, pCode)
@@ -646,15 +646,15 @@ Set rdTable = cmdTable.Execute
 fact_Desca = cmdTable.Parameters(1).Value & ""
 Set rdTable = Nothing
 End Function
-Function Item_cost(pBARCODE As String, pCon As ADODB.Connection) As Double
+Function Item_cost(pBARCODE As String, pCon As adodb.Connection) As Double
     Item_cost = Val(GetDesca(" SELECT COSTITEM FROM FILE1_10 WHERE ITEM = " & pBARCODE, pCon) & "")
 End Function
 Function retSysdate() As String
 retSysdate = Format(IIf(Val(Format(Time, "hh")) > 4, Date, DateAdd("d", -1, Date)), "dd-mm-yyyy")
 End Function
-Function Model_Found(pModel, pCon As ADODB.Connection) As Integer
-Dim obj As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function Model_Found(pModel, pCon As adodb.Connection) As Integer
+Dim obj As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("Model", adVarWChar, adParamInput, 30, pModel)
@@ -665,9 +665,9 @@ Set obj = cmdTable.Execute
 Model_Found = Val(cmdTable.Parameters(1).Value & "")
 Set obj = Nothing
 End Function
-Function BAL_SUPPL(cCode, cMosm, pCon As ADODB.Connection) As Double
-Dim obj As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function BAL_SUPPL(cCode, cMosm, pCon As adodb.Connection) As Double
+Dim obj As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 If cCode = "" Or cMosm = "" Then Exit Function
 cmdTable.CommandType = adCmdStoredProc
@@ -696,9 +696,9 @@ End Function
 Function ValidInt(pString As Variant)
 ValidInt = Int(Val(pString & "")) & "" = Trim(pString)
 End Function
-Function ItemFind(pItem As String, pCon As ADODB.Connection) As ADODB.Recordset
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function ItemFind(pItem As String, pCon As adodb.Connection) As adodb.Recordset
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 If Len(pItem) > 7 Then pItem = 0
 
@@ -709,9 +709,9 @@ Set rdTable = cmdTable.Execute
 Set ItemFind = rdTable
 Set rdTable = Nothing
 End Function
-Function ItemFind_BARCODE(pBARCODE As String, pCon As ADODB.Connection) As ADODB.Recordset
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function ItemFind_BARCODE(pBARCODE As String, pCon As adodb.Connection) As adodb.Recordset
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("BARCODE", adChar, adParamInput, 20, pBARCODE)
@@ -721,11 +721,11 @@ Set ItemFind_BARCODE = rdTable
 Set rdTable = Nothing
 End Function
 
-Function validItem(pItem As String, pCon As ADODB.Connection) As Boolean
+Function validItem(pItem As String, pCon As adodb.Connection) As Boolean
 On Error GoTo myerror
 If Not ValidInt(pItem) Then Exit Function
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("item", adInteger, adParamInput, 10, pItem)
@@ -739,10 +739,10 @@ myerror:
 MsgBox Err.Description
 Err.Clear
 End Function
-Function ItemFields(ByVal pItem As String, pCon As ADODB.Connection) As Variant
+Function ItemFields(ByVal pItem As String, pCon As adodb.Connection) As Variant
 If Not ValidInt(pItem) Then Exit Function
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("item", adInteger, adParamInput, 10, pItem)
@@ -755,10 +755,10 @@ If Not (rdTable.EOF And rdTable.BOF) Then
 End If
 Set rdTable = Nothing
 End Function
-Function ItemField(pItem As String, pField As String, pCon As ADODB.Connection) As Variant
+Function ItemField(pItem As String, pField As String, pCon As adodb.Connection) As Variant
 If Not ValidInt(pItem) Then Exit Function
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 
@@ -768,9 +768,9 @@ Set rdTable = cmdTable.Execute
 If Not (rdTable.EOF And rdTable.BOF) Then ItemField = rdTable(pField)
 Set rdTable = Nothing
 End Function
-Function QItemIn(cItem, cStore, pCon As ADODB.Connection) As Double
-Dim obj As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function QItemIn(cItem, cStore, pCon As adodb.Connection) As Double
+Dim obj As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 If cItem = "" Or cStore = "" Then Exit Function
 cmdTable.CommandType = adCmdStoredProc
@@ -921,9 +921,9 @@ searchArray = Array(Generalarray, listarray, GrdArray)
 oSearch.Caption = "ÅÓÊÚáÇã ÇÕäÇÝ ÇÕæá "
 oSearch.Show 1
 End Sub
-Function ItemFind_Fact(pModelFact0 As String, pScal As String, pCon As ADODB.Connection) As ADODB.Recordset
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function ItemFind_Fact(pModelFact0 As String, pScal As String, pCon As adodb.Connection) As adodb.Recordset
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("MODELFACT0", adChar, adParamInput, 20, pModelFact0)
@@ -933,9 +933,9 @@ Set rdTable = cmdTable.Execute
 Set ItemFind_Fact = rdTable
 Set rdTable = Nothing
 End Function
-Function ItemFind_Model_S_C(pModel, pCode_Color, pCode_Scal, pCon As ADODB.Connection) As Double
-Dim obj As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function ItemFind_Model_S_C(pModel, pCode_Color, pCode_Scal, pCon As adodb.Connection) As Double
+Dim obj As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("MODEL", adVarWChar, adParamInput, 20, pModel)
@@ -948,9 +948,9 @@ Set obj = cmdTable.Execute
 ItemFind_Model_S_C = Val(cmdTable.Parameters(3).Value & "")
 Set obj = Nothing
 End Function
-Function Item_BARCODE(pBARCODE, pCon As ADODB.Connection) As Double
-Dim obj As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function Item_BARCODE(pBARCODE, pCon As adodb.Connection) As Double
+Dim obj As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("BARCODE", adVarWChar, adParamInput, 30, pBARCODE)
@@ -960,9 +960,9 @@ Set obj = cmdTable.Execute
 Item_BARCODE = Val(cmdTable.Parameters(1).Value & "")
 Set obj = Nothing
 End Function
-Function retDOC_NO(pDoc_no As String, pCon As ADODB.Connection) As String
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function retDOC_NO(pDoc_no As String, pCon As adodb.Connection) As String
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("DOC_NO", adVarWChar, adParamInput, 15, pDoc_no)
@@ -972,9 +972,9 @@ Set rdTable = cmdTable.Execute
 retDOC_NO = cmdTable.Parameters(1).Value & ""
 Set rdTable = Nothing
 End Function
-Function SALES_DOC_FIND(ByVal pDoc_no As String, pCon As ADODB.Connection) As Variant
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function SALES_DOC_FIND(ByVal pDoc_no As String, pCon As adodb.Connection) As Variant
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("DOC_NO", adChar, adParamInput, 20, pDoc_no)
@@ -983,9 +983,9 @@ Set rdTable = cmdTable.Execute
 Set SALES_DOC_FIND = rdTable
 Set rdTable = Nothing
 End Function
-Function ItemFind_BARCODE2(pItem As String, pCon As ADODB.Connection) As ADODB.Recordset
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function ItemFind_BARCODE2(pItem As String, pCon As adodb.Connection) As adodb.Recordset
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 If Len(pItem) > 8 Then pItem = ""
 cmdTable.CommandType = adCmdStoredProc
@@ -995,9 +995,9 @@ Set rdTable = cmdTable.Execute
 Set ItemFind_BARCODE2 = rdTable
 Set rdTable = Nothing
 End Function
-Function RetDEmItem(pItem As String, pstore As String, pCon As ADODB.Connection) As Double
-Dim obj As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function RetDEmItem(pItem As String, pstore As String, pCon As adodb.Connection) As Double
+Dim obj As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("ITEM", adVarWChar, adParamInput, 15, pItem)
@@ -1008,9 +1008,9 @@ Set obj = cmdTable.Execute
 RetDEmItem = Val(cmdTable.Parameters(2).Value & "")
 Set obj = Nothing
 End Function
-Function ISPRINTED_sales(pDoc_no As String, pCon As ADODB.Connection) As Boolean
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function ISPRINTED_sales(pDoc_no As String, pCon As adodb.Connection) As Boolean
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("DOC_NO", adVarWChar, adParamInput, 15, pCode)
@@ -1020,9 +1020,9 @@ cmdTable.CommandText = "ISPRINTED_sales"
 ISPRINTED_Pr = cmdTable.Parameters(1).Value
 Set rdTable = Nothing
 End Function
-Function Ret_Phone(pPhone As String, pCon As ADODB.Connection) As String
-Dim rdTable As New ADODB.Recordset
-Dim cmdTable As New ADODB.command
+Function Ret_Phone(pPhone As String, pCon As adodb.Connection) As String
+Dim rdTable As New adodb.Recordset
+Dim cmdTable As New adodb.command
 Set cmdTable.ActiveConnection = pCon
 cmdTable.CommandType = adCmdStoredProc
 cmdTable.Parameters.Append cmdTable.CreateParameter("PHONE", adVarWChar, adParamInput, 15, pPhone)
@@ -1032,8 +1032,8 @@ Set rdTable = cmdTable.Execute
 Ret_Phone = cmdTable.Parameters(1).Value & ""
 Set rdTable = Nothing
 End Function
-Function TransStock(pDoc_no As String, pClosed As Integer, con As ADODB.Connection, Optional ByRef pErrorNumber As Variant, Optional ByRef pErrorMsg As Variant, Optional ByRef pUpdate As Long = 0, Optional ByRef pDelete As Long = 0, Optional ByRef pInsert As Long = 0) As Boolean
-Dim cmd As New ADODB.command
+Function TransStock(pDoc_no As String, pClosed As Integer, con As adodb.Connection, Optional ByRef pErrorNumber As Variant, Optional ByRef pErrorMsg As Variant, Optional ByRef pUpdate As Long = 0, Optional ByRef pDelete As Long = 0, Optional ByRef pInsert As Long = 0) As Boolean
+Dim cmd As New adodb.command
 aPrm = AddFlag(Empty, "DOC_NO", pDoc_no)
 aPrm = AddFlag(aPrm, "CLOSED", pClosed)
 Set cmd = mycmdEx("dbo.sp_stock_trans", con, aPrm)
@@ -1054,8 +1054,8 @@ If Not IsNull(cmd.Parameters("@COUNT_INSERT")) Then
 End If
 TransStock = True
 End Function
-Function TransStockAll(pDoc_no As String, con As ADODB.Connection, pClosed As String, Optional ByRef pCountDelete As Long = 0, Optional ByRef pCountInsert As Long = 0, Optional ByRef pCountDeleteMove As Long = 0, Optional ByRef pCountInsertMove As Long = 0) As Boolean
-Dim command As New ADODB.command
+Function TransStockAll(pDoc_no As String, con As adodb.Connection, pClosed As String, Optional ByRef pCountDelete As Long = 0, Optional ByRef pCountInsert As Long = 0, Optional ByRef pCountDeleteMove As Long = 0, Optional ByRef pCountInsertMove As Long = 0) As Boolean
+Dim command As New adodb.command
 
 Dim aPrm As Variant
 aPrm = AddFlag(Empty, "DOC_NO", pDoc_no)
@@ -1087,7 +1087,7 @@ End If
 
 
 End Function
-Function TransStockItems(pDoc_no As String, con As ADODB.Connection, pClosed As String, Optional ByRef pCountDelete As Long = 0, Optional ByRef pCountInsert As Long = 0) As Boolean
+Function TransStockItems(pDoc_no As String, con As adodb.Connection, pClosed As String, Optional ByRef pCountDelete As Long = 0, Optional ByRef pCountInsert As Long = 0) As Boolean
 'Dim command As New adodb.command
 'Dim aPrm As Variant
 'aPrm = AddFlag(aPrm, "DOC_NO", pDoc_no)
@@ -1100,8 +1100,8 @@ Function TransStockItems(pDoc_no As String, con As ADODB.Connection, pClosed As 
 'pCountInsert = Val(.Parameters("@COUNT_DELETE") & "")
 'TransStockItems = True
 End Function
-Function TransStockHeader(pDoc_no As String, con As ADODB.Connection, pClosed As String, Optional ByRef pCountDelete As Long = 0, Optional ByRef pCountInsert As Long = 0) As Boolean
-Dim command As New ADODB.command
+Function TransStockHeader(pDoc_no As String, con As adodb.Connection, pClosed As String, Optional ByRef pCountDelete As Long = 0, Optional ByRef pCountInsert As Long = 0) As Boolean
+Dim command As New adodb.command
 aPrm = AddFlag(Empty, "DOC_NO", pDoc_no)
 aPrm = AddFlag(aPrm, "CLOSED", pClosed)
 Set command = mycmd("dbo.sp_stock_trans", con, adStoredProc, aPrm)
@@ -1171,7 +1171,7 @@ For i = 0 To myForm.Count - 1
     End If
 Next
 End Sub
-Sub clientLookup(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "")
+Sub CLIENTLOOKUP(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "")
 Dim Generalarray(5)
 Dim listarray(0, 5)
 Dim GrdArray(2, 1)
@@ -1899,11 +1899,11 @@ oSearch.aMerge = aMerge
 oSearch.bUnload = True
 oSearch.Show 1
 End Sub
-Public Function retItemCode(pItem As String, con As ADODB.Connection) As String
+Public Function retItemCode(pItem As String, con As adodb.Connection) As String
 If Trim(pItem) = "" Then Exit Function
 retItemCode = myField("Select  [dbo].[fn_ret_item](" & MyParn(pItem) & ")", con) & ""
 End Function
-Public Function UpdateInvTotal(pDoc_no As String, con As ADODB.Connection) As Boolean
+Public Function UpdateInvTotal(pDoc_no As String, con As adodb.Connection) As Boolean
 con.Execute "UPDATE FILE6_20H " & _
             " SET FILE6_20H.LATE = FILE6_20H.TOTAL_ITEM - FILE6_20H.DISCOUNT" & _
             " FROM FILE6_20H" & _
@@ -2028,8 +2028,8 @@ oSearch.sCaption = "ÇæÑÇÞ ÏÝÚ"
 oSearch.aFilter = aFilter
 oSearch.Show 1
 End Sub
-Public Function retSalesDate(con As ADODB.Connection, Optional pBranch As String = "") As String
-Dim loctable As New ADODB.Recordset
+Public Function retSalesDate(con As adodb.Connection, Optional pBranch As String = "") As String
+Dim loctable As New adodb.Recordset
 Dim cString As String
 cString = "SELECT DSALES FROM DSALES"
 If pBranch <> "" Then

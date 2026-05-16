@@ -579,7 +579,6 @@ Begin VB.Form BalModelBranch
          BeginProperty Panel1 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
             Object.Width           =   17639
             MinWidth        =   17639
-            Key             =   ""
             Object.Tag             =   ""
          EndProperty
       EndProperty
@@ -923,19 +922,19 @@ Public myForm As Variant, sM_Fact As String
 'Dim conShop As New ADODB.Connection
 Dim oSearch As New Search3
 Dim con As New ADODB.Connection
-Dim StoreTable As New ADODB.Recordset
-Private Sub cmdExit_Click()
+Dim storeTable As New ADODB.Recordset
+Private Sub CmdExit_Click()
     Unload Me
 End Sub
-Private Sub cmdGo_Click()
-    myload
+Private Sub CmdGo_Click()
+    myLoad
 End Sub
 
 Private Sub cmdPrint_Click()
     Dim cHead1 As String
     Dim cHead2 As String
     cHead1 = " ﬁ—Ì— «—’œ… «·«’‰«› " & xMosm.text
-    cHead2 = xFact.text & " " & xMosm.text & " " & xGroup.text & "  " & xDesca.text
+    cHead2 = xFact.text & " " & xMosm.text & " " & xGroup.text & "  " & xdesca.text
     
     Load PrintGrd
     PrintGrd.doprint grid1, 1, -2, cHead1, cHead2, , False, True, 10
@@ -943,7 +942,7 @@ Private Sub cmdPrint_Click()
 
 End Sub
 Private Sub Form_Load()
-    Dim StoreTable As New ADODB.Recordset
+    Dim storeTable As New ADODB.Recordset
     openCon con
     
     If Not lIsBranchStore Then
@@ -958,9 +957,9 @@ Private Sub Form_Load()
     xGroup.ListField = "Desca"
     xGroup.BoundColumn = "Code"
     
-    data4.ConnectionString = strCon
-    data4.RecordSource = "Select mosm ,descA From mosm ORDER BY date DESC "
-    Set xMosm.RowSource = data4
+    DATA4.ConnectionString = strCon
+    DATA4.RecordSource = "Select mosm ,descA From mosm ORDER BY date DESC "
+    Set xMosm.RowSource = DATA4
     xMosm.ListField = "Desca"
     xMosm.BoundColumn = "MOSM"
     
@@ -970,7 +969,7 @@ Private Sub Form_Load()
     xFact.ListField = "Desca"
     xFact.BoundColumn = "Code"
     xFact.BoundText = sM_Fact
-    Set grid1.DataSource = data6
+    Set grid1.DataSource = DATA6
     
     
     grid1.Rows = 1
@@ -981,7 +980,7 @@ Private Sub Form_Load()
     Fixgrd
 '    cmdGo_Click
 End Sub
-Private Sub myload()
+Private Sub myLoad()
     On Error GoTo myerror
     Dim cWhere As String, cFiled1 As String
     xModelFact.text = DelZero(xModelFact.text)
@@ -995,24 +994,24 @@ Private Sub myload()
             Exit Sub
         End If
     
-         StoreTable.Open "SELECT * FROM STORE_BR ORDER BY S_BRANCH ", conShop, adOpenStatic, adLockReadOnly, adCmdText
-         StoreTable.MoveFirst
-         Do While Not StoreTable.EOF
-             cFiled1 = cFiled1 & " , ( SELECT SUM([IN]-[OUT])  FROM FILE1_11_ALL AS FILE1_11_ALL_2 WHERE FILE1_11_ALL_2.ITEM = FILE1_10.ITEM AND STORE = " & MyParn(StoreTable!CODE) & " ) AS '" & StoreTable!DESCA & " ' "
-             StoreTable.MoveNext
+         storeTable.Open "SELECT * FROM STORE_BR ORDER BY S_BRANCH ", conShop, adOpenStatic, adLockReadOnly, adCmdText
+         storeTable.MoveFirst
+         Do While Not storeTable.EOF
+             cFiled1 = cFiled1 & " , ( SELECT SUM([IN]-[OUT])  FROM FILE1_11_ALL AS FILE1_11_ALL_2 WHERE FILE1_11_ALL_2.ITEM = FILE1_10.ITEM AND STORE = " & MyParn(storeTable!code) & " ) AS '" & storeTable!DESCA & " ' "
+             storeTable.MoveNext
          Loop
         
-         data6.ConnectionString = strConShop
+         DATA6.ConnectionString = strConShop
          Set grid2.DataSource = DATA2
     Else
-         StoreTable.Open "SELECT * FROM STORE_BR ORDER BY S_BRANCH ", con, adOpenStatic, adLockReadOnly, adCmdText
-         StoreTable.MoveFirst
-         Do While Not StoreTable.EOF
-             cFiled1 = cFiled1 & " , ( SELECT SUM([IN]-[OUT])  FROM FILE1_11_ALL AS FILE1_11_ALL_2 WHERE FILE1_11_ALL_2.ITEM = FILE1_10.ITEM AND STORE = " & MyParn(StoreTable!CODE) & " ) AS '" & StoreTable!DESCA & " ' "
-             StoreTable.MoveNext
+         storeTable.Open "SELECT * FROM STORE_BR ORDER BY S_BRANCH ", con, adOpenStatic, adLockReadOnly, adCmdText
+         storeTable.MoveFirst
+         Do While Not storeTable.EOF
+             cFiled1 = cFiled1 & " , ( SELECT SUM([IN]-[OUT])  FROM FILE1_11_ALL AS FILE1_11_ALL_2 WHERE FILE1_11_ALL_2.ITEM = FILE1_10.ITEM AND STORE = " & MyParn(storeTable!code) & " ) AS '" & storeTable!DESCA & " ' "
+             storeTable.MoveNext
          Loop
         
-         data6.ConnectionString = strCon
+         DATA6.ConnectionString = strCon
          Set grid2.DataSource = DATA2
     End If
    
@@ -1029,8 +1028,8 @@ Private Sub myload()
 '    If Trim(xColor.Text) <> "" Then cString = cString & turn(cString) & MyParnAnd(xColor, "FILE1_10.COLOR")
     cString = cString & " GROUP BY FILE1_10.ITEM   , FACT.DESCA, FILE1_10.MOSM, FILE1_10.MODELFACT0, FILE1_10.desca,FILE1_10.SCAL , FILE1_10.COST , FILE1_10.PRICE2, FILE1_10.PRICE ,  FILE1_10.COLOR  "
 
-    data6.RecordSource = cString
-    data6.Refresh
+    DATA6.RecordSource = cString
+    DATA6.Refresh
     Fixgrd
     Exit Sub
 myerror:
@@ -1087,7 +1086,7 @@ Private Sub xbarcode_KeyPress(KeyAscii As Integer)
             xFact.BoundText = aRet(2)
             xMosm.BoundText = aRet(1)
             xModelFact.text = aRet(3)
-            cmdGo_Click
+            CmdGo_Click
         End If
     End If
 End Sub
@@ -1124,36 +1123,36 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 '    End If
 End Sub
 Private Sub xModel_KeyUp(KeyCode As Integer, Shift As Integer)
-    If KeyCode = 112 Then ModelLookupAll Me, oSearch
+If KeyCode = 112 Then ModelLookupAll Me, oSearch
 End Sub
 Sub myProc()
 On Error GoTo myerror
 ActiveControl.text = oSearch.grid1.TextMatrix(oSearch.grid1.Row, 0)
 Unload oSearch
-myload
+myLoad
 grid1.SetFocus
 Exit Sub
 myerror:
 End Sub
 Sub MYLOAD2()
-    Dim StoreTable As New ADODB.Recordset
+    Dim storeTable As New ADODB.Recordset
     IpShop = GetDesca("SELECT IPSERVER FROM BRANCH ", con)
-    cDataShop = GetDesca("SELECT DATASERVER FROM BRANCH ", con)
+    cDataShop = GetDesca("SELECT DATASERVER FROM BRANCH", con)
     strConShop = LoadConStringshop
     
-    StoreTable.Open "SELECT * FROM STORE_BR WHERE STORE <> '00' AND IPSERVER IS NOT NULL ORDER BY CODE ", conShop, adOpenStatic, adLockReadOnly, adCmdText
-    StoreTable.MoveFirst
+    storeTable.Open "SELECT * FROM STORE_BR WHERE STORE <> '00' AND IPSERVER IS NOT NULL ORDER BY CODE ", conShop, adOpenStatic, adLockReadOnly, adCmdText
+    storeTable.MoveFirst
     With grid1
-    Do While StoreTable.EOF
+    Do While storeTable.EOF
         
         .Cols = .Cols + 1
         .ColWidth(.Cols - 1) = 1000
-        .TextMatrix(0, .Cols - 1) = StoreTable!DESCA
+        .TextMatrix(0, .Cols - 1) = storeTable!DESCA
         
         If openConShop(conShop) = "OK" Then
         Else
         End If
-        StoreTable.MoveNext
+        storeTable.MoveNext
     Loop
     End With
 

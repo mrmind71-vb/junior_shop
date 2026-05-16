@@ -474,7 +474,7 @@ Dim con As New ADODB.Connection
 Dim conServer As New ADODB.Connection
 
 Private Sub CMD_SEND_Click()
-If Not MYVALID Then Exit Sub
+If Not myValid Then Exit Sub
 Dim sNewDoc As String
 sNewDoc = myReplaceOnline
 If sNewDoc = "" Then Exit Sub
@@ -495,7 +495,7 @@ openCon con
 Set grid2.DataSource = data1
 Set grdTotal.DataSource = data2
 
-fixGrd
+Fixgrd
 fixGrdTotal
 myAddItem
 
@@ -579,9 +579,9 @@ With grid2
     .ColWidth(grid2.Cols - 1) = 1000
     
     
-    Dim i As Long
-    For i = 0 To .Cols - 1
-        .ColAlignment(i) = flexAlignRightCenter
+    Dim I As Long
+    For I = 0 To .Cols - 1
+        .ColAlignment(I) = flexAlignRightCenter
     Next
     
     .Subtotal flexSTClear
@@ -592,7 +592,7 @@ With grid2
     .Subtotal flexSTSum, -1, .Cols - 1, "#", &HE0E0E0, , True, "«·≈Ã„«·Ì"
 End With
 End Sub
-Sub fixGrd()
+Sub Fixgrd()
 With grid1
     .RowHeight(0) = 600
     .TextMatrix(0, 0) = "ﬂÊœ"
@@ -609,53 +609,53 @@ With grid1
     .ColWidth(4) = 1000
     .ColWidth(5) = 1000
     
-    Dim i As Long
-    For i = 0 To .Cols - 1
-        .ColAlignment(i) = flexAlignRightCenter
+    Dim I As Long
+    For I = 0 To .Cols - 1
+        .ColAlignment(I) = flexAlignRightCenter
     Next
 End With
 End Sub
 Private Sub myLoadDiffer()
-Dim i As Long
+Dim I As Long
 With grid2
 
 .Subtotal flexSTClear
 If .Rows < 2 Then Exit Sub
 
-For i = 1 To .Rows - 1
-    nFound = grdTotal.FindRow(.TextMatrix(i, 0), , 0)
+For I = 1 To .Rows - 1
+    nFound = grdTotal.FindRow(.TextMatrix(I, 0), , 0)
     If nFound = -1 Then
-         .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = vbWhite
-         .TextMatrix(i, grid2.Cols - 2) = 0
-         .TextMatrix(i, grid2.Cols - 1) = .ValueMatrix(i, 6)
+         .Cell(flexcpBackColor, I, 0, I, .Cols - 1) = vbWhite
+         .TextMatrix(I, grid2.Cols - 2) = 0
+         .TextMatrix(I, grid2.Cols - 1) = .ValueMatrix(I, 6)
     Else
-        .TextMatrix(i, grid2.Cols - 2) = grdTotal.ValueMatrix(nFound, 1)
-        .TextMatrix(i, grid2.Cols - 1) = .ValueMatrix(i, 6) - .ValueMatrix(i, grid2.Cols - 2)
-        If .ValueMatrix(i, grid2.Cols - 1) = 0 Then
-            .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &HC0FFC0
-        ElseIf .ValueMatrix(i, grid2.Cols - 1) > 0 Then
-            .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &H80FFFF
+        .TextMatrix(I, grid2.Cols - 2) = grdTotal.ValueMatrix(nFound, 1)
+        .TextMatrix(I, grid2.Cols - 1) = .ValueMatrix(I, 6) - .ValueMatrix(I, grid2.Cols - 2)
+        If .ValueMatrix(I, grid2.Cols - 1) = 0 Then
+            .Cell(flexcpBackColor, I, 0, I, .Cols - 1) = &HC0FFC0
+        ElseIf .ValueMatrix(I, grid2.Cols - 1) > 0 Then
+            .Cell(flexcpBackColor, I, 0, I, .Cols - 1) = &H80FFFF
         Else
-            .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &H8080FF
+            .Cell(flexcpBackColor, I, 0, I, .Cols - 1) = &H8080FF
         End If
     End If
 Next
 End With
 
 With grid1
-For i = 1 To .Rows - 2
-    nFound = grid2.FindRow(.TextMatrix(i, 0), , 0)
+For I = 1 To .Rows - 2
+    nFound = grid2.FindRow(.TextMatrix(I, 0), , 0)
     If nFound = -1 Then
-        .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &H8080FF
+        .Cell(flexcpBackColor, I, 0, I, .Cols - 1) = &H8080FF
         '.TextMatrix(i, 5) = "e1"
     Else
         If grid2.ValueMatrix(nFound, grid2.Cols - 1) = 0 Then
-            .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &HC0FFC0
+            .Cell(flexcpBackColor, I, 0, I, .Cols - 1) = &HC0FFC0
         ElseIf grid2.ValueMatrix(nFound, grid2.Cols - 1) > 0 Then
-            .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &H80FFFF
+            .Cell(flexcpBackColor, I, 0, I, .Cols - 1) = &H80FFFF
              '.TextMatrix(i, 8) = "w"
         Else
-            .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &H8080FF
+            .Cell(flexcpBackColor, I, 0, I, .Cols - 1) = &H8080FF
             '.TextMatrix(i, 8) = "e2"
         End If
     End If
@@ -666,8 +666,8 @@ Private Sub Form_Unload(Cancel As Integer)
 Set OnlineCheck = Nothing
 End Sub
 
-Private Sub Grid1_AfterEdit(ByVal Row As Long, ByVal col As Long)
-If Not validRow(Row, col) Then
+Private Sub Grid1_AfterEdit(ByVal Row As Long, ByVal Col As Long)
+If Not validRow(Row, Col) Then
     Exit Sub
 End If
 
@@ -677,16 +677,16 @@ If Row = grid1.Rows - 1 Then
 End If
 
 myLoadGrdTotal
-fixGrd
+Fixgrd
 End Sub
-Private Sub grid1_EnterCell()
-If grid1.col = 0 Or grid1.col = 5 Then
+Private Sub Grid1_EnterCell()
+If grid1.Col = 0 Or grid1.Col = 5 Then
     grid1.Editable = flexEDKbdMouse
 Else
     grid1.Editable = flexEDNone
 End If
 End Sub
-Private Function validRow(Row As Long, Optional col As Long = -1) As Boolean
+Private Function validRow(Row As Long, Optional Col As Long = -1) As Boolean
 With grid1
     If Not isNum(.TextMatrix(Row, 0)) Then Exit Function
     If .ValueMatrix(Row, 5) <= 0 Then Exit Function
@@ -730,8 +730,8 @@ With grid1
 .AddItem ""
 End With
 End Sub
-Private Sub grid1_ValidateEdit(ByVal Row As Long, ByVal col As Long, Cancel As Boolean)
-If col = 0 Then
+Private Sub grid1_ValidateEdit(ByVal Row As Long, ByVal Col As Long, Cancel As Boolean)
+If Col = 0 Then
     If Trim(grid1.EditText) = "" Then
         Cancel = True
         Exit Sub
@@ -747,23 +747,23 @@ If col = 0 Then
     End If
 End If
 End Sub
-Private Sub CellPos(ByRef KeyCode, ByVal Row As Long, ByVal col As Long)
+Private Sub CellPos(ByRef KeyCode, ByVal Row As Long, ByVal Col As Long)
 KeyCode = 0
 If bStopCell Then
     bStopCell = False
-ElseIf col < 5 Then
-    grid1.col = 5
+ElseIf Col < 5 Then
+    grid1.Col = 5
 ElseIf Row < grid1.Rows - 1 Then
     grid1.Select Row + 1, NextEmpty(grid1, Row + 1, 0, 5)
     grid1.ShowCell grid1.Row, 0
 Else
-    grid1.Select Row, col
+    grid1.Select Row, Col
 End If
 End Sub
-Private Sub grid1_KeyUpEdit(ByVal Row As Long, ByVal col As Long, KeyCode As Integer, ByVal Shift As Integer)
+Private Sub grid1_KeyUpEdit(ByVal Row As Long, ByVal Col As Long, KeyCode As Integer, ByVal Shift As Integer)
 If KeyCode = 13 Then
     'If Col = 4 Then Exit Sub
-    CellPos KeyCode, Row, col
+    CellPos KeyCode, Row, Col
 End If
 End Sub
 Private Sub grid1_KeyPress(KeyAscii As Integer)
@@ -774,12 +774,12 @@ End If
 End Sub
 Private Sub grid1_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 13 Then
-    CellPos KeyCode, grid1.Row, grid1.col
+    CellPos KeyCode, grid1.Row, grid1.Col
 ElseIf KeyCode = 46 And grid1.Row <> grid1.Rows - 1 Then
     If MsgBox("Õ–› „‰ «·„” ‰œ ?, Â· «‰  „Ê«›ﬁ ø", vbOKCancel) = vbOK Then
         myRemove grid1.Row
         myLoadGrdTotal
-        fixGrd
+        Fixgrd
         bStopCell = True
     End If
 End If
@@ -791,22 +791,22 @@ End Sub
 Private Sub myLoadGrdTotal()
 Dim cString As New ChilkatStringBuilder
 
-Dim i As Long
+Dim I As Long
 If grid1.Rows < 3 Then
     grdTotal.Rows = 1
     Exit Sub
 End If
 
 cString.Append "WITH tb as ( "
-For i = 1 To grid1.Rows - 2
-    If i > 1 Then
+For I = 1 To grid1.Rows - 2
+    If I > 1 Then
         cString.Append " UNION ALL "
     End If
     
     cString.Append "SELECT " & _
-                grid1.TextMatrix(i, 0) & " AS ITEM " & "," & _
-                grid1.TextMatrix(i, 5) & " AS QUANT " & "," & _
-                i & " AS ITEM_ORDER"
+                grid1.TextMatrix(I, 0) & " AS ITEM " & "," & _
+                grid1.TextMatrix(I, 5) & " AS QUANT " & "," & _
+                I & " AS ITEM_ORDER"
 Next
 cString.Append ")"
 cString.Append "SELECT ITEM,SUM(QUANT) FROM tb GROUP BY ITEM ORDER BY MIN(ITEM_ORDER)"
@@ -828,9 +828,9 @@ With grdTotal
     .ColWidth(1) = 1000
     
     
-    Dim i As Long
-    For i = 0 To .Cols - 1
-        .ColAlignment(i) = flexAlignRightCenter
+    Dim I As Long
+    For I = 0 To .Cols - 1
+        .ColAlignment(I) = flexAlignRightCenter
     Next
 
     .Subtotal flexSTClear
@@ -866,9 +866,11 @@ Private Function myReplaceOnline() As String
               "DISCOUNT_CODE," & _
               "SHIPPING, " & _
               "(SELECT SUM(TOTAL) FROM FILE6_90 WHERE FILE6_90.DOC_NO = FILE6_90H.DOC_NO )  - DISCOUNT AS TOTAL_NET " & "," & _
-              "Payment_Method,PAYMENT_ID," & _
+              " Payment_Method," & _
+              " PAYMENT_ID," & _
               " FILE6_25.DESCA,FILE6_90H.MAN" & _
-              " FROM FILE6_90H LEFT JOIN FILE6_25 ON FILE6_90H.MAN = FILE6_25.CODE"
+              " FROM FILE6_90H " & _
+              " LEFT JOIN FILE6_25 ON FILE6_90H.MAN = FILE6_25.CODE"
     
     cString.Append " WHERE FILE6_90H.DOC_NO = " & MyParn(sDoc_no)
 
@@ -895,7 +897,7 @@ Private Function myReplaceOnline() As String
     aInsert = AddFlag(aInsert, "userName", addstring(cUserName))
     aInsert = AddFlag(aInsert, "branch", addstring(cBranch))
     aInsert = AddFlag(aInsert, "MAN", addstring(sMan))
-    aInsert = AddFlag(aInsert, "PHONE", addstring(loctable!phone))
+    aInsert = AddFlag(aInsert, "PHONE", addstring(loctable!Phone))
     aInsert = AddFlag(aInsert, "PAYMENT_ID", addstring(loctable!PAYMENT_ID))
     aInsert = AddFlag(aInsert, "isNew", "1")
     
@@ -942,21 +944,21 @@ Private Function myReplaceOnline() As String
     With grid2
     
     cString.Append " VALUES "
-    For i = 1 To .Rows - 2
-        If .ValueMatrix(i, .Cols - 2) > 0 And .ValueMatrix(i, .Cols - 1) >= 0 Then
+    For I = 1 To .Rows - 2
+        If .ValueMatrix(I, .Cols - 2) > 0 And .ValueMatrix(I, .Cols - 1) >= 0 Then
             cString.Append "("
             cString.Append addstring(sDoc_New) & ","
-            cString.Append addstring(.TextMatrix(i, 0)) & ","
-            cString.Append addstring(.TextMatrix(i, .Cols - 2)) & ","
-            cString.Append .ValueMatrix(i, 7) & ","
-            cString.Append i & ","
+            cString.Append addstring(.TextMatrix(I, 0)) & ","
+            cString.Append addstring(.TextMatrix(I, .Cols - 2)) & ","
+            cString.Append .ValueMatrix(I, 7) & ","
+            cString.Append I & ","
             cString.Append addstring(sMan) & ","
             cString.Append addstring(GetComputerNamecIpName) & ","
-            cString.Append .ValueMatrix(i, 9) & ","
-            cString.Append .ValueMatrix(i, 7) & ","
-            cString.Append addstring(.TextMatrix(i, 8)) & ","
-            cString.Append addstring(.TextMatrix(i, 10)) & ","
-            cString.Append addstring(.TextMatrix(i, 1)) & ")"
+            cString.Append .ValueMatrix(I, 9) & ","
+            cString.Append .ValueMatrix(I, 7) & ","
+            cString.Append addstring(.TextMatrix(I, 8)) & ","
+            cString.Append addstring(.TextMatrix(I, 10)) & ","
+            cString.Append addstring(.TextMatrix(I, 1)) & ")"
             
             cString.Append ","
         End If
@@ -976,8 +978,8 @@ MsgBox Err.Description
 con.RollbackTrans
 Err.Clear
 End Function
-Private Function MYVALID() As Boolean
-Dim i As Long
+Private Function myValid() As Boolean
+Dim I As Long
 Dim nFound As Long
 
 If grid1.Rows < 3 Then
@@ -986,31 +988,31 @@ If grid1.Rows < 3 Then
 End If
 
 With grid1
-For i = 1 To .Rows - 2
-    nFound = grid2.FindRow(.TextMatrix(i, 0), , 0)
+For I = 1 To .Rows - 2
+    nFound = grid2.FindRow(.TextMatrix(I, 0), , 0)
     If nFound = -1 Then
-        MsgBox "«·’‰› " & .TextMatrix(i, 0) & " €Ì— „ÊÃÊœ ›Ï «·ÿ·»Ì…"
+        MsgBox "«·’‰› " & .TextMatrix(I, 0) & " €Ì— „ÊÃÊœ ›Ï «·ÿ·»Ì…"
         Exit Function
     End If
 Next
 End With
 
 With grid2
-For i = 1 To .Rows - 2
-    nFound = grid1.FindRow(.TextMatrix(i, 0), , 0)
+For I = 1 To .Rows - 2
+    nFound = grid1.FindRow(.TextMatrix(I, 0), , 0)
     If nFound = -1 Then
         'MsgBox "«·’‰› " & .TextMatrix(i, 3) & " »„ﬁ«” " & .TextMatrix(i, 6) & " ·„ Ì”Ã· ›Ï «·›« Ê—…"
-        If MsgBox("«·’‰› " & .TextMatrix(i, 0) & " ·„ Ì”Ã· ›Ï «·›« Ê—…", vbOKCancel + vbDefaultButton2) <> vbOK Then Exit Function
-    ElseIf .TextMatrix(i, grid2.Cols - 1) < 0 Then
+        If MsgBox("«·’‰› " & .TextMatrix(I, 0) & " ·„ Ì”Ã· ›Ï «·›« Ê—…", vbOKCancel + vbDefaultButton2) <> vbOK Then Exit Function
+    ElseIf .TextMatrix(I, grid2.Cols - 1) < 0 Then
         'MsgBox "«·’‰› " & .TextMatrix(i, 3) & " »„ﬁ«” " & .TextMatrix(i, 6) & " «ﬂ»— „‰ «·›« Ê—… » " & Abs(.ValueMatrix(i, grid2.cols - 1))
-        MsgBox "«·’‰› " & .TextMatrix(i, 0) & " «ﬂ»— „‰ «·›« Ê—… » " & Abs(.ValueMatrix(i, grid2.Cols - 1))
+        MsgBox "«·’‰› " & .TextMatrix(I, 0) & " «ﬂ»— „‰ «·›« Ê—… » " & Abs(.ValueMatrix(I, grid2.Cols - 1))
         Exit Function
-    ElseIf .TextMatrix(i, grid2.Cols - 1) > 0 Then
+    ElseIf .TextMatrix(I, grid2.Cols - 1) > 0 Then
         'MsgBox "«·’‰› " & .TextMatrix(i, 3) & " »„ﬁ«” " & .TextMatrix(i, 6) & " «ﬁ· „‰ «·›« Ê—… » " & .ValueMatrix(i, grid2.cols - 1)
-        If MsgBox("«·’‰› " & .TextMatrix(i, 0) & " «ﬁ· „‰ «·›« Ê—… » " & Abs(.ValueMatrix(i, grid2.Cols - 1)), vbOKCancel + vbDefaultButton2) <> vbOK Then Exit Function
+        If MsgBox("«·’‰› " & .TextMatrix(I, 0) & " «ﬁ· „‰ «·›« Ê—… » " & Abs(.ValueMatrix(I, grid2.Cols - 1)), vbOKCancel + vbDefaultButton2) <> vbOK Then Exit Function
     End If
 Next
-MYVALID = True
+myValid = True
 End With
 End Function
 Private Sub grid2_EnterCell()

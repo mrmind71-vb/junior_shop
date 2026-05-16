@@ -3,24 +3,24 @@ Dim baseUrl As String
 Dim ownerName As String
 Dim tenantName As String
 Dim agentToken As String
-Public Function SendInvoices(con As adodb.Connection, myform As Form, pDate As String, jArray As ChilkatJsonArray, ByRef jsonResponseStr As String) As Boolean
+Public Function SendInvoices(con As adodb.Connection, myForm As Form, pDate As String, JArray As ChilkatJsonArray, ByRef jsonResponseStr As String) As Boolean
 Dim nCount As Long
 If Not myDefine(con) Then Exit Function
 
 Dim Succees As Integer
 If bMissed Then
-    myform.AddNote "”Ì „  ÕœÌœ «·«Ì«„ »œÊ‰ „»Ì⁄« "
+    myForm.AddNote "”Ì „  ÕœÌœ «·«Ì«„ »œÊ‰ „»Ì⁄« "
 Else
-    myform.AddNote "”Ì „ ‰ﬁ· ›Ê« Ì— ÌÊ„ " & myFormat_p(pDate) & "  ÿ»Ìﬁ „Ê· «·›—⁄"
+    myForm.AddNote "”Ì „ ‰ﬁ· ›Ê« Ì— ÌÊ„ " & myFormat_p(pDate) & "  ÿ»Ìﬁ „Ê· «·›—⁄"
 End If
 
 Dim url As New ChilkatUrl
 Dim rest As New ChilkatRest
 If Not createRest(rest, url) Then Exit Function
 
-If Not IsMissing(myform) Then
-    myform.prog1.Visible = True
-    myform.prog1.Value = 0
+If Not IsMissing(myForm) Then
+    myForm.prog1.Visible = True
+    myForm.prog1.Value = 0
 End If
 
 Dim aPrm As Variant
@@ -28,7 +28,7 @@ aPrm = AddFlag(Empty, "Branch", "019")
 aPrm = AddFlag(aPrm, "DATE", myFormat(pDate))
 
 Dim loctable As New adodb.Recordset
-Set loctable = myCmd("[dbo].[sp_invoices_branch_total]", con, adStoredProc, aPrm)
+Set loctable = mycmd("[dbo].[sp_invoices_branch_total]", con, adStoredProc, aPrm)
 
 If loctable.EOF Then
     nCount = 0
@@ -36,68 +36,67 @@ Else
     nCount = loctable.RecordCount
 End If
 
-Dim Json As New ChilkatJsonObject
-If Not createHeader(pDate, nCount, Json) Then Exit Function
-If Not createLines(pDate, loctable, Json, myform) Then Exit Function
+Dim json As New ChilkatJsonObject
+If Not createHeader(pDate, nCount, json) Then Exit Function
+If Not createLines(pDate, loctable, json, myForm) Then Exit Function
 
 
 'Clipboard.Clear
 'Clipboard.SetText json.Emit()
 
-jsonResponseStr = rest.FullRequestString("POST", "/trackerMW/DSPushApi/SalesReport", Json.Emit())
+jsonResponseStr = rest.FullRequestString("POST", "/trackerMW/DSPushApi/SalesReport", json.Emit())
 If (rest.LastMethodSuccess <> 1) Then
     cError = rest.LastErrorText
 ElseIf rest.ResponseStatusCode >= 400 Then
     cError = "Error : " & rest.ResponseStatusCode & " (" & rest.ResponseStatusText & ")"
 Else
-    Set Json = New ChilkatJsonObject
-    Json.Load jsonResponseStr
+    Set json = New ChilkatJsonObject
+    json.Load jsonResponseStr
     
-    Set jArray = Json.ArrayOf("missingReportDates")
+    Set JArray = json.ArrayOf("missingReportDates")
 End If
     
 If cError = "" Then
     SendInvoices = True
     If nCount = 0 Then
-        myform.AddNote "·« ÌÊÃœ »Ì«‰«  ··«—”«·", vbGreen
+        myForm.AddNote "·« ÌÊÃœ »Ì«‰«  ··«—”«·", vbGreen
     Else
-        myform.AddNote " „ «—”«· »Ì«‰«  " & nCount & " ›« Ê—… «·Ì «· ÿ»Ìﬁ"
+        myForm.AddNote " „ «—”«· »Ì«‰«  " & nCount & " ›« Ê—… «·Ì «· ÿ»Ìﬁ"
     End If
 Else
     MsgBox Err.Description
-    myform.AddNote "·„   „ ⁄„·Ì… ‰ﬁ· «· ÿ»Ìﬁ«  »‰Ã«Õ", vbRed
+    myForm.AddNote "·„   „ ⁄„·Ì… ‰ﬁ· «· ÿ»Ìﬁ«  »‰Ã«Õ", vbRed
 End If
 
-
-If Not IsMissing(myform) Then
-    myform.Caption = sCaption
-    myform.prog1.Visible = False
-    myform.prog1.Value = 0
+If Not IsMissing(myForm) Then
+    myForm.Caption = sCaption
+    myForm.prog1.Visible = False
+    myForm.prog1.Value = 0
 End If
 End Function
-Private Function createHeader(pDate As String, nCount As Long, ByRef Json As ChilkatJsonObject) As Boolean
+Private Function createHeader(pDate As String, nCount As Long, ByRef json As ChilkatJsonObject) As Boolean
 Dim success As Integer
-success = Json.AddStringAt(-1, "reportType", "Daily")
-success = Json.AddStringAt(-1, "requestId", createUUID)
-success = Json.AddStringAt(-1, "ownerName", ownerName)
-success = Json.AddStringAt(-1, "tenantName", tenantName)
-success = Json.AddStringAt(-1, "reportDate", myFormat(pDate))
-success = Json.AddStringAt(-1, "requestDateTime", Format(Now, "yyyy-mm-dd hh:nn:ss"))
-success = Json.AddStringAt(-1, "transactionCount", nCount)
+success = json.AddStringAt(-1, "reportType", "Daily")
+success = json.AddStringAt(-1, "requestId", createUUID)
+success = json.AddStringAt(-1, "ownerName", ownerName)
+success = json.AddStringAt(-1, "tenantName", tenantName)
+success = json.AddStringAt(-1, "reportDate", myFormat(pDate))
+success = json.AddStringAt(-1, "requestDateTime", Format(Now, "yyyy-mm-dd hh:nn:ss"))
+success = json.AddStringAt(-1, "transactionCount", nCount)
 createHeader = success = 1
 End Function
 Private Function myDefine(con As adodb.Connection) As Boolean
 Dim loctable As New adodb.Recordset
-Set loctable = myCmd("select * From SettingInvoiceSend", con)
+Set loctable = mycmd("select * From SettingInvoiceSend", con)
 
 If loctable.EOF Then
     MsgBox Err.Description
-    myform.AddNote "„·› ÷»ÿ »Ì«‰«  «· ÿ»Ìﬁ »œÊ‰ »Ì«‰« ", vbRed
+    myForm.AddNote "„·› ÷»ÿ »Ì«‰«  «· ÿ»Ìﬁ »œÊ‰ »Ì«‰« ", vbRed
     Exit Function
 End If
 
 If IsNull(loctable!baseUrl) Or IsNull(loctable!agentToken) Or IsNull(loctable!tenantName) Or IsNull(loctable!ownerName) Then
-    myform.AddNote "„·› ÷»ÿ »Ì«‰«  «· ÿ»Ìﬁ €Ì— „ﬂ „·…", vbRed
+    myForm.AddNote "„·› ÷»ÿ »Ì«‰«  «· ÿ»Ìﬁ €Ì— „ﬂ „·…", vbRed
     Exit Function
 End If
 
@@ -122,22 +121,22 @@ bAutoReconnect = 1
 success = rest.connect(url.Host, url.Port, url.Ssl, bAutoReconnect)
 createRest = success = 1
 End Function
-Private Function createLines(pDate As String, loctable As adodb.Recordset, ByRef Json As ChilkatJsonObject, myform As Form) As Boolean
+Private Function createLines(pDate As String, loctable As adodb.Recordset, ByRef json As ChilkatJsonObject, myForm As Form) As Boolean
 Dim success As Integer
-success = Json.AddArrayAt(-1, "salesTransactions")
+success = json.AddArrayAt(-1, "salesTransactions")
 
 Dim aLines As ChilkatJsonArray
-Set aLines = Json.ArrayAt(Json.Size - 1)
+Set aLines = json.ArrayAt(json.Size - 1)
 
 Dim nRecordCount As Long, i As Long
 nRecordCount = loctable.RecordCount
-sCaption = myform.Caption
+sCaption = myForm.Caption
 
 Do Until loctable.EOF
     i = i + 1
-    If Not IsMissing(myform) Then
-        myform.prog1.Value = Round((i) / (nRecordCount), 2) * 100
-        myform.Caption = sCaption & " - Record " & (i + 1) & " from " & nRecordCount
+    If Not IsMissing(myForm) Then
+        myForm.prog1.Value = Round((i) / (nRecordCount), 2) * 100
+        myForm.Caption = sCaption & " - Record " & (i + 1) & " from " & nRecordCount
     End If
     
     success = aLines.AddObjectAt(-1)
@@ -159,7 +158,7 @@ myerror:
 pError = Err.Description
 Err.Clear
 myEnd:
-myform.Caption = sCaption
+myForm.Caption = sCaption
 End Function
 Public Function createUUID()
 Dim crypt As New ChilkatCrypt2
@@ -194,7 +193,7 @@ If pParam10 <> "" Then cPrm = cPrm & IIf(cPrm = "", "", ",") & pParam10
 cString = "Select " & pFunction & "(" & cPrm & ") as [value]"
 
 Dim loctable As New adodb.Recordset
-Set loctable = myCmd(cString, pCon)
+Set loctable = mycmd(cString, pCon)
 MyFuncValue = loctable!Value
 loctable.Close
 Set loctable = Nothing
