@@ -66,7 +66,6 @@ Set myRs = cmd.Execute
 Set myRs.ActiveConnection = Nothing
 If bClose Then closeCon con
 End Function
-
 Public Function myCmdRecord(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeOut As Integer = 300) As ADODB.Record
 Dim loctable As New ADODB.Recordset
 Dim cmd As New ADODB.command
@@ -178,6 +177,17 @@ MsgBox Err.Description
 Err.Clear
 rsValue = Null
 GoTo Finally
+End Function
+Public Function rsValues(pString As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeOut As Integer = 300) As Variant
+Dim loctable As ADODB.Recordset
+Set loctable = myRs(pString, con, pConString, pType, aParam, nTimeOut)
+If Not (loctable.BOF And loctable.EOF) Then
+    For i = 0 To loctable.Fields.Count - 1
+        rsValues = AddFlag(rsValues, LCase(loctable.Fields(i).Name), loctable.Fields(i).Value)
+    Next
+End If
+loctable.Close
+Set loctable = Nothing
 End Function
 Public Function myFieldValue(pString As String, pField As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional pDef As Variant = Empty, Optional nTimeOut As Integer = 100) As Variant
 On Error GoTo myerror:

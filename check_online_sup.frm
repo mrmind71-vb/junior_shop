@@ -2,7 +2,7 @@ VERSION 5.00
 Object = "{D76D7128-4A96-11D3-BD95-D296DC2DD072}#1.0#0"; "Vsflex7.ocx"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
-Begin VB.Form OnlineCheck 
+Begin VB.Form OnlineCheck_sup 
    BackColor       =   &H00FFFFFF&
    Caption         =   " ÕÊÌ· ÿ·»Ì«  «Ê‰ ·«Ì‰ «·Ì „»Ì⁄« "
    ClientHeight    =   10200
@@ -328,14 +328,14 @@ Begin VB.Form OnlineCheck
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Picture         =   "check_online.frx":0000
+      Picture         =   "check_online_sup.frx":0000
       Caption         =   " —ÕÌ· ·›« Ê—… „»Ì⁄« "
       ButtonStyle     =   3
       PictureAlignment=   10
       BevelWidth      =   0
       PictureDisabledFrames=   1
       ShapeSize       =   1
-      PictureDisabled =   "check_online.frx":2723
+      PictureDisabled =   "check_online_sup.frx":2723
    End
    Begin Threed.SSCommand cmdExit 
       Height          =   600
@@ -359,7 +359,7 @@ Begin VB.Form OnlineCheck
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Picture         =   "check_online.frx":4A19
+      Picture         =   "check_online_sup.frx":4A19
       Alignment       =   8
       ButtonStyle     =   3
       PictureAlignment=   11
@@ -462,7 +462,7 @@ Begin VB.Form OnlineCheck
       WallPaperAlignment=   9
    End
 End
-Attribute VB_Name = "OnlineCheck"
+Attribute VB_Name = "OnlineCheck_sup"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
@@ -472,7 +472,6 @@ Public myForm As Form
 Dim bStopCell As Boolean
 Dim con As New ADODB.Connection
 Dim conServer As New ADODB.Connection
-
 Private Sub CMD_SEND_Click()
 If Not myValid Then Exit Sub
 Dim sNewDoc As String
@@ -492,8 +491,8 @@ Private Sub Form_Load()
 openCon conServer, LoadConString_OnLine
 openCon con
 
-Set grid2.DataSource = DATA1
-Set grdTotal.DataSource = DATA2
+Set grid2.DataSource = data1
+Set grdTotal.DataSource = data2
 
 Fixgrd
 fixGrdTotal
@@ -507,40 +506,35 @@ CellPos 13, 0, grid1.Cols - 1
 End Sub
 Private Sub myLoadGrd()
 Dim cString As String
-cString = "SELECT FILE6_90.ITEM," & _
-          "MAX(FILE6_90.SKU)," & _
+cString = "SELECT FILE6_90B.ITEM," & _
+          "NULL AS SKU," & _
           "FACT.DESCA," & _
-          "CASE " & _
-          "WHEN FILE1_10.desca IS NULL THEN" & _
-          " MAX(FILE6_90.ITEM_NAME)" & _
-          " Else" & _
           " FILE1_10.desca" & _
-          " END," & _
           "FILE1_10.COLOR," & _
           "FILE1_10.SCAL," & _
-          "SUM(FILE6_90.QUANT), " & _
-          "MAX(FILE6_90.PRICE)," & _
-          "MAX(file6_90.ITEM_NAME)," & _
+          "SUM(FILE6_90B.QUANT), " & _
+          "MAX(FILE6_90B.PRICE)," & _
+          "MAX(FILE6_90B.ITEM_NAME)," & _
           "file1_10.price," & _
           "file1_10.costitem, " & _
           "0 as QUANT_SELECTED," & _
-          "SUM(FILE6_90.QUANT) as differ " & _
-          "From file6_90 " & _
+          "SUM(FILE6_90B.QUANT) as differ " & _
+          "From FILE6_90B " & _
           "LEFT JOIN FILE1_10 " & _
-          "ON FILE6_90.ITEM = FILE1_10.ITEM " & _
+          "ON FILE6_90B.ITEM = FILE1_10.ITEM " & _
           "left JOIN FACT " & _
           "ON FILE1_10.code = FACT.CODE " & _
           "WHERE DOC_NO = " & MyParn(sDoc_no)
 
 cString = cString & _
-           " GROUP BY FILE6_90.ITEM," & _
+           " GROUP BY FILE6_90B.ITEM," & _
             "FACT.DESCA," & _
             "FILE1_10.DESCA," & _
             "FILE1_10.COLOR," & _
             "FILE1_10.SCAL," & _
             "FILE1_10.PRICE," & _
             "FILE1_10.COSTITEM"
-Set DATA1.Recordset = mycmd(cString, conServer)
+Set data1.Recordset = mycmd(cString, conServer)
 End Sub
 Sub Fixgrd2()
 With grid2
@@ -811,7 +805,7 @@ Next
 cString.Append ")"
 cString.Append "SELECT ITEM,SUM(QUANT) FROM tb GROUP BY ITEM ORDER BY MIN(ITEM_ORDER)"
 
-Set DATA2.Recordset = mycmd(cString.GetAsString(), con)
+Set data2.Recordset = mycmd(cString.GetAsString(), con)
 fixGrdTotal
 
 myLoadDiffer

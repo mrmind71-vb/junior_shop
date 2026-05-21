@@ -1,33 +1,56 @@
-Private Sub XPHONE_GotFocus()
-mygotFocus XPHONE
+Private Sub xNote_branch_GotFocus()
+mygotFocus xNote_branch
 End Sub
-Private Sub XPHONE_LostFocus()
-myLostFocus XPHONE
+Private Sub xNote_branch_LostFocus()
+myLostFocus xNote_branch
 End Sub
-Private Sub XDATE2_GotFocus()
-mygotFocus XDATE2
+Private Sub xNote_main_GotFocus()
+mygotFocus xNote_main
 End Sub
-Private Sub XDATE2_LostFocus()
-myLostFocus XDATE2
-myvalidDate XDATE2
+Private Sub xNote_main_LostFocus()
+myLostFocus xNote_main
 End Sub
-Private Sub XDATE1_GotFocus()
-mygotFocus XDATE1
+Private Sub xNotes_GotFocus()
+mygotFocus xNotes
 End Sub
-Private Sub XDATE1_LostFocus()
-myLostFocus XDATE1
-myvalidDate XDATE1
+Private Sub xNotes_LostFocus()
+myLostFocus xNotes
 End Sub
-Private Sub xDesca_GotFocus()
-mygotFocus xDesca
+Private Sub xDelOrder_Date_GotFocus()
+mygotFocus xDelOrder_Date
 End Sub
-Private Sub xDesca_LostFocus()
-myLostFocus xDesca
+Private Sub xDelOrder_Date_LostFocus()
+myLostFocus xDelOrder_Date
+myvalidDate xDelOrder_Date
 End Sub
-Private Sub XSTORE_GotFocus()
-mygotFocus XSTORE
+Private Sub xphone_GotFocus()
+mygotFocus xphone
 End Sub
-Private Sub XSTORE_LostFocus()
-myLostFocus XSTORE
-IF NOT XSTORE.MatchedWithList THEN XSTORE.BoundText = ""
+Private Sub xphone_LostFocus()
+myLostFocus xphone
+End Sub
+Private Sub xcity_GotFocus()
+mygotFocus xcity
+End Sub
+Private Sub xcity_LostFocus()
+myLostFocus xcity
+End Sub
+Private Sub xship_date_GotFocus()
+mygotFocus xship_date
+End Sub
+Private Sub xship_date_LostFocus()
+myLostFocus xship_date
+myvalidDate xship_date
+End Sub
+Private Sub xStreet_GotFocus()
+mygotFocus xStreet
+End Sub
+Private Sub xStreet_LostFocus()
+myLostFocus xStreet
+End Sub
+Private Sub xName_GotFocus()
+mygotFocus xName
+End Sub
+Private Sub xName_LostFocus()
+myLostFocus xName
 End Sub

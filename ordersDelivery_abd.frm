@@ -28,11 +28,66 @@ Begin VB.Form OrderOnline_abd
    ScaleHeight     =   11055
    ScaleWidth      =   20370
    WindowState     =   2  'Maximized
+   Begin VB.Frame Frame5 
+      BackColor       =   &H00FFFFFF&
+      Height          =   1140
+      Left            =   3420
+      RightToLeft     =   -1  'True
+      TabIndex        =   35
+      Top             =   0
+      Width           =   3255
+      Begin VB.CheckBox Check1 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         Caption         =   "⁄—÷ —’Ìœ ﬂ· «·›—Ê⁄"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H80000008&
+         Height          =   270
+         Left            =   945
+         RightToLeft     =   -1  'True
+         TabIndex        =   37
+         TabStop         =   0   'False
+         Top             =   720
+         Width           =   2175
+      End
+      Begin VB.CheckBox RET_NOTSHIP 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H00FFFFFF&
+         Caption         =   "„—›Ê÷… Ê·„ Ì „ «” ·„Â« „‰ «·‘Õ‰"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H80000008&
+         Height          =   270
+         Left            =   135
+         RightToLeft     =   -1  'True
+         TabIndex        =   36
+         TabStop         =   0   'False
+         Top             =   225
+         Width           =   2985
+      End
+   End
    Begin ComctlLib.ProgressBar prog1 
       Align           =   2  'Align Bottom
       Height          =   195
       Left            =   0
-      TabIndex        =   29
+      TabIndex        =   28
       Top             =   10440
       Visible         =   0   'False
       Width           =   20370
@@ -43,48 +98,19 @@ Begin VB.Form OrderOnline_abd
    End
    Begin VB.Frame Frame6 
       BackColor       =   &H00FFFFFF&
-      Height          =   1230
-      Left            =   4140
+      Height          =   690
+      Left            =   4185
       RightToLeft     =   -1  'True
       TabIndex        =   20
-      Top             =   585
-      Width           =   1455
-      Begin Threed.SSCommand cmdExit 
-         Height          =   510
-         Left            =   45
-         TabIndex        =   21
-         TabStop         =   0   'False
-         Top             =   675
-         Width           =   1365
-         _ExtentX        =   2408
-         _ExtentY        =   900
-         _Version        =   196610
-         ForeColor       =   0
-         BackColor       =   16777215
-         PictureFrames   =   1
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   9.75
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Picture         =   "ordersDelivery_abd.frx":0000
-         Alignment       =   8
-         ButtonStyle     =   3
-         PictureAlignment=   11
-         BevelWidth      =   0
-         ShapeSize       =   1
-      End
+      Top             =   1125
+      Width           =   2490
       Begin Threed.SSCommand cmdGo 
          Height          =   510
-         Left            =   45
-         TabIndex        =   22
+         Left            =   1260
+         TabIndex        =   21
          Top             =   135
-         Width           =   1365
-         _ExtentX        =   2408
+         Width           =   1185
+         _ExtentX        =   2090
          _ExtentY        =   900
          _Version        =   196610
          ForeColor       =   0
@@ -99,7 +125,36 @@ Begin VB.Form OrderOnline_abd
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "ordersDelivery_abd.frx":2323
+         Picture         =   "ordersDelivery_abd.frx":0000
+         ButtonStyle     =   3
+         PictureAlignment=   11
+         BevelWidth      =   0
+         ShapeSize       =   1
+      End
+      Begin Threed.SSCommand cmdExit 
+         Height          =   510
+         Left            =   45
+         TabIndex        =   38
+         TabStop         =   0   'False
+         Top             =   135
+         Width           =   1185
+         _ExtentX        =   2090
+         _ExtentY        =   900
+         _Version        =   196610
+         ForeColor       =   0
+         BackColor       =   16777215
+         PictureFrames   =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   9.75
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Picture         =   "ordersDelivery_abd.frx":2EB3
+         Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
@@ -109,7 +164,7 @@ Begin VB.Form OrderOnline_abd
    Begin VB.Frame Frame4 
       BackColor       =   &H00FFFFFF&
       Height          =   1815
-      Left            =   5625
+      Left            =   6750
       RightToLeft     =   -1  'True
       TabIndex        =   15
       Top             =   0
@@ -204,19 +259,43 @@ Begin VB.Form OrderOnline_abd
    Begin VB.Frame Frame1 
       BackColor       =   &H00FFFFFF&
       Height          =   1815
-      Left            =   7650
+      Left            =   8775
       RightToLeft     =   -1  'True
       TabIndex        =   7
       Top             =   0
-      Width           =   12615
+      Width           =   11490
       Begin VB.Frame Frame2 
          BackColor       =   &H00FFFFFF&
          Height          =   1545
          Left            =   90
          RightToLeft     =   -1  'True
-         TabIndex        =   30
+         TabIndex        =   29
          Top             =   135
-         Width           =   5100
+         Width           =   4290
+         Begin VB.OptionButton opt 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BackColor       =   &H80000005&
+            Caption         =   "ÿ·»Ì«  „»«⁄… „› ÊÕ…"
+            BeginProperty Font 
+               Name            =   "Arial"
+               Size            =   11.25
+               Charset         =   178
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H80000008&
+            Height          =   270
+            Index           =   4
+            Left            =   2250
+            RightToLeft     =   -1  'True
+            TabIndex        =   34
+            TabStop         =   0   'False
+            Top             =   630
+            Width           =   1905
+         End
          Begin VB.OptionButton opt 
             Alignment       =   1  'Right Justify
             Appearance      =   0  'Flat
@@ -234,11 +313,11 @@ Begin VB.Form OrderOnline_abd
             ForeColor       =   &H80000008&
             Height          =   270
             Index           =   3
-            Left            =   3645
+            Left            =   180
             RightToLeft     =   -1  'True
-            TabIndex        =   36
+            TabIndex        =   33
             TabStop         =   0   'False
-            Top             =   1170
+            Top             =   180
             Width           =   1275
          End
          Begin VB.OptionButton opt 
@@ -258,11 +337,11 @@ Begin VB.Form OrderOnline_abd
             ForeColor       =   &H80000008&
             Height          =   270
             Index           =   0
-            Left            =   4185
+            Left            =   765
             RightToLeft     =   -1  'True
-            TabIndex        =   35
+            TabIndex        =   32
             TabStop         =   0   'False
-            Top             =   180
+            Top             =   585
             Width           =   735
          End
          Begin VB.OptionButton opt 
@@ -282,18 +361,18 @@ Begin VB.Form OrderOnline_abd
             ForeColor       =   &H80000008&
             Height          =   270
             Index           =   2
-            Left            =   4005
+            Left            =   3240
             RightToLeft     =   -1  'True
-            TabIndex        =   34
+            TabIndex        =   31
             TabStop         =   0   'False
-            Top             =   810
-            Width           =   915
+            Top             =   1080
+            Width           =   870
          End
          Begin VB.OptionButton opt 
             Alignment       =   1  'Right Justify
             Appearance      =   0  'Flat
             BackColor       =   &H80000005&
-            Caption         =   "€Ì— „»«⁄…"
+            Caption         =   "€»— „»«⁄… Ê«” —œ«œ Ê„— Ã⁄"
             BeginProperty Font 
                Name            =   "Arial"
                Size            =   11.25
@@ -306,59 +385,13 @@ Begin VB.Form OrderOnline_abd
             ForeColor       =   &H80000008&
             Height          =   270
             Index           =   1
-            Left            =   3735
+            Left            =   1665
             RightToLeft     =   -1  'True
-            TabIndex        =   33
-            TabStop         =   0   'False
-            Top             =   495
-            Value           =   -1  'True
-            Width           =   1185
-         End
-         Begin VB.CheckBox RET_NOTSHIP 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H00FFFFFF&
-            Caption         =   "„—›Ê÷… Ê·„ Ì „ «” ·„Â« „‰ «·‘Õ‰"
-            BeginProperty Font 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H80000008&
-            Height          =   270
-            Left            =   90
-            RightToLeft     =   -1  'True
-            TabIndex        =   32
+            TabIndex        =   30
             TabStop         =   0   'False
             Top             =   180
-            Width           =   2985
-         End
-         Begin VB.CheckBox Check1 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H80000005&
-            Caption         =   "⁄—÷ —’Ìœ ﬂ· «·›—Ê⁄"
-            BeginProperty Font 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H80000008&
-            Height          =   270
-            Left            =   900
-            RightToLeft     =   -1  'True
-            TabIndex        =   31
-            TabStop         =   0   'False
-            Top             =   495
-            Width           =   2175
+            Value           =   -1  'True
+            Width           =   2490
          End
       End
       Begin VB.TextBox xDate1 
@@ -375,7 +408,7 @@ Begin VB.Form OrderOnline_abd
             Strikethrough   =   0   'False
          EndProperty
          Height          =   330
-         Left            =   9900
+         Left            =   8910
          RightToLeft     =   -1  'True
          TabIndex        =   0
          Top             =   225
@@ -395,7 +428,7 @@ Begin VB.Form OrderOnline_abd
             Strikethrough   =   0   'False
          EndProperty
          Height          =   330
-         Left            =   6570
+         Left            =   5580
          RightToLeft     =   -1  'True
          TabIndex        =   1
          Top             =   225
@@ -415,7 +448,7 @@ Begin VB.Form OrderOnline_abd
             Strikethrough   =   0   'False
          EndProperty
          Height          =   330
-         Left            =   9900
+         Left            =   8910
          RightToLeft     =   -1  'True
          TabIndex        =   2
          Top             =   585
@@ -435,7 +468,7 @@ Begin VB.Form OrderOnline_abd
             Strikethrough   =   0   'False
          EndProperty
          Height          =   330
-         Left            =   9135
+         Left            =   8145
          RightToLeft     =   -1  'True
          TabIndex        =   4
          Top             =   945
@@ -443,7 +476,7 @@ Begin VB.Form OrderOnline_abd
       End
       Begin MSDataListLib.DataCombo xpay 
          Height          =   330
-         Left            =   5490
+         Left            =   4500
          TabIndex        =   3
          Top             =   585
          Width           =   2670
@@ -465,7 +498,7 @@ Begin VB.Form OrderOnline_abd
       End
       Begin MSDataListLib.DataCombo XSTORE 
          Height          =   330
-         Left            =   5490
+         Left            =   4500
          TabIndex        =   5
          Top             =   945
          Width           =   2670
@@ -487,7 +520,7 @@ Begin VB.Form OrderOnline_abd
       End
       Begin MSDataListLib.DataCombo xMan 
          Height          =   330
-         Left            =   5490
+         Left            =   4500
          TabIndex        =   6
          Top             =   1305
          Width           =   5820
@@ -523,7 +556,7 @@ Begin VB.Form OrderOnline_abd
          EndProperty
          ForeColor       =   &H00000000&
          Height          =   270
-         Left            =   11385
+         Left            =   10395
          RightToLeft     =   -1  'True
          TabIndex        =   14
          Top             =   180
@@ -545,7 +578,7 @@ Begin VB.Form OrderOnline_abd
          EndProperty
          ForeColor       =   &H00000000&
          Height          =   270
-         Left            =   8280
+         Left            =   7290
          RightToLeft     =   -1  'True
          TabIndex        =   13
          Top             =   225
@@ -567,7 +600,7 @@ Begin VB.Form OrderOnline_abd
          EndProperty
          ForeColor       =   &H00000000&
          Height          =   270
-         Left            =   11385
+         Left            =   10395
          RightToLeft     =   -1  'True
          TabIndex        =   12
          Top             =   585
@@ -586,7 +619,7 @@ Begin VB.Form OrderOnline_abd
             Strikethrough   =   0   'False
          EndProperty
          Height          =   195
-         Left            =   8280
+         Left            =   7290
          RightToLeft     =   -1  'True
          TabIndex        =   11
          Top             =   630
@@ -605,7 +638,7 @@ Begin VB.Form OrderOnline_abd
             Strikethrough   =   0   'False
          EndProperty
          Height          =   285
-         Left            =   8235
+         Left            =   7245
          RightToLeft     =   -1  'True
          TabIndex        =   10
          Top             =   990
@@ -627,7 +660,7 @@ Begin VB.Form OrderOnline_abd
          EndProperty
          ForeColor       =   &H00000000&
          Height          =   270
-         Left            =   11385
+         Left            =   10395
          RightToLeft     =   -1  'True
          TabIndex        =   9
          Top             =   945
@@ -646,7 +679,7 @@ Begin VB.Form OrderOnline_abd
             Strikethrough   =   0   'False
          EndProperty
          Height          =   285
-         Left            =   11385
+         Left            =   10395
          RightToLeft     =   -1  'True
          TabIndex        =   8
          Top             =   1350
@@ -1085,7 +1118,7 @@ Begin VB.Form OrderOnline_abd
    End
    Begin VSFlex7Ctl.VSFlexGrid grid1 
       Height          =   7305
-      Left            =   135
+      Left            =   45
       TabIndex        =   19
       TabStop         =   0   'False
       Top             =   1845
@@ -1182,7 +1215,7 @@ Begin VB.Form OrderOnline_abd
       Align           =   2  'Align Bottom
       Height          =   420
       Left            =   0
-      TabIndex        =   23
+      TabIndex        =   22
       Top             =   10635
       Width           =   20370
       _ExtentX        =   35930
@@ -1204,7 +1237,7 @@ Begin VB.Form OrderOnline_abd
          Height          =   405
          Index           =   0
          Left            =   0
-         TabIndex        =   24
+         TabIndex        =   23
          Top             =   45
          Width           =   4005
          _ExtentX        =   7064
@@ -1228,7 +1261,7 @@ Begin VB.Form OrderOnline_abd
          Height          =   330
          Index           =   1
          Left            =   4095
-         TabIndex        =   25
+         TabIndex        =   24
          Top             =   45
          Width           =   4005
          _ExtentX        =   7064
@@ -1252,7 +1285,7 @@ Begin VB.Form OrderOnline_abd
          Height          =   330
          Index           =   2
          Left            =   8100
-         TabIndex        =   26
+         TabIndex        =   25
          Top             =   45
          Width           =   4000
          _ExtentX        =   7064
@@ -1276,7 +1309,7 @@ Begin VB.Form OrderOnline_abd
          Height          =   330
          Index           =   3
          Left            =   12150
-         TabIndex        =   27
+         TabIndex        =   26
          Top             =   45
          Width           =   3960
          _ExtentX        =   6985
@@ -1300,7 +1333,7 @@ Begin VB.Form OrderOnline_abd
          Height          =   330
          Index           =   4
          Left            =   16155
-         TabIndex        =   28
+         TabIndex        =   27
          Top             =   45
          Width           =   4185
          _ExtentX        =   7382
@@ -1336,7 +1369,7 @@ Dim oSearchItem As New Search3
 Private Sub cmd_addexel_Click()
     AddFromExel
     Inform "  „ «÷«›… «·ÿ·»Ì«  "
-    myLoad
+    myload
 End Sub
 Private Sub CMD_PRINT_Click()
     doprint_day
@@ -1382,14 +1415,14 @@ Private Sub cmdExcel_Click()
 ToFileExelNew grid1, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption)
 End Sub
 
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
     Unload Me
 End Sub
 Private Sub CmdUndo_Click()
     Unload Me
 End Sub
 Private Sub CmdGo_Click()
-    myLoad
+myload
 End Sub
 
 Private Sub Form_Load()
@@ -1428,15 +1461,13 @@ myerror:
     MsgBox Err.Description
     Err.Clear
 End Sub
-Public Sub myLoad()
+Public Sub myload()
 On Error GoTo myerror
 Dim i As Double
 Dim cString  As String, cStr2 As String
 Dim cWhere As String
 Dim cF1 As String, cF2 As String, cF3 As String, cF4 As String, cF5 As String
 Dim cSubTotal As String
-
-
 With grid1
     cSubTotal = "(SELECT SUM(TOTAL) FROM FILE6_90 WHERE FILE6_90.DOC_NO = FILE6_90H.DOC_NO )    "
     cTotal = "(SELECT SUM(TOTAL) FROM FILE6_90 WHERE FILE6_90.DOC_NO = FILE6_90H.DOC_NO )  - DISCOUNT   "
@@ -1473,6 +1504,9 @@ With grid1
     ElseIf opt(2).Value Then
         cString = cString & _
                  " LEFT JOIN vw_online_orders_open as v on FILE6_90H.DOC_NO = v.ORDER_NO"
+    ElseIf opt(4).Value Then
+        cString = cString & _
+                 " INNER JOIN vw_online_invoices_open as v on FILE6_90H.DOC_NO = v.ORDER_NO"
     End If
     If XDOC_NO.text <> "" Then
         cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(XDOC_NO.text)
@@ -1481,6 +1515,7 @@ With grid1
     If xphone.text <> "" Then
         cWhere = cWhere & Tr(cWhere) & " [phone] = " & MyParn(xphone.text)
     End If
+    
     If xpay.BoundText <> "" Then
         cWhere = cWhere & Tr(cWhere) & " [Payment_Method] = " & MyParn(xpay.text)
     End If
@@ -1507,12 +1542,8 @@ With grid1
         ElseIf opt(3).Value Then
             cWhere = cWhere & Tr(cWhere) & "DelOrder_Date IS NOT  NULL "
         End If
-'        If XISSEND(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " STORE IS NULL  and DelOrder_Date is null "
-'        If XISSEND(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " STORE IS NOT  NULL AND DelOrder_Date IS NULL "
-'        If XISSEND(3).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " DelOrder_Date IS NOT  NULL "
     Else
         cWhere = cWhere & Tr(cWhere) & " STORE = " & MyParn(cBranchStore)
-        
     End If
     
         
@@ -1526,8 +1557,6 @@ With grid1
     cString = cString & " ORDER BY DOC_NO "
     
     Set grid1.DataSource = myRs(cString)
-    'Set DATA1.Recordset = mycmd(cString, con)
-
 End With
 Fixgrd
 grid1.Cell(flexcpAlignment, 0, 0, grid1.Rows - 1, grid1.Cols - 1) = 7
@@ -1557,7 +1586,7 @@ With grid1
     .TextMatrix(0, 10) = "«·≈Ã„«·Ï"
     .TextMatrix(0, 11) = "ÿ—Ìﬁ… «·œ›⁄"
     
-'    .TextMatrix(0, 12) = "«·›—⁄"
+    .TextMatrix(0, 12) = "«·›—⁄"
 '    .TextMatrix(0, 13) = "«ŸÂ«— ··›—⁄"
     
     .TextMatrix(0, 14) = "SEND TIME "
@@ -1575,7 +1604,7 @@ With grid1
     .TextMatrix(0, 18) = "»Ê·Ì’… ‘Õ‰"
     .TextMatrix(0, 19) = " «—ÌŒ «·‘Õ‰"
     
-    '.ColHidden(12) = True
+    .ColHidden(12) = True
     .ColHidden(13) = True
     .ColHidden(19) = True
     
@@ -1795,27 +1824,27 @@ Sub AddFromExel()
     End If
 End Sub
 Private Sub Grid1_AfterEdit(ByVal Row As Long, ByVal col As Long)
-Dim con As New ADODB.Connection
-openCon con
-With grid1
-Select Case col
-    Case 2
-        con.Execute " UPDATE FILE6_90H SET [NAME] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-    Case 3
-        con.Execute " UPDATE FILE6_90H SET [PHONE] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-    Case 4
-        con.Execute " UPDATE FILE6_90H SET [CITY] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-    Case 5
-        con.Execute " UPDATE FILE6_90H SET [ADDRESS1] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-    Case 19
-        con.Execute " UPDATE FILE6_90H SET [SHIP_DATE] = " & addDate(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-    Case 22 + 1
-        con.Execute " UPDATE FILE6_90H SET [NOTE_MAIN] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-    Case col = 23 + 1
-        con.Execute " UPDATE FILE6_90H SET [NOTE_BRANCH] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-End Select
-End With
-closeCon con
+'Dim con As New ADODB.Connection
+'openCon con
+'With grid1
+'Select Case col
+'    Case 2
+'        con.Execute " UPDATE FILE6_90H SET [NAME] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
+'    Case 3
+'        con.Execute " UPDATE FILE6_90H SET [PHONE] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
+'    Case 4
+'        con.Execute " UPDATE FILE6_90H SET [CITY] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
+'    Case 5
+'        con.Execute " UPDATE FILE6_90H SET [ADDRESS1] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
+'    Case 19
+'        con.Execute " UPDATE FILE6_90H SET [SHIP_DATE] = " & addDate(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
+'    Case 22 + 1
+'        con.Execute " UPDATE FILE6_90H SET [NOTE_MAIN] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
+'    Case col = 23 + 1
+'        con.Execute " UPDATE FILE6_90H SET [NOTE_BRANCH] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
+'End Select
+'End With
+'closeCon con
 End Sub
 Private Sub grid1_DblClick()
 If cBranch <> "00" Then
@@ -1823,29 +1852,29 @@ If cBranch <> "00" Then
         Exit Sub
     End If
 End If
-
 orders_online_items.sDoc_no = grid1.TextMatrix(grid1.Row, 0)
+orders_online_items.sStore = grid1.TextMatrix(grid1.Row, 12)
 Set orders_online_items.myForm = Me
 orders_online_items.Show 1
 End Sub
 Private Sub MYLOAD2(pDoc_no)
 On Error GoTo myerror
-Dim storeTable As New ADODB.Recordset
+Dim StoreTable As New ADODB.Recordset
 Dim cBalNotShip As String
 If cBranch = "00" Then
     If Check1.Value = 0 Then
-        storeTable.Open " SELECT * FROM FILE0_40 WHERE ONLINE = 1 ORDER BY CODE ", con, adOpenStatic, adLockReadOnly, adCmdText
+        StoreTable.Open " SELECT * FROM FILE0_40 WHERE ONLINE = 1 ORDER BY CODE ", con, adOpenStatic, adLockReadOnly, adCmdText
     Else
-        storeTable.Open " SELECT * FROM FILE0_40 WHERE ISONEST2 = 0 AND ISSTOP = 0 AND ISONEST = 0 AND BRANCH IS NOT NULL  AND CODE <> '000' ORDER BY CODE ", con, adOpenStatic, adLockReadOnly, adCmdText
+        StoreTable.Open " SELECT * FROM FILE0_40 WHERE ISONEST2 = 0 AND ISSTOP = 0 AND ISONEST = 0 AND BRANCH IS NOT NULL  AND CODE <> '000' ORDER BY CODE ", con, adOpenStatic, adLockReadOnly, adCmdText
     End If
 Else
-    storeTable.Open " SELECT * FROM FILE0_40 WHERE CODE = " & MyParn(cBranchStore), con, adOpenStatic, adLockReadOnly, adCmdText
+    StoreTable.Open " SELECT * FROM FILE0_40 WHERE CODE = " & MyParn(cBranchStore), con, adOpenStatic, adLockReadOnly, adCmdText
 End If
 Dim cString  As String, cStrStore As String
-With storeTable
-    cStrStore = " , (SELECT SUM(BALITEM) FROM [BAL_ITEM_ORDERONLINE] WHERE [BAL_ITEM_ORDERONLINE].ITEM = FILE6_90.ITEM AND [BAL_ITEM_ORDERONLINE].STORE  = " & MyParn(storeTable!code) & " ) AS 'Total Order' "
+With StoreTable
+    cStrStore = " , (SELECT SUM(BALITEM) FROM [BAL_ITEM_ORDERONLINE] WHERE [BAL_ITEM_ORDERONLINE].ITEM = FILE6_90.ITEM AND [BAL_ITEM_ORDERONLINE].STORE  = " & MyParn(StoreTable!code) & " ) AS 'Total Order' "
     Do While Not .EOF
-        cStrStore = cStrStore & " , (SELECT SUM([IN]-[OUT]) FROM FILE1_11 WHERE FILE1_11.ITEM = FILE6_90.ITEM AND FILE1_11.STORE  = " & MyParn(storeTable!code) & " ) AS '" & storeTable!DESCA & "'"
+        cStrStore = cStrStore & " , (SELECT SUM([IN]-[OUT]) FROM FILE1_11 WHERE FILE1_11.ITEM = FILE6_90.ITEM AND FILE1_11.STORE  = " & MyParn(StoreTable!code) & " ) AS '" & StoreTable!DESCA & "'"
         .MoveNext
     Loop
 End With
@@ -2252,10 +2281,10 @@ With SourchTable
         i = i + 1
         prog1.Value = i
         temptable.AddNew
-        temptable!STR4 = !doc_no
+        temptable!STR4 = !DOC_NO
         temptable!Date1 = !Date
         temptable!STR7 = !Name
-        temptable!STR6 = !phone
+        temptable!STR6 = !Phone
         
         temptable!str14 = !Shipping_City
         temptable!str15 = !Street
@@ -2269,7 +2298,7 @@ With SourchTable
         temptable!str12 = !fact_name
         temptable!str13 = !MODELFACT0
         temptable!str3 = !DESCA
-        temptable!str9 = !notes
+        temptable!str9 = !Notes
         temptable!str2 = !STORENAME
         
         temptable!str8 = !color
@@ -2396,10 +2425,10 @@ If col = 4 Then
         Exit Sub
     End If
     
-    If Val(xTotal.Caption) > 0 And Val(grid1.EditText) <= 0 Then
+    If Val(xtotal.Caption) > 0 And Val(grid1.EditText) <= 0 Then
         Cancel = True
         Exit Sub
-    ElseIf Val(xTotal.Caption) < 0 And Val(grid1.EditText) >= 0 Then
+    ElseIf Val(xtotal.Caption) < 0 And Val(grid1.EditText) >= 0 Then
         Cancel = True
         Exit Sub
     End If

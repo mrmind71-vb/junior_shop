@@ -23,11 +23,11 @@ Begin VB.MDIForm main
       Left            =   0
       RightToLeft     =   -1  'True
       ScaleHeight     =   330
-      ScaleWidth      =   11400
+      ScaleWidth      =   20370
       TabIndex        =   0
       Top             =   0
       Visible         =   0   'False
-      Width           =   11400
+      Width           =   20370
       Begin Threed.SSCommand cmd_tmdashonline 
          Height          =   330
          Left            =   45
@@ -1028,7 +1028,6 @@ If cBranch <> "00" Then
 End If
 
 If cPMosm = "" Then cPMosm = GetDesca("select mosm from mosm order by date desc ", con)
-
 '
 'FIXDATA
 

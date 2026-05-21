@@ -1,6 +1,7 @@
 Attribute VB_Name = "Special3"
 Public pcName As String
 Public obj As ChilkatGlobal
+Public sOnlineStore As String
 Public servername_vpn
 Public Function Nz(Value As Variant, Optional ValueIfNull As Variant = 0) As Variant
     If IsNull(Value) Then
@@ -58,6 +59,57 @@ oSearch.aAddRow = aRow
 searchArray = Array(Generalarray, listarray, GrdArray)
 oSearch.nMax_records = 1000
 oSearch.Caption = "≈” ⁄·«„ «·«ﬁ”«„"
+oSearch.Show 1
+End Sub
+Sub OnlineTypeLookup(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "")
+Dim Generalarray(5)
+Dim listarray(0, 5)
+Dim GrdArray(1, 1)
+Dim cWhere As String
+Set Generalarray(0) = oForm
+
+'                       0
+cString = "SELECT CODE," & _
+          " desca" & _
+          " FROM  ONLINE_TYPE_CODES"
+
+If cFilter <> "" Then cWhere = cWhere & Tr(cWhere) & cFilter
+If cWhere <> "" Then cString = cString & " WHERE " & cWhere
+
+Generalarray(1) = cString
+
+Generalarray(2) = "Order by CODE"
+Generalarray(3) = 4000
+Generalarray(5) = True
+
+listarray(0, 0) = "«·‰Ê⁄"
+listarray(0, 1) = "(%%DESCA%%)"
+
+
+GrdArray(0, 0) = "ﬂÊœ"
+GrdArray(0, 1) = 0
+
+GrdArray(1, 0) = "«·‰Ê⁄"
+GrdArray(1, 1) = 5000
+
+searchArray = Array(Generalarray, listarray, GrdArray)
+If bFilter Then
+    Dim aFilter As Variant
+    aFilter = AddFlag(aFilter, "FILTER", True)
+    aFilter = AddFlag(aFilter, "FIELD", "CODE")
+    oSearch.aFilter = aFilter
+End If
+
+Dim aRow As Variant
+If sAddRow <> "" Then
+    aRow = AddFlag(Empty, "text", sAddRow)
+    aRow = AddFlag(aRow, "col", 1)
+End If
+oSearch.aAddRow = aRow
+
+searchArray = Array(Generalarray, listarray, GrdArray)
+'oSearch.nMax_records = 1000
+oSearch.Caption = "≈” ⁄·«„ «·«‰Ê«⁄"
 oSearch.Show 1
 End Sub
 Sub FactLookup(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "")
@@ -136,7 +188,6 @@ If pId <> "" Then aPrm = AddFlag(aPrm, "ID", pId)
 
 Set cmBalance = cmd("dbo.sp_balance", con, adStoredProc, aPrm)
 cmBalance.Execute
-
 fnBalance = Val(cmBalance.Parameters("@BALANCE") & "")
 Set cmBalance = Nothing
 End Function
@@ -333,6 +384,23 @@ sb.Append cUpdate.GetAsString
 'sb.Append "END"
 
 addInsertUpdate = sb.GetAsString()
+End Function
+Private Function ValidPlus(pGrid As Object) As Boolean
+For i = 1 To pGrid.Rows - 1
+    If pGrid.ValueMatrix(i, 10) = 0 Then
+    ElseIf pGrid.TextMatrix(i, 10) < 0 Then
+        Exit Function
+    End If
+Next
+ValidPlus = True
+End Function
+Private Function ValidMinus(pGrid As Object) As Boolean
+For i = 1 To pGrid.Rows - 1
+    If pGrid.TextMatrix(i, 10) >= 0 Then
+        Exit Function
+    End If
+Next
+ValidMinus = True
 End Function
 
 

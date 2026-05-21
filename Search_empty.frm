@@ -7,7 +7,7 @@ Begin VB.Form search_empty
    BackColor       =   &H00FFFFFF&
    BorderStyle     =   1  'Fixed Single
    Caption         =   "ÇÓÊÚáÇã"
-   ClientHeight    =   7920
+   ClientHeight    =   7155
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   12360
@@ -25,19 +25,19 @@ Begin VB.Form search_empty
    MaxButton       =   0   'False
    MinButton       =   0   'False
    RightToLeft     =   -1  'True
-   ScaleHeight     =   7920
+   ScaleHeight     =   7155
    ScaleWidth      =   12360
    StartUpPosition =   2  'CenterScreen
    Tag             =   "Factory"
    Begin VSFlex7Ctl.VSFlexGrid grid1 
-      Height          =   7260
+      Height          =   6495
       Left            =   90
       TabIndex        =   0
       TabStop         =   0   'False
       Top             =   90
       Width           =   12165
       _cx             =   21458
-      _cy             =   12806
+      _cy             =   11456
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -132,7 +132,7 @@ Begin VB.Form search_empty
       ScaleHeight     =   435
       ScaleWidth      =   12300
       TabIndex        =   5
-      Top             =   7425
+      Top             =   6660
       Width           =   12360
       Begin VB.CheckBox xEnter 
          Alignment       =   1  'Right Justify
@@ -424,9 +424,9 @@ Public sControl As String, bGo As Boolean, bEnter As Boolean
 Private Sub cmdExit_Click()
 Unload Me
 End Sub
-Private Sub cmdGo_Click()
+Private Sub CmdGo_Click()
 myLoadGrd
-fixGrd
+Fixgrd
 If grid1.Rows > 1 Then
     grid1.SetFocus
 End If
@@ -508,23 +508,23 @@ If UBound(Generalarray) = 3 Then
     myLoadGrd
 Else
     If UBound(Generalarray) >= 4 Then
-        If Not Generalarray(4) Then myLoadGrd Else fixGrd
+        If Not Generalarray(4) Then myLoadGrd Else Fixgrd
     End If
 End If
 'cmdFilter.Visible = retFlag(aFilter, "filter")
 Handlecontrols
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
-For I = 0 To UBound(listarray)
-    If listarray(I, 4) = "" Then
-        If I < txtlookup.UBound Then
-            If mySplit(listarray(I, 3), 1, ":") = "last_clicked" Then
-                addSetting "SEARCH_LIST_" & mySplit(listarray(I, 3), 2, ":"), txtlookup(I + 1).text, TempSave(Generalarray(0), sid)
+For i = 0 To UBound(listarray)
+    If listarray(i, 4) = "" Then
+        If i < txtlookup.UBound Then
+            If mySplit(listarray(i, 3), 1, ":") = "last_clicked" Then
+                addSetting "SEARCH_LIST_" & mySplit(listarray(i, 3), 2, ":"), txtlookup(i + 1).text, TempSave(Generalarray(0), sid)
             End If
         End If
-    ElseIf I < cmbLookup.UBound Then
-        If mySplit(listarray(I, 5), 1, ":") = "last_clicked" Then
-            addSetting "SEARCH_LIST_" & mySplit(listarray(I, 5), 2, ":"), cmbLookup(I + 1).BoundText, TempSave(Generalarray(0), sid)
+    ElseIf i < cmbLookup.UBound Then
+        If mySplit(listarray(i, 5), 1, ":") = "last_clicked" Then
+            addSetting "SEARCH_LIST_" & mySplit(listarray(i, 5), 2, ":"), cmbLookup(i + 1).BoundText, TempSave(Generalarray(0), sid)
         End If
     End If
 Next
@@ -545,39 +545,39 @@ End Sub
 
 Private Sub grid1_DblClick()
 If grid1.Row > 0 Then
-    If sControl = "" Then Generalarray(0).myproc Else Generalarray(0).myproc sControl
+    If sControl = "" Then Generalarray(0).myProc Else Generalarray(0).myProc sControl
 Else
     bEnterPress = False
 End If
 End Sub
 Private Sub grid1_GotFocus()
-For I = 0 To grid1.Cols - 1
-    If Not grid1.ColHidden(I) Then Exit For
+For i = 0 To grid1.Cols - 1
+    If Not grid1.ColHidden(i) Then Exit For
 Next
-If grid1.Rows > 1 Then grid1.Select 1, I
+If grid1.Rows > 1 Then grid1.Select 1, i
 End Sub
 Sub myLoadGrd()
 On Error GoTo myerror
 cString = Generalarray(1)
-For I = 0 To UBound(listarray)
-    If listarray(I, 4) = "" Then
-        If I < txtlookup.UBound Then
-            If txtlookup(I + 1).text <> "" Then
-                cCond = Replace(listarray(I, 1), "%cFilter%", FixString(txtlookup(I + 1).text))
-                cCond = FixMulti(cCond, txtlookup(I + 1).text)
-                cCond = FixValue(cCond, txtlookup(I + 1).text)
-                cCond = FixZero(cCond, txtlookup(I + 1).text)
-                If UBound(listarray, 2) <= 4 Then cCond = FixDate(cCond, txtlookup(I + 1).text, "=") Else cCond = FixDate(cCond, txtlookup(I + 1).text, IIf(IsEmpty(listarray(I, 5)), "=", listarray(I, 5)))
-                cCond = Replace(cCond, "cFilter", txtlookup(I + 1).text)
+For i = 0 To UBound(listarray)
+    If listarray(i, 4) = "" Then
+        If i < txtlookup.UBound Then
+            If txtlookup(i + 1).text <> "" Then
+                cCond = Replace(listarray(i, 1), "%cFilter%", FixString(txtlookup(i + 1).text))
+                cCond = FixMulti(cCond, txtlookup(i + 1).text)
+                cCond = FixValue(cCond, txtlookup(i + 1).text)
+                cCond = FixZero(cCond, txtlookup(i + 1).text)
+                If UBound(listarray, 2) <= 4 Then cCond = FixDate(cCond, txtlookup(i + 1).text, "=") Else cCond = FixDate(cCond, txtlookup(i + 1).text, IIf(IsEmpty(listarray(i, 5)), "=", listarray(i, 5)))
+                cCond = Replace(cCond, "cFilter", txtlookup(i + 1).text)
                 cString = cString & Space(1) & turn(cString) & Space(1) & cCond
             End If
         End If
-    ElseIf I < cmbLookup.UBound Then
-       If cmbLookup(I + 1).MatchedWithList Then
-            cCond = Replace(listarray(I, 1), "cFilter", cmbLookup(I + 1).BoundText)
-            cCond = FixMulti(cCond, cmbLookup(I + 1).BoundText)
-            cCond = FixValue(cCond, cmbLookup(I + 1).BoundText)
-            cCond = FixZero(cCond, cmbLookup(I + 1).BoundText)
+    ElseIf i < cmbLookup.UBound Then
+       If cmbLookup(i + 1).MatchedWithList Then
+            cCond = Replace(listarray(i, 1), "cFilter", cmbLookup(i + 1).BoundText)
+            cCond = FixMulti(cCond, cmbLookup(i + 1).BoundText)
+            cCond = FixValue(cCond, cmbLookup(i + 1).BoundText)
+            cCond = FixZero(cCond, cmbLookup(i + 1).BoundText)
             cString = cString & Space(1) & turn(cString) & Space(1) & cCond
         End If
     End If
@@ -589,7 +589,7 @@ If Not IsEmpty(aAddRow) Then
     grid1.TextMatrix(1, Val(retFlag(aAddRow, "col"))) = retFlag(aAddRow, "text") & ""
     grid1.Cell(flexcpBackColor, 1, 0, , grid1.Cols - 1) = &HE0E0E0
 End If
-fixGrd
+Fixgrd
 Exit Sub
 myerror:
 MsgBox Err.Description
@@ -597,14 +597,14 @@ Err.Clear
 End Sub
 Private Sub Handlecontrols()
 End Sub
-Private Sub fixGrd()
-For I = 0 To grid1.Cols - 1
-   grid1.TextMatrix(0, I) = GrdArray(I, 0)
-   grid1.ColWidth(I) = GrdArray(I, 1)
-   grid1.ColAlignment(I) = flexAlignRightCenter
-   nwidth = nwidth + grid1.ColWidth(I)
+Private Sub Fixgrd()
+For i = 0 To grid1.Cols - 1
+   grid1.TextMatrix(0, i) = GrdArray(i, 0)
+   grid1.ColWidth(i) = GrdArray(i, 1)
+   grid1.ColAlignment(i) = flexAlignRightCenter
+   nwidth = nwidth + grid1.ColWidth(i)
    If UBound(GrdArray, 2) = 2 Then
-        If GrdArray(I, 2) = "d" Then grid1.ColDataType(I) = flexDTDate
+        If GrdArray(i, 2) = "d" Then grid1.ColDataType(i) = flexDTDate
    End If
 Next
 grid1.Width = nwidth + 400
@@ -615,15 +615,15 @@ End Sub
 Private Sub LoadControls()
 nVSpace = 420
 nFrame = Frame2.Height
-For I = 0 To UBound(listarray)
+For i = 0 To UBound(listarray)
     nRow = nRow + 1
     Frame2.Height = nFrame + (nVSpace * (nRow - 1))
-    If listarray(I, 4) = "" Then
+    If listarray(i, 4) = "" Then
         Load txtlookup(nRow)
         txtlookup(nRow).Visible = True
         txtlookup(nRow).Top = txtlookup(0).Top + (nVSpace * (nRow - 1))
-        If mySplit(listarray(I, 3), 1, ":") = "last_clicked" Then
-            txtlookup(nRow).text = RetSetting("SEARCH_LIST_" & mySplit(listarray(I, 3), 2, ":"), TempSave(Generalarray(0), sid))
+        If mySplit(listarray(i, 3), 1, ":") = "last_clicked" Then
+            txtlookup(nRow).text = RetSetting("SEARCH_LIST_" & mySplit(listarray(i, 3), 2, ":"), TempSave(Generalarray(0), sid))
         End If
     Else
         Load cmbLookup(nRow)
@@ -631,36 +631,36 @@ For I = 0 To UBound(listarray)
         cmbLookup(nRow).Top = cmbLookup(0).Top + (nVSpace * (nRow - 1))
         Load DATA2(nRow)
         DATA2(nRow).ConnectionString = strCon
-        DATA2(nRow).RecordSource = listarray(I, 2)
+        DATA2(nRow).RecordSource = listarray(i, 2)
         Set cmbLookup(nRow).RowSource = DATA2(nRow)
-        cmbLookup(nRow).BoundColumn = listarray(I, 3)
-        cmbLookup(nRow).ListField = listarray(I, 4)
-        If mySplit(listarray(I, 5), 1, ":") = "last_clicked" Then
-            cmbLookup(nRow).BoundText = RetSetting("SEARCH_LIST_" & mySplit(listarray(I, 5), 2, ":"), TempSave(Generalarray(0), sid))
+        cmbLookup(nRow).BoundColumn = listarray(i, 3)
+        cmbLookup(nRow).ListField = listarray(i, 4)
+        If mySplit(listarray(i, 5), 1, ":") = "last_clicked" Then
+            cmbLookup(nRow).BoundText = RetSetting("SEARCH_LIST_" & mySplit(listarray(i, 5), 2, ":"), TempSave(Generalarray(0), sid))
         Else
-            cmbLookup(nRow).BoundText = listarray(I, 5)
+            cmbLookup(nRow).BoundText = listarray(i, 5)
         End If
         If Not cmbLookup(nRow).MatchedWithList Then cmbLookup(nRow).BoundText = ""
     End If
     Load Label1(nRow)
     Label1(nRow).Top = Label1(0).Top + (nVSpace * (nRow - 1))
-    Label1(nRow).Caption = listarray(I, 0) & " :"
+    Label1(nRow).Caption = listarray(i, 0) & " :"
     lblWidth = IIf(lblWidth < Label1(nRow).Width, Label1(nRow).Width, lblWidth)
 Next
 If nRow >= 2 Then Me.Height = Me.Height + (nVSpace * (nRow - 1))
-For I = 1 To Label1.Count - 1
-    If listarray(I - 1, 4) = "" Then
-        txtlookup(I).Width = Frame2.Width - (lblWidth + 400)
-        Label1(I).Left = txtlookup(I).Left + 100 + txtlookup(I).Width
-        If listarray(I - 1, 2) <> "" Then txtlookup(I).text = listarray(I - 1, 2)
+For i = 1 To Label1.Count - 1
+    If listarray(i - 1, 4) = "" Then
+        txtlookup(i).Width = Frame2.Width - (lblWidth + 400)
+        Label1(i).Left = txtlookup(i).Left + 100 + txtlookup(i).Width
+        If listarray(i - 1, 2) <> "" Then txtlookup(i).text = listarray(i - 1, 2)
     Else
-        cmbLookup(I).Width = Frame2.Width - (lblWidth + 400)
-        Label1(I).Left = cmbLookup(I).Left + 100 + cmbLookup(I).Width
+        cmbLookup(i).Width = Frame2.Width - (lblWidth + 400)
+        Label1(i).Left = cmbLookup(i).Left + 100 + cmbLookup(i).Width
     End If
-    Label1(I).Caption = ArbString(Label1(I).Caption)
-    Label1(I).Left = Label1(I).Left
-    Label1(I).Top = Label1(I).Top
-    Label1(I).Visible = True
+    Label1(i).Caption = ArbString(Label1(i).Caption)
+    Label1(i).Left = Label1(i).Left
+    Label1(i).Top = Label1(i).Top
+    Label1(i).Visible = True
 Next
 End Sub
 Private Sub grid1_KeyUp(KeyCode As Integer, Shift As Integer)
@@ -679,8 +679,8 @@ myGotFocus txtlookup(Index)
 End Sub
 Private Function FixString(pString)
 aString = Split(Trim(pString), " ")
-For I = 0 To UBound(aString)
-    If Trim(aString(I)) <> "" Then FixString = FixString & " " & Trim(aString(I))
+For i = 0 To UBound(aString)
+    If Trim(aString(i)) <> "" Then FixString = FixString & " " & Trim(aString(i))
 Next
 FixString = "%" & Replace(Trim(FixString), " ", "%") & "%"
 End Function
@@ -690,7 +690,7 @@ End Sub
 Private Function FixMulti(ByVal cString, cSearch) As String
 Dim nFound As Long, nFound2 As Long, aString As Variant, cField As String
 FixMulti = cString
-For I = 1 To Len(FixMulti)
+For i = 1 To Len(FixMulti)
     If xBegin.Value = 0 Then
         nFound = InStr(1, FixMulti, "%%")
         If nFound = 0 Then Exit Function
@@ -714,7 +714,7 @@ End Function
 Private Function FixValue(ByVal cString, cSearch) As String
 Dim cSign As String, nAfter As Integer
 FixValue = cString
-For I = 1 To Len(FixValue)
+For i = 1 To Len(FixValue)
     nFound = InStr(1, FixValue, "**")
     
     If nFound = 0 Then Exit Function
@@ -739,7 +739,7 @@ End Function
 Private Function FixZero(ByVal cString, cSearch) As String
 Dim nAfter As Integer, nZero As Integer
 FixZero = cString
-For I = 1 To Len(FixZero)
+For i = 1 To Len(FixZero)
     nFound = InStr(1, FixZero, "@@")
 
     If nFound = 0 Then Exit Function
@@ -758,7 +758,7 @@ Next
 End Function
 Private Function FixDate(ByVal cString, cSearch, pSign) As String
 FixDate = cString
-For I = 1 To Len(FixDate)
+For i = 1 To Len(FixDate)
     cString2 = ""
     nFound = InStr(1, FixDate, "##")
     If nFound = 0 Then Exit Function
