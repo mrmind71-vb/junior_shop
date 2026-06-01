@@ -613,7 +613,6 @@ Begin VB.Form OrderOnline_New
       BeginProperty Panels {0713E89E-850A-101B-AFC0-4210102A8DA7} 
          NumPanels       =   1
          BeginProperty Panel1 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.Tag             =   ""
          EndProperty
       EndProperty
@@ -1507,13 +1506,13 @@ Private Sub Form_Load()
     openCon con
     'If cBranch <> "00" Then openCon con_MyShop
     
-    Set grid1.DataSource = DATA1
+    Set grid1.DataSource = data1
     Set grid2.DataSource = data2
     
     Frame2.Visible = (cBranch = "00")
     Check1.Visible = (cBranch = "00")
     'cmd_addexel.Visible = (cBranch = "00")
-    cmdCsv.Enabled = (cBranch = "00")
+    cmdCSV.Enabled = (cBranch = "00")
     
     Set DATA3.Recordset = myRecordSet("SELECT Payment_Method FROM file6_90h GROUP BY Payment_Method ", con)
     Set xPay.RowSource = DATA3
@@ -1610,7 +1609,7 @@ With grid1
     cString = cString & " ORDER BY DOC_NO "
     
     
-    Set DATA1.Recordset = mycmd(cString, con)
+    Set data1.Recordset = mycmd(cString, con)
 
 End With
 Fixgrd
@@ -1822,12 +1821,12 @@ Sub AddFromExel()
                             End Select
                         Next nCol
                         lAddOrder = False
-                        aret = aGetDesca("SELECT DOC_NO , STORE FROM FILE6_90H WHERE DOC_NO = " & MyParn(cDoc_No), con)
-                        If UBound(aret) = 0 Then
+                        aRet = aGetDesca("SELECT DOC_NO , STORE FROM FILE6_90H WHERE DOC_NO = " & MyParn(cDoc_No), con)
+                        If UBound(aRet) = 0 Then
                             lAddOrder = True
                             con.Execute addInsert(aInsert, "FILE6_90H")
                         Else
-                            If TurnValue(aret(2), Null, "") = "" Then
+                            If TurnValue(aRet(2), Null, "") = "" Then
                                 lAddOrder = True
                                 con.Execute addUpdate(aInsert, "FILE6_90H", " DOC_NO = " & MyParn(cDoc_No))
                             End If
@@ -2319,10 +2318,10 @@ With SourchTable
         i = i + 1
         prog1.Value = i
         temptable.AddNew
-        temptable!STR4 = !DOC_NO
+        temptable!STR4 = !doc_no
         temptable!Date1 = !Date
         temptable!STR7 = !Name
-        temptable!STR6 = !Phone
+        temptable!STR6 = !phone
         
         temptable!str14 = !Shipping_City
         temptable!str15 = !Street
@@ -2375,7 +2374,7 @@ End Sub
 Private Sub xDoc_No_LostFocus()
 myLostFocus xdoc_no
 End Sub
-Private Sub xDate2_GotFocus()
+Private Sub xdate2_GotFocus()
 myGotFocus xDate2
 End Sub
 Private Sub xDate2_LostFocus()
@@ -2385,7 +2384,7 @@ End Sub
 Private Sub xdate1_GotFocus()
 myGotFocus xdate1
 End Sub
-Private Sub xdate1_LostFocus()
+Private Sub xDate1_LostFocus()
 myLostFocus xdate1
 myValidDate xdate1
 End Sub

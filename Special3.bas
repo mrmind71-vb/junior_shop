@@ -191,6 +191,21 @@ cmBalance.Execute
 fnBalance = Val(cmBalance.Parameters("@BALANCE") & "")
 Set cmBalance = Nothing
 End Function
+Public Function rsBalance(pItem As String, Optional pstore As String = "", Optional pDate As String = "", Optional pId As String = "") As Long
+Dim loctable As New ADODB.Recordset
+Dim aPrm As Variant
+aPrm = AddFlag(aPrm, "ITEM", pItem)
+If pstore <> "" Then aPrm = AddFlag(aPrm, "STORE", pstore)
+If IsDate(pDate) Then aPrm = AddFlag(aPrm, "DATE", myFormat_sp(pDate))
+If pId <> "" Then aPrm = AddFlag(aPrm, "ID", pId)
+
+Set loctable = myRs("dbo.sp_balance_rs", , adStoredProc, aPrm)
+If Not loctable.EOF Then
+    rsBalance = Val(loctable!balance & "")
+End If
+loctable.Close
+Set loctable = Nothing
+End Function
 Public Function IsFormOpen(ByVal FormName As String) As Boolean
     Dim frm As Form
     For Each frm In Forms

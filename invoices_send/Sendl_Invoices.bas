@@ -3,7 +3,7 @@ Dim baseUrl As String
 Dim ownerName As String
 Dim tenantName As String
 Dim agentToken As String
-Public Function SendInvoices(con As adodb.Connection, myForm As Form, pDate As String, JArray As ChilkatJsonArray, ByRef jsonResponseStr As String) As Boolean
+Public Function SendInvoices(con As ADODB.Connection, myForm As Form, pDate As String, JArray As ChilkatJsonArray, ByRef jsonResponseStr As String) As Boolean
 Dim nCount As Long
 If Not myDefine(con) Then Exit Function
 
@@ -27,7 +27,7 @@ Dim aPrm As Variant
 aPrm = AddFlag(Empty, "Branch", "019")
 aPrm = AddFlag(aPrm, "DATE", myFormat(pDate))
 
-Dim loctable As New adodb.Recordset
+Dim loctable As New ADODB.Recordset
 Set loctable = mycmd("[dbo].[sp_invoices_branch_total]", con, adStoredProc, aPrm)
 
 If loctable.EOF Then
@@ -85,8 +85,8 @@ success = json.AddStringAt(-1, "requestDateTime", Format(Now, "yyyy-mm-dd hh:nn:
 success = json.AddStringAt(-1, "transactionCount", nCount)
 createHeader = success = 1
 End Function
-Private Function myDefine(con As adodb.Connection) As Boolean
-Dim loctable As New adodb.Recordset
+Private Function myDefine(con As ADODB.Connection) As Boolean
+Dim loctable As New ADODB.Recordset
 Set loctable = mycmd("select * From SettingInvoiceSend", con)
 
 If loctable.EOF Then
@@ -121,7 +121,7 @@ bAutoReconnect = 1
 success = rest.connect(url.Host, url.Port, url.Ssl, bAutoReconnect)
 createRest = success = 1
 End Function
-Private Function createLines(pDate As String, loctable As adodb.Recordset, ByRef json As ChilkatJsonObject, myForm As Form) As Boolean
+Private Function createLines(pDate As String, loctable As ADODB.Recordset, ByRef json As ChilkatJsonObject, myForm As Form) As Boolean
 Dim success As Integer
 success = json.AddArrayAt(-1, "salesTransactions")
 
@@ -177,7 +177,7 @@ If pParam9 <> "" Then myFunc = myFunc & IIf(myFunc = "", "", ",") & pParam9
 If pParam10 <> "" Then myFunc = myFunc & IIf(myFunc = "", "", ",") & pParam10
 myFunc = pFunction & "(" & myFunc & ")"
 End Function
-Public Function MyFuncValue(pFunction As String, pCon As adodb.Connection, Optional pParam1 As String = "", Optional pParam2 As String = "", Optional pParam3 As String = "", Optional pParam4 As String = "", Optional pParam5 As String = "", Optional pParam6 As String = "", Optional pParam7 As String = "", Optional pParam8 As String = "", Optional pParam9 As String = "", Optional pParam10 As String = "") As Variant
+Public Function MyFuncValue(pFunction As String, pCon As ADODB.Connection, Optional pParam1 As String = "", Optional pParam2 As String = "", Optional pParam3 As String = "", Optional pParam4 As String = "", Optional pParam5 As String = "", Optional pParam6 As String = "", Optional pParam7 As String = "", Optional pParam8 As String = "", Optional pParam9 As String = "", Optional pParam10 As String = "") As Variant
 Dim cPrm As String, cString As String
 If pParam1 <> "" Then cPrm = pParam1
 If pParam2 <> "" Then cPrm = cPrm & IIf(cPrm = "", "", ",") & pParam2
@@ -192,7 +192,7 @@ If pParam10 <> "" Then cPrm = cPrm & IIf(cPrm = "", "", ",") & pParam10
 
 cString = "Select " & pFunction & "(" & cPrm & ") as [value]"
 
-Dim loctable As New adodb.Recordset
+Dim loctable As New ADODB.Recordset
 Set loctable = mycmd(cString, pCon)
 MyFuncValue = loctable!Value
 loctable.Close

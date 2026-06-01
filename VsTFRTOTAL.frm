@@ -1,8 +1,8 @@
 VERSION 5.00
 Object = "{D76D7128-4A96-11D3-BD95-D296DC2DD072}#1.0#0"; "Vsflex7.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "Mscomctl.ocx"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Begin VB.Form VSTFRTOTAL 
    Caption         =   "≈Ã„«·Ï „‘ —Ì«  & „»Ì⁄«  & —»Õ & —’Ìœ ·· ÊﬂÌ·« "
    ClientHeight    =   9405
@@ -528,7 +528,6 @@ Dim LastSalTable As New ADODB.Recordset
 Dim LastImpTable As New ADODB.Recordset
 Dim cString As String
 Dim cStr1 As String, cStr2 As String
-
 Private Sub cmd_excel_Click()
     ToFileExel2 grid1, , , , , 1.1, , , , , , Me
 End Sub
@@ -538,7 +537,7 @@ Dim cHead1 As String
 Dim cHead2 As String
 cHead1 = Me.Caption
 If IsDate(xDate1.text) Then cHead2 = cHead2 & turn(cHead2, Space(3)) & "„‰ : " & Format(xDate1.text, "dd-mm-yyyy")
-If IsDate(xdate2.text) Then cHead2 = cHead2 & turn(cHead2, Space(3)) & "Õ Ì : " & Format(xdate2.text, "dd-mm-yyyy")
+If IsDate(xDate2.text) Then cHead2 = cHead2 & turn(cHead2, Space(3)) & "Õ Ì : " & Format(xDate2.text, "dd-mm-yyyy")
 'Set printGrd3.myform = Me
 Load PrintGrd
 PrintGrd.doprint grid1, 1.02, 0, cHead1, cHead2, "", False, True, 9
@@ -551,14 +550,14 @@ End Sub
 Private Sub CmdUndo_Click()
     Unload Me
 End Sub
-Private Sub cmdGo_Click()
+Private Sub CmdGo_Click()
     myload
 End Sub
 Private Sub Form_Load()
 openCon con
 
-Set grid1.DataSource = DATA10
-DATA10.ConnectionString = strCon
+Set grid1.DataSource = data10
+data10.ConnectionString = strCon
 
 Fixgrd
 End Sub
@@ -575,7 +574,7 @@ Else
 End If
 cWhere = ""
 If IsDate(xDate1.text) Then cWhere = "DATE >= " & DateSq(xDate1.text)
-If IsDate(xdate2.text) Then cWhere = cWhere & turn(cWhere, " AND") & " DATE <= " & DateSq(xdate2.text)
+If IsDate(xDate2.text) Then cWhere = cWhere & turn(cWhere, " AND") & " DATE <= " & DateSq(xDate2.text)
 
 cField3 = myiif(cWhere & turn(cWhere, " AND ") & "(TYPE = '2' OR TYPE = '7')", "[IN] - OUT") & " AS PUR"
 cField4 = myiif(cWhere & turn(cWhere, " AND ") & "(TYPE = '2' OR TYPE = '7')", "Round(([IN] - OUT) * FILE1_10.COST,0)") & " AS PUR_COST"
@@ -597,10 +596,10 @@ cField = cField1 & "," & cField2 & "," & cField3 & "," & cField4 & ", ' ' " & ",
 
 cString = "SELECT FR1_11.STORE,BRANCH_FR.DESCA," & cField & _
           " FROM (FR1_11 INNER JOIN FILE1_10 ON FR1_11.ITEM = FILE1_10.ITEM) INNER JOIN BRANCH_FR ON FR1_11.STORE = BRANCH_FR.CODE"
-If IsDate(xdate2.text) Then cString = cString & turn(cString) & " [DATE] <= " & DateSq(xdate2.text)
+If IsDate(xDate2.text) Then cString = cString & turn(cString) & " [DATE] <= " & DateSq(xDate2.text)
 cString = cString & " GROUP BY FR1_11.STORE,BRANCH_FR.DESCA"
 cString = cString & " ORDER BY FR1_11.STORE"
-Set DATA10.Recordset = myRecordSet(cString, con)
+Set data10.Recordset = myRecordSet(cString, con)
 
 
 End With
@@ -716,7 +715,7 @@ Dim nTotal_Sales As Double, nTotal_in As Double
             .TextMatrix(2, 18) = (Val(.TextMatrix(2, 13)) / (Val(.TextMatrix(2, 2)) + Val(.TextMatrix(2, 19))))
         End If
     End If
-    xTotal.Caption = IIf(grid1.Rows > 2, grid1.Rows - 2, "")
+    xtotal.Caption = IIf(grid1.Rows > 2, grid1.Rows - 2, "")
     End With
 End Sub
 
@@ -728,7 +727,7 @@ End Sub
 Private Sub grid1_DblClick()
     Dim sHead2 As String
     With grid1
-    If grid1.Col = 2 + 2 Or grid1.Col = 10 + 2 And grid1.Row > 1 Then
+    If grid1.col = 2 + 2 Or grid1.col = 10 + 2 And grid1.Row > 1 Then
         StoreMove.sType = 2
         StoreMove.sitem = grid1.TextMatrix(grid1.Row, 0 + 2)
         StoreMove.sDate1 = xDate1.text
@@ -737,7 +736,7 @@ Private Sub grid1_DblClick()
     
     If grid1.Row < 1 Then Exit Sub
     
-    If .Col = 3 + 2 Or .Col = 4 + 2 Then
+    If .col = 3 + 2 Or .col = 4 + 2 Then
         cString = "SELECT FILE0_10H.DOC_NO AS [—ﬁ„ «·„” ‰œ],CONVERT(VARCHAR(10),FILE0_10H.[DATE],111) AS [«· «—ÌŒ],SUM(FILE0_10.DIFFER) AS [≈Ã„«·Ì «·ﬂ„Ì…]" & _
                   ",FILE0_10.COST AS [«· ﬂ·›…], SUM(FILE0_10.DIFFER * FILE0_10.COST) as [«·«Ã„«·Ì] " & _
                   " FROM FILE0_10 INNER JOIN FILE0_10H ON FILE0_10.DOC_NO = FILE0_10H.DOC_NO"
@@ -748,9 +747,9 @@ Private Sub grid1_DblClick()
             cString = cString & turn(cString) & " FILE0_10H.DATE >= " & DateSq(xDate1.text)
             sHead2 = "„‰ : " & xDate1.text
         End If
-        If IsDate(xdate2.text) Then
-            cString = cString & turn(cString) & " FILE0_10H.DATE <= " & DateSq(xdate2.text)
-            sHead2 = sHead2 & turn(sHead2, " ") & "Õ Ï : " & xdate2.text
+        If IsDate(xDate2.text) Then
+            cString = cString & turn(cString) & " FILE0_10H.DATE <= " & DateSq(xDate2.text)
+            sHead2 = sHead2 & turn(sHead2, " ") & "Õ Ï : " & xDate2.text
         End If
         Showfrm1.sHead2 = sHead2
         cString = cString & " Group by FILE0_10H.DOC_NO,FILE0_10H.[DATE],FILE0_10.COST"
@@ -762,7 +761,7 @@ Private Sub grid1_DblClick()
         Showfrm1.Show 1
     End If
     
-    If .Col = 5 + 2 Or .Col = 6 + 2 Then
+    If .col = 5 + 2 Or .col = 6 + 2 Then
         cString = "SELECT FILE1_80H.DOC_NO AS [—ﬁ„ «·„” ‰œ],CONVERT(VARCHAR(10),FILE1_80H.[DATE],111) AS [«· «—ÌŒ],SUM(FILE1_80.QUANT) AS [≈Ã„«·Ì «·ﬂ„Ì…]" & _
                   ",FILE1_80.COST AS [«· ﬂ·›…], SUM(FILE1_80.QUANT * FILE1_80.COST) as [«·«Ã„«·Ì] " & _
                   " FROM FILE1_80 INNER JOIN FILE1_80H ON FILE1_80.DOC_NO = FILE1_80H.DOC_NO"
@@ -774,9 +773,9 @@ Private Sub grid1_DblClick()
             cString = cString & turn(cString) & " FILE1_80H.DATE >= " & DateSq(xDate1.text)
             sHead2 = "„‰ : " & xDate1.text
         End If
-        If IsDate(xdate2.text) Then
-            cString = cString & turn(cString) & " FILE1_80H.DATE <= " & DateSq(xdate2.text)
-            sHead2 = sHead2 & turn(sHead2, " ") & "Õ Ï : " & xdate2.text
+        If IsDate(xDate2.text) Then
+            cString = cString & turn(cString) & " FILE1_80H.DATE <= " & DateSq(xDate2.text)
+            sHead2 = sHead2 & turn(sHead2, " ") & "Õ Ï : " & xDate2.text
         End If
         cString = cString & " Group by FILE1_80H.DOC_NO,FILE1_80H.[DATE],FILE1_80.COST"
         cString = cString & " ORDER BY FILE1_80H.DATE DESC,FILE1_80H.DOC_NO DESC"
@@ -786,7 +785,7 @@ Private Sub grid1_DblClick()
         Showfrm1.sCol = "1000-1300-1100-1100-1100"
         Showfrm1.sTotal = "2-3-4"
         Showfrm1.Show 1
-    ElseIf .Col = 7 + 2 Or .Col = 8 + 2 Then
+    ElseIf .col = 7 + 2 Or .col = 8 + 2 Then
         cString = "SELECT FILE1_82H.DOC_NO AS [—ﬁ„ «·„” ‰œ],CONVERT(VARCHAR(10),FILE1_82H.[DATE],111) AS [«· «—ÌŒ],SUM(FILE1_82.QUANT) AS [≈Ã„«·Ì «·ﬂ„Ì…]" & _
                   ",FILE1_82.COST AS [«· ﬂ·›…], SUM(FILE1_82.QUANT * FILE1_82.COST) as [«·«Ã„«·Ì] " & _
                   " FROM FILE1_82 INNER JOIN FILE1_82H ON FILE1_82.DOC_NO = FILE1_82H.DOC_NO"
@@ -798,9 +797,9 @@ Private Sub grid1_DblClick()
             cString = cString & turn(cString) & " FILE1_82H.DATE >= " & DateSq(xDate1.text)
             sHead2 = "„‰ : " & xDate1.text
         End If
-        If IsDate(xdate2.text) Then
-            cString = cString & turn(cString) & " FILE1_82H.DATE <= " & DateSq(xdate2.text)
-            sHead2 = sHead2 & turn(sHead2, " ") & "Õ Ï : " & xdate2.text
+        If IsDate(xDate2.text) Then
+            cString = cString & turn(cString) & " FILE1_82H.DATE <= " & DateSq(xDate2.text)
+            sHead2 = sHead2 & turn(sHead2, " ") & "Õ Ï : " & xDate2.text
         End If
         Showfrm1.sHead2 = sHead2
         cString = cString & " Group by FILE1_82H.DOC_NO,FILE1_82H.[DATE],FILE1_82.COST"
@@ -809,7 +808,7 @@ Private Sub grid1_DblClick()
         Showfrm1.sCol = "1000-1300-1100-1100-1100"
         Showfrm1.sTotal = "2-3-4"
         Showfrm1.Show 1
-    ElseIf .Col = 9 + 2 Then
+    ElseIf .col = 9 + 2 Then
         cString = "SELECT FILE1_90H.DOC_NO AS [—ﬁ„ «·„” ‰œ],CONVERT(VARCHAR(10),FILE1_90H.[DATE],111) AS [«· «—ÌŒ],FILE0_50.DESCA AS [«·ﬂ«‘Ì—],SUM(FILE1_90.QUANT) AS [≈Ã„«·Ì «·ﬂ„Ì…]" & _
                   " FROM ((FILE1_90 INNER JOIN FILE1_90H ON FILE1_90.DOC_NO = FILE1_90H.DOC_NO) INNER JOIN CLOSEDAY ON FILE1_90H.DOC_NO = CLOSEDAY.CODE) INNER JOIN FILE0_50 ON CLOSEDAY.BOX1 = FILE0_50.CODE"
         
@@ -820,9 +819,9 @@ Private Sub grid1_DblClick()
             cString = cString & turn(cString) & " FILE1_90H.DATE >= " & DateSq(xDate1.text)
             sHead2 = "„‰ : " & xDate1.text
         End If
-        If IsDate(xdate2.text) Then
-            cString = cString & turn(cString) & " FILE1_90H.DATE <= " & DateSq(xdate2.text)
-            sHead2 = sHead2 & turn(sHead2, " ") & "Õ Ï : " & xdate2.text
+        If IsDate(xDate2.text) Then
+            cString = cString & turn(cString) & " FILE1_90H.DATE <= " & DateSq(xDate2.text)
+            sHead2 = sHead2 & turn(sHead2, " ") & "Õ Ï : " & xDate2.text
         End If
         Showfrm1.sHead2 = sHead2
         cString = cString & " Group by FILE1_90H.DOC_NO,FILE1_90H.[DATE],FILE0_50.DESCA"
@@ -846,7 +845,7 @@ Private Sub grid1_DblClick()
 End Sub
 Private Sub xDesca_KeyPress(KeyAscii As Integer)
 If KeyAscii = 13 Then
-    FilterGrd grid1, xDesca.text, 1
+    FilterGrd grid1, xdesca.text, 1
 End If
 End Sub
 Private Sub xitem_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -856,12 +855,12 @@ End If
 End Sub
 Private Sub xITEM_KeyPress(KeyAscii As Integer)
 If KeyAscii = 13 Then
-    FilterGrd grid1, xitem.text, 0
+    FilterGrd grid1, xItem.text, 0
 End If
 End Sub
 Sub myProc()
-xitem.text = oSearchItem.grid1.TextMatrix(oSearchItem.grid1.Row, 0)
-xDesca.text = oSearchItem.grid1.TextMatrix(oSearchItem.grid1.Row, 0)
+xItem.text = oSearchItem.grid1.TextMatrix(oSearchItem.grid1.Row, 0)
+xdesca.text = oSearchItem.grid1.TextMatrix(oSearchItem.grid1.Row, 0)
 Unload oSearchItem
 End Sub
 Private Sub xDate1_Validate(Cancel As Boolean)
@@ -874,7 +873,7 @@ End If
 End With
 End Sub
 Private Sub xDate2_Validate(Cancel As Boolean)
-With xdate2
+With xDate2
 If Not IsDate(.text) Then
     .text = ""
 Else

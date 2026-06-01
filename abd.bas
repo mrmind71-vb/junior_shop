@@ -79,6 +79,33 @@ Else
     End If
 End If
 End Function
+Function NewflagDocRs(sDate As String, sStore As String) As String
+Dim loctable As New ADODB.Recordset, cString As String
+If cBranch <> "00" Then
+    If Len(sStore) = 2 Then
+        cString = "Select MAX(SUBSTRING(DOC_NO2,3,3)) as MaxofDocNo FROM FILE6_20H "
+    Else
+        cString = "Select MAX(SUBSTRING(DOC_NO2,4,3)) as MaxofDocNo FROM FILE6_20H "
+    End If
+    cString = cString & turn(cString) & "[DATE] = " & DateSq(sDate)
+    cString = cString & turn(cString) & "[BOX] = " & MyParn(cBranchBox)
+    Set loctable = myRs(cString)
+    If Len(sStore) = 2 Then sStore = Val(sStore)
+    If Len(sStore) = 3 Then sStore = Val(sStore)
+    
+    If Not loctable.EOF Then cString = sStore & RetZero(Val(loctable!maxOfDocNo & "") + 1, 3) Else cString = sStore & RetZero(1, 3)
+    NewflagDocRs = RetZero(Day(sDate), 2) & RetZero(Month(sDate), 2) & RetZero(Format(sDate, "YY"), 2) & cString
+    loctable.Close
+    Set loctable = Nothing
+Else
+    'NewflagDoc = IncRec(GetDesca("select max(doc_no) from file6_20h where ISINVOICE = 0 AND  branch = '00' ", pCon))
+    NewflagDocRs = IncRec(rsValue("select max(doc_no) from file6_20h where ISINVOICE = 0 AND  branch = '00' "))
+
+    If NewflagDocRs = "" Then
+        NewflagDocRs = RetZero("1", 11)
+    End If
+End If
+End Function
 Function DateSq(ByVal X As Variant, Optional X2 As String = "") As String
 If Not IsDate(X) Then
     DateSq = X
@@ -1011,7 +1038,10 @@ Public Function MonthString(Optional pMonth As Integer = 12)
 Dim i As Long
 MonthString = "SELECT '' AS CODE"
 For i = pMonth To 1 Step -1
-    MonthString = MonthString & Tr(MonthString, " UNION All ") & "SELECT " & "CAST(" & i & " AS VARCHAR(2)) " & " AS [CODE]"
+    MonthString = MonthString & _
+                Tr(MonthString, " UNION All ") & _
+                "SELECT " & "CAST(" & i & " AS VARCHAR(2)) " & _
+                " AS [CODE]"
 Next
 End Function
 Public Function get_Id(con As ADODB.Connection) As String

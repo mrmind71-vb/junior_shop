@@ -760,7 +760,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public sDoc_no As String
 Public sStore As String
-Public myForm As Form
+Public bAllStore As Boolean
+'Public myForm As Form
 Dim bEditRecord As Boolean, bAct As Boolean
 Dim oSalesRefund As New sales_refundfrm
 Dim con As New ADODB.Connection
@@ -937,14 +938,13 @@ If sStore = "" Then
 End If
 myload
 myLoadCount
-MFocus Me
 End Sub
 Private Sub myLoadGrd()
 On Error GoTo myerror
 Dim StoreTable As New ADODB.Recordset
 Dim cString As String
 If cBranch = "00" Then
-    If myForm.Check1.Value = 0 Then
+    If Not bAllStore Then
         cString = " SELECT *" & _
                   " FROM FILE0_40 " & _
                   " WHERE ONLINE = 1" & _
@@ -1042,11 +1042,11 @@ Set loctable = myRs("SELECT FILE6_90H.*,CASE WHEN V.ORDER_NO IS NULL THEN 1 ELSE
                     " WHERE DOC_NO = " & MyParn(sDoc_no))
 If Not loctable.EOF Then
     xName.text = loctable!Name & ""
-    xphone.text = loctable!Phone & ""
+    xphone.text = loctable!phone & ""
     xcity.text = loctable!city & ""
     xStreet.text = loctable!Street & ""
     xship_date.text = myFormat_p(loctable!ship_date)
-    xNotes.text = loctable!Notes & ""
+    xNotes.text = loctable!NOTES & ""
     xNote_branch.text = loctable!note_branch & ""
     xNote_main.text = loctable!note_main & ""
     xDelOrder_Date.text = myFormat_p(loctable!delorder_date)
@@ -1062,7 +1062,6 @@ With grid1
         
     .RowHeight(0) = 800
     .WordWrap = True
-    .RowHidden(1) = True
     
     .TextMatrix(0, 0) = "ßæÏ"
     .TextMatrix(0, 1) = "SKU"
@@ -1205,10 +1204,10 @@ Private Sub xDelOrder_Date_LostFocus()
 myLostFocus xDelOrder_Date
 myValidDate xDelOrder_Date
 End Sub
-Private Sub xphone_GotFocus()
+Private Sub xPhone_GotFocus()
 myGotFocus xphone
 End Sub
-Private Sub xphone_LostFocus()
+Private Sub XPHONE_LostFocus()
 myLostFocus xphone
 End Sub
 Private Sub xcity_GotFocus()
@@ -1233,6 +1232,6 @@ End Sub
 Private Sub xName_GotFocus()
 myGotFocus xName
 End Sub
-Private Sub xName_LostFocus()
+Private Sub xname_LostFocus()
 myLostFocus xName
 End Sub

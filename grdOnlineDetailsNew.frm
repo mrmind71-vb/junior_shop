@@ -4,7 +4,7 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "COMCTL32.OCX"
 Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
-Begin VB.Form grdOnlineDetailsfrm 
+Begin VB.Form grdOnlineDetailsNewfrm 
    BackColor       =   &H00FFFFFF&
    Caption         =   " ﬁ—Ì— „ «»⁄… ÿ·»Ì«  √Ê‰ ·«Ì‰"
    ClientHeight    =   10290
@@ -405,7 +405,7 @@ Begin VB.Form grdOnlineDetailsfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "grdOnlineDetails.frx":0000
+         Picture         =   "grdOnlineDetailsNew.frx":0000
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
@@ -433,12 +433,12 @@ Begin VB.Form grdOnlineDetailsfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "grdOnlineDetails.frx":2323
+         Picture         =   "grdOnlineDetailsNew.frx":2323
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "grdOnlineDetails.frx":4699
+         PictureDisabled =   "grdOnlineDetailsNew.frx":4699
       End
       Begin Threed.SSCommand cmdGo 
          Height          =   555
@@ -461,7 +461,7 @@ Begin VB.Form grdOnlineDetailsfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "grdOnlineDetails.frx":681C
+         Picture         =   "grdOnlineDetailsNew.frx":681C
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
@@ -488,7 +488,7 @@ Begin VB.Form grdOnlineDetailsfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "grdOnlineDetails.frx":96CF
+         Picture         =   "grdOnlineDetailsNew.frx":96CF
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
@@ -515,7 +515,7 @@ Begin VB.Form grdOnlineDetailsfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "grdOnlineDetails.frx":BBFA
+         Picture         =   "grdOnlineDetailsNew.frx":BBFA
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
@@ -567,7 +567,7 @@ Begin VB.Form grdOnlineDetailsfrm
       GridLinesFixed  =   1
       GridLineWidth   =   1
       Rows            =   1
-      Cols            =   25
+      Cols            =   40
       FixedRows       =   1
       FixedCols       =   0
       RowHeightMin    =   0
@@ -866,7 +866,7 @@ Begin VB.Form grdOnlineDetailsfrm
       _Version        =   393216
    End
 End
-Attribute VB_Name = "grdOnlineDetailsfrm"
+Attribute VB_Name = "grdOnlineDetailsNewfrm"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
@@ -891,6 +891,7 @@ If grid1.Rows > 1 Then
     aSub = AddFlag(aSub, "back_color", 40)
     aRow = AddFlag(aRow, aSub)
 End If
+
 ToFileExelNew grid1, , , aRow, , 1.2, , , , , , Me, Array(Me.Caption, retHeader(aHeader, 0, 2), retHeader(aHeader, 2, 2), retHeader(aHeader, 4, 5))
 
 Me.MousePointer = 0
@@ -927,13 +928,13 @@ Frame1.Left = Me.Width - Frame1.Width - 150
 Frame2.Left = Frame1.Left - Frame2.Width - 50
 End Sub
 Private Sub Form_Load()
-openCon con
+'openCon con
 
 
-Set DATA1.Recordset = cmd("Select code ,descA From file0_40 ORDER BY CODE", con).Execute
-Set XSTORE.RowSource = DATA1
-XSTORE.ListField = "Desca"
-XSTORE.BoundColumn = "CODE"
+Set xStore.RowSource = myRs("Select code ,descA From file0_40 ORDER BY CODE")
+'Set xStore.RowSource = DATA1
+xStore.ListField = "Desca"
+xStore.BoundColumn = "CODE"
 
 Set grid1.DataSource = data11
 
@@ -945,9 +946,9 @@ Dim aPrm As Variant
 
 ReDim aHeader(5)
 
-If XSTORE.MatchedWithList Then
-    aPrm = AddFlag(aPrm, "STORE", addstring(XSTORE.BoundText))
-    aHeader(0) = "«·›—⁄ : " & XSTORE.text
+If xStore.MatchedWithList Then
+    aPrm = AddFlag(aPrm, "STORE", addstring(xStore.BoundText))
+    aHeader(0) = "«·›—⁄ : " & xStore.text
 End If
 
 If IsDate(xDate1.text) Then
@@ -960,30 +961,34 @@ If IsDate(xDate1.text) Then
     aHeader(1) = BetweenString(xDate1.text, xDate2.text)
 End If
 
-For i = 1 To xtype.UBound
-    If xtype(i).Value Then
-        aPrm = AddFlag(aPrm, "TYPE", i)
-        aHeader(2) = "ÿ·»Ì«  " & xtype(i).Caption
-    End If
-Next
+If xtype(1).Value Then
+    aPrm = AddFlag(aPrm, "CLOSED", "1")
+    aHeader(2) = "ÿ·»Ì«  " & xtype(1).Caption
+ElseIf xtype(2).Value Then
+    aPrm = AddFlag(aPrm, "OPEN", "1")
+    aHeader(2) = "ÿ·»Ì«  " & xtype(2).Caption
+ElseIf xtype(3).Value Then
+    aPrm = AddFlag(aPrm, "CANCEL", "1")
+    aHeader(2) = "ÿ·»Ì«  " & xtype(3).Caption
+End If
 
 If Trim(xDoc_No.text) <> "" Then
     aPrm = AddFlag(aPrm, "DOC_NO", addstring(xDoc_No.text))
     aHeader(3) = "›« Ê—… : " & xDoc_No.text
 End If
 
-If Trim(xOrder_no.text) <> "" Then
-    aPrm = AddFlag(aPrm, "ORDER_NO", addstring(xOrder_no.text))
-    aHeader(4) = "ÿ·»Ì… : " & xOrder_no.text
+If Trim(xOrder_No.text) <> "" Then
+    aPrm = AddFlag(aPrm, "ORDER_NO", addstring(xOrder_No.text))
+    aHeader(4) = "ÿ·»Ì… : " & xOrder_No.text
 End If
 
-If Trim(xShip_No.text) <> "" Then
-    aPrm = AddFlag(aPrm, "SHIP_NO", addstring(xShip_No.text))
-    aHeader(5) = "»Ê·Ì’… ‘Õ‰ : " & xShip_No.text
+If Trim(xShip_no.text) <> "" Then
+    aPrm = AddFlag(aPrm, "SHIP_NO", addstring(xShip_no.text))
+    aHeader(5) = "»Ê·Ì’… ‘Õ‰ : " & xShip_no.text
 End If
 
 Dim cString As String
-cString = myPrcString("[dbo].[sp_online_payment_detail]", aPrm)
+cString = myPrcString("dbo.sp_online_pay_detail", aPrm)
 
 If bString Then
     Clipboard.Clear
@@ -991,88 +996,143 @@ If bString Then
     Exit Sub
 End If
 
-Set data11.Recordset = cmd(cString, con, , , 600).Execute
+Set grid1.DataSource = myRs(cString)
 End With
 Fixgrd
 End Sub
 Sub Fixgrd()
 With grid1
-    .RowHeight(0) = 600
+    .RowHeight(0) = 1000
     .WordWrap = True
     .FrozenCols = 4
+    
     .TextMatrix(0, 0) = "«· «—ÌŒ"
     .TextMatrix(0, 1) = "—ﬁ„ ÿ·»Ì…"
     .TextMatrix(0, 2) = "⁄œœ «·ﬁÿ⁄"
     .TextMatrix(0, 3) = "ﬁÌ„… «·«Êœ—"
+    
     .TextMatrix(0, 4) = "—ﬁ„ «·›« Ê—…"
     .TextMatrix(0, 5) = " «—ÌŒ «·›« Ê—…"
     .TextMatrix(0, 6) = "⁄œœ «·ﬁÿ⁄"
     .TextMatrix(0, 7) = "ﬁÌ„… «·›« Ê—…"
-    .TextMatrix(0, 8) = "»Ê·Ì’… «·‘Õ‰"
+    
+    .TextMatrix(0, 8) = "—ﬁ„ »Ê·Ì’… «·‘Õ‰"
     .TextMatrix(0, 9) = "‘—ﬂ… «·‘Õ‰"
     .TextMatrix(0, 10) = " «—ÌŒ «·‘Õ‰"
     .TextMatrix(0, 11) = "ÿ—Ìﬁ… «·”œ«œ"
+        
+    .TextMatrix(0, 12) = " «—ÌŒ «·”œ«œ"
+    .TextMatrix(0, 13) = "⁄œœ „” ‰œ«  «· Õ’Ì·"
+    
+    .TextMatrix(0, 14) = "≈Ã„«·Ì «· Õ’Ì·"
+    .TextMatrix(0, 15) = "≈Ã„«·Ì «·„’«—Ì›"
+    
+    .TextMatrix(0, 16) = "„” ‰œ«   Õ’Ì· „‰ «·⁄„Ì·"
+    .TextMatrix(0, 17) = "≈Ã„«·Ì  Õ’Ì·"
+        
+    .TextMatrix(0, 18) = "„” ‰œ«   Õ’Ì· „— Ã⁄…"
+    .TextMatrix(0, 19) = "≈Ã„«·Ì  Õ’Ì· „— Ã⁄"
+        
+    .TextMatrix(0, 20) = "›« Ê—… „— Ã⁄"
+    .TextMatrix(0, 21) = "ﬂ„Ì… «·„— Ã⁄"
+    .TextMatrix(0, 22) = "ﬁÌ„… «·„— Ã⁄"
+    
+    .TextMatrix(0, 23) = "—ﬁ„ »Ê·Ì’… «·‘Õ‰"
+    .TextMatrix(0, 24) = " «—ÌŒ «·«·€«¡"
+    
+    .TextMatrix(0, 25) = "⁄œœ «·›Ê« Ì—"
+    .TextMatrix(0, 26) = "’«›Ì ﬁÌ„… «·›Ê« Ì—"
+    
+    .TextMatrix(0, 27) = "⁄œœ ›Ê« Ì— »Ì⁄"
+    .TextMatrix(0, 28) = "≈Ã„«·Ì ›Ê« Ì— »Ì⁄"
+    
+    .TextMatrix(0, 29) = "⁄œœ ›Ê« Ì— „— Ã⁄"
+    .TextMatrix(0, 30) = "≈Ã„«·Ì ›Ê« Ì— „— Ã⁄"
+    
+    .TextMatrix(0, 31) = "ÿ·»Ì«  «” »œ«· Ê«” —Ã«⁄"
+    .TextMatrix(0, 32) = "ÿ·»Ì«  «” »œ«· Ê«” —Ã«⁄ €Ì— „”·„…"
+        
+    .TextMatrix(0, 33) = "ÿ·»Ì«  «” —Ã«⁄"
+    .TextMatrix(0, 34) = "ÿ·»Ì«  «” —Ã«⁄ €Ì— „”·„…"
+    
+    .TextMatrix(0, 35) = "ÿ·»Ì«  «” »œ«·"
+    .TextMatrix(0, 36) = "ÿ·»Ì«  «” »œ«· €Ì— „”·„…"
 
-    .TextMatrix(0, 12) = "—ﬁ„ „” ‰œ «· Õ’Ì·"
-    .TextMatrix(0, 13) = " «—ÌŒ «· Õ’Ì·"
-    .TextMatrix(0, 14) = "ﬁÌ„… «· Õ’Ì·"
+    .TextMatrix(0, 37) = "«” »œ«· »œÊ‰ ›« Ê—…"
+    .TextMatrix(0, 38) = "«” »œ«· »œÊ‰ ›« Ê—… €Ì— „”·„…"
     
-    .TextMatrix(0, 15) = "„’«—Ì› ‘Õ‰"
-    
-    .TextMatrix(0, 15 + 1) = " «—ÌŒ «·«·€«¡"
-    
-    .TextMatrix(0, 16 + 1) = "—ﬁ„ ›« Ê—… «·„— Ã⁄"
-    .TextMatrix(0, 17 + 1) = "⁄œœ ﬁÿ⁄ «·„— Ã⁄"
-    .TextMatrix(0, 18 + 1) = "ﬁÌ„… «·„— Ã⁄"
-    .TextMatrix(0, 19 + 1) = "—ﬁ„ »Ê·Ì’Â «·„— Ã⁄"
-    
-    .TextMatrix(0, 20 + 1) = "„” ‰œ  Õ’Ì· «·„— Ã⁄"
-    .TextMatrix(0, 21 + 1) = " «—ÌŒ ”œ«œ «·„— Ã⁄"
-    .TextMatrix(0, 22 + 1) = "ﬁÌ„… ”œ«œ«·„— Ã⁄"
-    .TextMatrix(0, 23 + 1) = "≈”„ «·„‰œÊ»"
+    .TextMatrix(0, 39) = "≈”„ «·„‰œÊ»"
+
+    .ColDataType(5) = flexDTDate
+    .ColDataType(12) = flexDTDate
+    .ColDataType(10) = flexDTDate
+    .ColDataType(24) = flexDTDate
 
     .ColDataType(1) = flexDTDouble
     .ColDataType(2) = flexDTDouble
     .ColDataType(3) = flexDTDouble
-    .ColDataType(6) = flexDTDouble
-    .ColDataType(7) = flexDTDouble
+    .ColDataType(13) = flexDTDouble
     .ColDataType(14) = flexDTDouble
-    .ColDataType(17 + 1) = flexDTDouble
-    .ColDataType(18 + 1) = flexDTDouble
-    .ColDataType(22 + 1) = flexDTDouble
+    .ColDataType(15) = flexDTDouble
+    .ColDataType(16) = flexDTDouble
+    .ColDataType(18) = flexDTDouble
+    .ColDataType(19) = flexDTDouble
+    .ColDataType(21) = flexDTDouble
+    .ColDataType(22) = flexDTDouble
+    
+    For i = 25 To 38
+        .ColDataType(i) = flexDTDouble
+    Next
+    
     
     .ColWidth(0) = 1300
     .ColWidth(1) = 1100
     .ColWidth(2) = 1100
     .ColWidth(3) = 1400
     .ColWidth(4) = 1600
-    .ColWidth(5) = 1400
-    .ColWidth(6) = 1100
-    .ColWidth(7) = 1400
-    .ColWidth(8) = 1300
+    .ColWidth(5) = 1300
+    .ColWidth(6) = 900
+    .ColWidth(7) = 1300
+    .ColWidth(8) = 1700
     .ColWidth(9) = 1300
-    .ColWidth(10) = 1300
+    .ColWidth(10) = 1400
     .ColWidth(11) = 2200
-    .ColWidth(12) = 800
-    .ColWidth(13) = 1200
-    .ColWidth(14) = 1600
-    .ColWidth(15) = 1300
-    .ColWidth(15 + 1) = 1300
-    .ColWidth(16 + 1) = 1600
-    .ColWidth(17 + 1) = 1000
-    .ColWidth(18 + 1) = 1300
-    .ColWidth(19 + 1) = 1300
-    .ColWidth(20 + 1) = 800
-    .ColWidth(21 + 1) = 1300
-    .ColWidth(22 + 1) = 1300
-    .ColWidth(23 + 1) = 1800
+    .ColWidth(12) = 1300
+    .ColWidth(13) = 900
+    .ColWidth(14) = 1400
+    .ColWidth(15) = 1400
+    .ColWidth(16) = 1300
+    .ColWidth(17) = 1600
+    .ColWidth(18) = 1000
+    .ColWidth(19) = 1300
+    .ColWidth(20) = 1300
+    .ColWidth(21) = 800
+    .ColWidth(22) = 1300
+    .ColWidth(23) = 1700
+    .ColWidth(24) = 1300
+    .ColWidth(25) = 900
+    .ColWidth(26) = 1300
+    .ColWidth(27) = 900
+    .ColWidth(28) = 1300
+    .ColWidth(29) = 900
+    .ColWidth(30) = 1300
     
-    .ColDataType(0) = flexDTDate
-    .ColDataType(5) = flexDTDate
-    .ColDataType(10) = flexDTDate
-    .ColDataType(13) = flexDTDate
-    .ColDataType(15 + 1) = flexDTDate
-    .ColDataType(21 + 1) = flexDTDate
+    .ColWidth(31) = 900
+    .ColWidth(32) = 900
+    .ColWidth(33) = 900
+    .ColWidth(34) = 900
+    .ColWidth(35) = 900
+    .ColWidth(36) = 900
+    .ColWidth(37) = 900
+    .ColWidth(38) = 900
+    .ColWidth(39) = 2000
+            
+    .ColDataType(2) = flexDTDouble
+    .ColDataType(3) = flexDTDouble
+    .ColDataType(6) = flexDTDouble
+    .ColDataType(7) = flexDTDouble
+    
+        
     For i = 0 To .Cols - 1
         .ColAlignment(i) = flexAlignCenterCenter
         If .ColDataType(i) = flexDTDate Then
@@ -1097,17 +1157,22 @@ With grid1
 '
 '
     .SubtotalPosition = flexSTAbove
+
+    For i = 2 To .Cols - 2
+        If .ColDataType(i) = flexDTDouble Then
+            .Subtotal flexSTSum, -1, i, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
+        End If
+    Next
+'    .Subtotal flexSTSum, -1, 2, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
+'    .Subtotal flexSTSum, -1, 3, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
+'    .Subtotal flexSTSum, -1, 6, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
+'    .Subtotal flexSTSum, -1, 7, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
+'    .Subtotal flexSTSum, -1, 14, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
+'    .Subtotal flexSTSum, -1, 15, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
 '
-    .Subtotal flexSTSum, -1, 2, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
-    .Subtotal flexSTSum, -1, 3, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
-    .Subtotal flexSTSum, -1, 6, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
-    .Subtotal flexSTSum, -1, 7, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
-    .Subtotal flexSTSum, -1, 14, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
-    .Subtotal flexSTSum, -1, 15, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
-    
-    .Subtotal flexSTSum, -1, 17 + 1, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
-    .Subtotal flexSTSum, -1, 18 + 1, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
-    .Subtotal flexSTSum, -1, 22 + 1, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
+'    .Subtotal flexSTSum, -1, 17 + 1, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
+'    .Subtotal flexSTSum, -1, 18 + 1, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
+'    .Subtotal flexSTSum, -1, 22 + 1, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
     
 
 ''    .Subtotal flexSTSum, -1, 12 + 2, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
@@ -1125,9 +1190,7 @@ With grid1
 End With
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
-SaveText Me
-closeCon con
-Set grdOrdersDeliveryfrm2 = Nothing
+Set grdOnlineDetailsNewfrm = Nothing
 End Sub
 Private Function myValid() As Boolean
 myValid = True
@@ -1166,7 +1229,12 @@ myLostFocus xModelFact
 End Sub
 
 Private Sub grid1_DblClick()
-'If grid1.Row < 2 Then Exit Sub
+If grid1.Row < 2 Then Exit Sub
+If grid1.col = 1 Then
+    orders_online_items.sDoc_no = grid1.TextMatrix(grid1.Row, 1)
+    orders_online_items.Show 1
+End If
+
 'If grid1.Col = 0 Then
 '    OrdersClientsfrm.sDoc_no = grid1.TextMatrix(grid1.Row, 0)
 '    OrdersClientsfrm.Show
@@ -1187,11 +1255,11 @@ End Sub
 Private Sub xdate1_GotFocus()
 myGotFocus xDate1
 End Sub
-Private Sub xDate1_LostFocus()
+Private Sub xdate1_LostFocus()
 myLostFocus xDate1
 myValidDate xDate1
 End Sub
-Private Sub xdate2_GotFocus()
+Private Sub xDate2_GotFocus()
 myGotFocus xDate2
 End Sub
 Private Sub xDate2_LostFocus()
@@ -1217,7 +1285,7 @@ If ActiveControl.Name = xDoc_No.Name Then
     oSearchDoc.Hide
 End If
 End Sub
-Private Sub xdoc_no_KeyUp(KeyCode As Integer, Shift As Integer)
+Private Sub XDOC_NO_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 112 Then SalesOnlineLookup Me, oSearchDoc
 End Sub
 Private Sub xDoc_No_GotFocus()
@@ -1227,15 +1295,15 @@ Private Sub xDoc_No_LostFocus()
 myLostFocus xDoc_No
 End Sub
 Private Sub xship_no_GotFocus()
-myGotFocus xShip_No
+myGotFocus xShip_no
 End Sub
 Private Sub xship_no_LostFocus()
-myLostFocus xShip_No
+myLostFocus xShip_no
 End Sub
 Private Sub xOrder_no_GotFocus()
-myGotFocus xOrder_no
+myGotFocus xOrder_No
 End Sub
 Private Sub xOrder_no_LostFocus()
-myLostFocus xOrder_no
+myLostFocus xOrder_No
 End Sub
 

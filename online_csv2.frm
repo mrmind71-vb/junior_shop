@@ -548,10 +548,10 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public myForm As Form
-Public con As ADODB.Connection
+Public con As New ADODB.Connection
 Dim sStoreOnline As String
 Private Sub CMD_SEND_Click()
-If Not MYVALID Then
+If Not myValid Then
     Exit Sub
 End If
 
@@ -578,14 +578,14 @@ End If
 CMD_SEND.Enabled = True
 Me.MousePointer = vbNormal
 End Sub
-Private Function MYVALID() As Boolean
+Private Function myValid() As Boolean
 Dim i As Long
 With grid1
 For i = 1 To .Rows - 1
     prog1.Value = Round(i / (.Rows - 1), 2) * 100
     Caption = sCaption & " - " & i & " гд " & .Rows - 1
     If .TextMatrix(i, 19) = "" And .ValueMatrix(i, 21) = 0 Then
-        MYVALID = True
+        myValid = True
         Exit Function
     End If
 Next
@@ -605,15 +605,15 @@ cmdScv.Enabled = False
 Me.MousePointer = vbHourglass
 getData2
 Fixgrd2
-fixGrd
+Fixgrd
 Me.MousePointer = vbNormal
 cmdScv.Enabled = True
 End Sub
 Private Sub Form_Load()
-'If openCon(con) <> "ok" Then Exit Sub
-Set grid1.DataSource = data1
-Set grid2.DataSource = data2
-fixGrd
+If openCon(con) <> "ok" Then Exit Sub
+Set grid1.DataSource = DATA1
+Set grid2.DataSource = DATA2
+Fixgrd
 Fixgrd2
 sStoreOnline = myField("SELECT CODE , DESCA FROM FILE0_40 WHERE ONLINE = 1 ORDER BY CODE ", con) & ""
 'CellPos 13, 0, grid1.Cols - 1
@@ -680,7 +680,7 @@ With grid2
     Next
 End With
 End Sub
-Sub fixGrd()
+Sub Fixgrd()
 With grid1
     .RowHeight(0) = 600
     .TextMatrix(0, 0) = "г"
@@ -838,7 +838,7 @@ For i = 0 To cSv.NumRows - 1
             Set loctable = mycmd("select sales_doc,doc_no from file6_90h where doc_no = " & MyParn(sDoc_no), con)
             
             If Not loctable.EOF Then
-                Tb.Append addstring(loctable!Sales_Doc) & " AS SALES_DOC,"
+                Tb.Append addstring(loctable!sales_Doc) & " AS SALES_DOC,"
                 Tb.Append "1 AS FOUND,"
             Else
                 Tb.Append "NULL AS SALES_DOC,"
@@ -857,7 +857,7 @@ grid1.Rows = 1
 grid2.Rows = 1
 
 If Tb.length = 0 Then Exit Function
-Set data1.Recordset = mycmd(Tb.GetAsString, con)
+Set DATA1.Recordset = mycmd(Tb.GetAsString, con)
 
 prog1.Visible = True
 Dim SKU As String
@@ -884,7 +884,7 @@ For i = 0 To cSv.NumRows - 1
                 
         Set loctable = mycmd("select sales_doc,doc_no from file6_90h where doc_no = " & MyParn(sDoc_no), con)
         If Not loctable.EOF Then
-            Tb.Append addstring(loctable!Sales_Doc) & " AS SALES_DOC,"
+            Tb.Append addstring(loctable!sales_Doc) & " AS SALES_DOC,"
             Tb.Append "1 AS FOUND"
         Else
             Tb.Append "NULL AS SALES_DOC,"
@@ -895,7 +895,7 @@ For i = 0 To cSv.NumRows - 1
 Next
 Tb.Shorten 11
 If Tb.length = 0 Then Exit Function
-Set data2.Recordset = mycmd(Tb.GetAsString, con)
+Set DATA2.Recordset = mycmd(Tb.GetAsString, con)
 
 Me.Caption = sCaption
 prog1.Visible = False
@@ -910,7 +910,7 @@ End Function
 
 Private Sub Option1_Click(Index As Integer)
 Fixgrd2
-fixGrd
+Fixgrd
 End Sub
 Private Function myreplace(ByRef nAdd As Long, ByRef nEdit As Long) As Boolean
 Dim i As Long, sCaption As String
@@ -946,7 +946,7 @@ For i = 1 To grid1.Rows - 1
         aInsert = AddFlag(aInsert, "[Payment_ID]", addstring(grid1.TextMatrix(i, 18)))
         
         aInsert = AddFlag(aInsert, "[STORE]", addstring(sStoreOnline))
-        aInsert = AddFlag(aInsert, "[SEND_USER]", addstring(cusername))
+        aInsert = AddFlag(aInsert, "[SEND_USER]", addstring(cUserName))
         aInsert = AddFlag(aInsert, "[SEND_TIME]", "GETDATE()")
         
         aInsert = AddFlag(aInsert, "[NEW]", "1")
@@ -1070,7 +1070,7 @@ For i = 0 To cSv.NumRows - 1
             Set loctable = mycmd("select sales_doc,doc_no from file6_90h where doc_no = " & MyParn(sDoc_no), con)
             
             If Not loctable.EOF Then
-                grid1.TextMatrix(grid1.Rows - 1, 19) = loctable!Sales_Doc & ""
+                grid1.TextMatrix(grid1.Rows - 1, 19) = loctable!sales_Doc & ""
                 grid1.TextMatrix(grid1.Rows - 1, 20) = "1"
             End If
             grid1.TextMatrix(grid1.Rows - 1, 21) = "0"
@@ -1107,7 +1107,7 @@ For i = 0 To cSv.NumRows - 1
                          
         Set loctable = mycmd("select sales_doc,doc_no from file6_90h where doc_no = " & MyParn(sDoc_no), con)
         If Not loctable.EOF Then
-            grid2.TextMatrix(grid2.Rows - 1, 6) = loctable!Sales_Doc & ""
+            grid2.TextMatrix(grid2.Rows - 1, 6) = loctable!sales_Doc & ""
             grid2.TextMatrix(grid2.Rows - 1, 7) = "1"
         End If
         grid2.ShowCell grid2.Rows - 1, 0

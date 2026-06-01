@@ -481,11 +481,9 @@ MsgBox " „ «· —ÃÌ· «·Ì „” ‰œ „»Ì⁄«  —ﬁ„ " & sNewDoc
 myForm.myload
 Unload Me
 End Sub
-
 Private Sub cmdExit_Click()
 Unload Me
 End Sub
-
 Private Sub Form_Load()
 
 openCon conServer, LoadConString_OnLine

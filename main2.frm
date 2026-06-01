@@ -23,11 +23,11 @@ Begin VB.MDIForm main
       Left            =   0
       RightToLeft     =   -1  'True
       ScaleHeight     =   330
-      ScaleWidth      =   20370
+      ScaleWidth      =   11400
       TabIndex        =   0
       Top             =   0
       Visible         =   0   'False
-      Width           =   20370
+      Width           =   11400
       Begin Threed.SSCommand cmd_tmdashonline 
          Height          =   330
          Left            =   45
@@ -930,7 +930,6 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim con As New ADODB.Connection
-
 Private Sub cmd_tm_grd_balance_all_Click()
 tm_grd_balance_all_Click
 End Sub
@@ -1266,8 +1265,8 @@ Private Sub mxtrans_Click()
     TransBox.Show 1
 End Sub
 Private Sub PHO_MAI_Click()
-Load Phone
-Phone.Show 1
+Load phone
+phone.Show 1
 End Sub
 Private Sub RBAN_Click()
     Load RepBank
@@ -1329,7 +1328,7 @@ grdMonthInput.Show
 End Sub
 
 Private Sub tm_grd_online_detail_Click()
-grdOnlineDetailsfrm.Show
+grdOnlineDetailsNewfrm.Show
 End Sub
 
 Private Sub tm_grd_online_month_Click()
@@ -1372,7 +1371,7 @@ apiStockTransfrm.Show
 End Sub
 
 Private Sub tm_online_collect_Click()
-online_collectfrm.Show
+online_collect_newfrm.Show
 End Sub
 Private Sub tm_printers_Click()
 printersfrm.Show 1

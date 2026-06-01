@@ -1,7 +1,7 @@
 Attribute VB_Name = "data"
 Declare Function GetComputerNameA Lib "KERNEL32" (ByVal lpBuffer As String, nSize As Long) As Long
 Public strCon As String, cUserBox As String, lShowBranch As Boolean, lMainShow As Boolean, sCodeVisaBranch As String
-Public conShop As New adodb.Connection, nMaxDisc2 As Double, conPict As New adodb.Connection, lMainServer As Boolean
+Public conShop As New ADODB.Connection, nMaxDisc2 As Double, conPict As New ADODB.Connection, lMainServer As Boolean
 Public pServerIp As String, lServerPict As Boolean, cServerNamePICT As String
 Public pServerData As String, cUserStore As String
 Public strConfact As String, strConPICT As String, nCountBranch, nCountBranch_fr
@@ -11,14 +11,15 @@ Public aUser As Variant
 Public strConfact2MO As String
 Public strConShop As String
 Public strConShop_Fr As String
-Public GetCon As New adodb.Connection
+Public GetCon As New ADODB.Connection
 Public sMdfName As String, sCatalog As String, cExpress As String
-Function openCon(ByRef pCon As adodb.Connection, Optional ByVal pString As String = "") As String
+Function openCon(ByRef pCon As ADODB.Connection, Optional ByVal pString As String = "", Optional nTimeout As Integer = 10) As String
 On Error GoTo myerror
 Dim cString As String
 If pString = "" Then cString = strCon Else cString = pString
 If pCon.State = adStateOpen Then pCon.Close
 pCon.CursorLocation = adUseClient
+pCon.CommandTimeout = nTimeout
 pCon.Open cString
 openCon = "ok"
 Exit Function
@@ -27,7 +28,7 @@ MsgBox Err.Description
 openCon = Err.Description
 Err.Clear
 End Function
-Function openConFACT(ByRef pCon As adodb.Connection) As String
+Function openConFACT(ByRef pCon As ADODB.Connection) As String
 On Error GoTo myerror
 Dim cString As String
 If pCon.State = adStateOpen Then pCon.Close
@@ -40,7 +41,7 @@ openConFACT = Err.Description
 MsgBox Err.Description
 Err.Clear
 End Function
-Function openConPICT(ByRef pCon As adodb.Connection) As String
+Function openConPICT(ByRef pCon As ADODB.Connection) As String
 On Error GoTo myerror
 Dim cString As String
 If pCon.State = adStateOpen Then pCon.Close
@@ -56,7 +57,7 @@ openConPICT = Err.Description
 'MsgBox Err.Description
 Err.Clear
 End Function
-Function openConFACT2(ByRef pCon As adodb.Connection) As String
+Function openConFACT2(ByRef pCon As ADODB.Connection) As String
 On Error GoTo myerror
 Dim cString As String
 
@@ -69,7 +70,7 @@ myerror:
 openConFACT2 = Err.Description
 Err.Clear
 End Function
-Function openConFACT3(ByRef pCon As adodb.Connection) As String
+Function openConFACT3(ByRef pCon As ADODB.Connection) As String
 On Error GoTo myerror
 Dim cString As String
 If pCon.State = adStateOpen Then pCon.Close
@@ -81,7 +82,7 @@ myerror:
 openConFACT3 = Err.Description
 Err.Clear
 End Function
-Function closeCon(ByRef pCon As adodb.Connection) As Boolean
+Function closeCon(ByRef pCon As ADODB.Connection) As Boolean
 On Error GoTo myerror
 If pCon.State = adStateOpen Then pCon.Close
 Set pCon = Nothing
@@ -105,7 +106,7 @@ myerror:
 Err.Clear
 ReadFile = ""
 End Function
-Function createFunc(cFile, con As adodb.Connection) As String
+Function createFunc(cFile, con As ADODB.Connection) As String
 Dim TextLine As String
 Open cFile For Input As #1   ' Open file.
 Do While Not EOF(1)
@@ -222,11 +223,11 @@ For tName = 1 To FileCount
 Next
 retFArray = fNames
 End Function
-Function NewflagBranch6(CTABLE, cField, pBranch, pCon As adodb.Connection) As String
+Function NewflagBranch6(CTABLE, cField, pBranch, pCon As ADODB.Connection) As String
     NewflagBranch6 = IncRec(GetDesca("SELECT MAX(" & cField & ") From " & CTABLE & " WHERE BRANCH = " & MyParn(pBranch), pCon))
     If NewflagBranch6 = "" Then NewflagBranch6 = pBranch & "0001"
 End Function
-Function NewflagBranch(CTABLE, cField, pBranch, pCon As adodb.Connection) As String
+Function NewflagBranch(CTABLE, cField, pBranch, pCon As ADODB.Connection) As String
     NewflagBranch = IncRec(GetDesca("SELECT MAX(" & cField & ") From " & CTABLE & " WHERE BRANCH = " & MyParn(cBranch), pCon))
     If NewflagBranch = "" Then NewflagBranch = cBranch & "000001"
 End Function
@@ -236,7 +237,7 @@ For i = 0 To UBound(pString)
     retFormatString = retFormatString & turn(retFormatString, "|") & pString(i)
 Next
 End Function
-Function openConShop(ByRef pCon As adodb.Connection, Optional ByVal pString As String = "", Optional ByVal lMsg As Boolean = True, Optional nTimeOut As Integer = 600) As String
+Function openConShop(ByRef pCon As ADODB.Connection, Optional ByVal pString As String = "", Optional ByVal lMsg As Boolean = True, Optional nTimeout As Integer = 600) As String
 On Error GoTo myerror
 Dim cString As String
 If pString = "" Then cString = strConShop Else cString = pString
@@ -272,8 +273,8 @@ LoadConStringshop = "provider=SQLOLEDB;data source=" & pServerIp & ";initial " _
             & "catalog=" & pServerData & ";user id = " & cUserId & ";" & "password = " & cPassword & ";Timeout=10"
 
 End Function
-Function Newflag_PurchBr(CTABLE, cField, pstore, pCon As adodb.Connection) As String
-Dim loctable As New adodb.Recordset
+Function Newflag_PurchBr(CTABLE, cField, pstore, pCon As ADODB.Connection) As String
+Dim loctable As New ADODB.Recordset
 'If pcon Is Nothing Then
 '    loctable.Open "Select Max(" & cField & ") as Maxof From " & CTABLE & " WHERE STORE = " & MyParn(pstore), GetCon, adOpenStatic, adLockReadOnly, adCmdText
 'Else
@@ -548,7 +549,7 @@ Function myFormat_sp(sDate As Variant) As Variant
 myFormat_sp = TurnValue(myFormat(sDate))
 End Function
 
-Function openCon_F(ByRef pCon As adodb.Connection, Optional ByVal pString As String = "") As String
+Function openCon_F(ByRef pCon As ADODB.Connection, Optional ByVal pString As String = "") As String
 On Error GoTo myerror
 Dim cString As String
 If pString = "" Then cString = strCon Else cString = pString
