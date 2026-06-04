@@ -898,7 +898,7 @@ Me.MousePointer = 0
 Fixgrd
 End Sub
 
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub CmdUndo_Click()
@@ -1231,8 +1231,13 @@ End Sub
 Private Sub grid1_DblClick()
 If grid1.Row < 2 Then Exit Sub
 If grid1.col = 1 Then
-    orders_online_items.sDoc_no = grid1.TextMatrix(grid1.Row, 1)
-    orders_online_items.Show 1
+    ShowOrderfrm.sDoc_no = grid1.TextMatrix(grid1.Row, 1)
+    ShowOrderfrm.Show 1
+ElseIf grid1.col = 4 Then
+    sales_online_popfrm.sDoc_no = grid1.TextMatrix(grid1.Row, 4)
+    sales_online_popfrm.bEdit = False
+    sales_online_popfrm.Show 1
+    
 End If
 
 'If grid1.Col = 0 Then

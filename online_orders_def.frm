@@ -805,7 +805,7 @@ MsgBox Err.Description
 Err.Clear
 GoTo Finally
 End Function
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub CmdInform_Click()
@@ -1235,3 +1235,4 @@ End Sub
 Private Sub xname_LostFocus()
 myLostFocus xName
 End Sub
+
