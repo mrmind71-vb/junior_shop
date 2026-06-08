@@ -898,7 +898,7 @@ Me.MousePointer = 0
 Fixgrd
 End Sub
 
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
 Unload Me
 End Sub
 Private Sub CmdUndo_Click()
@@ -928,20 +928,19 @@ Frame1.Left = Me.Width - Frame1.Width - 150
 Frame2.Left = Frame1.Left - Frame2.Width - 50
 End Sub
 Private Sub Form_Load()
-'openCon con
+Dim con As New ADODB.Connection
+If openCn(con) Then
+    Set xStore.RowSource = myRs("Select code ,descA From file0_40 ORDER BY CODE", con)
+    xStore.ListField = "Desca"
+    xStore.BoundColumn = "CODE"
+    closeCon con
+End If
 
-
-Set xStore.RowSource = myRs("Select code ,descA From file0_40 ORDER BY CODE")
-'Set xStore.RowSource = DATA1
-xStore.ListField = "Desca"
-xStore.BoundColumn = "CODE"
-
-Set grid1.DataSource = data11
+Set grid1.DataSource = DATA11
 
 Fixgrd
 End Sub
 Private Sub myload(Optional bString As Boolean = False)
-With grid1
 Dim aPrm As Variant
 
 ReDim aHeader(5)
@@ -972,9 +971,9 @@ ElseIf xtype(3).Value Then
     aHeader(2) = "ØáÈíÇÊ " & xtype(3).Caption
 End If
 
-If Trim(xDoc_No.text) <> "" Then
-    aPrm = AddFlag(aPrm, "DOC_NO", addstring(xDoc_No.text))
-    aHeader(3) = "ÝÇÊæÑÉ : " & xDoc_No.text
+If Trim(xdoc_no.text) <> "" Then
+    aPrm = AddFlag(aPrm, "DOC_NO", addstring(xdoc_no.text))
+    aHeader(3) = "ÝÇÊæÑÉ : " & xdoc_no.text
 End If
 
 If Trim(xOrder_No.text) <> "" Then
@@ -996,9 +995,11 @@ If bString Then
     Exit Sub
 End If
 
-Set grid1.DataSource = myRs(cString)
-End With
-Fixgrd
+Dim con As New ADODB.Connection
+If openCn(con) Then
+    Set grid1.DataSource = myRs(cString, con)
+    Fixgrd
+End If
 End Sub
 Sub Fixgrd()
 With grid1
@@ -1192,8 +1193,8 @@ End Sub
 Private Sub Form_Unload(Cancel As Integer)
 Set grdOnlineDetailsNewfrm = Nothing
 End Sub
-Private Function myValid() As Boolean
-myValid = True
+Private Function MYVALID() As Boolean
+MYVALID = True
 End Function
 Private Sub myPrint(Optional pDevice As String = "", Optional bIgPreview As Boolean = False)
 If grid1.Rows < 3 Then Exit Sub
@@ -1285,19 +1286,19 @@ myLostFocus xCode
 If Not xCode.MatchedWithList Then xCode.BoundText = ""
 End Sub
 Public Sub myProc()
-If ActiveControl.Name = xDoc_No.Name Then
-    xDoc_No.text = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
+If ActiveControl.Name = xdoc_no.Name Then
+    xdoc_no.text = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
     oSearchDoc.Hide
 End If
 End Sub
-Private Sub XDOC_NO_KeyUp(KeyCode As Integer, Shift As Integer)
+Private Sub xdoc_no_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 112 Then SalesOnlineLookup Me, oSearchDoc
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xDoc_No
+myGotFocus xdoc_no
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus xDoc_No
+myLostFocus xdoc_no
 End Sub
 Private Sub xship_no_GotFocus()
 myGotFocus xShip_no

@@ -326,6 +326,7 @@ Begin VB.Form Password_man
          Height          =   5955
          Left            =   3735
          TabIndex        =   13
+         TabStop         =   0   'False
          Top             =   1395
          Width           =   1380
          _ExtentX        =   2434
@@ -537,11 +538,11 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Public myform As Form
+Public myForm As Form
 Dim nTimes As Integer, nTime, userTable As Recordset
-Private Sub cmdApply_Click()
+Private Sub CmdApply_Click()
 If Trim(xPass.text) <> "" Then
-    myform.myProc
+    myForm.myProc
 End If
 End Sub
 Private Sub cmdBack_Click()
@@ -566,11 +567,18 @@ Else
 End If
 End Sub
 Private Sub Form_KeyPress(KeyAscii As Integer)
-'If KeyAscii = 13 Then
-'    If TypeOf ActiveControl Is TextBox Then KeyAscii = 0
-'End If
+If KeyAscii = 13 Then
+    If TypeOf ActiveControl Is TextBox Then KeyAscii = 0
+End If
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
 Set Password_man = Nothing
 End Sub
 
+Private Sub xPass_KeyPress(KeyAscii As Integer)
+    ' Allow numbers (0-9), Backspace (8), and Enter (13)
+If (KeyAscii < 48 Or KeyAscii > 57) And KeyAscii <> 8 And KeyAscii <> 13 Then
+    KeyAscii = 0 ' Cancel the keystroke
+    'Beep         ' Optional: Make a sound on invalid key
+End If
+End Sub

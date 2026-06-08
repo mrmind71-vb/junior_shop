@@ -3736,7 +3736,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Dim temptable As New ADODB.Recordset, cMsgDisplay As String, nDayDiscout As Double, cDescDiscout As String
+Dim temptable As New adodb.Recordset, cMsgDisplay As String, nDayDiscout As Double, cDescDiscout As String
 Dim lManSales As Boolean, nCountPrint As Double
 Dim bAct As Boolean
 Dim cFilter As String
@@ -3746,7 +3746,7 @@ Public sDoc_no As String, lSave As Boolean, sUserDisc As String, lIsPrice_2 As B
 Public subUserCode As String, subUserName As String
 Dim cFilterLook As String
 Dim nRound As Long, clist1 As String, lIsBoxOnline As Boolean
-Dim CardTable As ADODB.Recordset
+Dim CardTable As adodb.Recordset
 Dim cDefClient As String, cDefClientDesca As String
 Dim oSearchItem As New Search_abd, oSearchDoc   As New Search_abd, oSearchMan As New Search_abd
 Dim cQrCode As New ClsQrCode
@@ -3758,7 +3758,7 @@ Dim frmOfferReplace As New offerReplacefrm
 Dim oSalesRefund As New sales_refundfrm
 Dim oCash As cash_sales_newfrm
 
-Dim con As New ADODB.Connection
+Dim Con As New adodb.Connection
 Dim formMode
 Const LoadMode = 0, DefineMode = 1
 Dim nUser As Long
@@ -3776,35 +3776,35 @@ Dim aInsert As Variant
 aInsert = AddFlag(aInsert, "CODE", addstring(cDefClient))
 aInsert = AddFlag(aInsert, "STORE", addstring(xStore.BoundText))
 aInsert = AddFlag(aInsert, "[NOTES]", addstring(xNotes.text))
-aInsert = AddFlag(aInsert, "[RATE]", Val(xRate.text))
-aInsert = AddFlag(aInsert, "[DISCOUNT]", Val(xdiscount.text))
+aInsert = AddFlag(aInsert, "[RATE]", Val(xrate.text))
+aInsert = AddFlag(aInsert, "[DISCOUNT]", Val(xDiscount.text))
 aInsert = AddFlag(aInsert, "[DISCOUNT_ADD]", Val(xDiscount_add.text))
-aInsert = AddFlag(aInsert, "[CASH]", Val(xcash.Caption))
+aInsert = AddFlag(aInsert, "[CASH]", Val(xCash.Caption))
 aInsert = AddFlag(aInsert, "[BOX]", addstring(xBox.BoundText))
-aInsert = AddFlag(aInsert, "[PAY]", Val(xPay.Caption))
+aInsert = AddFlag(aInsert, "[PAY]", Val(xpay.Caption))
 aInsert = AddFlag(aInsert, "[LATE]", "0")
 aInsert = AddFlag(aInsert, "[REST]", Val(xRest.Caption))
 aInsert = AddFlag(aInsert, "[BRANCH]", addstring(XBRANCH.Caption))
 aInsert = AddFlag(aInsert, "[MOSM]", addstring(xMosm.BoundText))
 aInsert = AddFlag(aInsert, "[TIME]", addTime(xtime.Caption))
-aInsert = AddFlag(aInsert, "[PHONE]", addstring(xphone.Caption))
+aInsert = AddFlag(aInsert, "[PHONE]", addstring(xPhone.Caption))
 aInsert = AddFlag(aInsert, "[USERNAME_DISC]", addstring(XUSERNAME_DISC.Caption))
 aInsert = AddFlag(aInsert, "[USERNAME_RET]", addstring(xusername_RET.Caption))
 aInsert = AddFlag(aInsert, "[SALES_RET]", addstring(XSALES_RET.Caption))
 
 If bReplace Then
     aInsert = AddFlag(aInsert, "[DOC_REPLACE]", addstring(frmOfferReplace.sDoc_Offer))
-    If grid1.Rows < 3 And frmOfferReplace.xMan.Caption <> "" Then
-        aInsert = AddFlag(aInsert, "[MAN]", addstring(frmOfferReplace.xMan.Caption))
-    ElseIf xMan.MatchedWithList Then
-        aInsert = AddFlag(aInsert, "[MAN]", addstring(xMan.BoundText))
+    If grid1.Rows < 3 And frmOfferReplace.xman.Caption <> "" Then
+        aInsert = AddFlag(aInsert, "[MAN]", addstring(frmOfferReplace.xman.Caption))
+    ElseIf xman.MatchedWithList Then
+        aInsert = AddFlag(aInsert, "[MAN]", addstring(xman.BoundText))
     End If
-ElseIf xMan.MatchedWithList Then
-    aInsert = AddFlag(aInsert, "[MAN]", addstring(xMan.BoundText))
+ElseIf xman.MatchedWithList Then
+    aInsert = AddFlag(aInsert, "[MAN]", addstring(xman.BoundText))
 End If
 
 aInsert = AddFlag(aInsert, "[NOTE_DISC]", addstring(xNote_disc.Caption))
-aInsert = AddFlag(aInsert, "[DOC_DISC]", addstring(xdoc_disc.Caption))
+aInsert = AddFlag(aInsert, "[DOC_DISC]", addstring(XDOC_DISC.Caption))
 aInsert = AddFlag(aInsert, "[INV_NO]", addstring(xinv_no.text))
 aInsert = AddFlag(aInsert, "[ISNODEL]", XISNODEL.Value)
 aInsert = AddFlag(aInsert, "[CARD_DISC]", addstring(xcard_disc.text))
@@ -3812,50 +3812,50 @@ aInsert = AddFlag(aInsert, "[CARD_DESCA]", addstring(xcard_desca.Caption))
 aInsert = AddFlag(aInsert, "[CARD_VALUE]", addstring(xcard_value.Caption))
 aInsert = AddFlag(aInsert, "[CARD_DOC]", addstring(xcard_doc.Caption))
 
-On Error GoTo myerror
-con.BeginTrans
+On Error GoTo myError
+Con.BeginTrans
 If xdoc_no.Tag = DefineMode Then
-    dSalesDate = fnDateSales(con)
-    If myFormat(dSalesDate) <> myFormat(xDate.text) Then
+    dSalesDate = fnDateSales(Con)
+    If myFormat(dSalesDate) <> myFormat(xdate.text) Then
         MsgBox " „  €Ì— «· «—ÌŒ"
     End If
     
-    xDate.text = myFormat_p(dSalesDate)
-    xdoc_no.text = NewflagDoc(xDate.text, cBranchBox, con)
-    xDoc_no2.text = Mid(xdoc_no.text, 7, 6)
+    xdate.text = myFormat_p(dSalesDate)
+    xdoc_no.text = NewflagDoc(xdate.text, cBranchBox, Con)
+    xdoc_no2.text = Mid(xdoc_no.text, 7, 6)
     
-    aInsert = AddFlag(aInsert, "[DATE]", addDate(xDate.text))
+    aInsert = AddFlag(aInsert, "[DATE]", addDate(xdate.text))
     aInsert = AddFlag(aInsert, "DOC_NO", addstring(xdoc_no.text))
     aInsert = AddFlag(aInsert, "[USERNAME]", addstring(cUserName))
     aInsert = AddFlag(aInsert, "[USER_IP]", addstring(GetComputerName))
-    con.Execute addInsert(aInsert, "FILE6_20H")
+    Con.Execute addInsert(aInsert, "FILE6_20H")
 Else
-    con.Execute addUpdate(aInsert, "FILE6_20H", "DOC_NO = " & addstring(xdoc_no.text))
+    Con.Execute addUpdate(aInsert, "FILE6_20H", "DOC_NO = " & addstring(xdoc_no.text))
 End If
 
 If bOffer Then
     myreplaceGrdOffer
-    UpdateDiscount xdoc_no.text, con
+    UpdateDiscount xdoc_no.text, Con
 ElseIf bReplace Then
     myreplaceGrdReplace
-    UpdateDiscount xdoc_no.text, con, frmOfferReplace.nDiscount_Add
+    UpdateDiscount xdoc_no.text, Con, frmOfferReplace.nDiscount_Add
 Else
     myreplaceGrd Row
 End If
-con.CommitTrans
+Con.CommitTrans
 myreplace = True
 Exit Function
-myerror:
+myError:
 'prog1.Visible = False
-MsgBox Err.Description
-con.RollbackTrans
-Err.Clear
+MsgBox err.Description
+Con.RollbackTrans
+err.Clear
 End Function
 Private Sub myLoadGrdOffer()
 
 End Sub
 Sub myProc()
-On Error GoTo myerror
+On Error GoTo myError
 If ActiveControl.Name = grid1.Name Then
     Dim bNew As Boolean
     bNew = grid1.Row = grid1.Rows - 1
@@ -3886,14 +3886,14 @@ ElseIf ActiveControl.Name = cmdReplace.Name Then
         End If
     End If
 ElseIf ActiveControl.Name = cmdMan.Name Then
-    xMan.BoundText = oSearchMan.grid1.TextMatrix(oSearchMan.grid1.Row, 0)
+    xman.BoundText = oSearchMan.grid1.TextMatrix(oSearchMan.grid1.Row, 0)
     xMan_LostFocus
     oSearchMan.Hide
 End If
 Exit Sub
-myerror:
-MsgBox Err.Description
-Err.Clear
+myError:
+MsgBox err.Description
+err.Clear
 End Sub
 Public Function myReplaceRefund(pDiscount_add As Double, pDiscount_total As Double) As Boolean
 If Not MYVALID Then Exit Function
@@ -3904,32 +3904,32 @@ aInsert = AddFlag(aInsert, "STORE", addstring(xStore.BoundText))
 aInsert = AddFlag(aInsert, "[DISCOUNT]", -1 * Val(.xdiscount_ret.Caption))
 aInsert = AddFlag(aInsert, "[BOX]", addstring(xBox.BoundText))
 aInsert = AddFlag(aInsert, "[BRANCH]", addstring(XBRANCH.Caption))
-aInsert = AddFlag(aInsert, "[PHONE]", addstring(.xphone.Caption))
+aInsert = AddFlag(aInsert, "[PHONE]", addstring(.xPhone.Caption))
 If oSalesRefund.grid1.Rows > 1 Then
     aInsert = AddFlag(aInsert, "[MAN]", addstring(oSalesRefund.grid1.TextMatrix(1, 16)))
-ElseIf xMan.MatchedWithList Then
-    aInsert = AddFlag(aInsert, "[MAN]", addstring(xMan.BoundText))
+ElseIf xman.MatchedWithList Then
+    aInsert = AddFlag(aInsert, "[MAN]", addstring(xman.BoundText))
 End If
 aInsert = AddFlag(aInsert, "[MOSM]", addstring(xMosm.BoundText))
 aInsert = AddFlag(aInsert, "[TIME]", addTime(xtime.Caption))
 aInsert = AddFlag(aInsert, "[SALES_RET]", addstring(.xdoc_no.Caption))
-dSalesDate = fnDateSales(con)
-If myFormat(dSalesDate) <> myFormat(xDate.text) Then
+dSalesDate = fnDateSales(Con)
+If myFormat(dSalesDate) <> myFormat(xdate.text) Then
     MsgBox " „  €Ì— «· «—ÌŒ"
 End If
 
-xDate.text = myFormat_p(dSalesDate)
-xdoc_no.text = NewflagDoc(xDate.text, cBranchBox, con)
-xDoc_no2.text = Mid(xdoc_no.text, 7, 6)
+xdate.text = myFormat_p(dSalesDate)
+xdoc_no.text = NewflagDoc(xdate.text, cBranchBox, Con)
+xdoc_no2.text = Mid(xdoc_no.text, 7, 6)
 
-aInsert = AddFlag(aInsert, "[DATE]", addDate(xDate.text))
+aInsert = AddFlag(aInsert, "[DATE]", addDate(xdate.text))
 aInsert = AddFlag(aInsert, "DOC_NO", addstring(xdoc_no.text))
 aInsert = AddFlag(aInsert, "[USERNAME]", addstring(cUserName))
 aInsert = AddFlag(aInsert, "[USER_IP]", addstring(GetComputerName))
 
-con.BeginTrans
-On Error GoTo myerror
-con.Execute addInsert(aInsert, "FILE6_20H")
+Con.BeginTrans
+On Error GoTo myError
+Con.Execute addInsert(aInsert, "FILE6_20H")
 
 End With
 
@@ -3946,13 +3946,13 @@ With oSalesRefund.grid1
         aInsert = AddFlag(aInsert, "DOC_OFFER", addstring(.TextMatrix(i, 12)))
         aInsert = AddFlag(aInsert, "DISCOUNT_OFFER", -1 * .ValueMatrix(i, 13))
         aInsert = AddFlag(aInsert, "DOC_NO", addstring(xdoc_no.text))
-        con.Execute addInsert(aInsert, "FILE6_20")
+        Con.Execute addInsert(aInsert, "FILE6_20")
     Next
 End With
 
-UpdateDiscount xdoc_no.text, con, pDiscount_add, pDiscount_total
+UpdateDiscount xdoc_no.text, Con, pDiscount_add, pDiscount_total
 
-con.CommitTrans
+Con.CommitTrans
 myReplaceRefund = True
 
 MsgBox " „ Õ›Ÿ «·„” ‰œ »‰Ã«Õ"
@@ -3961,10 +3961,10 @@ Unload oSalesRefund
 
 If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then Exit Function
 Exit Function
-myerror:
-MsgBox Err.Description
-con.RollbackTrans
-Err.Clear
+myError:
+MsgBox err.Description
+Con.RollbackTrans
+err.Clear
 End Function
 
 Private Sub Check1_Click()
@@ -3981,7 +3981,7 @@ mySendInvoices
 End Sub
 Private Sub cmdAddOffer_Click()
 If Not MYVALID(True) Then Exit Sub
-If Not xMan.MatchedWithList Then
+If Not xman.MatchedWithList Then
     MsgBox "«·»«∆⁄ €Ì— „”Ã·"
     Exit Sub
 End If
@@ -4045,17 +4045,17 @@ End If
 
 'AddLod_Data cUserName, 2, " Õ–› „»Ì⁄«  ", con, xDoc_no.text, xDate.text, , xCodeDesca.Caption
 
-con.BeginTrans
-con.Execute "Delete  From FILE6_20 where Doc_No = " & MyParn(xdoc_no.text)
-con.Execute "Delete  From FILE6_20H where Doc_No = " & MyParn(xdoc_no.text)
-con.CommitTrans
+Con.BeginTrans
+Con.Execute "Delete  From FILE6_20 where Doc_No = " & MyParn(xdoc_no.text)
+Con.Execute "Delete  From FILE6_20H where Doc_No = " & MyParn(xdoc_no.text)
+Con.CommitTrans
     
 CmdNewInv_Click
 Exit Sub
-myerror:
-con.RollbackTrans
-MsgBox Err.Description
-Err.Clear
+myError:
+Con.RollbackTrans
+MsgBox err.Description
+err.Clear
 End Sub
 Private Sub cmdExit_Click()
     sDoc_no = ""
@@ -4077,9 +4077,9 @@ Private Sub CmdNewInv_Click()
 'xdate_open.text = ""
 myDefine
 On Error Resume Next
-xMan.SetFocus
+xman.SetFocus
 grid1.Select 1, 1
-Err.Clear
+err.Clear
 End Sub
 Private Sub cmdPrintDay_Click()
 
@@ -4127,7 +4127,7 @@ cString = "SELECT SUM(BOXMOVE.PLUS - BOXMOVE.MINUS) " & _
            " WHERE BRANCH = " & MyParn(cBranch) & _
            " AND FILE0_50.TYPE = 1"
 
-nBalance = Round(Val(myField(cString, con)), 2)
+nBalance = Round(Val(myField(cString, Con)), 2)
 
 If nBalance <> 0 Then
     MsgBox " —’Ìœ Œ“‰ «·ﬂ«‘Ì—  " & nBalance & " »—Ã«¡  ÕÊÌ· «·‰ﬁœÌ… ﬁ»· «·√€·«ﬁ "
@@ -4140,7 +4140,7 @@ Private Sub cmdPrintGift_Click()
 doprint_cash
 End Sub
 Private Sub cmdRefund_Click()
-Dim loctable As New ADODB.Recordset
+Dim loctable As New adodb.Recordset
 Dim cString As String
 cString = "select TOP 1 FILE6_20H.BRANCH," & _
           " FILE6_20H.PRINTED," & _
@@ -4160,7 +4160,7 @@ cString = "select TOP 1 FILE6_20H.BRANCH," & _
           " FROM FR6_20H " & _
           " WHERE FR6_20h.DOC_NO = " & MyParn(xdoc_ret.text)
 
-Set loctable = cmd(cString, con).Execute
+Set loctable = cmd(cString, Con).Execute
 If loctable.EOF Then
     MsgBox "›« Ê—… €Ì— „”Ã·…"
     Exit Sub
@@ -4191,15 +4191,15 @@ If loctable!TOTAL_ITEM <= 0 Then
     Exit Sub
 End If
 
-If DateDiff("d", myFormat(loctable!Date), fnDateSales(con)) > 30 Then
+If DateDiff("d", myFormat(loctable!Date), fnDateSales(Con)) > 30 Then
     If Not loctable!ISRET Then
         MsgBox "„— ⁄·Ì «·›« Ê—… «ﬂÀ— „‰ 30 ÌÊ„"
         Exit Sub
     End If
 End If
 
-If Not xMan.MatchedWithList Then
-    xMan.BoundText = "0001"
+If Not xman.MatchedWithList Then
+    xman.BoundText = "0001"
 End If
 
 If Not MYVALID Then
@@ -4223,7 +4223,7 @@ oSalesRefund.Show 1
 End Sub
 
 Private Sub cmdReplace_Click()
-Dim loctable As New ADODB.Recordset
+Dim loctable As New adodb.Recordset
 Dim nDiscount_add_replace As Double
 Dim cString As String
 
@@ -4241,7 +4241,7 @@ cString = "SELECT TOP 1 FILE6_20H.TOTAL_ITEM," & _
           " from FR6_20H " & _
           " where FR6_20H.DOC_NO = " & MyParn(xdoc_ret.text)
 
-Set loctable = cmd(cString, con).Execute
+Set loctable = cmd(cString, Con).Execute
 
 If loctable!TOTAL_ITEM >= 0 Then
     MsgBox "«·›« Ê—… ·Ì”  „— Ã⁄"
@@ -4269,7 +4269,7 @@ cString = "SELECT FILE6_20.DOC_NO  " & _
           " WHERE FR6_20.DOC_OFFER IS NOT NULL " & _
           " AND  FR6_20.DOC_NO = " & MyParn(xdoc_ret.text)
 
-Set loctable = cmd(cString, con).Execute
+Set loctable = cmd(cString, Con).Execute
 If loctable.EOF Then
     MsgBox "·« ÌÊÃœ ⁄—Ê÷ »«·›« Ê—…"
     Exit Sub
@@ -4291,16 +4291,16 @@ cString = "SELECT FILE6_20H.DOC_NO," & _
           " INNER JOIN BRANCH_FR ON FR6_20H.STORE = BRANCH_FR.CODE" & _
           " WHERE FR6_20H.DOC_REPLACE = " & MyParn(xdoc_ret.text)
            
-Set loctable = cmd(cString, con).Execute
+Set loctable = cmd(cString, Con).Execute
 
 If Not loctable.EOF Then
-    MsgBox " „ ⁄„· «” »œ«· ·›« Ê—… «·„— Ã⁄ »—ﬁ„ " & loctable!doc_no & vbCrLf & _
+    MsgBox " „ ⁄„· «” »œ«· ·›« Ê—… «·„— Ã⁄ »—ﬁ„ " & loctable!DOC_NO & vbCrLf & _
            "·›—⁄ " & loctable!DESCA & vbCrLf & _
            "» «—ÌŒ " & myFormat_p(loctable!Date) & vbCrLf & _
            IIf(loctable!PRINTED, "„€·ﬁ…", "„› ÊÕ…")
     Exit Sub
 
-    If DateDiff("d", myFormat(loctable!Date), fnDateSales(con)) > 0 Then
+    If DateDiff("d", myFormat(loctable!Date), fnDateSales(Con)) > 0 Then
         If Not loctable!ISRET Then
             MsgBox "„— ⁄·Ì «·›« Ê—… ÌÊ„"
             Exit Sub
@@ -4308,8 +4308,8 @@ If Not loctable.EOF Then
     End If
 End If
 
-If Not xMan.MatchedWithList Then
-    xMan.BoundText = "0001"
+If Not xman.MatchedWithList Then
+    xman.BoundText = "0001"
 End If
 
 If Not MYVALID Then Exit Sub
@@ -4324,7 +4324,7 @@ If grid1.Rows = 2 Then Exit Sub
 
 If Not MYVALID Then Exit Sub
 
-myDisplay "Total Qty  :" & Format(Val(xTotalQuant.Caption) - Val(xTotalQuant2.Caption), "#0"), "Total Price:" & Format(Val(xtotal.Caption), "#0.00")
+myDisplay "Total Qty  :" & Format(Val(xTotalQuant.Caption) - Val(xTotalQuant2.Caption), "#0"), "Total Price:" & Format(Val(xTotal.Caption), "#0.00")
 
 Set oCash = New cash_sales_newfrm
 oCash.bEditRecord = xPrinted.Value = 0 Or bopt2
@@ -4335,7 +4335,7 @@ End Sub
 Private Function mySendReceipt(pDoc_no As String) As Boolean
 Dim sError As String
 If Not BranchReceipt Then Exit Function
-If Not SendReceipt(pDoc_no, con, sError) Then
+If Not SendReceipt(pDoc_no, Con, sError) Then
     MsgBox sError
 Else
     Inform " „ «—”«· «·«Ì’«· " & pDoc_no & " »‰Ã«Õ ⁄·Ì «·„Êﬁ⁄ «·«·Ìﬂ —Ê‰Ì"
@@ -4390,14 +4390,14 @@ If Not bAct Then
         On Error Resume Next
         grid1.SetFocus
         'CellPos 13, 0, grid1.Cols - 1
-    ElseIf xMan.Enabled Then
-       xMan.SetFocus
+    ElseIf xman.Enabled Then
+       xman.SetFocus
     End If
 End If
 End Sub
 Private Sub Form_KeyPress(KeyAscii As Integer)
 If KeyAscii = 13 Then
-    If ActiveControl.Name = xMan.Name Then Exit Sub
+    If ActiveControl.Name = xman.Name Then Exit Sub
     If TypeOf ActiveControl Is TextBox Or TypeOf ActiveControl Is DataCombo Then KeyAscii = 0
 End If
 End Sub
@@ -4441,7 +4441,7 @@ Private Sub Form_KeyUp2(KeyCode As Integer, Shift As Integer)
 End Sub
 Private Sub Form_Load()
 'On Error GoTo myerror
-openCon con
+openCon Con
 
 Me.Caption = "„»»⁄«  " & myFormat_p(dSalesDate)
 
@@ -4452,32 +4452,32 @@ fixDisplay
 cDefClient = "0000"
 cDefClientDesca = "⁄„Ì· ‰ﬁœÌ"
 
-Set DATA12.Recordset = cmd("SELECT * FROM FILE6_25 where code = '0001' or (isstop = 0 and branch = " & MyParn(cBranch) & ") ORDER BY FILE6_25.DESCA ", con).Execute
-Set xMan.RowSource = DATA12
-xMan.ListField = "Desca"
-xMan.BoundColumn = "Code"
+Set data12.Recordset = cmd("SELECT * FROM FILE6_25 where code = '0001' or (isstop = 0 and branch = " & MyParn(cBranch) & ") ORDER BY FILE6_25.DESCA ", Con).Execute
+Set xman.RowSource = data12
+xman.ListField = "Desca"
+xman.BoundColumn = "Code"
 
 If nUser = enUser.Admin Then
-    Set DATA1.Recordset = cmd("SELECT * FROM FILE0_40", con).Execute
+    Set data1.Recordset = cmd("SELECT * FROM FILE0_40", Con).Execute
 Else
-    Set DATA1.Recordset = cmd("SELECT * FROM FILE0_40 WHERE BRANCH = " & MyParn(cBranch), con).Execute
+    Set data1.Recordset = cmd("SELECT * FROM FILE0_40 WHERE BRANCH = " & MyParn(cBranch), Con).Execute
 End If
 
-Set xStore.RowSource = DATA1
+Set xStore.RowSource = data1
 xStore.ListField = "Desca"
 xStore.BoundColumn = "Code"
 xStore.BoundText = cBranchStore
 
-Set DATA2.Recordset = cmd("SELECT * FROM MOSM ", con).Execute
-Set xMosm.RowSource = DATA2
+Set data2.Recordset = cmd("SELECT * FROM MOSM ", Con).Execute
+Set xMosm.RowSource = data2
 xMosm.ListField = "DESCA"
 xMosm.BoundColumn = "MOSM"
 If nUser = enUser.Admin Then
-    Set DATA4.Recordset = cmd("SELECT * FROM FILE0_50", con).Execute
+    Set data4.Recordset = cmd("SELECT * FROM FILE0_50", Con).Execute
 Else
-    Set DATA4.Recordset = cmd("SELECT * FROM FILE0_50 WHERE BRANCH = " & MyParn(cBranch), con).Execute
+    Set data4.Recordset = cmd("SELECT * FROM FILE0_50 WHERE BRANCH = " & MyParn(cBranch), Con).Execute
 End If
-Set xBox.RowSource = DATA4
+Set xBox.RowSource = data4
 xBox.ListField = "Desca"
 xBox.BoundColumn = "Code"
 xBox.BoundText = cBranchBox
@@ -4485,7 +4485,7 @@ xBox.BoundText = cBranchBox
 Set grid1.DataSource = DATA11
 Set grdOffer.DataSource = DATA13
 
-dSalesDate = fnDateSales(con)
+dSalesDate = fnDateSales(Con)
 If Not IsDate(dSalesDate) Then
     dSalesDate = Date
 End If
@@ -4503,9 +4503,9 @@ Else
     If Not openCardTable Then myDefine
 End If
 Exit Sub
-myerror:
-MsgBox Err.Description
-Err.Clear
+myError:
+MsgBox err.Description
+err.Clear
 End Sub
 Private Sub Form_Resize()
 Dim nHeight As Long
@@ -4521,7 +4521,7 @@ On Error Resume Next
 CardTable.Close
 Set CardTable = Nothing
 
-closeCon con
+closeCon Con
 
 'Unload Search3
 'Unload oSearchDoc
@@ -4533,7 +4533,7 @@ Set sales_abdfrm = Nothing
 'End If
 
 'If CBRAsBranchCode <> "00" Then End
-Err.Clear
+err.Clear
 End Sub
 Private Sub grdOffer_CellButtonClick(ByVal Row As Long, ByVal col As Long)
 'If Not bEditRecord Then Exit Sub
@@ -4579,13 +4579,13 @@ If KeyCode = 46 Then
     End If
     
     Dim nDiscount As Long
-    con.BeginTrans
-    con.Execute "delete from file6_20 " & _
+    Con.BeginTrans
+    Con.Execute "delete from file6_20 " & _
                 " where doc_no = " & MyParn(xdoc_no.text) & _
                 " and offer_no = " & grdOffer.TextMatrix(grdOffer.Row, 0)
     
-    UpdateDiscount xdoc_no.text, con
-    con.CommitTrans
+    UpdateDiscount xdoc_no.text, Con
+    Con.CommitTrans
     
     If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
         If Not openCardTable Then myDefine
@@ -4594,20 +4594,20 @@ If KeyCode = 46 Then
     MsgBox " „ Õ–› «·⁄—÷ »«·ﬂ«„· Ê ÕœÌÀ «·Œ’„"
 End If
 Exit Sub
-myerror:
-con.RollbackTrans
-MsgBox Err.Description
-Err.Clear
+myError:
+Con.RollbackTrans
+MsgBox err.Description
+err.Clear
 End Sub
 Public Sub Grid1_AfterEdit(ByVal Row As Long, ByVal col As Long)
-On Error GoTo myerror
+On Error GoTo myError
 Dim bNew As Boolean
 With grid1
 If Not MYVALID(True) Then
     On Error Resume Next
     grid1.SetFocus
-    Err.Clear
-    myLoadGrd
+    err.Clear
+    myloadGrd
     If Row < grid1.Rows - 1 Then
         grid1.Select Row, col
     Else
@@ -4633,7 +4633,7 @@ If myreplace(Row) Then
     If xdoc_no.Tag = DefineMode Then
         openCardTable tbMode.tbFind, xdoc_no.text
     ElseIf grid1.TextMatrix(Row, grid1.Cols - 1) = "" Then
-        myLoadGrd
+        myloadGrd
     End If
     If bNew Then
         'bStopCell = True
@@ -4642,9 +4642,9 @@ If myreplace(Row) Then
 End If
 End With
 Exit Sub
-myerror:
-MsgBox Err.Description
-Err.Clear
+myError:
+MsgBox err.Description
+err.Clear
 End Sub
 Private Sub grid1_AfterRowColChange(ByVal OldRow As Long, ByVal OldCol As Long, ByVal NewRow As Long, ByVal NewCol As Long)
 grid1_EnterCell
@@ -4667,7 +4667,7 @@ End With
 End Sub
 Private Sub grid1_GotFocus()
 grid1_EnterCell
-Err.Clear
+err.Clear
 End Sub
 Private Sub Grid1_KeyDown(KeyCode As Integer, Shift As Integer)
 'If xPrinted.Value = 1 And Not bopt2 Then Exit Sub
@@ -4762,7 +4762,7 @@ With grid1
             MsgBox "ÌÃ» Õ–› «·”Ã· ﬁ»·  ⁄œÌ·… „‰ „— Ã⁄ ≈·Ï „»Ì⁄« "
             Cancel = True
         ElseIf Val(.EditText) > 0 Then
-            nBalance = fnBalance(grid1.TextMatrix(grid1.Row, 1), con, xStore.BoundText, xDate.text, grid1.TextMatrix(grid1.Row, grid1.Cols - 1))
+            nBalance = fnBalance(grid1.TextMatrix(grid1.Row, 1), Con, xStore.BoundText, xdate.text, grid1.TextMatrix(grid1.Row, grid1.Cols - 1))
             If nBalance < Val(.EditText) Then
                 Inform "«·—’Ìœ ·« Ì”„Õ"
                 Exit Sub
@@ -4833,7 +4833,7 @@ Private Sub xdate_open_LostFocus()
 End Sub
 
 Private Sub xDate_Validate(Cancel As Boolean)
-If Not IsDate(xDate.text) Then Cancel = True
+If Not IsDate(xdate.text) Then Cancel = True
 End Sub
 
 Private Sub xDiscount_add_Change()
@@ -4844,9 +4844,9 @@ End Sub
 Private Sub xDiscount_add_rate_Change()
 If bIg Then Exit Sub
 bIg = True
-If Val(xtotalitem.Caption) - Val(xDiscount_offer.Caption) <> 0 Then
-    If Round(Val(xDiscount_add_rate.text), 0) <> Round(Val(xDiscount_add.text) / (Val(xtotalitem.Caption) - Val(xDiscount_offer.Caption)) * 100, 0) Then
-        xDiscount_add.text = Round((Val(xDiscount_add_rate.text) * (Val(xtotalitem.Caption) - Val(xDiscount_offer.Caption))) / 100, 2)
+If Val(xTotalItem.Caption) - Val(xDiscount_offer.Caption) <> 0 Then
+    If Round(Val(xDiscount_add_rate.text), 0) <> Round(Val(xDiscount_add.text) / (Val(xTotalItem.Caption) - Val(xDiscount_offer.Caption)) * 100, 0) Then
+        xDiscount_add.text = Round((Val(xDiscount_add_rate.text) * (Val(xTotalItem.Caption) - Val(xDiscount_offer.Caption))) / 100, 2)
     End If
 Else
     xDiscount_add.text = ""
@@ -4861,7 +4861,7 @@ CalcTotals
 End Sub
 
 Private Sub xDiscount_LostFocus()
-myLostFocus xdiscount
+myLostFocus xDiscount
 'CalcTotals
 End Sub
 Private Function MYVALID(Optional bIgMsg As Boolean = False, Optional bIgMan As Boolean = False) As Boolean
@@ -4870,12 +4870,12 @@ Private Function MYVALID(Optional bIgMsg As Boolean = False, Optional bIgMan As 
 '    Exit Function
 'End If
 
-If Trim(xcode.text) = "" Then
+If Trim(xCode.text) = "" Then
     MsgBox "·« ÌÊÃœ ﬂÊœ ⁄„Ì· «Ê ﬂÊœ „Ê—œ"
     Exit Function
 End If
 
-If Not IsDate(xDate.text) Then
+If Not IsDate(xdate.text) Then
     If Not bIgMsg Then MsgBox "«· «—ÌŒ €Ì— ”·Ì„"
     Exit Function
 End If
@@ -4927,29 +4927,29 @@ xSendRc.Value = IIf(CardTable!sendRc, 1, 0)
 bIgClick = False
 
 XBRANCH.Caption = CardTable!branch & ""
-xcode.Enabled = False
+xCode.Enabled = False
 
 
 'XISONEST.Value = IIf(CardTable!ISONEST, 1, 0)
 
 XISNODEL.Value = IIf(CardTable!ISNODEL, 1, 0)
 'xIpName.Caption = CardTable!user_ip & ""
-xdoc_no.text = CardTable!doc_no
+xdoc_no.text = CardTable!DOC_NO
 xinv_no.text = CardTable!INV_NO & ""
-xDoc_no2.text = CardTable!Doc_no2
-xphone.Caption = CardTable!phone & ""
-xDate.text = myFormat_p(CardTable!Date)
+xdoc_no2.text = CardTable!Doc_no2
+xPhone.Caption = CardTable!phone & ""
+xdate.text = myFormat_p(CardTable!Date)
 xStore.BoundText = CardTable!STORE & ""
-xMan.BoundText = CardTable!MAN & ""
+xman.BoundText = CardTable!MAN & ""
 bIg = True
 xIsRet.Value = IIf(CardTable!ISRET, 1, 0)
 bIg = False
 
-If Not xMan.MatchedWithList Then
-    xMan.BoundText = "0001"
+If Not xman.MatchedWithList Then
+    xman.BoundText = "0001"
 End If
 xBox.BoundText = CardTable!BOX & ""
-xNotes.text = CardTable!notes & ""
+xNotes.text = CardTable!NOTES & ""
 'XPOINT.Caption = Val(CardTable!Point & "")
 
 xIsOffer.Value = IIf(CardTable!isoffer, 1, 0)
@@ -4958,9 +4958,9 @@ xUserName.Caption = CardTable!UserName & ""
 XSALES_RET.Caption = CardTable!SALES_RET & ""
 xusername_RET.Caption = CardTable!username_ret & ""
 xNote_disc.Caption = CardTable!NOTE_DISC & ""
-xdoc_disc.Caption = CardTable!DOC_DISC & ""
+XDOC_DISC.Caption = CardTable!DOC_DISC & ""
 
-xcode.text = CardTable!code & ""
+xCode.text = CardTable!code & ""
 'xCodeDesca.Caption = CardTable!ClientDesca & ""
 
 xcard_disc.text = CardTable!card_disc & ""
@@ -4970,23 +4970,23 @@ xcard_doc.Caption = CardTable!card_DOC & ""
 
 panel1(0).Caption = CardTable!UserName & ""
 XUSERNAME_DISC.Caption = CardTable!username_disc & ""
-xphone.Caption = CardTable!phone & ""
+xPhone.Caption = CardTable!phone & ""
 
 chkCash.Value = IIf(CardTable!CASH, 1, 0)
 
 bIg = True
 xDiscount_add.text = Myvalue(CardTable!discount_add)
-xdiscount.text = Myvalue(CardTable!discount)
+xDiscount.text = Myvalue(CardTable!discount)
 'xIsRet.Value = IIf(CardTable!isret, 1, 0)
 bIg = False
 xDiscount_offer.Caption = Myvalue(CardTable!discount_offer)
 
-xcash.Caption = Myvalue(CardTable!CASH)
-xvisa.Caption = Myvalue(Val(CardTable!visa & "") + Val(CardTable!VISA3 & ""))
+xCash.Caption = Myvalue(CardTable!CASH)
+xVisa.Caption = Myvalue(Val(CardTable!visa & "") + Val(CardTable!VISA3 & ""))
 
-xPay.Caption = Myvalue(CardTable!PAY)
+xpay.Caption = Myvalue(CardTable!PAY)
 xRest.Caption = Myvalue(CardTable!rest)
-xlate.Caption = Myvalue(CardTable!late)
+xLate.Caption = Myvalue(CardTable!late)
 bIg = True
 xPrinted.Value = IIf(CardTable!PRINTED, 1, 0)
 bIg = False
@@ -4994,7 +4994,7 @@ xdoc_replace.Caption = CardTable!Doc_REPLACE & ""
 xtime.Caption = Format(CardTable!Time, "hh:nn")
 panel1(1).Caption = CardTable!user_ip & ""
 
-myLoadGrd
+myloadGrd
 
 Handlecontrols LoadMode
 
@@ -5003,7 +5003,7 @@ CellPos 13, grid1.Rows - 2, grid1.Cols - 1
 Exit Sub
 On Error Resume Next
 grid1.SetFocus
-Err.Clear
+err.Clear
 End Sub
 Private Sub myDefine()
 bIg = True
@@ -5027,7 +5027,7 @@ panel1(1).Caption = GetComputerName
 XISRETS.Value = 0
 sUserDisc = ""
 lIsDocRet = False
-xMan.BoundText = ""
+xman.BoundText = ""
 XUSERNAME_DISC.Caption = ""
 xUserName.Caption = cUserName
 
@@ -5037,7 +5037,7 @@ xUserName.Caption = cUserName
 xdoc_ret.text = ""
 myDisplay cMsgDisplay, " "
 xClosed.Value = 0
-xType.Caption = ""
+xtype.Caption = ""
 xusername_RET = ""
 xcard_disc.text = ""
 xcard_desca.Caption = ""
@@ -5045,22 +5045,22 @@ xcard_value.Caption = ""
 xcard_doc.Caption = ""
 
 XSALES_RET.Caption = ""
-xphone.Caption = ""
+xPhone.Caption = ""
 xdoc_no.text = ""
 
 
 'xDoc_No.Tag = DefineMode
-xDoc_no2.text = ""
+xdoc_no2.text = ""
 
 xinv_no.text = ""
 'xMan.BoundText = "0001"
 'xusername.Caption = cusername
 xStore.BoundText = cBranchStore
 xBox.BoundText = cBranchBox
-xcode.text = cDefClient
+xCode.text = cDefClient
 xCodeDesca.Caption = cDefClientDesca
 
-xDate.text = myFormat_p(fnDateSales(con))
+xdate.text = myFormat_p(fnDateSales(Con))
 xdoc_replace.Caption = ""
 xBalance.Caption = ""
 xMosm.BoundText = cPMosm
@@ -5069,7 +5069,7 @@ xMosm.BoundText = cPMosm
 chkCash.Value = 1
 xTotalQuant.Caption = ""
 xTotalItemNoDiscount.Caption = ""
-xtotalitem.Caption = ""
+xTotalItem.Caption = ""
 xTotalItemDiscount.Caption = ""
 xTotalItemDiscount_rate.Caption = ""
 xtotalitem_offer.Caption = ""
@@ -5079,20 +5079,20 @@ bIg = True
 xPrinted.Value = 0
 
 xDiscount_add.text = ""
-xdiscount.text = ""
-xRate.text = ""
+xDiscount.text = ""
+xrate.text = ""
 xDiscount_add_rate.text = ""
 bIg = False
 
 xDiscount_offer.Caption = ""
-xtotal.Caption = ""
+xTotal.Caption = ""
 
-xlate.Caption = ""
-xvisa.Caption = ""
-xcash.Caption = ""
+xLate.Caption = ""
+xVisa.Caption = ""
+xCash.Caption = ""
 xNotes.text = ""
 xRest.Caption = ""
-xPay.Caption = ""
+xpay.Caption = ""
 
 xtime.Caption = Format(Time, "hh:nn")
 
@@ -5100,7 +5100,7 @@ grid1.Rows = 1
 
 myAddItem
 
-Fixgrd
+fixGrd
 
 grdOffer.Rows = 1
 Fixgrd2
@@ -5116,7 +5116,7 @@ bEditRecord = bEditRecord And XISNODEL.Value = 0
 If (Not optType(0).Value) And nUser = enUser.User Then
     bEditRecord = False
 End If
-xphone.Enabled = bEditRecord
+xPhone.Enabled = bEditRecord
 cmdSave.Enabled = bEditRecord
 xdoc_ret.Enabled = bEdit And nMode = DefineMode
 
@@ -5142,10 +5142,10 @@ End If
 cmdRefund.Enabled = bEditRecord And IsDgt(xdoc_ret.text) And xdoc_no.Tag = DefineMode
 cmdReplace.Enabled = bEditRecord And IsDgt(xdoc_ret.text) And xdoc_no.Tag = DefineMode
 
-xcash.Enabled = nUser = enUser.Super Or nUser = enUser.Admin And xPrinted.Value = 1
+xCash.Enabled = nUser = enUser.Super Or nUser = enUser.Admin And xPrinted.Value = 1
 
-xdiscount.Enabled = False
-xRate.Enabled = False
+xDiscount.Enabled = False
+xrate.Enabled = False
 xDiscount_add.Enabled = False
 xDiscount_add_rate.Enabled = False
 
@@ -5200,8 +5200,8 @@ If Trim(pItem) = "" Or Len(pItem) < 3 Or Len(pItem) > 30 Then
     Exit Function
 End If
 
-Dim cm As New ADODB.command
-Set cm = cmd("dbo.sp_item", con, adStoredProc, AddFlag(Empty, "BARCODE_FIND", pItem))
+Dim cm As New adodb.command
+Set cm = cmd("dbo.sp_item", Con, adStoredProc, AddFlag(Empty, "BARCODE_FIND", pItem))
 cm.Execute
 
 If IsNull(cm.Parameters("@ITEM").Value) Then
@@ -5215,15 +5215,15 @@ If Not cm.Parameters("@ISNOITEM").Value Then
         Exit Function
     End If
 
-    If fnBalance(cm.Parameters("@ITEM").Value, con, xStore.BoundText, xDate.text) <= 0 Then
+    If fnBalance(cm.Parameters("@ITEM").Value, Con, xStore.BoundText, xdate.text) <= 0 Then
         Inform "·« ÌÊÃœ —’Ìœ «·’‰›"
     End If
 End If
 
-Dim cmDiscount As New ADODB.command
+Dim cmDiscount As New adodb.command
 aPrm = AddFlag(Empty, "ITEM", cm.Parameters("@ITEM").Value)
-aPrm = AddFlag(aPrm, "DATE", myFormat_sp(xDate.text))
-Set cmDiscount = cmd("dbo.sp_offer_price", con, adStoredProc, aPrm)
+aPrm = AddFlag(aPrm, "DATE", myFormat_sp(xdate.text))
+Set cmDiscount = cmd("dbo.sp_offer_price", Con, adStoredProc, aPrm)
 cmDiscount.Execute
 
 grid1.TextMatrix(Row, 1) = cm.Parameters("@ITEM").Value
@@ -5277,7 +5277,7 @@ Next
 xTotalQuant.Caption = Myvalue(nTotalQuant)
 xTotalItemNoDiscount.Caption = Myvalue(nTotalItemNoDiscount)
 xTotalItemDiscount.Caption = Myvalue(nTotalItemDiscount)
-xtotalitem.Caption = Myvalue(nTotalItem)
+xTotalItem.Caption = Myvalue(nTotalItem)
 xtotalitem_offer.Caption = Myvalue(nTotalItem - Val(xDiscount_offer.Caption))
 
 
@@ -5303,21 +5303,21 @@ Else
 End If
 
 If xIsOffer.Value = 1 Then
-    xdiscount.text = Val(xDiscount_offer.Caption) + Val(xDiscount_add.text)
+    xDiscount.text = Val(xDiscount_offer.Caption) + Val(xDiscount_add.text)
 ElseIf xIsOffer.Value = 0 And Val(xDiscount_add.text) <> 0 Then
     'xDiscount.text = Myvalue(xDiscount_add.text)
     xDiscount_add.text = 0
 End If
 
-If Val(xtotalitem.Caption) <> 0 Then
-    If Round(Val(xRate.text), nRound) <> Round(Val(xdiscount.text) / Val(xtotalitem.Caption) * 100, nRound) Then
-        xRate.text = Myvalue(Round((Val(xdiscount.text) / Val(xtotalitem.Caption)) * 100, nRound))
+If Val(xTotalItem.Caption) <> 0 Then
+    If Round(Val(xrate.text), nRound) <> Round(Val(xDiscount.text) / Val(xTotalItem.Caption) * 100, nRound) Then
+        xrate.text = Myvalue(Round((Val(xDiscount.text) / Val(xTotalItem.Caption)) * 100, nRound))
     End If
 Else
-    xRate.text = ""
+    xrate.text = ""
 End If
 
-xtotal.Caption = mRound(nTotalItem - Val(xdiscount.text), 2)
+xTotal.Caption = mRound(nTotalItem - Val(xDiscount.text), 2)
 bIg = False
 End With
 End Function
@@ -5386,9 +5386,9 @@ End Sub
 Private Sub xdoc_replace_Change()
 xdoc_replace.Visible = xdoc_replace.Caption <> ""
 If xdoc_replace.Caption <> "" Then
-    xType.Caption = "«” »œ«·"
+    xtype.Caption = "«” »œ«·"
 Else
-    xType.Caption = ""
+    xtype.Caption = ""
 End If
 End Sub
 Private Sub xdoc_ret_Change()
@@ -5403,45 +5403,45 @@ End Sub
 Private Sub xIsRet_Click()
 If bIg Then Exit Sub
 If MsgBox("«·”„«Õ »„— Ã⁄ ··›« Ê—…", vbYesNo + vbDefaultButton2) = vbYes Then
-    con.Execute " UPDATE FILE6_20H SET ISRET = " & xIsRet.Value & " , ISNEW = 1 WHERE DOC_NO = " & MyParn(xdoc_no.text), nRec
+    Con.Execute " UPDATE FILE6_20H SET ISRET = " & xIsRet.Value & " , ISNEW = 1 WHERE DOC_NO = " & MyParn(xdoc_no.text), nRec
     If nRec = 1 Then MsgBox "  „  ⁄œÌ· «·„” ‰œ "
 End If
 End Sub
 
 Private Sub xMan_KeyPress(KeyAscii As Integer)
 If KeyAscii = 13 Then
-    If (Not xMan.MatchedWithList) And IsDgt(xMan.text) Then
+    If (Not xman.MatchedWithList) And IsDgt(xman.text) Then
         Dim sCodeEmp As String
-        sCodeEmp = xMan.BoundText
-        xMan.BoundText = RetZero(xMan.text, 4)
-        If Not xMan.MatchedWithList Then
-            If Not xMan.MatchedWithList Then
-                xMan.BoundText = GetField("SELECT CODE FROM FILE6_25 WHERE ID_EMP = " & MyParn(sCodeEmp), con)
+        sCodeEmp = xman.BoundText
+        xman.BoundText = RetZero(xman.text, 4)
+        If Not xman.MatchedWithList Then
+            If Not xman.MatchedWithList Then
+                xman.BoundText = GetField("SELECT CODE FROM FILE6_25 WHERE ID_EMP = " & MyParn(sCodeEmp), Con)
             End If
         End If
     End If
 End If
 End Sub
 Private Sub xMAN_Validate(Cancel As Boolean)
-If Not xMan.MatchedWithList Then
+If Not xman.MatchedWithList Then
     Cancel = True
-ElseIf xMan.BoundText = "" Then
+ElseIf xman.BoundText = "" Then
     Cancel = True
 Else
-    grid1.TextMatrix(grid1.Rows - 1, 15) = xMan.BoundText
+    grid1.TextMatrix(grid1.Rows - 1, 15) = xman.BoundText
 End If
 End Sub
 
 Private Sub XPHONE_Click()
 Set Phonesfrm.myForm = Me
-Set Phonesfrm.con = con
+Set Phonesfrm.Con = Con
 Phonesfrm.Show 1
 End Sub
 
 Private Sub xPrinted_Click()
 If bIg Then Exit Sub
 'If xPrinted.Value = 1 Then Exit Sub
-con.Execute "update file6_20h set printed = " & xPrinted.Value & ",closed = " & xPrinted.Value & " from file6_20h where doc_no = " & MyParn(xdoc_no.text)
+Con.Execute "update file6_20h set printed = " & xPrinted.Value & ",closed = " & xPrinted.Value & " from file6_20h where doc_no = " & MyParn(xdoc_no.text)
 MsgBox " „ › Õ «·›« Ê—… »‰Ã«Õ"
 If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
     If Not openCardTable Then
@@ -5452,19 +5452,19 @@ End Sub
 Private Sub xRate_Change()
 If bIg Then Exit Sub
 bIg = True
-If Val(xtotalitem.Caption) <> 0 Then
-    If Round(Val(xRate.text), 0) <> Round(Val(xdiscount.text) / Val(xtotalitem.Caption) * 100, 0) Then
-        xdiscount.text = Round((Val(xRate.text) * Val(xtotalitem.Caption)) / 100, 2)
+If Val(xTotalItem.Caption) <> 0 Then
+    If Round(Val(xrate.text), 0) <> Round(Val(xDiscount.text) / Val(xTotalItem.Caption) * 100, 0) Then
+        xDiscount.text = Round((Val(xrate.text) * Val(xTotalItem.Caption)) / 100, 2)
     End If
 Else
-    xdiscount.text = ""
+    xDiscount.text = ""
 End If
 CalcTotals
 bIg = False
 End Sub
 
 Private Sub xRate_LostFocus()
-myLostFocus xRate
+myLostFocus xrate
 'If Val(xTotalItem.Caption) <> 0 Then
 '    If Round(Val(xRate.text), nRound) <> Round(Val(xDiscount.text) / Val(xTotalItem.Caption) * 100, nRound) Or xDiscount.Locked Then
 '        xDiscount.text = Round((Val(xRate.text) * Val(xTotalItem.Caption)) / 100, 0)
@@ -5489,7 +5489,7 @@ For i = 1 To grid1.Rows - 1
     grid1.TextMatrix(i, 0) = i
 Next
 End Sub
-Private Sub Fixgrd()
+Private Sub fixGrd()
 With grid1
 '                 0          1          2         3        4          5              6          7          8            9           10          11             12           13            14                15            16            17           18              19              20
 .FormatString = "„.|" & "»«—ﬂÊœ|" & "„Ê”„|" & "„’‰⁄|" & "„ﬂ »|" & "—ﬁ„ „ÊœÌ·|" & "«·’‰›|" & "„ﬁ«”|" & "«··Ê‰|" & "”⁄— „” Â·ﬂ|" & "⁄œœ|" & "”⁄— «·»Ì⁄|" & "‰”»… Œ’„|" & "«·≈Ã„«·Ï|" & "”⁄— √Êﬂ«“ÌÊ‰|" & "ﬂÊœ «·»«∆⁄|" & "«·»«∆⁄|" & "«· ﬂ·›…|" & "„” ‰œ «·⁄—÷|" & "—ﬁ„ «·⁄—÷|" & "Œ’„ «·⁄—÷|"
@@ -5576,7 +5576,7 @@ End If
 End With
 End Sub
 Private Sub xRateDis_Lostfocus()
-xdiscount.text = Fix((Val(xtotalitem.Caption) * Val(xRateDis.text) / 100))
+xDiscount.text = Fix((Val(xTotalItem.Caption) * Val(xRateDis.text) / 100))
 End Sub
 
 Private Sub XSALES_RET_Change()
@@ -5586,22 +5586,22 @@ End Sub
 Private Sub xSendRc_Click()
 If bIgClick Then Exit Sub
 If xdoc_no.text <> "" Then
-    On Error GoTo myerror
+    On Error GoTo myError
     If xUUID_RC.Caption <> "" Then
-        If Not IsEmpty(myField("select doc_no from file6_20h where PREVIOUS_UUID = " & MyParn(xUUID_RC.Caption), con)) Then
+        If Not IsEmpty(myField("select doc_no from file6_20h where PREVIOUS_UUID = " & MyParn(xUUID_RC.Caption), Con)) Then
             MsgBox "—ﬁ„ „”·”· „—Ã⁄Ì ”«»ﬁ ··›« Ê—… —ﬁ„ " & MyParn(xdoc_no.text)
             'xSendRc.Value = IIf(xSendRc.Value = 1, 0, 1)
         End If
     End If
-    con.Execute "UPDATE FILE6_20H SET FILE6_20H.sendRc = " & xSendRc.Value & " FROM FILE6_20H WHERE FILE6_20H.DOC_NO = " & MyParn(xdoc_no.text)
+    Con.Execute "UPDATE FILE6_20H SET FILE6_20H.sendRc = " & xSendRc.Value & " FROM FILE6_20H WHERE FILE6_20H.DOC_NO = " & MyParn(xdoc_no.text)
     Inform " „ «· ⁄œÌ· »‰Ã«Õ"
 End If
 Finaly:
 Handlecontrols xdoc_no.Tag
 Exit Sub
-myerror:
-MsgBox Err.Description
-Err.Clear
+myError:
+MsgBox err.Description
+err.Clear
 bIgClick = True
 xSendRc.Value = IIf(xSendRc.Value = 1, 0, 1)
 bIgClick = False
@@ -5629,16 +5629,16 @@ If grid1.TextMatrix(Row, grid1.Cols - 1) <> "" Then
     End If
     
     If subUserCode <> "" Then
-        On Error GoTo myerror
-        con.Execute "Delete  From FILE6_20 where id = " & grid1.TextMatrix(Row, grid1.Cols - 1)
+        On Error GoTo myError
+        Con.Execute "Delete  From FILE6_20 where id = " & grid1.TextMatrix(Row, grid1.Cols - 1)
     End If
 End If
 grid1.RemoveItem Row
 RemoveItem = True
 Exit Function
-myerror:
-MsgBox Err.Description
-Err.Clear
+myError:
+MsgBox err.Description
+err.Clear
 End Function
 Sub myproc2(nDoc_no)
 xdoc_no = nDoc_no
@@ -5652,7 +5652,7 @@ myUndo
 'End If
 End Sub
 Function itemPrice(cItem) As Single
-    itemPrice = GetDesca("select PRICE from file1_10 where item = " & MyParn(cItem), con)
+    itemPrice = GetDesca("select PRICE from file1_10 where item = " & MyParn(cItem), Con)
 End Function
 Private Function myreplaceGrd(Row) As Boolean
 Dim aInsert As Variant
@@ -5672,9 +5672,9 @@ With grid1
         
         If grid1.TextMatrix(i, grid1.Cols - 1) = "" Then
             aInsert = AddFlag(aInsert, "DOC_NO", addstring(xdoc_no.text))
-            con.Execute addInsert(aInsert, "FILE6_20")
+            Con.Execute addInsert(aInsert, "FILE6_20")
         Else
-            con.Execute addUpdate(aInsert, "FILE6_20", "ID = " & grid1.TextMatrix(i, .Cols - 1))
+            Con.Execute addUpdate(aInsert, "FILE6_20", "ID = " & grid1.TextMatrix(i, .Cols - 1))
         End If
     Next
 End With
@@ -5688,28 +5688,30 @@ cString = "select Max(Offer_no) " & _
           " where doc_no = " & MyParn(xdoc_no.text)
 Dim nOffer As Long
 If Val(frmOfferReplace.xQty2.Caption) > 0 Then
-    nOffer = Val(myField(cString, con) & "") + 1
+    nOffer = Val(myField(cString, Con) & "") + 1
 End If
                                     
 With frmOfferReplace.grid1
-    For i = 1 To .Rows - 2
-        aInsert = AddFlag(Empty, "DOC_NO", addstring(xdoc_no.text))
-        aInsert = AddFlag(aInsert, "ITEM", addstring(.TextMatrix(i, 1)))
-        aInsert = AddFlag(aInsert, "QUANT", .ValueMatrix(i, 10))
-        aInsert = AddFlag(aInsert, "PRICE", .ValueMatrix(i, 9))
-        aInsert = AddFlag(aInsert, "PRICE_c", .ValueMatrix(i, 14))
-        aInsert = AddFlag(aInsert, "COST", .ValueMatrix(i, 13))
-        If frmOfferReplace.xMan.Caption <> "" Then
-            aInsert = AddFlag(aInsert, "MAN", addstring(frmOfferReplace.xMan.Caption))
-        ElseIf xMan.MatchedWithList Then
-            aInsert = AddFlag(aInsert, "MAN", addstring(xMan.BoundText))
+    For i = 1 To .Rows - 1
+        If grid1.TextMatrix(i, 1) <> "" Then
+            aInsert = AddFlag(Empty, "DOC_NO", addstring(xdoc_no.text))
+            aInsert = AddFlag(aInsert, "ITEM", addstring(.TextMatrix(i, 1)))
+            aInsert = AddFlag(aInsert, "QUANT", .ValueMatrix(i, 10))
+            aInsert = AddFlag(aInsert, "PRICE", .ValueMatrix(i, 9))
+            aInsert = AddFlag(aInsert, "PRICE_c", .ValueMatrix(i, 14))
+            aInsert = AddFlag(aInsert, "COST", .ValueMatrix(i, 13))
+            If frmOfferReplace.xman.Caption <> "" Then
+                aInsert = AddFlag(aInsert, "MAN", addstring(frmOfferReplace.xman.Caption))
+            ElseIf xman.MatchedWithList Then
+                aInsert = AddFlag(aInsert, "MAN", addstring(xman.BoundText))
+            End If
+            aInsert = AddFlag(aInsert, "OFFER_NO", nOffer)
+            aInsert = AddFlag(aInsert, "DOC_OFFER", addstring(frmOfferReplace.xdoc_no.Caption))
+            aInsert = AddFlag(aInsert, "DISCOUNT_OFFER", Val(frmOfferReplace.xDiscount.Caption))
+            aInsert = AddFlag(aInsert, "DISCOUNT_OFFER_RATE", Val(frmOfferReplace.xrate.Caption))
+            aInsert = AddFlag(aInsert, "USER_IP", addstring(cIpName))
+            Con.Execute addInsert(aInsert, "FILE6_20")
         End If
-        aInsert = AddFlag(aInsert, "OFFER_NO", nOffer)
-        aInsert = AddFlag(aInsert, "DOC_OFFER", addstring(frmOfferReplace.xdoc_no.Caption))
-        aInsert = AddFlag(aInsert, "DISCOUNT_OFFER", Val(frmOfferReplace.xdiscount.Caption))
-        aInsert = AddFlag(aInsert, "DISCOUNT_OFFER_RATE", Val(frmOfferReplace.xRate.Caption))
-        aInsert = AddFlag(aInsert, "USER_IP", addstring(cIpName))
-        con.Execute addInsert(aInsert, "FILE6_20")
     Next
 End With
 myreplaceGrdReplace = True
@@ -5721,7 +5723,7 @@ cString = "select Max(Offer_no) " & _
           " from file6_20 " & _
           " where doc_no = " & MyParn(xdoc_no.text)
 Dim nOffer As Long
-nOffer = Val(myField(cString, con) & "") + 1
+nOffer = Val(myField(cString, Con) & "") + 1
                                     
 With frmOffer.grid1
     For i = 1 To frmOffer.grid1.Rows - 2
@@ -5731,18 +5733,18 @@ With frmOffer.grid1
         aInsert = AddFlag(aInsert, "PRICE", .ValueMatrix(i, 9))
         aInsert = AddFlag(aInsert, "PRICE_c", .ValueMatrix(i, 9))
         aInsert = AddFlag(aInsert, "COST", .ValueMatrix(i, 13))
-        aInsert = AddFlag(aInsert, "MAN", addstring(xMan.BoundText))
+        aInsert = AddFlag(aInsert, "MAN", addstring(xman.BoundText))
         aInsert = AddFlag(aInsert, "OFFER_NO", nOffer)
         aInsert = AddFlag(aInsert, "DOC_OFFER", addstring(frmOffer.xdoc_no.Caption))
-        aInsert = AddFlag(aInsert, "DISCOUNT_OFFER", Val(frmOffer.xdiscount.Caption))
-        aInsert = AddFlag(aInsert, "DISCOUNT_OFFER_RATE", Val(frmOffer.xRate.Caption))
+        aInsert = AddFlag(aInsert, "DISCOUNT_OFFER", Val(frmOffer.xDiscount.Caption))
+        aInsert = AddFlag(aInsert, "DISCOUNT_OFFER_RATE", Val(frmOffer.xrate.Caption))
         aInsert = AddFlag(aInsert, "USER_IP", addstring(cIpName))
-        con.Execute addInsert(aInsert, "FILE6_20")
+        Con.Execute addInsert(aInsert, "FILE6_20")
     Next
 End With
 myreplaceGrdOffer = True
 End Function
-Private Sub myLoadGrd()
+Private Sub myloadGrd()
 With grid1
 Dim cString As String
     cString = "SELECT FILE6_20.ITEM," & _
@@ -5772,11 +5774,11 @@ Dim cString As String
               " LEFT JOIN FILE6_25 ON FILE6_20.MAN  = FILE6_25.CODE "
     cString = cString & " WHERE FILE6_20.DOC_NO = " & MyParn(xdoc_no.text)
     cString = cString & " ORDER BY FILE6_20.ID"
-    Set DATA11.Recordset = cmd(cString, con).Execute
+    Set DATA11.Recordset = cmd(cString, Con).Execute
     myAddItem
 End With
 CalcTotals
-Fixgrd
+fixGrd
 End Sub
 Private Function mysave(Optional bEnd As Boolean = True, Optional bPrint As Boolean = True, Optional bSendReceipt As Boolean = False) As Boolean
 
@@ -5785,10 +5787,10 @@ If Not MYVALID Then Exit Function
 CalcTotals
 
 If Not myreplace Then Exit Function
-con.Execute " update file6_20 set item = item where doc_no = " & MyParn(xdoc_no.text)
+Con.Execute " update file6_20 set item = item where doc_no = " & MyParn(xdoc_no.text)
     
          
-UpdatePhones xphone.Caption, xphone.Tag, xDate.text, con
+UpdatePhones xPhone.Caption, xPhone.Tag, xdate.text, Con
          
 Inform_OK " „ Õ›Ÿ «·„” ‰œ »‰Ã«Õ", " «·»«ﬁÏ " & Format(xRest.Caption, "#0.00")
 
@@ -5809,21 +5811,21 @@ myDefine
     
 End Function
 Private Sub SavePrint()
-On Error GoTo myerror
+On Error GoTo myError
 'con.BeginTrans
-con.Execute "update file6_20h set isnew = 1 ,ISRET = 1, FILE6_20H.PRINTED = 1 , ISCLOSED = 1  WHERE DOC_NO = " & MyParn(xdoc_no.text)
+Con.Execute "update file6_20h set isnew = 1 ,ISRET = 1, FILE6_20H.PRINTED = 1 , ISCLOSED = 1  WHERE DOC_NO = " & MyParn(xdoc_no.text)
 'con.CommitTrans
 bIg = True
 xPrinted.Value = 1
 bIg = False
 Exit Sub
-myerror:
-MsgBox Err.Description
-Err.Clear
+myError:
+MsgBox err.Description
+err.Clear
 End Sub
 Private Function doprint_cash(Optional bCopy As Boolean = False)
-Dim loctable As New ADODB.Recordset
-Set loctable = cmd("dbo.sp_invoice_print", con, adStoredProc, AddFlag(Empty, "DOC_NO", xdoc_no.text)).Execute
+Dim loctable As New adodb.Recordset
+Set loctable = cmd("dbo.sp_invoice_print", Con, adStoredProc, AddFlag(Empty, "DOC_NO", xdoc_no.text)).Execute
 
 contemp.Execute "DELETE * FROM TEMP"
 If temptable.State = adStateOpen Then temptable.Close
@@ -5832,13 +5834,13 @@ temptable.Open "temp", contemp, adOpenStatic, adLockOptimistic, adCmdTable
 
 
 If BranchReceipt Then
-    sQRCode = retQrCode(xdoc_no.text, con)
+    sQRCode = retQrCode(xdoc_no.text, Con)
 End If
 
 With loctable
 Do Until loctable.EOF
     temptable.AddNew
-    temptable!STR20 = loctable!doc_no
+    temptable!STR20 = loctable!DOC_NO
     temptable!STR21 = loctable!company_name
     
     If bCopy Then
@@ -5872,7 +5874,7 @@ Do Until loctable.EOF
     temptable!VAL2 = loctable!price_c
     temptable!VAL3 = loctable!total_c
     temptable!VAL4 = loctable!price
-    temptable!val5 = loctable!total
+    temptable!val5 = loctable!TOTAL
     
     temptable!VAL6 = loctable!total_inv_c
     temptable!VAL7 = loctable!items_discount
@@ -5892,7 +5894,7 @@ Do Until loctable.EOF
     If Not IsNull(loctable!OFFER_NO) Then
         If loctable!OFFER_NO = 0 Then
             temptable!str9 = "Direct Discount"
-            temptable!val18 = loctable!total_c - loctable!total
+            temptable!val18 = loctable!total_c - loctable!TOTAL
             temptable!VAL19 = loctable!discount_offer_rate_direct
         Else
             temptable!str9 = loctable!offer_desca
@@ -5919,7 +5921,7 @@ End With
 
 If xGift.Value = 0 Then
     Set loctable = Nothing
-    Set loctable = New ADODB.Recordset
+    Set loctable = New adodb.Recordset
     Dim sSql As String
     sSql = "SELECT FILE5_10.DESCA," & _
               "FILE6_20_VISA.VALUE," & _
@@ -5929,7 +5931,7 @@ If xGift.Value = 0 Then
               " INNER JOIN FILE5_10 ON FILE5_10.CODE = VISA_CODES.BANK " & _
               " WHERE DOC_NO = " & MyParn(xdoc_no.text) & _
               " ORDER BY FILE6_20_VISA.ID"
-    Set loctable = mycmd(sSql, con)
+    Set loctable = mycmd(sSql, Con)
     Do Until loctable.EOF
         temptable.AddNew
         temptable!str1 = loctable!DESCA
@@ -5994,9 +5996,9 @@ Finllay:
 temptable.Close
 Set temptable = Nothing
 Exit Function
-myerror:
-MsgBox Err.Description
-Err.Clear
+myError:
+MsgBox err.Description
+err.Clear
 GoTo Finllay
 End Function
 Private Function validRow(Row As Long, Optional bIgMsg As Boolean = False, Optional bIgMsgsub As Boolean = True) As Boolean
@@ -6052,28 +6054,28 @@ If grid1.Rows > 2 Then
     grid1.TextMatrix(grid1.Rows - 1, 16) = grid1.TextMatrix(grid1.Rows - 2, 16)
 End If
 If grid1.TextMatrix(grid1.Rows - 1, 15) = "" Then
-    grid1.TextMatrix(grid1.Rows - 1, 15) = xMan.BoundText
-    grid1.TextMatrix(grid1.Rows - 1, 16) = xMan.text
+    grid1.TextMatrix(grid1.Rows - 1, 15) = xman.BoundText
+    grid1.TextMatrix(grid1.Rows - 1, 16) = xman.text
 End If
 MakeSerial
 End Sub
 Private Sub xTotal_Change()
 If Not bIg Then
     bIg = True
-    xdiscount.text = Round(Val(xtotalitem.Caption) - Val(xtotal.Caption), 2)
+    xDiscount.text = Round(Val(xTotalItem.Caption) - Val(xTotal.Caption), 2)
     CalcTotals
     bIg = False
 End If
 End Sub
 
 Private Sub xDoc_no2_GotFocus()
-myGotFocus xDoc_no2
+myGotFocus xdoc_no2
 End Sub
 Private Function closeDay() As Boolean
 Dim sDate As String
 sDate = myFormat(DateAdd("d", 1, dSalesDate))
     
-If DateDiff("d", fnDateSales(con), myFormat(Date)) < -1 Then
+If DateDiff("d", fnDateSales(Con), myFormat(Date)) < -1 Then
     MsgBox " «—ÌŒ «·ÃÂ«“ Ì ⁄œÌ  «—ÌŒ «·„»Ì⁄«  »√ﬂÀ— „‰ ÌÊ„" & vbCrLf & _
             "«· «—ÌŒ ·« Ì”„Õ » —ÕÌ· «·„»Ì⁄« "
     Exit Function
@@ -6082,14 +6084,14 @@ End If
 If IsDate(sDate) Then
     sMsg = "”Ê› Ì „  €ÌÌ— «· «—ÌŒ «·Õ«·Ï ≈·Ï " & myFormat_p(sDate)
     If MsgBox(sMsg, vbOKCancel + vbDefaultButton2) = vbOK Then
-        con.BeginTrans
+        Con.BeginTrans
         'On Error GoTo myerror
-        con.Execute " UPDATE FILE8_50H SET isclosed = 1 WHERE ISCLOSED = 0 AND BRANCH = " & MyParn(cBranch)
-        con.Execute " UPDATE FILE8_60H SET isclosed = 1 WHERE ISCLOSED = 0 AND BRANCH = " & MyParn(cBranch)
+        Con.Execute " UPDATE FILE8_50H SET isclosed = 1 WHERE ISCLOSED = 0 AND BRANCH = " & MyParn(cBranch)
+        Con.Execute " UPDATE FILE8_60H SET isclosed = 1 WHERE ISCLOSED = 0 AND BRANCH = " & MyParn(cBranch)
                     
         If cBranch <> "00" Then
             Dim nAffect As Long
-            con.Execute "UPDATE ACCOUNT_H SET " & _
+            Con.Execute "UPDATE ACCOUNT_H SET " & _
                         "ACCOUNT_H.DONE = 1 " & _
                         " FROM ACCOUNT_H" & _
                         " WHERE BRANCH = " & MyParn(cBranch) & _
@@ -6097,12 +6099,12 @@ If IsDate(sDate) Then
                         
             MsgBox " „ «€·«ﬁ " & nAffect & "„” ‰œ ÌÊ„Ì… Œ“‰"
         End If
-        con.Execute " UPDATE FILE0_52 SET ISCLOSED = 1 WHERE ISCLOSED = 0 AND BRANCH = " & MyParn(cBranch)
+        Con.Execute " UPDATE FILE0_52 SET ISCLOSED = 1 WHERE ISCLOSED = 0 AND BRANCH = " & MyParn(cBranch)
         
-        con.Execute " UPDATE DSALES SET DSALES = " & addDate(sDate) & " WHERE BRANCH = " & MyParn(cBranch)
-        con.CommitTrans
+        Con.Execute " UPDATE DSALES SET DSALES = " & addDate(sDate) & " WHERE BRANCH = " & MyParn(cBranch)
+        Con.CommitTrans
                
-        dSalesDate = fnDateSales(con)
+        dSalesDate = fnDateSales(Con)
         Firsttitle = cComp_Name & myFormat_p(dSalesDate)
         'Main.Caption = Firsttitle
         Me.Caption = "„»Ì⁄«  " & myFormat_p(dSalesDate)
@@ -6111,12 +6113,12 @@ If IsDate(sDate) Then
     End If
 End If
 Exit Function
-myerror:
-If TransCount(con) > 0 Then
-    con.RollbackTrans
+myError:
+If TransCount(Con) > 0 Then
+    Con.RollbackTrans
 End If
-MsgBox Err.Description
-Err.Clear
+MsgBox err.Description
+err.Clear
 End Function
 Private Function CheckOpen(lMsg As Boolean, Optional ByVal pBox As String = "") As Long
 Dim cString As String, nCount As Long
@@ -6128,7 +6130,7 @@ If pBox <> "" Then cString = cString & turn(cString) & " [BOX] = " & MyParn(pBox
 If lIsBranchStore Then
     cString = cString & turn(cString) & " BRANCH  = " & MyParn(cBranch)
 End If
-nCount = Val(GetDesca(cString, con))
+nCount = Val(GetDesca(cString, Con))
 If nCount > 0 Then
     If lMsg Then
         MsgBox "Â‰«ﬂ ⁄œœ " & nCount & " »Ê‰«  »Ì⁄ „› ÊÕ…!!«·—Ã«¡ «·Õ–› «Ê «· ”ÃÌ·", vbCritical
@@ -6169,7 +6171,7 @@ Private Sub Timer1_Timer()
 'xDate.Text = Format(dSalesDate, "DD-MM-YYYY")
 End Sub
 Sub opencom()
-On Error GoTo myerror
+On Error GoTo myError
 Dim i As Integer
 Dim comFlag As Boolean
 If cComPort = "" Then Exit Sub
@@ -6189,12 +6191,12 @@ If cComPort = "" Then Exit Sub
   IntrCh7E$ = Chr$(&H7E)
    lDisplayCom = True
   Exit Sub
-myerror:
+myError:
 lDisplayCom = False
-  Err.Clear
+  err.Clear
 End Sub
 Sub ClearDisplay()
-    On Error GoTo myerror
+    On Error GoTo myError
     Dim i, Pagei, nn As Integer
     Dim ss As String
     Dim TmpTime$
@@ -6210,8 +6212,8 @@ Sub ClearDisplay()
     ss = Chr$(&HC)
     DoEvents
     Exit Sub
-myerror:
-    Err.Clear
+myError:
+    err.Clear
 End Sub
 Private Sub Epson_Init()
 Dim ss As String
@@ -6247,8 +6249,8 @@ Sub myDisplay(pLine1, pLine2)
 End Sub
 
 Public Sub PrintTDay()
-Dim temptable As New ADODB.Recordset
-Dim sourcetable As New ADODB.Recordset
+Dim temptable As New adodb.Recordset
+Dim sourcetable As New adodb.Recordset
 ReDim aHeader(1)
 Dim pDate As Date, pstore As String
 Dim nFBalItem As Double
@@ -6256,8 +6258,8 @@ Dim nTInlItem As Double
 Dim nSallItem As Double
 Dim nBalItem As Double
 Dim nOverCash As Double, nVisa2 As Double
-Dim VisaTable As New ADODB.Recordset
-pDate = xDate.text
+Dim VisaTable As New adodb.Recordset
+pDate = xdate.text
 pstore = xStore.BoundText
 contemp.Execute "DELETE * FROM TEMP"
 
@@ -6265,35 +6267,35 @@ contemp.Execute "DELETE * FROM TEMP"
 temptable.Open "temp", contemp, adOpenStatic, adLockOptimistic, adCmdTable
 
 cString = " SELECT [SECTION] ,  SUM(QUANT) AS t_q, SUM(TOTAL * ((100 -rate )/ 100 )) AS t_tot FROM SALES_MODEL "
-cString = cString & " where date = " & DateSq(xDate.text)
+cString = cString & " where date = " & DateSq(xdate.text)
 cString = cString & " GROUP BY [SECTION] "
-aHeader(0) = "[" & BetweenString(Format(xDate.text, "d-m-yyyy"), Format(xDate.text, "d-m-yyyy")) & "]"
+aHeader(0) = "[" & BetweenString(Format(xdate.text, "d-m-yyyy"), Format(xdate.text, "d-m-yyyy")) & "]"
 
 cString = "SELECT  SUM(T_QUANT) AS T_Q, SUM(T_QUANT1) AS T_Q1, SUM(T_QUANT2) AS T_Q2, SUM(t_total) AS T_Item, SUM(t_total1) AS T_Item1, SUM(t_total2) AS T_Item2, SUM(discount) AS T_Disc, SUM(CASH) AS T_Cash, SUM(VISA+VISA3) AS T_Visa FROM   T_SALESDOC "
-cString = cString & " where date = " & DateSq(xDate.text)
-aHeader(0) = "[" & BetweenString(Format(xDate.text, "d-m-yyyy"), Format(xDate.text, "d-m-yyyy")) & "]"
+cString = cString & " where date = " & DateSq(xdate.text)
+aHeader(0) = "[" & BetweenString(Format(xdate.text, "d-m-yyyy"), Format(xdate.text, "d-m-yyyy")) & "]"
 
 
 If cManBox <> "" Then
     cString = cString & " AND BOX = " & MyParn(cManBox)
     aHeader(1) = "[" & xBox.text & "]"
 End If
-sourcetable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
+sourcetable.Open cString, Con, adOpenStatic, adLockReadOnly, adCmdText
 
-cStr1 = " SELECT SUM(VALUE) FROM FILE8_60 INNER JOIN FILE8_60H ON FILE8_60.DOC_NO = FILE8_60H.DOC_NO WHERE DATE = " & DateSq(xDate.text)
+cStr1 = " SELECT SUM(VALUE) FROM FILE8_60 INNER JOIN FILE8_60H ON FILE8_60.DOC_NO = FILE8_60H.DOC_NO WHERE DATE = " & DateSq(xdate.text)
 If cManBox <> "" Then
     cStr1 = cStr1 & " AND BOX = " & MyParn(cManBox)
 End If
-nOverCash = Val(GetDesca(cStr1, con) & "")
+nOverCash = Val(GetDesca(cStr1, Con) & "")
 If Not (sourcetable.EOF And sourcetable.BOF) Then
 With sourcetable
     Do While Not sourcetable.EOF
     
     temptable.AddNew
-    temptable!str3 = " ÌÊ„Ì… " & xDate.text
+    temptable!str3 = " ÌÊ„Ì… " & xdate.text
     If cManBox <> "" Then
         temptable!str1 = TurnValue(cManBox)
-        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), con))
+        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), Con))
     End If
     
     temptable!str11 = 3
@@ -6304,10 +6306,10 @@ With sourcetable
     temptable.Update
     
     temptable.AddNew
-    temptable!str3 = " ÌÊ„Ì… " & xDate.text
+    temptable!str3 = " ÌÊ„Ì… " & xdate.text
     If cManBox <> "" Then
         temptable!str1 = TurnValue(cManBox)
-        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), con))
+        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), Con))
     End If
     
     temptable!str11 = 3
@@ -6318,10 +6320,10 @@ With sourcetable
     temptable.Update
     
     temptable.AddNew
-    temptable!str3 = " ÌÊ„Ì… " & xDate.text
+    temptable!str3 = " ÌÊ„Ì… " & xdate.text
     If cManBox <> "" Then
         temptable!str1 = TurnValue(cManBox)
-        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), con))
+        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), Con))
     End If
     temptable!str11 = 3
     temptable!str12 = "≈Ã„«·Ï «·ÌÊ„ "
@@ -6331,10 +6333,10 @@ With sourcetable
 
     
     temptable.AddNew
-    temptable!str3 = " ÌÊ„Ì… " & xDate.text
+    temptable!str3 = " ÌÊ„Ì… " & xdate.text
     If cManBox <> "" Then
         temptable!str1 = TurnValue(cManBox)
-        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), con))
+        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), Con))
     End If
     temptable!str11 = 3
     temptable!str12 = "≈Ã„«·Ï «·ÌÊ„ "
@@ -6343,10 +6345,10 @@ With sourcetable
     temptable.Update
     
     temptable.AddNew
-    temptable!str3 = " ÌÊ„Ì… " & xDate.text
+    temptable!str3 = " ÌÊ„Ì… " & xdate.text
     If cManBox <> "" Then
         temptable!str1 = TurnValue(cManBox)
-        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), con))
+        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), Con))
     End If
     temptable!str11 = 3
     temptable!str12 = "≈Ã„«·Ï «·ÌÊ„ "
@@ -6356,10 +6358,10 @@ With sourcetable
     
     
     temptable.AddNew
-    temptable!str3 = " ÌÊ„Ì… " & xDate.text
+    temptable!str3 = " ÌÊ„Ì… " & xdate.text
     If cManBox <> "" Then
         temptable!str1 = TurnValue(cManBox)
-        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), con))
+        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), Con))
     End If
     temptable!str11 = 3
     temptable!str12 = "≈Ã„«·Ï «·ÌÊ„ "
@@ -6368,10 +6370,10 @@ With sourcetable
     temptable.Update
 
     temptable.AddNew
-    temptable!str3 = " ÌÊ„Ì… " & xDate.text
+    temptable!str3 = " ÌÊ„Ì… " & xdate.text
     If cManBox <> "" Then
         temptable!str1 = TurnValue(cManBox)
-        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), con))
+        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), Con))
     End If
     temptable!str11 = 3
     temptable!str12 = "≈Ã„«·Ï «·ÌÊ„ "
@@ -6380,10 +6382,10 @@ With sourcetable
     temptable.Update
 
     temptable.AddNew
-    temptable!str3 = " ÌÊ„Ì… " & xDate.text
+    temptable!str3 = " ÌÊ„Ì… " & xdate.text
     If cManBox <> "" Then
         temptable!str1 = TurnValue(cManBox)
-        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), con))
+        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), Con))
     End If
     temptable!str11 = 3
     temptable!str12 = "≈Ã„«·Ï «·ÌÊ„ "
@@ -6393,10 +6395,10 @@ With sourcetable
     temptable.Update
 
     temptable.AddNew
-    temptable!str3 = " ÌÊ„Ì… " & xDate.text
+    temptable!str3 = " ÌÊ„Ì… " & xdate.text
     If cManBox <> "" Then
         temptable!str1 = TurnValue(cManBox)
-        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), con))
+        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), Con))
     End If
     temptable!str11 = 3
     temptable!str12 = "≈Ã„«·Ï «·ÌÊ„ "
@@ -6406,10 +6408,10 @@ With sourcetable
     
     
     temptable.AddNew
-    temptable!str3 = " ÌÊ„Ì… " & xDate.text
+    temptable!str3 = " ÌÊ„Ì… " & xdate.text
     If cManBox <> "" Then
         temptable!str1 = TurnValue(cManBox)
-        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), con))
+        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), Con))
     End If
     temptable!str11 = 3
     temptable!str12 = "≈Ã„«·Ï «·ÌÊ„ "
@@ -6418,10 +6420,10 @@ With sourcetable
     temptable.Update
     
     temptable.AddNew
-    temptable!str3 = " ÌÊ„Ì… " & xDate.text
+    temptable!str3 = " ÌÊ„Ì… " & xdate.text
     If cManBox <> "" Then
         temptable!str1 = TurnValue(cManBox)
-        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), con))
+        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), Con))
     End If
     temptable!str11 = 3
     temptable!str12 = "≈Ã„«·Ï «·ÌÊ„ "
@@ -6430,10 +6432,10 @@ With sourcetable
     temptable.Update
     
     temptable.AddNew
-    temptable!str3 = " ÌÊ„Ì… " & xDate.text
+    temptable!str3 = " ÌÊ„Ì… " & xdate.text
     If cManBox <> "" Then
         temptable!str1 = TurnValue(cManBox)
-        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), con))
+        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), Con))
     End If
     temptable!str11 = 3
     temptable!str12 = "≈Ã„«·Ï «·ÌÊ„ "
@@ -6442,10 +6444,10 @@ With sourcetable
     temptable.Update
     
     temptable.AddNew
-    temptable!str3 = " ÌÊ„Ì… " & xDate.text
+    temptable!str3 = " ÌÊ„Ì… " & xdate.text
     If cManBox <> "" Then
         temptable!str1 = TurnValue(cManBox)
-        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), con))
+        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), Con))
     End If
     temptable!str11 = 3
     temptable!str12 = "≈Ã„«·Ï «·ÌÊ„ "
@@ -6456,25 +6458,25 @@ With sourcetable
 ''  «Ã„«·Ï ›Ì“«
     
     temptable.AddNew
-    temptable!str3 = " ÌÊ„Ì… " & xDate.text
+    temptable!str3 = " ÌÊ„Ì… " & xdate.text
     If cManBox <> "" Then
         temptable!str1 = TurnValue(cManBox)
-        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), con))
+        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), Con))
     End If
     temptable!str11 = 3
     temptable!str12 = "≈Ã„«·Ï «·ÌÊ„ "
     temptable!STR5 = "⁄„Ê·…  ﬁ”Ìÿ ›Ì“«"
-    cString = "select sum(visa2+visa3_2) from file6_20h where date = " & DateSq(xDate.text)
+    cString = "select sum(visa2+visa3_2) from file6_20h where date = " & DateSq(xdate.text)
     If cManBox <> "" Then cString = cString & " AND BOX = " & MyParn(cManBox)
-    nVisa2 = Val(GetDesca(cString, con) & "")
+    nVisa2 = Val(GetDesca(cString, Con) & "")
     temptable!VAL3 = nVisa2
     temptable.Update
     
     temptable.AddNew
-    temptable!str3 = " ÌÊ„Ì… " & xDate.text
+    temptable!str3 = " ÌÊ„Ì… " & xdate.text
     If cManBox <> "" Then
         temptable!str1 = TurnValue(cManBox)
-        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), con))
+        temptable!str2 = TurnValue(GetDesca("SELECT DESCA FROM FILE0_50 WHERE CODE = " & MyParn(cBranchBox), Con))
     End If
     temptable!str11 = 3
     temptable!str12 = "≈Ã„«·Ï «·ÌÊ„ "
@@ -6490,11 +6492,11 @@ With sourcetable
 End With
 End If
 '
-cString = "SELECT   FILE0_50.DESCA AS BOXDESCA , SUM(BOXMOVE.PLUS ) AS T_IN, SUM(BOXMOVE.MINUS ) AS T_OUT, BOXMOVE.BOX, BOXMOVE.DESCA as desca, BOXMOVE.FLAG FROM         BOXMOVE INNER JOIN FILE0_50 ON FILE0_50.CODE = BOXMOVE.BOX WHERE  DATE = " & DateSq(xDate.text)
+cString = "SELECT   FILE0_50.DESCA AS BOXDESCA , SUM(BOXMOVE.PLUS ) AS T_IN, SUM(BOXMOVE.MINUS ) AS T_OUT, BOXMOVE.BOX, BOXMOVE.DESCA as desca, BOXMOVE.FLAG FROM         BOXMOVE INNER JOIN FILE0_50 ON FILE0_50.CODE = BOXMOVE.BOX WHERE  DATE = " & DateSq(xdate.text)
 If cManBox <> "" Then cString = cString & " AND BOX = " & MyParn(cManBox)
 cString = cString & " GROUP BY FILE0_50.DESCA ,BOXMOVE.BOX, BOXMOVE.DESCA , BOXMOVE.FLAG ORDER BY BOXMOVE.FLAG desc "
 sourcetable.Close
-sourcetable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
+sourcetable.Open cString, Con, adOpenStatic, adLockReadOnly, adCmdText
 
 If Not (sourcetable.EOF And sourcetable.BOF) Then
 With sourcetable
@@ -6502,7 +6504,7 @@ Do Until sourcetable.EOF
     temptable.AddNew
     temptable!str11 = 6
     temptable!str12 = "≈Ã„«·Ï «·Õ“‰…"
-    temptable!str3 = " ÌÊ„Ì… " & xDate.text
+    temptable!str3 = " ÌÊ„Ì… " & xdate.text
     temptable!str1 = !BOX
     temptable!str2 = TurnValue(!BOXDESCA)
     temptable!STR5 = TurnValue(!DESCA)
@@ -6518,18 +6520,18 @@ End If
 '   ›’Ì·Ï «·›Ì“«
 
 cString = "SELECT  SUM(FILE6_20H.VISA) AS TVISA ,SUM(FILE6_20H.VISA3) AS TVISA3 , FILE6_20H.CODEVISA, FILE6_20H.CODEVISA3, VISA.DESCA , VISA3.DESCA AS DESCA3 FROM    FILE6_20H LEFT JOIN VISA ON FILE6_20H.CODEVISA = VISA.CODE  LEFT JOIN VISA AS VISA3 ON FILE6_20H.CODEVISA3 = VISA3.CODE " & _
-            " WHERE FILE6_20H.VISA <> 0  AND FILE6_20H.date = " & DateSq(xDate.text)
+            " WHERE FILE6_20H.VISA <> 0  AND FILE6_20H.date = " & DateSq(xdate.text)
 If cBranchStore <> "" Then cString = cString & " AND STORE = " & MyParn(cBranchStore)
 If cManBox <> "" Then cString = cString & " AND BOX = " & MyParn(cManBox)
 cString = cString & " GROUP BY FILE6_20H.CODEVISA, VISA.DESCA ,FILE6_20H.CODEVISA3, VISA3.DESCA"
-VisaTable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
+VisaTable.Open cString, Con, adOpenStatic, adLockReadOnly, adCmdText
 If Not (VisaTable.EOF And VisaTable.BOF) Then
     With VisaTable
     Do Until .EOF
         temptable.AddNew
         temptable!str11 = 7
         temptable!str12 = "≈Ã„«·Ï ›Ì“«"
-        temptable!str3 = " ÌÊ„Ì… " & xDate.text
+        temptable!str3 = " ÌÊ„Ì… " & xdate.text
         temptable!str1 = cManBox
 '       temptable!str2 = TurnValue(!BOXDESCA)
         temptable!STR5 = TurnValue(!DESCA)
@@ -6541,7 +6543,7 @@ If Not (VisaTable.EOF And VisaTable.BOF) Then
         temptable.AddNew
         temptable!str11 = 7
         temptable!str12 = "≈Ã„«·Ï ›Ì“«"
-        temptable!str3 = " ÌÊ„Ì… " & xDate.text
+        temptable!str3 = " ÌÊ„Ì… " & xdate.text
         temptable!str1 = cManBox
 '       temptable!str2 = TurnValue(!BOXDESCA)
         temptable!STR5 = TurnValue(!DESCA3)
@@ -6557,11 +6559,11 @@ End If
 
     
     
-cString = "SELECT   FILE0_50.DESCA AS BOXDESCA , BOXMOVE.BOX , SUM(BOXMOVE.PLUS - BOXMOVE.MINUS ) AS BALBOX FROM         BOXMOVE INNER JOIN FILE0_50 ON FILE0_50.CODE = BOXMOVE.BOX WHERE  DATE = " & DateSq(xDate.text)
+cString = "SELECT   FILE0_50.DESCA AS BOXDESCA , BOXMOVE.BOX , SUM(BOXMOVE.PLUS - BOXMOVE.MINUS ) AS BALBOX FROM         BOXMOVE INNER JOIN FILE0_50 ON FILE0_50.CODE = BOXMOVE.BOX WHERE  DATE = " & DateSq(xdate.text)
 If cManBox <> "" Then cString = cString & " AND BOX = " & MyParn(cManBox)
 cString = cString & " GROUP BY FILE0_50.DESCA ,BOXMOVE.BOX ORDER BY BOXMOVE.BOX "
 sourcetable.Close
-sourcetable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
+sourcetable.Open cString, Con, adOpenStatic, adLockReadOnly, adCmdText
 
 If Not (sourcetable.EOF And sourcetable.BOF) Then
     With sourcetable
@@ -6569,7 +6571,7 @@ If Not (sourcetable.EOF And sourcetable.BOF) Then
             temptable.AddNew
             temptable!str11 = 6
             temptable!str12 = "≈Ã„«·Ï «·Õ“‰…"
-            temptable!str3 = " ÌÊ„Ì… " & xDate.text
+            temptable!str3 = " ÌÊ„Ì… " & xdate.text
             temptable!str1 = !BOX
             temptable!str2 = !BOXDESCA
             temptable!STR5 = "—’Ìœ «·Œ“‰…"
@@ -6594,16 +6596,16 @@ REPORT1.Destination = crptToWindow
 REPORT1.WindowState = crptMaximized
 REPORT1.Action = 1
 Exit Sub
-myerror:
-MsgBox Err.Description
-Err.Clear
+myError:
+MsgBox err.Description
+err.Clear
 End Sub
 Private Function IsPrinted() As Boolean
 'IsPrinted = TurnValue(GetField("SELECT PRINTED FROM FILE6_20H WHERE DOC_NO = " & MyParn(xDoc_No.text), con), Null, False)
 End Function
 Sub FixAddress()
-Dim loctable As New ADODB.Recordset
-Set loctable = cmd("select * From Address where branch = " & MyParn(cBranch), con).Execute
+Dim loctable As New adodb.Recordset
+Set loctable = cmd("select * From Address where branch = " & MyParn(cBranch), Con).Execute
 If Not (loctable.EOF And loctable.BOF) Then
     cComp_Name = loctable!DESCA & ""
     cComp_address = loctable!Address & ""
@@ -6642,13 +6644,13 @@ oUser.Show 1
 If subUserCode <> "" Then
     MsgBox "Ì„ﬂ‰  ”ÃÌ· «·Œ’„ "
     
-    xdiscount.Enabled = True
-    xRate.Enabled = True
+    xDiscount.Enabled = True
+    xrate.Enabled = True
     
     XUSERNAME_DISC.Caption = subUserName
     
     xNote_disc.Caption = ""
-    xdoc_disc.Caption = ""
+    XDOC_DISC.Caption = ""
 End If
 End Sub
 Private Sub myUndo()
@@ -6664,9 +6666,9 @@ Else
     End If
 End If
 Exit Sub
-myerror:
-MsgBox Err.Description
-Err.Clear
+myError:
+MsgBox err.Description
+err.Clear
 End Sub
 Private Sub CmdNext_Click()
 If Not openCardTable(tbMode.tbNext, xdoc_no.text) Then
@@ -6708,7 +6710,7 @@ Me.MousePointer = vbHourglass
 'On Error GoTo myerror
 cFilter = retFilter
 
-Set CardTable = New ADODB.Recordset
+Set CardTable = New adodb.Recordset
 cString = "SELECT TOP 1 FILE6_20H.*," & _
           "dbo.fn_offer(FILE6_20H.DOC_NO) AS isOffer" & _
           " FROM FILE6_20H " & _
@@ -6738,7 +6740,7 @@ End If
 
 cString = cString & " " & cOrder
 
-Set CardTable = cmd(cString, con).Execute
+Set CardTable = cmd(cString, Con).Execute
 
 If (Not CardTable.EOF) Then
     myload
@@ -6746,10 +6748,10 @@ If (Not CardTable.EOF) Then
 End If
 Me.MousePointer = vbNormal
 Exit Function
-myerror:
+myError:
 Me.MousePointer = vbNormal
-MsgBox Err.Description
-Err.Clear
+MsgBox err.Description
+err.Clear
 End Function
 Private Sub mySendInvoices()
 Dim sError As String
@@ -6757,8 +6759,8 @@ Dim nCount As Long
 Dim bDone As Long
 
 If cBranch = "51" Or cBranch = "42" Then
-    bDone = SendInvoicesArab(con, cBranch, sError, nCount)
-    SendInvoicesMall con, cBranch, sError, nCount, Me
+    bDone = SendInvoicesArab(Con, cBranch, sError, nCount)
+    SendInvoicesMall Con, cBranch, sError, nCount, Me
     If sError <> "" Then
         MsgBox sError
     End If
@@ -6793,8 +6795,8 @@ End Function
 Private Sub fixDisplay()
 If cBranch = "00" Then Exit Sub
     
-Dim loctable As New ADODB.Recordset
-Set loctable = cmd("SELECT DISPLAY , PORT , CountPrint FROM COMP ", con).Execute
+Dim loctable As New adodb.Recordset
+Set loctable = cmd("SELECT DISPLAY , PORT , CountPrint FROM COMP ", Con).Execute
 If Not loctable.EOF Then
     cMsgDisplay = loctable!display & ""
     cComPort = loctable!Port & ""
@@ -6807,7 +6809,7 @@ ClearDisplay
 myDisplay cMsgDisplay, " "
 End Sub
 Private Function retRecords(pDoc_no, ByRef nRecords As Long, ByRef nRecord As Long) As Variant
-Dim cString As String, loctable As New ADODB.Recordset
+Dim cString As String, loctable As New adodb.Recordset
 If pDoc_no <> "" Then
     cString = "SELECT Count(FILE6_20H.DOC_NO) AS records,COUNT(CASE WHEN FILE6_20H.DOC_NO <= " & MyParn(pDoc_no) & " THEN 1 END) AS record"
 Else
@@ -6821,7 +6823,7 @@ If cFilter <> "" Then
     cString = cString & " WHERE " & cFilter
 End If
 
-Set loctable = cmd(cString, con).Execute
+Set loctable = cmd(cString, Con).Execute
 If Not loctable.EOF Then
     nRecords = loctable!RECORDS
     nRecord = Val(loctable!Record & "")
@@ -6831,7 +6833,7 @@ Private Function retFilter()
 retFilter = "FILE6_20H.INV_TYPE = 0"
 If nUser < enUser.Admin Then
     retFilter = retFilter & " AND FILE6_20H.BRANCH = " & MyParn(cBranch)
-    retFilter = retFilter & " AND FILE6_20H.DATE = " & DateSq(fnDateSales(con))
+    retFilter = retFilter & " AND FILE6_20H.DATE = " & DateSq(fnDateSales(Con))
 ElseIf cBranch <> "00" Then
     retFilter = retFilter & " AND FILE6_20H.BRANCH = " & MyParn(cBranch)
 End If
@@ -6865,13 +6867,13 @@ myLostFocus xDate1
 myValidDate xDate1
 End Sub
 Private Sub xTotal_GotFocus()
-myGotFocus xtotal
+myGotFocus xTotal
 End Sub
 Private Sub xDiscount_GotFocus()
-myGotFocus xdiscount
+myGotFocus xDiscount
 End Sub
 Private Sub xRate_GotFocus()
-myGotFocus xRate
+myGotFocus xrate
 End Sub
 Private Sub xInv_No_GotFocus()
 myGotFocus xinv_no
@@ -6883,7 +6885,7 @@ Private Sub xcard_disc_GotFocus()
 myGotFocus xcard_disc
 End Sub
 Private Sub xDoc_no2_LostFocus()
-myLostFocus xDoc_no2
+myLostFocus xdoc_no2
 End Sub
 Private Sub xCode2_GotFocus()
 myGotFocus xCode2
@@ -6898,11 +6900,11 @@ Private Sub xNotes_LostFocus()
 myLostFocus xNotes
 End Sub
 Private Sub xdate_GotFocus()
-myGotFocus xDate
+myGotFocus xdate
 End Sub
 Private Sub xDate_LostFocus()
-myLostFocus xDate
-myValidDate xDate
+myLostFocus xdate
+myValidDate xdate
 End Sub
 Private Sub xbox_GotFocus()
 myGotFocus xBox
@@ -6912,13 +6914,13 @@ myLostFocus xBox
 If Not xBox.MatchedWithList Then xBox.BoundText = ""
 End Sub
 Private Sub xMAN_GotFocus()
-myGotFocus xMan
+myGotFocus xman
 End Sub
 Private Sub xMan_LostFocus()
-myLostFocus xMan
-If xMan.MatchedWithList And bEditRecord Then
-    grid1.TextMatrix(grid1.Rows - 1, 15) = xMan.BoundText
-    grid1.TextMatrix(grid1.Rows - 1, 16) = xMan.text
+myLostFocus xman
+If xman.MatchedWithList And bEditRecord Then
+    grid1.TextMatrix(grid1.Rows - 1, 15) = xman.BoundText
+    grid1.TextMatrix(grid1.Rows - 1, 16) = xman.text
 End If
 End Sub
 Private Sub xfilter_GotFocus()
@@ -6946,10 +6948,10 @@ Private Sub xfilter4_LostFocus()
 myLostFocus xfilter4
 End Sub
 Private Sub xcode_GotFocus()
-myGotFocus xcode
+myGotFocus xCode
 End Sub
 Private Sub xcode_LostFocus()
-myLostFocus xcode
+myLostFocus xCode
 End Sub
 Private Sub xDoc_No_GotFocus()
 myGotFocus xdoc_no
@@ -6995,7 +6997,7 @@ cString = "SELECT FILE6_20.OFFER_NO," & _
           " FILE6_20.OFFER_NO" & _
           " ORDER BY FILE6_20.OFFER_NO"
 
-    Set DATA13.Recordset = cmd(cString, con).Execute
+    Set DATA13.Recordset = cmd(cString, Con).Execute
 '    GrdOffer.AddItem ""
 End With
 CalcTotals2
@@ -7029,11 +7031,11 @@ cmdPrintDay.Enabled = nUser > enUser.User
 End Sub
 
 Private Sub xTotal_LostFocus()
-    myLostFocus xtotal
+    myLostFocus xTotal
 End Sub
 
 Private Sub xTotalItemDiscount_Change()
-xtotalitem.Visible = Val(xTotalItemDiscount) <> 0
+xTotalItem.Visible = Val(xTotalItemDiscount) <> 0
 lblTotalitem.Visible = Val(xTotalItemDiscount) <> 0
 End Sub
 
@@ -7043,7 +7045,7 @@ lblQuant.ForeColor = IIf(Val(xTotalQuant.Caption) < 0, vbRed, vbBlack)
 End Sub
 
 Private Sub xType_Change()
-xType.Visible = xType.Caption <> ""
+xtype.Visible = xtype.Caption <> ""
 End Sub
 Public Function PayInvoice() As Boolean
 Unload oCash
@@ -7055,9 +7057,9 @@ mySendInvoices
 CmdNewInv_Click
 PayInvoice = True
 Exit Function
-myerror:
-MsgBox Err.Description
-Err.Clear
+myError:
+MsgBox err.Description
+err.Clear
 End Function
 Public Function ChangePayment() As Boolean
 Unload oCash

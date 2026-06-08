@@ -1469,9 +1469,6 @@ myload
 End Sub
 
 Private Sub Form_Load()
-    Dim con As New ADODB.Connection
-    
-    openCon con
     
     opt(0).Visible = cBranch = "00"
     opt(2).Visible = cBranch = "00"
@@ -1481,29 +1478,22 @@ Private Sub Form_Load()
     Check1.Visible = (cBranch = "00")
     cmdCSV.Enabled = (cBranch = "00")
     
-    'Set data3.d = myRs("SELECT Payment_Method FROM file6_90h GROUP BY Payment_Method ", con)
-    Set xpay.RowSource = myRs("SELECT Payment_Method FROM file6_90h GROUP BY Payment_Method ", con)
-    xpay.ListField = "Payment_Method"
-    xpay.BoundColumn = "Payment_Method"
-    
-    'Set DATA4.Recordset = myRs("SELECT CODE , DESCA FROM FILE0_40 WHERE online =  1 ORDER BY CODE ", con)
-    Set xStore.RowSource = myRs("SELECT CODE , DESCA FROM FILE0_40 WHERE online =  1 ORDER BY CODE ", con)
-    xStore.ListField = "Desca"
-    xStore.BoundColumn = "Code"
+    Dim con As New ADODB.Connection
+    If openCn(con) Then
+        Set xpay.RowSource = myRs("SELECT Payment_Method FROM file6_90h GROUP BY Payment_Method ", con)
+        xpay.ListField = "Payment_Method"
+        xpay.BoundColumn = "Payment_Method"
         
-    'Set data5 = myRs("SELECT CODE,DESCA FROM FILE6_25 WHERE FILE6_25.BRANCH IN (SELECT FILE0_40.BRANCH FROM FILE0_40 WHERE FILE0_40.online =  1) AND FILE6_25.ISSTOP = 0 ORDER BY CODE ", con)
-    Set xMan.RowSource = myRs("SELECT CODE,DESCA FROM FILE6_25 WHERE FILE6_25.BRANCH IN (SELECT FILE0_40.BRANCH FROM FILE0_40 WHERE FILE0_40.online =  1) AND FILE6_25.ISSTOP = 0 ORDER BY CODE", con)
-    xMan.ListField = "Desca"
-    xMan.BoundColumn = "Code"
-        
-    closeCon con
-    
-    Fixgrd
-    
-    Exit Sub
-myerror:
-    MsgBox Err.Description
-    Err.Clear
+        Set XSTORE.RowSource = myRs("SELECT CODE , DESCA FROM FILE0_40 WHERE online =  1 ORDER BY CODE ", con)
+        XSTORE.ListField = "Desca"
+        XSTORE.BoundColumn = "Code"
+            
+        Set xMan.RowSource = myRs("SELECT CODE,DESCA FROM FILE6_25 WHERE FILE6_25.BRANCH IN (SELECT FILE0_40.BRANCH FROM FILE0_40 WHERE FILE0_40.online =  1) AND FILE6_25.ISSTOP = 0 ORDER BY CODE", con)
+        xMan.ListField = "Desca"
+        xMan.BoundColumn = "Code"
+        closeCon con
+    End If
+    fixGrd
 End Sub
 Public Sub myload()
 On Error GoTo myerror
@@ -1559,8 +1549,8 @@ With grid1
                  " INNER JOIN vw_online_invoices_closed as v on FILE6_90H.DOC_NO = v.ORDER_NO"
     End If
     
-    If xDoc_No.text <> "" Then
-        cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xDoc_No.text)
+    If XDOC_NO.text <> "" Then
+        cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(XDOC_NO.text)
     End If
     
     If xphone.text <> "" Then
@@ -1571,8 +1561,8 @@ With grid1
         cWhere = cWhere & Tr(cWhere) & " [Payment_Method] = " & MyParn(xpay.text)
     End If
     
-    If xStore.BoundText <> "" Then
-        cWhere = cWhere & Tr(cWhere) & " [STORE] = " & MyParn(xStore.BoundText)
+    If XSTORE.BoundText <> "" Then
+        cWhere = cWhere & Tr(cWhere) & " [STORE] = " & MyParn(XSTORE.BoundText)
     End If
     
     If xMan.MatchedWithList Then
@@ -1583,8 +1573,8 @@ With grid1
         cWhere = cWhere & Tr(cWhere) & " [DATE] >= " & DateSq(xDate1.text)
     End If
     
-    If IsDate(xDate2.text) Then
-        cWhere = cWhere & Tr(cWhere) & " [DATE] <= " & DateSq(xDate2.text)
+    If IsDate(xdate2.text) Then
+        cWhere = cWhere & Tr(cWhere) & " [DATE] <= " & DateSq(xdate2.text)
     End If
         
     If cBranch = "00" Then
@@ -1604,14 +1594,14 @@ With grid1
     
     Set grid1.DataSource = myRs(cString)
 End With
-Fixgrd
+fixGrd
 grid1.Cell(flexcpAlignment, 0, 0, grid1.Rows - 1, grid1.Cols - 1) = 7
 Exit Sub
 myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Sub Fixgrd()
+Sub fixGrd()
 With grid1
     .RowHeight(0) = 1000
     .WordWrap = True
@@ -1633,7 +1623,6 @@ With grid1
     .TextMatrix(0, 11) = "ØÑíÞÉ ÇáÏÝÚ"
     
     .TextMatrix(0, 12) = "ÇáÝÑÚ"
-'    .TextMatrix(0, 13) = "ÇÙåÇÑ ááÝÑÚ"
     
     .TextMatrix(0, 14) = "SEND TIME "
     .TextMatrix(0, 15) = "ãáÇÍÙÇÊ ØáÈíÉ"
@@ -1722,7 +1711,7 @@ Private Sub Form_Unload(Cancel As Integer)
     On Error Resume Next
     'closeCon con
     'If cBranch <> "00" Then closeCon con_MyShop
-    SaveText Me, , Array(xDate1.Name, xDate2.Name)
+    SaveText Me, , Array(xDate1.Name, xdate2.Name)
 End Sub
 Sub AddFromExel()
     Dim xl As New Excel.Application, nREcOrder As Double
@@ -1868,29 +1857,6 @@ Sub AddFromExel()
             End With
         End If
     End If
-End Sub
-Private Sub Grid1_AfterEdit(ByVal Row As Long, ByVal col As Long)
-'Dim con As New ADODB.Connection
-'openCon con
-'With grid1
-'Select Case col
-'    Case 2
-'        con.Execute " UPDATE FILE6_90H SET [NAME] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-'    Case 3
-'        con.Execute " UPDATE FILE6_90H SET [PHONE] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-'    Case 4
-'        con.Execute " UPDATE FILE6_90H SET [CITY] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-'    Case 5
-'        con.Execute " UPDATE FILE6_90H SET [ADDRESS1] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-'    Case 19
-'        con.Execute " UPDATE FILE6_90H SET [SHIP_DATE] = " & addDate(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-'    Case 22 + 1
-'        con.Execute " UPDATE FILE6_90H SET [NOTE_MAIN] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-'    Case col = 23 + 1
-'        con.Execute " UPDATE FILE6_90H SET [NOTE_BRANCH] = " & addstring(.TextMatrix(Row, col)) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-'End Select
-'End With
-'closeCon con
 End Sub
 Private Sub grid1_DblClick()
 If grid1.Row < 1 Or grid1.Row = grid1.Rows - 1 Then Exit Sub
@@ -2065,75 +2031,6 @@ With grid1
 '    xtime.Caption = .TextMatrix(.Row, 14)
 End With
 End Sub
-Private Sub grid1_CellButtonClick(ByVal Row As Long, ByVal col As Long)
-
-Dim con As New ADODB.Connection
-openCon con
-
-Dim cNotes As String
-With grid1
-    If col = 13 And .TextMatrix(Row, 19 + 1) = "" Then
-        If .TextMatrix(Row, 19 + 1) = "" Then
-            If MsgBox(" ÇÙåÇÑ ØáÈíÉ  Çæä áÇíä ááÝÑÚ ", vbYesNo + vbDefaultButton2) = vbYes Then
-                cNotes = InputBox("", " ãáÇÍÙÇÊ ÎÇÕÉ ÈÇáØáÈ ááÝÑÚ ")
-                
-                .TextMatrix(Row, 13) = cUserName
-                .TextMatrix(Row, 14) = myFormat_p(Date)
-                .TextMatrix(Row, 15) = cUserName
-                .TextMatrix(Row, 15) = cNotes
-                
-                If Trim(.TextMatrix(Row, 12)) = "" Then
-                    con.Execute "UPDATE FILE6_90H SET STORE = NULL , SEND_USER = NULL , SEND_TIME = NULL , NOTES = NULL  WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-                Else
-                    con.Execute "UPDATE FILE6_90H SET STORE = " & addstring(.TextMatrix(Row, 12)) & " , SEND_USER = " & addstring(cUserName) & " , SEND_TIME = GETDATE()  , NOTES= " & addstring(cNotes) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-                End If
-                'xNotes.Caption = cNotes
-                'xUser.Caption = cUserName
-                'xtime.Caption = Date & " " & Time
-            End If
-        Else
-            If MsgBox(" ÇáÛÇÁ ÊÑÍíá ÇáØáÈíÉ  ááÝÑÚ ", vbYesNo + vbDefaultButton2) = vbYes Then
-                con.Execute " UPDATE FILE6_90H SET STORE = NULL , SEND_USER = NULL , SEND_TIME = NULL , NOTES = NULL  WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-                xNotes.Caption = ""
-                xUser.Caption = ""
-                xtime.Caption = ""
-            
-                .TextMatrix(Row, 13) = ""
-                .TextMatrix(Row, 14) = ""
-                .TextMatrix(Row, 15) = ""
-                .TextMatrix(Row, 15) = ""
-            
-            End If
-        End If
-    ElseIf col = 19 + 1 Then
-        If .TextMatrix(Row, 21) = "" Then
-            If MsgBox(" ÇáÛÇÁ ÇáØáÈíÉ ãä ÇáÚãíá ", vbYesNo + vbDefaultButton2) = vbYes Then
-                cNotes = InputBox("", " ÓÈÈ ÇáÅáÛÇÁ ")
-                .TextMatrix(Row, 19 + 1) = cNotes
-                .TextMatrix(Row, 20 + 1) = myFormat(Date)
-                con.Execute " UPDATE FILE6_90H SET store = null, DelOrder_Date = " & DateSq(Date) & "  , NOTES = " & addstring(cNotes) & " WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-                .TextMatrix(Row, 12) = ""
-            End If
-        ElseIf MsgBox("ÇáÊÑÇÌÚ Úä ÇáÛÇÁ ÇáØáÈíÉ", vbYesNo + vbDefaultButton2) = vbYes Then
-            cNotes = ""
-            .TextMatrix(Row, 19 + 1) = ""
-            .TextMatrix(Row, 20 + 1) = ""
-            con.Execute " UPDATE FILE6_90H SET DelOrder_Date = null , NOTES = null WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-        End If
-'    ElseIf col = 21 + 1 And IsDate(.TextMatrix(Row, 20 + 1)) Then
-'        If MsgBox(" ÊÇÑíÎ ÇÓÊáÇã ÇáãÑÊÌÚ ãä ÔÑßÉ ÇáÔÍä ", vbYesNo + vbDefaultButton2) = vbYes Then
-'            DDate2 = InputBox("", " ÇáÊÇÑíÍ ")
-'            .TextMatrix(Row, 21 + 1) = DDate2
-'            con.Execute " UPDATE FILE6_90H SET DelOrder_Date2 = " & DateSq(sDate2) & "  WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-'        Else
-'            con.Execute " UPDATE FILE6_90H SET DelOrder_Date2 = null  WHERE DOC_NO = " & MyParn(.TextMatrix(Row, 0))
-'        End If
-    ElseIf col = 24 + 1 And grid1.TextMatrix(Row, 12) <> "" Then
-        SalesManLookup Me, oSearchMan, "FILE6_25.BRANCH IN (SELECT BRANCH FROM FILE0_40 WHERE STORE = " & MyParn(grid1.TextMatrix(Row, 12)) & ") AND FILE6_25.ISSTOP = 0", , IIf(grid1.TextMatrix(grid1.Row, 24 + 1) = "", "", "ÈÏæä ÈÇÆÚíä")
-    End If
-End With
-closeCon con
-End Sub
 Private Function LoadConString_OnLine()
 Dim cServerName As String, cUserId As String, cPassword As String, sCatalog_Online As String
     If Not vpn Then
@@ -2282,22 +2179,22 @@ cString.Append "SELECT  FILE6_90H.DOC_NO," & _
                "LEFT JOIN FILE0_40 ON FILE0_40.CODE = FILE6_90H.STORE "
 cString.Append "WHERE  SALES_DOC IS NULL"
 
-If xDoc_No.text <> "" Then
-    cString.Append " AND [DOC_NO] = " & MyParn(xDoc_No.text)
+If XDOC_NO.text <> "" Then
+    cString.Append " AND [DOC_NO] = " & MyParn(XDOC_NO.text)
 End If
 
 If xpay.MatchedWithList Then
     cString.Append " AND [Payment_Method] = " & MyParn(xpay.text)
 End If
 
-If xStore.MatchedWithList Then
-    cString.Append " AND [STORE] = " & MyParn(xStore.BoundText)
+If XSTORE.MatchedWithList Then
+    cString.Append " AND [STORE] = " & MyParn(XSTORE.BoundText)
 End If
 If IsDate(xDate1.text) Then
     cString.Append " AND [DATE] >= " & DateSq(xDate1.text)
 End If
-If IsDate(xDate2.text) Then
-    cString.Append " AND [DATE] <= " & DateSq(xDate2.text)
+If IsDate(xdate2.text) Then
+    cString.Append " AND [DATE] <= " & DateSq(xdate2.text)
 End If
 If cBranch = "00" Then
     If xIssend(0).Value <> 0 Then
@@ -2367,7 +2264,7 @@ With SourchTable
         temptable!VAL1 = !Quant
         temptable!VAL3 = !price
         'If cBranch <> "00" Then temptable!VAL4 = LastBalance(!Item, cBranchStore, con_MyShop)
-        temptable!STR19 = " ØáÈÇÊ Çæä áÇíä  ÛíÑ ãäÝÐÉ " & xStore.text
+        temptable!STR19 = " ØáÈÇÊ Çæä áÇíä  ÛíÑ ãäÝÐÉ " & XSTORE.text
         temptable.Update
     .MoveNext
 Loop
@@ -2392,17 +2289,17 @@ Private Sub XPHONE_LostFocus()
 myLostFocus xphone
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xDoc_No
+myGotFocus XDOC_NO
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus xDoc_No
+myLostFocus XDOC_NO
 End Sub
 Private Sub xDate2_GotFocus()
-myGotFocus xDate2
+myGotFocus xdate2
 End Sub
 Private Sub xDate2_LostFocus()
-myLostFocus xDate2
-myValidDate xDate2
+myLostFocus xdate2
+myValidDate xdate2
 End Sub
 Private Sub xdate1_GotFocus()
 myGotFocus xDate1
@@ -2419,11 +2316,11 @@ myLostFocus xpay
 If Not xpay.MatchedWithList Then xpay.BoundText = ""
 End Sub
 Private Sub XSTORE_GotFocus()
-myGotFocus xStore
+myGotFocus XSTORE
 End Sub
 Private Sub XSTORE_LostFocus()
-myLostFocus xStore
-If Not xStore.MatchedWithList Then xStore.BoundText = ""
+myLostFocus XSTORE
+If Not XSTORE.MatchedWithList Then XSTORE.BoundText = ""
 End Sub
 Private Sub grid1_KeyPress(KeyAscii As Integer)
 If KeyAscii = 13 Then
@@ -2485,10 +2382,10 @@ If col = 4 Then
         Exit Sub
     End If
     
-    If Val(xtotal.Caption) > 0 And Val(grid1.EditText) <= 0 Then
+    If Val(xTotal.Caption) > 0 And Val(grid1.EditText) <= 0 Then
         Cancel = True
         Exit Sub
-    ElseIf Val(xtotal.Caption) < 0 And Val(grid1.EditText) >= 0 Then
+    ElseIf Val(xTotal.Caption) < 0 And Val(grid1.EditText) >= 0 Then
         Cancel = True
         Exit Sub
     End If
@@ -2594,12 +2491,12 @@ Do Until loctable.EOF
     aInsert = AddFlag(aInsert, "PRICE", loctable!price)
     aInsert = AddFlag(aInsert, "QUANT", loctable!Quant)
     aInsert = AddFlag(aInsert, "MODEL", addstring(loctable!MODEL))
-    If IsEmpty(myField("SELECT DOC_NO FROM " & cFile & " WHERE DOC_NO = " & MyParn(xDoc_No.text) & " AND ITEM = " & addvalue(loctable!Item), con)) Then
-        aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_No.text))
+    If IsEmpty(myField("SELECT DOC_NO FROM " & cFile & " WHERE DOC_NO = " & MyParn(XDOC_NO.text) & " AND ITEM = " & addvalue(loctable!Item), con)) Then
+        aInsert = AddFlag(aInsert, "DOC_NO", addstring(XDOC_NO.text))
         con.Execute addInsert(aInsert, cFile), nAffect
         nAffect = 1
     Else
-        con.Execute addUpdate(aInsert, cFile, "DOC_NO = " & MyParn(xDoc_No.text) & " AND ITEM = " & addvalue(loctable!Item)), nAffect
+        con.Execute addUpdate(aInsert, cFile, "DOC_NO = " & MyParn(XDOC_NO.text) & " AND ITEM = " & addvalue(loctable!Item)), nAffect
     End If
     nAffectAll = nAffectAll + nAffect
     loctable.MoveNext

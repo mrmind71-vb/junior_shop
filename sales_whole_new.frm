@@ -2014,7 +2014,6 @@ Begin VB.Form sales_wholefrm
          Height          =   510
          Left            =   4545
          TabIndex        =   23
-         TabStop         =   0   'False
          Top             =   180
          Width           =   1095
          _ExtentX        =   1931
@@ -3080,7 +3079,7 @@ Dim cFilterLook As String
 Dim nRound As Long
 Dim rsInv_Type As ADODB.Recordset
 Dim CardTable As ADODB.Recordset
-Dim oSearchItem As New Search_abd, oSearchDoc  As New Search_abd
+Dim oSearchItem As New Search_abd, oSearchDoc  As New Search_rs
 Dim oSearchStore As New Search_abd, oSearchStoreLook As New Search_abd
 Dim osearchClient As New Search_abd, oSearchClientLook As New Search_abd
 Dim oSearchOrder As New Search_abd
@@ -3707,7 +3706,7 @@ MYVALID = True
 End Function
 Private Sub myload()
 XBRANCH.Caption = CardTable!branch & ""
-xDoc_No.text = CardTable!DOC_NO
+xDoc_No.text = CardTable!doc_no
 xDoc_no2.Caption = CardTable!Doc_no2
 xdoc_no_tax.Caption = Mid(CardTable!doc_no_Tax & "", 7, 6)
 xdoc_no_tax.Tag = CardTable!doc_no_Tax & ""
@@ -5332,7 +5331,7 @@ aInsert = AddFlag(aInsert, "USERNAME", addstring(cUserName))
 aInsert = AddFlag(aInsert, "BRANCH", addstring("00"))
 aInsert = AddFlag(aInsert, "ISINVOICE", "1")
 aInsert = AddFlag(aInsert, "STORE", addstring(loctable!STORE))
-aInsert = AddFlag(aInsert, "NOTES", addstring(loctable!DOC_NO))
+aInsert = AddFlag(aInsert, "NOTES", addstring(loctable!doc_no))
 
 con.BeginTrans
 con.Execute addInsert(aInsert, "FILE6_20H")
@@ -5355,7 +5354,7 @@ con.Execute "INSERT INTO FILE6_20(" & _
             " FILE6_20.COST" & _
             " FROM FILE6_20 " & _
             " INNER JOIN FILE6_20H ON FILE6_20.DOC_NO = FILE6_20H.DOC_NO" & _
-            " WHERE FILE6_20.DOC_NO = " & MyParn(loctable!DOC_NO)
+            " WHERE FILE6_20.DOC_NO = " & MyParn(loctable!doc_no)
             
 con.Execute "UPDATE FILE6_20H SET " & _
             " FILE6_20H.TAX = ROUND(FILE6_20H.TOTAL_ITEM * 0.14,2)" & _
@@ -5365,9 +5364,9 @@ con.Execute "UPDATE FILE6_20H SET " & _
             " FILE6_20H.DOC_NO_TAX = " & addstring(sNewDoc) & "," & _
             " FILE6_20H.DISCOUNT = 0," & _
             " FILE6_20H.TAX = 0" & _
-            " FROM FILE6_20H WHERE FILE6_20H.DOC_NO = " & MyParn(loctable!DOC_NO)
+            " FROM FILE6_20H WHERE FILE6_20H.DOC_NO = " & MyParn(loctable!doc_no)
 
-con.Execute "DELETE FROM FILE6_20 WHERE DOC_NO = " & MyParn(loctable!DOC_NO)
+con.Execute "DELETE FROM FILE6_20 WHERE DOC_NO = " & MyParn(loctable!doc_no)
 con.CommitTrans
 TransToTaxInv = True
 If loctable!TOTAL_ITEM >= 0 Then
@@ -5433,7 +5432,7 @@ aInsert = AddFlag(aInsert, "PO_NO", addstring(loctable!PO_NO))
 aInsert = AddFlag(aInsert, "BRANCH", addstring("00"))
 aInsert = AddFlag(aInsert, "ISINVOICE", "1")
 aInsert = AddFlag(aInsert, "STORE", addstring(loctable!STORE))
-aInsert = AddFlag(aInsert, "NOTES", addstring(loctable!DOC_NO))
+aInsert = AddFlag(aInsert, "NOTES", addstring(loctable!doc_no))
 
 con.BeginTrans
 con.Execute addInsert(aInsert, "FILE6_20H")
@@ -5455,7 +5454,7 @@ con.Execute "INSERT INTO FILE6_20(" & _
             " COST" & _
             " FROM FILE6_20 " & _
             " INNER JOIN FILE6_20H ON FILE6_20.DOC_NO = FILE6_20H.DOC_NO" & _
-            " WHERE FILE6_20.DOC_NO = " & MyParn(loctable!DOC_NO)
+            " WHERE FILE6_20.DOC_NO = " & MyParn(loctable!doc_no)
 
 con.Execute "UPDATE FILE6_20H SET " & _
             " FILE6_20H.TAX = ROUND(FILE6_20H.TOTAL_ITEM * 0.14,2)" & _
@@ -5465,8 +5464,8 @@ con.Execute "UPDATE FILE6_20H SET " & _
             " FILE6_20H.DOC_NO_TAX = " & addstring(sNewDoc) & "," & _
             " FILE6_20H.DISCOUNT = 0," & _
             " FILE6_20H.TAX = 0" & _
-            " FROM FILE6_20H WHERE FILE6_20H.DOC_NO = " & MyParn(loctable!DOC_NO)
-con.Execute "DELETE FROM FILE6_20 WHERE DOC_NO = " & MyParn(loctable!DOC_NO)
+            " FROM FILE6_20H WHERE FILE6_20H.DOC_NO = " & MyParn(loctable!doc_no)
+con.Execute "DELETE FROM FILE6_20 WHERE DOC_NO = " & MyParn(loctable!doc_no)
 con.CommitTrans
 
 If loctable!TOTAL_ITEM >= 0 Then

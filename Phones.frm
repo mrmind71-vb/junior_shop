@@ -2,7 +2,7 @@ VERSION 5.00
 Object = "{D76D7128-4A96-11D3-BD95-D296DC2DD072}#1.0#0"; "Vsflex7.ocx"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
-Begin VB.Form Phonesfrm 
+Begin VB.Form Phonesfrm22 
    BackColor       =   &H00FFFFFF&
    Caption         =   " ·Ì›Ê‰«  «·⁄„·«¡"
    ClientHeight    =   1935
@@ -319,42 +319,42 @@ Begin VB.Form Phonesfrm
       WallPaperAlignment=   9
    End
 End
-Attribute VB_Name = "Phonesfrm"
+Attribute VB_Name = "Phonesfrm22"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public con As ADODB.Connection
-Public myform As Form
+Public myForm As Form
 Dim bIg As Boolean
 Private Sub cmdExit_Click()
 Unload Me
 End Sub
 Private Sub cmdSave_Click()
-If Trim(XPHONE.text) <> "" Then
-    If Not IsValidMobile(XPHONE.text) Then
+If Trim(xPhone.text) <> "" Then
+    If Not IsValidMobile(xPhone.text) Then
         MsgBox "—ﬁ„ „Õ„Ê· €Ì— ’«·Õ"
         Exit Sub
     End If
     
-    myform.XPHONE.Caption = XPHONE.text
+    myForm.xPhone.Caption = xPhone.text
     If Trim(xName.text) <> "" Then
-        myform.XPHONE.Tag = xName.text
+        myForm.xPhone.Tag = xName.text
     Else
-        xName.text = fnPhoneName(XPHONE.text, con)
+        xName.text = fnPhoneName(xPhone.text, con)
     End If
     Unload Me
 End If
 End Sub
 Private Sub Form_Load()
 Set grdPhone.DataSource = data1
-If myform.XPHONE.Caption <> "" Then
+If myForm.xPhone.Caption <> "" Then
     bIg = True
-    XPHONE.text = myform.XPHONE.Caption
-    If myform.XPHONE.Tag <> "" Then
-        xName.text = myform.XPHONE.Tag
+    xPhone.text = myForm.xPhone.Caption
+    If myForm.xPhone.Tag <> "" Then
+        xName.text = myForm.xPhone.Tag
     Else
-        xName.text = fnPhoneName(XPHONE.text, con)
+        xName.text = fnPhoneName(xPhone.text, con)
     End If
     bIg = False
 End If
@@ -365,7 +365,7 @@ End Sub
 
 Private Sub xPhone_Change()
 If bIg Then Exit Sub
-myLoadList , XPHONE.text
+myLoadList , xPhone.text
 End Sub
 Private Sub myLoadList(Optional pName As String = "", Optional pPhone As String = "")
 Dim cString As String
@@ -423,7 +423,7 @@ End If
 End Sub
 Private Sub grdPhone_DblClick()
 bIg = True
-XPHONE.text = grdPhone.TextMatrix(grdPhone.Row, 0)
+xPhone.text = grdPhone.TextMatrix(grdPhone.Row, 0)
 xName.text = grdPhone.TextMatrix(grdPhone.Row, 1)
 'xE_mail.text = grdPhone.TextMatrix(grdPhone.Row, 2)
 grdPhone.Visible = False
@@ -452,5 +452,5 @@ End If
 End Sub
 
 Private Sub XPHONE_LostFocus()
-myLostFocus XPHONE
+myLostFocus xPhone
 End Sub

@@ -163,43 +163,43 @@ oSearch.nMax_records = 1000
 oSearch.Caption = "≈” ⁄·«„ «·„’«‰⁄"
 oSearch.Show 1
 End Sub
-Public Function fnDateSales(con As ADODB.Connection) As String
+Public Function fnDateSales(Con As adodb.Connection) As String
 If cBranch = "00" Then
     fnDateSales = myFormat(Date)
     Exit Function
 End If
 
-Dim loctable As New ADODB.Recordset
+Dim loctable As New adodb.Recordset
 Dim cString As String
 Set loctable = cmd("SELECT dSales FROM DSALES" & _
-            " WHERE BRANCH = " & MyParn(cBranch), con).Execute
+            " WHERE BRANCH = " & MyParn(cBranch), Con).Execute
 If Not loctable.EOF Then
     fnDateSales = myFormat(loctable!dSales)
 End If
 loctable.Close
 End Function
-Public Function fnBalance(pItem As String, con As ADODB.Connection, Optional pstore As String = "", Optional pDate As String = "", Optional pId As String = "") As Long
-Dim cmBalance As New ADODB.command
+Public Function fnBalance(pItem As String, Con As adodb.Connection, Optional pstore As String = "", Optional pDate As String = "", Optional pId As String = "") As Long
+Dim cmBalance As New adodb.command
 Dim aPrm As Variant
 aPrm = AddFlag(aPrm, "ITEM", pItem)
 If pstore <> "" Then aPrm = AddFlag(aPrm, "STORE", pstore)
 If IsDate(pDate) Then aPrm = AddFlag(aPrm, "DATE", myFormat_sp(pDate))
 If pId <> "" Then aPrm = AddFlag(aPrm, "ID", pId)
 
-Set cmBalance = cmd("dbo.sp_balance", con, adStoredProc, aPrm)
+Set cmBalance = cmd("dbo.sp_balance", Con, adStoredProc, aPrm)
 cmBalance.Execute
 fnBalance = Val(cmBalance.Parameters("@BALANCE") & "")
 Set cmBalance = Nothing
 End Function
 Public Function rsBalance(pItem As String, Optional pstore As String = "", Optional pDate As String = "", Optional pId As String = "") As Long
-Dim loctable As New ADODB.Recordset
+Dim loctable As New adodb.Recordset
 Dim aPrm As Variant
 aPrm = AddFlag(aPrm, "ITEM", pItem)
 If pstore <> "" Then aPrm = AddFlag(aPrm, "STORE", pstore)
 If IsDate(pDate) Then aPrm = AddFlag(aPrm, "DATE", myFormat_sp(pDate))
 If pId <> "" Then aPrm = AddFlag(aPrm, "ID", pId)
 
-Set loctable = myRs("dbo.sp_balance_rs", , adStoredProc, aPrm)
+Set loctable = myRs("dbo.sp_balance_rs", , , adStoredProc, aPrm)
 If Not loctable.EOF Then
     rsBalance = Val(loctable!balance & "")
 End If
@@ -217,9 +217,9 @@ Public Function IsFormOpen(ByVal FormName As String) As Boolean
     IsFormOpen = False
 End Function
 
-Public Function fnPhoneName(pPhone As String, con As ADODB.Connection) As String
-Dim cmdPhone As New ADODB.command
-Set cmdPhone = cmd("dbo.sp_cust_phone", con, adStoredProc, AddFlag(Empty, "phone", pPhone))
+Public Function fnPhoneName(pPhone As String, Con As adodb.Connection) As String
+Dim cmdPhone As New adodb.command
+Set cmdPhone = cmd("dbo.sp_cust_phone", Con, adStoredProc, AddFlag(Empty, "phone", pPhone))
 cmdPhone.Execute
 
 fnPhoneName = cmdPhone.Parameters("@DESCA").Value & ""
@@ -253,9 +253,9 @@ Public Function IsValidMobile(ByVal strNumber As String) As Boolean
 End Function
 
 
-Public Function UpdatePhones(pPhone As String, pName As String, pDate As String, con As ADODB.Connection) As Boolean
-Dim cmdPhone As New ADODB.command
-Set cmdPhone = cmd("dbo.sp_cust_phone", con, adStoredProc, AddFlag(Empty, "phone", pPhone))
+Public Function UpdatePhones(pPhone As String, pName As String, pDate As String, Con As adodb.Connection) As Boolean
+Dim cmdPhone As New adodb.command
+Set cmdPhone = cmd("dbo.sp_cust_phone", Con, adStoredProc, AddFlag(Empty, "phone", pPhone))
 cmdPhone.Execute
 
 Dim aInsert As Variant
@@ -288,37 +288,37 @@ If Val(cmdPhone.Parameters("@COUNT") & "") <> 1 Then
 End If
 
 If Not IsEmpty(aInsert) Then
-    con.BeginTrans
+    Con.BeginTrans
     If Val(cmdPhone.Parameters("@COUNT") & "") > 1 Then
-        con.Execute "DELETE FROM SUBCUST WHERE PHONE = " & MyParn(pPhone)
+        Con.Execute "DELETE FROM SUBCUST WHERE PHONE = " & MyParn(pPhone)
     End If
     
     If Val(cmdPhone.Parameters("@COUNT") & "") = 1 Then
-        con.Execute addUpdate(aInsert, "SUBCUST", "PHONE = " & MyParn(pPhone))
+        Con.Execute addUpdate(aInsert, "SUBCUST", "PHONE = " & MyParn(pPhone))
     Else
-        con.Execute addInsert(aInsert, "SUBCUST")
+        Con.Execute addInsert(aInsert, "SUBCUST")
     End If
-    con.CommitTrans
+    Con.CommitTrans
 End If
 UpdatePhones = True
 Exit Function
-con.RollbackTrans
-MsgBox Err.Description
-Err.Clear
+Con.RollbackTrans
+MsgBox err.Description
+err.Clear
 End Function
-Public Function UpdateDiscount(pDoc_no As String, con As ADODB.Connection, Optional pDiscount_add As Double, Optional pDiscount_total As Double) As Boolean
-Dim cmDiscount As New ADODB.command
-Set cmDiscount = cmd("dbo.sp_offer_discount", con, adStoredProc, AddFlag(Empty, "DOC_NO", pDoc_no))
+Public Function UpdateDiscount(pDoc_no As String, Con As adodb.Connection, Optional pDiscount_add As Double, Optional pDiscount_total As Double) As Boolean
+Dim cmDiscount As New adodb.command
+Set cmDiscount = cmd("dbo.sp_offer_discount", Con, adStoredProc, AddFlag(Empty, "DOC_NO", pDoc_no))
 cmDiscount.Execute
 If Not IsNull(cmDiscount.Parameters("@OFFER_NO").Value) Then
     If pDiscount_add = 0 Then
-        con.Execute "UPDATE FILE6_20H " & _
+        Con.Execute "UPDATE FILE6_20H " & _
                     "SET FILE6_20H.DISCOUNT_OFFER = " & cmDiscount.Parameters("@DISCOUNT").Value & "," & _
                     "FILE6_20H.DISCOUNT = FILE6_20H.DISCOUNT_ADD + " & cmDiscount.Parameters("@DISCOUNT").Value & "," & _
                     "FILE6_20H.IS_OFFER = " & IIf(cmDiscount.Parameters("@OFFER_NO").Value > 0, "1", "0") & _
                     " WHERE FILE6_20H.DOC_NO = " & MyParn(pDoc_no)
     Else
-        con.Execute "UPDATE FILE6_20H " & _
+        Con.Execute "UPDATE FILE6_20H " & _
                     "SET FILE6_20H.DISCOUNT_OFFER = " & cmDiscount.Parameters("@DISCOUNT").Value & "," & _
                     "FILE6_20H.DISCOUNT_ADD = " & pDiscount_add & "," & _
                     "FILE6_20H.DISCOUNT = " & pDiscount_add + cmDiscount.Parameters("@DISCOUNT").Value & "," & _
@@ -327,14 +327,14 @@ If Not IsNull(cmDiscount.Parameters("@OFFER_NO").Value) Then
     End If
 Else
     If pDiscount_add = 0 Then
-        con.Execute "UPDATE FILE6_20H " & _
+        Con.Execute "UPDATE FILE6_20H " & _
                     "SET FILE6_20H.DISCOUNT_OFFER = 0," & _
                     "FILE6_20H.DISCOUNT_Add = 0," & _
                     "FILE6_20H.DISCOUNT = " & pDiscount_total & "," & _
                     "FILE6_20H.IS_OFFER = 0" & _
                     " WHERE FILE6_20H.DOC_NO = " & MyParn(pDoc_no)
     Else
-        con.Execute "UPDATE FILE6_20H " & _
+        Con.Execute "UPDATE FILE6_20H " & _
                     "SET FILE6_20H.DISCOUNT_OFFER = 0," & _
                     "FILE6_20H.DISCOUNT_Add = 0," & _
                     "FILE6_20H.DISCOUNT = " & pDiscount_add & " ," & _

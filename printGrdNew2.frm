@@ -56,7 +56,7 @@ Begin VB.Form printGrdNew
       Preview         =   -1  'True
       DefaultDevice   =   0   'False
       PhysicalPage    =   -1  'True
-      AbortWindow     =   -1  'True
+      AbortWindow     =   0   'False
       AbortWindowPos  =   0
       AbortCaption    =   "Printing..."
       AbortTextButton =   "Cancel"
@@ -177,7 +177,7 @@ nStep = IIf(bLeft, 1, -1)
 Vp.Orientation = IIf(bLand, orLandscape, orPortrait)
 
 If sDeviceType <> "" Then Vp.Device = RetPrinterByType(sDeviceType)
-'If bIgPreview Then Vp.Preview = False
+If bIgPreview Then Vp.Preview = False
 
 Vp = " "
 With Vp
@@ -242,7 +242,7 @@ For nRow = 0 To grid1.Rows - 1
                 End If
             End If
         Next
-        If cBody.Length > 0 Then cBody.Append ";"
+        If cBody.length > 0 Then cBody.Append ";"
     End If
 Next
 If Not myForm Is Nothing Then
