@@ -2,9 +2,9 @@ VERSION 5.00
 Object = "{D76D7128-4A96-11D3-BD95-D296DC2DD072}#1.0#0"; "Vsflex7.ocx"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
-Begin VB.Form online_Stage_man 
+Begin VB.Form online_Stage_invoice 
    BackColor       =   &H00FFFFFF&
-   Caption         =   "«ŸÂ«— «’‰«› ÿ·»Ì…"
+   Caption         =   " ÃÂÌ“ ÿ·»Ì…"
    ClientHeight    =   8010
    ClientLeft      =   60
    ClientTop       =   345
@@ -34,6 +34,7 @@ Begin VB.Form online_Stage_man
          Left            =   9765
          TabIndex        =   17
          Top             =   90
+         Visible         =   0   'False
          Width           =   2220
          _ExtentX        =   3916
          _ExtentY        =   979
@@ -60,6 +61,7 @@ Begin VB.Form online_Stage_man
          Left            =   12015
          TabIndex        =   11
          Top             =   90
+         Visible         =   0   'False
          Width           =   2220
          _ExtentX        =   3916
          _ExtentY        =   979
@@ -110,7 +112,7 @@ Begin VB.Form online_Stage_man
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Picture         =   "showOrder_man.frx":0000
+            Picture         =   "online_stage_invoice.frx":0000
             Alignment       =   8
             ButtonStyle     =   3
             PictureAlignment=   11
@@ -138,12 +140,12 @@ Begin VB.Form online_Stage_man
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Picture         =   "showOrder_man.frx":2323
+            Picture         =   "online_stage_invoice.frx":2323
             ButtonStyle     =   3
             PictureAlignment=   11
             BevelWidth      =   0
             PictureDisabledFrames=   1
-            PictureDisabled =   "showOrder_man.frx":4699
+            PictureDisabled =   "online_stage_invoice.frx":4699
          End
          Begin Threed.SSCommand cmdExcel 
             Height          =   555
@@ -166,7 +168,7 @@ Begin VB.Form online_Stage_man
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Picture         =   "showOrder_man.frx":681C
+            Picture         =   "online_stage_invoice.frx":681C
             ButtonStyle     =   3
             PictureAlignment=   11
             BevelWidth      =   0
@@ -179,6 +181,7 @@ Begin VB.Form online_Stage_man
          Left            =   12015
          TabIndex        =   12
          Top             =   90
+         Visible         =   0   'False
          Width           =   2220
          _ExtentX        =   3916
          _ExtentY        =   979
@@ -205,6 +208,7 @@ Begin VB.Form online_Stage_man
          Left            =   9765
          TabIndex        =   13
          Top             =   90
+         Visible         =   0   'False
          Width           =   2220
          _ExtentX        =   3916
          _ExtentY        =   979
@@ -231,6 +235,7 @@ Begin VB.Form online_Stage_man
          Left            =   7515
          TabIndex        =   18
          Top             =   90
+         Visible         =   0   'False
          Width           =   2220
          _ExtentX        =   3916
          _ExtentY        =   979
@@ -248,6 +253,32 @@ Begin VB.Form online_Stage_man
             Strikethrough   =   0   'False
          EndProperty
          Caption         =   "«—”«· ·· ⁄œÌ·"
+         TagVariant      =   "√Œ «— «·„‘—Ê⁄"
+         ButtonStyle     =   3
+      End
+      Begin Threed.SSCommand cmdInvoice 
+         Height          =   555
+         Left            =   12015
+         TabIndex        =   19
+         Top             =   90
+         Visible         =   0   'False
+         Width           =   2220
+         _ExtentX        =   3916
+         _ExtentY        =   979
+         _Version        =   196610
+         CaptionStyle    =   1
+         ForeColor       =   0
+         BackColor       =   16777215
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   -1  'True
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Caption         =   "⁄„· ›« Ê—…"
          TagVariant      =   "√Œ «— «·„‘—Ê⁄"
          ButtonStyle     =   3
       End
@@ -623,14 +654,14 @@ Begin VB.Form online_Stage_man
       WallPaperAlignment=   9
    End
 End
-Attribute VB_Name = "online_Stage_man"
+Attribute VB_Name = "online_Stage_invoice"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public sDoc_no As String
 Public sManCode As String
-Public sStage As String
+Public bInvoice As Boolean
 Public sMsg As String
 Public myForm As Form
 Dim aHeader(2) As String
@@ -640,7 +671,7 @@ Private Sub cmdExel_Click()
 ToFileExelNew grid1, , , aXl, , 1
 End Sub
 
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
 Unload Me
 End Sub
 Private Sub cmdPrint_Click()
@@ -692,8 +723,7 @@ If openCn(con) Then
     cString = "UPDATE FILE6_90H " & _
               " SET FILE6_90H.STAGE = " & (Index) & "," & _
               " TIME" & Index & " = " & addstring(Format(Now, "YYYY-MM-DD HH:NN")) & "," & _
-              " MAN = " & addstring(sManCode) & _
-              " MAN" & Index & " = " & addstring(sManCode) & _
+              " MAN_STAGE = " & sManCode & _
               " WHERE DOC_NO = " & MyParn(sDoc_no)
     On Error GoTo myerror
     con.BeginTrans
@@ -704,7 +734,7 @@ If openCn(con) Then
         aInsert = AddFlag(aInsert, "STAGE", (Index))
         aInsert = AddFlag(aInsert, "DESCA", addstring(sMsg))
         aInsert = AddFlag(aInsert, "TIME", addstring(Format(Now, "YYYY-MM-DD HH:NN")))
-        aInsert = AddFlag(aInsert, "MAN", addstring(sManCode))
+        aInsert = AddFlag(aInsert, "MAN", addvalue(sManCode))
         con.Execute addInsert(aInsert, "FILE6_90H_ER")
     End If
     con.CommitTrans
@@ -729,7 +759,6 @@ MsgBox Err.Description
 Err.Clear
 Resume Finally
 End Function
-
 Private Sub Form_Load()
 Dim cString As String
 cString = "SELECT FILE6_90H.MAN," & _
@@ -745,19 +774,21 @@ On Error GoTo myerror
 Dim loctable As New ADODB.Recordset
 Set loctable = myRs(cString)
                     
-xStage.Caption = loctable!stage_Desca
-xStage.Tag = loctable!Stage
-
-If loctable!Stage = 4 Then
-    cmdStage(3).Caption = " „ Õ· «·„‘ﬂ·… Ê«· ÃÂÌ“"
+If Not bInvoice Then
+    xStage.Caption = loctable!stage_Desca
+    xStage.Tag = loctable!Stage
+    
+    If loctable!Stage = 4 Then
+        cmdStage(3).Caption = " „ Õ· «·„‘ﬂ·… Ê«· ÃÂÌ“"
+    End If
+    cmdStage(2).Visible = loctable!Stage = 1
+    cmdStage(3).Visible = loctable!Stage = 2 Or loctable!Stage = 4
+    cmdStage(4).Visible = loctable!Stage = 3 Or loctable!Stage = 2
+    cmdStage(5).Visible = loctable!Stage = 4
+    cmdStage(6).Visible = loctable!Stage = 4
+Else
+   cmdInvoice.Visible = True
 End If
-
-cmdStage(2).Visible = loctable!Stage = 1
-cmdStage(3).Visible = loctable!Stage = 2 Or loctable!Stage = 4
-cmdStage(4).Visible = loctable!Stage = 3 Or loctable!Stage = 2
-cmdStage(5).Visible = loctable!Stage = 4
-cmdStage(6).Visible = loctable!Stage = 4
-
 myload
 myloadGrdError
 Exit Sub
@@ -765,7 +796,7 @@ myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Sub Fixgrd()
+Sub fixGrd()
 With grid1
         
     .RowHeight(0) = 800
@@ -909,7 +940,7 @@ If grid1.Rows > 1 Then
     aHeader(0) = "—ﬁ„ «·ÿ·»Ì… : " & xDoc_no.Caption
     aHeader(1) = "«· «—ÌŒ : " & xdate.Caption
 End If
-Fixgrd
+fixGrd
 Exit Sub
 myerror:
 MsgBox Err.Description
@@ -926,9 +957,23 @@ If IsNull(rsValue("select order_no from vw_online_orders_open where order_no = "
     Exit Sub
 End If
 
-If IsNull(rsValue("select order_no from vw_online_orders_open where order_no = " & MyParn(grid1.TextMatrix(grid1.Row, 0)))) Then
-    Exit Sub
-End If
+Dim strSql As String
+strSql = "SELECT TOP 1  ORDER_NO " & _
+          " FROM vw_o" & _
+          " FILE6_20H."
+          " WHERE ORDER_NO = " & MyParn(sDoc_no)
+          
+          
+
+    If IsNull(rsValue("select order_no from vw_online_orders_open where order_no = " & MyParn(grid1.TextMatrix(grid1.Row, 0)))) Then
+        Exit Sub
+    End If
+    Dim cString As String
+    cString = "SELECT ORDER_NO " & _
+              " FROM vw_online_invoices_open" & _
+              " WHERE ORDER_NO = " & MyParn(grid1.TextMatrix(grid1.Row, 0))
+
+
 
 Dim cString As String
 cString = " SELECT FILE6_90H_ER.DOC_NO," & _
@@ -963,7 +1008,7 @@ If grid1.Rows > 1 Then
     aHeader(0) = "—ﬁ„ «·ÿ·»Ì… : " & xDoc_no.Caption
     aHeader(1) = "«· «—ÌŒ : " & xdate.Caption
 End If
-Fixgrd
+fixGrd
 Finally:
 closeCon con
 Exit Sub
@@ -986,18 +1031,13 @@ strSql = "SELECT STAGES_CODES.DESCA AS [«·„—Õ·…], " & _
 
 On Error GoTo myerror
 
-With grdError
-Set .DataSource = myRs(strSql)
+Set grdError.DataSource = myRs(strSql)
 
-.ColWidth(0) = 1300
-.ColWidth(1) = 1500
-.ColWidth(2) = 5000
-.ColWidth(3) = 1600
+grdError.ColWidth(0) = 1300
+grdError.ColWidth(1) = 1500
+grdError.ColWidth(2) = 5000
+grdError.ColWidth(3) = 1600
 
-For i = 0 To .Cols - 1
-    .ColAlignment(i) = flexAlignRightCenter
-Next
-End With
 
 Exit Sub
 myerror:

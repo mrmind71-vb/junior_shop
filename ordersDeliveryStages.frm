@@ -5,7 +5,7 @@ Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "COMCTL32.OCX"
 Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "Comdlg32.ocx"
-Begin VB.Form orderOnline_abd 
+Begin VB.Form online_Stage_main 
    Appearance      =   0  'Flat
    BackColor       =   &H80000005&
    Caption         =   "ÿ·»Ì«  «Ê‰ ·«Ì‰"
@@ -28,192 +28,176 @@ Begin VB.Form orderOnline_abd
    ScaleHeight     =   11055
    ScaleWidth      =   20370
    WindowState     =   2  'Maximized
-   Begin VB.Frame Frame1 
+   Begin VB.Frame Frame7 
       BackColor       =   &H00FFFFFF&
-      Height          =   1815
-      Left            =   8775
+      Height          =   645
+      Left            =   7650
       RightToLeft     =   -1  'True
-      TabIndex        =   7
-      Top             =   0
-      Width           =   11490
-      Begin VB.Frame Frame2 
-         BackColor       =   &H00FFFFFF&
-         Height          =   1590
-         Left            =   135
+      TabIndex        =   31
+      Top             =   90
+      Width           =   4920
+      Begin Threed.SSCommand cmdStage 
+         Height          =   465
+         Left            =   45
+         TabIndex        =   32
+         Top             =   135
+         Width           =   4830
+         _ExtentX        =   8520
+         _ExtentY        =   820
+         _Version        =   196610
+         BackColor       =   16777215
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   -1  'True
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Caption         =   "«Œ «— „—Õ·… «· ÃÂÌ“"
+         TagVariant      =   "«Œ «— «·„—Õ·…"
+         ButtonStyle     =   3
+      End
+   End
+   Begin VB.Frame Frame2 
+      BackColor       =   &H00FFFFFF&
+      Height          =   645
+      Left            =   7650
+      RightToLeft     =   -1  'True
+      TabIndex        =   25
+      Top             =   765
+      Width           =   4920
+      Begin VB.OptionButton optType 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         Caption         =   "„€·ﬁ…"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H80000008&
+         Height          =   270
+         Index           =   2
+         Left            =   2115
+         RightToLeft     =   -1  'True
+         TabIndex        =   30
+         TabStop         =   0   'False
+         Top             =   225
+         Width           =   735
+      End
+      Begin VB.OptionButton optType 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         Caption         =   "„› ÊÕ…"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H80000008&
+         Height          =   270
+         Index           =   1
+         Left            =   2970
          RightToLeft     =   -1  'True
          TabIndex        =   29
-         Top             =   135
-         Width           =   4290
-         Begin VB.OptionButton opt 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H80000005&
-            Caption         =   "ÿ·»Ì«  „·€«…"
-            BeginProperty Font 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H80000008&
-            Height          =   270
-            Index           =   3
-            Left            =   810
-            RightToLeft     =   -1  'True
-            TabIndex        =   40
-            TabStop         =   0   'False
-            Top             =   855
-            Width           =   1275
-         End
-         Begin VB.OptionButton opt 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H80000005&
-            Caption         =   "„»«⁄…"
-            BeginProperty Font 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H80000008&
-            Height          =   270
-            Index           =   2
-            Left            =   1170
-            RightToLeft     =   -1  'True
-            TabIndex        =   39
-            TabStop         =   0   'False
-            Top             =   180
-            Width           =   915
-         End
-         Begin VB.OptionButton opt 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H80000005&
-            Caption         =   "«·ﬂ·"
-            BeginProperty Font 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H80000008&
-            Height          =   270
-            Index           =   0
-            Left            =   1305
-            RightToLeft     =   -1  'True
-            TabIndex        =   38
-            TabStop         =   0   'False
-            Top             =   1215
-            Width           =   780
-         End
-         Begin VB.OptionButton opt 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H80000005&
-            Caption         =   "„— Ã⁄ Ê«” »œ«· „€·ﬁ"
-            BeginProperty Font 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H80000008&
-            Height          =   270
-            Index           =   6
-            Left            =   135
-            RightToLeft     =   -1  'True
-            TabIndex        =   37
-            TabStop         =   0   'False
-            Top             =   495
-            Width           =   1950
-         End
-         Begin VB.OptionButton opt 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H80000005&
-            Caption         =   "„› ÊÕ…"
-            BeginProperty Font 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H80000008&
-            Height          =   270
-            Index           =   5
-            Left            =   3105
-            RightToLeft     =   -1  'True
-            TabIndex        =   36
-            TabStop         =   0   'False
-            Top             =   180
-            Value           =   -1  'True
-            Width           =   1005
-         End
-         Begin VB.OptionButton opt 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H80000005&
-            Caption         =   "„— Ã⁄ Ê«” »œ«·"
-            BeginProperty Font 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H80000008&
-            Height          =   270
-            Index           =   4
-            Left            =   2520
-            RightToLeft     =   -1  'True
-            TabIndex        =   31
-            TabStop         =   0   'False
-            Top             =   1125
-            Width           =   1590
-         End
-         Begin VB.OptionButton opt 
-            Alignment       =   1  'Right Justify
-            Appearance      =   0  'Flat
-            BackColor       =   &H80000005&
-            Caption         =   "€Ì— „»«⁄…"
-            BeginProperty Font 
-               Name            =   "Arial"
-               Size            =   11.25
-               Charset         =   178
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H80000008&
-            Height          =   270
-            Index           =   1
-            Left            =   2970
-            RightToLeft     =   -1  'True
-            TabIndex        =   30
-            TabStop         =   0   'False
-            Top             =   630
-            Width           =   1140
-         End
+         TabStop         =   0   'False
+         Top             =   225
+         Value           =   -1  'True
+         Width           =   960
       End
+      Begin VB.OptionButton optType 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         Caption         =   "„·€«…"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H80000008&
+         Height          =   270
+         Index           =   4
+         Left            =   180
+         RightToLeft     =   -1  'True
+         TabIndex        =   28
+         TabStop         =   0   'False
+         Top             =   225
+         Width           =   690
+      End
+      Begin VB.OptionButton optType 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         Caption         =   "«·ﬂ·"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H80000008&
+         Height          =   270
+         Index           =   0
+         Left            =   4050
+         RightToLeft     =   -1  'True
+         TabIndex        =   27
+         TabStop         =   0   'False
+         Top             =   225
+         Width           =   690
+      End
+      Begin VB.OptionButton optType 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         Caption         =   "„»«⁄…"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H80000008&
+         Height          =   270
+         Index           =   3
+         Left            =   1125
+         RightToLeft     =   -1  'True
+         TabIndex        =   26
+         TabStop         =   0   'False
+         Top             =   225
+         Width           =   735
+      End
+   End
+   Begin VB.Frame Frame1 
+      BackColor       =   &H00FFFFFF&
+      Height          =   1410
+      Left            =   12600
+      RightToLeft     =   -1  'True
+      TabIndex        =   6
+      Top             =   0
+      Width           =   7710
       Begin VB.TextBox xDate1 
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
@@ -228,7 +212,7 @@ Begin VB.Form orderOnline_abd
             Strikethrough   =   0   'False
          EndProperty
          Height          =   330
-         Left            =   8910
+         Left            =   5175
          RightToLeft     =   -1  'True
          TabIndex        =   0
          Top             =   225
@@ -248,7 +232,7 @@ Begin VB.Form orderOnline_abd
             Strikethrough   =   0   'False
          EndProperty
          Height          =   330
-         Left            =   5580
+         Left            =   1260
          RightToLeft     =   -1  'True
          TabIndex        =   1
          Top             =   225
@@ -268,7 +252,7 @@ Begin VB.Form orderOnline_abd
             Strikethrough   =   0   'False
          EndProperty
          Height          =   330
-         Left            =   8910
+         Left            =   5175
          RightToLeft     =   -1  'True
          TabIndex        =   2
          Top             =   585
@@ -288,7 +272,7 @@ Begin VB.Form orderOnline_abd
             Strikethrough   =   0   'False
          EndProperty
          Height          =   330
-         Left            =   8145
+         Left            =   4410
          RightToLeft     =   -1  'True
          TabIndex        =   4
          Top             =   945
@@ -296,7 +280,7 @@ Begin VB.Form orderOnline_abd
       End
       Begin MSDataListLib.DataCombo xpay 
          Height          =   330
-         Left            =   4500
+         Left            =   180
          TabIndex        =   3
          Top             =   585
          Width           =   2670
@@ -316,35 +300,13 @@ Begin VB.Form orderOnline_abd
             Strikethrough   =   0   'False
          EndProperty
       End
-      Begin MSDataListLib.DataCombo XSTORE 
+      Begin MSDataListLib.DataCombo xMan 
          Height          =   330
-         Left            =   4500
+         Left            =   180
          TabIndex        =   5
          Top             =   945
          Width           =   2670
          _ExtentX        =   4710
-         _ExtentY        =   582
-         _Version        =   393216
-         Appearance      =   0
-         Text            =   ""
-         RightToLeft     =   -1  'True
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Tahoma"
-            Size            =   9
-            Charset         =   178
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-      End
-      Begin MSDataListLib.DataCombo xMan 
-         Height          =   330
-         Left            =   4500
-         TabIndex        =   6
-         Top             =   1305
-         Width           =   5820
-         _ExtentX        =   10266
          _ExtentY        =   582
          _Version        =   393216
          Appearance      =   0
@@ -376,9 +338,9 @@ Begin VB.Form orderOnline_abd
          EndProperty
          ForeColor       =   &H00000000&
          Height          =   270
-         Left            =   10395
+         Left            =   6660
          RightToLeft     =   -1  'True
-         TabIndex        =   14
+         TabIndex        =   12
          Top             =   180
          Width           =   705
       End
@@ -398,9 +360,9 @@ Begin VB.Form orderOnline_abd
          EndProperty
          ForeColor       =   &H00000000&
          Height          =   270
-         Left            =   7290
+         Left            =   2925
          RightToLeft     =   -1  'True
-         TabIndex        =   13
+         TabIndex        =   11
          Top             =   225
          Width           =   795
       End
@@ -420,9 +382,9 @@ Begin VB.Form orderOnline_abd
          EndProperty
          ForeColor       =   &H00000000&
          Height          =   270
-         Left            =   10395
+         Left            =   6660
          RightToLeft     =   -1  'True
-         TabIndex        =   12
+         TabIndex        =   10
          Top             =   585
          Width           =   735
       End
@@ -439,30 +401,11 @@ Begin VB.Form orderOnline_abd
             Strikethrough   =   0   'False
          EndProperty
          Height          =   195
-         Left            =   7290
+         Left            =   2970
          RightToLeft     =   -1  'True
-         TabIndex        =   11
+         TabIndex        =   9
          Top             =   630
          Width           =   705
-      End
-      Begin VB.Label Label3 
-         BackColor       =   &H00FFFFFF&
-         Caption         =   "«·›—⁄ "
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   285
-         Left            =   7245
-         RightToLeft     =   -1  'True
-         TabIndex        =   10
-         Top             =   990
-         Width           =   570
       End
       Begin VB.Label Label5 
          AutoSize        =   -1  'True
@@ -480,9 +423,9 @@ Begin VB.Form orderOnline_abd
          EndProperty
          ForeColor       =   &H00000000&
          Height          =   270
-         Left            =   10395
+         Left            =   6660
          RightToLeft     =   -1  'True
-         TabIndex        =   9
+         TabIndex        =   8
          Top             =   945
          Width           =   945
       End
@@ -499,73 +442,18 @@ Begin VB.Form orderOnline_abd
             Strikethrough   =   0   'False
          EndProperty
          Height          =   285
-         Left            =   10395
+         Left            =   2925
          RightToLeft     =   -1  'True
-         TabIndex        =   8
-         Top             =   1350
+         TabIndex        =   7
+         Top             =   945
          Width           =   705
-      End
-   End
-   Begin VB.Frame Frame5 
-      BackColor       =   &H00FFFFFF&
-      Height          =   1140
-      Left            =   3420
-      RightToLeft     =   -1  'True
-      TabIndex        =   32
-      Top             =   0
-      Width           =   3255
-      Begin VB.CheckBox Check1 
-         Alignment       =   1  'Right Justify
-         Appearance      =   0  'Flat
-         BackColor       =   &H80000005&
-         Caption         =   "⁄—÷ —’Ìœ ﬂ· «·›—Ê⁄"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H80000008&
-         Height          =   270
-         Left            =   945
-         RightToLeft     =   -1  'True
-         TabIndex        =   34
-         TabStop         =   0   'False
-         Top             =   720
-         Width           =   2175
-      End
-      Begin VB.CheckBox RET_NOTSHIP 
-         Alignment       =   1  'Right Justify
-         Appearance      =   0  'Flat
-         BackColor       =   &H00FFFFFF&
-         Caption         =   "„—›Ê÷… Ê·„ Ì „ «” ·„Â« „‰ «·‘Õ‰"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H80000008&
-         Height          =   270
-         Left            =   135
-         RightToLeft     =   -1  'True
-         TabIndex        =   33
-         TabStop         =   0   'False
-         Top             =   225
-         Width           =   2985
       End
    End
    Begin ComctlLib.ProgressBar prog1 
       Align           =   2  'Align Bottom
       Height          =   195
       Left            =   0
-      TabIndex        =   28
+      TabIndex        =   24
       Top             =   10440
       Visible         =   0   'False
       Width           =   20370
@@ -574,86 +462,21 @@ Begin VB.Form orderOnline_abd
       _Version        =   327682
       Appearance      =   0
    End
-   Begin VB.Frame Frame6 
-      BackColor       =   &H00FFFFFF&
-      Height          =   690
-      Left            =   3420
-      RightToLeft     =   -1  'True
-      TabIndex        =   20
-      Top             =   1125
-      Width           =   3255
-      Begin Threed.SSCommand cmdGo 
-         Height          =   510
-         Left            =   1620
-         TabIndex        =   21
-         Top             =   135
-         Width           =   1590
-         _ExtentX        =   2805
-         _ExtentY        =   900
-         _Version        =   196610
-         ForeColor       =   0
-         BackColor       =   16777215
-         PictureFrames   =   1
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Picture         =   "ordersDelivery_abd.frx":0000
-         ButtonStyle     =   3
-         PictureAlignment=   11
-         BevelWidth      =   0
-         ShapeSize       =   1
-      End
-      Begin Threed.SSCommand cmdExit 
-         Height          =   510
-         Left            =   45
-         TabIndex        =   35
-         TabStop         =   0   'False
-         Top             =   135
-         Width           =   1545
-         _ExtentX        =   2725
-         _ExtentY        =   900
-         _Version        =   196610
-         ForeColor       =   0
-         BackColor       =   16777215
-         PictureFrames   =   1
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   9.75
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Picture         =   "ordersDelivery_abd.frx":2EB3
-         Alignment       =   8
-         ButtonStyle     =   3
-         PictureAlignment=   11
-         BevelWidth      =   0
-         ShapeSize       =   1
-      End
-   End
    Begin VB.Frame Frame4 
       BackColor       =   &H00FFFFFF&
-      Height          =   1815
-      Left            =   6750
+      Height          =   690
+      Left            =   315
       RightToLeft     =   -1  'True
-      TabIndex        =   15
-      Top             =   0
-      Width           =   1995
+      TabIndex        =   13
+      Top             =   720
+      Width           =   7305
       Begin Threed.SSCommand cmdCSV 
          Height          =   510
-         Left            =   45
-         TabIndex        =   16
+         Left            =   4410
+         TabIndex        =   14
          Top             =   135
-         Width           =   1905
-         _ExtentX        =   3360
+         Width           =   1500
+         _ExtentX        =   2646
          _ExtentY        =   900
          _Version        =   196610
          CaptionStyle    =   1
@@ -668,22 +491,23 @@ Begin VB.Form orderOnline_abd
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "ordersDelivery_abd.frx":51D6
-         Caption         =   "CSV ”Õ» „·›  "
+         Picture         =   "ordersDeliveryStages.frx":0000
+         Caption         =   "CSV ”Õ»"
          TagVariant      =   "«Œ «— «·„ﬁ«Ê·"
          Alignment       =   1
          ButtonStyle     =   3
          PictureAlignment=   9
       End
       Begin Threed.SSCommand cmdExcel 
-         Height          =   555
-         Left            =   45
-         TabIndex        =   17
-         Top             =   675
-         Width           =   1905
-         _ExtentX        =   3360
-         _ExtentY        =   979
+         Height          =   510
+         Left            =   2790
+         TabIndex        =   15
+         Top             =   135
+         Width           =   1590
+         _ExtentX        =   2805
+         _ExtentY        =   900
          _Version        =   196610
+         CaptionStyle    =   1
          ForeColor       =   0
          BackColor       =   16777215
          PictureFrames   =   1
@@ -696,8 +520,8 @@ Begin VB.Form orderOnline_abd
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "ordersDelivery_abd.frx":77A9
-         Caption         =   "  ’œÌ— «·Ì „·›"
+         Picture         =   "ordersDeliveryStages.frx":25D3
+         Caption         =   " ’œÌ— Excel"
          ButtonStyle     =   3
          PictureAlignment=   9
          BevelWidth      =   0
@@ -705,12 +529,12 @@ Begin VB.Form orderOnline_abd
       End
       Begin Threed.SSCommand cmdPrint 
          Height          =   510
-         Left            =   45
-         TabIndex        =   18
+         Left            =   1395
+         TabIndex        =   16
          TabStop         =   0   'False
-         Top             =   1260
-         Width           =   1905
-         _ExtentX        =   3360
+         Top             =   135
+         Width           =   1365
+         _ExtentX        =   2408
          _ExtentY        =   900
          _Version        =   196610
          BackColor       =   16777215
@@ -724,14 +548,70 @@ Begin VB.Form orderOnline_abd
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "ordersDelivery_abd.frx":9C13
-         Caption         =   "ÿ»«⁄… «·ÿ·»Ì« "
+         Picture         =   "ordersDeliveryStages.frx":4A3D
+         Caption         =   " ÿ»«⁄…"
          Alignment       =   1
          ButtonStyle     =   3
          PictureAlignment=   9
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "ordersDelivery_abd.frx":BF89
+         PictureDisabled =   "ordersDeliveryStages.frx":6DB3
+      End
+      Begin Threed.SSCommand cmdGo 
+         Height          =   510
+         Left            =   5940
+         TabIndex        =   33
+         Top             =   135
+         Width           =   1320
+         _ExtentX        =   2328
+         _ExtentY        =   900
+         _Version        =   196610
+         ForeColor       =   0
+         BackColor       =   16777215
+         PictureFrames   =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Picture         =   "ordersDeliveryStages.frx":8F36
+         ButtonStyle     =   3
+         PictureAlignment=   11
+         BevelWidth      =   0
+         ShapeSize       =   1
+      End
+      Begin Threed.SSCommand cmdExit 
+         Height          =   510
+         Left            =   45
+         TabIndex        =   34
+         TabStop         =   0   'False
+         Top             =   135
+         Width           =   1320
+         _ExtentX        =   2328
+         _ExtentY        =   900
+         _Version        =   196610
+         ForeColor       =   0
+         BackColor       =   16777215
+         PictureFrames   =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   9.75
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Picture         =   "ordersDeliveryStages.frx":BDE9
+         Alignment       =   8
+         ButtonStyle     =   3
+         PictureAlignment=   11
+         BevelWidth      =   0
+         ShapeSize       =   1
       End
    End
    Begin MSAdodcLib.Adodc data3 
@@ -1166,10 +1046,10 @@ Begin VB.Form orderOnline_abd
    End
    Begin VSFlex7Ctl.VSFlexGrid grid1 
       Height          =   7305
-      Left            =   45
-      TabIndex        =   19
+      Left            =   90
+      TabIndex        =   17
       TabStop         =   0   'False
-      Top             =   1845
+      Top             =   1440
       Width           =   20220
       _cx             =   35666
       _cy             =   12885
@@ -1210,7 +1090,7 @@ Begin VB.Form orderOnline_abd
       GridLinesFixed  =   1
       GridLineWidth   =   1
       Rows            =   1
-      Cols            =   27
+      Cols            =   29
       FixedRows       =   1
       FixedCols       =   0
       RowHeightMin    =   0
@@ -1263,7 +1143,7 @@ Begin VB.Form orderOnline_abd
       Align           =   2  'Align Bottom
       Height          =   420
       Left            =   0
-      TabIndex        =   22
+      TabIndex        =   18
       Top             =   10635
       Width           =   20370
       _ExtentX        =   35930
@@ -1285,7 +1165,7 @@ Begin VB.Form orderOnline_abd
          Height          =   405
          Index           =   0
          Left            =   0
-         TabIndex        =   23
+         TabIndex        =   19
          Top             =   45
          Width           =   4005
          _ExtentX        =   7064
@@ -1309,7 +1189,7 @@ Begin VB.Form orderOnline_abd
          Height          =   330
          Index           =   1
          Left            =   4095
-         TabIndex        =   24
+         TabIndex        =   20
          Top             =   45
          Width           =   4005
          _ExtentX        =   7064
@@ -1333,7 +1213,7 @@ Begin VB.Form orderOnline_abd
          Height          =   330
          Index           =   2
          Left            =   8100
-         TabIndex        =   25
+         TabIndex        =   21
          Top             =   45
          Width           =   4000
          _ExtentX        =   7064
@@ -1357,7 +1237,7 @@ Begin VB.Form orderOnline_abd
          Height          =   330
          Index           =   3
          Left            =   12150
-         TabIndex        =   26
+         TabIndex        =   22
          Top             =   45
          Width           =   3960
          _ExtentX        =   6985
@@ -1381,7 +1261,7 @@ Begin VB.Form orderOnline_abd
          Height          =   330
          Index           =   4
          Left            =   16155
-         TabIndex        =   27
+         TabIndex        =   23
          Top             =   45
          Width           =   4185
          _ExtentX        =   7382
@@ -1403,7 +1283,7 @@ Begin VB.Form orderOnline_abd
       End
    End
 End
-Attribute VB_Name = "OrderOnline_abd"
+Attribute VB_Name = "Online_Stage_main"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
@@ -1412,6 +1292,7 @@ Dim oSearch As New Search3, lIsBoxOnline As Boolean
 Dim cString As String
 Dim CLIST As String
 Dim oSearchMan As New Search_abd
+Dim oSearchStage As New Search_rs
 Dim cStr1 As String, cStr2 As String
 Dim oSearchItem As New Search3
 Private Sub cmd_addexel_Click()
@@ -1468,15 +1349,19 @@ Private Sub cmdGo_Click()
 myload
 End Sub
 
+Private Sub cmdStage_Click()
+StagesOnlineLook Me, oSearchStage, , , IIf(cmdStage.Tag = "", "", "ﬂ· «·⁄„·«¡")
+End Sub
+
 Private Sub Form_Load()
     
-    opt(0).Visible = cBranch = "00"
-    opt(2).Visible = cBranch = "00"
-    opt(3).Visible = cBranch = "00"
-    opt(6).Visible = cBranch = "00"
+'    opt(0).Visible = cBranch = "00"
+'    opt(2).Visible = cBranch = "00"
+'    opt(3).Visible = cBranch = "00"
+'    opt(6).Visible = cBranch = "00"
     
-    Check1.Visible = (cBranch = "00")
-    cmdCSV.Enabled = (cBranch = "00")
+'    Check1.Visible = (cBranch = "00")
+'    cmdCSV.Enabled = (cBranch = "00")
     
     Dim con As New ADODB.Connection
     If openCn(con) Then
@@ -1484,9 +1369,6 @@ Private Sub Form_Load()
         xpay.ListField = "Payment_Method"
         xpay.BoundColumn = "Payment_Method"
         
-        Set XSTORE.RowSource = myRs("SELECT CODE , DESCA FROM FILE0_40 WHERE online =  1 ORDER BY CODE ", con)
-        XSTORE.ListField = "Desca"
-        XSTORE.BoundColumn = "Code"
             
         Set xMan.RowSource = myRs("SELECT CODE,DESCA FROM FILE6_25 WHERE FILE6_25.BRANCH IN (SELECT FILE0_40.BRANCH FROM FILE0_40 WHERE FILE0_40.online =  1) AND FILE6_25.ISSTOP = 0 ORDER BY CODE", con)
         xMan.ListField = "Desca"
@@ -1496,60 +1378,74 @@ Private Sub Form_Load()
     fixGrd
 End Sub
 Public Sub myload()
-On Error GoTo myerror
 Dim i As Double
 Dim cString  As String, cStr2 As String
 Dim cWhere As String
-Dim cF1 As String, cF2 As String, cF3 As String, cF4 As String, cF5 As String
 Dim cSubTotal As String
+
 With grid1
-    cSubTotal = "(SELECT SUM(TOTAL) FROM FILE6_90 WHERE FILE6_90.DOC_NO = FILE6_90H.DOC_NO )    "
-    cTotal = "(SELECT SUM(TOTAL) FROM FILE6_90 WHERE FILE6_90.DOC_NO = FILE6_90H.DOC_NO )  - DISCOUNT   "
-    
     cString = " SELECT DOC_NO," & _
               " FORMAT(DATE,'yyyy/M/d')," & _
               " NAME," & _
               " PHONE," & _
               "Shipping_City," & _
               "STREET, " & _
-              cSubTotal & "," & _
+              "FILE6_90H.TOTAL_ITEM" & "," & _
               "DISCOUNT, " & _
+              "FILE6_90H.TOTAL_ITEM - FILE6_90H.DISCOUNT ," & _
               "DISCOUNT_CODE," & _
               "SHIPPING, " & _
-              cTotal & "," & _
               "Payment_Method," & _
               "STORE," & _
+              "STAGES_CODES.DESCA ," & _
+              "FILE6_25.DESCA," & _
               "SEND_USER," & _
               "FORMAT(SEND_TIME,'yyyy/M/d')," & _
               "NOTES_ORDER ," & _
               "SUBSTRING(SALES_DOC,7,20) ," & _
               "FORMAT(SALES_DATE,'yyyy/M/d')," & _
               "SHIP_NO," & _
-              "FORMAT(SHIP_DATE,'yyyy/M/d')," & _
+              "FORMAT(SHIP_DATE,'yyyy/M/d'),"
+cString = cString & _
               " NOTES," & _
               " FORMAT(DelOrder_Date,'yyyy/M/d')," & _
-              " FORMAT(DelOrder_Date2,'yyyy/M/d'),Note_main,Note_branch," & _
-              " FILE6_25.DESCA,FILE6_90H.MAN" & _
-              " FROM FILE6_90H LEFT JOIN FILE6_25 ON FILE6_90H.MAN = FILE6_25.CODE"
+              " FILE6_90H.MAN" & _
+              " FROM FILE6_90H " & _
+              " LEFT JOIN FILE6_25 ON FILE6_90H.MAN = FILE6_25.CODE" & _
+              " INNER JOIN STAGES_CODES ON FILE6_90H.STAGE = STAGES_CODES.CODE" & _
+              " LEFT JOIN MAN_ONLINE_CODES ON FILE6_90H.MAN_STAGE = MAN_ONLINE_CODES.CODE"
               
-    If opt(2).Value Then
-        cString = cString & _
-                 " INNER JOIN vw_online_orders_closed as v on FILE6_90H.DOC_NO = v.ORDER_NO"
-    ElseIf opt(3).Value Then
-        cWhere = cWhere & Tr(cWhere) & "CANCELED = 1"
-    ElseIf opt(4).Value Then
-        cString = cString & _
-                 " INNER JOIN vw_online_invoices_open as v on FILE6_90H.DOC_NO = v.ORDER_NO"
-    ElseIf opt(5).Value Then
-        cString = cString & _
-                 " INNER JOIN vw_online_orders_open as v on FILE6_90H.DOC_NO = v.ORDER_NO"
-    ElseIf opt(6).Value Then
-        cString = cString & _
-                 " INNER JOIN vw_online_invoices_closed as v on FILE6_90H.DOC_NO = v.ORDER_NO"
+    If optType(1).Value Then
+        cWhere = cWhere & Tr(cWhere) & "FILE6_90H.DOC_NO IN (SELECT ORDER_NO FROM vw_online_orders_open)"
+    ElseIf optType(2).Value Then
+        cWhere = cWhere & Tr(cWhere) & "(FILE6_90H.DOC_NO IN (SELECT ORDER_NO FROM vw_online_orders_closed) OR FILE6_90H.CANCELED = 1)"
+    ElseIf optType(3).Value Then
+        cWhere = cWhere & Tr(cWhere) & "FILE6_90H.DOC_NO IN (SELECT ORDER_NO FROM vw_online_orders_closed)"
+    ElseIf optType(4).Value Then
+        cWhere = cWhere & Tr(cWhere) & "FILE6_90H.CANCELED = 1"
     End If
     
-    If XDOC_NO.text <> "" Then
-        cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(XDOC_NO.text)
+    If cmdStage.Tag <> "" Then
+        cWhere = cWhere & Tr(cWhere) & "FILE6_90H.STAGE = " & cmdStage.Tag
+    End If
+'    If opt(2).Value Then
+'        cString = cString & _
+'                 " INNER JOIN vw_online_orders_closed as v on FILE6_90H.DOC_NO = v.ORDER_NO"
+'    ElseIf opt(3).Value Then
+'        cWhere = cWhere & Tr(cWhere) & "CANCELED = 1"
+'    ElseIf opt(4).Value Then
+'        cString = cString & _
+'                 " INNER JOIN vw_online_invoices_open as v on FILE6_90H.DOC_NO = v.ORDER_NO"
+'    ElseIf opt(5).Value Then
+'        cString = cString & _
+'                 " INNER JOIN vw_online_orders_open as v on FILE6_90H.DOC_NO = v.ORDER_NO"
+'    ElseIf opt(6).Value Then
+'        cString = cString & _
+'                 " INNER JOIN vw_online_invoices_closed as v on FILE6_90H.DOC_NO = v.ORDER_NO"
+'    End If
+    
+    If xdoc_no.text <> "" Then
+        cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xdoc_no.text)
     End If
     
     If xphone.text <> "" Then
@@ -1560,9 +1456,6 @@ With grid1
         cWhere = cWhere & Tr(cWhere) & " [Payment_Method] = " & MyParn(xpay.text)
     End If
     
-    If XSTORE.BoundText <> "" Then
-        cWhere = cWhere & Tr(cWhere) & " [STORE] = " & MyParn(XSTORE.BoundText)
-    End If
     
     If xMan.MatchedWithList Then
         cWhere = cWhere & Tr(cWhere) & "MAN = " & MyParn(xMan.BoundText)
@@ -1575,22 +1468,17 @@ With grid1
     If IsDate(xdate2.text) Then
         cWhere = cWhere & Tr(cWhere) & " [DATE] <= " & DateSq(xdate2.text)
     End If
-        
-    If cBranch = "00" Then
-    Else
-        cWhere = cWhere & Tr(cWhere) & " STORE = " & MyParn(cBranchStore)
-    End If
-    
+            
         
     
     'If xSales(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " SALES_DOC IS NULL"
     'If xSales(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " SALES_DOC IS NOT NULL "
     
-    If RET_NOTSHIP.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " DelOrder_Date IS NOT NULL AND DelOrder_Date2 IS NULL "
+    'If RET_NOTSHIP.Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " DelOrder_Date IS NOT NULL AND DelOrder_Date2 IS NULL "
     
     If cWhere <> "" Then cString = cString & " WHERE " & cWhere
     cString = cString & " ORDER BY DOC_NO "
-    
+    'On Error GoTo myerror
     Set grid1.DataSource = myRs(cString)
 End With
 fixGrd
@@ -1602,7 +1490,7 @@ Err.Clear
 End Sub
 Sub fixGrd()
 With grid1
-    .RowHeight(0) = 1000
+    .RowHeight(0) = 600
     .WordWrap = True
     .FrozenCols = 3
     
@@ -1615,41 +1503,38 @@ With grid1
     
     .TextMatrix(0, 6) = "≈Ã„«·Ï «’‰«›"
     .TextMatrix(0, 7) = "Œ’„"
-    .TextMatrix(0, 8) = "ﬂÊœ Œ’„"
-    .TextMatrix(0, 9) = "«·‘Õ‰"
+    .TextMatrix(0, 8) = "«·≈Ã„«·Ï"
+    .TextMatrix(0, 9) = "ﬂÊœ Œ’„"
+    .TextMatrix(0, 10) = "«·‘Õ‰"
     
-    .TextMatrix(0, 10) = "«·≈Ã„«·Ï"
     .TextMatrix(0, 11) = "ÿ—Ìﬁ… «·œ›⁄"
-    
     .TextMatrix(0, 12) = "«·›—⁄"
+    .TextMatrix(0, 13) = "«·„—Õ·…"
+    .TextMatrix(0, 14) = "«·„‰œÊ»"
+    .TextMatrix(0, 15) = "«·„—”·"
+    .TextMatrix(0, 16) = "SEND TIME "
+    .TextMatrix(0, 17) = "„·«ÕŸ«  ÿ·»Ì…"
+    .TextMatrix(0, 18) = "»Ê‰ „»Ì⁄« "
+    .TextMatrix(0, 19) = " «—ÌŒ"
     
-    .TextMatrix(0, 14) = "SEND TIME "
-    .TextMatrix(0, 15) = "„·«ÕŸ«  ÿ·»Ì…"
-    .ColComboList(12) = CLIST
-    .ColComboList(13) = "..."
-    
-    .ColComboList(19 + 1) = "..."
-    .ColComboList(21 + 1) = "..."
-    .ColComboList(24 + 1) = "..."
-    
-    .TextMatrix(0, 16) = "»Ê‰ „»Ì⁄« "
-    .TextMatrix(0, 17) = " «—ÌŒ"
-    
-    .TextMatrix(0, 18) = "»Ê·Ì’… ‘Õ‰"
-    .TextMatrix(0, 19) = " «—ÌŒ «·‘Õ‰"
-    
+    .TextMatrix(0, 20) = "»Ê·Ì’… ‘Õ‰"
+    .TextMatrix(0, 21) = " «—ÌŒ «·‘Õ‰"
+        
+    .ColHidden(9) = True
+    .ColHidden(10) = True
     .ColHidden(12) = True
-    .ColHidden(13) = True
-    .ColHidden(19) = True
+    .ColHidden(15) = True
+    .ColHidden(21) = True
+    .ColHidden(16) = True
+    .ColHidden(24) = True
     
-    .TextMatrix(0, 19 + 1) = "”»» «·≈·€«¡"
-    .TextMatrix(0, 20 + 1) = "«·€«¡ «·ÿ·»"
+    .TextMatrix(0, 22) = "”»» «·≈·€«¡"
+    .TextMatrix(0, 23) = "«·€«¡ «·ÿ·»"
     
-    .TextMatrix(0, 21 + 1) = " «—ÌŒ «” ·«„ «·„— Ã⁄"
-    .TextMatrix(0, 22 + 1) = "„·«ÕŸ«  «·—∆Ì”Ì"
-    .TextMatrix(0, 23 + 1) = "„·«ÕŸ«  «·›—Ê⁄"
-    .TextMatrix(0, 24 + 1) = "«·„‰œÊ»"
-    .TextMatrix(0, 25 + 1) = "«·„‰œÊ»"
+    '.TextMatrix(0, 24) = " «—ÌŒ «” ·«„ «·„— Ã⁄"
+    '.TextMatrix(0, 25) = "„·«ÕŸ«  «·—∆Ì”Ì"
+    '.TextMatrix(0, 26) = "„·«ÕŸ«  «·›—Ê⁄"
+    '.TextMatrix(0, 27) = "«·„‰œÊ»"
 
     
     .ColDataType(1) = flexDTDate
@@ -1658,12 +1543,7 @@ With grid1
     .ColDataType(9) = flexDTDouble
     .ColDataType(10) = flexDTDouble
     
-    .ColHidden(14) = True
-    .ColHidden(25 + 1) = True
-    
-    .ColHidden(19 + 1) = cBranch <> "00"
-    .ColHidden(20 + 1) = cBranch <> "00"
-                
+                    
     .ColWidth(0) = 800
     .ColWidth(1) = 1300
     .ColWidth(2) = 2000
@@ -1678,17 +1558,16 @@ With grid1
     .ColWidth(11) = 1400
     .ColWidth(12) = 1800
     .ColWidth(13) = 1200
-    .ColWidth(16) = 1000
-    .ColWidth(15) = 2000
-    .ColWidth(17) = 1300
-    .ColWidth(18) = 2000
-    .ColWidth(19 + 1) = 1300
-    .ColWidth(20 + 1) = 1300
-    .ColWidth(21 + 1) = 1300
-    .ColWidth(22 + 1) = 2500
-    .ColWidth(23 + 1) = 2500
-    .ColWidth(24 + 1) = 3000
-    .ColDataType(21 + 1) = flexDTDate
+    .ColWidth(14) = 1500
+    .ColWidth(15) = 1800
+    
+    .ColWidth(18) = 1000
+    .ColWidth(17) = 2000
+    .ColWidth(19) = 1300
+    .ColWidth(20) = 2000
+    .ColWidth(22) = 1300
+    .ColWidth(23) = 1300
+    .ColWidth(24) = 1300
     
     For nRow = 1 To .Rows - 1
 '       .TextMatrix(nRow, 6) = Val(.TextMatrix(nRow, 6)) + Val(.TextMatrix(nRow, 7))
@@ -1859,11 +1738,12 @@ Sub AddFromExel()
 End Sub
 Private Sub grid1_DblClick()
 If grid1.Row < 1 Or grid1.Row = grid1.Rows - 1 Then Exit Sub
-
 If cBranch <> "00" Then
+    Dim aValues As Variant
     If IsNull(rsValue("select order_no from vw_online_orders_open where order_no = " & MyParn(grid1.TextMatrix(grid1.Row, 0)))) Then
         Exit Sub
     End If
+    
     Dim cString As String
     cString = "SELECT ORDER_NO " & _
               " FROM vw_online_invoices_open" & _
@@ -1871,179 +1751,61 @@ If cBranch <> "00" Then
     If Not IsNull(rsValue(cString)) Then
         orders_online_invoices.bEdit = True
         orders_online_invoices.sStore = grid1.TextMatrix(grid1.Row, 12)
-        orders_online_invoices.sOrder_No = grid1.TextMatrix(grid1.Row, 0)
+        orders_online_invoices.sOrder_no = grid1.TextMatrix(grid1.Row, 0)
         orders_online_invoices.Show 1
         Exit Sub
     End If
-End If
-orders_online_items.sDoc_no = grid1.TextMatrix(grid1.Row, 0)
-orders_online_items.sStore = grid1.TextMatrix(grid1.Row, 12)
-orders_online_items.bAllStore = Check1.Value = 1
-orders_online_items.Show 1
-'Set orders_online_items.myForm = Me
-End Sub
-Private Sub MYLOAD2(pDoc_no)
-On Error GoTo myerror
-Dim StoreTable As New ADODB.Recordset
-Dim cBalNotShip As String
-If cBranch = "00" Then
-    If Check1.Value = 0 Then
-        StoreTable.Open " SELECT * FROM FILE0_40 WHERE ONLINE = 1 ORDER BY CODE ", con, adOpenStatic, adLockReadOnly, adCmdText
-    Else
-        StoreTable.Open " SELECT * FROM FILE0_40 WHERE ISONEST2 = 0 AND ISSTOP = 0 AND ISONEST = 0 AND BRANCH IS NOT NULL  AND CODE <> '000' ORDER BY CODE ", con, adOpenStatic, adLockReadOnly, adCmdText
-    End If
 Else
-    StoreTable.Open " SELECT * FROM FILE0_40 WHERE CODE = " & MyParn(cBranchStore), con, adOpenStatic, adLockReadOnly, adCmdText
+    orders_online_items.sDoc_no = grid1.TextMatrix(grid1.Row, 0)
+    orders_online_items.sStore = grid1.TextMatrix(grid1.Row, 12)
+    orders_online_items.Show 1
 End If
-Dim cString  As String, cStrStore As String
-With StoreTable
-    cStrStore = " , (SELECT SUM(BALITEM) FROM [BAL_ITEM_ORDERONLINE] WHERE [BAL_ITEM_ORDERONLINE].ITEM = FILE6_90.ITEM AND [BAL_ITEM_ORDERONLINE].STORE  = " & MyParn(StoreTable!code) & " ) AS 'Total Order' "
-    Do While Not .EOF
-        cStrStore = cStrStore & " , (SELECT SUM([IN]-[OUT]) FROM FILE1_11 WHERE FILE1_11.ITEM = FILE6_90.ITEM AND FILE1_11.STORE  = " & MyParn(StoreTable!code) & " ) AS '" & StoreTable!DESCA & "'"
-        .MoveNext
-    Loop
-End With
 
-grid2.Rows = 2
-grid2.FixedRows = 2
 
-cBalNotShip = " ,(SELECT SUM(QUANT ) FROM Q_BAL_NOTSHIP WHERE Q_BAL_NOTSHIP.ITEM = FILE6_90.ITEM)"
-With grid1
-'                               0           1               2           3                                                                                   4               5               6            7                  8                   9           10          11
-    cString = " SELECT    FILE6_90.ITEM, FILE6_90.SKU, FACT.DESCA , CASE WHEN FILE1_10.desca IS NULL THEN FILE6_90.ITEM_NAME ELSE FILE1_10.desca END , FILE1_10.COLOR, FILE1_10.SCAL, FILE6_90.QUANT, FILE6_90.PRICE, file6_90.ITEM_NAME, FILE6_90.ID " & cStrStore & cBalNotShip & " FROM            FILE6_90 LEFT  JOIN FILE1_10 ON FILE6_90.ITEM = FILE1_10.ITEM left  JOIN  FACT ON FILE1_10.code = FACT.CODE WHERE DOC_NO =  " & MyParn(pDoc_no)
-    Set DATA2.Recordset = myRecordSet(cString, con)
-End With
-Fixgrd2
-grid2.Cell(flexcpAlignment, 0, 0, grid2.Rows - 1, grid2.Cols - 1) = 7
-Exit Sub
-myerror:
-MsgBox Err.Description
-Err.Clear
-End Sub
-Sub Fixgrd2()
-Dim LShowColAll As Boolean, LShowCol As Boolean
-With grid2
-        
-    .FixedRows = 2
-    .RowHeight(0) = 700
-    .RowHidden(1) = True
-    .WordWrap = True
-    
-    .TextMatrix(0, 0) = "ﬂÊœ"
-    .TextMatrix(0, 1) = "SKU"
-    .TextMatrix(0, 2) = "«·„’‰⁄"
-    .TextMatrix(0, 3) = "«·’‰›"
-    .TextMatrix(0, 4) = "«··Ê‰"
-    .TextMatrix(0, 5) = "„ﬁ«”"
-    .TextMatrix(0, 6) = "«·ﬂ„Ì…"
-    .TextMatrix(0, 7) = "«·”⁄—"
-    
-    .ColWidth(0) = 1000
-    .ColWidth(1) = 1500
-    .ColWidth(2) = 1500
-    .ColWidth(3) = 4000
-    .ColWidth(4) = 1500
-    .ColWidth(5) = 800
-    .ColWidth(6) = 600
-    .ColWidth(7) = 700
-    .ColWidth(8) = 0
-    .ColWidth(9) = 0
-    .ColWidth(.Cols - 1) = 1000
-    .TextMatrix(0, .Cols - 1) = "—’Ìœ ‘Õ‰ €Ì— „” ·„"
-    LShowColAll = False
-    For nCol = 11 To .Cols - 1
-        If Check1.Value <> 0 Then
-            .TextMatrix(1, nCol) = IIf(GetBoolean("select online from file0_40 where desca = " & MyParn(.TextMatrix(0, nCol)), con), 1, 0)
-        Else
-            .TextMatrix(1, nCol) = 1
-        End If
-        If cBranch = "00" Then
-            .ColWidth(nCol) = 800
-        Else
-            .ColWidth(nCol) = 1200
-        End If
-        LShowCol = True
-        For nRow = 2 To .Rows - 1
-            If .ValueMatrix(nRow, nCol) = 0 Then
-                LShowCol = False
-            End If
-        Next nRow
-'        .ColHidden(nCol) = Not LShowCol Or .TextMatrix(1, nCol) = "0"
-        If LShowCol And .TextMatrix(1, nCol) = "1" Then LShowColAll = True
-    Next nCol
-    If Not LShowColAll Then
-        For nCol = 11 To .Cols - 1
-            .ColHidden(nCol) = False
-        Next nCol
-    End If
-    For nCol = 11 To .Cols - 1
-        If Not .ColHidden(nCol) Then
-            LShowCol = True
-            For nRow = 2 To .Rows - 1
-                If .ValueMatrix(nRow, nCol) = 0 Then
-                    LShowCol = False
-                End If
-            Next nRow
-            If LShowCol Then
-                .Cell(flexcpBackColor, 0, nCol, .Rows - 1, nCol) = vbGreen
-            Else
-                .Cell(flexcpBackColor, 0, nCol, .Rows - 1, nCol) = &H8080FF
-            End If
-        End If
-    Next nCol
-    
-'    If cBranch <> "00" Then
-'        .Cols = .Cols + 1
-'        .ColWidth(.Cols - 1) = 1200
-'        .TextMatrix(0, .Cols - 1) = "—’Ìœ «·›—⁄"
-'        For nRow = 2 To .Rows - 1
-'            .TextMatrix(nRow, .Cols - 1) = LastBalance(grid2.TextMatrix(nRow, 0), cBranchStore, con_MyShop)
-'        Next nRow
+'If cBranch <> "00" Then
+'    If IsNull(rsValue("select order_no from vw_online_orders_open where order_no = " & MyParn(grid1.TextMatrix(grid1.Row, 0)))) Then
+'        Exit Sub
 '    End If
-    
-    .ExplorerBar = flexExSort
-    .Cell(flexcpAlignment, 0, 0, .Rows - 1, .Cols - 1) = 4
-    
-    .ColDataType(0) = flexDTDate
-    .SubtotalPosition = flexSTBelow
-    .Subtotal flexSTCount, -1, 0, "#", vbYellow, , True, ""
-    .Subtotal flexSTSum, -1, 6, "#", vbYellow, , True, ""
-    .Subtotal flexSTSum, -1, 8, "#", vbYellow, , True, ""
-    .Select .Rows - 1, 0
-    .ShowCell .Rows - 1, 0
-    End With
+'    Dim cString As String
+'    cString = "SELECT ORDER_NO " & _
+'              " FROM vw_online_invoices_open" & _
+'              " WHERE ORDER_NO = " & MyParn(grid1.TextMatrix(grid1.Row, 0))
+'    If Not IsNull(rsValue(cString)) Then
+'        orders_online_invoices.bEdit = True
+'        orders_online_invoices.sStore = grid1.TextMatrix(grid1.Row, 12)
+'        orders_online_invoices.sOrder_No = grid1.TextMatrix(grid1.Row, 0)
+'        orders_online_invoices.Show 1
+'        Exit Sub
+'    End If
+'End If
 End Sub
 Private Sub grid1_EnterCell()
-With grid1
-    'CMD_SEND.Visible = (cBranch <> "00") And lIsBoxOnline And cManBox <> "" And (Not lSupperVisor) And .TextMatrix(.Row, 16) = ""
-    If (.col = 2 Or .col = 3 Or .col = 4 Or .col = 5 Or .col = 12 Or .col = 13 Or .col = 19 + 1 Or .col = 22 + 1) And cBranch = "00" Then
-        .Editable = flexEDKbdMouse
-    ElseIf .col = 19 And cBranch = "00" Then
-        .Editable = flexEDKbdMouse
-    ElseIf (.col = 23 + 1 Or .col = 24 + 1) And cBranch <> "00" Then
-        .Editable = flexEDKbdMouse
-    Else
-        .Editable = flexEDNone
-    End If
-'    xNotes.Caption = .TextMatrix(.Row, 15)
-'    XUSER.Caption = .TextMatrix(.Row, 13)
-'    xtime.Caption = .TextMatrix(.Row, 14)
-End With
+'With grid1
+'    If (.col = 2 Or .col = 3 Or .col = 4 Or .col = 5 Or .col = 12 Or .col = 13 Or .col = 19 + 1 Or .col = 22 + 1) And cBranch = "00" Then
+'        .Editable = flexEDKbdMouse
+'    ElseIf .col = 19 And cBranch = "00" Then
+'        .Editable = flexEDKbdMouse
+'    ElseIf (.col = 23 + 1 Or .col = 24 + 1) And cBranch <> "00" Then
+'        .Editable = flexEDKbdMouse
+'    Else
+'        .Editable = flexEDNone
+'    End If
+'End With
 End Sub
 Private Function LoadConString_OnLine()
 Dim cServerName As String, cUserId As String, cPassword As String, sCatalog_Online As String
-    If Not vpn Then
-        cServerName = "junior-sql.database.windows.net"
-        cUserId = decrypt("062F8C407C77", "dr")
-        cPassword = decrypt("C77DA5F185954963DD1F902815", "dr")
-    Else
-        cServerName = servername_vpn
-        cUserId = userid_vpn
-        cPassword = password_vpn
-    End If
-    sCatalog_Online = "JUNIOR_SHOP"
-    LoadConString_OnLine = "provider=SQLOLEDB;data source=" & cServerName & ";initial " _
-        & "catalog=" & sCatalog_Online & ";user id = " & cUserId & ";" & "password = " & cPassword & ";Timeout=10"
+If Not vpn Then
+    cServerName = "junior-sql.database.windows.net"
+    cUserId = decrypt("062F8C407C77", "dr")
+    cPassword = decrypt("C77DA5F185954963DD1F902815", "dr")
+Else
+    cServerName = servername_vpn
+    cUserId = userid_vpn
+    cPassword = password_vpn
+End If
+sCatalog_Online = "JUNIOR_SHOP"
+LoadConString_OnLine = "provider=SQLOLEDB;data source=" & cServerName & ";initial " _
+                        & "catalog=" & sCatalog_Online & ";user id = " & cUserId & ";" & "password = " & cPassword & ";Timeout=10"
 End Function
 Private Sub grid1_GotFocus()
 grid1_EnterCell
@@ -2118,24 +1880,16 @@ End With
 End Sub
 Sub myProc()
 On Error GoTo myerror
-If ActiveControl.Name = grid2.Name Then
-    grid2.TextMatrix(grid2.Row, 0) = oSearchItem.grid1.TextMatrix(oSearchItem.grid1.Row, 0)
-    grid2_AfterEdit grid2.Row, 0
-    Unload oSearchItem
-ElseIf ActiveControl.Name = grid1.Name And grid1.col = 24 + 1 Then
-    If oSearchMan.grid1.TextMatrix(oSearchMan.grid1.Row, 0) = "" Then
-        grid1.TextMatrix(grid1.Row, 24 + 1) = ""
-        grid1.TextMatrix(grid1.Row, 25 + 1) = ""
-        Unload oSearchMan
+If ActiveControl.Name = cmdStage.Name Then
+    If oSearchStage.grid1.TextMatrix(oSearchStage.grid1.Row, 0) = "" Then
+        cmdStage.Tag = ""
+        cmdStage.Caption = cmdStage.TagVariant
     Else
-        grid1.TextMatrix(grid1.Row, 24 + 1) = oSearchMan.grid1.TextMatrix(oSearchMan.grid1.Row, 1)
-        grid1.TextMatrix(grid1.Row, 25 + 1) = oSearchMan.grid1.TextMatrix(oSearchMan.grid1.Row, 0)
-        con.Execute " UPDATE FILE6_90H SET [Man] = " & addstring(grid1.TextMatrix(grid1.Row, 25 + 1)) & " WHERE DOC_NO = " & MyParn(grid1.TextMatrix(grid1.Row, 0))
-        oSearchMan.Hide
-        If grid1.Row < grid1.Rows - 1 Then
-            CellPos 13, grid1.Row + 1, 23 + 1
-        End If
+        cmdStage.Tag = oSearchStage.grid1.TextMatrix(oSearchStage.grid1.Row, 0)
+        cmdStage.Caption = oSearchStage.grid1.TextMatrix(oSearchStage.grid1.Row, 1)
     End If
+    Unload oSearchStage
+    myload
 End If
 Exit Sub
 myerror:
@@ -2178,16 +1932,16 @@ cString.Append "SELECT  FILE6_90H.DOC_NO," & _
                "LEFT JOIN FILE0_40 ON FILE0_40.CODE = FILE6_90H.STORE "
 cString.Append "WHERE  SALES_DOC IS NULL"
 
-If XDOC_NO.text <> "" Then
-    cString.Append " AND [DOC_NO] = " & MyParn(XDOC_NO.text)
+If xdoc_no.text <> "" Then
+    cString.Append " AND [DOC_NO] = " & MyParn(xdoc_no.text)
 End If
 
 If xpay.MatchedWithList Then
     cString.Append " AND [Payment_Method] = " & MyParn(xpay.text)
 End If
 
-If XSTORE.MatchedWithList Then
-    cString.Append " AND [STORE] = " & MyParn(XSTORE.BoundText)
+If xStore.MatchedWithList Then
+    cString.Append " AND [STORE] = " & MyParn(xStore.BoundText)
 End If
 If IsDate(xDate1.text) Then
     cString.Append " AND [DATE] >= " & DateSq(xDate1.text)
@@ -2237,13 +1991,13 @@ With SourchTable
         i = i + 1
         prog1.Value = i
         temptable.AddNew
-        temptable!STR4 = !DOC_NO
+        temptable!STR4 = !doc_no
         temptable!Date1 = !Date
         temptable!STR7 = !Name
         temptable!STR6 = !phone
         
         temptable!str14 = !Shipping_City
-        temptable!str15 = !Street
+        temptable!str15 = !STREET
         temptable!str16 = !Payment_Method
         If xMan.MatchedWithList Then
             temptable!STR20 = "«·„‰œÊ» : " & xMan.text
@@ -2263,7 +2017,7 @@ With SourchTable
         temptable!VAL1 = !Quant
         temptable!VAL3 = !price
         'If cBranch <> "00" Then temptable!VAL4 = LastBalance(!Item, cBranchStore, con_MyShop)
-        temptable!STR19 = " ÿ·»«  «Ê‰ ·«Ì‰  €Ì— „‰›–… " & XSTORE.text
+        temptable!STR19 = " ÿ·»«  «Ê‰ ·«Ì‰  €Ì— „‰›–… " & xStore.text
         temptable.Update
     .MoveNext
 Loop
@@ -2288,10 +2042,10 @@ Private Sub XPHONE_LostFocus()
 myLostFocus xphone
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus XDOC_NO
+myGotFocus xdoc_no
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus XDOC_NO
+myLostFocus xdoc_no
 End Sub
 Private Sub xDate2_GotFocus()
 myGotFocus xdate2
@@ -2315,11 +2069,11 @@ myLostFocus xpay
 If Not xpay.MatchedWithList Then xpay.BoundText = ""
 End Sub
 Private Sub XSTORE_GotFocus()
-myGotFocus XSTORE
+myGotFocus xStore
 End Sub
 Private Sub XSTORE_LostFocus()
-myLostFocus XSTORE
-If Not XSTORE.MatchedWithList Then XSTORE.BoundText = ""
+myLostFocus xStore
+If Not xStore.MatchedWithList Then xStore.BoundText = ""
 End Sub
 Private Sub grid1_KeyPress(KeyAscii As Integer)
 If KeyAscii = 13 Then
@@ -2490,12 +2244,12 @@ Do Until loctable.EOF
     aInsert = AddFlag(aInsert, "PRICE", loctable!price)
     aInsert = AddFlag(aInsert, "QUANT", loctable!Quant)
     aInsert = AddFlag(aInsert, "MODEL", addstring(loctable!MODEL))
-    If IsEmpty(myField("SELECT DOC_NO FROM " & cFile & " WHERE DOC_NO = " & MyParn(XDOC_NO.text) & " AND ITEM = " & addvalue(loctable!Item), con)) Then
-        aInsert = AddFlag(aInsert, "DOC_NO", addstring(XDOC_NO.text))
+    If IsEmpty(myField("SELECT DOC_NO FROM " & cFile & " WHERE DOC_NO = " & MyParn(xdoc_no.text) & " AND ITEM = " & addvalue(loctable!Item), con)) Then
+        aInsert = AddFlag(aInsert, "DOC_NO", addstring(xdoc_no.text))
         con.Execute addInsert(aInsert, cFile), nAffect
         nAffect = 1
     Else
-        con.Execute addUpdate(aInsert, cFile, "DOC_NO = " & MyParn(XDOC_NO.text) & " AND ITEM = " & addvalue(loctable!Item)), nAffect
+        con.Execute addUpdate(aInsert, cFile, "DOC_NO = " & MyParn(xdoc_no.text) & " AND ITEM = " & addvalue(loctable!Item)), nAffect
     End If
     nAffectAll = nAffectAll + nAffect
     loctable.MoveNext

@@ -1,11 +1,11 @@
 Attribute VB_Name = "special2"
 Public bClient As Boolean
 Public bVersion As Boolean
-Public rsBranch As adodb.Recordset
-Public rsMall As adodb.Recordset
-Public rsBranches As adodb.Recordset
-Public rsUser As adodb.Recordset
-Public rsAddress As adodb.Recordset
+Public rsBranch As ADODB.Recordset
+Public rsMall As ADODB.Recordset
+Public rsBranches As ADODB.Recordset
+Public rsUser As ADODB.Recordset
+Public rsAddress As ADODB.Recordset
 Public Const userid_vpn = "data_pro"
 Public Const password_vpn = "2010"
 Public vpn As Boolean
@@ -500,7 +500,7 @@ oSearch.nMax_records = 1000
 oSearch.Caption = "≈” ⁄·«„ «·Õ”«»« "
 oSearch.Show 1
 End Sub
-Public Sub fixSql(con As adodb.Connection, Optional sMarker As String = "GO")
+Public Sub fixSql(con As ADODB.Connection, Optional sMarker As String = "GO")
 Dim sb As New ChilkatStringBuilder
 Dim fs As New FileSystemObject
 Dim success As Long
@@ -537,9 +537,9 @@ Public Function GetNumbersFromString(ByVal inputString As String) As String
 
     GetNumbersFromString = resultString
 End Function
-Public Sub FillCheckbox(ByRef chkArray As Object, ByVal cSql As String, con As adodb.Connection)
+Public Sub FillCheckbox(ByRef chkArray As Object, ByVal cSql As String, con As ADODB.Connection)
     Dim i As Integer
-    Dim rs As New adodb.Recordset
+    Dim rs As New ADODB.Recordset
     Set rs = cmd(cSql, con).Execute
         
         
@@ -567,7 +567,7 @@ For i = 0 To chkArray.UBound
     End If
 Next
 End Function
-Public Function openConDoc(ByRef con As adodb.Connection, Optional pCatalog As String = "SHOP_DOCS") As String
+Public Function openConDoc(ByRef con As ADODB.Connection, Optional pCatalog As String = "SHOP_DOCS") As String
 Dim cServerName As String
 Dim cUserId As String
 Dim cPassword As String
@@ -601,7 +601,7 @@ Public Function CountFilesWithExt(DirectoryToSearch As String, Extension As Stri
     
     CountFilesWithExt = lCounter
 End Function
-Public Function accountRs(con As adodb.Connection, Optional id_image As String, Optional id_cash As String) As adodb.Recordset
+Public Function accountRs(con As ADODB.Connection, Optional id_image As String, Optional id_cash As String) As ADODB.Recordset
 Dim aPrm As Variant
 If id_image <> "" Then
     aPrm = AddFlag(aPrm, "id_image", id_image)
@@ -710,7 +710,7 @@ Public Function IsDgt(ByVal strData As String) As Boolean
     ' The String(Len(strData), "#") creates a pattern like "####"
     IsDgt = (Trim(strData) Like String(Len(Trim(strData)), "#"))
 End Function
-Public Function fixCostStock(con As adodb.Connection, Optional pDoc_no As String, Optional pItem As String, Optional pDate1 As String = "", Optional pDate2 As String = "", Optional ByRef nUpdated As Long = 0, Optional ByRef sError As String) As Boolean
+Public Function fixCostStock(con As ADODB.Connection, Optional pDoc_no As String, Optional pItem As String, Optional pDate1 As String = "", Optional pDate2 As String = "", Optional ByRef nUpdated As Long = 0, Optional ByRef sError As String) As Boolean
 Dim aPrm As Variant
 If pDoc_no <> "" Then
     aPrm = AddFlag(aPrm, "doc_no", pDoc_no)
@@ -729,7 +729,7 @@ If IsDate(pDate2) Then
 End If
 
 On Error GoTo myerror
-Dim Com As New adodb.command
+Dim Com As New ADODB.command
 Set Com = cmd("[dbo].[sp_stock_cost]", con, adStoredProc, aPrm)
 Com.Execute
 
@@ -764,7 +764,7 @@ Generalarray(3) = 8000
 Generalarray(5) = True
 
 listarray(0, 0) = "«·«”„"
-listarray(0, 1) = "(%%FILE0_50.DESCA%% OR %%BRANCH.DESCA%%)"
+listarray(0, 1) = "(%%FILE6_25.DESCA%% OR %%BRANCH.DESCA%%)"
 
 listarray(1, 0) = "«·›—⁄"
 listarray(1, 1) = "(FILE6_25.BRANCH = 'cFilter')"
@@ -785,7 +785,7 @@ searchArray = Array(Generalarray, listarray, GrdArray)
 If bFilter Then
     Dim aFilter As Variant
     aFilter = AddFlag(aFilter, "FILTER", True)
-    aFilter = AddFlag(aFilter, "FIELD", "FILE5_10.CODE")
+    aFilter = AddFlag(aFilter, "FIELD", "FILE6_25.CODE")
     oSearch.aFilter = aFilter
 End If
 
@@ -799,6 +799,106 @@ oSearch.aAddRow = aRow
 searchArray = Array(Generalarray, listarray, GrdArray)
 oSearch.nMax_records = 1000
 oSearch.Caption = "≈” ⁄·«„ «·»«∆⁄Ì‰"
+oSearch.Show 1
+End Sub
+Public Sub ManOnlineLook(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "")
+Dim Generalarray(5)
+Dim listarray(0, 5)
+Dim GrdArray(1, 1)
+Dim cWhere As String
+Set Generalarray(0) = oForm
+
+cString = "SELECT MAN_ONLINE_CODES.CODE," & _
+          "MAN_ONLINE_CODES.DESCA," & _
+          " FROM MAN_ONLINE_CODES  "
+
+If cFilter <> "" Then cWhere = cWhere & Tr(cWhere) & cFilter
+If cWhere <> "" Then cString = cString & " WHERE " & cWhere
+
+Generalarray(1) = cString
+
+Generalarray(2) = "Order by MAN_ONLINE_CODES.DESCA"
+Generalarray(3) = 8000
+Generalarray(5) = True
+
+listarray(0, 0) = "«·«”„"
+listarray(0, 1) = "(%%MAN_ONLINE_CODES.DESCA%%)"
+
+GrdArray(0, 0) = "«·ﬂÊœ"
+GrdArray(0, 1) = 2000
+
+GrdArray(1, 0) = "«·≈”„"
+GrdArray(1, 1) = 6000
+
+
+searchArray = Array(Generalarray, listarray, GrdArray)
+If bFilter Then
+    Dim aFilter As Variant
+    aFilter = AddFlag(aFilter, "FILTER", True)
+    aFilter = AddFlag(aFilter, "FIELD", "MAN_ONLINE_CODES.CODE")
+    oSearch.aFilter = aFilter
+End If
+
+Dim aRow As Variant
+If sAddRow <> "" Then
+    aRow = AddFlag(Empty, "text", sAddRow)
+    aRow = AddFlag(aRow, "col", 1)
+End If
+oSearch.aAddRow = aRow
+
+searchArray = Array(Generalarray, listarray, GrdArray)
+oSearch.nMax_records = 1000
+oSearch.Caption = "≈” ⁄·«„ «·„‰«œÌ»"
+oSearch.Show 1
+End Sub
+Public Sub StagesOnlineLook(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "")
+Dim Generalarray(5)
+Dim listarray(0, 5)
+Dim GrdArray(1, 1)
+Dim cWhere As String
+Set Generalarray(0) = oForm
+
+cString = "SELECT STAGES_CODES.CODE," & _
+          "STAGES_CODES.DESCA" & _
+          " FROM STAGES_CODES"
+
+If cFilter <> "" Then cWhere = cWhere & Tr(cWhere) & cFilter
+If cWhere <> "" Then cString = cString & " WHERE " & cWhere
+
+Generalarray(1) = cString
+
+Generalarray(2) = "Order by STAGES_CODES.DESCA"
+Generalarray(3) = 8000
+Generalarray(5) = True
+
+listarray(0, 0) = "«·„—Õ·…"
+listarray(0, 1) = "(%%STAGES_CODES.DESCA%%)"
+
+GrdArray(0, 0) = "«·ﬂÊœ"
+GrdArray(0, 1) = 2000
+
+GrdArray(1, 0) = "««·„—Õ·…"
+GrdArray(1, 1) = 6000
+
+
+searchArray = Array(Generalarray, listarray, GrdArray)
+If bFilter Then
+    Dim aFilter As Variant
+    aFilter = AddFlag(aFilter, "FILTER", True)
+    aFilter = AddFlag(aFilter, "FIELD", "STAGES_CODES.CODE")
+    oSearch.aFilter = aFilter
+End If
+
+Dim aRow As Variant
+If sAddRow <> "" Then
+    aRow = AddFlag(Empty, "text", sAddRow)
+    aRow = AddFlag(aRow, "col", 1)
+End If
+oSearch.aAddRow = aRow
+
+searchArray = Array(Generalarray, listarray, GrdArray)
+oSearch.nMax_records = 1000
+oSearch.Caption = "≈” ⁄·«„ „—«Õ· «· ÃÂÌ“"
 oSearch.Show 1
 End Sub
 

@@ -219,7 +219,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Public bedit As Boolean
+Public bEdit As Boolean
 Dim con As New ADODB.Connection
 Public sCaption As String, sTable As String, sFieldCode As String, sFieldDesca As String, sFieldName1 As String, sFieldName2 As String, nZero As Long
 Public sFilter As String
@@ -274,14 +274,14 @@ Err.Clear
 myload
 End Sub
 Private Sub grid1_EnterCell()
-If bedit And grid1.col = 1 Then
+If bEdit And grid1.col = 1 Then
     grid1.Editable = flexEDKbdMouse
 Else
     grid1.Editable = flexEDNone
 End If
 End Sub
 Private Sub Grid1_KeyDown(KeyCode As Integer, Shift As Integer)
-If KeyCode = 46 And bedit Then
+If KeyCode = 46 And bEdit Then
     If Trim(grid1.TextMatrix(grid1.Row, 0)) <> "" Then
         If MsgBox("«·€«¡ «·”Ã· ?? Â· «‰  „ √ﬂœ", vbYesNo) = vbYes Then
             con.BeginTrans
@@ -300,7 +300,7 @@ Err.Clear
 myload
 End Sub
 Private Sub Form_Load()
-bedit = True
+bEdit = True
 Me.Caption = sCaption
 If sFieldCode = "" Then sFieldCode = "CODE"
 If sFieldDesca = "" Then sFieldDesca = "desca"

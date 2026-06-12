@@ -549,9 +549,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public myForm As Form
 Public con As New ADODB.Connection
-Dim sStoreOnline As String
 Private Sub CMD_SEND_Click()
-If Not myValid Then
+If Not MYVALID Then
     Exit Sub
 End If
 
@@ -578,21 +577,21 @@ End If
 CMD_SEND.Enabled = True
 Me.MousePointer = vbNormal
 End Sub
-Private Function myValid() As Boolean
+Private Function MYVALID() As Boolean
 Dim i As Long
 With grid1
 For i = 1 To .Rows - 1
     prog1.Value = Round(i / (.Rows - 1), 2) * 100
     Caption = sCaption & " - " & i & " „‰ " & .Rows - 1
     If .TextMatrix(i, 19) = "" And .ValueMatrix(i, 21) = 0 Then
-        myValid = True
+        MYVALID = True
         Exit Function
     End If
 Next
 End With
 MsgBox "·«  ÊÃœ ”Ã·«  ’«·Õ… ·· ÕÊÌ·"
 End Function
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 
@@ -611,11 +610,11 @@ cmdScv.Enabled = True
 End Sub
 Private Sub Form_Load()
 If openCon(con) <> "ok" Then Exit Sub
-Set grid1.DataSource = DATA1
+Set grid1.DataSource = data1
 Set grid2.DataSource = DATA2
 Fixgrd
 Fixgrd2
-sStoreOnline = myField("SELECT CODE , DESCA FROM FILE0_40 WHERE ONLINE = 1 ORDER BY CODE ", con) & ""
+'sStoreOnline = myField("SELECT CODE , DESCA FROM FILE0_40 WHERE ONLINE = 1 ORDER BY CODE ", con) & ""
 'CellPos 13, 0, grid1.Cols - 1
 End Sub
 Sub Fixgrd2()
@@ -857,7 +856,7 @@ grid1.Rows = 1
 grid2.Rows = 1
 
 If Tb.length = 0 Then Exit Function
-Set DATA1.Recordset = mycmd(Tb.GetAsString, con)
+Set data1.Recordset = mycmd(Tb.GetAsString, con)
 
 prog1.Visible = True
 Dim SKU As String

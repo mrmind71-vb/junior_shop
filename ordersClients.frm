@@ -1656,20 +1656,20 @@ Public bIg As Boolean
 Dim bEditRecord As Boolean, bAct As Boolean
 Dim oSeachCode As New Search_abd, oSearchDoc As New Search_abd, oSearchProject As New Search_abd, osearchClient As New Search_abd
 Dim cFilter As String, cSelect As String
-Dim con As New adodb.Connection, CardTable As adodb.Recordset
+Dim con As New ADODB.Connection, CardTable As ADODB.Recordset
 Dim cFile As String, cFileHeader As String, aBoxs As Variant
-Dim cList1 As String, cList2 As String, cList3 As String, sDef As String
+Dim clist1 As String, cList2 As String, cList3 As String, sDef As String
 Dim formMode
 Const LoadMode = 0, DefineMode = 1
 Private Function myreplace(Optional Row As Long = -1, Optional Row2 As Long = -1, Optional bNewOnly As Boolean = False) As Boolean
 Dim aInsert As Variant
-aInsert = AddFlag(Empty, "[DATE]", addDate(xDate.text))
+aInsert = AddFlag(Empty, "[DATE]", addDate(xdate.text))
 aInsert = AddFlag(aInsert, "[CODE]", addstring(xCode.text))
 aInsert = AddFlag(aInsert, "[NOTES]", addstring(xNotes.text))
-aInsert = AddFlag(aInsert, IIf(xDoc_no.Tag = DefineMode, "[USERNAME]", "[USERNAME2]"), addstring(cusername))
+aInsert = AddFlag(aInsert, IIf(xDoc_no.Tag = DefineMode, "[USERNAME]", "[USERNAME2]"), addstring(cUserName))
 aInsert = AddFlag(aInsert, IIf(xDoc_no.Tag = DefineMode, "[TIME]", "[TIME2]"), "getdate()")
 con.BeginTrans
-On Error GoTo myError
+On Error GoTo myerror
 If xDoc_no.Tag = DefineMode Then
     xDoc_no.text = Newflag(cFileHeader, "DOC_NO", con)
     aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_no.text))
@@ -1682,7 +1682,7 @@ If Row2 <> -1 Then myreplaceGrdDate Row2
 con.CommitTrans
 myreplace = True
 Exit Function
-myError:
+myerror:
 MsgBox Err.Description
 con.RollbackTrans
 Err.Clear
@@ -1690,9 +1690,9 @@ End Function
 Sub myProc(Optional sControl As String = "")
 If ActiveControl.Name = grid1.Name Then
     grid1.TextMatrix(grid1.Row, 2) = oSeachCode.grid1.TextMatrix(oSeachCode.grid1.Row, 0)
-    Grid1_AfterEdit grid1.Row, grid1.Col
+    Grid1_AfterEdit grid1.Row, grid1.col
     oSeachCode.Hide
-    CellPos 13, grid1.Row, grid1.Col
+    CellPos 13, grid1.Row, grid1.col
 ElseIf ActiveControl.Name = cmdInform.Name Then
     openCardTable tbMode.tbFind, oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
     Unload oSearchDoc
@@ -1762,7 +1762,7 @@ Private Sub CmdDel_Click()
 If MsgBox("Õ–› ?", vbOKCancel + vbDefaultButton2 + vbCritical) <> vbOK Then Exit Sub
 
 con.BeginTrans
-On Error GoTo myError
+On Error GoTo myerror
 con.Execute "Delete  From " & cFile & " where Doc_No = " & addstring(xDoc_no.text)
 con.Execute "Delete  From " & cFileHeader & " where Doc_No = " & addstring(xDoc_no.text)
 con.Execute "Delete  From FILE6_51E where Doc_No = " & addstring(xDoc_no.text)
@@ -1776,7 +1776,7 @@ If Not openCardTable(tbMode.tbPrevious, XFLAG.Caption) Then
     End If
 End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 con.RollbackTrans
@@ -1806,7 +1806,7 @@ If grid1.Rows > 1 Then
     aSub = AddFlag(aSub, "back_color", 40)
     aRow = AddFlag(aRow, aSub)
 End If
-ToFileExelNew grid1, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption, "„” ‰œ ÿ·»Ì… —ﬁ„ : " & xDoc_no.text, "» «—ÌŒ : " & xDate.text)
+ToFileExelNew grid1, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption, "„” ‰œ ÿ·»Ì… —ﬁ„ : " & xDoc_no.text, "» «—ÌŒ : " & xdate.text)
 Me.MousePointer = 0
 End Sub
 
@@ -1851,7 +1851,7 @@ Private Sub cmdProject_Click()
 'ProjectLookup Me, oSearchProject, , , cmdProject.Tag <> ""
 End Sub
 Private Sub cmdSave_Click()
-If Not myValid Then Exit Sub
+If Not MYVALID Then Exit Sub
 If Not myreplace Then Exit Sub
 Inform " „ Õ›Ÿ «·„” ‰œ »‰Ã«Õ"
 If sDoc_no <> "" Then
@@ -1872,7 +1872,7 @@ myUndo
 End Sub
 
 Private Sub cmdYear_Click()
-Set oSearchYear.myform = Me
+Set oSearchYear.myForm = Me
 oSearchYear.bEmpty = cmdYear.Tag <> ""
 oSearchYear.Show 1
 End Sub
@@ -1884,7 +1884,7 @@ If Not bAct Then
     If xDoc_no.Tag = LoadMode Then
         grid1.SetFocus
     Else
-        xDate.SetFocus
+        xdate.SetFocus
     End If
     Err.Clear
 End If
@@ -1908,9 +1908,9 @@ cFile = "FILE6_51"
 cFileHeader = "FILE6_51H"
 openCon con
 
-Set grid1.DataSource = DATA1
-Set grid2.DataSource = data2
-Set grdDate.DataSource = DATA3
+Set grid1.DataSource = data1
+Set grid2.DataSource = DATA2
+Set grdDate.DataSource = data3
 
 If Not openCardTable Then myDefine
 End Sub
@@ -1922,13 +1922,13 @@ closeCon con
 Set OrdersClientsfrm = Nothing
 Err.Clear
 End Sub
-Private Function myValid(Optional bIgMsg As Boolean = True) As Boolean
+Private Function MYVALID(Optional bIgMsg As Boolean = True) As Boolean
 If Trim(xDoc_no.text) = "" Then
     MsgBox "—ﬁ„ «·„” ‰œ ·„ Ì”Ã·"
     Exit Function
 End If
 
-If Not IsDate(xDate.text) Then
+If Not IsDate(xdate.text) Then
     MsgBox "«· «—ÌŒ €Ì— ”·Ì„"
     Exit Function
 End If
@@ -1943,13 +1943,13 @@ If Trim(xCode_desca.Caption) = "" Then
     Exit Function
 End If
 
-myValid = True
+MYVALID = True
 End Function
 Private Sub myload()
-xDoc_no.text = CardTable!doc_no
+xDoc_no.text = CardTable!DOC_NO
 XFLAG.Caption = CardTable!Flag
-xDate.text = myFormat_p(CardTable!Date)
-xCode.text = CardTable!Code & ""
+xdate.text = myFormat_p(CardTable!Date)
+xCode.text = CardTable!code & ""
 xCode_desca.Caption = CardTable!code_desca & ""
 xNotes.text = CardTable!NOTES & ""
 bIg = True
@@ -1972,7 +1972,7 @@ End Sub
 Private Sub myDefine()
 xDoc_no.text = ""
 XFLAG.Caption = ""
-xDate.text = myFormat_p(Date)
+xdate.text = myFormat_p(Date)
 xCode.text = ""
 xCode_desca.Caption = ""
 
@@ -2068,7 +2068,7 @@ con.Execute "update " & cFileHeader & _
 Inform " „ " & IIf(xCancel.Value = 0, " —«Ã⁄ ⁄‰ «·«·€«¡", "«·€«¡ «·ÿ·»Ì…") & " »‰Ã«Õ"
 myUndo
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 
@@ -2088,7 +2088,7 @@ If xDoc_no.text = "" Then
     End If
 Else
     If (Not (CardTable.EOF)) And xDoc_no.Tag = LoadMode Then
-        If CardTable!doc_no = xDoc_no.text Then
+        If CardTable!DOC_NO = xDoc_no.text Then
             Exit Sub
         End If
     End If
@@ -2136,7 +2136,7 @@ End If
 
 Me.MousePointer = vbHourglass
 
-On Error GoTo myError
+On Error GoTo myerror
 cFilter = ""
 If cmdFilter.Tag <> "" Then cFilter = cFilter & Tr(cFilter) & "DOC_NO IN (" & cmdFilter.Tag & ")"
 If cmdClient.Tag <> "" Then cFilter = cFilter & Tr(cFilter) & "FILE6_51H.CODE = " & MyParn(cmdClient.Tag)
@@ -2181,7 +2181,7 @@ If (Not CardTable.EOF) Then
 End If
 Me.MousePointer = 0
 Exit Function
-myError:
+myerror:
 Me.MousePointer = vbNormal
 MsgBox Err.Description
 Err.Clear
@@ -2235,7 +2235,7 @@ If Not bCheck Then
 End If
 End Sub
 Private Function retRecords(pDoc_no, ByRef nRecords As Long, ByRef nRecord As Long) As Variant
-Dim cString As String, loctable As New adodb.Recordset
+Dim cString As String, loctable As New ADODB.Recordset
 If pDoc_no <> "" Then
     cString = "SELECT Count(*) AS records,COUNT(CASE WHEN FLAG <= " & MyParn(pDoc_no) & " THEN 1  END) AS record"
 Else
@@ -2265,7 +2265,7 @@ End If
 End Sub
 Private Sub myreplaceGrd(Row As Long)
 Dim aInsert As Variant
-Dim Com As New adodb.command
+Dim Com As New ADODB.command
 Dim aPrm As Variant
 With grid1
     For i = IIf(Row = -1, 1, Row) To IIf(Row = -1, grid1.Rows - 2, Row)
@@ -2295,14 +2295,14 @@ With grid1
     Next
 End With
 End Sub
-Private Sub Grid1_AfterEdit(ByVal Row As Long, ByVal Col As Long)
-If Not myValid(True) Then
+Private Sub Grid1_AfterEdit(ByVal Row As Long, ByVal col As Long)
+If Not MYVALID(True) Then
     On Error Resume Next
     grid1.SetFocus
     Err.Clear
     myLoadGrd
     If Row < grid1.Rows - 1 Then
-        grid1.Select Row, Col
+        grid1.Select Row, col
     Else
         CellPos 13, grid1.Rows - 2, grid1.Cols - 1
     End If
@@ -2310,7 +2310,7 @@ If Not myValid(True) Then
 End If
 
 
-If Not validRow(Row, Col) Then
+If Not validRow(Row, col) Then
     'CalcTotals Row
     Exit Sub
 End If
@@ -2318,8 +2318,8 @@ End If
 With grid1
 If Row = grid1.Rows - 1 Then
     myAddItem
-ElseIf Row = grid1.Rows - 2 And (Col = 0 Or Col = 1) Then
-    MyEditItem grid1, Row, Col
+ElseIf Row = grid1.Rows - 2 And (col = 0 Or col = 1) Then
+    MyEditItem grid1, Row, col
 End If
 
 If myreplace(Row) Then
@@ -2339,7 +2339,7 @@ End Sub
 Private Sub grid1_EnterCell()
 If Not bEditRecord Then
     grid1.Editable = flexEDNone
-ElseIf grid1.Col = 11 Then
+ElseIf grid1.col = 11 Then
     grid1.Editable = flexEDKbdMouse
 Else
     grid1.Editable = flexEDNone
@@ -2370,7 +2370,7 @@ cString = "SELECT " & arString(aFields, ",") & _
          " FROM FILE6_51 inner join file1_10 on file1_10.item = FILE6_51.item INNER JOIN FACT ON FACT.CODE = FILE1_10.FACT INNER JOIN FILE4_10 ON FILE4_10.CODE = FILE1_10.CODE " & _
          " WHERE  DOC_NO = " & MyParn(xDoc_no.text) & _
          " ORDER BY FILE4_10.DESCA , FILE1_10.FACT , FILE1_10.MODELFACT0 , FILE1_10.C_SCAL, FILE1_10.COLOR "
-Set DATA1.Recordset = mycmd(cString, con)
+Set data1.Recordset = mycmd(cString, con)
 myAddItem
 
 CalcTotals
@@ -2379,7 +2379,7 @@ End Sub
 Private Sub myloadgrd3()
 Dim cString As String
 aPrm = AddFlag(aPrm, "DOC_NO", xDoc_no.text)
-Set DATA1.Recordset = cmd("[dbo].[sp_client_order_scal]", con, adStoredProc, aPrm).Execute
+Set data1.Recordset = cmd("[dbo].[sp_client_order_scal]", con, adStoredProc, aPrm).Execute
 myAddItem
 CalcTotals
 fixGrd
@@ -2396,12 +2396,12 @@ grid1_EnterCell
 End Sub
 Private Sub grid1_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 13 Then
-    CellPos KeyCode, grid1.Row, grid1.Col
+    CellPos KeyCode, grid1.Row, grid1.col
 ElseIf Not bEditRecord Then
     Exit Sub
 ElseIf KeyCode = 46 And grid1.Row <> grid1.Rows - 1 Then
     If MsgBox("Õ–› „‰ «·„” ‰œ ?, Â· «‰  „Ê«›ﬁ ø", vbOKCancel) = vbOK Then
-        On Error GoTo myError
+        On Error GoTo myerror
         con.BeginTrans
         If grid1.TextMatrix(grid1.Row, grid1.Cols - 1) <> "" Then
             con.Execute "Delete from " & cFile & " where ID = " & grid1.TextMatrix(grid1.Row, grid1.Cols - 1)
@@ -2411,18 +2411,18 @@ ElseIf KeyCode = 46 And grid1.Row <> grid1.Rows - 1 Then
     End If
 End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 con.RollbackTrans
 Err.Clear
 End Sub
-Private Sub grid1_ValidateEdit(ByVal Row As Long, ByVal Col As Long, Cancel As Boolean)
-If Col = 0 Then
+Private Sub grid1_ValidateEdit(ByVal Row As Long, ByVal col As Long, Cancel As Boolean)
+If col = 0 Then
     If Trim(grid1.EditText) = "" Then
         Cancel = True
         MsgBox "«·„‘—Ê⁄ €Ì— „”Ã·"
     End If
-ElseIf Col = 1 Then
+ElseIf col = 1 Then
     If Trim(grid1.EditText) = "" Then
         Cancel = True
         MsgBox "«·Œ“‰… €Ì— „”Ã·…"
@@ -2505,31 +2505,31 @@ If grid1.Rows > 2 Then
 End If
 End With
 End Sub
-Private Function validRow(Row As Long, Optional Col As Long = -1) As Boolean
+Private Function validRow(Row As Long, Optional col As Long = -1) As Boolean
 With grid1
 End With
 validRow = True
 End Function
-Private Sub CellPos(ByRef KeyCode, ByVal Row As Long, ByVal Col As Long)
+Private Sub CellPos(ByRef KeyCode, ByVal Row As Long, ByVal col As Long)
 KeyCode = 0
-If Col < 11 Then
-    grid1.Col = 11
+If col < 11 Then
+    grid1.col = 11
 ElseIf Row < grid1.Rows - 1 Then
     grid1.Select Row + 1, NextEmpty(grid1, Row + 1, 11, 11)
     grid1.ShowCell grid1.Row, 0
 Else
-    grid1.Select Row, Col
+    grid1.Select Row, col
 End If
 End Sub
 Private Sub myRemove(Row As Long)
 grid1.RemoveItem Row
 CalcTotals
 End Sub
-Private Sub grid1_KeyUpEdit(ByVal Row As Long, ByVal Col As Long, KeyCode As Integer, ByVal Shift As Integer)
+Private Sub grid1_KeyUpEdit(ByVal Row As Long, ByVal col As Long, KeyCode As Integer, ByVal Shift As Integer)
 If KeyCode = 13 Then
 '    If Col = 0 And grid1.TextMatrix(Row, Col) = "" Then Exit Sub
 '    If Col = 1 And (grid1.TextMatrix(Row, Col) = "" Or grid1.TextMatrix(Row, grid1.Cols - 1) = "") Then Exit Sub
-    CellPos KeyCode, Row, Col
+    CellPos KeyCode, Row, col
 End If
 End Sub
 Private Sub grid1_KeyPress(KeyAscii As Integer)
@@ -2552,7 +2552,7 @@ aFields(6) = "FILE6_51E.ID"
 cString = "SELECT " & arString(aFields, ",") & _
          " FROM FILE6_51E " & _
          " WHERE  DOC_NO = " & MyParn(xDoc_no.text)
-Set data2.Recordset = mycmd(cString, con)
+Set DATA2.Recordset = mycmd(cString, con)
 Fixgrd2
 End Sub
 Private Sub Fixgrd2()
@@ -2608,28 +2608,28 @@ End Sub
 Private Sub xIsClosed_Click()
 If bIg Then Exit Sub
 If MsgBox(IIf(xisClosed.Value = 0, "› Õ «·„” ‰œ", "«€·«ﬁ «·„” ‰œ"), vbDefaultButton2 + vbOKCancel) <> vbOK Then Exit Sub
-On Error GoTo myError
+On Error GoTo myerror
 con.Execute "update " & cFileHeader & _
             " SET ISCLOSED = " & xisClosed.Value & _
             " WHERE DOC_NO = " & MyParn(xDoc_no.text)
 Inform " „ " & IIf(xisClosed.Value = 0, "› Õ «·„” ‰œ", "«€·«ﬁ «·„” ‰œ") & " »‰Ã«Õ"
 myUndo
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
 Private Sub xisPosted_Click()
 If bIg Then Exit Sub
 If MsgBox(IIf(xIsPosted.Value = 0, "› Õ «·„” ‰œ", "«€·«ﬁ «·„” ‰œ"), vbDefaultButton2 + vbOKCancel) <> vbOK Then Exit Sub
-On Error GoTo myError
+On Error GoTo myerror
 con.Execute "update " & cFileHeader & _
             " SET isPosted = " & xIsPosted.Value & _
             " WHERE DOC_NO = " & MyParn(xDoc_no.text)
 Inform " „ " & IIf(xIsPosted.Value = 0, "› Õ «·„” ‰œ", "«€·«ﬁ «·„” ‰œ") & " »‰Ã«Õ"
 myUndo
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -2713,7 +2713,7 @@ cString.Append addstring(cSv.GetCellByName(0, store_))
 cString.Append ");"
 
 con.BeginTrans
-On Error GoTo myError
+On Error GoTo myerror
 con.Execute cString.GetAsString
 
 For i = 0 To cSv.NumRows - 1
@@ -2786,7 +2786,10 @@ For i = 0 To cSv.NumRows - 1
             cString.Append i
             cString.Append ")"
         End If
-        con.Execute cString.GetAsString
+        con.Execute cString.GetAsString, nAffect
+        'nAffected = nAffect + 1
+    Else
+        'MsgBox "ss"
     End If
 Next
 con.CommitTrans
@@ -2794,7 +2797,7 @@ prog1.Visible = False
 Me.Caption = sCaption
 getAmazon = cSv.GetCellByName(0, Doc_No_)
 Exit Function
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 If TransCount(con) > 0 Then
@@ -2803,11 +2806,11 @@ End If
 End Function
 
 Private Sub xdate_GotFocus()
-myGotFocus xDate
+myGotFocus xdate
 End Sub
 Private Sub xDate_LostFocus()
-myLostFocus xDate
-myValidDate xDate
+myLostFocus xdate
+myValidDate xdate
 End Sub
 Private Sub xcode_GotFocus()
 myGotFocus xCode
@@ -2841,14 +2844,14 @@ With grdDate
     Next
 End With
 End Sub
-Private Sub grdDate_AfterEdit(ByVal Row As Long, ByVal Col As Long)
-If Not myValid(True) Then
+Private Sub grdDate_AfterEdit(ByVal Row As Long, ByVal col As Long)
+If Not MYVALID(True) Then
     On Error Resume Next
     grdDate.SetFocus
     Err.Clear
     myLoadGrdDate
     If Row < grdDate.Rows - 1 Then
-        grdDate.Select Row, Col
+        grdDate.Select Row, col
     Else
         CellPosDate 13, grdDate.Rows - 2, grdDate.Cols - 1
     End If
@@ -2856,7 +2859,7 @@ If Not myValid(True) Then
 End If
 
 
-If Not validRowDate(Row, Col) Then
+If Not validRowDate(Row, col) Then
     Exit Sub
 End If
 
@@ -2880,7 +2883,7 @@ End Sub
 Private Sub grdDate_EnterCell()
 If Not bEditRecord Then
     grdDate.Editable = flexEDNone
-ElseIf grdDate.Col = 0 Then
+ElseIf grdDate.col = 0 Then
     grdDate.Editable = flexEDKbdMouse
 Else
     grdDate.Editable = flexEDNone
@@ -2892,7 +2895,7 @@ cString = "SELECT FORMAT(DATE,'yyyy/M/d'),ID" & _
          " FROM FILE6_51D " & _
          " WHERE  DOC_NO = " & MyParn(xDoc_no.text) & _
          " ORDER BY DATE DESC"
-Set DATA3.Recordset = mycmd(cString, con)
+Set data3.Recordset = mycmd(cString, con)
 myAddItemDate
 
 fixGrdDate
@@ -2902,12 +2905,12 @@ grdDate_EnterCell
 End Sub
 Private Sub grdDate_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 13 Then
-    CellPosDate KeyCode, grdDate.Row, grdDate.Col
+    CellPosDate KeyCode, grdDate.Row, grdDate.col
 ElseIf Not bEditRecord Then
     Exit Sub
 ElseIf KeyCode = 46 And grdDate.Row <> grdDate.Rows - 1 Then
     If MsgBox("Õ–› „‰ «·„” ‰œ ?, Â· «‰  „Ê«›ﬁ ø", vbOKCancel) = vbOK Then
-        On Error GoTo myError
+        On Error GoTo myerror
         If grdDate.TextMatrix(grdDate.Row, grdDate.Cols - 1) <> "" Then
             con.Execute "Delete from FILE6_51D where ID = " & grdDate.TextMatrix(grdDate.Row, grdDate.Cols - 1)
         End If
@@ -2915,12 +2918,12 @@ ElseIf KeyCode = 46 And grdDate.Row <> grdDate.Rows - 1 Then
     End If
 End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Private Sub grdDate_ValidateEdit(ByVal Row As Long, ByVal Col As Long, Cancel As Boolean)
-If Col = 0 Then
+Private Sub grdDate_ValidateEdit(ByVal Row As Long, ByVal col As Long, Cancel As Boolean)
+If col = 0 Then
     If Trim(grdDate.EditText) = "" Then
         Cancel = True
         MsgBox "«· «—ÌŒ €Ì— „”Ã·"
@@ -2949,31 +2952,31 @@ With grdDate
 .AddItem ""
 End With
 End Sub
-Private Function validRowDate(Row As Long, Optional Col As Long = -1) As Boolean
+Private Function validRowDate(Row As Long, Optional col As Long = -1) As Boolean
 With grid1
 If Not IsDate(grdDate.TextMatrix(Row, 0)) Then Exit Function
 End With
 validRowDate = True
 End Function
-Private Sub CellPosDate(ByRef KeyCode, ByVal Row As Long, ByVal Col As Long)
+Private Sub CellPosDate(ByRef KeyCode, ByVal Row As Long, ByVal col As Long)
 KeyCode = 0
-If Col < 0 Then
-    grdDate.Col = 0
+If col < 0 Then
+    grdDate.col = 0
 ElseIf Row < grdDate.Rows - 1 Then
     grdDate.Select Row + 1, NextEmpty(grdDate, Row + 1, 0, 0)
     grdDate.ShowCell grdDate.Row, 0
 Else
-    grdDate.Select Row, Col
+    grdDate.Select Row, col
 End If
 End Sub
 Private Sub myRemoveDate(Row As Long)
 grdDate.RemoveItem Row
 End Sub
-Private Sub grdDate_KeyUpEdit(ByVal Row As Long, ByVal Col As Long, KeyCode As Integer, ByVal Shift As Integer)
+Private Sub grdDate_KeyUpEdit(ByVal Row As Long, ByVal col As Long, KeyCode As Integer, ByVal Shift As Integer)
 If KeyCode = 13 Then
 '    If Col = 0 And grid1.TextMatrix(Row, Col) = "" Then Exit Sub
 '    If Col = 1 And (grid1.TextMatrix(Row, Col) = "" Or grid1.TextMatrix(Row, grid1.Cols - 1) = "") Then Exit Sub
-    CellPosDate KeyCode, Row, Col
+    CellPosDate KeyCode, Row, col
 End If
 End Sub
 Private Sub GrdDate_KeyPress(KeyAscii As Integer)
@@ -2985,7 +2988,7 @@ End If
 End Sub
 Private Function addBalance(pDoc_no As String) As Boolean
 Dim nAffect As Long
-On Error GoTo myError
+On Error GoTo myerror
 con.Execute "update file6_51 SET " & _
             " FILE6_51.BALANCE_FACT = FILE1_10.BALANCE_FACT" & _
             " FROM FILE6_51 INNER JOIN FILE1_10 ON FILE6_51.ITEM = FILE1_10.ITEM" & _
@@ -2993,12 +2996,12 @@ con.Execute "update file6_51 SET " & _
 Inform " „ «÷«›… —’Ìœ " & nAffect & " ”Ã·"
 addBalance = True
 Exit Function
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Function
 Private Function getFixed() As Long
-Dim loctable As New adodb.Recordset
+Dim loctable As New ADODB.Recordset
 Dim cString As String
 Dim sb As New ChilkatStringBuilder
 Dim aFields(8)
@@ -3036,7 +3039,7 @@ Do Until loctable.EOF
             sb.Append addvalue(loctable!Item) & ","
             sb.Append addstring(loctable!BARCODE) & ","
             sb.Append addstring(loctable!Asin) & ","
-            sb.Append addstring(loctable!desca2) & ","
+            sb.Append addstring(loctable!DESCA2) & ","
             sb.Append Val(loctable!Balance_fact & "") & ","
             sb.Append Val(loctable!Quant) & ","
             sb.Append Val(loctable!Quant & "") & ","

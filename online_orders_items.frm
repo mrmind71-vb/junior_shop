@@ -9,7 +9,7 @@ Begin VB.Form orders_online_items
    ClientHeight    =   8325
    ClientLeft      =   45
    ClientTop       =   330
-   ClientWidth     =   20400
+   ClientWidth     =   18870
    BeginProperty Font 
       Name            =   "Arial"
       Size            =   11.25
@@ -23,7 +23,7 @@ Begin VB.Form orders_online_items
    LinkTopic       =   "Form2"
    RightToLeft     =   -1  'True
    ScaleHeight     =   8325
-   ScaleWidth      =   20400
+   ScaleWidth      =   18870
    WhatsThisButton =   -1  'True
    WhatsThisHelp   =   -1  'True
    WindowState     =   2  'Maximized
@@ -37,10 +37,10 @@ Begin VB.Form orders_online_items
       Left            =   0
       RightToLeft     =   -1  'True
       ScaleHeight     =   600
-      ScaleWidth      =   20400
+      ScaleWidth      =   18870
       TabIndex        =   34
       Top             =   7350
-      Width           =   20400
+      Width           =   18870
       Begin Threed.SSCommand cmdSend 
          Height          =   510
          Left            =   90
@@ -77,7 +77,7 @@ Begin VB.Form orders_online_items
       BackColor       =   &H80000005&
       ForeColor       =   &H80000008&
       Height          =   870
-      Left            =   1665
+      Left            =   90
       RightToLeft     =   -1  'True
       TabIndex        =   33
       Top             =   585
@@ -117,7 +117,7 @@ Begin VB.Form orders_online_items
       BackColor       =   &H80000005&
       ForeColor       =   &H80000008&
       Height          =   1185
-      Left            =   1620
+      Left            =   45
       RightToLeft     =   -1  'True
       TabIndex        =   32
       Top             =   1395
@@ -165,7 +165,7 @@ Begin VB.Form orders_online_items
       EndProperty
       Height          =   1140
       Index           =   4
-      Left            =   3285
+      Left            =   1710
       RightToLeft     =   -1  'True
       TabIndex        =   30
       Top             =   1440
@@ -236,7 +236,7 @@ Begin VB.Form orders_online_items
    Begin VB.Frame Frame3 
       BackColor       =   &H00FFFFFF&
       Height          =   1500
-      Left            =   4770
+      Left            =   3195
       RightToLeft     =   -1  'True
       TabIndex        =   27
       Top             =   45
@@ -285,7 +285,7 @@ Begin VB.Form orders_online_items
    Begin VB.Frame Frame2 
       BackColor       =   &H00FFFFFF&
       Height          =   1050
-      Left            =   4770
+      Left            =   3195
       RightToLeft     =   -1  'True
       TabIndex        =   24
       Top             =   1530
@@ -372,7 +372,7 @@ Begin VB.Form orders_online_items
          Strikethrough   =   0   'False
       EndProperty
       Height          =   2535
-      Left            =   11385
+      Left            =   9810
       RightToLeft     =   -1  'True
       TabIndex        =   18
       Top             =   45
@@ -499,7 +499,7 @@ Begin VB.Form orders_online_items
    End
    Begin MSAdodcLib.Adodc DATA1 
       Height          =   465
-      Left            =   -1845
+      Left            =   -3420
       Top             =   90
       Visible         =   0   'False
       Width           =   2175
@@ -545,13 +545,13 @@ Begin VB.Form orders_online_items
       _Version        =   393216
    End
    Begin VSFlex7Ctl.VSFlexGrid grid1 
-      Height          =   4245
-      Left            =   90
+      Height          =   4650
+      Left            =   45
       TabIndex        =   13
       Top             =   2610
-      Width           =   20265
-      _cx             =   35745
-      _cy             =   7488
+      Width           =   18735
+      _cx             =   33046
+      _cy             =   8202
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -644,8 +644,8 @@ Begin VB.Form orders_online_items
       Left            =   0
       TabIndex        =   14
       Top             =   7950
-      Width           =   20400
-      _ExtentX        =   35983
+      Width           =   18870
+      _ExtentX        =   33285
       _ExtentY        =   661
       _Version        =   196610
       BackColor       =   16777215
@@ -745,7 +745,7 @@ Begin VB.Form orders_online_items
          Strikethrough   =   0   'False
       EndProperty
       Height          =   285
-      Left            =   1080
+      Left            =   -495
       RightToLeft     =   -1  'True
       TabIndex        =   31
       Top             =   180
@@ -761,20 +761,15 @@ Attribute VB_Exposed = False
 Public sDoc_no As String
 Public sStore As String
 Public bAllStore As Boolean
-'Public myForm As Form
 Dim bEditRecord As Boolean, bAct As Boolean
 Dim oSalesRefund As New sales_refundfrm
 Dim con As New ADODB.Connection
 Dim bUpdated As Boolean
 Dim formMode
 Const LoadMode = 0, DefineMode = 1
-
-Private Sub CMD_SEND_Click()
-
-End Sub
 Private Sub cmdAddInvoice_Click()
 orders_online_invoices.bEdit = True
-orders_online_invoices.sOrder_No = sDoc_no
+orders_online_invoices.sOrder_no = sDoc_no
 orders_online_invoices.sStore = sStore
 Set orders_online_invoices.myForm = Me
 orders_online_invoices.Show 1
@@ -946,17 +941,16 @@ With grid1
     cString = " SELECT FILE6_90.ITEM," & _
               " FILE1_10.MODELFACT0," & _
               " FACT.DESCA," & _
-              " COALESCE(FILE1_10.desca,FILE6_90.ITEM_NAME)," & _
+              " FILE1_10.desca," & _
               " FILE1_10.COLOR," & _
               " FILE1_10.SCAL," & _
               " FILE6_90.QUANT," & _
               " FILE6_90.PRICE," & _
-              " file6_90.ITEM_NAME," & _
               " FILE6_90.TOTAL " & _
               " FROM  FILE6_90 " & _
               " INNER JOIN FILE6_90H ON FILE6_90.DOC_NO = FILE6_90H.DOC_NO " & _
-              " LEFT  JOIN FILE1_10 ON FILE6_90.ITEM = FILE1_10.ITEM" & _
-              " LEFT  JOIN  FACT ON FILE1_10.code = FACT.CODE" & _
+              " INNER  JOIN FILE1_10 ON FILE6_90.ITEM = FILE1_10.ITEM" & _
+              " INNER  JOIN  FACT ON FILE1_10.code = FACT.CODE" & _
               " WHERE FILE6_90H.DOC_NO =  " & MyParn(sDoc_no)
     Set grid1.DataSource = myRs(cString)
 End With
@@ -985,7 +979,7 @@ If Not loctable.EOF Then
     xName.text = loctable!Name & ""
     xphone.text = loctable!phone & ""
     xcity.text = loctable!city & ""
-    xStreet.text = loctable!Street & ""
+    xStreet.text = loctable!STREET & ""
     xship_date.text = myFormat_p(loctable!ship_date)
     xNotes.text = loctable!NOTES & ""
     xNote_branch.text = loctable!note_branch & ""
@@ -1016,15 +1010,14 @@ With grid1
     
     .ColWidth(0) = 1000
     .ColWidth(1) = 1500
-    .ColWidth(2) = 2000
-    .ColWidth(3) = 6000
-    .ColWidth(4) = 1500
-    .ColWidth(5) = 1000
-    .ColWidth(6) = 1500
-    .ColWidth(7) = 800
-    .ColHidden(8) = 1200
-           
-                
+    .ColWidth(2) = 3000
+    .ColWidth(3) = 5000
+    .ColWidth(4) = 3000
+    .ColWidth(5) = 1200
+    .ColWidth(6) = 1000
+    .ColWidth(7) = 1000
+    .ColWidth(8) = 1400
+                           
     .ExplorerBar = flexExSort
     .Cell(flexcpAlignment, 0, 0, .Rows - 1, .Cols - 1) = 4
     

@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
-Begin VB.Form Password_man 
+Begin VB.Form online_stage_pass 
    BackColor       =   &H00FFFFFF&
    Caption         =   "ﬂÊœ «·„‰œÊ»"
    ClientHeight    =   8955
@@ -324,7 +324,7 @@ Begin VB.Form Password_man
       Begin Threed.SSCommand cmdApply 
          Default         =   -1  'True
          Height          =   5955
-         Left            =   3735
+         Left            =   3690
          TabIndex        =   13
          TabStop         =   0   'False
          Top             =   1395
@@ -533,17 +533,42 @@ Begin VB.Form Password_man
       End
    End
 End
-Attribute VB_Name = "Password_man"
+Attribute VB_Name = "online_stage_pass"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public myForm As Form
-Dim nTimes As Integer, nTime, userTable As Recordset
 Private Sub CmdApply_Click()
 If Trim(xPass.text) <> "" Then
-    myForm.myProc
+    On Error GoTo myerror
+    Dim loctable As New ADODB.Recordset
+    Set loctable = myRs("SELECT CODE,BRANCH,ISSTOP FROM FILE6_25 WHERE ID_EMP = " & MyParn(xPass.text))
+    
+    If loctable.EOF Then
+        MsgBox "ﬂÊœ €Ì— ’ÕÌÕ"
+        Exit Sub
+    End If
+    
+    If loctable!ISStop Then
+        MsgBox "ﬂÊœ „ Êﬁ›"
+        Exit Sub
+    End If
+    
+    If loctable!branch & "" <> sBranchOnline Then
+        MsgBox "«·›—⁄ ·Ì” «Ê‰·«Ì‰"
+        GoTo Finally
+    End If
+    
+    myForm.myProc loctable!CODE & ""
 End If
+Finally:
+Set loctable = Nothing
+Exit Sub
+myerror:
+MsgBox Err.Description
+Err.Clear
+Resume Finally
 End Sub
 Private Sub cmdBack_Click()
 xPass.SetFocus
@@ -555,7 +580,7 @@ xPass.SelStart = 0
 xPass.SelLength = Len(xPass.text)
 SendKeys "{delete}"
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub cmdNumber_Click(Index As Integer)
@@ -572,9 +597,8 @@ If KeyAscii = 13 Then
 End If
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
-Set Password_man = Nothing
+Set online_stage_pass = Nothing
 End Sub
-
 Private Sub xPass_KeyPress(KeyAscii As Integer)
     ' Allow numbers (0-9), Backspace (8), and Enter (13)
 If (KeyAscii < 48 Or KeyAscii > 57) And KeyAscii <> 8 And KeyAscii <> 13 Then

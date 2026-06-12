@@ -96,7 +96,7 @@ Public sCaption2 As String
 Private Sub cmdOk_Click()
     Unload Me
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 

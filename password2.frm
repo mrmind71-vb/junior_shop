@@ -599,7 +599,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim nTimes As Integer, nTime, userTable As Recordset
-Dim Con As New adodb.Connection
+Dim con As New ADODB.Connection
 Dim nUser As Integer
 Private Enum enUser
 Admin = 3
@@ -658,7 +658,7 @@ ElseIf UCase(Trim(xPass.text)) = UCase("Aymen@Junior") Then
     grid1.Visible = True
     lSupperVisor = True
 Else
-    nusercode = GetDesca("select code from users where Code = " & xUser.BoundText & " and password Like " & MyParn(LCase(Trim(xPass.text))), Con)
+    nusercode = GetDesca("select code from users where Code = " & xUser.BoundText & " and password Like " & MyParn(LCase(Trim(xPass.text))), con)
     If nusercode = "" Then
        nTime = nTime + 1
        If nTime = nTimes Then
@@ -681,9 +681,9 @@ Else
                   " where users.code = " & nusercode
     End If
               
-    sectable.Open cString, Con, adOpenStatic, adLockReadOnly, adCmdText
+    sectable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
     If Not (sectable.EOF And sectable.BOF) Then
-        nusercode = sectable!code
+        nusercode = sectable!CODE
         cUserName = sectable!DESCA & ""
         bopt1 = sectable!Option1
         bopt2 = sectable!Option2
@@ -703,7 +703,7 @@ Else
         lSupperVisor = sectable!SUPPER
         
         aPassword = AddFlag(Empty, "box", sectable!BOX & "")
-        aPassword = AddFlag(aPassword, "store", sectable!STORE & "")
+        aPassword = AddFlag(aPassword, "store", sectable!Store & "")
         aPassword = AddFlag(aPassword, "SUPER", sectable!SUPPER)
         
         cUserBox = sectable!BOX & ""
@@ -718,7 +718,7 @@ Else
                 cBranchBox = ""
             End If
         End If
-        Set rsUser = createRs(cmd("select * from users where code = " & nusercode, Con).Execute)
+        Set rsUser = createRs(cmd("select * from users where code = " & nusercode, con).Execute)
     End If
     sectable.Close
     Set sectable = Nothing
@@ -726,7 +726,7 @@ End If
 
 'AddLod_Data cusername, 0, " › Õ «·»—‰«„Ã ", con
 
-Set rsAddress = createRs(cmd("select * From Address where branch = " & MyParn(cBranch), Con).Execute)
+Set rsAddress = createRs(cmd("select * From Address where branch = " & MyParn(cBranch), con).Execute)
 If lShowBranch Then
     grid1.Visible = False
     GRBRANCH.Visible = True
@@ -752,10 +752,10 @@ Else
 End If
 Exit Sub
 LocalError:
-    MsgBox err.Description
-    err.Clear
+    MsgBox Err.Description
+    Err.Clear
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub Form_Activate()
@@ -769,7 +769,7 @@ Private Sub Form_KeyPress(KeyAscii As Integer)
     End If
 End Sub
 Private Sub Form_Load()
-On Error GoTo myError
+On Error GoTo myerror
 Dim fs As New FileSystemObject
 getVersion
 
@@ -829,12 +829,13 @@ If cError <> "ok" Then
     End
 End If
 
-openCon Con
+openCon con
 myLoadVar
 MakeLocal
+HandleOnline
 
 If Trim(RetSetting("BRANCH", cPathConf & "\CONF.TXT")) = "" Then
-    sBranchCode = GetDesca("select code from branch ORDER BY CODE ", Con)
+    sBranchCode = GetDesca("select code from branch ORDER BY CODE ", con)
     cBranch = sBranchCode
     sBranch = sBranchCode
     lIsBranchStore = False
@@ -857,7 +858,7 @@ Else
     If cBranch = "00" Or Not lIsBranchStore Then
         cServerNamePICT = (RetSetting("SERVER", cPathConf & "\CONF.TXT"))
     Else
-        cServerNamePICT = TurnValue(GetDesca("select IPSERVER from branch", Con), Null, "")
+        cServerNamePICT = TurnValue(GetDesca("select IPSERVER from branch", con), Null, "")
     End If
 End If
    
@@ -866,9 +867,9 @@ strConPICT = LoadConStringPICT
 If strConPICT <> "" Then openConPICT conPict
 
 
-Set grid1.DataSource = data2
+Set grid1.DataSource = DATA2
 cString = "SELECT MOSM , DESCA FROM MOSM WHERE CLOSED = 0 ORDER BY DATE DESC "
-Set data2.Recordset = myRecordSet(cString, Con)
+Set DATA2.Recordset = myRecordSet(cString, con)
 
 Set GRBRANCH.DataSource = DATA3
 If cBranch = "00" Then
@@ -877,7 +878,7 @@ Else
     cString = "SELECT CODE , DESCA FROM  QBRANCH_ALL WHERE CODE = " & MyParn(cBranch)
 End If
 
-Set DATA3.Recordset = myRecordSet(cString, Con)
+Set DATA3.Recordset = myRecordSet(cString, con)
 
 With grid1
     .Cols = 2
@@ -894,25 +895,25 @@ With GRBRANCH
 End With
 
 If lIsBranchStore Then
-    Set data1.Recordset = myRecordSet("SELECT * FROM USERS WHERE BRANCH = " & MyParn(cBranch) & " order by desca", Con)
+    Set data1.Recordset = myRecordSet("SELECT * FROM USERS WHERE BRANCH = " & MyParn(cBranch) & " order by desca", con)
 Else
-    Set data1.Recordset = myRecordSet("SELECT * FROM USERS WHERE BRANCH IS NULL ORDER BY DESCA ", Con)
+    Set data1.Recordset = myRecordSet("SELECT * FROM USERS WHERE BRANCH IS NULL ORDER BY DESCA ", con)
 End If
 Set xUser.RowSource = data1
 xUser.ListField = "Desca"
 xUser.BoundColumn = "Code"
 xUser.BoundText = RetSetting("user", tempPath & "\password.txt")
 
-Set rsBranch = createRs(cmd("select * from branch where code = " & MyParn(cBranch), Con).Execute)
-Set rsBranches = createRs(cmd("select * from BRANCH", Con).Execute)
+Set rsBranch = createRs(cmd("select * from branch where code = " & MyParn(cBranch), con).Execute)
+Set rsBranches = createRs(cmd("select * from BRANCH", con).Execute)
 If lServerOnLine Then
     Set rsMall = cmd("select * from SettingMall", GetCon).Execute
 End If
 Exit Sub
-myError:
-    MsgBox err.Description
+myerror:
+    MsgBox Err.Description
 '    confFrm.Show 1
-    err.Clear
+    Err.Clear
     End
 End Sub
 Private Sub MakeLocal()
@@ -935,33 +936,33 @@ If Not fs.FileExists(tempPath & "\BRANCH_J.txt") And fs.FileExists(App.Path & "\
 End If
 Me.Caption = "JUNIOR"
 Exit Sub
-myError:
-MsgBox "„‘ﬂ·… ›Ï ‰”Œ «·„·› «·„ƒﬁ " & vbCrLf & err.Number & vbCrLf & err.Description
-err.Clear
+myerror:
+MsgBox "„‘ﬂ·… ›Ï ‰”Œ «·„·› «·„ƒﬁ " & vbCrLf & Err.Number & vbCrLf & Err.Description
+Err.Clear
 End Sub
 Private Sub GRBRANCH_DBLClick()
     sCatalog = GetDesca("SELECT DATA FROM QBRANCH_ALL WHERE CODE = " & MyParn(GRBRANCH.TextMatrix(GRBRANCH.Row, 0)), GetCon)
     strCon = LoadConString_B(GRBRANCH.TextMatrix(GRBRANCH.Row, 0))
     
-    openCon Con, strCon
+    openCon con, strCon
     
     'fixSql
 
     sBranchCode = GRBRANCH.TextMatrix(GRBRANCH.Row, 0)
     cBranch = sBranchCode
     cBranchStore = GetDesca("SELECT STORE FROM BRANCH ", GetCon)
-    closeCon Con
-    openCon Con
+    closeCon con
+    openCon con
     
     lMainShow = True
-    cComp_Name = GetDesca("SELECT DESCA FROM ADDRESS ", Con)
+    cComp_Name = GetDesca("SELECT DESCA FROM ADDRESS ", con)
     If lMainShow Then
         Main.Caption = cComp_Name
     End If
     If lIsBranchStore Then
-        dSalesDate = Format(GetDesca("SELECT DSALES FROM DSALES WHERE BRANCH = " & MyParn(cBranch), Con), "DD-MM-YYYY")
+        dSalesDate = Format(GetDesca("SELECT DSALES FROM DSALES WHERE BRANCH = " & MyParn(cBranch), con), "DD-MM-YYYY")
     Else
-        dSalesDate = Format(GetDesca("SELECT DSALES FROM DSALES", Con), "DD-MM-YYYY")
+        dSalesDate = Format(GetDesca("SELECT DSALES FROM DSALES", con), "DD-MM-YYYY")
     End If
     aPassword = AddFlag(aPassword, "super", True)
     Main.Show
@@ -987,7 +988,7 @@ Private Sub xPass_GotFocus()
     On Error Resume Next
     Clipboard.Clear
     myGotFocus xPass
-    err.Clear
+    Err.Clear
 End Sub
 Private Sub xPass_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 13 Then
@@ -1002,7 +1003,7 @@ Private Sub xPass_MouseDown(Button As Integer, Shift As Integer, X As Single, Y 
     On Error Resume Next
     'Clipboard.Clear
     myGotFocus xPass
-    err.Clear
+    Err.Clear
 End Sub
 Private Sub xUser_Click(Area As Integer)
 If Not xUser.MatchedWithList Then xUser.BoundText = ""
@@ -1025,14 +1026,14 @@ tempPath = "c:\TempMrshd"
 tempFile = tempPath & "\temp.mdb"
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
-closeCon Con
+closeCon con
 Set PassWord = Nothing
 End Sub
 Private Sub SaveSetting()
 addSetting "user", xUser.BoundText, tempPath & "\password.txt"
 End Sub
 Private Sub grid1_DblClick()
-    On Error GoTo myError
+    On Error GoTo myerror
     If grid1.Row >= 0 Then
         cPMosm = grid1.TextMatrix(grid1.Row, 0)
         cPMosmD = grid1.TextMatrix(grid1.Row, 1)
@@ -1040,9 +1041,9 @@ Private Sub grid1_DblClick()
         Main.Show
     End If
     Exit Sub
-myError:
-    MsgBox err.Description
-    err.Clear
+myerror:
+    MsgBox Err.Description
+    Err.Clear
 End Sub
 Private Function testData() As String
 Dim cString As String, cError As String
@@ -1100,8 +1101,8 @@ End If
 testData = "ok"
 End Function
 Private Function CreateRemote() As String
-On Error GoTo myError
-Dim conMaster As New adodb.Connection
+On Error GoTo myerror
+Dim conMaster As New ADODB.Connection
 Dim cString As String, cServerName As String
 cServerName = MyParn("." & turn(cExpress, "\") & cExpress)
 cString = "provider=SQLOLEDB;data source= " & cServerName & "  ;initial " _
@@ -1114,13 +1115,13 @@ createCommand cString, conMaster
 closeCon conMaster
 CreateRemote = "ok"
 Exit Function
-myError:
-   CreateRemote = err.Description
-   err.Clear
+myerror:
+   CreateRemote = Err.Description
+   Err.Clear
 End Function
 Private Function createLogin() As String
-On Error GoTo myError
-Dim conMaster As New adodb.Connection
+On Error GoTo myerror
+Dim conMaster As New ADODB.Connection
 Dim cServerName As String, cString As String
 cServerName = MyParn("." & turn(cExpress, "\") & cExpress)
 cString = "provider=SQLOLEDB;data source= " & cServerName & "  ;initial " _
@@ -1132,13 +1133,13 @@ createCommand cString, conMaster
 closeCon conMaster
 createLogin = "ok"
 Exit Function
-myError:
-   createLogin = err.Description
-   err.Clear
+myerror:
+   createLogin = Err.Description
+   Err.Clear
 End Function
 Private Function AttachData() As String
-On Error GoTo myError
-Dim conMaster As New adodb.Connection
+On Error GoTo myerror
+Dim conMaster As New ADODB.Connection
 Dim cString As String, cServerName As String
 cServerName = MyParn("." & turn(cExpress, "\") & cExpress)
 cString = "provider=SQLOLEDB;data source= " & cServerName & "  ;initial " _
@@ -1155,20 +1156,20 @@ createCommand cString, conMaster
 closeCon conMaster
 AttachData = "ok"
 Exit Function
-myError:
-   AttachData = err.Description
-   err.Clear
+myerror:
+   AttachData = Err.Description
+   Err.Clear
 End Function
 Private Function bringOnLine() As String
-On Error GoTo myError
-Dim conMaster As New adodb.Connection
+On Error GoTo myerror
+Dim conMaster As New ADODB.Connection
 Dim cString As String, cServerName As String
 cServerName = MyParn("." & turn(cExpress, "\") & cExpress)
 cString = "provider=SQLOLEDB;data source= " & cServerName & "  ;initial " _
         & "catalog=master;Trusted_Connection=yes"
 conMaster.Open cString
 
-Dim FS1 As New adodb.command
+Dim FS1 As New ADODB.command
 FS1.CommandType = adCmdText
 Set FS1.ActiveConnection = conMaster
 cString = "alter database [" & sCatalog & "]"
@@ -1177,9 +1178,9 @@ FS1.CommandText = cString
 FS1.Execute
 bringOnLine = "ok"
 Exit Function
-myError:
-bringOnLine = err.Description
-err.Clear
+myerror:
+bringOnLine = Err.Description
+Err.Clear
 End Function
 Private Function loadConString()
 Dim cServerName As String, cUserId As String, cPassword As String
@@ -1286,64 +1287,64 @@ LoadConStringfact3 = "provider=SQLOLEDB;data source=" & cServerName & ";initial 
 End Function
 
 Private Sub FixData2()
-Dim FS1 As New adodb.command
+Dim FS1 As New ADODB.command
 'openCon con
 On Error Resume Next
 cString = "ALTER TABLE [dbo].[FILE6_20H] ADD   [SALES_RET] [nvarchar](50) COLLATE Arabic_CI_AS NULL"
 FS1.CommandType = adCmdText
-Set FS1.ActiveConnection = Con
+Set FS1.ActiveConnection = con
 FS1.CommandText = cString
 FS1.Execute
 'closeCon con
-err.Clear
+Err.Clear
 End Sub
 Private Sub FixData3()
-Dim FS1 As New adodb.command
+Dim FS1 As New ADODB.command
 'openCon con
 On Error Resume Next
 cString = "alter TABLE [dbo].[users] add   [option11] [bit] NOT NULL CONSTRAINT [DF_users_option11]  DEFAULT ((0))"
 FS1.CommandType = adCmdText
-Set FS1.ActiveConnection = Con
+Set FS1.ActiveConnection = con
 FS1.CommandText = cString
 FS1.Execute
 'closeCon con
-err.Clear
+Err.Clear
 End Sub
 Private Sub FixData4()
-Dim FS1 As New adodb.command
+Dim FS1 As New ADODB.command
 'openCon con
 On Error Resume Next
 cString = "ALTER TABLE [dbo].[FILE6_20H] ADD [username_ret] [nvarchar](50) COLLATE Arabic_CI_AS NULL "
 FS1.CommandType = adCmdText
-Set FS1.ActiveConnection = Con
+Set FS1.ActiveConnection = con
 FS1.CommandText = cString
 FS1.Execute
 'closeCon con
-err.Clear
+Err.Clear
 End Sub
 Private Sub FixData5()
-Dim FS1 As New adodb.command
+Dim FS1 As New ADODB.command
 'openCon con
 On Error Resume Next
 cString = "alter TABLE [dbo].[users] add   [option9] [bit] NOT NULL CONSTRAINT [DF_users_option9]  DEFAULT ((0))"
 FS1.CommandType = adCmdText
-Set FS1.ActiveConnection = Con
+Set FS1.ActiveConnection = con
 FS1.CommandText = cString
 FS1.Execute
 'closeCon con
-err.Clear
+Err.Clear
 End Sub
 Private Sub FixData11()
-Dim FS1 As New adodb.command
+Dim FS1 As New ADODB.command
 'openCon con
 On Error Resume Next
 cString = "alter TABLE [dbo].[users] add   [option11] [bit] NOT NULL CONSTRAINT [DF_users_option11]  DEFAULT ((0))"
 FS1.CommandType = adCmdText
-Set FS1.ActiveConnection = Con
+Set FS1.ActiveConnection = con
 FS1.CommandText = cString
 FS1.Execute
 'closeCon con
-err.Clear
+Err.Clear
 End Sub
 Private Function LoadConString_B(pCode)
 Dim cServerName As String, cUserId As String, cPassword As String
@@ -1360,8 +1361,8 @@ End Function
 
 
 Sub FixAddress()
-Dim loctable As New adodb.Recordset
-loctable.Open "select * From Address", Con, adOpenStatic, adLockReadOnly
+Dim loctable As New ADODB.Recordset
+loctable.Open "select * From Address", con, adOpenStatic, adLockReadOnly
 If Not (loctable.EOF And loctable.BOF) Then
     cComp_Name = loctable!DESCA & ""
     cComp_address = loctable!Address & ""
@@ -1400,8 +1401,8 @@ For i = 2 To 10
             cString = sb.GetBefore(sMarker, True)
             If cString <> "" Then
                 'On Error Resume Next
-                Con.Execute cString
-                err.Clear
+                con.Execute cString
+                Err.Clear
             End If
         Loop
     Else
@@ -1435,9 +1436,27 @@ ElseIf bopt3 Then
 Else
     nUser = enUser.User
 End If
-If DefUser Then
+If DefUser Or True Then
     servername_vpn = "MRMIND\MRMIND71"
 Else
     servername_vpn = "154.236.187.105"
 End If
 End Sub
+Private Sub HandleOnline()
+Dim loctable As New ADODB.Recordset
+On Error GoTo myerror
+Set loctable = myRs("SELECT TOP 1 CODE,BRANCH FROM FILE0_40 WHERE ONLINE = 1")
+If Not loctable.EOF Then
+    sStoreOnline = loctable!CODE
+    sBranchOnline = loctable!branch
+End If
+Finally:
+Set loctable = Nothing
+Exit Sub
+myerror:
+    MsgBox Err.Description
+    Err.Clear
+    Resume Finally
+Exit Sub
+End Sub
+

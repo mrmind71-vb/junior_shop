@@ -26,19 +26,58 @@ Begin VB.Form online_stage_dash
    ScaleHeight     =   10635
    ScaleWidth      =   20370
    WindowState     =   2  'Maximized
+   Begin VB.Frame Frame1 
+      Appearance      =   0  'Flat
+      BackColor       =   &H80000005&
+      ForeColor       =   &H80000008&
+      Height          =   1050
+      Left            =   225
+      RightToLeft     =   -1  'True
+      TabIndex        =   16
+      Top             =   855
+      Width           =   1545
+      Begin Threed.SSCommand cmdGet 
+         Height          =   870
+         Left            =   45
+         TabIndex        =   6
+         TabStop         =   0   'False
+         Top             =   135
+         Width           =   1455
+         _ExtentX        =   2566
+         _ExtentY        =   1535
+         _Version        =   196610
+         CaptionStyle    =   1
+         BackColor       =   16777215
+         PictureFrames   =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Picture         =   "online_stage_dash.frx":0000
+         Caption         =   " ÃÂÌ“ ÿ·»Ì…"
+         TagVariant      =   "«Œ «— «·„ﬁ«Ê·"
+         ButtonStyle     =   3
+         PictureAlignment=   11
+      End
+   End
    Begin VB.Frame Frame6 
       BackColor       =   &H00FFFFFF&
-      Height          =   1815
+      Height          =   1320
       Left            =   270
       RightToLeft     =   -1  'True
-      TabIndex        =   11
-      Top             =   1395
+      TabIndex        =   15
+      Top             =   1890
       Width           =   1500
       Begin Threed.SSCommand cmdGo 
          Height          =   510
          Left            =   90
-         TabIndex        =   12
-         Top             =   675
+         TabIndex        =   7
+         Top             =   180
          Width           =   1320
          _ExtentX        =   2328
          _ExtentY        =   900
@@ -55,7 +94,7 @@ Begin VB.Form online_stage_dash
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_stage.frx":0000
+         Picture         =   "online_stage_dash.frx":2665
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
@@ -64,9 +103,9 @@ Begin VB.Form online_stage_dash
       Begin Threed.SSCommand cmdExit 
          Height          =   510
          Left            =   90
-         TabIndex        =   13
+         TabIndex        =   8
          TabStop         =   0   'False
-         Top             =   1215
+         Top             =   720
          Width           =   1320
          _ExtentX        =   2328
          _ExtentY        =   900
@@ -83,37 +122,12 @@ Begin VB.Form online_stage_dash
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_stage.frx":2EB3
+         Picture         =   "online_stage_dash.frx":5518
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          ShapeSize       =   1
-      End
-      Begin Threed.SSCommand cmdGet 
-         Height          =   510
-         Left            =   90
-         TabIndex        =   14
-         Top             =   135
-         Width           =   1320
-         _ExtentX        =   2328
-         _ExtentY        =   900
-         _Version        =   196610
-         CaptionStyle    =   1
-         BackColor       =   16777215
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Caption         =   "”Õ» ÿ·»Ì…"
-         TagVariant      =   "«Œ «— «·„ﬁ«Ê·"
-         ButtonStyle     =   3
-         PictureAlignment=   9
       End
    End
    Begin MSAdodcLib.Adodc data3 
@@ -548,12 +562,12 @@ Begin VB.Form online_stage_dash
    End
    Begin VSFlex7Ctl.VSFlexGrid grid1 
       Height          =   3120
-      Left            =   16425
+      Left            =   18000
       TabIndex        =   0
       TabStop         =   0   'False
       Top             =   90
-      Width           =   3840
-      _cx             =   6773
+      Width           =   2265
+      _cx             =   3995
       _cy             =   5503
       _ConvInfo       =   1
       Appearance      =   0
@@ -645,7 +659,7 @@ Begin VB.Form online_stage_dash
       Align           =   2  'Align Bottom
       Height          =   420
       Left            =   0
-      TabIndex        =   1
+      TabIndex        =   9
       Top             =   10215
       Width           =   20370
       _ExtentX        =   35930
@@ -667,7 +681,7 @@ Begin VB.Form online_stage_dash
          Height          =   405
          Index           =   0
          Left            =   0
-         TabIndex        =   2
+         TabIndex        =   10
          Top             =   45
          Width           =   4005
          _ExtentX        =   7064
@@ -691,7 +705,7 @@ Begin VB.Form online_stage_dash
          Height          =   330
          Index           =   1
          Left            =   4095
-         TabIndex        =   3
+         TabIndex        =   11
          Top             =   45
          Width           =   4005
          _ExtentX        =   7064
@@ -715,7 +729,7 @@ Begin VB.Form online_stage_dash
          Height          =   330
          Index           =   2
          Left            =   8100
-         TabIndex        =   4
+         TabIndex        =   12
          Top             =   45
          Width           =   4000
          _ExtentX        =   7064
@@ -739,7 +753,7 @@ Begin VB.Form online_stage_dash
          Height          =   330
          Index           =   3
          Left            =   12150
-         TabIndex        =   5
+         TabIndex        =   13
          Top             =   45
          Width           =   3960
          _ExtentX        =   6985
@@ -763,7 +777,7 @@ Begin VB.Form online_stage_dash
          Height          =   330
          Index           =   4
          Left            =   16155
-         TabIndex        =   6
+         TabIndex        =   14
          Top             =   45
          Width           =   4185
          _ExtentX        =   7382
@@ -787,11 +801,11 @@ Begin VB.Form online_stage_dash
    Begin VSFlex7Ctl.VSFlexGrid grdError 
       Height          =   3120
       Left            =   1845
-      TabIndex        =   7
+      TabIndex        =   1
       TabStop         =   0   'False
       Top             =   90
-      Width           =   14460
-      _cx             =   25506
+      Width           =   16125
+      _cx             =   28443
       _cy             =   5503
       _ConvInfo       =   1
       Appearance      =   0
@@ -879,10 +893,10 @@ Begin VB.Form online_stage_dash
       ForeColorFrozen =   0
       WallPaperAlignment=   9
    End
-   Begin VSFlex7Ctl.VSFlexGrid grdRepair 
+   Begin VSFlex7Ctl.VSFlexGrid grdPrep 
       Height          =   3120
       Left            =   10350
-      TabIndex        =   8
+      TabIndex        =   2
       TabStop         =   0   'False
       Top             =   3285
       Width           =   9915
@@ -977,7 +991,7 @@ Begin VB.Form online_stage_dash
    Begin VSFlex7Ctl.VSFlexGrid grdDone 
       Height          =   3120
       Left            =   270
-      TabIndex        =   9
+      TabIndex        =   3
       TabStop         =   0   'False
       Top             =   3285
       Width           =   9960
@@ -1072,7 +1086,7 @@ Begin VB.Form online_stage_dash
    Begin VSFlex7Ctl.VSFlexGrid grdEdit 
       Height          =   2985
       Left            =   10350
-      TabIndex        =   10
+      TabIndex        =   4
       TabStop         =   0   'False
       Top             =   6480
       Width           =   9915
@@ -1164,10 +1178,10 @@ Begin VB.Form online_stage_dash
       ForeColorFrozen =   0
       WallPaperAlignment=   9
    End
-   Begin VSFlex7Ctl.VSFlexGrid VSFlexGrid1 
+   Begin VSFlex7Ctl.VSFlexGrid grdCancel 
       Height          =   2985
       Left            =   270
-      TabIndex        =   15
+      TabIndex        =   5
       TabStop         =   0   'False
       Top             =   6480
       Width           =   9960
@@ -1273,53 +1287,10 @@ Dim cStr1 As String, cStr2 As String
 Dim oSearchItem As New Search3
 Dim con As New ADODB.Connection
 Private Sub cmd_addexel_Click()
-'AddFromExel
 Inform "  „ «÷«›… «·ÿ·»Ì«  "
 myload
 End Sub
-Private Sub CMD_PRINT_Click()
-doprint_day
-End Sub
-Private Sub CMD_SEND_Click()
-'Dim cDocSalPost As String
-If cBranch = "00" Then Exit Sub
-
-If grid1.TextMatrix(grid1.Row, 16) <> "" Then Exit Sub
-
-Dim oOnlineCheck As New OnlineCheck
-Set oOnlineCheck.myForm = Me
-oOnlineCheck.sDoc_no = grid1.TextMatrix(grid1.Row, 0)
-oOnlineCheck.Show 1
-
-'myreplace_Sales
-
-'If grid1.TextMatrix(grid1.Row, 16) = "" Then
-'    If MsgBox(" —ÕÌ· ·›« Ê—… „»Ì⁄«  ", vbYesNo + vbDefaultButton2) = vbYes Then
-'        cDocSalPost = myreplace_Sales()
-'        If cDocSalPost <> "" Then
-'            MsgBox " „  —ÕÌ· ·»Ê‰ „»Ì⁄«  —ﬁ„ " & cDocSalPost
-'        Else
-'            MsgBox "·„ Ì „ ⁄„· „” ‰œ «·„»Ì⁄«   "
-'        End If
-'    End If
-'    myload
-'    grid2.Rows = 2
-'End If
-End Sub
-Private Sub cmdCSV_Click()
-Set onlineCSVfrm.myForm = Me
-'Set onlineCSVfrm.con = con
-onlineCSVfrm.Show 1
-End Sub
-
-Private Sub cmdExcel_Click()
-ToFileExelNew grid1, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption)
-End Sub
-
-Private Sub cmdExit_Click()
-    Unload Me
-End Sub
-Private Sub CmdUndo_Click()
+Private Sub CmdExit_Click()
     Unload Me
 End Sub
 Private Sub cmdGet_Click()
@@ -1330,7 +1301,6 @@ End Sub
 Private Sub cmdGo_Click()
 myload
 End Sub
-
 Private Sub Form_Load()
     myload
     Exit Sub
@@ -1341,88 +1311,55 @@ End Sub
 Public Sub myload()
 myLoadGrd
 myloadGrdError
-myloadGrdRepair
+myloadgrdPrep
 myloadGrdDone
 myloadGrdEdit
+myloadGrdCancel
 End Sub
-Public Sub myProc()
+Public Sub myProc(Optional pValue As String)
 If ActiveControl.Name = cmdGet.Name Then
-    GetOrder
+    Unload oPassword
+    GetOrder pValue
 ElseIf ActiveControl.Name = grdError.Name Then
-    GetError
+    Unload oPassword
+    GetError pValue
 End If
 End Sub
-Private Sub GetOrder()
-Dim sValue As String
-Dim sManCode As String
+Private Sub GetOrder(sManCode As String)
 
 Dim con As New ADODB.Connection
 If Not openCn(con) Then Exit Sub
 
-sManCode = Trim(oPassword.xPass.text)
-sValue = rsValue("SELECT CODE FROM FILE6_25.CODE WHERE CODE = " & MyParn(sManCode), con) & ""
-If sValue = "" Then
-    MsgBox "ﬂÊœ €Ì— ’ÕÌÕ"
-    GoTo Finally
-Else
-    Unload oPassword
-End If
 
+Dim aRet As Variant
 Dim cString As String
-cString = "SELECT TOP 1 FILE6_90H.DOC_NO " & _
-          " FROM FILE6_90H " & _
-          " INNER JOIN vw_online_orders_open v ON FILE6_90H.DOC_NO = v.ORDER_NO " & _
-          " WHERE FILE6_90H.STAGE = 2" & _
-          " AND MAN = " & sManCode
+cString = "SELECT TOP 1 " & _
+        " vw_online_order.ORDER_NO, " & _
+        " vw_online_order.DOC_NO" & _
+        " FROM vw_online_order " & _
+        " WHERE STAGE = 2" & _
+        " AND MAN = " & MyParn(sManCode) & _
+        "  ORDER BY PR_ORDER, DATE,PAYMOB DESC"
 
-sValue = rsValue(cString, con) & ""
+aRet = rsValues(cString, con)
 
 Dim sStage As String
-If sValue <> "" Then
+If Not IsNull(aRet) Then
     If MsgBox("ÿ·»Ì…  Õ  «· ÃÂÌ“ ··„‰œÊ» !! ÕœÌÀ", vbOKCancel) <> vbOK Then GoTo Finally
-    sStage = "3"
 Else
-    cString = "SELECT TOP 1 FILE6_90H.DOC_NO " & _
-            " FROM FILE6_90H " & _
-            " INNER JOIN vw_online_orders_open v ON FILE6_90H.DOC_NO = v.ORDER_NO " & _
-            " WHERE FILE6_90H.STAGE = 1" & _
-            " ORDER BY FILE6_90H.PAYMOB DESC,FILE6_90H.DATE"
-    sValue = rsValue(cString, con) & ""
-    sStage = "2"
+    cString = "SELECT TOP 1 " & _
+            " vw_online_order.ORDER_NO, " & _
+            " vw_online_order.DOC_NO" & _
+            " FROM vw_online_order " & _
+            " WHERE vw_online_order.STAGE = 1" & _
+            " ORDER BY PR_ORDER, DATE,PAYMOB DESC"
+    aRet = rsValues(cString, con)
 End If
 
-If sValue <> "" Then
-    Set ShowOrderManfrm.myForm = Me
-    ShowOrderManfrm.sDoc_no = sValue
-    ShowOrderManfrm.sManCode = sManCode
-    ShowOrderManfrm.sStage = sStage
-    ShowOrderManfrm.Show 1
-End If
-Finally:
-closeCon con
-Exit Sub
-myerror:
-MsgBox Err.Description
-Err.Clear
-Resume Finally
-End Sub
-Private Sub GetError()
-Dim sManCode As String
-
-Dim con As New ADODB.Connection
-If Not openCn(con) Then Exit Sub
-
-sManCode = Trim(oPassword.xPass.text)
-sValue = rsValue("SELECT CODE FROM FILE6_25.CODE WHERE CODE = " & MyParn(sManCode), con) & ""
-If sValue = "" Then
-    MsgBox "ﬂÊœ €Ì— ’ÕÌÕ"
-    GoTo Finally
-Else
-    Unload oPassword
-End If
-If sValue <> "" Then
+If Not IsNull(aRet) Then
     Set online_Stage_order.myForm = Me
-    online_Stage_order.sDoc_no = grdError.TextMatrix(2, 0)
+    online_Stage_order.sOrder_No = retFlag(aRet, "order_no")
+    online_Stage_order.sDoc_no = retFlag(aRet, "doc_no")
     online_Stage_order.sManCode = sManCode
     online_Stage_order.Show 1
 End If
@@ -1434,28 +1371,33 @@ MsgBox Err.Description
 Err.Clear
 Resume Finally
 End Sub
+Private Sub GetError(sManCode As String)
+Set online_Stage_order.myForm = Me
+online_Stage_order.sOrder_No = grdError.TextMatrix(grdError.Row, 0)
+online_Stage_order.sDoc_no = Val(grdError.TextMatrix(grdError.Row, 1))
+online_Stage_order.sManCode = sManCode
+online_Stage_order.Show 1
+End Sub
 Public Sub myLoadGrd()
 On Error GoTo myerror
 With grid1
 cString = "SELECT  STAGES_CODES.CODE, " & _
     "        STAGES_CODES.DESCA, " & _
     "        COUNT(*) " & _
-    "FROM    FILE6_90H INNER JOIN " & _
-    "        STAGES_CODES ON FILE6_90H.STAGE = STAGES_CODES.CODE " & _
-    "INNER JOIN vw_online_orders_open " & _
-    "ON FILE6_90H.DOC_NO = vw_online_orders_open.ORDER_NO " & _
-    "GROUP BY  STAGES_CODES.CODE, STAGES_CODES.DESCA " & _
-    "ORDER BY STAGES_CODES.CODE "
+    "FROM    vw_online_order INNER JOIN " & _
+    "        STAGES_CODES ON vw_online_order.STAGE = STAGES_CODES.CODE " & _
+    " GROUP BY STAGES_CODES.CODE, STAGES_CODES.DESCA " & _
+    " ORDER BY STAGES_CODES.CODE "
     Set grid1.DataSource = myRs(cString)
 End With
-fixGrd
+Fixgrd
 'grid1.Cell(flexcpAlignment, 0, 0, grid1.Rows - 1, grid1.Cols - 1) = 7
 Exit Sub
 myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Sub fixGrd()
+Sub Fixgrd()
 With grid1
     '.RowHeight(0) = 400
     .RowHeight(1) = 400
@@ -1476,13 +1418,13 @@ With grid1
     .MergeRow(0) = True
     
     .ColHidden(0) = True
-    .ColWidth(1) = 2500
-    .ColWidth(2) = 1000
+    .ColWidth(1) = 1400
+    .ColWidth(2) = 700
     
     '.ExplorerBar = flexExSort
      .Cell(flexcpAlignment, 0, 0, 1, .Cols - 1) = flexAlignCenterCenter
     .SubtotalPosition = flexSTBelow
-    .Subtotal flexSTCount, -1, 2, "#", vbYellow, , True, ""
+    .Subtotal flexSTSum, -1, 2, "#", vbYellow, , True, ""
     If grid1.Rows > 1 Then
         grid1.TextMatrix(grid1.Rows - 1, 1) = "«·≈Ã„«·Ì"
     End If
@@ -1503,30 +1445,36 @@ If grdError.Row > 1 Then
 End If
 End Sub
 
+Private Sub grdPrep_Click()
+If grdError.Row > 1 Then
+    Set oPassword = New online_stage_pass
+    Set oPassword.myForm = Me
+    oPassword.Show 1
+End If
+End Sub
+
 Private Sub grid1_DblClick()
 If grid1.Row < 1 Or grid1.Row = grid1.Rows - 1 Then Exit Sub
 End Sub
 Private Sub myloadGrdError()
 Dim strSql As String
-strSql = "SELECT FILE6_90H.DOC_NO, " & _
-         "FORMAT(FILE6_90H.[DATE],'yyyy/M/d'), " & _
-         "FILE6_90H.Payment_Method, " & _
-         "FORMAT(FILE6_90H.TIME2,'yyyy/M/d HH:mm'), " & _
-         "FILE6_25.CODE.DESCA, " & _
-         "FILE6_90H.TOTAL_QUANT, " & _
-         "FILE6_90H_ER.DESCA, " & _
-         "FORMAT(FILE6_90H_ER.[TIME],'yyyy/M/d HH:mm'), " & _
-         "FORMAT(DATEADD(MINUTE, DATEDIFF(MINUTE, FILE6_90H_ER.[TIME], GETDATE()), 0), 'HH:mm') AS TimePeriod" & _
-         " FROM FILE6_90H INNER JOIN " & _
-         "FILE6_25.CODE ON FILE6_90H.MAN = FILE6_25.CODE.CODE " & _
-         "INNER JOIN FILE6_90H_ER ON FILE6_90H.DOC_NO = FILE6_90H_ER.DOC_NO " & _
-         "INNER JOIN (SELECT MAX(ID) AS ID " & _
-         "  FROM FILE6_90H_ER " & _
-         "  GROUP BY FILE6_90H_ER.DOC_NO) AS L " & _
-         " ON L.ID = FILE6_90H_ER.ID" & _
-        " INNER JOIN vw_online_orders_open ON FILE6_90H.DOC_NO = vw_online_orders_open.ORDER_NO " & _
-        " WHERE FILE6_90H.STAGE = 4" & _
-        " ORDER BY FILE6_90H_ER.ID"
+strSql = "SELECT v.ORDER_NO, " & _
+         "NULLIF(v.DOC_NO, 0), " & _
+         "t.desca, " & _
+         "FORMAT(v.[DATE],'yyyy/M/d'), " & _
+         "FORMAT(v.TIME2,'yyyy/M/d HH:mm'), " & _
+         "dbo.fn_time_diff(v.TIME2, GETDATE()) AS TimePeriod," & _
+         "FILE6_25.DESCA, " & _
+         "v.TOTAL_QUANT, " & _
+         "e.DESCA, " & _
+         " FORMAT(e.[TIME],'yyyy/M/d HH:mm'), " & _
+         " dbo.fn_time_diff(e.[TIME], GETDATE()) AS TimePeriod" & _
+         " FROM vw_online_order v " & _
+         " INNER JOIN ONLINE_TYPES t ON v.TYPE = t.CODE" & _
+         " INNER JOIN FILE6_25 ON v.MAN = FILE6_25.CODE " & _
+         " LEFT JOIN vw_online_er e ON v.ORDER_NO = e.ORDER_NO AND v.DOC_NO = e.doc_no_sup and v.stage = e.stage" & _
+         " WHERE v.STAGE = 4" & _
+         " ORDER BY e.ID"
 On Error GoTo myerror
 Set grdError.DataSource = myRs(strSql)
 fixGrdError
@@ -1546,65 +1494,61 @@ With grdError
     Next
     
     .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"
-    .TextMatrix(1, 1) = " «—ÌŒ «·ÿ·»Ì…"
-    .TextMatrix(1, 2) = "‰Ê⁄ «·”œ«œ"
-    .TextMatrix(1, 3) = "Êﬁ  «· ÃÂÌ“"
-    .TextMatrix(1, 4) = "«·„‰œÊ»"
-    .TextMatrix(1, 5) = "«·ﬂ„Ì…"
-    .TextMatrix(1, 6) = "»Ì«‰ «·„‘ﬂ·…"
-    .TextMatrix(1, 7) = "Êﬁ  «·„‘ﬂ·…"
-    .TextMatrix(1, 8) = "„œ… «·„‘ﬂ·…"
+    .TextMatrix(1, 1) = "›—⁄Ì"
+    .TextMatrix(1, 2) = "‰Ê⁄ «·ÿ·»Ì…"
+    .TextMatrix(1, 3) = " «—ÌŒ «·ÿ·»Ì…"
+    .TextMatrix(1, 4) = "Êﬁ  «· ÃÂÌ“"
+    .TextMatrix(1, 5) = "„œ… «· ÃÂÌ“"
+    .TextMatrix(1, 5 + 1) = "«·„‰œÊ»"
+    .TextMatrix(1, 6 + 1) = "«·ﬂ„Ì…"
+    .TextMatrix(1, 7 + 1) = "»Ì«‰ «·„‘ﬂ·…"
+    .TextMatrix(1, 8 + 1) = "Êﬁ  «·„‘ﬂ·…"
+    .TextMatrix(1, 9 + 1) = "„œ… «·„‘ﬂ·…"
     
     .MergeCells = flexMergeFixedOnly
     .MergeRow(0) = True
     
-    .ColHidden(0) = True
+    .ColHidden(1) = True
     
     .ColWidth(0) = 1000
-    .ColWidth(1) = 1300
-    .ColWidth(2) = 1500
-    .ColWidth(3) = 1600
-    .ColWidth(4) = 1200
-    .ColWidth(5) = 800
-    .ColWidth(6) = 5000
-    .ColWidth(7) = 1600
-    .ColWidth(8) = 1000
+    .ColWidth(1) = 1000
+    .ColWidth(2) = 1250
+    .ColWidth(3) = 1200
+    .ColWidth(4) = 1700
+    .ColWidth(5) = 1000
+    .ColWidth(6) = 1500
+    .ColWidth(7) = 700
+    .ColWidth(8) = 4000
+    .ColWidth(9) = 1700
+    .ColWidth(10) = 1100
     
      .Cell(flexcpAlignment, 0, 0, 1, .Cols - 1) = flexAlignCenterCenter
     End With
 End Sub
-Private Sub myloadGrdRepair()
+Private Sub myloadgrdPrep()
 Dim strSql As String
-strSql = "SELECT FILE6_90H.DOC_NO, " & _
-         "FORMAT(FILE6_90H.[DATE],'yyyy/M/d'), " & _
-         "FILE6_90H.Payment_Method, " & _
-         "FILE6_25.CODE.DESCA, " & _
-         "FORMAT(FILE6_90H.TIME2,'yyyy/M/d HH:mm'), " & _
-         "FORMAT(DATEADD(MINUTE, DATEDIFF(MINUTE, time2, GETDATE()), 0), 'HH:mm') AS TimePeriod," & _
-         "FILE6_90H.TOTAL_QUANT, " & _
-         "FILE6_90H_ER.DESCA, " & _
-         "FORMAT(FILE6_90H_ER.TIME,'yyyy/M/d HH:mm') " & _
-         "FROM FILE6_90H INNER JOIN " & _
-         "FILE6_25.CODE ON FILE6_90H.MAN = FILE6_25.CODE.CODE " & _
-         "LEFT  JOIN FILE6_90H_ER ON FILE6_90H.DOC_NO = FILE6_90H_ER.DOC_NO " & _
-         "LEFT JOIN (SELECT MAX(ID) AS ID " & _
-         "  FROM FILE6_90H_ER WHERE STAGE = 4 " & _
-         "  GROUP BY FILE6_90H_ER.DOC_NO) AS L " & _
-         " ON L.ID = FILE6_90H_ER.ID" & _
-        " INNER JOIN vw_online_orders_open ON FILE6_90H.DOC_NO = vw_online_orders_open.ORDER_NO " & _
-        " WHERE FILE6_90H.STAGE = 2" & _
-        " ORDER BY FILE6_90H_ER.ID"
+strSql = "SELECT v.ORDER_NO, " & _
+         "FORMAT(v.[DATE],'yyyy/M/d'), " & _
+         "t.desca, " & _
+         "FILE6_25.DESCA, " & _
+         "FORMAT(v.TIME2,'yyyy/M/d HH:mm'), " & _
+         "dbo.fn_time_diff(time2, GETDATE()) AS TimePeriod," & _
+         "v.TOTAL_QUANT " & _
+         " FROM vw_online_order v " & _
+         " INNER JOIN FILE6_25 ON v.MAN = FILE6_25.CODE " & _
+         " INNER JOIN ONLINE_TYPES t ON v.TYPE = t.CODE " & _
+         " WHERE v.STAGE = 2"
 On Error GoTo myerror
-Set grdRepair.DataSource = myRs(strSql)
-fixGrdRepair
+Set grdPrep.DataSource = myRs(strSql)
+fixgrdPrep
 Exit Sub
 myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Sub fixGrdRepair()
+Sub fixgrdPrep()
 Dim i As Long
-With grdRepair
+With grdPrep
     '.RowHeight(0) = 400
     '.RowHeight(1) = 600
     For i = 0 To .Cols - 1
@@ -1614,30 +1558,26 @@ With grdRepair
     
     .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"
     .TextMatrix(1, 1) = " «—ÌŒ «·ÿ·»Ì…"
-    .TextMatrix(1, 2) = "‰Ê⁄ «·”œ«œ"
+    .TextMatrix(1, 2) = "«·‰Ê⁄"
     .TextMatrix(1, 3) = "«·„‰œÊ»"
     .TextMatrix(1, 4) = "Êﬁ  «· ÃÂÌ“"
     .TextMatrix(1, 5) = "„œ… «· ÃÂÌ“"
     .TextMatrix(1, 6) = "«·ﬂ„Ì…"
-    .TextMatrix(1, 7) = "”»» «·„‘ﬂ·…"
-    .TextMatrix(1, 8) = "Êﬁ  «·„‘ﬂ·…"
     
     .MergeCells = flexMergeFixedOnly
     .MergeRow(0) = True
     
-    .ColHidden(0) = True
-    .ColHidden(2) = True
+    '.ColHidden(0) = True
+    '.ColHidden(2) = True
     '.ColHidden(8) = True
     
     .ColWidth(0) = 1000
     .ColWidth(1) = 1300
     .ColWidth(2) = 1500
     .ColWidth(3) = 1500
-    .ColWidth(4) = 1500
-    .ColWidth(5) = 800
+    .ColWidth(4) = 1700
+    .ColWidth(5) = 1000
     .ColWidth(6) = 800
-    .ColWidth(7) = 2000
-    .ColWidth(8) = 1600
     
 '    '.ExplorerBar = flexExSort
      .Cell(flexcpAlignment, 0, 0, 1, .Cols - 1) = flexAlignCenterCenter
@@ -1650,18 +1590,18 @@ With grdRepair
 End Sub
 Private Sub myloadGrdDone()
 Dim strSql As String
-strSql = "SELECT FILE6_90H.DOC_NO, " & _
-         "FORMAT(FILE6_90H.[DATE],'yyyy/M/d'), " & _
-         "FILE6_90H.Payment_Method, " & _
-         "FILE6_25.CODE.DESCA, " & _
-         "FORMAT(FILE6_90H.TIME2,'yyyy/M/d HH:mm'), " & _
-         "FORMAT(FILE6_90H.TIME3,'yyyy/M/d HH:mm'), " & _
-         "FORMAT(DATEADD(MINUTE, DATEDIFF(MINUTE, time2, time3), 0), 'HH:mm') AS TimePeriod," & _
-         "FILE6_90H.TOTAL_QUANT " & _
-         "FROM FILE6_90H INNER JOIN " & _
-         "FILE6_25.CODE ON FILE6_90H.MAN = FILE6_25.CODE.CODE " & _
-        " INNER JOIN vw_online_orders_open ON FILE6_90H.DOC_NO = vw_online_orders_open.ORDER_NO " & _
-        " WHERE FILE6_90H.STAGE = 3"
+strSql = "SELECT v.ORDER_NO, " & _
+         "FORMAT(v.[DATE],'yyyy/M/d'), " & _
+         "t.desca, " & _
+         "FILE6_25.DESCA, " & _
+         "FORMAT(v.TIME2,'yyyy/M/d HH:mm'), " & _
+         "FORMAT(v.TIME3,'yyyy/M/d HH:mm'), " & _
+         "  dbo.fn_time_diff(time2, time3) AS TimePeriod," & _
+         " v.TOTAL_QUANT " & _
+         " FROM vw_online_order v" & _
+         " INNER JOIN ONLINE_TYPES t ON v.TYPE = t.CODE" & _
+         " INNER JOIN FILE6_25 ON v.MAN = FILE6_25.CODE " & _
+        " WHERE v.STAGE = 3"
 On Error GoTo myerror
 Set grdDone.DataSource = myRs(strSql)
 fixGrdDone
@@ -1682,7 +1622,7 @@ With grdDone
     
     .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"
     .TextMatrix(1, 1) = " «—ÌŒ «·ÿ·»Ì…"
-    .TextMatrix(1, 2) = "‰Ê⁄ «·”œ«œ"
+    .TextMatrix(1, 2) = "‰Ê⁄ «·ÿ·»Ì…"
     
     .TextMatrix(1, 3) = "«·„‰œÊ»"
     .TextMatrix(1, 4) = "»œ¡ «· ÃÂÌ“"
@@ -1693,41 +1633,38 @@ With grdDone
     .MergeCells = flexMergeFixedOnly
     .MergeRow(0) = True
     
-    .ColHidden(0) = True
+    '.ColHidden(0) = True
     
-    .ColWidth(0) = 1000
-    .ColWidth(1) = 1300
-    .ColWidth(2) = 1500
-    .ColWidth(3) = 1800
-    .ColWidth(4) = 1600
-    .ColWidth(5) = 1600
-    .ColWidth(6) = 800
-    .ColWidth(7) = 800
+    .ColWidth(0) = 800
+    .ColWidth(1) = 1250
+    .ColWidth(2) = 1000
+    .ColWidth(3) = 1400
+    .ColWidth(4) = 1700
+    .ColWidth(5) = 1700
+    .ColWidth(6) = 1000
+    .ColWidth(7) = 700
     
      .Cell(flexcpAlignment, 0, 0, 1, .Cols - 1) = flexAlignCenterCenter
     End With
 End Sub
 Private Sub myloadGrdEdit()
 Dim strSql As String
-strSql = "SELECT FILE6_90H.DOC_NO, " & _
-         "FORMAT(FILE6_90H.[DATE],'yyyy/M/d'), " & _
-         "FILE6_90H.Payment_Method, " & _
-         "FORMAT(FILE6_90H.TIME2,'yyyy/M/d HH:mm'), " & _
-         "FILE6_25.CODE.DESCA, " & _
-         "FILE6_90H.TOTAL_QUANT, " & _
-         "FILE6_90H_ER.DESCA, " & _
-         "FORMAT(FILE6_90H_ER.[TIME],'yyyy/M/d HH:mm'), " & _
-         "FORMAT(DATEADD(MINUTE, DATEDIFF(MINUTE, FILE6_90H_ER.[TIME], GETDATE()), 0), 'HH:mm') AS TimePeriod" & _
-         " FROM FILE6_90H INNER JOIN " & _
-         " FILE6_25.CODE ON FILE6_90H.MAN = FILE6_25.CODE.CODE " & _
-         " INNER JOIN FILE6_90H_ER ON FILE6_90H.DOC_NO = FILE6_90H_ER.DOC_NO " & _
-         " INNER JOIN (SELECT MAX(ID) AS ID " & _
-         "  FROM FILE6_90H_ER WHERE STAGE = 6" & _
-         "  GROUP BY FILE6_90H_ER.DOC_NO) AS L " & _
-         " ON L.ID = FILE6_90H_ER.ID" & _
-        " INNER JOIN vw_online_orders_open ON FILE6_90H.DOC_NO = vw_online_orders_open.ORDER_NO " & _
-        " WHERE FILE6_90H.STAGE = 6" & _
-        " ORDER BY FILE6_90H_ER.ID"
+strSql = "SELECT v.ORDER_NO, " & _
+         "v.DOC_NO," & _
+         "t.DESCA, " & _
+         "FORMAT(v.[DATE],'yy/M/d'), " & _
+         "FORMAT(v.TIME2,'yy/M/d HH:mm'), " & _
+         "FILE6_25.DESCA, " & _
+         "v.TOTAL_QUANT, " & _
+         "e.DESCA, " & _
+         "FORMAT(e.[TIME],'yyyy/M/d HH:mm'), " & _
+         "FORMAT(DATEADD(MINUTE, DATEDIFF(MINUTE, e.[TIME], GETDATE()), 0), 'HH:mm') AS TimePeriod" & _
+         " FROM vw_online_order v " & _
+         " INNER JOIN FILE6_25 ON v.MAN = FILE6_25.CODE " & _
+         " INNER JOIN ONLINE_TYPES t ON v.TYPE = t.CODE " & _
+         " INNER JOIN vw_online_er e ON v.ORDER_NO =  e.ORDER_NO AND v.DOC_NO =  e.DOC_NO_SUP AND v.STAGE = e.STAGE  " & _
+         " WHERE v.STAGE = 6" & _
+         " ORDER BY e.ID"
 On Error GoTo myerror
 Set grdEdit.DataSource = myRs(strSql)
 fixGrdEdit
@@ -1747,34 +1684,104 @@ With grdEdit
     Next
     
     .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"
-    .TextMatrix(1, 1) = " «—ÌŒ «·ÿ·»Ì…"
-    .TextMatrix(1, 2) = "‰Ê⁄ «·”œ«œ"
-    .TextMatrix(1, 3) = "Êﬁ  «· ÃÂÌ“"
-    .TextMatrix(1, 4) = "«·„‰œÊ»"
-    .TextMatrix(1, 5) = "«·ﬂ„Ì…"
-    .TextMatrix(1, 6) = "”»» «· ⁄œÌ·"
-    .TextMatrix(1, 7) = "Êﬁ  «·«—”«·"
-    .TextMatrix(1, 8) = "«·„œ…"
+    .TextMatrix(1, 1) = "›—⁄Ì"
+    .TextMatrix(1, 2) = "‰Ê⁄ «·ÿ·»Ì…"
+    .TextMatrix(1, 3) = " «—ÌŒ «·ÿ·»Ì…"
+    .TextMatrix(1, 4) = "Êﬁ  «· ÃÂÌ“"
+    .TextMatrix(1, 5) = "«·„‰œÊ»"
+    .TextMatrix(1, 6) = "«·ﬂ„Ì…"
+    .TextMatrix(1, 7) = "”»» «· ⁄œÌ·"
+    .TextMatrix(1, 8) = "Êﬁ  «·«—”«·"
+    .TextMatrix(1, 9) = "«·„œ…"
     
     .MergeCells = flexMergeFixedOnly
     .MergeRow(0) = True
     
-    .ColHidden(0) = True
-    .ColHidden(2) = True
-    .ColHidden(3) = True
+    .ColHidden(1) = True
+    .ColHidden(4) = True
     
-    .ColWidth(0) = 1000
-    .ColWidth(1) = 1300
-    .ColWidth(2) = 1500
-    .ColWidth(3) = 1600
-    .ColWidth(4) = 1200
-    .ColWidth(5) = 800
-    .ColWidth(6) = 3800
-    .ColWidth(7) = 1600
-    .ColWidth(8) = 800
+    .ColWidth(0) = 900
+    .ColWidth(1) = 0
+    .ColWidth(2) = 1100
+    .ColWidth(3) = 1250
+    .ColWidth(4) = 1700
+    .ColWidth(5) = 1400
+    .ColWidth(6) = 700
+    .ColWidth(7) = 1500
+    .ColWidth(8) = 1700
+    .ColWidth(9) = 1000
     
      .Cell(flexcpAlignment, 0, 0, 1, .Cols - 1) = flexAlignCenterCenter
     End With
 End Sub
+Private Sub myloadGrdCancel()
+Dim strSql As String
+strSql = "SELECT v.ORDER_NO, " & _
+         "v.DOC_NO," & _
+         "t.DESCA, " & _
+         "FORMAT(v.[DATE],'yy/M/d'), " & _
+         "FORMAT(v.TIME2,'yy/M/d HH:mm'), " & _
+         "FILE6_25.DESCA, " & _
+         "v.TOTAL_QUANT, " & _
+         "e.DESCA, " & _
+         "FORMAT(e.[TIME],'yyyy/M/d HH:mm'), " & _
+         "FORMAT(DATEADD(MINUTE, DATEDIFF(MINUTE, e.[TIME], GETDATE()), 0), 'HH:mm') AS TimePeriod" & _
+         " FROM vw_online_order v " & _
+         " INNER JOIN FILE6_25 ON v.MAN = FILE6_25.CODE " & _
+         " INNER JOIN ONLINE_TYPES t ON v.TYPE = t.CODE " & _
+         " INNER JOIN vw_online_er e ON v.ORDER_NO =  e.ORDER_NO AND v.DOC_NO =  e.DOC_NO_SUP AND v.STAGE = e.STAGE  " & _
+         " WHERE v.STAGE = 5" & _
+         " ORDER BY e.ID"
+On Error GoTo myerror
+Set grdCancel.DataSource = myRs(strSql)
+fixGrdcancel
+Exit Sub
+myerror:
+MsgBox Err.Description
+Err.Clear
+End Sub
+Sub fixGrdcancel()
+Dim i As Long
+With grdCancel
+    '.RowHeight(0) = 400
+    '.RowHeight(1) = 600
+    For i = 0 To .Cols - 1
+        .TextMatrix(0, i) = "ÿ·»Ì«  ﬁÌœ «·«·€«¡"
+        .ColAlignment(i) = flexAlignCenterCenter
+    Next
+    
+    .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"
+    .TextMatrix(1, 1) = "›—⁄Ì"
+    .TextMatrix(1, 2) = "‰Ê⁄ «·ÿ·»Ì…"
+    .TextMatrix(1, 3) = " «—ÌŒ «·ÿ·»Ì…"
+    .TextMatrix(1, 4) = "Êﬁ  «· ÃÂÌ“"
+    .TextMatrix(1, 5) = "«·„‰œÊ»"
+    .TextMatrix(1, 6) = "«·ﬂ„Ì…"
+    .TextMatrix(1, 7) = "”»» «· ⁄œÌ·"
+    .TextMatrix(1, 8) = "Êﬁ  «·«—”«·"
+    .TextMatrix(1, 9) = "«·„œ…"
+    
+    .MergeCells = flexMergeFixedOnly
+    .MergeRow(0) = True
+    
+    .ColHidden(1) = True
+    .ColHidden(4) = True
+    
+    .ColWidth(0) = 900
+    .ColWidth(1) = 0
+    .ColWidth(2) = 1100
+    .ColWidth(3) = 1250
+    .ColWidth(4) = 1700
+    .ColWidth(5) = 1400
+    .ColWidth(6) = 700
+    .ColWidth(7) = 1500
+    .ColWidth(8) = 1700
+    .ColWidth(9) = 1000
+    
+     .Cell(flexcpAlignment, 0, 0, 1, .Cols - 1) = flexAlignCenterCenter
+    End With
+End Sub
+
+
 
 

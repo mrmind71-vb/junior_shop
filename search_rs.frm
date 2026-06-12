@@ -465,14 +465,6 @@ If (cmbLookup(Index).MatchedWithList Or Trim(cmbLookup(Index).BoundText) = "") A
     myLoadGrd
 End If
 End Sub
-
-Private Sub cmbLookup_Click(Index As Integer, Area As Integer)
-'If Area = 2 Then myLoadGrd
-'If (cmbLookup(I).MatchedWithList Or Trim(cmbLookup(I).BoundText) = "") Then
-'    myLoadGrd
-'End If
-End Sub
-
 Private Sub cmbLookup_GotFocus(Index As Integer)
 myGotFocus cmbLookup(Index)
 End Sub
@@ -582,8 +574,6 @@ End If
 Err.Clear
 End Sub
 Private Sub Form_Load()
-Dim con As New ADODB.Connection
-openCon con
 bAct = False
 xRecords.text = nMax_records
 If sid <> "" Then
@@ -693,11 +683,8 @@ For i = 0 To UBound(listarray)
     End If
 Next
 cString = cString & Space(1) & Generalarray(2)
-Dim con As New ADODB.Connection
-If openCn(con) Then
-    Set grid1.DataSource = myRs(cString, con)
-    closeCon con
-End If
+
+Set grid1.DataSource = myRs(cString)
 
 fixGrd
 chkRecords
@@ -713,12 +700,8 @@ If grid1.Rows > 1 Then
     grid1.ShowCell grid1.Row, grid1.col
 End If
 Exit Sub
-myerror:
-'If Err.Number = -2147217900 Then
-'    MsgBox "⁄»«—… »ÕÀ  Õ ÊÌ ⁄·Ì Õ—Ê› €Ì— ’«·Õ…"
-'Else
-    MsgBox Err.Description
-'End If
+myError:
+MsgBox Err.Description
 Err.Clear
 End Sub
 Private Sub Handlecontrols()
@@ -747,7 +730,6 @@ End Sub
 Private Sub LoadControls()
 nVSpace = 420
 nFrame = Frame2.Height
-Dim con As New ADODB.Connection
 For i = 0 To UBound(listarray)
     nRow = nRow + 1
     Frame2.Height = nFrame + (nVSpace * (nRow - 1))
@@ -764,12 +746,9 @@ For i = 0 To UBound(listarray)
         Load cmbLookup(nRow)
         cmbLookup(nRow).Visible = True
         cmbLookup(nRow).Top = cmbLookup(0).Top + (nVSpace * (nRow - 1))
-        'Load data2(nRow)
-        'Set data2(nRow).Recordset = mycmd(listarray(i, 2) & "", con)
-        If Not openCn(con) Then
-            Set cmbLookup(nRow).RowSource = myRs(listarray(i, 2) & "", con)
-            closeCon con
-        End If
+        
+        On Error GoTo myError
+        Set cmbLookup(nRow).RowSource = myRs(listarray(i, 2) & "")
         
         cmbLookup(nRow).BoundColumn = listarray(i, 3)
         cmbLookup(nRow).ListField = listarray(i, 4)
@@ -800,6 +779,10 @@ For i = 1 To Label1.Count - 1
     Label1(i).Top = Label1(i).Top
     Label1(i).Visible = True
 Next
+Exit Sub
+myError:
+MsgBox Err.Description
+Err.Clear
 End Sub
 Private Sub grid1_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 13 And bEnterwork Then

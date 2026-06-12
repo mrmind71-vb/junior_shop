@@ -2,9 +2,9 @@ VERSION 5.00
 Object = "{D76D7128-4A96-11D3-BD95-D296DC2DD072}#1.0#0"; "Vsflex7.ocx"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
-Begin VB.Form online_Stage_man 
+Begin VB.Form online_Stage_order 
    BackColor       =   &H00FFFFFF&
-   Caption         =   "«ŸÂ«— «’‰«› ÿ·»Ì…"
+   Caption         =   " ÃÂÌ“ ÿ·»Ì…"
    ClientHeight    =   8010
    ClientLeft      =   60
    ClientTop       =   345
@@ -14,6 +14,99 @@ Begin VB.Form online_Stage_man
    ScaleHeight     =   8010
    ScaleWidth      =   14355
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame fmPr 
+      Appearance      =   0  'Flat
+      BackColor       =   &H80000005&
+      ForeColor       =   &H80000008&
+      Height          =   1095
+      Left            =   3015
+      RightToLeft     =   -1  'True
+      TabIndex        =   20
+      Top             =   -45
+      Width           =   3930
+      Begin VB.Label xtype_desca 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         BorderStyle     =   1  'Fixed Single
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H80000008&
+         Height          =   330
+         Left            =   135
+         RightToLeft     =   -1  'True
+         TabIndex        =   24
+         Top             =   630
+         Width           =   2130
+      End
+      Begin VB.Label Label3 
+         BackColor       =   &H00FFFFFF&
+         Caption         =   "‰Ê⁄ «·„” ‰œ «·›—⁄"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   330
+         Left            =   2385
+         RightToLeft     =   -1  'True
+         TabIndex        =   23
+         Top             =   630
+         Width           =   1455
+      End
+      Begin VB.Label xdoc_no 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         BorderStyle     =   1  'Fixed Single
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H80000008&
+         Height          =   330
+         Left            =   135
+         RightToLeft     =   -1  'True
+         TabIndex        =   22
+         Top             =   225
+         Width           =   2130
+      End
+      Begin VB.Label lbodoc 
+         BackColor       =   &H00FFFFFF&
+         Caption         =   "—ﬁ„ «·„” ‰œ «·›—⁄Ì"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   330
+         Left            =   2340
+         RightToLeft     =   -1  'True
+         TabIndex        =   21
+         Top             =   270
+         Width           =   1500
+      End
+   End
    Begin VB.PictureBox Picture1 
       Align           =   2  'Align Bottom
       Appearance      =   0  'Flat
@@ -28,58 +121,6 @@ Begin VB.Form online_Stage_man
       TabIndex        =   6
       Top             =   7275
       Width           =   14355
-      Begin Threed.SSCommand cmdStage 
-         Height          =   555
-         Index           =   5
-         Left            =   9765
-         TabIndex        =   17
-         Top             =   90
-         Width           =   2220
-         _ExtentX        =   3916
-         _ExtentY        =   979
-         _Version        =   196610
-         CaptionStyle    =   1
-         ForeColor       =   0
-         BackColor       =   16777215
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   -1  'True
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Caption         =   "«—”«· ··«·€«¡"
-         TagVariant      =   "√Œ «— «·„‘—Ê⁄"
-         ButtonStyle     =   3
-      End
-      Begin Threed.SSCommand cmdStage 
-         Height          =   555
-         Index           =   2
-         Left            =   12015
-         TabIndex        =   11
-         Top             =   90
-         Width           =   2220
-         _ExtentX        =   3916
-         _ExtentY        =   979
-         _Version        =   196610
-         CaptionStyle    =   1
-         ForeColor       =   0
-         BackColor       =   16777215
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   -1  'True
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Caption         =   "»œ« «· ÃÂÌ“"
-         TagVariant      =   "√Œ «— «·„‘—Ê⁄"
-         ButtonStyle     =   3
-      End
       Begin VB.Frame Frame2 
          BackColor       =   &H00FFFFFF&
          Height          =   735
@@ -110,7 +151,7 @@ Begin VB.Form online_Stage_man
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Picture         =   "showOrder_man.frx":0000
+            Picture         =   "online_stage_order.frx":0000
             Alignment       =   8
             ButtonStyle     =   3
             PictureAlignment=   11
@@ -138,12 +179,12 @@ Begin VB.Form online_Stage_man
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Picture         =   "showOrder_man.frx":2323
+            Picture         =   "online_stage_order.frx":2323
             ButtonStyle     =   3
             PictureAlignment=   11
             BevelWidth      =   0
             PictureDisabledFrames=   1
-            PictureDisabled =   "showOrder_man.frx":4699
+            PictureDisabled =   "online_stage_order.frx":4699
          End
          Begin Threed.SSCommand cmdExcel 
             Height          =   555
@@ -166,7 +207,7 @@ Begin VB.Form online_Stage_man
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Picture         =   "showOrder_man.frx":681C
+            Picture         =   "online_stage_order.frx":681C
             ButtonStyle     =   3
             PictureAlignment=   11
             BevelWidth      =   0
@@ -179,6 +220,7 @@ Begin VB.Form online_Stage_man
          Left            =   12015
          TabIndex        =   12
          Top             =   90
+         Visible         =   0   'False
          Width           =   2220
          _ExtentX        =   3916
          _ExtentY        =   979
@@ -205,6 +247,7 @@ Begin VB.Form online_Stage_man
          Left            =   9765
          TabIndex        =   13
          Top             =   90
+         Visible         =   0   'False
          Width           =   2220
          _ExtentX        =   3916
          _ExtentY        =   979
@@ -231,6 +274,7 @@ Begin VB.Form online_Stage_man
          Left            =   7515
          TabIndex        =   18
          Top             =   90
+         Visible         =   0   'False
          Width           =   2220
          _ExtentX        =   3916
          _ExtentY        =   979
@@ -251,20 +295,100 @@ Begin VB.Form online_Stage_man
          TagVariant      =   "√Œ «— «·„‘—Ê⁄"
          ButtonStyle     =   3
       End
+      Begin Threed.SSCommand cmdInvoice 
+         Height          =   555
+         Left            =   12015
+         TabIndex        =   19
+         Top             =   90
+         Visible         =   0   'False
+         Width           =   2220
+         _ExtentX        =   3916
+         _ExtentY        =   979
+         _Version        =   196610
+         CaptionStyle    =   1
+         ForeColor       =   0
+         BackColor       =   16777215
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   -1  'True
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Caption         =   "⁄„· ›« Ê—…"
+         TagVariant      =   "√Œ «— «·„‘—Ê⁄"
+         ButtonStyle     =   3
+      End
+      Begin Threed.SSCommand cmdStage 
+         Height          =   555
+         Index           =   2
+         Left            =   12015
+         TabIndex        =   11
+         Top             =   90
+         Visible         =   0   'False
+         Width           =   2220
+         _ExtentX        =   3916
+         _ExtentY        =   979
+         _Version        =   196610
+         CaptionStyle    =   1
+         ForeColor       =   0
+         BackColor       =   16777215
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   -1  'True
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Caption         =   "»œ« «· ÃÂÌ“"
+         TagVariant      =   "√Œ «— «·„‘—Ê⁄"
+         ButtonStyle     =   3
+      End
+      Begin Threed.SSCommand cmdStage 
+         Height          =   555
+         Index           =   5
+         Left            =   9765
+         TabIndex        =   17
+         Top             =   90
+         Visible         =   0   'False
+         Width           =   2220
+         _ExtentX        =   3916
+         _ExtentY        =   979
+         _Version        =   196610
+         CaptionStyle    =   1
+         ForeColor       =   0
+         BackColor       =   16777215
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   -1  'True
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Caption         =   "«—”«· ··«·€«¡"
+         TagVariant      =   "√Œ «— «·„‘—Ê⁄"
+         ButtonStyle     =   3
+      End
    End
    Begin VB.Frame Frame1 
       Appearance      =   0  'Flat
       BackColor       =   &H80000005&
       ForeColor       =   &H80000008&
       Height          =   1005
-      Left            =   135
+      Left            =   6975
       RightToLeft     =   -1  'True
       TabIndex        =   1
-      Top             =   90
-      Width           =   14145
+      Top             =   0
+      Width           =   7305
       Begin VB.Label Label4 
          BackColor       =   &H00FFFFFF&
-         Caption         =   "Õ«·… «·ÿ·»Ì…"
+         Caption         =   "«·„—Õ·…"
          BeginProperty Font 
             Name            =   "Arial"
             Size            =   11.25
@@ -275,7 +399,7 @@ Begin VB.Form online_Stage_man
             Strikethrough   =   0   'False
          EndProperty
          Height          =   330
-         Left            =   9315
+         Left            =   2340
          RightToLeft     =   -1  'True
          TabIndex        =   16
          Top             =   225
@@ -297,7 +421,7 @@ Begin VB.Form online_Stage_man
          EndProperty
          ForeColor       =   &H80000008&
          Height          =   330
-         Left            =   7065
+         Left            =   90
          RightToLeft     =   -1  'True
          TabIndex        =   15
          Top             =   180
@@ -316,7 +440,7 @@ Begin VB.Form online_Stage_man
             Strikethrough   =   0   'False
          EndProperty
          Height          =   330
-         Left            =   13140
+         Left            =   6165
          RightToLeft     =   -1  'True
          TabIndex        =   5
          Top             =   540
@@ -338,13 +462,13 @@ Begin VB.Form online_Stage_man
          EndProperty
          ForeColor       =   &H80000008&
          Height          =   330
-         Left            =   10935
+         Left            =   3960
          RightToLeft     =   -1  'True
          TabIndex        =   4
          Top             =   540
          Width           =   2130
       End
-      Begin VB.Label xDoc_no 
+      Begin VB.Label xorder_no 
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
          BackColor       =   &H80000005&
@@ -360,7 +484,7 @@ Begin VB.Form online_Stage_man
          EndProperty
          ForeColor       =   &H80000008&
          Height          =   330
-         Left            =   10935
+         Left            =   3960
          RightToLeft     =   -1  'True
          TabIndex        =   3
          Top             =   180
@@ -380,7 +504,7 @@ Begin VB.Form online_Stage_man
             Strikethrough   =   0   'False
          EndProperty
          Height          =   330
-         Left            =   13140
+         Left            =   6165
          RightToLeft     =   -1  'True
          TabIndex        =   2
          Top             =   225
@@ -438,7 +562,7 @@ Begin VB.Form online_Stage_man
       Height          =   3795
       Left            =   135
       TabIndex        =   0
-      Top             =   1125
+      Top             =   1080
       Width           =   14145
       _cx             =   24950
       _cy             =   6694
@@ -623,14 +747,15 @@ Begin VB.Form online_Stage_man
       WallPaperAlignment=   9
    End
 End
-Attribute VB_Name = "online_Stage_man"
+Attribute VB_Name = "online_Stage_order"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Public sOrder_No As String
 Public sDoc_no As String
 Public sManCode As String
-Public sStage As String
+Public bInvoice As Boolean
 Public sMsg As String
 Public myForm As Form
 Dim aHeader(2) As String
@@ -667,7 +792,7 @@ If Index = 4 Then
     online_error.sCaption = "”»» «·„‘ﬂ·…"
     online_error.Show 1
     If sMsg = "" Then
-        MsgBox "”»» «·„‘ﬂ·… ÷—Ê—Ì"
+        Inform_OK "”»» «·„‘ﬂ·… ÷—Ê—Ì"
         Exit Function
     End If
 ElseIf Index = 3 And xStage.Tag = "4" Then
@@ -682,25 +807,35 @@ ElseIf Index = 5 Or Index = 6 Then
     online_error.sCaption = IIf(Index = 5, "«”»«» «·«·€«¡", "«”»«» «· ⁄œÌ·")
     online_error.Show 1
     If sMsg = "" Then
-        MsgBox "”»» «·«·€«¡ ÷—Ê—Ì"
+        Inform_OK "”»» «·«·€«¡ ÷—Ê—Ì"
         Exit Function
     End If
 End If
 
 Dim con As New ADODB.Connection
 If openCn(con) Then
-    cString = "UPDATE FILE6_90H " & _
-              " SET FILE6_90H.STAGE = " & (Index) & "," & _
-              " TIME" & Index & " = " & addstring(Format(Now, "YYYY-MM-DD HH:NN")) & "," & _
-              " MAN = " & addstring(sManCode) & _
-              " MAN" & Index & " = " & addstring(sManCode) & _
-              " WHERE DOC_NO = " & MyParn(sDoc_no)
-    On Error GoTo myerror
+    If xDoc_no.Caption = "0" Then
+        cString = "UPDATE FILE6_90H " & _
+                  " SET STAGE = " & (Index) & "," & _
+                  " TIME" & Index & " = " & addstring(Format(Now, "YYYY-MM-DD HH:NN")) & "," & _
+                  " MAN = " & addstring(sManCode) & "," & _
+                  " MAN" & Index & " = " & addstring(sManCode) & _
+                  " WHERE DOC_NO = " & MyParn(xorder_no.Caption)
+    Else
+        cString = "UPDATE FILE6_90BH " & _
+                  " SET STAGE = " & (Index) & "," & _
+                  " TIME" & Index & " = " & addstring(Format(Now, "YYYY-MM-DD HH:NN")) & "," & _
+                  " MAN = " & addstring(sManCode) & "," & _
+                  " MAN" & Index & " = " & addstring(sManCode) & _
+                  " WHERE DOC_NO = " & xDoc_no.Caption
+    End If
+    'On Error GoTo myerror
     con.BeginTrans
     con.Execute cString, nRecords
     If Index = 4 Or (Index = 3 And xStage.Tag = "4") Or Index = 5 Or Index = 6 Then
         Dim aInsert As Variant
-        aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_no.Caption))
+        aInsert = AddFlag(aInsert, "ORDER_NO", addstring(xorder_no.Caption))
+        aInsert = AddFlag(aInsert, "DOC_NO_SUP", xDoc_no.Caption)
         aInsert = AddFlag(aInsert, "STAGE", (Index))
         aInsert = AddFlag(aInsert, "DESCA", addstring(sMsg))
         aInsert = AddFlag(aInsert, "TIME", addstring(Format(Now, "YYYY-MM-DD HH:NN")))
@@ -709,15 +844,15 @@ If openCn(con) Then
     End If
     con.CommitTrans
     If Index = 2 Then
-        MsgBox " „  ÕÊÌ· «·ÿ·»Ì… ·· ÃÂÌ“"
+        Inform_OK " „  ÕÊÌ· «·ÿ·»Ì… ·· ÃÂÌ“"
     ElseIf Index = 3 Then
-        MsgBox " „ «·«‰ Â«¡ „‰ «·ÿ·»Ì…"
+        Inform_OK " „ «·«‰ Â«¡ „‰ «·ÿ·»Ì…"
     ElseIf Index = 4 Then
-        MsgBox " „  ÕÊÌ· «·Ì ÿ·»Ì… »Â« „‘ﬂ·…"
+        Inform_OK " „  ÕÊÌ· «·Ì ÿ·»Ì… »Â« „‘ﬂ·…"
     ElseIf Index = 5 Then
-        MsgBox " „  ÕÊÌ· ··√·€«¡"
+        Inform_OK " „  ÕÊÌ· ··√·€«¡"
     ElseIf Index = 6 Then
-        MsgBox " „  ÕÊÌ· ·· ⁄œÌ·"
+        Inform_OK " „  ÕÊÌ· ·· ⁄œÌ·"
     End If
 End If
 updateStage = True
@@ -729,29 +864,35 @@ MsgBox Err.Description
 Err.Clear
 Resume Finally
 End Function
-
 Private Sub Form_Load()
 Dim cString As String
-cString = "SELECT FILE6_90H.MAN," & _
-          " FILE6_90H.STAGE," & _
+cString = "SELECT v.ORDER_NO," & _
+          " v.DOC_NO," & _
+          " v.STAGE," & _
+          " v.DATE," & _
+          " v.type_desca," & _
           " STAGES_CODES.DESCA AS STAGE_DESCA," & _
-          " MAN_ONLINE_CODES.DESCA AS MAKE_DESCA" & _
-          " FROM FILE6_90H " & _
-          " INNER JOIN STAGES_CODES ON FILE6_90H.STAGE = STAGES_CODES.CODE" & _
-          " LEFT JOIN  MAN_ONLINE_CODES ON FILE6_90H.MAN_STAGE = MAN_ONLINE_CODES.CODE" & _
-          " WHERE FILE6_90H.DOC_NO = " & MyParn(sDoc_no)
+          " FILE6_25.DESCA AS MAKE_DESCA" & _
+          " FROM vw_online_order v " & _
+          " INNER JOIN STAGES_CODES ON v.STAGE = STAGES_CODES.CODE" & _
+          " LEFT JOIN FILE6_25 ON v.MAN = FILE6_25.CODE" & _
+          " WHERE v.ORDER_NO = " & MyParn(sOrder_No) & _
+          " AND v.doc_no = " & Val(sDoc_no)
 
 On Error GoTo myerror
 Dim loctable As New ADODB.Recordset
 Set loctable = myRs(cString)
-                    
+
+xorder_no.Caption = loctable!ORDER_NO & ""
+xDoc_no.Caption = loctable!DOC_NO & ""
 xStage.Caption = loctable!stage_Desca
 xStage.Tag = loctable!Stage
-
+xdate.Caption = myFormat_p(loctable!Date)
+xtype_desca.Caption = loctable!TYPE_dESCA & ""
+fmPr.Visible = loctable!DOC_NO <> "0"
 If loctable!Stage = 4 Then
     cmdStage(3).Caption = " „ Õ· «·„‘ﬂ·… Ê«· ÃÂÌ“"
 End If
-
 cmdStage(2).Visible = loctable!Stage = 1
 cmdStage(3).Visible = loctable!Stage = 2 Or loctable!Stage = 4
 cmdStage(4).Visible = loctable!Stage = 3 Or loctable!Stage = 2
@@ -791,8 +932,6 @@ With grid1
     .ColWidth(7) = 1000
     .ColWidth(8) = 1200
     
-    '.ColHidden(1) = True
-    .ColHidden(.Cols - 4) = True
     .ColHidden(.Cols - 3) = True
     .ColHidden(.Cols - 2) = True
     .ColHidden(.Cols - 1) = True
@@ -882,33 +1021,25 @@ End With
 End Sub
 Private Sub myload()
 Dim cString As String
-cString = " SELECT FILE6_90.ITEM," & _
-          " FILE1_10.MODELFACT0," & _
+cString = " SELECT v.item," & _
+          " F1_10.MODELFACT0," & _
           " FACT.DESCA," & _
-          " COALESCE(FILE1_10.desca,FILE6_90.ITEM_NAME)," & _
-          " FILE1_10.COLOR," & _
-          " FILE1_10.SCAL," & _
-          " FILE6_90.QUANT," & _
-          " FILE6_90.PRICE," & _
-          " FILE6_90.TOTAL," & _
-          " FILE6_90H.DISCOUNT," & _
-          " FILE6_90H.DATE" & _
-          " FROM  FILE6_90 " & _
-          " INNER JOIN FILE6_90H ON FILE6_90.DOC_NO = FILE6_90H.DOC_NO " & _
-          " LEFT  JOIN FILE1_10 ON FILE6_90.ITEM = FILE1_10.ITEM" & _
-          " LEFT  JOIN  FACT ON FILE1_10.code = FACT.CODE" & _
-          " WHERE FILE6_90H.DOC_NO =  " & MyParn(sDoc_no)
-cString = cString & " ORDER BY DATE"
+          " F1_10.desca," & _
+          " F1_10.COLOR," & _
+          " F1_10.SCAL," & _
+          " v.QUANT," & _
+          " v.PRICE," & _
+          " v.TOTAL," & _
+          " v.DISCOUNT " & _
+          " FROM  vw_online_items v" & _
+          " INNER  JOIN FILE1_10 F1_10 ON v.ITEM = F1_10.ITEM" & _
+          " INNER  JOIN  FACT ON F1_10.code = FACT.CODE" & _
+          " WHERE v.ORDER_NO =  " & MyParn(sOrder_No) & _
+          " AND v.DOC_NO = " & sDoc_no
 
 Dim con As New ADODB.Connection
 On Error GoTo myerror
 Set grid1.DataSource = myRs(cString)
-If grid1.Rows > 1 Then
-    xDoc_no.Caption = sDoc_no
-    xdate.Caption = myFormat_p(grid1.TextMatrix(1, 10))
-    aHeader(0) = "—ﬁ„ «·ÿ·»Ì… : " & xDoc_no.Caption
-    aHeader(1) = "«· «—ÌŒ : " & xdate.Caption
-End If
 Fixgrd
 Exit Sub
 myerror:
@@ -921,48 +1052,28 @@ End Sub
 Private Sub myLoadGrd()
 If Not openCn(con) Then On Error GoTo Finally
 
-
-If IsNull(rsValue("select order_no from vw_online_orders_open where order_no = " & MyParn(grid1.TextMatrix(grid1.Row, 0)))) Then
-    Exit Sub
-End If
-
-If IsNull(rsValue("select order_no from vw_online_orders_open where order_no = " & MyParn(grid1.TextMatrix(grid1.Row, 0)))) Then
-    Exit Sub
-End If
-
 Dim cString As String
-cString = " SELECT FILE6_90H_ER.DOC_NO," & _
-          " FILE1_10.MODELFACT012," & _
+cString = " SELECT v.DOC_NO," & _
+          " F1_10.MODELFACT012," & _
           " FACT.DESCA," & _
-          " COALESCE(FILE1_10.desca,FILE6_90.ITEM_NAME)," & _
-          " FILE1_10.COLOR," & _
-          " FILE1_10.SCAL," & _
-          " FILE6_90.QUANT," & _
-          " FILE6_90.PRICE," & _
-          " FILE6_90.TOTAL," & _
-          " FILE6_90H.DISCOUNT," & _
-          " FILE6_90H.DATE" & _
-          " FROM  FILE6_90 " & _
-          " INNER JOIN FILE6_90H ON FILE6_90.DOC_NO = FILE6_90H.DOC_NO " & _
-          " LEFT  JOIN FILE1_10 ON FILE6_90.ITEM = FILE1_10.ITEM" & _
-          " LEFT  JOIN  FACT ON FILE1_10.code = FACT.CODE" & _
-          " WHERE FILE6_90H.DOC_NO =  " & MyParn(sDoc_no)
-cString = cString & " ORDER BY DATE"
+          " F1_10.desca," & _
+          " F1_10.COLOR," & _
+          " F1_10.SCAL," & _
+          " v.QUANT," & _
+          " v.PRICE," & _
+          " v.TOTAL" & _
+          " FROM  vw_online_item v" & _
+          " INNER  JOIN FILE1_10 F1_10 ON v.ITEM = F1_10.ITEM" & _
+          " INNER  JOIN  FACT ON F1_10.code = FACT.CODE" & _
+          " WHERE v.ORDER_NO =  " & MyParn(xorder_no.Caption) & _
+          " AND   v.DOC_NO =  " & xDoc_no.Caption & _
+          " ORDER BY F1_10.ITEM"
 
 Dim con As New ADODB.Connection
-
-
 If openCn(con) Then
     On Error GoTo Finally
     Set grid1.DataSource = myRs(cString, con)
-End If
-
-If grid1.Rows > 1 Then
-    xDoc_no.Caption = sDoc_no
-    xdate.Caption = myFormat_p(grid1.TextMatrix(1, 10))
-    aHeader(0) = "—ﬁ„ «·ÿ·»Ì… : " & xDoc_no.Caption
-    aHeader(1) = "«· «—ÌŒ : " & xdate.Caption
-End If
+End If '
 Fixgrd
 Finally:
 closeCon con
@@ -974,15 +1085,16 @@ End Sub
 Private Sub myloadGrdError()
 Dim strSql As String
 strSql = "SELECT STAGES_CODES.DESCA AS [«·„—Õ·…], " & _
-         " MAN_ONLINE_CODES.DESCA AS [«·„‰œÊ»], " & _
-         " FILE6_90H_ER.DESCA AS [«·»Ì«‰], " & _
-         " FORMAT(FILE6_90H_ER.TIME, 'yyyy/M/d HH:mm') AS [«·Êﬁ ]" & _
+         " FILE6_25.DESCA AS [«·„‰œÊ»], " & _
+         " e.DESCA AS [«·»Ì«‰], " & _
+         " FORMAT(e.TIME, 'yyyy/M/d HH:mm') AS [«·Êﬁ ]" & _
          " FROM STAGES_CODES " & _
-         "    INNER JOIN FILE6_90H_ER " & _
-         "        ON STAGES_CODES.CODE = FILE6_90H_ER.STAGE " & _
-         "    INNER JOIN MAN_ONLINE_CODES " & _
-         "        ON FILE6_90H_ER.MAN = MAN_ONLINE_CODES.CODE" & _
-         " WHERE FILE6_90H_ER.DOC_NO = " & MyParn(xDoc_no.Caption)
+         "    INNER JOIN FILE6_90H_ER e " & _
+         "        ON STAGES_CODES.CODE = e.STAGE " & _
+         "    INNER JOIN FILE6_25 " & _
+         "        ON e.MAN = FILE6_25.CODE" & _
+         " WHERE e.ORDER_NO = " & MyParn(xorder_no.Caption) & _
+         " AND e.DOC_NO_SUP = " & xDoc_no.Caption
 
 On Error GoTo myerror
 
@@ -997,8 +1109,8 @@ Set .DataSource = myRs(strSql)
 For i = 0 To .Cols - 1
     .ColAlignment(i) = flexAlignRightCenter
 Next
-End With
 
+End With
 Exit Sub
 myerror:
 MsgBox Err.Description

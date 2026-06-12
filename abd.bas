@@ -285,7 +285,7 @@ For i = 1 To UBound(aString)
     cString = cString & "\" & aString(i)
     If Not fs.FolderExists(cString) Then fs.CreateFolder (cString)
 Next
-err.Clear
+Err.Clear
 End Sub
 Function LastDrive(Optional bLetter As Boolean = False)
 Dim fs, d, DC, letter
@@ -342,14 +342,14 @@ condef.Execute "insert into DEFTABLE(Flag,FlagDesca,FlagValue)" & _
                addstring(sFlagDesca) & "," & _
                addstring(sFlagValue) & _
                ")"
-If err.Number = -2147467259 Then
-    err.Clear
+If Err.Number = -2147467259 Then
+    Err.Clear
     condef.Execute "update defTable Set " & _
                    " FlagValue  = " & addstring(sFlagValue) & _
                    " where Flag = " & MyParn(sFlag) & _
                    " and FlagDesca = " & MyParn(sFlagDesca)
 End If
-err.Clear
+Err.Clear
 End Function
 Function DefGet(sFlag, sFlagDesca) As String
 Dim loctable As New ADODB.Recordset
@@ -409,7 +409,7 @@ myNear = (nNumber) - (nNum1 / 100) + IIf(nNum1 > 0, nMode, 0)
 End Function
 Function RetSetting(cSearch As String, Optional cFile As String) As String
 Dim TextLine As String
-On Error GoTo myError
+On Error GoTo myerror
 If cFile = "" Then cFile = App.Path & "\conf.txt"
 Open cFile For Input As #1   ' Open file.
 Do While Not EOF(1)   ' Loop until end of file.
@@ -421,13 +421,13 @@ Do While Not EOF(1)   ' Loop until end of file.
 Loop
 Close #1   ' Close file.
 Exit Function
-myError:
-err.Clear
+myerror:
+Err.Clear
 RetSetting = ""
 End Function
 Function RetTxt(cSearch As String, Optional cFile As String) As String
 Dim TextLine As String
-On Error GoTo myError
+On Error GoTo myerror
 
 If cFile = "" Then
     cFile = cPathConf & "\CONF.TXT"
@@ -448,15 +448,15 @@ Loop
 
 Close #FileNumber   ' Close file.
 Exit Function
-myError:
-err.Clear
+myerror:
+Err.Clear
 RetTxt = ""
 End Function
 Function addSetting(cField, cValue, Optional cFile As String) As Boolean
 Dim TextLine As String, cText As String, aLocal, nFoundTimes As Integer
 Dim fs As New FileSystemObject
 If cFile = "" Then cFile = cPathConf & "\CONF.TXT"
-On Error GoTo myError
+On Error GoTo myerror
 If fs.FileExists(cFile) Then
     FileNumber = FreeFile
     Open cFile For Input As #1   ' Open file.
@@ -490,15 +490,15 @@ End If
 Close #2
 addSetting = True
 Exit Function
-myError:
-err.Clear
+myerror:
+Err.Clear
 End Function
 Function addText(cField, cValue, Optional cFile As String) As Boolean
 Dim TextLine As String, cText As String, aLocal, nFoundTimes As Integer
 Dim fs As New FileSystemObject
 If cFile = "" Then cFile = cPathConf & "\CONF.TXT"
 Dim FileNumber
-On Error GoTo myError
+On Error GoTo myerror
 If fs.FileExists(cFile) Then
     FileNumber = FreeFile()
     Open cFile For Input As #FileNumber   ' Open file.
@@ -535,8 +535,8 @@ End If
 Close #FileNumber
 addText = True
 Exit Function
-myError:
-err.Clear
+myerror:
+Err.Clear
 End Function
 Function turn(ByVal cString, Optional ByVal strFind, Optional ByVal caseFound, Optional ByVal CaseNotfound) As String
 If IsMissing(strFind) And IsMissing(caseFound) And IsMissing(CaseNotfound) Then
@@ -576,7 +576,7 @@ Myvalue = IIf(Val(pValue & "") = 0, "", pValue)
 If pFormat <> "" Then Myvalue = Format(Myvalue)
 End Function
 Private Sub xDate_Validate(Cancel As Boolean)
-With xDate
+With xdate
 If (Not IsDate(.text)) And Trim(.text) <> "" Then .text = ""
 .text = Format(.text, "dd-mm-yyyy")
 End With
@@ -594,14 +594,14 @@ Informfrm.sLabel1 = Mcaption
 Informfrm.sLabel2 = mCaption2
 Informfrm.nInterval = nInterval
 Informfrm.Show 1
-err.Clear
+Err.Clear
 End Sub
 Public Sub InformOk(Mcaption As String)
 'On Error Resume Next
 'Load InformOkfrm
 InformOkfrm.Label1.Caption = Mcaption
 InformOkfrm.Show 1
-err.Clear
+Err.Clear
 End Sub
 Function myRecordSet(pString As String, pCon As ADODB.Connection, Optional pType As Integer = adCmdText) As ADODB.Recordset
 Dim loctable As New ADODB.Recordset
@@ -627,7 +627,7 @@ If bStart Then
 End If
 .BackColor = &HC0FFFF
 End With
-err.Clear
+Err.Clear
 End Sub
 Sub myLostFocus(ByRef pControl As Variant)
     pControl.BackColor = &H80000005
@@ -734,7 +734,7 @@ Next
 emptyRow = True
 End Function
 Function createCommand(pString As String, pCon As ADODB.Connection) As Boolean
-On Error GoTo myError
+On Error GoTo myerror
 Dim FS1 As New ADODB.command
 FS1.CommandType = adCmdText
 Set FS1.ActiveConnection = pCon
@@ -742,12 +742,12 @@ FS1.CommandText = pString
 FS1.Execute
 Set FS1 = Nothing
 Exit Function
-err.Clear
+Err.Clear
 Set FS1 = Nothing
-myError:
+myerror:
 Set FS1 = Nothing
 
-err.Clear
+Err.Clear
 
 End Function
 Function RetDiscount(ByVal nValue1 As Double, nValue2 As Double) As Long
@@ -757,21 +757,21 @@ nValue1 = (Int(nValue1 / 1000)) * 100
 RetDiscount = nValue1 - nValue2
 End Function
 Function validPhoto(cPhoto) As Boolean
-On Error GoTo myError
+On Error GoTo myerror
 If Dir(cPhoto) = "" Or cPhoto = "" Then Exit Function
 myPhoto = LoadPicture(cPhoto)
 validPhoto = True
 Exit Function
-myError:
-err.Clear
+myerror:
+Err.Clear
 End Function
 Sub MyLoadPhoto(sModelNo As String, pimgX As ImgXCtrl)
-On Error GoTo myError
+On Error GoTo myerror
 pimgX.Images.Clear
 pimgX.Import.FromFile retFile(sModelNo)
 Exit Sub
-myError:
-err.Clear
+myerror:
+Err.Clear
 End Sub
 Function AddFlag(ByVal aString As Variant, ByVal cFlag As Variant, Optional ByVal cFlagValue As Variant, Optional bEdit As Boolean = False) As Variant
 If IsEmpty(aString) Then aString = Array()
@@ -966,19 +966,19 @@ End Function
 Public Function Ts(sb As ChilkatStringBuilder, Optional pReturn As String = " AND ") As String
 Ts = IIf(sb.length = 0, "", pReturn)
 End Function
-Sub SaveImageToDB(pPic As Picture, Rs As ADODB.Recordset, pColName As String)
+Sub SaveImageToDB(pPic As Picture, rs As ADODB.Recordset, pColName As String)
 Dim pb As PropertyBag
 Set pb = New PropertyBag
 pb.WriteProperty "MyImage", pPic
-Rs.Fields(pColName).AppendChunk pb.Contents
-Rs.Update
+rs.Fields(pColName).AppendChunk pb.Contents
+rs.Update
 Set pb = Nothing
 End Sub
-Function GetPictureFromRecordset(Rs As ADODB.Recordset, _
+Function GetPictureFromRecordset(rs As ADODB.Recordset, _
                                          pColName As String) As Picture
     Dim pb As PropertyBag
     Set pb = New PropertyBag
-    pb.Contents = Rs.Fields(pColName).GetChunk(Rs.Fields(pColName).ActualSize)
+    pb.Contents = rs.Fields(pColName).GetChunk(rs.Fields(pColName).ActualSize)
     Set GetPictureFromRecordset = pb.ReadProperty("MyImage")
     Set pb = Nothing
 End Function

@@ -953,7 +953,6 @@ tmsalesrepall_Click
 End Sub
 Private Sub MDIForm_Load()
 Dim TableAddress As New ADODB.Recordset
-'SetKbLayout Lang_EN
 If cUserName <> "Aymen Junior" Then
     If Not bSupermode Then LoadMenu
 Else
@@ -1090,7 +1089,6 @@ nCountBranch_fr = Val(GetDesca("SELECT MAX(CODE ) FROM BRANCH_FR ", con) & "")
 If Not lServerOnLine Then
     'checkCopy
 End If
-
 Set obj = New ChilkatGlobal
 success = obj.UnlockBundle("MABFTH.CB4082022_DqFFZRYK0Rmf")
 
@@ -1099,13 +1097,13 @@ If cBranch <> "00" And (Not bopt2) And (Not lShowBranch) And cBranchStore <> "" 
         sales_onlinefrm.bEdit = True
         sales_onlinefrm.Show
     Else
-        'salesfrm.Show
         sales_abdfrm.Show
     End If
 End If
 If retFlag(aBranch, "code") = 1 Then Me.BackColor = RGB(226, 218, 209)
 Err.Clear
 closeCon con
+
 End Sub
 Private Sub LoadMenu()
 Dim cConStr As String
@@ -1378,7 +1376,7 @@ online_collect_newfrm.Show
 End Sub
 
 Private Sub tm_online_stage_Click()
-online_stagefrm.Show
+online_stage_dash.Show
 End Sub
 Private Sub tm_printers_Click()
 printersfrm.Show 1
@@ -2065,7 +2063,8 @@ End Sub
 
 Private Sub tmonline_order_Click()
 'OrderOnline_New.Show
-OrderOnline_abd.Show
+'OrderOnline_abd.Show
+Online_Stage_main.Show
 End Sub
 Private Sub tmopensal_Click()
 VsShip_Pay.Show
@@ -2260,7 +2259,7 @@ Private Sub tmrebranch_Click()
     strConfact2 = LoadConStringfact2
     GetCon.Close
     openCon GetCon, strCon
-    Password.Show
+    PassWord.Show
 End Sub
 
 Private Sub tmRecevdOrder_Click()
@@ -3101,7 +3100,7 @@ Sub Show_NewDoc()
     Set grid1.DataSource = data1
     data1.ConnectionString = strCon
     grid1.Rows = 1
-    fixGrd
+    Fixgrd
     myload
     
 End Sub
@@ -3110,9 +3109,9 @@ Private Sub myload()
     cString = " SELECT     flag, desca, DOC_NO, DATE, [name], QUANT, USERSEND, TIMESEND FROM         Q_DATA_SEND "
     data1.RecordSource = cString
     data1.Refresh
-    fixGrd
+    Fixgrd
 End Sub
-Sub fixGrd()
+Sub Fixgrd()
     With grid1
     .ExplorerBar = flexExSortShow
     .FixedRows = 1
