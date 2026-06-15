@@ -63,7 +63,7 @@ oSearch.nMax_records = 1000
 oSearch.Caption = "≈” ⁄·«„ «·«ﬁ”«„"
 oSearch.Show 1
 End Sub
-Sub OnlineTypeLookup(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "")
+Sub OnlineTypeLookup(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "", Optional sControl As String = "")
 Dim Generalarray(5)
 Dim listarray(0, 5)
 Dim GrdArray(1, 1)
@@ -74,7 +74,6 @@ Set Generalarray(0) = oForm
 cString = "SELECT CODE," & _
           " desca" & _
           " FROM  ONLINE_TYPE_CODES"
-
 If cFilter <> "" Then cWhere = cWhere & Tr(cWhere) & cFilter
 If cWhere <> "" Then cString = cString & " WHERE " & cWhere
 
@@ -108,7 +107,7 @@ If sAddRow <> "" Then
     aRow = AddFlag(aRow, "col", 1)
 End If
 oSearch.aAddRow = aRow
-
+oSearch.sControl = sControl
 searchArray = Array(Generalarray, listarray, GrdArray)
 'oSearch.nMax_records = 1000
 oSearch.Caption = "≈” ⁄·«„ «·«‰Ê«⁄"
@@ -179,6 +178,14 @@ If Not loctable.EOF Then
     fnDateSales = myFormat(loctable!dSales)
 End If
 loctable.Close
+End Function
+Public Function rsDateBranch(Optional pBranch As String) As String
+If pBranch = "00" Then
+    rsDateSales = myFormat(Date)
+Else
+    rsDateBranch = rsValue("SELECT dSales FROM DSALES" & _
+                " WHERE BRANCH = " & MyParn(pBranch)) & ""
+End If
 End Function
 Public Function fnBalance(pItem As String, con As ADODB.Connection, Optional pstore As String = "", Optional pDate As String = "", Optional pId As String = "") As Long
 Dim cmBalance As New ADODB.command

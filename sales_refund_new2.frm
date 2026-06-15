@@ -971,9 +971,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public sDoc_no As String
 Dim loctable As New ADODB.Recordset
-'Public sDoc_no_ret As String
 Public sOnline_doc As String
-Public sid_lading
+Public sFlag As String
 Public myForm As Form
 Dim bStopCell As Boolean
 Dim con As New ADODB.Connection
@@ -1007,14 +1006,14 @@ End Sub
 Private Sub Form_Load()
 openCon con
 
-Set grid1.DataSource = data1
+Set grid1.DataSource = DATA1
 Set grid2.DataSource = data2
 
 myLoadInv
 
 myloadgrd2
 
-fixGrd
+Fixgrd
 CalcTotals
 
 CellPos 13, 0, grid1.Cols - 1
@@ -1056,25 +1055,25 @@ cString = cString & _
           
 Set loctable = cmd(cString, con).Execute
 If Not loctable.EOF Then
-    xDoc_no.Caption = sDoc_no
+    xdoc_no.Caption = sDoc_no
     XBRANCH.Caption = loctable!branch & ""
-    If IsValidMobile(loctable!Phone & "") Then
-        xPhone.Caption = loctable!Phone
+    If IsValidMobile(loctable!phone & "") Then
+        xphone.Caption = loctable!phone
     End If
     xDate.Caption = myFormat_p(loctable!Date)
         
-    xTotal_item.Caption = Myvalue(loctable!TOTAL_ITEM)
+    xtotal_item.Caption = Myvalue(loctable!TOTAL_ITEM)
     xDiscount_offer.Caption = Myvalue(loctable!discount_offer)
     xDiscount_offer_rate.Caption = Format(loctable!discount_offer_rate, "0%")
     xTotal_offer.Caption = loctable!TOTAL_ITEM - loctable!discount_offer
     xDiscount_add.Caption = Myvalue(loctable!discount_add)
     xDiscount_add_rate.Caption = Format(loctable!discount_add_Rate, "0%")
     xDiscount_add_rate.Tag = loctable!discount_add_Rate
-    xDiscount.Caption = Myvalue(loctable!discount)
+    xdiscount.Caption = Myvalue(loctable!discount)
     xdiscount_rate.Caption = Format(loctable!discount_Rate, "0%")
     xdiscount_rate.Tag = loctable!discount_Rate
     
-    xTotal.Caption = Myvalue(loctable!total)
+    xtotal.Caption = Myvalue(loctable!TOTAL)
 End If
 End Sub
 Private Sub myloadgrd2()
@@ -1231,15 +1230,15 @@ If grid1.Rows > 1 Then
     
     If grid1.ValueMatrix(grid1.Rows - 1, 8) = grid2.ValueMatrix(grid2.Rows - 1, 8) And grid1.ValueMatrix(grid1.Rows - 1, 10) = grid2.ValueMatrix(grid2.Rows - 1, 10) Then
         xQuant_Ret.Caption = grid1.ValueMatrix(grid1.Rows - 1, 8)
-        xtotal_item_ret.Caption = xTotal_item.Caption
+        xtotal_item_ret.Caption = xtotal_item.Caption
         xDiscount_offer_ret.Caption = xDiscount_offer.Caption
         xdiscount_offer_ret_Rate.Caption = xDiscount_offer_rate.Caption
         xtotal_offer_ret.Caption = xTotal_offer.Caption
         xdiscount_add_Ret.Caption = xDiscount_add.Caption
         xdiscount_add_ret_Rate.Caption = xDiscount_add_rate.Caption
-        xdiscount_ret.Caption = xDiscount.Caption
+        xdiscount_ret.Caption = xdiscount.Caption
         xdiscount_Ret_rate.Caption = xdiscount_rate.Caption
-        xtotal_Ret.Caption = xTotal.Caption
+        xtotal_Ret.Caption = xtotal.Caption
     Else
         For i = 1 To .Rows - 2
             If .ValueMatrix(i, 11) <> 0 Then
@@ -1295,7 +1294,7 @@ Else
 End If
 End With
 End Sub
-Sub fixGrd()
+Sub Fixgrd()
 With grid1
     .RowHeight(0) = 600
     
@@ -1440,7 +1439,7 @@ End Sub
 Private Sub myRemove(Row As Long)
 grid1.RemoveItem Row
 End Sub
-Private Function MYVALID() As Boolean
+Private Function myValid() As Boolean
 Dim i As Long
 Dim nFound As Long
 
@@ -1463,7 +1462,7 @@ For i = 1 To .Rows - 2
         If MsgBox("«·’‰› " & .TextMatrix(i, 1) & "  „ »ﬁÌ »ﬂ„Ì… " & .ValueMatrix(i, 14), vbOKCancel + vbDefaultButton2) <> vbOK Then Exit Function
     End If
 Next
-MYVALID = True
+myValid = True
 End With
 End Function
 Private Sub Grid2_dblClick()

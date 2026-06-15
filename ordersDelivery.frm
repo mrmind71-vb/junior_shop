@@ -1506,8 +1506,8 @@ Private Sub Form_Load()
     openCon con
     'If cBranch <> "00" Then openCon con_MyShop
     
-    Set grid1.DataSource = data1
-    Set grid2.DataSource = DATA2
+    Set grid1.DataSource = DATA1
+    Set grid2.DataSource = data2
     
     Frame2.Visible = (cBranch = "00")
     Check1.Visible = (cBranch = "00")
@@ -1539,7 +1539,7 @@ Private Sub Form_Load()
     'CMD_SEND.Visible = (cBranch <> "00") And lIsBoxOnline And cManBox <> "" And Not lSupperVisor
     CMD_SEND.Enabled = (cBranch <> "00") And lIsBoxOnline And cManBox <> "" And Not lSupperVisor
     'If cBranch <> "00" Then grid2.Width = grid2.Width - 3000
-    fixGrd
+    Fixgrd
     XBRANCH.Caption = GetDesca("SELECT DESCA FROM BRANCH WHERE CODE = " & MyParn(cBranch), con)
     CLIST = StrListA("SELECT CODE , DESCA FROM FILE0_40 WHERE ONLINE = 1 ORDER BY CODE ", con)
     LoadText Me
@@ -1584,7 +1584,7 @@ With grid1
               " NOTES,DelOrder_Date,DelOrder_Date2,Note_main,Note_branch," & _
               " FILE6_25.DESCA,FILE6_90H.MAN" & _
               " FROM FILE6_90H LEFT JOIN FILE6_25 ON FILE6_90H.MAN = FILE6_25.CODE"
-    If xDoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xDoc_no.text)
+    If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xdoc_no.text)
     If xphone.text <> "" Then cWhere = cWhere & Tr(cWhere) & " [phone] = " & MyParn(xphone.text)
     If xpay.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " [Payment_Method] = " & MyParn(xpay.text)
     If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " [STORE] = " & MyParn(xStore.BoundText)
@@ -1609,17 +1609,17 @@ With grid1
     cString = cString & " ORDER BY DOC_NO "
     
     
-    Set data1.Recordset = mycmd(cString, con)
+    Set DATA1.Recordset = mycmd(cString, con)
 
 End With
-fixGrd
+Fixgrd
 grid1.Cell(flexcpAlignment, 0, 0, grid1.Rows - 1, grid1.Cols - 1) = 7
 Exit Sub
 myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Sub fixGrd()
+Sub Fixgrd()
 With grid1
     .RowHeight(0) = 1000
     .WordWrap = True
@@ -1916,9 +1916,9 @@ Else
 End If
 Dim cString  As String, cStrStore As String
 With StoreTable
-    cStrStore = " , (SELECT SUM(BALITEM) FROM [BAL_ITEM_ORDERONLINE] WHERE [BAL_ITEM_ORDERONLINE].ITEM = FILE6_90.ITEM AND [BAL_ITEM_ORDERONLINE].STORE  = " & MyParn(StoreTable!code) & " ) AS 'Total All Order' "
+    cStrStore = " , (SELECT SUM(BALITEM) FROM [BAL_ITEM_ORDERONLINE] WHERE [BAL_ITEM_ORDERONLINE].ITEM = FILE6_90.ITEM AND [BAL_ITEM_ORDERONLINE].STORE  = " & MyParn(StoreTable!CODE) & " ) AS 'Total All Order' "
     Do While Not .EOF
-        cStrStore = cStrStore & " , (SELECT SUM([IN]-[OUT]) FROM FILE1_11 WHERE FILE1_11.ITEM = FILE6_90.ITEM AND FILE1_11.STORE  = " & MyParn(StoreTable!code) & " ) AS '" & StoreTable!DESCA & "'"
+        cStrStore = cStrStore & " , (SELECT SUM([IN]-[OUT]) FROM FILE1_11 WHERE FILE1_11.ITEM = FILE6_90.ITEM AND FILE1_11.STORE  = " & MyParn(StoreTable!CODE) & " ) AS '" & StoreTable!DESCA & "'"
         .MoveNext
     Loop
 End With
@@ -1930,7 +1930,7 @@ cBalNotShip = " ,(SELECT SUM(QUANT ) FROM Q_BAL_NOTSHIP WHERE Q_BAL_NOTSHIP.ITEM
 With grid1
 '                               0           1               2           3                                                                                   4               5               6            7                  8                   9           10          11
     cString = " SELECT    FILE6_90.ITEM, FILE6_90.SKU, FACT.DESCA , CASE WHEN FILE1_10.desca IS NULL THEN FILE6_90.ITEM_NAME ELSE FILE1_10.desca END , FILE1_10.COLOR, FILE1_10.SCAL, FILE6_90.QUANT, FILE6_90.PRICE, file6_90.ITEM_NAME, FILE6_90.ID " & cStrStore & cBalNotShip & " FROM            FILE6_90 LEFT  JOIN FILE1_10 ON FILE6_90.ITEM = FILE1_10.ITEM left  JOIN  FACT ON FILE1_10.code = FACT.CODE WHERE DOC_NO =  " & MyParn(pDoc_no)
-    Set DATA2.Recordset = myRecordSet(cString, con)
+    Set data2.Recordset = myRecordSet(cString, con)
 End With
 Fixgrd2
 grid2.Cell(flexcpAlignment, 0, 0, grid2.Rows - 1, grid2.Cols - 1) = 7
@@ -2259,8 +2259,8 @@ cString.Append "SELECT  FILE6_90H.DOC_NO," & _
                "LEFT JOIN FILE0_40 ON FILE0_40.CODE = FILE6_90H.STORE "
 cString.Append "WHERE  SALES_DOC IS NULL"
 
-If xDoc_no.text <> "" Then
-    cString.Append " AND [DOC_NO] = " & MyParn(xDoc_no.text)
+If xdoc_no.text <> "" Then
+    cString.Append " AND [DOC_NO] = " & MyParn(xdoc_no.text)
 End If
 
 If xpay.MatchedWithList Then
@@ -2324,7 +2324,7 @@ With SourchTable
         temptable!STR6 = !phone
         
         temptable!str14 = !Shipping_City
-        temptable!str15 = !STREET
+        temptable!str15 = !Street
         temptable!str16 = !Payment_Method
         If xMan.MatchedWithList Then
             temptable!STR20 = "«·„‰œÊ» : " & xMan.text
@@ -2369,10 +2369,10 @@ Private Sub XPHONE_LostFocus()
 myLostFocus xphone
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xDoc_no
+myGotFocus xdoc_no
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus xDoc_no
+myLostFocus xdoc_no
 End Sub
 Private Sub xDate2_GotFocus()
 myGotFocus xdate2
@@ -2571,12 +2571,12 @@ Do Until loctable.EOF
     aInsert = AddFlag(aInsert, "PRICE", loctable!price)
     aInsert = AddFlag(aInsert, "QUANT", loctable!Quant)
     aInsert = AddFlag(aInsert, "MODEL", addstring(loctable!MODEL))
-    If IsEmpty(myField("SELECT DOC_NO FROM " & cFile & " WHERE DOC_NO = " & MyParn(xDoc_no.text) & " AND ITEM = " & addvalue(loctable!Item), con)) Then
-        aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_no.text))
+    If IsEmpty(myField("SELECT DOC_NO FROM " & cFile & " WHERE DOC_NO = " & MyParn(xdoc_no.text) & " AND ITEM = " & addvalue(loctable!Item), con)) Then
+        aInsert = AddFlag(aInsert, "DOC_NO", addstring(xdoc_no.text))
         con.Execute addInsert(aInsert, cFile), nAffect
         nAffect = 1
     Else
-        con.Execute addUpdate(aInsert, cFile, "DOC_NO = " & MyParn(xDoc_no.text) & " AND ITEM = " & addvalue(loctable!Item)), nAffect
+        con.Execute addUpdate(aInsert, cFile, "DOC_NO = " & MyParn(xdoc_no.text) & " AND ITEM = " & addvalue(loctable!Item)), nAffect
     End If
     nAffectAll = nAffectAll + nAffect
     loctable.MoveNext

@@ -215,6 +215,7 @@ Begin VB.Form online_Stage_main
          Left            =   5175
          RightToLeft     =   -1  'True
          TabIndex        =   0
+         Text            =   "2026-05-01"
          Top             =   225
          Width           =   1410
       End
@@ -1049,7 +1050,7 @@ Begin VB.Form online_Stage_main
       Left            =   90
       TabIndex        =   17
       TabStop         =   0   'False
-      Top             =   1440
+      Top             =   1485
       Width           =   20220
       _cx             =   35666
       _cy             =   12885
@@ -1375,7 +1376,7 @@ Private Sub Form_Load()
         xMan.BoundColumn = "Code"
         closeCon con
     End If
-    fixGrd
+    Fixgrd
 End Sub
 Public Sub myload()
 Dim i As Double
@@ -1481,14 +1482,14 @@ cString = cString & _
     'On Error GoTo myerror
     Set grid1.DataSource = myRs(cString)
 End With
-fixGrd
+Fixgrd
 grid1.Cell(flexcpAlignment, 0, 0, grid1.Rows - 1, grid1.Cols - 1) = 7
 Exit Sub
 myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Sub fixGrd()
+Sub Fixgrd()
 With grid1
     .RowHeight(0) = 600
     .WordWrap = True
@@ -1751,13 +1752,13 @@ If cBranch <> "00" Then
     If Not IsNull(rsValue(cString)) Then
         orders_online_invoices.bEdit = True
         orders_online_invoices.sStore = grid1.TextMatrix(grid1.Row, 12)
-        orders_online_invoices.sOrder_no = grid1.TextMatrix(grid1.Row, 0)
+        orders_online_invoices.sOrder_No = grid1.TextMatrix(grid1.Row, 0)
         orders_online_invoices.Show 1
         Exit Sub
     End If
 Else
     orders_online_items.sDoc_no = grid1.TextMatrix(grid1.Row, 0)
-    orders_online_items.sStore = grid1.TextMatrix(grid1.Row, 12)
+    'orders_online_items.sStore = grid1.TextMatrix(grid1.Row, 12)
     orders_online_items.Show 1
 End If
 
@@ -1991,13 +1992,13 @@ With SourchTable
         i = i + 1
         prog1.Value = i
         temptable.AddNew
-        temptable!STR4 = !doc_no
+        temptable!STR4 = !DOC_NO
         temptable!Date1 = !Date
         temptable!STR7 = !Name
         temptable!STR6 = !phone
         
         temptable!str14 = !Shipping_City
-        temptable!str15 = !STREET
+        temptable!str15 = !Street
         temptable!str16 = !Payment_Method
         If xMan.MatchedWithList Then
             temptable!STR20 = "«·„‰œÊ» : " & xMan.text

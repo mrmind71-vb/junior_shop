@@ -725,7 +725,7 @@ Set rdTable = Nothing
 End Function
 
 Function validItem(pItem As String, pCon As ADODB.Connection) As Boolean
-On Error GoTo myerror
+On Error GoTo myError
 If Not ValidInt(pItem) Then Exit Function
 Dim rdTable As New ADODB.Recordset
 Dim cmdTable As New ADODB.command
@@ -738,7 +738,7 @@ Set rdTable = cmdTable.Execute
 validItem = cmdTable.Parameters(1).Value
 Set rdTable = Nothing
 Exit Function
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Function
@@ -1905,6 +1905,10 @@ End Sub
 Public Function retItemCode(pItem As String, con As ADODB.Connection) As String
 If Trim(pItem) = "" Then Exit Function
 retItemCode = myField("Select  [dbo].[fn_ret_item](" & MyParn(pItem) & ")", con) & ""
+End Function
+Public Function rsItemCode(pItem As String, Optional con As ADODB.Connection) As String
+If Trim(pItem) = "" Then Exit Function
+rsItemCode = rsValue("Select  [dbo].[fn_ret_item](" & MyParn(pItem) & ")", con) & ""
 End Function
 Public Function UpdateInvTotal(pDoc_no As String, con As ADODB.Connection) As Boolean
 con.Execute "UPDATE FILE6_20H " & _

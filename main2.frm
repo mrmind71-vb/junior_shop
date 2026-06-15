@@ -428,7 +428,10 @@ Begin VB.MDIForm main
          Caption         =   "ãÈíÚÇÊ Çæä áÇíä"
       End
       Begin VB.Menu tm_online_stage 
-         Caption         =   "ÓÍÈ ØáÈíÇÊ Çæä áÇíä"
+         Caption         =   "ÊÌåíÒ ØáÈíÇÊ ÇáÇæäáÇäí"
+      End
+      Begin VB.Menu tm_online_stage_manager 
+         Caption         =   "ãÊÇÈÚÉ ÇáØáÈíÇÊ ÇáãÌåÒÉ"
       End
       Begin VB.Menu tmonline_order 
          Caption         =   "ØáÈíÇÊ Çæä áÇíä"
@@ -1378,6 +1381,11 @@ End Sub
 Private Sub tm_online_stage_Click()
 online_stage_dash.Show
 End Sub
+
+Private Sub tm_online_stage_manager_Click()
+online_stage_manager.Show
+End Sub
+
 Private Sub tm_printers_Click()
 printersfrm.Show 1
 End Sub

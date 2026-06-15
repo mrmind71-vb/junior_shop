@@ -640,7 +640,7 @@ Private Sub cmdExel_Click()
 ToFileExelNew grid1, , , aXl, , 1
 End Sub
 
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
 Unload Me
 End Sub
 Private Sub cmdPrint_Click()
@@ -695,17 +695,17 @@ If openCn(con) Then
               " MAN = " & addstring(sManCode) & _
               " MAN" & Index & " = " & addstring(sManCode) & _
               " WHERE DOC_NO = " & MyParn(sDoc_no)
-    On Error GoTo myerror
+    On Error GoTo myError
     con.BeginTrans
     con.Execute cString, nRecords
     If Index = 4 Or (Index = 3 And xStage.Tag = "4") Or Index = 5 Or Index = 6 Then
         Dim aInsert As Variant
-        aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_no.Caption))
+        aInsert = AddFlag(aInsert, "DOC_NO", addstring(xdoc_no.Caption))
         aInsert = AddFlag(aInsert, "STAGE", (Index))
         aInsert = AddFlag(aInsert, "DESCA", addstring(sMsg))
         aInsert = AddFlag(aInsert, "TIME", addstring(Format(Now, "YYYY-MM-DD HH:NN")))
         aInsert = AddFlag(aInsert, "MAN", addstring(sManCode))
-        con.Execute addInsert(aInsert, "FILE6_90H_ER")
+        con.Execute addInsert(aInsert, "FILE6_90_ER")
     End If
     con.CommitTrans
     If Index = 2 Then
@@ -724,7 +724,7 @@ updateStage = True
 Finally:
 closeCon con
 Exit Function
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 Resume Finally
@@ -741,7 +741,7 @@ cString = "SELECT FILE6_90H.MAN," & _
           " LEFT JOIN  MAN_ONLINE_CODES ON FILE6_90H.MAN_STAGE = MAN_ONLINE_CODES.CODE" & _
           " WHERE FILE6_90H.DOC_NO = " & MyParn(sDoc_no)
 
-On Error GoTo myerror
+On Error GoTo myError
 Dim loctable As New ADODB.Recordset
 Set loctable = myRs(cString)
                     
@@ -761,7 +761,7 @@ cmdStage(6).Visible = loctable!Stage = 4
 myload
 myloadGrdError
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -901,17 +901,17 @@ cString = " SELECT FILE6_90.ITEM," & _
 cString = cString & " ORDER BY DATE"
 
 Dim con As New ADODB.Connection
-On Error GoTo myerror
+On Error GoTo myError
 Set grid1.DataSource = myRs(cString)
 If grid1.Rows > 1 Then
-    xDoc_no.Caption = sDoc_no
-    xdate.Caption = myFormat_p(grid1.TextMatrix(1, 10))
-    aHeader(0) = "—ﬁ„ «·ÿ·»Ì… : " & xDoc_no.Caption
-    aHeader(1) = "«· «—ÌŒ : " & xdate.Caption
+    xdoc_no.Caption = sDoc_no
+    xDate.Caption = myFormat_p(grid1.TextMatrix(1, 10))
+    aHeader(0) = "—ﬁ„ «·ÿ·»Ì… : " & xdoc_no.Caption
+    aHeader(1) = "«· «—ÌŒ : " & xDate.Caption
 End If
 Fixgrd
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -931,7 +931,7 @@ If IsNull(rsValue("select order_no from vw_online_orders_open where order_no = "
 End If
 
 Dim cString As String
-cString = " SELECT FILE6_90H_ER.DOC_NO," & _
+cString = " SELECT FILE6_90_ER.DOC_NO," & _
           " FILE1_10.MODELFACT012," & _
           " FACT.DESCA," & _
           " COALESCE(FILE1_10.desca,FILE6_90.ITEM_NAME)," & _
@@ -958,16 +958,16 @@ If openCn(con) Then
 End If
 
 If grid1.Rows > 1 Then
-    xDoc_no.Caption = sDoc_no
-    xdate.Caption = myFormat_p(grid1.TextMatrix(1, 10))
-    aHeader(0) = "—ﬁ„ «·ÿ·»Ì… : " & xDoc_no.Caption
-    aHeader(1) = "«· «—ÌŒ : " & xdate.Caption
+    xdoc_no.Caption = sDoc_no
+    xDate.Caption = myFormat_p(grid1.TextMatrix(1, 10))
+    aHeader(0) = "—ﬁ„ «·ÿ·»Ì… : " & xdoc_no.Caption
+    aHeader(1) = "«· «—ÌŒ : " & xDate.Caption
 End If
 Fixgrd
 Finally:
 closeCon con
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -975,16 +975,16 @@ Private Sub myloadGrdError()
 Dim strSql As String
 strSql = "SELECT STAGES_CODES.DESCA AS [«·„—Õ·…], " & _
          " MAN_ONLINE_CODES.DESCA AS [«·„‰œÊ»], " & _
-         " FILE6_90H_ER.DESCA AS [«·»Ì«‰], " & _
-         " FORMAT(FILE6_90H_ER.TIME, 'yyyy/M/d HH:mm') AS [«·Êﬁ ]" & _
+         " FILE6_90_ER.DESCA AS [«·»Ì«‰], " & _
+         " FORMAT(FILE6_90_ER.TIME, 'yyyy/M/d HH:mm') AS [«·Êﬁ ]" & _
          " FROM STAGES_CODES " & _
-         "    INNER JOIN FILE6_90H_ER " & _
-         "        ON STAGES_CODES.CODE = FILE6_90H_ER.STAGE " & _
+         "    INNER JOIN FILE6_90_ER " & _
+         "        ON STAGES_CODES.CODE = FILE6_90_ER.STAGE " & _
          "    INNER JOIN MAN_ONLINE_CODES " & _
-         "        ON FILE6_90H_ER.MAN = MAN_ONLINE_CODES.CODE" & _
-         " WHERE FILE6_90H_ER.DOC_NO = " & MyParn(xDoc_no.Caption)
+         "        ON FILE6_90_ER.MAN = MAN_ONLINE_CODES.CODE" & _
+         " WHERE FILE6_90_ER.DOC_NO = " & MyParn(xdoc_no.Caption)
 
-On Error GoTo myerror
+On Error GoTo myError
 
 With grdError
 Set .DataSource = myRs(strSql)
@@ -1000,7 +1000,7 @@ Next
 End With
 
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
