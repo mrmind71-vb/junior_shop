@@ -974,6 +974,7 @@ Dim loctable As New ADODB.Recordset
 Public sOnline_doc As String
 Public sFlag As String
 Public myForm As Form
+Public bOnline As Boolean
 Dim bStopCell As Boolean
 Dim con As New ADODB.Connection
 Dim conServer As New ADODB.Connection
@@ -1006,7 +1007,7 @@ End Sub
 Private Sub Form_Load()
 openCon con
 
-Set grid1.DataSource = DATA1
+Set grid1.DataSource = data1
 Set grid2.DataSource = data2
 
 myLoadInv
@@ -1034,6 +1035,7 @@ cString = "SELECT FILE6_20H.DATE," & _
           " FROM FILE6_20H " & _
           " INNER JOIN FILE0_40 ON FILE6_20H.STORE = FILE0_40.CODE" & _
           " WHERE FILE6_20H.DOC_NO = " & MyParn(sDoc_no)
+If Not bOnline Then
 
 cString = cString & _
           " UNION ALL " & _
@@ -1051,25 +1053,25 @@ cString = cString & _
           " FROM FR6_20H " & _
           " INNER JOIN BRANCH_FR ON FR6_20H.STORE = BRANCH_FR.CODE" & _
           " WHERE FR6_20H.DOC_NO = " & MyParn(sDoc_no)
-
+End If
           
 Set loctable = cmd(cString, con).Execute
 If Not loctable.EOF Then
     xdoc_no.Caption = sDoc_no
-    XBRANCH.Caption = loctable!branch & ""
+    xBranch.Caption = loctable!branch & ""
     If IsValidMobile(loctable!phone & "") Then
-        xphone.Caption = loctable!phone
+        xPhone.Caption = loctable!phone
     End If
-    xDate.Caption = myFormat_p(loctable!Date)
+    xdate.Caption = myFormat_p(loctable!Date)
         
-    xtotal_item.Caption = Myvalue(loctable!TOTAL_ITEM)
-    xDiscount_offer.Caption = Myvalue(loctable!discount_offer)
-    xDiscount_offer_rate.Caption = Format(loctable!discount_offer_rate, "0%")
-    xTotal_offer.Caption = loctable!TOTAL_ITEM - loctable!discount_offer
+    xTotal_item.Caption = Myvalue(loctable!TOTAL_ITEM)
+    xDiscount_offer.Caption = Myvalue(loctable!DISCOUNT_OFFER)
+    xDiscount_offer_Rate.Caption = Format(loctable!discount_offer_rate, "0%")
+    xTotal_offer.Caption = loctable!TOTAL_ITEM - loctable!DISCOUNT_OFFER
     xDiscount_add.Caption = Myvalue(loctable!discount_add)
-    xDiscount_add_rate.Caption = Format(loctable!discount_add_Rate, "0%")
-    xDiscount_add_rate.Tag = loctable!discount_add_Rate
-    xdiscount.Caption = Myvalue(loctable!discount)
+    xdiscount_Add_rate.Caption = Format(loctable!discount_add_Rate, "0%")
+    xdiscount_Add_rate.Tag = loctable!discount_add_Rate
+    xDiscount.Caption = Myvalue(loctable!DISCOUNT)
     xdiscount_rate.Caption = Format(loctable!discount_Rate, "0%")
     xdiscount_rate.Tag = loctable!discount_Rate
     
@@ -1079,7 +1081,11 @@ End Sub
 Private Sub myloadgrd2()
 Dim aPrm As Variant
 aPrm = AddFlag(aPrm, "DOC_NO", sDoc_no)
-Set data2.Recordset = mycmd("dbo.sp_SALES_REFUND", con, adStoredProc, aPrm)
+If Not bOnline Then
+    Set data2.Recordset = mycmd("dbo.sp_SALES_REFUND", con, adStoredProc, aPrm)
+Else
+    Set data2.Recordset = mycmd("dbo.sp_SALES_REFUND_ONLINE", con, adStoredProc, aPrm)
+End If
 Fixgrd2
 End Sub
 Sub Fixgrd2()
@@ -1230,13 +1236,13 @@ If grid1.Rows > 1 Then
     
     If grid1.ValueMatrix(grid1.Rows - 1, 8) = grid2.ValueMatrix(grid2.Rows - 1, 8) And grid1.ValueMatrix(grid1.Rows - 1, 10) = grid2.ValueMatrix(grid2.Rows - 1, 10) Then
         xQuant_Ret.Caption = grid1.ValueMatrix(grid1.Rows - 1, 8)
-        xtotal_item_ret.Caption = xtotal_item.Caption
+        xtotal_item_ret.Caption = xTotal_item.Caption
         xDiscount_offer_ret.Caption = xDiscount_offer.Caption
-        xdiscount_offer_ret_Rate.Caption = xDiscount_offer_rate.Caption
+        xdiscount_offer_ret_Rate.Caption = xDiscount_offer_Rate.Caption
         xtotal_offer_ret.Caption = xTotal_offer.Caption
         xdiscount_add_Ret.Caption = xDiscount_add.Caption
-        xdiscount_add_ret_Rate.Caption = xDiscount_add_rate.Caption
-        xdiscount_ret.Caption = xdiscount.Caption
+        xdiscount_add_ret_Rate.Caption = xdiscount_Add_rate.Caption
+        xdiscount_ret.Caption = xDiscount.Caption
         xdiscount_Ret_rate.Caption = xdiscount_rate.Caption
         xtotal_Ret.Caption = xtotal.Caption
     Else
@@ -1261,7 +1267,7 @@ If grid1.Rows > 1 Then
         
         
         xtotal_offer_ret.Caption = grid1.ValueMatrix(grid1.Rows - 1, 10) - nDiscountOffer
-        xdiscount_add_Ret.Caption = mRound(Val(xDiscount_add_rate.Tag) * Val(xtotal_offer_ret.Caption))
+        xdiscount_add_Ret.Caption = mRound(Val(xdiscount_Add_rate.Tag) * Val(xtotal_offer_ret.Caption))
         If Val(xtotal_offer_ret.Caption) <> 0 Then
             xdiscount_add_ret_Rate.Caption = Format(xdiscount_add_Ret.Caption / Val(xtotal_offer_ret.Caption), "0%")
         Else

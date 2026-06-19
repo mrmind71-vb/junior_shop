@@ -1,6 +1,7 @@
 VERSION 5.00
 Object = "{D76D7128-4A96-11D3-BD95-D296DC2DD072}#1.0#0"; "Vsflex7.ocx"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
+Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
 Begin VB.Form online_stage_invoice_trans 
    BackColor       =   &H00FFFFFF&
@@ -29,14 +30,14 @@ Begin VB.Form online_stage_invoice_trans
       BackColor       =   &H80000005&
       ForeColor       =   &H80000008&
       Height          =   825
-      Left            =   5535
+      Left            =   5175
       RightToLeft     =   -1  'True
       TabIndex        =   14
       Top             =   270
-      Width           =   4110
+      Width           =   4020
       Begin Threed.SSCommand cmdSend 
          Height          =   600
-         Left            =   1485
+         Left            =   1395
          TabIndex        =   15
          Top             =   180
          Width           =   2580
@@ -68,8 +69,8 @@ Begin VB.Form online_stage_invoice_trans
          TabIndex        =   16
          TabStop         =   0   'False
          Top             =   180
-         Width           =   1410
-         _ExtentX        =   2487
+         Width           =   1320
+         _ExtentX        =   2328
          _ExtentY        =   1058
          _Version        =   196610
          ForeColor       =   0
@@ -97,52 +98,64 @@ Begin VB.Form online_stage_invoice_trans
       BackColor       =   &H80000005&
       ForeColor       =   &H80000008&
       Height          =   1050
-      Left            =   9675
+      Left            =   9225
       RightToLeft     =   -1  'True
       TabIndex        =   13
       Top             =   45
-      Width           =   3255
-      Begin VB.TextBox xdate1 
-         Alignment       =   1  'Right Justify
-         Appearance      =   0  'Flat
-         BackColor       =   &H00FFFFFF&
-         Height          =   330
-         Left            =   90
-         RightToLeft     =   -1  'True
-         TabIndex        =   20
-         Top             =   585
-         Width           =   1680
-      End
+      Width           =   3705
       Begin VB.TextBox xShip_no 
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
          BackColor       =   &H00FFFFFF&
          Height          =   330
-         Left            =   90
+         Left            =   135
          RightToLeft     =   -1  'True
          TabIndex        =   18
          Top             =   225
-         Width           =   1680
+         Width           =   2040
       End
-      Begin VB.Label Label4 
-         BackColor       =   &H00FFFFFF&
-         Caption         =   "«· «—ÌŒ"
-         Height          =   330
-         Left            =   1890
-         RightToLeft     =   -1  'True
+      Begin MSDataListLib.DataCombo xship 
+         Height          =   360
+         Left            =   135
          TabIndex        =   19
+         Top             =   585
+         Width           =   2040
+         _ExtentX        =   3598
+         _ExtentY        =   635
+         _Version        =   393216
+         Appearance      =   0
+         Text            =   ""
+         RightToLeft     =   -1  'True
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   9.75
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+      End
+      Begin VB.Label Label34 
+         AutoSize        =   -1  'True
+         BackColor       =   &H00FFFFFF&
+         Caption         =   "‘—ﬂ… «·‘Õ‰"
+         Height          =   270
+         Left            =   2295
+         RightToLeft     =   -1  'True
+         TabIndex        =   20
          Top             =   630
-         Width           =   780
+         Width           =   945
       End
       Begin VB.Label Label5 
          Alignment       =   1  'Right Justify
          BackColor       =   &H00FFFFFF&
          Caption         =   "»Ê·Ì’… «·‘Õ‰"
          Height          =   330
-         Left            =   1845
+         Left            =   2250
          RightToLeft     =   -1  'True
          TabIndex        =   17
-         Top             =   270
+         Top             =   225
          Width           =   1140
       End
    End
@@ -266,13 +279,13 @@ Begin VB.Form online_stage_invoice_trans
       Width           =   20370
    End
    Begin VSFlex7Ctl.VSFlexGrid grid1 
-      Height          =   4110
+      Height          =   4155
       Left            =   4320
       TabIndex        =   0
-      Top             =   1170
+      Top             =   1125
       Width           =   15945
       _cx             =   28125
-      _cy             =   7250
+      _cy             =   7329
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -653,12 +666,6 @@ Public sOrder_No As String
 Public sDoc_no As String
 Public myForm As Form
 Dim bStopCell As Boolean
-Dim con As New ADODB.Connection
-Dim conServer As New ADODB.Connection
-
-Private Sub CMD_SEND_Click()
-End Sub
-
 Private Sub cmdExit_Click()
 Unload Me
 End Sub
@@ -673,8 +680,30 @@ MsgBox " „ «· —ÃÌ· «·Ì „” ‰œ „»Ì⁄«  —ﬁ„ " & sNewDoc
 myForm.myload
 Unload Me
 End Sub
+Private Sub cmdsend_Click()
+If myValid Then
+    Me.MousePointer = vbHourglass
+    If xtype.Tag = "0" Or xtype.Tag = "1" Then
+        Dim sDoc_New As String
+        sDoc_New = myReplaceOnline1
+        
+        'myForm.myProcTrans "1"
+        Inform_OK " „ «· ÕÊÌ· «·Ì «·›« Ê—… —ﬁ„ " & sDoc_New
 
+        If sDoc_New <> "" Then
+            sales_onlinefrm.bEdit = True
+            sales_onlinefrm.sDoc_no = sDoc_New
+            sales_onlinefrm.Show 1
+            Unload Me
+        End If
+    End If
+    Me.MousePointer = vbNormal
+End If
+End Sub
 Private Sub Form_Load()
+Set xship.RowSource = myRs("SELECT CODE,DESCA FROM SHIP ORDER BY  STOPED,DESCA")
+xship.ListField = "DESCA"
+xship.BoundColumn = "CODE"
 
 Fixgrd
 fixGrdTotal
@@ -696,12 +725,8 @@ cString = "SELECT v.ITEM," & _
           "FILE1_10.COLOR," & _
           "FILE1_10.SCAL," & _
           "SUM(v.QUANT), " & _
-          "MAX(v.PRICE)," & _
-          "CAST(NULL AS VARCHAR(10))," & _
-          "file1_10.price," & _
-          "file1_10.costitem, " & _
           " 0 as QUANT_SELECTED," & _
-          " SUM(v.QUANT) as differ " & _
+          " SUM(v.QUANT) as differ" & _
           " From vw_online_items v" & _
           " INNER JOIN FILE1_10 ON v.ITEM = FILE1_10.ITEM " & _
           " INNER JOIN FACT ON FILE1_10.code = FACT.CODE " & _
@@ -713,9 +738,7 @@ cString = cString & _
             "FACT.DESCA," & _
             "FILE1_10.DESCA," & _
             "FILE1_10.COLOR," & _
-            "FILE1_10.SCAL," & _
-            "FILE1_10.PRICE," & _
-            "FILE1_10.COSTITEM"
+            "FILE1_10.SCAL"
 
 On Error GoTo myerror
 
@@ -739,20 +762,11 @@ With grid2
     .TextMatrix(0, 4) = "«··Ê‰"
     .TextMatrix(0, 5) = "„ﬁ«”"
     .TextMatrix(0, 6) = "«·ﬂ„Ì…"
-    .TextMatrix(0, 7) = "price"
-    .TextMatrix(0, 8) = "item name"
-    .TextMatrix(0, 9) = "Price_item"
-    .TextMatrix(0, 10) = "cost"
     .TextMatrix(0, .Cols - 2) = "ﬂ„Ì… „Œ «—…"
     .TextMatrix(0, .Cols - 1) = "«·›—ﬁ"
     
     .ColHidden(1) = True
-    .ColHidden(7) = True
-    .ColHidden(8) = True
-    .ColHidden(9) = True
-    .ColHidden(10) = True
-    
-    
+        
     
     .ColWidth(0) = 1500
     .ColWidth(1) = 2000
@@ -762,7 +776,6 @@ With grid2
     .ColWidth(5) = 1000
     .ColWidth(6) = 1000
     
-    .ColWidth(7) = 2000
     .ColWidth(grid2.Cols - 1) = 1000
     
     
@@ -850,7 +863,7 @@ Next
 End With
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
-Set OnlineCheck = Nothing
+Set online_stage_invoice_trans = Nothing
 End Sub
 
 Private Sub Grid1_AfterEdit(ByVal Row As Long, ByVal col As Long)
@@ -1035,6 +1048,8 @@ strSql = "SELECT v.ORDER_NO," & _
           " NULLIF(v.DOC_NO,0) AS DOC_NO," & _
           " v.STAGE," & _
           " v.DATE," & _
+          " v.SHIP," & _
+          " v.SHIP_NO," & _
           " v.[TYPE]," & _
           " v.type_desca," & _
           " STAGES_CODES.DESCA AS STAGE_DESCA," & _
@@ -1046,17 +1061,16 @@ strSql = "SELECT v.ORDER_NO," & _
           " AND v.doc_no = " & Val(sDoc_no)
 
 On Error GoTo myerror
-
 Set loctable = myRs(strSql)
 If Not loctable.EOF Then
     xorder_no.Caption = loctable!ORDER_NO & ""
     xdoc_no.Caption = loctable!DOC_NO & ""
-    xDate.Caption = myFormat_p(loctable!Date)
+    xdate.Caption = myFormat_p(loctable!Date)
     xtype.Caption = loctable!TYPE_dESCA
     xtype.Tag = loctable!Type
-    xDate.Caption = myFormat_p(loctable!Date)
-    xdate1.text = myFormat_p(rsDateBranch(sBranchOnline))
-    
+    xdate.Caption = myFormat_p(loctable!Date)
+    xShip_no.text = loctable!ship_no & ""
+    xship.BoundText = loctable!SHIP & ""
     If loctable!Type = 0 Or loctable!Type = 1 Then
         cmdSend.Caption = " ÕÊÌ· «·Ì „»Ì⁄« "
     ElseIf loctable!Type = 2 Then
@@ -1078,55 +1092,71 @@ MsgBox Err.Description
 Err.Clear
 Resume Finally
 End Sub
-Private Function myReplaceOnline() As String
+Private Function myReplaceOnline1() As String
     Dim sDoc_New As String
     Dim sDate As String
     Dim cAddress As String
+    Dim sMan As String
     
     Dim cString As New ChilkatStringBuilder
                                   
     cString.Clear
-    cString.Append " SELECT V.ORDER_NO," & _
+    cString.Append "SELECT V.ORDER_NO," & _
               " V.DOC_NO," & _
               " V.DATE," & _
               " V.SHIP_NO," & _
+              " V.SHIP," & _
               " V.SALES_RET," & _
               " V.MAN," & _
               " V.TYPE," & _
               " V.DISCOUNT," & _
               " FILE6_90H.NAME," & _
               " FILE6_90H.PHONE," & _
-              " FILE6_90H.Shipping_City," & _
+              " FILE6_90H.SHIPPING_CITY," & _
               " FILE6_90H.CITY," & _
               " FILE6_90H.STREET, " & _
               " FILE6_90H.SHIPPING, " & _
               " FILE6_90H.Payment_Method," & _
+              " FILE6_90H.DISCOUNT_CODE," & _
               " FILE6_90H.PAYMENT_ID" & _
               " FROM FILE6_90H " & _
-              " INNER JOIN vw_online_doc ON v.ORDER_NO =  FILE6_90H.DOC_NO " & _
+              " INNER JOIN vw_online_order v ON v.ORDER_NO =  FILE6_90H.DOC_NO " & _
               " WHERE v.ORDER_NO = " & MyParn(sOrder_No) & _
-              " DOC_NO = " & sDoc_no
+              " AND v.DOC_NO = " & sDoc_no
+              
+    On Error GoTo myerror
     
-           
+    Dim con As New ADODB.Connection
+    If Not openCn(con) Then Exit Function
+    
     Dim loctable As New ADODB.Recordset
-    Set loctable = myRs(cString.GetAsString, conServer)
+    Set loctable = myRs(cString.GetAsString, con)
     
     If loctable.EOF And loctable.BOF Then
         MsgBox "«·„” ‰œ €Ì— „”Ã·"
         Exit Function
     End If
         
-            
-    aInsert = AddFlag(Empty, "CODE", addstring("0000"))
+    sDate = rsDateBranch(sBranchOnline, con)
+    sDoc_New = NewflagDocRs(sDate, cManBox, con)
+    
+    sMan = loctable!MAN & ""
+ 
+    aInsert = AddFlag(Empty, "[doc_no]", addstring(sDoc_New))
+    aInsert = AddFlag(aInsert, "CODE", addstring("0000"))
     aInsert = AddFlag(aInsert, "[Date]", addDate(sDate))
     aInsert = AddFlag(aInsert, "STORE", addstring(sStoreOnline))
-    aInsert = AddFlag(aInsert, "DISCOUNT", Val(loctable!discount))
+    aInsert = AddFlag(aInsert, "BRANCH", addstring(sBranchOnline))
     aInsert = AddFlag(aInsert, "BOX", addstring(cManBox))
-    aInsert = AddFlag(aInsert, "userName", addstring(cUserName))
-    aInsert = AddFlag(aInsert, "branch", addstring(cBranch))
-    aInsert = AddFlag(aInsert, "MAN", addstring(sMan))
+    aInsert = AddFlag(aInsert, "DISCOUNT", Val(loctable!discount))
+    aInsert = AddFlag(aInsert, "USERNAME", addstring(cUserName))
+    aInsert = AddFlag(aInsert, "MAN", addstring(loctable!MAN))
     aInsert = AddFlag(aInsert, "PHONE", addstring(loctable!phone))
     aInsert = AddFlag(aInsert, "PAYMENT_ID", addstring(loctable!PAYMENT_ID))
+    
+    aInsert = AddFlag(aInsert, "INV_TYPE_ONLINE", loctable!Type)
+    aInsert = AddFlag(aInsert, "ONLINE_DOC", addstring(loctable!ORDER_NO))
+    aInsert = AddFlag(aInsert, "SALES_RET", addstring(loctable!SALES_RET))
     
     If Val(loctable!discount & "") <> 0 Then
         aInsert = AddFlag(aInsert, "username_disc", addstring("«Ê‰·«Ì‰"))
@@ -1142,7 +1172,6 @@ Private Function myReplaceOnline() As String
     aInsert = AddFlag(aInsert, "ADDRESS", addstring(cAddress))
     aInsert = AddFlag(aInsert, "[NAME]", addstring(loctable!Name))
     aInsert = AddFlag(aInsert, "[CHARGE2]", addstring(loctable!Shipping))
-    aInsert = AddFlag(aInsert, "[online_doc]", addstring(sOrder_No))
     
     If xtype.Tag <> "0" Then
         aInsert = AddFlag(aInsert, "[doc_no_online]", addvalue(sDoc_no))
@@ -1152,72 +1181,76 @@ Private Function myReplaceOnline() As String
     aInsert = AddFlag(aInsert, "[Shipping_City]", addstring(loctable!Shipping_City))
     aInsert = AddFlag(aInsert, "[street]", addstring(loctable!Street))
     aInsert = AddFlag(aInsert, "[Payment_Method]", addstring(loctable!Payment_Method))
-    
-    aInsert = AddFlag(aInsert, "[ship_no]", addstring(xShip_No.text))
-    aInsert = AddFlag(aInsert, "[ship]", addstring(xship.text))
-
-    sDoc_New = NewflagDoc(sDate, cManBox, con)
-    aInsert = AddFlag(aInsert, "[doc_no]", addstring(sDoc_New))
+    aInsert = AddFlag(aInsert, "[ship_no]", addstring(xShip_no.text))
+    aInsert = AddFlag(aInsert, "[ship]", addstring(xship.BoundText))
+    aInsert = AddFlag(aInsert, "[ISCLOSED]", "1")
     
     con.BeginTrans
     con.Execute addInsert(aInsert, "FILE6_20H")
     
     cString.Clear
+    
     cString.Append "insert into FILE6_20(" & _
                     "DOC_NO," & _
                     "ITEM," & _
                     "QUANT," & _
                     "PRICE," & _
-                    "[ROW]," & _
                     "[MAN]," & _
                     "[USER_IP]," & _
                     "[PRICE_C]," & _
-                    "[PRICE_C2]," & _
-                    "[DESCA2]," & _
                     "[COST]," & _
-                    "[SKU]" & _
+                    "[DOC_OFFER]," & _
+                    "[OFFER_NO]," & _
+                    "[DISCOUNT_OFFER]" & _
                     ")"
-    With grid2
     
-    cString.Append " VALUES "
-    For i = 1 To .Rows - 2
-        If .ValueMatrix(i, .Cols - 2) > 0 And .ValueMatrix(i, .Cols - 1) >= 0 Then
-            cString.Append "("
-            cString.Append addstring(sDoc_New) & ","
-            cString.Append addstring(.TextMatrix(i, 0)) & ","
-            cString.Append addstring(.TextMatrix(i, .Cols - 2)) & ","
-            cString.Append .ValueMatrix(i, 7) & ","
-            cString.Append i & ","
-            cString.Append addstring(sMan) & ","
-            cString.Append addstring(GetComputerNamecIpName) & ","
-            cString.Append .ValueMatrix(i, 9) & ","
-            cString.Append .ValueMatrix(i, 7) & ","
-            cString.Append addstring(.TextMatrix(i, 8)) & ","
-            cString.Append addstring(.TextMatrix(i, 10)) & ","
-            cString.Append addstring(.TextMatrix(i, 1)) & ")"
-            
-            cString.Append ","
-        End If
-    Next
-    cString.Shorten 1
-    End With
-    
+    cString.Append "SELECT " & _
+                    addstring(sDoc_New) & "," & _
+                    "v.ITEM," & _
+                    "v.QUANT," & _
+                    "v.PRICE," & _
+                    addstring(sMan) & "," & _
+                    addstring(GetComputerName) & "," & _
+                    "f.PRICE," & _
+                    "f.costitem," & _
+                    "v.[DOC_OFFER]," & _
+                    "v.[OFFER_NO]," & _
+                    "v.DISCOUNT_OFFER" & _
+                    " FROM vw_online_items v" & _
+                    " INNER JOIN FILE1_10 f ON v.ITEM = f.ITEM" & _
+                    " WHERE v.ORDER_NO = " & MyParn(sOrder_No) & _
+                    " and v.doc_no = " & sDoc_no
+
     con.Execute cString.GetAsString()
-    UpdateInvTotal sDoc_New, con
     
-    con.Execute " UPDATE FILE6_90H SET SALES_DOC = " & addstring(sDoc_New) & ", SALES_DATE = " & addDate(sDate) & " WHERE DOC_NO = " & MyParn(sDoc_no)
+    con.Execute " UPDATE FILE6_90H " & _
+                "  SET SALES_DOC = " & addstring(sDoc_New) & _
+                ", SALES_DATE = " & addDate(sDate) & _
+                " WHERE DOC_NO = " & MyParn(sOrder_No)
     con.CommitTrans
     
-    myReplaceOnline = sDoc_New
+    myReplaceOnline1 = sDoc_New
+Finally:
+closeCon con
 Exit Function
 myerror:
 MsgBox Err.Description
-con.RollbackTrans
+If TransCount(con) > 0 Then con.RollbackTrans
 Err.Clear
+Resume Finally
 End Function
 Private Function myValid() As Boolean
 Dim i As Long
 Dim nFound As Long
+If Trim(xShip_no.text) = "" Then
+    MsgBox "—ﬁ„ »Ê·Ì’… «·‘Õ‰ €Ì— „”Ã·"
+    Exit Function
+End If
+
+If Not xship.MatchedWithList Then
+    MsgBox "‘—ﬂ… «·‘Õ‰ €Ì— „”Ã·…"
+    Exit Function
+End If
 
 If grid1.Rows < 3 Then
     MsgBox "·«  ÊÃœ «’‰«› „”Ã·…"
@@ -1238,12 +1271,15 @@ With grid2
 For i = 1 To .Rows - 2
     nFound = grid1.FindRow(.TextMatrix(i, 0), , 0)
     If nFound = -1 Then
-        If MsgBox("«·’‰› " & .TextMatrix(i, 0) & " ·„ Ì”Ã· ›Ï «·›« Ê—…", vbOKCancel + vbDefaultButton2) <> vbOK Then Exit Function
+        'If MsgBox("«·’‰› " & .TextMatrix(i, 0) & " ·„ Ì”Ã· ›Ï «·›« Ê—…", vbOKCancel + vbDefaultButton2) <> vbOK Then Exit Function
+        MsgBox "«·’‰› " & .TextMatrix(i, 0) & " ·„ Ì”Ã· ›Ï «·›« Ê—…"
+        Exit Function
     ElseIf .TextMatrix(i, grid2.Cols - 1) < 0 Then
         MsgBox "«·’‰› " & .TextMatrix(i, 0) & " «ﬂ»— „‰ «·›« Ê—… » " & Abs(.ValueMatrix(i, grid2.Cols - 1))
         Exit Function
     ElseIf .TextMatrix(i, grid2.Cols - 1) > 0 Then
-        If MsgBox("«·’‰› " & .TextMatrix(i, 0) & " «ﬁ· „‰ «·›« Ê—… » " & Abs(.ValueMatrix(i, grid2.Cols - 1)), vbOKCancel + vbDefaultButton2) <> vbOK Then Exit Function
+       MsgBox "«·’‰› " & .TextMatrix(i, 0) & " «ﬁ· „‰ «·›« Ê—… » " & Abs(.ValueMatrix(i, grid2.Cols - 1))
+       Exit Function
     End If
 Next
 myValid = True

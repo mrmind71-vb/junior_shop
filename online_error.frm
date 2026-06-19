@@ -3,13 +3,13 @@ Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
 Begin VB.Form online_error 
    BackColor       =   &H00FFFFFF&
    Caption         =   "„‘ﬂ·«  «·«Ê‰·«Ì‰"
-   ClientHeight    =   2670
+   ClientHeight    =   2325
    ClientLeft      =   60
    ClientTop       =   405
    ClientWidth     =   7860
    LinkTopic       =   "Form1"
    RightToLeft     =   -1  'True
-   ScaleHeight     =   2670
+   ScaleHeight     =   2325
    ScaleWidth      =   7860
    StartUpPosition =   3  'Windows Default
    Begin VB.Frame Frame1 

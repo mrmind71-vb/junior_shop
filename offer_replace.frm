@@ -958,7 +958,7 @@ Private Sub cmdExit_Click()
 Unload Me
 End Sub
 Private Sub cmdSave_Click()
-nDiscount_Add = Round((Val(xTotalInv.Caption) - Val(xDiscount.Caption)) * nDiscount_add_rate, 2)
+nDiscount_Add = Round((Val(xTotalInv.Caption) - Val(xdiscount.Caption)) * nDiscount_add_rate, 2)
 myForm.myProc
 myLoadGrdOffer
 grid1_EnterCell
@@ -971,15 +971,15 @@ Private Sub Form_Load()
 bEdit = True
 
 openCon con
-Set grdOffer.DataSource = data1
+Set grdOffer.DataSource = DATA1
 
-fixGrd
+Fixgrd
 Fixgrd2
 
 myLoadGrdOffer
 End Sub
 Private Sub myLoadGrdOffer()
-Set data1.Recordset = cmd("sp_OFFERS_REPLACE", con, adStoredProc, AddFlag(Empty, "DOC_NO", sDoc_Offer)).Execute
+Set DATA1.Recordset = cmd("sp_OFFERS_REPLACE", con, adStoredProc, AddFlag(Empty, "DOC_NO", sDoc_Offer)).Execute
 fixGrdOffer
 
 If grdOffer.Rows = 2 Then
@@ -1087,23 +1087,23 @@ If .ValueMatrix(Row, 2) = 0 Then
     xdoc_no.Caption = ""
     xQty1.Caption = ""
     xQty2.Caption = ""
-    xTotal.Caption = ""
-    xman.Caption = ""
+    xtotal.Caption = ""
+    xMan.Caption = ""
     nSelect = -1
 Else
     xdoc_no.Caption = .TextMatrix(Row, 0)
     xQty1.Caption = .TextMatrix(Row, 3)
     xQty2.Caption = .TextMatrix(Row, 4)
-    xTotal.Caption = Myvalue(.ValueMatrix(Row, 3) + .ValueMatrix(Row, 4))
+    xtotal.Caption = Myvalue(.ValueMatrix(Row, 3) + .ValueMatrix(Row, 4))
     nQuant_Ret = .ValueMatrix(Row, 5)
-    xman.Caption = .TextMatrix(Row, 6)
+    xMan.Caption = .TextMatrix(Row, 6)
     nSelect = Row
     grid1.AddItem ""
 End If
 
 CalcTotals
 
-cmdDel.Enabled = False
+cmddel.Enabled = False
 End With
 End Sub
 Private Sub GrdOffer_Click()
@@ -1305,7 +1305,7 @@ If KeyCode = 13 Then
     CellPos KeyCode, Row, col
 End If
 End Sub
-Private Sub fixGrd()
+Private Sub Fixgrd()
 'With grid1         0        1           2          3        4       5               6           7          8        9           10          11              12          13              14
 With grid1
 .FormatString = "ã.|" & "ÈÇÑßæÏ|" & "ãæÓã|" & "ãÕäÚ|" & "ãßÊÈ|" & "ÑÞã ãæÏíá|" & "ÇáÕäÝ|" & "ãÞÇÓ|" & "Çááæä|" & "ÓÚÑ ÈíÚ|" & "ÚÏÏ|" & "ÇáÅÌãÇáì|" & "äÓÈÉ ÇáÎÕã|" & "ÇáÊßáÝÉ|" & "ÓÚÑ ÇáãÓÊåáß"
@@ -1430,10 +1430,10 @@ xRest.Caption = ""
 xQtyOffer.Caption = ""
 
 grid2.Rows = 1
-xRate.Caption = ""
-xDiscount.Caption = ""
+xrate.Caption = ""
+xdiscount.Caption = ""
 
-cmdDel.Enabled = grid1.Rows > 2
+cmddel.Enabled = grid1.Rows > 2
 
 For i = 1 To grid1.Rows - 1
     nSales = nSales + grid1.ValueMatrix(i, 10)
@@ -1452,15 +1452,15 @@ If nSales > nQuant_Ret Then
     Exit Sub
 End If
     
-If Val(xSales.Caption) Mod Val(xTotal.Caption) = 0 Then
+If Val(xSales.Caption) Mod Val(xtotal.Caption) = 0 Then
     xRestOffer.Caption = 0
     xRest.Caption = 0
-    xQtyOffer.Caption = (nSales / Val(xTotal.Caption)) * Val(xQty2.Caption)
+    xQtyOffer.Caption = (nSales / Val(xtotal.Caption)) * Val(xQty2.Caption)
     bDone = True
 Else
     xRestOffer.Caption = Val(xQty1.Caption) - (nSales Mod Val(xQty1.Caption))
-    xRest.Caption = Val(xTotal.Caption) - Val(xSales.Caption) Mod Val(xTotal.Caption)
-    xQtyOffer.Caption = ((Val(xRest.Caption) + Val(xSales.Caption)) / Val(xTotal.Caption)) * Val(xQty2.Caption)
+    xRest.Caption = Val(xtotal.Caption) - Val(xSales.Caption) Mod Val(xtotal.Caption)
+    xQtyOffer.Caption = ((Val(xRest.Caption) + Val(xSales.Caption)) / Val(xtotal.Caption)) * Val(xQty2.Caption)
 End If
 
 If Val(xRestOffer.Caption) = 0 And Val(xRest.Caption) = 0 Then
@@ -1509,11 +1509,11 @@ For i = 1 To grid2.Rows - 1
     If nquant = 0 Then Exit For
 Next
 
-xDiscount.Caption = mRound(nDiscount, 2)
+xdiscount.Caption = mRound(nDiscount, 2)
 If Val(xTotalInv.Caption) <> 0 Then
-    xRate.Caption = mRound((Val(xDiscount.Caption) / Val(xTotalInv.Caption)) * 100, 2)
+    xrate.Caption = mRound((Val(xdiscount.Caption) / Val(xTotalInv.Caption)) * 100, 2)
 Else
-    xRate.Caption = ""
+    xrate.Caption = ""
 End If
 For i = grid2.Rows - 1 To i + 1 Step -1
     grid2.RemoveItem i

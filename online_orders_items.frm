@@ -1070,10 +1070,8 @@ GoTo Finally
 End Function
 Private Sub Handlecontrols()
 xNote_main.Enabled = cBranch = "00"
-'xNote_branch.Enabled = cBranch <> "00"
 cmdSave.Enabled = xClosed.Value = 0
 fmAddInvoice.Visible = xSales_doc.Caption <> "" And Trim(xDelOrder_Date.text) = "" And cBranch = "00"
-'cmdSend.Enabled = Trim(xDelOrder_Date.text) = "" And xSales_doc.Caption = "" And cBranch <> "00"
 xDelOrder_Date.Enabled = xClosed.Value = 0
 cmdDelCancel.Visible = IsDate(xDelOrder_Date.text)
 If cmdDelCancel.Visible Then cmdDelCancel.Enabled = xClosed.Value = 1
@@ -1106,6 +1104,7 @@ If KeyCode = 13 Then
 End If
 End Sub
 Private Sub Form_Load()
+cBranch = "00"
 myload
 myloadGrdError
 myLoadCount
@@ -1126,22 +1125,22 @@ Set loctable = myRs("SELECT f.*," & _
                     " INNER JOIN STAGES_CODES s ON F.STAGE = s.code " & _
                     " WHERE DOC_NO = " & MyParn(sDoc_no))
 If Not loctable.EOF Then
-    xdoc_no.Caption = sDoc_no
-    xDate.Caption = myFormat_p(loctable!Date)
+    XDOC_NO.Caption = sDoc_no
+    xdate.Caption = myFormat_p(loctable!Date)
     xName.text = loctable!Name & ""
-    xonline_doc.Caption = loctable!sales_doc & ""
+    xonline_doc.Caption = loctable!sales_Doc & ""
     xphone.text = loctable!phone & ""
     xcity.text = loctable!city & ""
     xStreet.text = loctable!Street & ""
-    xstage.Caption = loctable!stage_Desca & ""
-    xstage.Tag = loctable!Stage & ""
+    xStage.Caption = loctable!stage_Desca & ""
+    xStage.Tag = loctable!Stage & ""
     xSales_date.Caption = myFormat_p(loctable!sales_date)
     'xship_date.text = myFormat_p(loctable!ship_date)
     xNotes.text = loctable!NOTES & ""
 '    xNote_branch.text = loctable!note_branch & ""
     xNote_main.text = loctable!note_main & ""
     xDelOrder_Date.text = myFormat_p(loctable!delorder_date)
-    xSales_doc.Caption = loctable!sales_doc & ""
+    xSales_doc.Caption = loctable!sales_Doc & ""
     xClosed.Value = IIf(loctable!CLOSED, 1, 0)
 End If
 loctable.Close
@@ -1234,7 +1233,6 @@ Private Sub xNote_branch_LostFocus()
 myLostFocus xNote_branch
 End Sub
 
-
 Private Sub grdMsg_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 13 Then
     'If Col = 12 And grdMsg.TextMatrix(Row, Col) = "" Then Exit Sub
@@ -1321,7 +1319,7 @@ strSql = "SELECT STAGES_CODES.DESCA AS [«·„—Õ·…], " & _
          "        ON STAGES_CODES.CODE = e.STAGE " & _
          "    INNER JOIN FILE6_25 " & _
          "        ON e.MAN = FILE6_25.CODE" & _
-         " WHERE e.ORDER_NO = " & MyParn(xdoc_no.Caption) & _
+         " WHERE e.ORDER_NO = " & MyParn(XDOC_NO.Caption) & _
          " AND e.DOC_NO_SUP = 0"
 
 On Error GoTo myerror

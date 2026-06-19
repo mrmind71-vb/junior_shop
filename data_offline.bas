@@ -7,11 +7,7 @@ On Error GoTo myerror
 If con Is Nothing Then
     bClose = True
     Set con = New ADODB.Connection
-    If pConString = "" Then
-        If Not openConEr(con, , nConTimeout) Then
-            Exit Function
-        End If
-    ElseIf Not openConEr(con, pConString, nConTimeout) Then
+    If Not openConEr(con, pConString, nConTimeout) Then
         Exit Function
     End If
 End If
@@ -98,11 +94,7 @@ Public Function myRsCmd(pString As String, Optional con As ADODB.Connection, Opt
 Dim bClose As Boolean
 If con Is Nothing Then
     Set con = New ADODB.Connection
-    If pConString = "" Then
-        If Not openConEr(con, , nConTimeout) Then
-            Exit Function
-        End If
-    ElseIf Not openConEr(con, pConString, nConTimeout) Then
+    If Not openConEr(con, pConString, nConTimeout) Then
         Exit Function
     End If
     bClose = True
@@ -124,5 +116,41 @@ cmd.Execute
 cmd.ActiveConnection = Nothing
 If bClose Then closeCon con
 myRsCmd = True
+End Function
+Public Function rsEx(pString As String, Optional ByVal pConString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As Integer
+Dim bClose As Boolean
+
+On Error GoTo myerror
+
+Dim con As New ADODB.Connection
+If Not openConEr(con, pConString, nConTimeout) Then
+    Exit Function
+End If
+
+Dim cmd As New ADODB.command
+cmd.CommandTimeout = nTimeout
+cmd.ActiveConnection = con
+cmd.CommandType = pType
+cmd.CommandText = pString
+
+If Not IsEmpty(aParam) Then
+    Dim i As Long
+    For i = 0 To UBound(aParam) Step 2
+        cmd.Parameters("@" & aParam(i)).Value = aParam(i + 1)
+    Next
+End If
+
+cmd.Execute rsEx
+Set cmd.ActiveConnection = Nothing
+If bClose Then closeCon con
+Exit Function
+myerror:
+' ?????? ?? ????? ??????? ?????? ???????? ??? ??? ???????
+If Not con Is Nothing Then
+    If con.State = adStateOpen Then con.Close
+    Set con = Nothing
+End If
+' 5. ????? ??? ????? ?????? ??? ?????? ?????????
+Err.Raise Err.Number, Err.Source, Err.Description, Err.HelpFile, Err.HelpContext
 End Function
 

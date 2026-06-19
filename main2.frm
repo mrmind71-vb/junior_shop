@@ -1385,7 +1385,6 @@ End Sub
 Private Sub tm_online_stage_manager_Click()
 online_stage_manager.Show
 End Sub
-
 Private Sub tm_printers_Click()
 printersfrm.Show 1
 End Sub
@@ -1397,27 +1396,21 @@ Private Sub tm_sales_online_Click()
 sales_onlinefrm.bEdit = True
 sales_onlinefrm.Show
 End Sub
-
 Private Sub tm_sales_whole_Click()
 sales_wholefrm.Show
 End Sub
-
 Private Sub tm_send_invoices_Click()
 InvoiceTransfrm.Show 1
 End Sub
-
 Private Sub tm_stock_app_Click()
 Stock_appFrm.Show
 End Sub
-
 Private Sub tm_sup_code2_Click()
 supfrm.Show 1
 End Sub
-
 Private Sub tm_visa_codes_Click()
 visa_codes.Show 1
 End Sub
-
 Private Sub tm_vsitem_Click()
 If cBranch = "00" Then
     VsTItem.Show
@@ -1425,11 +1418,9 @@ Else
     VsTitem_FR.Show
 End If
 End Sub
-
 Private Sub tmacccode_Click()
 AccCode.Show
 End Sub
-
 Private Sub tmaddres_Click()
 '    If cBranch <> "00" Then
 SettingFrm.Show 1
@@ -2068,10 +2059,7 @@ End Sub
 Private Sub tmnewprice_Click()
     NewPrice.Show
 End Sub
-
 Private Sub tmonline_order_Click()
-'OrderOnline_New.Show
-'OrderOnline_abd.Show
 Online_Stage_main.Show
 End Sub
 Private Sub tmopensal_Click()

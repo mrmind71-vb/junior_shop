@@ -1,7 +1,7 @@
 Attribute VB_Name = "data"
 Declare Function GetComputerNameA Lib "KERNEL32" (ByVal lpBuffer As String, nSize As Long) As Long
 Public strCon As String, cUserBox As String, lShowBranch As Boolean, lMainShow As Boolean, sCodeVisaBranch As String
-Public conShop As New adodb.Connection, nMaxDisc2 As Double, conPict As New adodb.Connection, lMainServer As Boolean
+Public conShop As New ADODB.Connection, nMaxDisc2 As Double, conPict As New ADODB.Connection, lMainServer As Boolean
 Public pServerIp As String, lServerPict As Boolean, cServerNamePICT As String
 Public pServerData As String, cUserStore As String
 Public strConfact As String, strConPICT As String, nCountBranch, nCountBranch_fr
@@ -11,60 +11,64 @@ Public aUser As Variant
 Public strConfact2MO As String
 Public strConShop As String
 Public strConShop_Fr As String
-Public GetCon As New adodb.Connection
+Public GetCon As New ADODB.Connection
 Public sMdfName As String, sCatalog As String, cExpress As String
-Function openCon(ByRef pCon As adodb.Connection, Optional ByVal pString As String = "", Optional nTimeout As Integer = 10) As String
-On Error GoTo myError
+Function openCon(ByRef pCon As ADODB.Connection, Optional ByVal pString As String = "", Optional nTimeout As Integer = 200, Optional nConTimeout As Integer = 10) As String
+On Error GoTo myerror
 Dim cString As String
 If pString = "" Then cString = strCon Else cString = pString
 If pCon.State = adStateOpen Then pCon.Close
 pCon.CursorLocation = adUseClient
 pCon.CommandTimeout = nTimeout
+pCon.ConnectionString = nConTimeout
+
 pCon.Open cString
 openCon = "ok"
 Exit Function
-myError:
-MsgBox err.Description
-openCon = err.Description
-err.Clear
+myerror:
+MsgBox Err.Description
+openCon = Err.Description
+Err.Clear
 End Function
-Function openConEr(ByRef Con As adodb.Connection, Optional ByVal pString As String = "", Optional nTimeout As Integer = 2) As Boolean
+Function openConEr(ByRef con As ADODB.Connection, Optional ByVal pString As String = "", Optional nTimeout As Integer = 2, Optional nConTimeout As Integer = 300) As Boolean
 Dim cString As String
 If pString = "" Then cString = strCon Else cString = pString
-If Con.State = adStateOpen Then Con.Close
-Con.CursorLocation = adUseClient
-Con.CommandTimeout = nTimeout
-Con.Open cString
+If con.State = adStateOpen Then con.Close
+con.CursorLocation = adUseClient
+con.ConnectionTimeout = nTimeout
+con.CommandTimeout = nConTimeout
+con.Open cString
 openConEr = True
 End Function
-Public Function openCn(ByRef Con As adodb.Connection, Optional ByVal pString As String = "", Optional nTimeout As Integer = 2) As Boolean
+Public Function openCn(ByRef con As ADODB.Connection, Optional ByVal pString As String = "", Optional nTimeout As Integer = 2, Optional nConTimeout As Integer = 300) As Boolean
 Dim cString As String
 If pString = "" Then cString = strCon Else cString = pString
-If Con.State = adStateOpen Then Con.Close
-Con.CursorLocation = adUseClient
-Con.CommandTimeout = nTimeout
-Con.Open cString
+If con.State = adStateOpen Then con.Close
+con.CursorLocation = adUseClient
+con.ConnectionTimeout = nTimeout
+con.CommandTimeout = nConTimeout
+con.Open cString
 openCn = True
 Exit Function
-myError:
-MsgBox err.Description
-err.Clear
+myerror:
+MsgBox Err.Description
+Err.Clear
 End Function
-Function openConFACT(ByRef pCon As adodb.Connection) As String
-On Error GoTo myError
+Function openConFACT(ByRef pCon As ADODB.Connection) As String
+On Error GoTo myerror
 Dim cString As String
 If pCon.State = adStateOpen Then pCon.Close
 pCon.CursorLocation = adUseClient
 pCon.Open strConfact
 openConFACT = "ok"
 Exit Function
-myError:
-openConFACT = err.Description
-MsgBox err.Description
-err.Clear
+myerror:
+openConFACT = Err.Description
+MsgBox Err.Description
+Err.Clear
 End Function
-Function openConPICT(ByRef pCon As adodb.Connection) As String
-On Error GoTo myError
+Function openConPICT(ByRef pCon As ADODB.Connection) As String
+On Error GoTo myerror
 Dim cString As String
 If pCon.State = adStateOpen Then pCon.Close
 pCon.CommandTimeout = 20
@@ -73,14 +77,14 @@ pCon.Open strConPICT
 openConPICT = "ok"
 lServerPict = True
 Exit Function
-myError:
-openConPICT = err.Description
+myerror:
+openConPICT = Err.Description
 'MsgBox strConfact
 'MsgBox Err.Description
-err.Clear
+Err.Clear
 End Function
-Function openConFACT2(ByRef pCon As adodb.Connection) As String
-On Error GoTo myError
+Function openConFACT2(ByRef pCon As ADODB.Connection) As String
+On Error GoTo myerror
 Dim cString As String
 
 If pCon.State = adStateOpen Then pCon.Close
@@ -88,37 +92,37 @@ pCon.CursorLocation = adUseClient
 pCon.Open strConfact2
 openConFACT2 = "ok"
 Exit Function
-myError:
-openConFACT2 = err.Description
-err.Clear
+myerror:
+openConFACT2 = Err.Description
+Err.Clear
 End Function
-Function openConFACT3(ByRef pCon As adodb.Connection) As String
-On Error GoTo myError
+Function openConFACT3(ByRef pCon As ADODB.Connection) As String
+On Error GoTo myerror
 Dim cString As String
 If pCon.State = adStateOpen Then pCon.Close
 pCon.CursorLocation = adUseClient
 pCon.Open strConfact3
 openConFACT3 = "ok"
 Exit Function
-myError:
-openConFACT3 = err.Description
-err.Clear
+myerror:
+openConFACT3 = Err.Description
+Err.Clear
 End Function
-Function closeCon(ByRef Con As adodb.Connection) As Boolean
-On Error GoTo myError
-If Not Con Is Nothing Then
-    If Con.State = adStateOpen Then Con.Close
-    Set Con = Nothing
+Function closeCon(ByRef con As ADODB.Connection) As Boolean
+On Error GoTo myerror
+If Not con Is Nothing Then
+    If con.State = adStateOpen Then con.Close
+    Set con = Nothing
 End If
 closeCon = True
 Exit Function
-myError:
-err.Clear
+myerror:
+Err.Clear
 'MsgBox err.Description
 End Function
 Function ReadFile(cFile) As String
 Dim TextLine
-On Error GoTo myError
+On Error GoTo myerror
 Open cFile For Input As #1   ' Open file.
 Do While Not EOF(1)
     Line Input #1, TextLine  ' Read line into variable.
@@ -126,20 +130,20 @@ Do While Not EOF(1)
 Loop
 Close #1   ' Close file.
 Exit Function
-myError:
-err.Clear
+myerror:
+Err.Clear
 ReadFile = ""
 End Function
-Function createFunc(cFile, Con As adodb.Connection) As String
+Function createFunc(cFile, con As ADODB.Connection) As String
 Dim TextLine As String
 Open cFile For Input As #1   ' Open file.
 Do While Not EOF(1)
     Line Input #1, TextLine  ' Read line into variable.
     If TextLine <> "" Then
         On Error Resume Next
-        Con.Execute TextLine
-        createFunc = turn(createFunc, vbCrLf) & err.Description
-        err.Clear
+        con.Execute TextLine
+        createFunc = turn(createFunc, vbCrLf) & Err.Description
+        Err.Clear
     End If
 Loop
 End Function
@@ -205,7 +209,7 @@ nDelete = (UBound(aRet) + 1) - nMaxFiles
 For i = 0 To (nDelete)
     fs.DeleteFile pDir & "\" & aRet(i)
 Next
-err.Clear
+Err.Clear
 End Function
 Function retFArray(pFolder As String, sExt As String) As Variant
 Dim FSO As New FileSystemObject, FileCount As Long
@@ -247,11 +251,11 @@ For tName = 1 To FileCount
 Next
 retFArray = fNames
 End Function
-Function NewflagBranch6(CTABLE, cField, pBranch, pCon As adodb.Connection) As String
+Function NewflagBranch6(CTABLE, cField, pBranch, pCon As ADODB.Connection) As String
     NewflagBranch6 = IncRec(GetDesca("SELECT MAX(" & cField & ") From " & CTABLE & " WHERE BRANCH = " & MyParn(pBranch), pCon))
     If NewflagBranch6 = "" Then NewflagBranch6 = pBranch & "0001"
 End Function
-Function NewflagBranch(CTABLE, cField, pBranch, pCon As adodb.Connection) As String
+Function NewflagBranch(CTABLE, cField, pBranch, pCon As ADODB.Connection) As String
     NewflagBranch = IncRec(GetDesca("SELECT MAX(" & cField & ") From " & CTABLE & " WHERE BRANCH = " & MyParn(cBranch), pCon))
     If NewflagBranch = "" Then NewflagBranch = cBranch & "000001"
 End Function
@@ -261,8 +265,8 @@ For i = 0 To UBound(pString)
     retFormatString = retFormatString & turn(retFormatString, "|") & pString(i)
 Next
 End Function
-Function openConShop(ByRef pCon As adodb.Connection, Optional ByVal pString As String = "", Optional ByVal lMsg As Boolean = True, Optional nTimeout As Integer = 600) As String
-On Error GoTo myError
+Function openConShop(ByRef pCon As ADODB.Connection, Optional ByVal pString As String = "", Optional ByVal lMsg As Boolean = True, Optional nTimeout As Integer = 600) As String
+On Error GoTo myerror
 Dim cString As String
 If pString = "" Then cString = strConShop Else cString = pString
 If pCon.State = adStateOpen Then pCon.Close
@@ -270,10 +274,10 @@ pCon.CursorLocation = adUseClient
 pCon.Open cString
 openConShop = "ok"
 Exit Function
-myError:
+myerror:
 'If lMsg Then MsgBox cString
-openConShop = err.Description
-err.Clear
+openConShop = Err.Description
+Err.Clear
 End Function
 Function LoadConStringshop()
 Dim cServerName As String, cUserId As String, cPassword As String
@@ -297,8 +301,8 @@ LoadConStringshop = "provider=SQLOLEDB;data source=" & pServerIp & ";initial " _
             & "catalog=" & pServerData & ";user id = " & cUserId & ";" & "password = " & cPassword & ";Timeout=10"
 
 End Function
-Function Newflag_PurchBr(CTABLE, cField, pstore, pCon As adodb.Connection) As String
-Dim loctable As New adodb.Recordset
+Function Newflag_PurchBr(CTABLE, cField, pstore, pCon As ADODB.Connection) As String
+Dim loctable As New ADODB.Recordset
 'If pcon Is Nothing Then
 '    loctable.Open "Select Max(" & cField & ") as Maxof From " & CTABLE & " WHERE STORE = " & MyParn(pstore), GetCon, adOpenStatic, adLockReadOnly, adCmdText
 'Else
@@ -573,8 +577,8 @@ Function myFormat_sp(sDate As Variant) As Variant
 myFormat_sp = TurnValue(myFormat(sDate))
 End Function
 
-Function openCon_F(ByRef pCon As adodb.Connection, Optional ByVal pString As String = "") As String
-On Error GoTo myError
+Function openCon_F(ByRef pCon As ADODB.Connection, Optional ByVal pString As String = "") As String
+On Error GoTo myerror
 Dim cString As String
 If pString = "" Then cString = strCon Else cString = pString
 If lMainShow Then cString = LoadConString_J
@@ -583,10 +587,10 @@ pCon.CursorLocation = adUseClient
 pCon.Open cString
 openCon_F = "ok"
 Exit Function
-myError:
+myerror:
 MsgBox cString
-openCon_F = err.Description
-err.Clear
+openCon_F = Err.Description
+Err.Clear
 End Function
 
 Public Function GetComputerName() As String

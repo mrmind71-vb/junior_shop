@@ -79,7 +79,7 @@ Else
     End If
 End If
 End Function
-Function NewflagDocRs(sDate As String, sStore As String) As String
+Function NewflagDocRs(sDate As String, sStore As String, Optional con As ADODB.Connection) As String
 Dim loctable As New ADODB.Recordset, cString As String
 If cBranch <> "00" Then
     If Len(sStore) = 2 Then
@@ -89,7 +89,7 @@ If cBranch <> "00" Then
     End If
     cString = cString & turn(cString) & "[DATE] = " & DateSq(sDate)
     cString = cString & turn(cString) & "[BOX] = " & MyParn(cBranchBox)
-    Set loctable = myRs(cString)
+    Set loctable = myRs(cString, con)
     If Len(sStore) = 2 Then sStore = Val(sStore)
     If Len(sStore) = 3 Then sStore = Val(sStore)
     
@@ -98,7 +98,6 @@ If cBranch <> "00" Then
     loctable.Close
     Set loctable = Nothing
 Else
-    'NewflagDoc = IncRec(GetDesca("select max(doc_no) from file6_20h where ISINVOICE = 0 AND  branch = '00' ", pCon))
     NewflagDocRs = IncRec(rsValue("select max(doc_no) from file6_20h where ISINVOICE = 0 AND  branch = '00' "))
 
     If NewflagDocRs = "" Then
@@ -1021,7 +1020,7 @@ For Row = grid1.FixedRows To grid1.Rows - 1
 Next
 End Function
 Public Function DefUser() As Boolean
-DefUser = RetSetting("DefUser", "C:\USERS\Users.txt") = "1"
+'DefUser = RetSetting("DefUser", "C:\USERS\Users.txt") = "1"
 End Function
 Function isNum(pNumber As Variant) As Boolean
 If Round(Val(pNumber & ""), 0) & "" <> Trim(pNumber & "") Then Exit Function

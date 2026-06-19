@@ -898,7 +898,7 @@ Begin VB.Form online_stage_dash
       Left            =   10350
       TabIndex        =   2
       TabStop         =   0   'False
-      Top             =   3285
+      Top             =   3330
       Width           =   9915
       _cx             =   17489
       _cy             =   5503
@@ -1290,7 +1290,7 @@ Private Sub cmd_addexel_Click()
 Inform "  „ «÷«›… «·ÿ·»Ì«  "
 myload
 End Sub
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
     Unload Me
 End Sub
 Private Sub cmdGet_Click()
@@ -1352,6 +1352,7 @@ Else
             " vw_online_order.DOC_NO" & _
             " FROM vw_online_order " & _
             " WHERE vw_online_order.STAGE = 1" & _
+            " AND vw_online_order.PREP = 1" & _
             " ORDER BY PR_ORDER, DATE,PAYMOB DESC"
     aRet = rsValues(cString, con)
 End If
@@ -1386,6 +1387,7 @@ cString = "SELECT  STAGES_CODES.CODE, " & _
     "        COUNT(*) " & _
     "FROM    vw_online_order INNER JOIN " & _
     "        STAGES_CODES ON vw_online_order.STAGE = STAGES_CODES.CODE " & _
+    " AND vw_online_order.PREP = 1" & _
     " GROUP BY STAGES_CODES.CODE, STAGES_CODES.DESCA " & _
     " ORDER BY STAGES_CODES.CODE "
     Set grid1.DataSource = myRs(cString)

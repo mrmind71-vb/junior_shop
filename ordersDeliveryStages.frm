@@ -1304,32 +1304,6 @@ End Sub
 Private Sub CMD_PRINT_Click()
 doprint_day
 End Sub
-Private Sub CMD_SEND_Click()
-'Dim cDocSalPost As String
-If cBranch = "00" Then Exit Sub
-
-If grid1.TextMatrix(grid1.Row, 16) <> "" Then Exit Sub
-
-Dim oOnlineCheck As New OnlineCheck
-Set oOnlineCheck.myForm = Me
-oOnlineCheck.sDoc_no = grid1.TextMatrix(grid1.Row, 0)
-oOnlineCheck.Show 1
-
-'myreplace_Sales
-
-'If grid1.TextMatrix(grid1.Row, 16) = "" Then
-'    If MsgBox(" —ÕÌ· ·›« Ê—… „»Ì⁄«  ", vbYesNo + vbDefaultButton2) = vbYes Then
-'        cDocSalPost = myreplace_Sales()
-'        If cDocSalPost <> "" Then
-'            MsgBox " „  —ÕÌ· ·»Ê‰ „»Ì⁄«  —ﬁ„ " & cDocSalPost
-'        Else
-'            MsgBox "·„ Ì „ ⁄„· „” ‰œ «·„»Ì⁄«   "
-'        End If
-'    End If
-'    myload
-'    grid2.Rows = 2
-'End If
-End Sub
 Private Sub cmdCSV_Click()
 Set onlineCSVfrm.myForm = Me
 'Set onlineCSVfrm.con = con
@@ -1445,8 +1419,8 @@ cString = cString & _
 '                 " INNER JOIN vw_online_invoices_closed as v on FILE6_90H.DOC_NO = v.ORDER_NO"
 '    End If
     
-    If xdoc_no.text <> "" Then
-        cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xdoc_no.text)
+    If XDOC_NO.text <> "" Then
+        cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(XDOC_NO.text)
     End If
     
     If xphone.text <> "" Then
@@ -1739,59 +1713,8 @@ Sub AddFromExel()
 End Sub
 Private Sub grid1_DblClick()
 If grid1.Row < 1 Or grid1.Row = grid1.Rows - 1 Then Exit Sub
-If cBranch <> "00" Then
-    Dim aValues As Variant
-    If IsNull(rsValue("select order_no from vw_online_orders_open where order_no = " & MyParn(grid1.TextMatrix(grid1.Row, 0)))) Then
-        Exit Sub
-    End If
-    
-    Dim cString As String
-    cString = "SELECT ORDER_NO " & _
-              " FROM vw_online_invoices_open" & _
-              " WHERE ORDER_NO = " & MyParn(grid1.TextMatrix(grid1.Row, 0))
-    If Not IsNull(rsValue(cString)) Then
-        orders_online_invoices.bEdit = True
-        orders_online_invoices.sStore = grid1.TextMatrix(grid1.Row, 12)
-        orders_online_invoices.sOrder_No = grid1.TextMatrix(grid1.Row, 0)
-        orders_online_invoices.Show 1
-        Exit Sub
-    End If
-Else
-    orders_online_items.sDoc_no = grid1.TextMatrix(grid1.Row, 0)
-    'orders_online_items.sStore = grid1.TextMatrix(grid1.Row, 12)
-    orders_online_items.Show 1
-End If
-
-
-'If cBranch <> "00" Then
-'    If IsNull(rsValue("select order_no from vw_online_orders_open where order_no = " & MyParn(grid1.TextMatrix(grid1.Row, 0)))) Then
-'        Exit Sub
-'    End If
-'    Dim cString As String
-'    cString = "SELECT ORDER_NO " & _
-'              " FROM vw_online_invoices_open" & _
-'              " WHERE ORDER_NO = " & MyParn(grid1.TextMatrix(grid1.Row, 0))
-'    If Not IsNull(rsValue(cString)) Then
-'        orders_online_invoices.bEdit = True
-'        orders_online_invoices.sStore = grid1.TextMatrix(grid1.Row, 12)
-'        orders_online_invoices.sOrder_No = grid1.TextMatrix(grid1.Row, 0)
-'        orders_online_invoices.Show 1
-'        Exit Sub
-'    End If
-'End If
-End Sub
-Private Sub grid1_EnterCell()
-'With grid1
-'    If (.col = 2 Or .col = 3 Or .col = 4 Or .col = 5 Or .col = 12 Or .col = 13 Or .col = 19 + 1 Or .col = 22 + 1) And cBranch = "00" Then
-'        .Editable = flexEDKbdMouse
-'    ElseIf .col = 19 And cBranch = "00" Then
-'        .Editable = flexEDKbdMouse
-'    ElseIf (.col = 23 + 1 Or .col = 24 + 1) And cBranch <> "00" Then
-'        .Editable = flexEDKbdMouse
-'    Else
-'        .Editable = flexEDNone
-'    End If
-'End With
+orders_online_items.sDoc_no = grid1.TextMatrix(grid1.Row, 0)
+orders_online_items.Show 1
 End Sub
 Private Function LoadConString_OnLine()
 Dim cServerName As String, cUserId As String, cPassword As String, sCatalog_Online As String
@@ -1809,75 +1732,7 @@ LoadConString_OnLine = "provider=SQLOLEDB;data source=" & cServerName & ";initia
                         & "catalog=" & sCatalog_Online & ";user id = " & cUserId & ";" & "password = " & cPassword & ";Timeout=10"
 End Function
 Private Sub grid1_GotFocus()
-grid1_EnterCell
-End Sub
-Private Sub grid2_AfterEdit(ByVal Row As Long, ByVal col As Long)
-With grid2
-    If grid1.TextMatrix(grid1.Row, 16) = "" Then
-        If .col = 0 Then
-            Dim loctable As ADODB.Recordset
-            Set loctable = ItemFind(Val(.TextMatrix(Row, 0)), con)
-            If Not (loctable.EOF And loctable.BOF) Then
-                grid2.TextMatrix(Row, 1) = loctable!BARCODE13 & ""
-                grid2.TextMatrix(Row, 3) = loctable!DESCA & ""
-                grid2.TextMatrix(Row, 7) = loctable!price & ""
-                            
-                If Val(.TextMatrix(Row, 9)) <> 0 Then
-                    con.Execute " UPDATE FILE6_90 SET ITEM = " & addvalue(.TextMatrix(Row, 0)) & " , ITEM_NAME = " & addstring(.TextMatrix(Row, 3)) & " , PRICE = " & Val(.TextMatrix(Row, 7)) & " , SKU = " & addstring(.TextMatrix(Row, 1)) & " WHERE ID = " & Val(.TextMatrix(Row, 9))
-                Else
-                    grid2.TextMatrix(Row, 6) = 1
-                    cStr1 = "INSERT INTO FILE6_90 ( doc_no , sku , item , item_name , price , quant )" & _
-                                "VALUES( " & _
-                                addstring(grid1.TextMatrix(grid1.Row, 0)) & "," & _
-                                addstring(.TextMatrix(.Row, 1)) & "," & _
-                                addvalue(.TextMatrix(.Row, 0)) & "," & _
-                                addstring(.TextMatrix(.Row, 3)) & "," & _
-                                Val(.TextMatrix(.Row, 7)) & "," & _
-                                Val(.TextMatrix(.Row, 6)) & _
-                                ")"
-                    con.Execute cStr1
-                End If
-                MYLOAD2 (grid1.TextMatrix(grid1.Row, 0))
-            Else
-                MsgBox " »«—ﬂÊœ €Ì— ’ÕÌÕ "
-                MYLOAD2 (grid1.TextMatrix(grid1.Row, 0))
-            End If
-        End If
-        If .col = 6 Then
-            con.Execute " UPDATE FILE6_90 SET QUANT = " & Val(.TextMatrix(Row, 6)) & " WHERE ID = " & Val(.TextMatrix(Row, 9))
-        End If
-        If .col = 7 Then
-            con.Execute " UPDATE FILE6_90 SET PRICE = " & Val(.TextMatrix(Row, 7)) & " WHERE ID = " & Val(.TextMatrix(Row, 9))
-        End If
-    End If
-End With
-End Sub
-
-Private Sub grid2_EnterCell()
-With grid2
-'    If (.Col = 0 Or .Col = 7 Or .Col = 6) And cBranch = "00" Then
-'        .Editable = flexEDKbdMouse
-'    Else
-'        .Editable = flexEDNone
-'    End If
-End With
-End Sub
-Private Sub Grid2_KeyUp(KeyCode As Integer, Shift As Integer)
-With grid2
-    If .col = 0 And cBranch = "00" Then
-        If KeyCode = 112 Then ItemsLookupAll Me, oSearchItem
-    End If
-    If KeyCode = 45 And cBranch = "00" And col = 0 Then
-        grid2.AddItem grid2.Row
-        grid2.TextMatrix(grid2.Row, 0) = ""
-    End If
-    If KeyCode = 46 And cBranch = "00" And grid1.TextMatrix(grid1.Row, 16) = "" Then
-        If MsgBox("  Õ–›  «·’‰› „‰ «·ÿ·»Ì… ", vbYesNo + vbDefaultButton2) = vbYes Then
-            con.Execute " DELETE FROM FILE6_90 WHERE ID = " & Val(grid2.TextMatrix(grid2.Row, 9))
-            .RemoveItem grid2.Row
-        End If
-    End If
-End With
+'grid1_EnterCell
 End Sub
 Sub myProc()
 On Error GoTo myerror
@@ -1933,8 +1788,8 @@ cString.Append "SELECT  FILE6_90H.DOC_NO," & _
                "LEFT JOIN FILE0_40 ON FILE0_40.CODE = FILE6_90H.STORE "
 cString.Append "WHERE  SALES_DOC IS NULL"
 
-If xdoc_no.text <> "" Then
-    cString.Append " AND [DOC_NO] = " & MyParn(xdoc_no.text)
+If XDOC_NO.text <> "" Then
+    cString.Append " AND [DOC_NO] = " & MyParn(XDOC_NO.text)
 End If
 
 If xpay.MatchedWithList Then
@@ -2043,10 +1898,10 @@ Private Sub XPHONE_LostFocus()
 myLostFocus xphone
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xdoc_no
+myGotFocus XDOC_NO
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus xdoc_no
+myLostFocus XDOC_NO
 End Sub
 Private Sub xDate2_GotFocus()
 myGotFocus xdate2
@@ -2245,12 +2100,12 @@ Do Until loctable.EOF
     aInsert = AddFlag(aInsert, "PRICE", loctable!price)
     aInsert = AddFlag(aInsert, "QUANT", loctable!Quant)
     aInsert = AddFlag(aInsert, "MODEL", addstring(loctable!MODEL))
-    If IsEmpty(myField("SELECT DOC_NO FROM " & cFile & " WHERE DOC_NO = " & MyParn(xdoc_no.text) & " AND ITEM = " & addvalue(loctable!Item), con)) Then
-        aInsert = AddFlag(aInsert, "DOC_NO", addstring(xdoc_no.text))
+    If IsEmpty(myField("SELECT DOC_NO FROM " & cFile & " WHERE DOC_NO = " & MyParn(XDOC_NO.text) & " AND ITEM = " & addvalue(loctable!Item), con)) Then
+        aInsert = AddFlag(aInsert, "DOC_NO", addstring(XDOC_NO.text))
         con.Execute addInsert(aInsert, cFile), nAffect
         nAffect = 1
     Else
-        con.Execute addUpdate(aInsert, cFile, "DOC_NO = " & MyParn(xdoc_no.text) & " AND ITEM = " & addvalue(loctable!Item)), nAffect
+        con.Execute addUpdate(aInsert, cFile, "DOC_NO = " & MyParn(XDOC_NO.text) & " AND ITEM = " & addvalue(loctable!Item)), nAffect
     End If
     nAffectAll = nAffectAll + nAffect
     loctable.MoveNext
