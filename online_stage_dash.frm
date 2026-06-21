@@ -26,12 +26,34 @@ Begin VB.Form online_stage_dash
    ScaleHeight     =   10635
    ScaleWidth      =   20370
    WindowState     =   2  'Maximized
+   Begin VB.CheckBox chkEdit 
+      Alignment       =   1  'Right Justify
+      Appearance      =   0  'Flat
+      BackColor       =   &H80000005&
+      Caption         =   "ÿ·»Ì«  „⁄œ·…"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   11.25
+         Charset         =   178
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H80000008&
+      Height          =   420
+      Left            =   360
+      RightToLeft     =   -1  'True
+      TabIndex        =   17
+      Top             =   405
+      Width           =   1365
+   End
    Begin VB.Frame Frame1 
       Appearance      =   0  'Flat
       BackColor       =   &H80000005&
       ForeColor       =   &H80000008&
       Height          =   1050
-      Left            =   225
+      Left            =   270
       RightToLeft     =   -1  'True
       TabIndex        =   16
       Top             =   855
@@ -68,7 +90,7 @@ Begin VB.Form online_stage_dash
    Begin VB.Frame Frame6 
       BackColor       =   &H00FFFFFF&
       Height          =   1320
-      Left            =   270
+      Left            =   315
       RightToLeft     =   -1  'True
       TabIndex        =   15
       Top             =   1890
@@ -867,7 +889,7 @@ Begin VB.Form online_stage_dash
       OutlineBar      =   0
       OutlineCol      =   0
       Ellipsis        =   0
-      ExplorerBar     =   0
+      ExplorerBar     =   1
       PicturesOver    =   0   'False
       FillStyle       =   0
       RightToLeft     =   -1  'True
@@ -895,12 +917,12 @@ Begin VB.Form online_stage_dash
    End
    Begin VSFlex7Ctl.VSFlexGrid grdPrep 
       Height          =   3120
-      Left            =   10350
+      Left            =   10305
       TabIndex        =   2
       TabStop         =   0   'False
-      Top             =   3330
-      Width           =   9915
-      _cx             =   17489
+      Top             =   3285
+      Width           =   9960
+      _cx             =   17568
       _cy             =   5503
       _ConvInfo       =   1
       Appearance      =   0
@@ -962,7 +984,7 @@ Begin VB.Form online_stage_dash
       OutlineBar      =   0
       OutlineCol      =   0
       Ellipsis        =   0
-      ExplorerBar     =   0
+      ExplorerBar     =   1
       PicturesOver    =   0   'False
       FillStyle       =   0
       RightToLeft     =   -1  'True
@@ -1057,7 +1079,7 @@ Begin VB.Form online_stage_dash
       OutlineBar      =   0
       OutlineCol      =   0
       Ellipsis        =   0
-      ExplorerBar     =   0
+      ExplorerBar     =   1
       PicturesOver    =   0   'False
       FillStyle       =   0
       RightToLeft     =   -1  'True
@@ -1085,12 +1107,12 @@ Begin VB.Form online_stage_dash
    End
    Begin VSFlex7Ctl.VSFlexGrid grdEdit 
       Height          =   2985
-      Left            =   10350
+      Left            =   10305
       TabIndex        =   4
       TabStop         =   0   'False
       Top             =   6480
-      Width           =   9915
-      _cx             =   17489
+      Width           =   9960
+      _cx             =   17568
       _cy             =   5265
       _ConvInfo       =   1
       Appearance      =   0
@@ -1152,7 +1174,7 @@ Begin VB.Form online_stage_dash
       OutlineBar      =   0
       OutlineCol      =   0
       Ellipsis        =   0
-      ExplorerBar     =   0
+      ExplorerBar     =   1
       PicturesOver    =   0   'False
       FillStyle       =   0
       RightToLeft     =   -1  'True
@@ -1247,7 +1269,7 @@ Begin VB.Form online_stage_dash
       OutlineBar      =   0
       OutlineCol      =   0
       Ellipsis        =   0
-      ExplorerBar     =   0
+      ExplorerBar     =   1
       PicturesOver    =   0   'False
       FillStyle       =   0
       RightToLeft     =   -1  'True
@@ -1290,6 +1312,15 @@ Private Sub cmd_addexel_Click()
 Inform "  „ «÷«›… «·ÿ·»Ì«  "
 myload
 End Sub
+
+Private Sub chkEcit_Click()
+myloadGrdDone
+End Sub
+
+Private Sub chkEdit_Click()
+myloadGrdDone
+End Sub
+
 Private Sub cmdExit_Click()
     Unload Me
 End Sub
@@ -1304,7 +1335,7 @@ End Sub
 Private Sub Form_Load()
     myload
     Exit Sub
-myerror:
+myError:
     MsgBox Err.Description
     Err.Clear
 End Sub
@@ -1323,6 +1354,9 @@ If ActiveControl.Name = cmdGet.Name Then
 ElseIf ActiveControl.Name = grdError.Name Then
     Unload oPassword
     GetError pValue
+ElseIf ActiveControl.Name = grdDone.Name Then
+    Unload oPassword
+    GetErrorRp pValue
 End If
 End Sub
 Private Sub GetOrder(sManCode As String)
@@ -1339,7 +1373,7 @@ cString = "SELECT TOP 1 " & _
         " FROM vw_online_order " & _
         " WHERE STAGE = 2" & _
         " AND MAN = " & MyParn(sManCode) & _
-        "  ORDER BY PR_ORDER, DATE,PAYMOB DESC"
+        "  ORDER BY PAYMOB DESC,DATE "
 
 aRet = rsValues(cString, con)
 
@@ -1353,7 +1387,7 @@ Else
             " FROM vw_online_order " & _
             " WHERE vw_online_order.STAGE = 1" & _
             " AND vw_online_order.PREP = 1" & _
-            " ORDER BY PR_ORDER, DATE,PAYMOB DESC"
+            " ORDER BY PAYMOB DESC,DATE"
     aRet = rsValues(cString, con)
 End If
 
@@ -1362,12 +1396,13 @@ If Not IsNull(aRet) Then
     online_Stage_order.sOrder_No = retFlag(aRet, "order_no")
     online_Stage_order.sDoc_no = retFlag(aRet, "doc_no")
     online_Stage_order.sManCode = sManCode
+    
     online_Stage_order.Show 1
 End If
 Finally:
 closeCon con
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 Resume Finally
@@ -1379,8 +1414,15 @@ online_Stage_order.sDoc_no = Val(grdError.TextMatrix(grdError.Row, 1))
 online_Stage_order.sManCode = sManCode
 online_Stage_order.Show 1
 End Sub
+Private Sub GetErrorRp(sManCode As String)
+Set online_Stage_order.myForm = Me
+online_Stage_order.sOrder_No = grdDone.TextMatrix(grdDone.Row, 0)
+online_Stage_order.sDoc_no = Val(grdDone.TextMatrix(grdDone.Row, 1))
+online_Stage_order.sManCode = sManCode
+online_Stage_order.Show 1
+End Sub
 Public Sub myLoadGrd()
-On Error GoTo myerror
+On Error GoTo myError
 With grid1
 cString = "SELECT  STAGES_CODES.CODE, " & _
     "        STAGES_CODES.DESCA, " & _
@@ -1395,7 +1437,7 @@ End With
 Fixgrd
 'grid1.Cell(flexcpAlignment, 0, 0, grid1.Rows - 1, grid1.Cols - 1) = 7
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -1439,15 +1481,15 @@ Private Sub Form_Unload(Cancel As Integer)
     SaveText Me, , Array(xDate1.Name, xdate2.Name)
 End Sub
 
-Private Sub grdError_DblClick()
-If grdError.Row > 1 Then
+Private Sub grdDone_Click()
+If grdDone.Row > 1 Then
     Set oPassword = New online_stage_pass
     Set oPassword.myForm = Me
     oPassword.Show 1
 End If
 End Sub
 
-Private Sub grdPrep_Click()
+Private Sub grdError_DblClick()
 If grdError.Row > 1 Then
     Set oPassword = New online_stage_pass
     Set oPassword.myForm = Me
@@ -1477,11 +1519,11 @@ strSql = "SELECT v.ORDER_NO, " & _
          " LEFT JOIN vw_online_er e ON v.ORDER_NO = e.ORDER_NO AND v.DOC_NO = e.doc_no_sup and v.stage = e.stage" & _
          " WHERE v.STAGE = 4" & _
          " ORDER BY e.ID"
-On Error GoTo myerror
+On Error GoTo myError
 Set grdError.DataSource = myRs(strSql)
 fixGrdError
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -1540,11 +1582,11 @@ strSql = "SELECT v.ORDER_NO, " & _
          " INNER JOIN FILE6_25 ON v.MAN = FILE6_25.CODE " & _
          " INNER JOIN ONLINE_TYPES t ON v.TYPE = t.CODE " & _
          " WHERE v.STAGE = 2"
-On Error GoTo myerror
+On Error GoTo myError
 Set grdPrep.DataSource = myRs(strSql)
 fixgrdPrep
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -1593,6 +1635,7 @@ End Sub
 Private Sub myloadGrdDone()
 Dim strSql As String
 strSql = "SELECT v.ORDER_NO, " & _
+         "NULLIF(v.DOC_NO, 0), " & _
          "FORMAT(v.[DATE],'yyyy/M/d'), " & _
          "t.desca, " & _
          "FILE6_25.DESCA, " & _
@@ -1604,11 +1647,15 @@ strSql = "SELECT v.ORDER_NO, " & _
          " INNER JOIN ONLINE_TYPES t ON v.TYPE = t.CODE" & _
          " INNER JOIN FILE6_25 ON v.MAN = FILE6_25.CODE " & _
         " WHERE v.STAGE = 3"
-On Error GoTo myerror
+If chkEdit.Value = 1 Then
+    strSql = strSql & " AND (SELECT COUNT(*)  FROM FILE6_90_ER WHERE SEEN = 0 AND STAGE = 4 AND ORDER_NO = V.ORDER_NO AND DOC_NO = v.DOC_NO) > 0"
+End If
+
+On Error GoTo myError
 Set grdDone.DataSource = myRs(strSql)
 fixGrdDone
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -1623,28 +1670,29 @@ With grdDone
     Next
     
     .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"
-    .TextMatrix(1, 1) = " «—ÌŒ «·ÿ·»Ì…"
-    .TextMatrix(1, 2) = "‰Ê⁄ «·ÿ·»Ì…"
+    .TextMatrix(1, 1) = "›—⁄Ì"
+    .TextMatrix(1, 1 + 1) = " «—ÌŒ «·ÿ·»Ì…"
+    .TextMatrix(1, 2 + 1) = "‰Ê⁄ «·ÿ·»Ì…"
     
-    .TextMatrix(1, 3) = "«·„‰œÊ»"
-    .TextMatrix(1, 4) = "»œ¡ «· ÃÂÌ“"
-    .TextMatrix(1, 5) = "«‰ Â«¡ «· ÃÂÌ“"
-    .TextMatrix(1, 6) = "«·„œ…"
-    .TextMatrix(1, 7) = "«·ﬂ„Ì…"
+    .TextMatrix(1, 3 + 1) = "«·„‰œÊ»"
+    .TextMatrix(1, 4 + 1) = "»œ¡ «· ÃÂÌ“"
+    .TextMatrix(1, 5 + 1) = "«‰ Â«¡ «· ÃÂÌ“"
+    .TextMatrix(1, 6 + 1) = "«·„œ…"
+    .TextMatrix(1, 7 + 1) = "«·ﬂ„Ì…"
     
     .MergeCells = flexMergeFixedOnly
     .MergeRow(0) = True
     
-    '.ColHidden(0) = True
+    .ColHidden(1) = True
     
     .ColWidth(0) = 800
-    .ColWidth(1) = 1250
-    .ColWidth(2) = 1000
-    .ColWidth(3) = 1400
-    .ColWidth(4) = 1700
-    .ColWidth(5) = 1700
-    .ColWidth(6) = 1000
-    .ColWidth(7) = 700
+    .ColWidth(1 + 1) = 1250
+    .ColWidth(2 + 1) = 1000
+    .ColWidth(3 + 1) = 1400
+    .ColWidth(4 + 1) = 1700
+    .ColWidth(5 + 1) = 1700
+    .ColWidth(6 + 1) = 1000
+    .ColWidth(7 + 1) = 700
     
      .Cell(flexcpAlignment, 0, 0, 1, .Cols - 1) = flexAlignCenterCenter
     End With
@@ -1667,11 +1715,11 @@ strSql = "SELECT v.ORDER_NO, " & _
          " INNER JOIN vw_online_er e ON v.ORDER_NO =  e.ORDER_NO AND v.DOC_NO =  e.DOC_NO_SUP AND v.STAGE = e.STAGE  " & _
          " WHERE v.STAGE = 6" & _
          " ORDER BY e.ID"
-On Error GoTo myerror
+On Error GoTo myError
 Set grdEdit.DataSource = myRs(strSql)
 fixGrdEdit
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -1734,11 +1782,11 @@ strSql = "SELECT v.ORDER_NO, " & _
          " INNER JOIN vw_online_er e ON v.ORDER_NO =  e.ORDER_NO AND v.DOC_NO =  e.DOC_NO_SUP AND v.STAGE = e.STAGE  " & _
          " WHERE v.STAGE = 5" & _
          " ORDER BY e.ID"
-On Error GoTo myerror
+On Error GoTo myError
 Set grdCancel.DataSource = myRs(strSql)
 fixGrdcancel
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub

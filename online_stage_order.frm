@@ -8,18 +8,18 @@ Begin VB.Form online_Stage_order
    ClientHeight    =   9705
    ClientLeft      =   60
    ClientTop       =   345
-   ClientWidth     =   14610
+   ClientWidth     =   16305
    LinkTopic       =   "Form1"
    RightToLeft     =   -1  'True
    ScaleHeight     =   9705
-   ScaleWidth      =   14610
+   ScaleWidth      =   16305
    StartUpPosition =   2  'CenterScreen
    Begin VB.Frame fmPr 
       Appearance      =   0  'Flat
       BackColor       =   &H80000005&
       ForeColor       =   &H80000008&
       Height          =   1005
-      Left            =   1350
+      Left            =   3240
       RightToLeft     =   -1  'True
       TabIndex        =   19
       Top             =   45
@@ -117,10 +117,33 @@ Begin VB.Form online_Stage_order
       Left            =   0
       RightToLeft     =   -1  'True
       ScaleHeight     =   735
-      ScaleWidth      =   14610
+      ScaleWidth      =   16305
       TabIndex        =   6
       Top             =   8970
-      Width           =   14610
+      Width           =   16305
+      Begin VB.CheckBox xPrinted 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         Caption         =   " „  «·ÿ»«⁄…"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H80000008&
+         Height          =   195
+         Left            =   4005
+         RightToLeft     =   -1  'True
+         TabIndex        =   26
+         Top             =   405
+         Visible         =   0   'False
+         Width           =   1320
+      End
       Begin VB.Frame Frame2 
          BackColor       =   &H00FFFFFF&
          Height          =   735
@@ -359,16 +382,35 @@ Begin VB.Form online_Stage_order
       BackColor       =   &H80000005&
       ForeColor       =   &H80000008&
       Height          =   1005
-      Left            =   6975
+      Left            =   8865
       RightToLeft     =   -1  'True
       TabIndex        =   1
       Top             =   45
       Width           =   7305
-      Begin VB.CheckBox xPrinted 
+      Begin VB.Label Label5 
+         BackColor       =   &H00FFFFFF&
+         Caption         =   "«·„‰œÊ»"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   330
+         Left            =   2340
+         RightToLeft     =   -1  'True
+         TabIndex        =   27
+         Top             =   585
+         Width           =   735
+      End
+      Begin VB.Label xMan_current 
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
          BackColor       =   &H80000005&
-         Caption         =   " „  «·ÿ»«⁄…"
+         BorderStyle     =   1  'Fixed Single
          BeginProperty Font 
             Name            =   "Arial"
             Size            =   11.25
@@ -379,12 +421,12 @@ Begin VB.Form online_Stage_order
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H80000008&
-         Height          =   195
-         Left            =   135
+         Height          =   330
+         Left            =   90
          RightToLeft     =   -1  'True
          TabIndex        =   25
-         Top             =   675
-         Width           =   1320
+         Top             =   540
+         Width           =   2130
       End
       Begin VB.Label Label4 
          BackColor       =   &H00FFFFFF&
@@ -403,7 +445,7 @@ Begin VB.Form online_Stage_order
          RightToLeft     =   -1  'True
          TabIndex        =   16
          Top             =   225
-         Width           =   1095
+         Width           =   735
       End
       Begin VB.Label xStage 
          Alignment       =   1  'Right Justify
@@ -560,11 +602,11 @@ Begin VB.Form online_Stage_order
    End
    Begin VSFlex7Ctl.VSFlexGrid grid1 
       Height          =   4065
-      Left            =   90
+      Left            =   135
       TabIndex        =   0
       Top             =   1080
-      Width           =   14235
-      _cx             =   25109
+      Width           =   16080
+      _cx             =   28363
       _cy             =   7170
       _ConvInfo       =   1
       Appearance      =   0
@@ -654,11 +696,11 @@ Begin VB.Form online_Stage_order
    End
    Begin VSFlex7Ctl.VSFlexGrid grdError 
       Height          =   1950
-      Left            =   90
+      Left            =   135
       TabIndex        =   14
       Top             =   5175
-      Width           =   14235
-      _cx             =   25109
+      Width           =   16080
+      _cx             =   28363
       _cy             =   3440
       _ConvInfo       =   1
       Appearance      =   0
@@ -748,11 +790,11 @@ Begin VB.Form online_Stage_order
    End
    Begin VSFlex7Ctl.VSFlexGrid grdMsg 
       Height          =   1815
-      Left            =   90
+      Left            =   135
       TabIndex        =   24
       Top             =   7155
-      Width           =   14235
-      _cx             =   25109
+      Width           =   16080
+      _cx             =   28363
       _cy             =   3201
       _ConvInfo       =   1
       Appearance      =   0
@@ -888,11 +930,11 @@ End If
 'printGrdNew.Show 1
 End Sub
 Private Sub cmdStage_Click(Index As Integer)
-If xPrinted.Value = 0 And Index = 2 Then
-    If MsgBox("·„   „ ÿ»«⁄… «·„” ‰œ", vbYesNo) <> vbNo Then
-        cmdPrint_Click
-    End If
-End If
+'If xPrinted.Value = 0 And Index = 2 Then
+'    If MsgBox("·„   „ ÿ»«⁄… «·„” ‰œ", vbYesNo) <> vbNo Then
+'        cmdPrint_Click
+'    End If
+'End If
 If updateStage(Index) Then
     myForm.myload
     Unload Me
@@ -928,19 +970,41 @@ End If
 Dim con As New ADODB.Connection
 If openCn(con) Then
     If xdoc_no.Caption = "0" Then
-        cString = "UPDATE FILE6_90H " & _
-                  " SET STAGE = " & (Index) & "," & _
-                  " TIME" & Index & " = " & addstring(Format(Now, "YYYY-MM-DD HH:NN")) & "," & _
-                  " MAN = " & addstring(sManCode) & "," & _
-                  " MAN" & Index & " = " & addstring(sManCode) & _
-                  " WHERE DOC_NO = " & MyParn(xorder_no.Caption)
+        If Index = 4 And xStage.Tag = "3" Then
+            cString = "UPDATE FILE6_90H " & _
+                      " SET STAGE = " & (Index) & "," & _
+                      " TIME" & Index & " = " & addstring(Format(Now, "YYYY-MM-DD HH:NN")) & "," & _
+                      " MAN = " & addstring(sManCode) & "," & _
+                      " MAN" & Index & " = " & addstring(sManCode) & "," & _
+                      " MAN3 = NULL," & _
+                      " TIME3 = NULL " & _
+                      " WHERE DOC_NO = " & MyParn(xorder_no.Caption)
+        Else
+            cString = "UPDATE FILE6_90H " & _
+                      " SET STAGE = " & (Index) & "," & _
+                      " TIME" & Index & " = " & addstring(Format(Now, "YYYY-MM-DD HH:NN")) & "," & _
+                      " MAN = " & addstring(sManCode) & "," & _
+                      " MAN" & Index & " = " & addstring(sManCode) & _
+                      " WHERE DOC_NO = " & MyParn(xorder_no.Caption)
+        End If
     Else
-        cString = "UPDATE FILE6_90BH " & _
-                  " SET STAGE = " & (Index) & "," & _
-                  " TIME" & Index & " = " & addstring(Format(Now, "YYYY-MM-DD HH:NN")) & "," & _
-                  " MAN = " & addstring(sManCode) & "," & _
-                  " MAN" & Index & " = " & addstring(sManCode) & _
-                  " WHERE DOC_NO = " & xdoc_no.Caption
+        If Index = 4 And xStage.Tag = "3" Then
+            cString = "UPDATE FILE6_90BH " & _
+                      "SET STAGE = " & (Index) & "," & _
+                      "TIME" & Index & " = " & addstring(Format(Now, "YYYY-MM-DD HH:NN")) & "," & _
+                      "MAN = " & addstring(sManCode) & "," & _
+                      "MAN" & Index & " = " & addstring(sManCode) & "," & _
+                      "MAN3 = NULL," & _
+                      "TIME3 = NULL " & _
+                      "WHERE DOC_NO = " & xdoc_no.Caption
+        Else
+            cString = "UPDATE FILE6_90BH " & _
+                      "SET STAGE = " & (Index) & "," & _
+                      "TIME" & Index & " = " & addstring(Format(Now, "YYYY-MM-DD HH:NN")) & "," & _
+                      "MAN = " & addstring(sManCode) & "," & _
+                      "MAN" & Index & " = " & addstring(sManCode) & _
+                      " WHERE DOC_NO = " & xdoc_no.Caption
+        End If
     End If
     'On Error GoTo myerror
     con.BeginTrans
@@ -957,14 +1021,14 @@ If openCn(con) Then
         con.Execute addInsert(aInsert, "FILE6_90_ER")
     End If
     
-    For I = 2 To grdMsg.Rows - 1
+    For i = 2 To grdMsg.Rows - 1
         aInsert = AddFlag(Empty, "ORDER_NO", addstring(xorder_no.Caption))
         aInsert = AddFlag(aInsert, "DOC_NO_SUP", xdoc_no.Caption)
         aInsert = AddFlag(aInsert, "STAGE", (Index))
         aInsert = AddFlag(aInsert, "DESCA", addstring(sMsg))
         aInsert = AddFlag(aInsert, "TIME_SEEN", addstring(Format(Now, "YYYY-MM-DD HH:NN")))
         aInsert = AddFlag(aInsert, "MAN", addstring(sManCode))
-        con.Execute addUpdate(aInsert, "FILE6_90_MSG", "ID = " & grdMsg.TextMatrix(I, grdMsg.Cols - 1))
+        con.Execute addUpdate(aInsert, "FILE6_90_MSG", "ID = " & grdMsg.TextMatrix(i, grdMsg.Cols - 1))
     Next
     con.CommitTrans
     If Index = 2 Then
@@ -983,7 +1047,7 @@ updateStage = True
 Finally:
 closeCon con
 Exit Function
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 Resume Finally
@@ -1004,7 +1068,7 @@ cString = "SELECT v.ORDER_NO," & _
           " WHERE v.ORDER_NO = " & MyParn(sOrder_No) & _
           " AND v.doc_no = " & Val(sDoc_no)
 
-On Error GoTo myerror
+On Error GoTo myError
 Dim loctable As New ADODB.Recordset
 Set loctable = myRs(cString)
 
@@ -1029,7 +1093,7 @@ myload
 myloadGrdError
 myloadGrdMsg
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -1046,18 +1110,23 @@ With grid1
     .TextMatrix(0, 4) = "«··Ê‰"
     .TextMatrix(0, 5) = "„ﬁ«”"
     .TextMatrix(0, 6) = "«·ﬂ„Ì…"
-    .TextMatrix(0, 7) = "«·”⁄—"
-    .TextMatrix(0, 8) = "«·≈Ã„«·Ì"
+    .TextMatrix(0, 7) = "—’Ìœ"
+    .TextMatrix(0, 8) = "„ÃÂ“"
+    .TextMatrix(0, 9) = "«·»«ﬁÌ"
+    
+    .TextMatrix(0, 10) = "«·”⁄—"
+    .TextMatrix(0, 11) = "«·≈Ã„«·Ì"
     
     .ColWidth(0) = 1200
     .ColWidth(1) = 1500
     .ColWidth(2) = 2000
-    .ColWidth(3) = 4500
-    .ColWidth(4) = 2500
+    .ColWidth(3) = 4000
+    .ColWidth(4) = 2000
     .ColWidth(5) = 1000
     .ColWidth(6) = 800
-    .ColWidth(7) = 1000
-    .ColWidth(8) = 1200
+    .ColWidth(7) = 800
+    .ColWidth(8) = 800
+    .ColWidth(9) = 800
     
     .ColHidden(.Cols - 3) = True
     .ColHidden(.Cols - 2) = True
@@ -1155,6 +1224,10 @@ cString = " SELECT v.item," & _
           " F1_10.COLOR," & _
           " F1_10.SCAL," & _
           " v.QUANT," & _
+          " dbo.fn_balance_rs(v.ITEM," & MyParn(sStoreOnline) & ")  AS BALANCE, " & _
+          " dbo.fn_prep_rs(v.ITEM), " & _
+          " dbo.fn_balance_rs(v.ITEM," & MyParn(sStoreOnline) & ")  - " & _
+          " dbo.fn_prep_rs(v.ITEM), " & _
           " v.PRICE," & _
           " v.TOTAL," & _
           " v.DISCOUNT " & _
@@ -1165,56 +1238,24 @@ cString = " SELECT v.item," & _
           " AND v.DOC_NO = " & sDoc_no
 
 Dim con As New ADODB.Connection
-On Error GoTo myerror
+On Error GoTo myError
 Set grid1.DataSource = myRs(cString)
 Fixgrd
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
 Set ShowOrderManfrm = Nothing
 End Sub
-Private Sub myLoadGrd()
-If Not openCn(con) Then On Error GoTo Finally
-
-Dim cString As String
-cString = " SELECT v.DOC_NO," & _
-          " F1_10.MODELFACT012," & _
-          " FACT.DESCA," & _
-          " F1_10.desca," & _
-          " F1_10.COLOR," & _
-          " F1_10.SCAL," & _
-          " v.QUANT," & _
-          " v.PRICE," & _
-          " v.TOTAL" & _
-          " FROM  vw_online_item v" & _
-          " INNER  JOIN FILE1_10 F1_10 ON v.ITEM = F1_10.ITEM" & _
-          " INNER  JOIN  FACT ON F1_10.code = FACT.CODE" & _
-          " WHERE v.ORDER_NO =  " & MyParn(xorder_no.Caption) & _
-          " AND   v.DOC_NO =  " & xdoc_no.Caption & _
-          " ORDER BY F1_10.ITEM"
-
-Dim con As New ADODB.Connection
-If openCn(con) Then
-    On Error GoTo Finally
-    Set grid1.DataSource = myRs(cString, con)
-End If '
-Fixgrd
-Finally:
-closeCon con
-Exit Sub
-myerror:
-MsgBox Err.Description
-Err.Clear
-End Sub
 Private Sub myloadGrdError()
 Dim strSql As String
 strSql = "SELECT STAGES_CODES.DESCA AS [«·„—Õ·…], " & _
          " FILE6_25.DESCA AS [«·„‰œÊ»], " & _
          " e.DESCA AS [«·»Ì«‰], " & _
-         " FORMAT(e.TIME, 'yyyy/M/d HH:mm') AS [«·Êﬁ ]" & _
+         " FORMAT(e.TIME, 'yyyy/M/d HH:mm') AS [«·Êﬁ ]," & _
+         " e.id" & _
          " FROM STAGES_CODES " & _
          "    INNER JOIN FILE6_90_ER e " & _
          "        ON STAGES_CODES.CODE = e.STAGE " & _
@@ -1223,7 +1264,7 @@ strSql = "SELECT STAGES_CODES.DESCA AS [«·„—Õ·…], " & _
          " WHERE e.ORDER_NO = " & MyParn(xorder_no.Caption) & _
          " AND e.DOC_NO_SUP = " & xdoc_no.Caption
 
-On Error GoTo myerror
+On Error GoTo myError
 
 With grdError
 Set .DataSource = myRs(strSql)
@@ -1232,14 +1273,15 @@ Set .DataSource = myRs(strSql)
 .ColWidth(1) = 1500
 .ColWidth(2) = 5000
 .ColWidth(3) = 1600
+.ColHidden(.Cols - 1) = True
 
-For I = 0 To .Cols - 1
-    .ColAlignment(I) = flexAlignRightCenter
+For i = 0 To .Cols - 1
+    .ColAlignment(i) = flexAlignRightCenter
 Next
 
 End With
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -1261,22 +1303,22 @@ strSql = "SELECT FORMAT(m.TIME, 'yyyy/M/d HH:mm') AS [«·Êﬁ ]," & _
          " ORDER BY TIME DESC"
          
 
-On Error GoTo myerror
+On Error GoTo myError
 With grdMsg
 Set .DataSource = myRs(strSql)
 FixGrdMsg
 End With
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
 Private Sub FixGrdMsg()
 With grdMsg
-Dim I As Long
-For I = 0 To .Cols - 1
-    .TextMatrix(0, I) = "„·«ÕŸ«  «·›—⁄ «·—∆Ì”Ì"
-    .ColAlignment(I) = flexAlignCenterCenter
+Dim i As Long
+For i = 0 To .Cols - 1
+    .TextMatrix(0, i) = "„·«ÕŸ«  «·›—⁄ «·—∆Ì”Ì"
+    .ColAlignment(i) = flexAlignCenterCenter
 Next
 .RowHidden(0) = False
 .ColWidth(0) = 1700
@@ -1305,8 +1347,41 @@ Next
      
 .Cell(flexcpAlignment, 0, 0, 1, .Cols - 1) = flexAlignCenterCenter
 
-For I = 0 To .Cols - 1
-    .ColAlignment(I) = flexAlignRightCenter
+For i = 0 To .Cols - 1
+    .ColAlignment(i) = flexAlignRightCenter
 Next
 End With
+End Sub
+
+Private Sub grdMsg_DblClick()
+Dim aInsert As Variant
+If grdMsg.Row > 1 Then
+    aInsert = AddFlag(aInsert, "TIME_SEEN", addstring(Format(Now, "YYYY-MM-DD HH:NN")))
+    aInsert = AddFlag(aInsert, "MAN", addstring(sManCode))
+    aInsert = AddFlag(aInsert, "STAGE", xStage.Tag)
+    On Error GoTo myError
+    Dim con As New ADODB.Connection
+    If openCn(con) Then
+        con.BeginTrans
+        con.Execute addUpdate(aInsert, "FILE6_90_MSG", "ID = " & grdMsg.TextMatrix(grdMsg.Row, grdMsg.Cols - 1))
+        For i = 1 To grdError.Rows - 2
+            aInsert = AddFlag(Empty, "SEEN", "1")
+            con.Execute addUpdate(aInsert, "FILE6_90_ER", "ID = " & grdError.TextMatrix(i, grdError.Cols - 1))
+        Next
+        con.CommitTrans
+        Inform " „ «· ⁄œÌ·"
+    End If
+Finally:
+    closeCon con
+End If
+Exit Sub
+myError:
+MsgBox Err.Description
+Err.Clear
+Resume Finally
+End Sub
+Private Sub xorder_no_dblClick()
+Clipboard.Clear
+Clipboard.SetText xorder_no.Caption
+Inform " „ «·‰”Œ"
 End Sub

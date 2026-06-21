@@ -25,48 +25,18 @@ Begin VB.Form online_stage_invoice_trans
    ScaleWidth      =   20370
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
-   Begin VB.Frame Frame3 
-      Appearance      =   0  'Flat
-      BackColor       =   &H80000005&
-      ForeColor       =   &H80000008&
+   Begin VB.Frame Frame4 
+      BackColor       =   &H00FFFFFF&
       Height          =   825
-      Left            =   5175
+      Left            =   3330
       RightToLeft     =   -1  'True
-      TabIndex        =   14
+      TabIndex        =   24
       Top             =   270
-      Width           =   4020
-      Begin Threed.SSCommand cmdSend 
-         Height          =   600
-         Left            =   1395
-         TabIndex        =   15
-         Top             =   180
-         Width           =   2580
-         _ExtentX        =   4551
-         _ExtentY        =   1058
-         _Version        =   196610
-         ForeColor       =   0
-         BackColor       =   16777215
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Caption         =   " ÕÊÌ· «·Ì ›« Ê—… „»Ì⁄« "
-         ButtonStyle     =   3
-         PictureAlignment=   10
-         BevelWidth      =   0
-         PictureDisabledFrames=   1
-         ShapeSize       =   1
-         PictureDisabled =   "online_stage_inovice_trans.frx":0000
-      End
+      Width           =   1410
       Begin Threed.SSCommand cmdExit 
          Height          =   600
          Left            =   45
-         TabIndex        =   16
+         TabIndex        =   25
          TabStop         =   0   'False
          Top             =   180
          Width           =   1320
@@ -85,10 +55,48 @@ Begin VB.Form online_stage_invoice_trans
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_stage_inovice_trans.frx":22F6
+         Picture         =   "online_stage_inovice_trans.frx":0000
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
+         BevelWidth      =   0
+         ShapeSize       =   1
+      End
+   End
+   Begin VB.Frame fmInvoice 
+      Appearance      =   0  'Flat
+      BackColor       =   &H80000005&
+      ForeColor       =   &H80000008&
+      Height          =   825
+      Left            =   4770
+      RightToLeft     =   -1  'True
+      TabIndex        =   18
+      Top             =   270
+      Visible         =   0   'False
+      Width           =   4425
+      Begin Threed.SSCommand cmdSend 
+         Height          =   600
+         Left            =   45
+         TabIndex        =   19
+         Top             =   180
+         Width           =   4335
+         _ExtentX        =   7646
+         _ExtentY        =   1058
+         _Version        =   196610
+         ForeColor       =   0
+         BackColor       =   16777215
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Caption         =   " ÕÊÌ· «·Ì ›« Ê—… „»Ì⁄« "
+         ButtonStyle     =   3
+         PictureAlignment=   10
          BevelWidth      =   0
          ShapeSize       =   1
       End
@@ -110,14 +118,14 @@ Begin VB.Form online_stage_invoice_trans
          Height          =   330
          Left            =   135
          RightToLeft     =   -1  'True
-         TabIndex        =   18
+         TabIndex        =   15
          Top             =   225
          Width           =   2040
       End
       Begin MSDataListLib.DataCombo xship 
          Height          =   360
          Left            =   135
-         TabIndex        =   19
+         TabIndex        =   16
          Top             =   585
          Width           =   2040
          _ExtentX        =   3598
@@ -143,7 +151,7 @@ Begin VB.Form online_stage_invoice_trans
          Height          =   270
          Left            =   2295
          RightToLeft     =   -1  'True
-         TabIndex        =   20
+         TabIndex        =   17
          Top             =   630
          Width           =   945
       End
@@ -154,7 +162,7 @@ Begin VB.Form online_stage_invoice_trans
          Height          =   330
          Left            =   2250
          RightToLeft     =   -1  'True
-         TabIndex        =   17
+         TabIndex        =   14
          Top             =   225
          Width           =   1140
       End
@@ -277,100 +285,6 @@ Begin VB.Form online_stage_invoice_trans
       TabIndex        =   3
       Top             =   9465
       Width           =   20370
-   End
-   Begin VSFlex7Ctl.VSFlexGrid grid1 
-      Height          =   4155
-      Left            =   4320
-      TabIndex        =   0
-      Top             =   1125
-      Width           =   15945
-      _cx             =   28125
-      _cy             =   7329
-      _ConvInfo       =   1
-      Appearance      =   0
-      BorderStyle     =   1
-      Enabled         =   -1  'True
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Arial"
-         Size            =   11.25
-         Charset         =   178
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      MousePointer    =   0
-      BackColor       =   -2147483643
-      ForeColor       =   -2147483640
-      BackColorFixed  =   14737632
-      ForeColorFixed  =   0
-      BackColorSel    =   -2147483635
-      ForeColorSel    =   -2147483634
-      BackColorBkg    =   -2147483636
-      BackColorAlternate=   16777215
-      GridColor       =   12632256
-      GridColorFixed  =   -2147483632
-      TreeColor       =   -2147483632
-      FloodColor      =   192
-      SheetBorder     =   -2147483642
-      FocusRect       =   2
-      HighLight       =   1
-      AllowSelection  =   -1  'True
-      AllowBigSelection=   -1  'True
-      AllowUserResizing=   0
-      SelectionMode   =   0
-      GridLines       =   1
-      GridLinesFixed  =   1
-      GridLineWidth   =   1
-      Rows            =   1
-      Cols            =   6
-      FixedRows       =   1
-      FixedCols       =   0
-      RowHeightMin    =   0
-      RowHeightMax    =   0
-      ColWidthMin     =   0
-      ColWidthMax     =   0
-      ExtendLastCol   =   0   'False
-      FormatString    =   ""
-      ScrollTrack     =   0   'False
-      ScrollBars      =   3
-      ScrollTips      =   0   'False
-      MergeCells      =   0
-      MergeCompare    =   0
-      AutoResize      =   0   'False
-      AutoSizeMode    =   0
-      AutoSearch      =   0
-      AutoSearchDelay =   2
-      MultiTotals     =   -1  'True
-      SubtotalPosition=   1
-      OutlineBar      =   0
-      OutlineCol      =   0
-      Ellipsis        =   0
-      ExplorerBar     =   0
-      PicturesOver    =   0   'False
-      FillStyle       =   0
-      RightToLeft     =   -1  'True
-      PictureType     =   0
-      TabBehavior     =   1
-      OwnerDraw       =   0
-      Editable        =   0
-      ShowComboButton =   -1  'True
-      WordWrap        =   0   'False
-      TextStyle       =   0
-      TextStyleFixed  =   0
-      OleDragMode     =   0
-      OleDropMode     =   0
-      DataMode        =   0
-      VirtualData     =   -1  'True
-      DataMember      =   ""
-      ComboSearch     =   3
-      AutoSizeMouse   =   -1  'True
-      FrozenRows      =   0
-      FrozenCols      =   0
-      AllowUserFreezing=   0
-      BackColorFrozen =   0
-      ForeColorFrozen =   0
-      WallPaperAlignment=   9
    End
    Begin VSFlex7Ctl.VSFlexGrid grid2 
       Height          =   4110
@@ -562,14 +476,14 @@ Begin VB.Form online_stage_invoice_trans
       _Version        =   393216
    End
    Begin VSFlex7Ctl.VSFlexGrid grdTotal 
-      Height          =   4110
+      Height          =   4155
       Left            =   45
       TabIndex        =   2
       TabStop         =   0   'False
-      Top             =   1170
+      Top             =   1125
       Width           =   4245
       _cx             =   7488
-      _cy             =   7250
+      _cy             =   7329
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -656,6 +570,158 @@ Begin VB.Form online_stage_invoice_trans
       ForeColorFrozen =   0
       WallPaperAlignment=   9
    End
+   Begin VSFlex7Ctl.VSFlexGrid grid1 
+      Height          =   4155
+      Left            =   4320
+      TabIndex        =   0
+      Top             =   1125
+      Width           =   15945
+      _cx             =   28125
+      _cy             =   7329
+      _ConvInfo       =   1
+      Appearance      =   0
+      BorderStyle     =   1
+      Enabled         =   -1  'True
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Arial"
+         Size            =   11.25
+         Charset         =   178
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      MousePointer    =   0
+      BackColor       =   -2147483643
+      ForeColor       =   -2147483640
+      BackColorFixed  =   14737632
+      ForeColorFixed  =   0
+      BackColorSel    =   -2147483635
+      ForeColorSel    =   -2147483634
+      BackColorBkg    =   -2147483636
+      BackColorAlternate=   16777215
+      GridColor       =   12632256
+      GridColorFixed  =   -2147483632
+      TreeColor       =   -2147483632
+      FloodColor      =   192
+      SheetBorder     =   -2147483642
+      FocusRect       =   2
+      HighLight       =   1
+      AllowSelection  =   -1  'True
+      AllowBigSelection=   -1  'True
+      AllowUserResizing=   0
+      SelectionMode   =   0
+      GridLines       =   1
+      GridLinesFixed  =   1
+      GridLineWidth   =   1
+      Rows            =   1
+      Cols            =   6
+      FixedRows       =   1
+      FixedCols       =   0
+      RowHeightMin    =   0
+      RowHeightMax    =   0
+      ColWidthMin     =   0
+      ColWidthMax     =   0
+      ExtendLastCol   =   0   'False
+      FormatString    =   ""
+      ScrollTrack     =   0   'False
+      ScrollBars      =   3
+      ScrollTips      =   0   'False
+      MergeCells      =   0
+      MergeCompare    =   0
+      AutoResize      =   0   'False
+      AutoSizeMode    =   0
+      AutoSearch      =   0
+      AutoSearchDelay =   2
+      MultiTotals     =   -1  'True
+      SubtotalPosition=   1
+      OutlineBar      =   0
+      OutlineCol      =   0
+      Ellipsis        =   0
+      ExplorerBar     =   0
+      PicturesOver    =   0   'False
+      FillStyle       =   0
+      RightToLeft     =   -1  'True
+      PictureType     =   0
+      TabBehavior     =   1
+      OwnerDraw       =   0
+      Editable        =   0
+      ShowComboButton =   -1  'True
+      WordWrap        =   0   'False
+      TextStyle       =   0
+      TextStyleFixed  =   0
+      OleDragMode     =   0
+      OleDropMode     =   0
+      DataMode        =   0
+      VirtualData     =   -1  'True
+      DataMember      =   ""
+      ComboSearch     =   3
+      AutoSizeMouse   =   -1  'True
+      FrozenRows      =   0
+      FrozenCols      =   0
+      AllowUserFreezing=   0
+      BackColorFrozen =   0
+      ForeColorFrozen =   0
+      WallPaperAlignment=   9
+   End
+   Begin VB.Frame fmdate 
+      BackColor       =   &H00FFFFFF&
+      Height          =   780
+      Left            =   4770
+      RightToLeft     =   -1  'True
+      TabIndex        =   20
+      Top             =   315
+      Width           =   4425
+      Begin VB.TextBox xdate1 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H00FFFFFF&
+         Height          =   330
+         Left            =   180
+         RightToLeft     =   -1  'True
+         TabIndex        =   22
+         Top             =   270
+         Width           =   1230
+      End
+      Begin Threed.SSCommand cmdAccept 
+         Height          =   555
+         Left            =   3060
+         TabIndex        =   21
+         Top             =   180
+         Width           =   1320
+         _ExtentX        =   2328
+         _ExtentY        =   979
+         _Version        =   196610
+         ForeColor       =   0
+         BackColor       =   16777215
+         Enabled         =   0   'False
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Caption         =   "«” ·«„"
+         ButtonStyle     =   3
+         PictureAlignment=   10
+         BevelWidth      =   0
+         ShapeSize       =   1
+      End
+      Begin VB.Label Label4 
+         Alignment       =   1  'Right Justify
+         BackColor       =   &H00FFFFFF&
+         Caption         =   " «—ÌŒ «·«” ·«„"
+         Height          =   330
+         Left            =   1485
+         RightToLeft     =   -1  'True
+         TabIndex        =   23
+         Top             =   270
+         Width           =   1095
+      End
+   End
 End
 Attribute VB_Name = "online_stage_invoice_trans"
 Attribute VB_GlobalNameSpace = False
@@ -666,6 +732,20 @@ Public sOrder_No As String
 Public sDoc_no As String
 Public myForm As Form
 Dim bStopCell As Boolean
+
+Private Sub cmdAccept_Click()
+If myValid Then
+    Dim con As New ADODB.Connection
+    nCount = rsEx("update file6_90bh " & _
+            "set date1 = " & addDate(xdate1.text) & _
+            " where doc_no = " & sDoc_no)
+    If nCount > 0 Then
+        Inform_OK (" „ «·«” ·«„ »‰Õ«Õ")
+        Unload Me
+    End If
+End If
+End Sub
+
 Private Sub cmdExit_Click()
 Unload Me
 End Sub
@@ -683,18 +763,23 @@ End Sub
 Private Sub cmdsend_Click()
 If myValid Then
     Me.MousePointer = vbHourglass
-    If xtype.Tag = "0" Or xtype.Tag = "1" Then
+    If xtype.Tag = "0" Or xtype.Tag = "1" Or xtype.Tag = "2" Or xtype.Tag = 3 Then
         Dim sDoc_New As String
-        sDoc_New = myReplaceOnline1
-        
-        'myForm.myProcTrans "1"
-        Inform_OK " „ «· ÕÊÌ· «·Ì «·›« Ê—… —ﬁ„ " & sDoc_New
-
+        sDoc_New = myReplaceOnline
         If sDoc_New <> "" Then
+            If xtype.Tag = "0" Or xtype.Tag = "1" Then
+                Inform_OK " „ «· ÕÊÌ· «·Ì ›« Ê—… „»Ì⁄«  —ﬁ„ " & sDoc_New
+            Else
+                Inform_OK " „ «· ÕÊÌ· «·Ì ›« Ê—… „— Ã⁄ —ﬁ„ " & sDoc_New
+            End If
+
             sales_onlinefrm.bEdit = True
             sales_onlinefrm.sDoc_no = sDoc_New
             sales_onlinefrm.Show 1
             Unload Me
+            Exit Sub
+        Else
+            MsgBox "·„ Ì „ «· ÕÊÌ· »‰Ã«Õ"
         End If
     End If
     Me.MousePointer = vbNormal
@@ -714,12 +799,21 @@ myLoadGrd
 myLoadDiffer
 Fixgrd2
 
+
+
+If xtype.Tag = "0" Or xtype.Tag = "1" Or xtype.Tag = "2" Or xtype.Tag = "3" Then
+    fmInvoice.Visible = True
+Else
+    xdate1.text = rsDateBranch(sBranchOnline)
+    fmdate.Visible = True
+End If
+
 CellPos 13, 0, grid1.Cols - 1
 End Sub
 Private Sub myLoadGrd()
 Dim cString As String
 cString = "SELECT v.ITEM," & _
-          "CAST(NULL AS VARCHAR(10))," & _
+          "FILE1_10.MODELFACT0," & _
           "FACT.DESCA," & _
           "FILE1_10.DESCA," & _
           "FILE1_10.COLOR," & _
@@ -738,15 +832,16 @@ cString = cString & _
             "FACT.DESCA," & _
             "FILE1_10.DESCA," & _
             "FILE1_10.COLOR," & _
-            "FILE1_10.SCAL"
+            "FILE1_10.SCAL," & _
+            "FILE1_10.MODELFACT0"
 
-On Error GoTo myerror
+On Error GoTo myError
 
 Set grid2.DataSource = myRs(cString)
 Finally:
 Set loctable = Nothing
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 Resume Finally
@@ -756,7 +851,7 @@ With grid2
     .RowHeight(0) = 600
     '.Cols = 13
     .TextMatrix(0, 0) = "ﬂÊœ"
-    .TextMatrix(0, 1) = "SKU"
+    .TextMatrix(0, 1) = "—ﬁ„ «·„ÊœÌ·"
     .TextMatrix(0, 2) = "«·„’‰⁄"
     .TextMatrix(0, 3) = "«·’‰›"
     .TextMatrix(0, 4) = "«··Ê‰"
@@ -765,7 +860,7 @@ With grid2
     .TextMatrix(0, .Cols - 2) = "ﬂ„Ì… „Œ «—…"
     .TextMatrix(0, .Cols - 1) = "«·›—ﬁ"
     
-    .ColHidden(1) = True
+    '.ColHidden(1) = True
         
     
     .ColWidth(0) = 1500
@@ -1060,7 +1155,7 @@ strSql = "SELECT v.ORDER_NO," & _
           " WHERE v.ORDER_NO = " & MyParn(sOrder_No) & _
           " AND v.doc_no = " & Val(sDoc_no)
 
-On Error GoTo myerror
+On Error GoTo myError
 Set loctable = myRs(strSql)
 If Not loctable.EOF Then
     xorder_no.Caption = loctable!ORDER_NO & ""
@@ -1087,12 +1182,12 @@ End If
 Finally:
 Set loctable = Nothing
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 Resume Finally
 End Sub
-Private Function myReplaceOnline1() As String
+Private Function myReplaceOnline() As String
     Dim sDoc_New As String
     Dim sDate As String
     Dim cAddress As String
@@ -1123,8 +1218,8 @@ Private Function myReplaceOnline1() As String
               " INNER JOIN vw_online_order v ON v.ORDER_NO =  FILE6_90H.DOC_NO " & _
               " WHERE v.ORDER_NO = " & MyParn(sOrder_No) & _
               " AND v.DOC_NO = " & sDoc_no
-              
-    On Error GoTo myerror
+    
+    On Error GoTo myError
     
     Dim con As New ADODB.Connection
     If Not openCn(con) Then Exit Function
@@ -1137,8 +1232,8 @@ Private Function myReplaceOnline1() As String
         Exit Function
     End If
         
-    sDate = rsDateBranch(sBranchOnline, con)
-    sDoc_New = NewflagDocRs(sDate, cManBox, con)
+    sDate = rsDateBranch(sBranchOnline)
+    sDoc_New = NewflagDocRs(sDate, cManBox)
     
     sMan = loctable!MAN & ""
  
@@ -1148,7 +1243,7 @@ Private Function myReplaceOnline1() As String
     aInsert = AddFlag(aInsert, "STORE", addstring(sStoreOnline))
     aInsert = AddFlag(aInsert, "BRANCH", addstring(sBranchOnline))
     aInsert = AddFlag(aInsert, "BOX", addstring(cManBox))
-    aInsert = AddFlag(aInsert, "DISCOUNT", Val(loctable!discount))
+    aInsert = AddFlag(aInsert, "DISCOUNT", IIf(xtype.Tag = "0" Or xtype.Tag = "1", 1, -1) * Val(loctable!discount))
     aInsert = AddFlag(aInsert, "USERNAME", addstring(cUserName))
     aInsert = AddFlag(aInsert, "MAN", addstring(loctable!MAN))
     aInsert = AddFlag(aInsert, "PHONE", addstring(loctable!phone))
@@ -1183,57 +1278,64 @@ Private Function myReplaceOnline1() As String
     aInsert = AddFlag(aInsert, "[Payment_Method]", addstring(loctable!Payment_Method))
     aInsert = AddFlag(aInsert, "[ship_no]", addstring(xShip_no.text))
     aInsert = AddFlag(aInsert, "[ship]", addstring(xship.BoundText))
-    aInsert = AddFlag(aInsert, "[ISCLOSED]", "1")
+    'aInsert = AddFlag(aInsert, "[ISCLOSED]", "1")
     
     con.BeginTrans
-    con.Execute addInsert(aInsert, "FILE6_20H")
+    con.Execute addInsert(aInsert, "FILE6_20H"), nAffect
+        
+    Dim strSql As String
+    strSql = "SELECT " & _
+            "v.ITEM," & _
+            "v.QUANT," & _
+            "v.PRICE," & _
+            "f.PRICE AS PRICE_C," & _
+            "f.costitem," & _
+            "v.[DOC_OFFER]," & _
+            "v.[OFFER_NO]," & _
+            "v.DISCOUNT_OFFER" & _
+            " FROM vw_online_items v" & _
+            " INNER JOIN FILE1_10 f ON v.ITEM = f.ITEM" & _
+            " WHERE v.ORDER_NO = " & MyParn(sOrder_No) & _
+            " and v.doc_no = " & sDoc_no
     
-    cString.Clear
-    
-    cString.Append "insert into FILE6_20(" & _
-                    "DOC_NO," & _
-                    "ITEM," & _
-                    "QUANT," & _
-                    "PRICE," & _
-                    "[MAN]," & _
-                    "[USER_IP]," & _
-                    "[PRICE_C]," & _
-                    "[COST]," & _
-                    "[DOC_OFFER]," & _
-                    "[OFFER_NO]," & _
-                    "[DISCOUNT_OFFER]" & _
-                    ")"
-    
-    cString.Append "SELECT " & _
-                    addstring(sDoc_New) & "," & _
-                    "v.ITEM," & _
-                    "v.QUANT," & _
-                    "v.PRICE," & _
-                    addstring(sMan) & "," & _
-                    addstring(GetComputerName) & "," & _
-                    "f.PRICE," & _
-                    "f.costitem," & _
-                    "v.[DOC_OFFER]," & _
-                    "v.[OFFER_NO]," & _
-                    "v.DISCOUNT_OFFER" & _
-                    " FROM vw_online_items v" & _
-                    " INNER JOIN FILE1_10 f ON v.ITEM = f.ITEM" & _
-                    " WHERE v.ORDER_NO = " & MyParn(sOrder_No) & _
-                    " and v.doc_no = " & sDoc_no
+    Set loctable = New ADODB.Recordset
+    Set loctable = myRs(strSql, con)
+    Do Until loctable.EOF
+        aInsert = AddFlag(Empty, "DOC_NO", addstring(sDoc_New))
+        aInsert = AddFlag(aInsert, "ITEM", loctable!Item)
+        aInsert = AddFlag(aInsert, "QUANT", IIf(xtype.Tag = "0" Or xtype.Tag = "1", 1, -1) * Val(loctable!Quant))
+        aInsert = AddFlag(aInsert, "PRICE", Val(loctable!price))
+        aInsert = AddFlag(aInsert, "MAN", addstring(sMan))
+        aInsert = AddFlag(aInsert, "USER_IP", addstring(addstring(GetComputerName)))
+        aInsert = AddFlag(aInsert, "PRICE_C", Val(loctable!PRICE_c & ""))
+        aInsert = AddFlag(aInsert, "COST", Val(loctable!costitem & ""))
+        aInsert = AddFlag(aInsert, "DOC_OFFER", addstring(loctable!DOC_OFFER))
+        aInsert = AddFlag(aInsert, "OFFER_NO", addstring(loctable!OFFER_NO))
+        aInsert = AddFlag(aInsert, "DISCOUNT_OFFER", IIf(xtype.Tag = "0" Or xtype.Tag = "1", Val(loctable!DISCOUNT_OFFER & ""), -1 * Val(loctable!DISCOUNT_OFFER & "")))
+        
+        con.Execute addInsert(aInsert, "FILE6_20"), nAffect
+        loctable.MoveNext
+    Loop
 
-    con.Execute cString.GetAsString()
-    
-    con.Execute " UPDATE FILE6_90H " & _
-                "  SET SALES_DOC = " & addstring(sDoc_New) & _
-                ", SALES_DATE = " & addDate(sDate) & _
-                " WHERE DOC_NO = " & MyParn(sOrder_No)
+    If Not IsNull(rsValue("SELECT DOC_NO FROM FILE6_20H WHERE DOC_NO = " & MyParn(sDoc_New), con)) Then
+        If sDoc_no = "0" Then
+            con.Execute " UPDATE FILE6_90H " & _
+                        "  SET SALES_DOC = " & addstring(sDoc_New) & _
+                        ", SALES_DATE = " & addDate(sDate) & _
+                        " WHERE DOC_NO = " & MyParn(sOrder_No)
+        Else
+            con.Execute " UPDATE FILE6_90BH " & _
+                        "  SET INV_NO = " & addstring(sDoc_New) & _
+                        ", INV_DATE = " & addDate(sDate) & _
+                        " WHERE DOC_NO = " & sDoc_no
+        End If
+    End If
     con.CommitTrans
-    
-    myReplaceOnline1 = sDoc_New
+    myReplaceOnline = sDoc_New
 Finally:
 closeCon con
 Exit Function
-myerror:
+myError:
 MsgBox Err.Description
 If TransCount(con) > 0 Then con.RollbackTrans
 Err.Clear
@@ -1287,4 +1389,13 @@ End With
 End Function
 Private Sub grid2_EnterCell()
 grid2.Editable = flexEDKbdMouse
+End Sub
+Private Sub xdate1_Change()
+cmdAccept.Enabled = IsDate(xdate1.text)
+End Sub
+
+Private Sub xorder_no_Click()
+Clipboard.Clear
+Clipboard.SetText xorder_no.Caption
+Inform " „ «·‰”Œ"
 End Sub

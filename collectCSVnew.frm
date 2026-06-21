@@ -820,15 +820,15 @@ If loctable.EOF Then
 End If
 
 grid1.TextMatrix(Row, 0) = loctable!PAYMENT_ID & ""
-grid1.TextMatrix(Row, 1) = loctable!doc_no & ""
+grid1.TextMatrix(Row, 1) = loctable!DOC_NO & ""
 grid1.TextMatrix(Row, 2) = loctable!Name & ""
 grid1.TextMatrix(Row, 3) = loctable!phone & ""
 grid1.TextMatrix(Row, 4) = loctable!count_of & ""
 grid1.TextMatrix(Row, 5) = loctable!total_plus & ""
 grid1.TextMatrix(Row, 6) = loctable!total_minus & ""
-grid1.TextMatrix(Row, 7) = loctable!total & ""
+grid1.TextMatrix(Row, 7) = loctable!TOTAL & ""
 grid1.TextMatrix(Row, 8) = loctable!total_pay & ""
-grid1.TextMatrix(Row, 9) = mRound(loctable!total & "") - mRound(loctable!total_pay)
+grid1.TextMatrix(Row, 9) = mRound(loctable!TOTAL & "") - mRound(loctable!total_pay)
 GrdDesc = True
 End Function
 Private Sub Form_Resize()
@@ -969,15 +969,15 @@ Set loctable = myRs("SELECT FILE6_90H.*," & _
                     " LEFT JOIN vw_online_order_total ON FILE6_90H.DOC_NO = vw_online_order_total.ORDER_NO" & _
                     " LEFT JOIN vw_online_order_pay ON FILE6_90H.DOC_NO = vw_online_order_pay.ORDER_NO" & _
                     " WHERE DOC_NO = " & MyParn(sOrder_No), con)
-GRID2.TextMatrix(Row, 1) = loctable!doc_no & ""
+GRID2.TextMatrix(Row, 1) = loctable!DOC_NO & ""
 GRID2.TextMatrix(Row, 2) = loctable!Name
 GRID2.TextMatrix(Row, 3) = loctable!phone & ""
 GRID2.TextMatrix(Row, 4) = loctable!count_of & ""
 GRID2.TextMatrix(Row, 5) = loctable!total_plus & ""
 GRID2.TextMatrix(Row, 6) = loctable!total_minus & ""
-GRID2.TextMatrix(Row, 7) = loctable!total & ""
+GRID2.TextMatrix(Row, 7) = loctable!TOTAL & ""
 GRID2.TextMatrix(Row, 8) = loctable!total_pay & ""
-GRID2.TextMatrix(Row, 9) = mRound(loctable!total & "") - mRound(loctable!total_pay)
+GRID2.TextMatrix(Row, 9) = mRound(loctable!TOTAL & "") - mRound(loctable!total_pay)
 grdDesc2 = True
 End Function
 Private Function getDataShip()
@@ -1091,15 +1091,3 @@ Next
 prog1.Visible = False
 Me.Caption = sCaption
 End Function
-Private Sub Option2_Click(Index As Integer)
-Dim i As Long
-For i = 1 To GRID2.Rows - 1
-    If Option2(0).Value Then
-        GRID2.RowHidden(i) = False
-    ElseIf Option2(1).Value Then
-        GRID2.RowHidden(i) = GRID2.ValueMatrix(i, 8) = 0
-    ElseIf Option2(2).Value Then
-        GRID2.RowHidden(i) = GRID2.ValueMatrix(i, 8) <> 0
-    End If
-Next
-End Sub

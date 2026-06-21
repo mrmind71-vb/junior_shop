@@ -1097,8 +1097,14 @@ success = obj.UnlockBundle("MABFTH.CB4082022_DqFFZRYK0Rmf")
 
 If cBranch <> "00" And (Not bopt2) And (Not lShowBranch) And cBranchStore <> "" Then
     If myField("select online from file0_40 where code = " & MyParn(cBranchStore), con, , , False) Then
-        sales_onlinefrm.bEdit = True
-        sales_onlinefrm.Show
+        If tm_online_stage_manager.Visible Then
+            tm_online_stage_manager_Click
+        ElseIf tm_online_stage.Visible Then
+           tm_online_stage_Click
+        End If
+    
+'        sales_onlinefrm.bEdit = True
+'        sales_onlinefrm.Show
     Else
         sales_abdfrm.Show
     End If

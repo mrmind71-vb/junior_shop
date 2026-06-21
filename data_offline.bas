@@ -1,5 +1,5 @@
 Attribute VB_Name = "data_offline"
-Public Function myRs(pString As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As ADODB.Recordset
+Public Function myRs(pString As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As ADODB.Recordset
 Dim bClose As Boolean
 
 On Error GoTo myerror
@@ -61,9 +61,10 @@ If pParam8 <> "" Then cPrm = cPrm & IIf(cPrm = "", "", ",") & pParam8
 If pParam9 <> "" Then cPrm = cPrm & IIf(cPrm = "", "", ",") & pParam9
 If pParam10 <> "" Then cPrm = cPrm & IIf(cPrm = "", "", ",") & pParam10
 cString = "Select " & pFunction & "(" & cPrm & ") as [value]"
-rsFunc = rsValue(cString, con, pConString, pType, aParam, nTimeout)
+
+rsFunc = rsValue(cString, con, pConString, , aParam, nTimeout)
 End Function
-Public Function rsValue(pString As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional pDef As Variant = Null, Optional nTimeout As Integer = 300, Optional nConTimeout = 3) As Variant
+Public Function rsValue(pString As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional pDef As Variant = Null, Optional nTimeout As Integer = 300, Optional nConTimeout = 3) As Variant
 Dim loctable As ADODB.Recordset
 Set loctable = myRs(pString, con, pConString, pType, aParam, nTimeout)
 If Not loctable.EOF Then
@@ -77,7 +78,7 @@ If loctable.State = adStateOpen Then loctable.Close
 Finally:
 Set loctable = Nothing
 End Function
-Public Function rsValues(pString As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As Variant
+Public Function rsValues(pString As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As Variant
 Dim loctable As ADODB.Recordset
 Set loctable = myRs(pString, con, pConString, pType, aParam, nTimeout, nConTimeout)
 If Not (loctable.BOF And loctable.EOF) Then
@@ -90,7 +91,7 @@ End If
 loctable.Close
 Set loctable = Nothing
 End Function
-Public Function myRsCmd(pString As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As Boolean
+Public Function myRsCmd(pString As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As Boolean
 Dim bClose As Boolean
 If con Is Nothing Then
     Set con = New ADODB.Connection
@@ -117,7 +118,7 @@ cmd.ActiveConnection = Nothing
 If bClose Then closeCon con
 myRsCmd = True
 End Function
-Public Function rsEx(pString As String, Optional ByVal pConString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As Integer
+Public Function rsEx(pString As String, Optional ByVal pConString As String, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As Integer
 Dim bClose As Boolean
 
 On Error GoTo myerror

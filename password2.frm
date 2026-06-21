@@ -1438,7 +1438,7 @@ ElseIf bopt3 Then
 Else
     nUser = enUser.User
 End If
-If DefUser Or True Then
+If DefUser And False Then
     servername_vpn = "MRMIND\MRMIND71"
 Else
     servername_vpn = "154.236.187.105"

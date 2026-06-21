@@ -1296,24 +1296,13 @@ Dim oSearchMan As New Search_abd
 Dim oSearchStage As New Search_rs
 Dim cStr1 As String, cStr2 As String
 Dim oSearchItem As New Search3
-Private Sub cmd_addexel_Click()
-AddFromExel
-Inform "  „ «÷«›… «·ÿ·»Ì«  "
-myload
-End Sub
-Private Sub CMD_PRINT_Click()
-doprint_day
-End Sub
 Private Sub cmdCSV_Click()
 Set onlineCSVfrm.myForm = Me
-'Set onlineCSVfrm.con = con
 onlineCSVfrm.Show 1
 End Sub
-
 Private Sub cmdExcel_Click()
 ToFileExelNew grid1, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption)
 End Sub
-
 Private Sub cmdExit_Click()
     Unload Me
 End Sub
@@ -1325,7 +1314,7 @@ myload
 End Sub
 
 Private Sub cmdStage_Click()
-StagesOnlineLook Me, oSearchStage, , , IIf(cmdStage.Tag = "", "", "ﬂ· «·⁄„·«¡")
+StagesOnlineLook Me, oSearchStage, , , IIf(cmdStage.Tag = "", "", "ﬂ· «·„—«Õ·")
 End Sub
 
 Private Sub Form_Load()
@@ -1387,8 +1376,7 @@ cString = cString & _
               " FILE6_90H.MAN" & _
               " FROM FILE6_90H " & _
               " LEFT JOIN FILE6_25 ON FILE6_90H.MAN = FILE6_25.CODE" & _
-              " INNER JOIN STAGES_CODES ON FILE6_90H.STAGE = STAGES_CODES.CODE" & _
-              " LEFT JOIN MAN_ONLINE_CODES ON FILE6_90H.MAN_STAGE = MAN_ONLINE_CODES.CODE"
+              " INNER JOIN STAGES_CODES ON FILE6_90H.STAGE = STAGES_CODES.CODE"
               
     If optType(1).Value Then
         cWhere = cWhere & Tr(cWhere) & "FILE6_90H.DOC_NO IN (SELECT ORDER_NO FROM vw_online_orders_open)"
@@ -1419,8 +1407,8 @@ cString = cString & _
 '                 " INNER JOIN vw_online_invoices_closed as v on FILE6_90H.DOC_NO = v.ORDER_NO"
 '    End If
     
-    If XDOC_NO.text <> "" Then
-        cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(XDOC_NO.text)
+    If xdoc_no.text <> "" Then
+        cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xdoc_no.text)
     End If
     
     If xphone.text <> "" Then
@@ -1566,171 +1554,11 @@ Private Sub Form_Unload(Cancel As Integer)
     'If cBranch <> "00" Then closeCon con_MyShop
     SaveText Me, , Array(xDate1.Name, xdate2.Name)
 End Sub
-Sub AddFromExel()
-    Dim xl As New Excel.Application, nREcOrder As Double
-    Dim xlsheet As Excel.Worksheet, nItem As String, lAddOrder As Boolean
-    Dim xlwbook As Excel.Workbook, cItem As String
-    Dim cFileName As String, cBarCode As String, cDoc_No As String
-    Dim nCount As Double, cModel As String, nquant As Double, nPrice As Double, nPriceC As Double
-    Dim cMail As String, nSubTotal As Double, nTotal As Double, nDisc As Double, nShip As Double, cDidc_Code As String, dDate As Date, cCity As String, cAddress1 As String, cAddress2 As String, cPhone As String, cSku As String, cName As String, cStreet As String, cPayment   As String, cShipping_City As String
-    Dim aInsert As Variant, aInsert2 As Variant
-
-    If MsgBox("≈÷«›… »Ì«‰«  „‰ „·› Excel", vbYesNo) = vbYes Then
-        Common1.InitDir = ""
-        Common1.FileName = ""
-        Common1.Filter = "Excel (*.XLS*)|*.XLS*"
-        Common1.ShowOpen
-        cFileName = Common1.FileName
-        If cFileName <> "" Then
-            Set xlwbook = xl.Workbooks.Open(cFileName)
-            Set xlsheet = xlwbook.Sheets.Item(1)
-            With grid1
-            i = 1
-            Do While True
-                i = i + 1
-                Me.Caption = i
-                If (xlsheet.Cells(i, 1)) <> "" Then
-                    nCount = i
-                Else
-                    Exit Do
-                End If
-            Loop
-            prog1.Visible = True
-            prog1.Value = 0
-            prog1.Max = nCount
-            prog1.Min = 0
-            .Rows = 1
-            prog1.Min = 0
-            prog1.Max = nCount
-            For nRow = 2 To nCount
-                prog1.Value = nRow
-                If xlsheet.Cells(nRow, 1) <> "" Then
-                    If cDoc_No <> Mid(xlsheet.Cells(nRow, 1), 2) Then
-                        cDoc_No = Mid(xlsheet.Cells(nRow, 1), 2)
-                        aInsert = AddFlag(Empty, "DOC_NO", addstring(cDoc_No))
-                        For nCol = 2 To 90
-                            Select Case xlsheet.Cells(1, nCol)
-                            Case "Email"
-                                    aInsert = AddFlag(aInsert, "E_MAIL", addstring(Trim(xlsheet.Cells(nRow, nCol))))
-                                Case "Subtotal"
-                                    aInsert = AddFlag(aInsert, "SUBTOTAL", Val(xlsheet.Cells(nRow, nCol)))
-                                Case "Shipping"
-                                    aInsert = AddFlag(aInsert, "SHIPPING", Val(xlsheet.Cells(nRow, nCol)))
-                                Case "Total"
-                                    aInsert = AddFlag(aInsert, "TOTAL", Val(xlsheet.Cells(nRow, nCol)))
-                                Case "Discount Code"
-                                    aInsert = AddFlag(aInsert, "DISCOUNT_CODE", addstring(Trim(xlsheet.Cells(nRow, nCol))))
-                                Case "Discount Amount"
-                                    aInsert = AddFlag(aInsert, "DISCOUNT", Val(xlsheet.Cells(nRow, nCol)))
-                                Case "Created at"
-                                    aInsert = AddFlag(aInsert, "DATE", addDate(DateValue(Mid(xlsheet.Cells(nRow, nCol), 1, 10))))
-                                Case "Shipping Name"
-                                    aInsert = AddFlag(aInsert, "NAME", addstring(Trim(xlsheet.Cells(nRow, nCol))))
-                                Case "Shipping Street"
-                                    cStreet = Trim(xlsheet.Cells(nRow, nCol))
-                                    cStreet = Replace(cStreet, "'", " ")
-                                    aInsert = AddFlag(aInsert, "STREET", addstring(cStreet))
-                                Case "Shipping Address1"
-                                    cAddress1 = Trim(xlsheet.Cells(nRow, nCol))
-                                    cAddress1 = Replace(cAddress1, "'", " ")
-                                    aInsert = AddFlag(aInsert, "Address1", addstring(cAddress1))
-                                Case "Shipping Address2"
-                                    cAddress2 = Trim(xlsheet.Cells(nRow, nCol))
-                                    cAddress2 = Replace(cAddress1, "'", " ")
-                                    aInsert = AddFlag(aInsert, "Address2", addstring(cAddress2))
-                                Case "Shipping City"
-                                    cCity = Trim(xlsheet.Cells(nRow, nCol))
-                                    cCity = Replace(cCity, "'", " ")
-                                    aInsert = AddFlag(aInsert, "CITY", addstring(cCity))
-                                Case "Shipping Phone"
-                                    cPhpne = Trim(xlsheet.Cells(nRow, nCol))
-                                    cPhpne = Replace(cPhpne, " ", "")
-                                    aInsert = AddFlag(aInsert, "PHONE", addstring(cPhpne))
-                                Case "Payment Method"
-                                    aInsert = AddFlag(aInsert, "Payment_Method", addstring(Trim(xlsheet.Cells(nRow, nCol))))
-                                Case "Shipping Province Name"
-                                    aInsert = AddFlag(aInsert, "Shipping_City", addstring(Trim(xlsheet.Cells(nRow, nCol))))
-                                Case "Notes"
-                                    aInsert = AddFlag(aInsert, "NOTES_order", addstring(Trim(xlsheet.Cells(nRow, nCol))))
-                                Case "Payment ID"
-                                    aInsert = AddFlag(aInsert, "PAYMENT_ID", addstring(Trim(xlsheet.Cells(nRow, nCol))))
-                            End Select
-                        Next nCol
-                        lAddOrder = False
-                        aRet = aGetDesca("SELECT DOC_NO , STORE FROM FILE6_90H WHERE DOC_NO = " & MyParn(cDoc_No), con)
-                        If UBound(aRet) = 0 Then
-                            lAddOrder = True
-                            con.Execute addInsert(aInsert, "FILE6_90H")
-                        Else
-                            If TurnValue(aRet(2), Null, "") = "" Then
-                                lAddOrder = True
-                                con.Execute addUpdate(aInsert, "FILE6_90H", " DOC_NO = " & MyParn(cDoc_No))
-                            End If
-                        End If
-                        If lAddOrder Then
-                            nREcOrder = nREcOrder + 1
-                            con.Execute " DELETE FROM FILE6_90 WHERE DOC_NO = " & MyParn(cDoc_No)
-                        End If
-                    End If
-                    If lAddOrder Then
-                                                aInsert2 = AddFlag(Empty, "DOC_NO", addstring(cDoc_No))
-                        cItem_NAME = ""
-                        For nCol = 2 To 90
-                            Select Case xlsheet.Cells(1, nCol)
-                                Case "Lineitem price"
-                                    aInsert2 = AddFlag(aInsert2, "PRICE", Val(xlsheet.Cells(nRow, nCol)))
-                                Case "Lineitem quantity"
-                                    aInsert2 = AddFlag(aInsert2, "QUANT", Val(xlsheet.Cells(nRow, nCol)))
-                                Case "Lineitem name"
-                                    cItem_NAME = Trim(xlsheet.Cells(nRow, nCol))
-                                    aInsert2 = AddFlag(aInsert2, "ITEM_NAME", addstring(Trim(xlsheet.Cells(nRow, nCol))))
-                                Case "Lineitem pricename"
-                                    aInsert2 = AddFlag(aInsert2, "PRICE", Val(xlsheet.Cells(nRow, nCol)))
-                                Case "Lineitem sku"
-                                    cSku = xlsheet.Cells(nRow, nCol)
-                                    aInsert2 = AddFlag(aInsert2, "sku", addstring(Trim(xlsheet.Cells(nRow, nCol))))
-                            End Select
-                        Next nCol
-                        
-                        cItem = ""
-                        Dim loctable As ADODB.Recordset
-                        If Len(cSku) > 8 Then
-                            Set loctable = ItemFind_BARCODE(cSku, con)
-                            If loctable.RecordCount > 0 Then cItem = loctable!Item
-                        Else
-                            cItem = cSku
-                        End If
-                        If cItem = "" Then MsgBox "ERROR SKU ORDER NO # " & cDoc_No & " - " & cItem_NAME
-                        aInsert2 = AddFlag(aInsert2, "ITEM", addstring(cItem))
-                        con.Execute addInsert(aInsert2, "FILE6_90")
-                    End If
-                End If
-            Next nRow
-            MsgBox " „ «÷«›… «·ÿ·»Ì«  ⁄œœ " & nREcOrder
-            End With
-        End If
-    End If
-End Sub
 Private Sub grid1_DblClick()
 If grid1.Row < 1 Or grid1.Row = grid1.Rows - 1 Then Exit Sub
 orders_online_items.sDoc_no = grid1.TextMatrix(grid1.Row, 0)
 orders_online_items.Show 1
 End Sub
-Private Function LoadConString_OnLine()
-Dim cServerName As String, cUserId As String, cPassword As String, sCatalog_Online As String
-If Not vpn Then
-    cServerName = "junior-sql.database.windows.net"
-    cUserId = decrypt("062F8C407C77", "dr")
-    cPassword = decrypt("C77DA5F185954963DD1F902815", "dr")
-Else
-    cServerName = servername_vpn
-    cUserId = userid_vpn
-    cPassword = password_vpn
-End If
-sCatalog_Online = "JUNIOR_SHOP"
-LoadConString_OnLine = "provider=SQLOLEDB;data source=" & cServerName & ";initial " _
-                        & "catalog=" & sCatalog_Online & ";user id = " & cUserId & ";" & "password = " & cPassword & ";Timeout=10"
-End Function
 Private Sub grid1_GotFocus()
 'grid1_EnterCell
 End Sub
@@ -1752,145 +1580,6 @@ myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Private Sub doprint_day(Optional pMan As String = "")
-Dim aHeader(1)
-'f Not MYVALID Then Exit Sub
-Dim temptable As New ADODB.Recordset
-Dim SourchTable As New ADODB.Recordset, i As Double
-contemp.Execute "DELETE * FROM TEMP"
-temptable.Open "temp", contemp, adOpenStatic, adLockOptimistic, adCmdTable
-
-Dim cString As New ChilkatStringBuilder
-cString.Append "SELECT  FILE6_90H.DOC_NO," & _
-               "FILE1_10.MODELFACT0 ," & _
-               "FILE6_90H.NAME," & _
-               "FILE6_90H.PHONE ," & _
-               "FILE1_10.MOSM," & _
-               "FILE6_90H.DATE," & _
-               "FILE6_90H.STREET," & _
-               "FILE6_90H.CITY," & _
-               "FILE6_90H.Shipping_City," & _
-               "FILE6_90H.Payment_Method," & _
-               "FILE6_90.ITEM," & _
-               "FACT.DESCA AS FACT_NAME," & _
-               "FILE1_10.[GROUP]," & _
-               "FILE1_10.COLOR," & _
-               "FILE1_10.SCAL," & _
-               "FILE6_90.PRICE," & _
-               "FILE6_90.QUANT," & _
-               "FILE1_10.DESCA," & _
-               "FILE6_90H.NOTES," & _
-               "FILE0_40.DESCA AS STORENAME  " & _
-               "FROM  FILE6_90H " & _
-               "INNER JOIN FILE6_90 ON FILE6_90H.DOC_NO = FILE6_90.DOC_NO " & _
-               "INNER JOIN FILE1_10 ON FILE6_90.ITEM = FILE1_10.ITEM " & _
-               "INNER JOIN FACT ON FILE1_10.code = FACT.CODE " & _
-               "LEFT JOIN FILE0_40 ON FILE0_40.CODE = FILE6_90H.STORE "
-cString.Append "WHERE  SALES_DOC IS NULL"
-
-If XDOC_NO.text <> "" Then
-    cString.Append " AND [DOC_NO] = " & MyParn(XDOC_NO.text)
-End If
-
-If xpay.MatchedWithList Then
-    cString.Append " AND [Payment_Method] = " & MyParn(xpay.text)
-End If
-
-If xStore.MatchedWithList Then
-    cString.Append " AND [STORE] = " & MyParn(xStore.BoundText)
-End If
-If IsDate(xDate1.text) Then
-    cString.Append " AND [DATE] >= " & DateSq(xDate1.text)
-End If
-If IsDate(xdate2.text) Then
-    cString.Append " AND [DATE] <= " & DateSq(xdate2.text)
-End If
-If cBranch = "00" Then
-    If xIssend(0).Value <> 0 Then
-        cString.Append " AND STORE IS NULL  and DelOrder_Date is null "
-    End If
-    If xIssend(1).Value <> 0 Then
-        cString.Append " AND STORE IS NOT  NULL AND DelOrder_Date IS NULL "
-    End If
-    If xIssend(3).Value <> 0 Then
-        cString.Append " AND DelOrder_Date IS NOT  NULL "
-    End If
-Else
-    cString.Append " AND STORE = " & MyParn(cBranchStore)
-End If
-
-If xSales(0).Value <> 0 Then
-    cString.Append " AND SALES_DOC IS NULL "
-End If
-If xSales(1).Value <> 0 Then
-    cString.Append " AND SALES_DOC IS NOT NULL "
-End If
-
-If xMan.MatchedWithList Then
-    cString.Append " AND FILE6_90H.MAN = " & MyParn(xMan.BoundText)
-End If
-
-SourchTable.Open cString.GetAsString(), con, adOpenStatic, adLockReadOnly, adCmdText
-
-nCount = SourchTable.RecordCount
-prog1.Min = 0
-prog1.Value = 0
-If nCount > 0 Then
-    SourchTable.MoveFirst
-Else
-    MsgBox " ·« ÌÊÃœ »Ì«‰«  "
-    Exit Sub
-End If
-prog1.Max = nCount
-With SourchTable
-    Do Until .EOF
-        i = i + 1
-        prog1.Value = i
-        temptable.AddNew
-        temptable!STR4 = !DOC_NO
-        temptable!Date1 = !Date
-        temptable!STR7 = !Name
-        temptable!STR6 = !phone
-        
-        temptable!str14 = !Shipping_City
-        temptable!str15 = !Street
-        temptable!str16 = !Payment_Method
-        If xMan.MatchedWithList Then
-            temptable!STR20 = "«·„‰œÊ» : " & xMan.text
-        End If
-        
-        temptable!str1 = !Item
-        temptable!str11 = !MOSM
-        temptable!str12 = !fact_name
-        temptable!str13 = !MODELFACT0
-        temptable!str3 = !DESCA
-        temptable!str9 = !NOTES
-        temptable!str2 = !STORENAME
-        
-        temptable!str8 = !color
-        temptable!STR5 = !SCAL
-        
-        temptable!VAL1 = !Quant
-        temptable!VAL3 = !price
-        'If cBranch <> "00" Then temptable!VAL4 = LastBalance(!Item, cBranchStore, con_MyShop)
-        temptable!STR19 = " ÿ·»«  «Ê‰ ·«Ì‰  €Ì— „‰›–… " & xStore.text
-        temptable.Update
-    .MoveNext
-Loop
-End With
-If temptable.EOF And temptable.BOF Then
-    MsgBox "·«  ÊÃœ »Ì«‰«  »«· ﬁ—Ì—"
-    Exit Sub
-End If
-contemp.BeginTrans
-contemp.CommitTrans
-Main.REPORT1.ReportFileName = App.Path & "\Reports\rep_order_online.rpt"
-Main.REPORT1.DataFiles(0) = tempFile
-Main.REPORT1.Action = 1
-temptable.Close
-Set temptable = Nothing
-End Sub
-
 Private Sub xPhone_GotFocus()
 myGotFocus xphone
 End Sub
@@ -1898,10 +1587,10 @@ Private Sub XPHONE_LostFocus()
 myLostFocus xphone
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus XDOC_NO
+myGotFocus xdoc_no
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus XDOC_NO
+myLostFocus xdoc_no
 End Sub
 Private Sub xDate2_GotFocus()
 myGotFocus xdate2
@@ -2011,119 +1700,3 @@ If KeyCode = 13 Then
     CellPos KeyCode, grid1.Row, grid1.col
 End If
 End Sub
-Private Function getData()
-If MsgBox("≈÷«›… «’‰«› „‰ „·› CSV", vbYesNo) <> vbYes Then
-    Exit Function
-End If
-    
-Dim cFileName As String
-Common1.InitDir = ""
-Common1.FileName = ""
-Common1.Filter = "CSV (*.CSV*)|*.CSV*"
-Common1.ShowOpen
-
-
-cFileName = Common1.FileName
-
-If cFileName = "" Then Exit Function
-
-Dim cSv As New ChilkatCsv
-Dim i As Long
-
-cSv.HasColumnNames = 1
-nAccess = cSv.LoadFile(cFileName)
-If nAccess = 0 Then
-    MsgBox "·„ Ì „ﬂ‰ «·‰Ÿ«„ „‰  Õ„Ì· «·„·›"
-    Exit Function
-End If
-
-
-If cSv.NumRows < 2 Then Exit Function
-Dim Tb As New ChilkatStringBuilder
-Dim cString As New ChilkatStringBuilder
-
-
-prog1.Visible = True
-Dim sCaption As String
-Dim sitem As String
-sCaption = Me.Caption
-For i = 0 To cSv.NumRows - 1
-    Me.Caption = sCaption & " - " & "”Ã· " & i & " „‰ " & cSv.NumRows - 1
-    prog1.Value = Round(i / (cSv.NumRows), 2) * 100
-    If Trim(cSv.GetCellByName(i, "Payment ID")) <> "" Then
-        If Trim(Replace(cSv.GetCellByName(i, "Name"), "#", "")) <> sName Then
-            If myField("select sales_doc from file6_90H WHERE Payment_ID = " & MyParn(cSv.GetCellByName(i, "Payment ID")), con) & "" = "" Then
-                sName = Trim(Replace(cSv.GetCellByName(i, "Name"), "#", ""))
-                Tb.Append "SELECT " & addstring(sName) & " AS DOC_NO,"
-                Tb.Append addstring(cSv.GetCellByName(i, "Email")) & " AS EMAIL,"
-                Tb.Append addstring(cSv.GetCellByName(i, "Subtotal")) & " AS Subtotal,"
-                Tb.Append addstring(cSv.GetCellByName(i, "Shipping")) & " AS Shipping,"
-                Tb.Append addstring(cSv.GetCellByName(i, "Total")) & " AS Total,"
-                Tb.Append addstring(cSv.GetCellByName(i, "Discount Code")) & " AS Discount_Code,"
-                Tb.Append addstring(cSv.GetCellByName(i, "Discount Amount")) & " AS Discount,"
-                Tb.Append addDate(Mid(cSv.GetCellByName(i, "Created at"), 1, 10)) & " AS [date],"
-                Tb.Append addstring(cSv.GetCellByName(i, "Shipping Name")) & " AS NAME,"
-                Tb.Append addstring(cSv.GetCellByName(i, "Shipping Street")) & " AS STREET,"
-                Tb.Append addstring(cSv.GetCellByName(i, "Shipping Address1")) & " AS ADDRESS1,"
-                Tb.Append addstring(cSv.GetCellByName(i, "Shipping Address2")) & " AS ADDRESS2,"
-                Tb.Append addstring(cSv.GetCellByName(i, "Shipping City")) & " AS CITY,"
-                Tb.Append addstring(cSv.GetCellByName(i, "Shipping Phone")) & " AS PHONE,"
-                Tb.Append addstring(cSv.GetCellByName(i, "Payment Method")) & " AS Payment_Method,"
-                Tb.Append addstring(cSv.GetCellByName(i, "Shipping Province Name")) & " AS Shipping_City,"
-                Tb.Append addstring(cSv.GetCellByName(i, "Notes")) & " AS Notes_Order,"
-                Tb.Append addstring(cSv.GetCellByName(i, "Payment ID")) & " AS Payment_ID"
-                Tb.Append " UNION ALL "
-            End If
-        End If
-    End If
-Next
-Tb.Shorten 11
-
-If Tb.length = 0 Then Exit Function
-Dim loctable As New ADODB.Recordset
-Set loctable = mycmd(Tb.GetAsString, con)
-
-nRecordCount = loctable.RecordCount
-
-Dim aInsert As Variant
-con.BeginTrans
-On Error GoTo myerror
-Dim nAffect As Long, nAffectAll As Long
-i = 0
-prog1.Value = 0
-prog1.Visible = True
-Do Until loctable.EOF
-    i = i + 1
-    Me.Caption = sCaption & " - " & "”Ã· " & i & " „‰ " & nRecordCount
-    prog1.Value = Round(i / nRecordCount, 2) * 100
-    aInsert = AddFlag(Empty, "ITEM", addvalue(loctable!Item))
-    aInsert = AddFlag(aInsert, "PRICE", loctable!price)
-    aInsert = AddFlag(aInsert, "QUANT", loctable!Quant)
-    aInsert = AddFlag(aInsert, "MODEL", addstring(loctable!MODEL))
-    If IsEmpty(myField("SELECT DOC_NO FROM " & cFile & " WHERE DOC_NO = " & MyParn(XDOC_NO.text) & " AND ITEM = " & addvalue(loctable!Item), con)) Then
-        aInsert = AddFlag(aInsert, "DOC_NO", addstring(XDOC_NO.text))
-        con.Execute addInsert(aInsert, cFile), nAffect
-        nAffect = 1
-    Else
-        con.Execute addUpdate(aInsert, cFile, "DOC_NO = " & MyParn(XDOC_NO.text) & " AND ITEM = " & addvalue(loctable!Item)), nAffect
-    End If
-    nAffectAll = nAffectAll + nAffect
-    loctable.MoveNext
-Loop
-con.CommitTrans
-Me.Caption = sCaption
-prog1.Visible = False
-MsgBox " „  «÷«›… " & nAffectAll & " ’‰› »‰Ã«Õ"
-getData = True
-Finaly:
-loctable.Close
-Set loctable = Nothing
-Exit Function
-myerror:
-con.RollbackTrans
-MsgBox Err.Description
-Err.Clear
-GoTo Finaly
-End Function
-
-

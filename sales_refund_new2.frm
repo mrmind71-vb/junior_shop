@@ -1007,8 +1007,8 @@ End Sub
 Private Sub Form_Load()
 openCon con
 
-Set grid1.DataSource = data1
-Set grid2.DataSource = data2
+Set grid1.DataSource = DATA1
+Set grid2.DataSource = DATA2
 
 myLoadInv
 
@@ -1036,42 +1036,42 @@ cString = "SELECT FILE6_20H.DATE," & _
           " INNER JOIN FILE0_40 ON FILE6_20H.STORE = FILE0_40.CODE" & _
           " WHERE FILE6_20H.DOC_NO = " & MyParn(sDoc_no)
 If Not bOnline Then
-
-cString = cString & _
-          " UNION ALL " & _
-          "SELECT FR6_20H.DATE," & _
-          "FR6_20H.TOTAL_ITEM," & _
-          "FR6_20H.TOTAL_ITEM - FR6_20H.DISCOUNT AS TOTAL," & _
-          "Fr6_20H.DISCOUNT_OFFER," & _
-          "FR6_20H.DISCOUNT_OFFER_RATE," & _
-          "FR6_20H.DISCOUNT_ADD," & _
-          "FR6_20H.DISCOUNT_ADD_RATE," & _
-          "FR6_20H.DISCOUNT," & _
-          "FR6_20H.DISCOUNT_RATE," & _
-          "BRANCH_FR.DESCA AS BRANCH," & _
-          "FR6_20H.PHONE" & _
-          " FROM FR6_20H " & _
-          " INNER JOIN BRANCH_FR ON FR6_20H.STORE = BRANCH_FR.CODE" & _
-          " WHERE FR6_20H.DOC_NO = " & MyParn(sDoc_no)
+    cString = cString & _
+              " UNION ALL " & _
+              "SELECT FR6_20H.DATE," & _
+              "FR6_20H.TOTAL_ITEM," & _
+              "FR6_20H.TOTAL_ITEM - FR6_20H.DISCOUNT AS TOTAL," & _
+              "Fr6_20H.DISCOUNT_OFFER," & _
+              "FR6_20H.DISCOUNT_OFFER_RATE," & _
+              "FR6_20H.DISCOUNT_ADD," & _
+              "FR6_20H.DISCOUNT_ADD_RATE," & _
+              "FR6_20H.DISCOUNT," & _
+              "FR6_20H.DISCOUNT," & _
+              "FR6_20H.DISCOUNT_RATE," & _
+              "BRANCH_FR.DESCA AS BRANCH," & _
+              "FR6_20H.PHONE" & _
+              " FROM FR6_20H " & _
+              " INNER JOIN BRANCH_FR ON FR6_20H.STORE = BRANCH_FR.CODE" & _
+              " WHERE FR6_20H.DOC_NO = " & MyParn(sDoc_no)
 End If
           
 Set loctable = cmd(cString, con).Execute
 If Not loctable.EOF Then
     xdoc_no.Caption = sDoc_no
-    xBranch.Caption = loctable!branch & ""
+    XBRANCH.Caption = loctable!branch & ""
     If IsValidMobile(loctable!phone & "") Then
-        xPhone.Caption = loctable!phone
+        xphone.Caption = loctable!phone
     End If
-    xdate.Caption = myFormat_p(loctable!Date)
+    xDate.Caption = myFormat_p(loctable!Date)
         
-    xTotal_item.Caption = Myvalue(loctable!TOTAL_ITEM)
+    xtotal_item.Caption = Myvalue(loctable!TOTAL_ITEM)
     xDiscount_offer.Caption = Myvalue(loctable!DISCOUNT_OFFER)
-    xDiscount_offer_Rate.Caption = Format(loctable!discount_offer_rate, "0%")
+    xDiscount_offer_rate.Caption = Format(loctable!discount_offer_rate, "0%")
     xTotal_offer.Caption = loctable!TOTAL_ITEM - loctable!DISCOUNT_OFFER
     xDiscount_add.Caption = Myvalue(loctable!discount_add)
-    xdiscount_Add_rate.Caption = Format(loctable!discount_add_Rate, "0%")
-    xdiscount_Add_rate.Tag = loctable!discount_add_Rate
-    xDiscount.Caption = Myvalue(loctable!DISCOUNT)
+    xDiscount_add_rate.Caption = Format(loctable!discount_add_Rate, "0%")
+    xDiscount_add_rate.Tag = loctable!discount_add_Rate
+    xdiscount.Caption = Myvalue(loctable!discount)
     xdiscount_rate.Caption = Format(loctable!discount_Rate, "0%")
     xdiscount_rate.Tag = loctable!discount_Rate
     
@@ -1082,9 +1082,9 @@ Private Sub myloadgrd2()
 Dim aPrm As Variant
 aPrm = AddFlag(aPrm, "DOC_NO", sDoc_no)
 If Not bOnline Then
-    Set data2.Recordset = mycmd("dbo.sp_SALES_REFUND", con, adStoredProc, aPrm)
+    Set DATA2.Recordset = mycmd("dbo.sp_SALES_REFUND", con, adStoredProc, aPrm)
 Else
-    Set data2.Recordset = mycmd("dbo.sp_SALES_REFUND_ONLINE", con, adStoredProc, aPrm)
+    Set DATA2.Recordset = mycmd("dbo.sp_SALES_REFUND_ONLINE", con, adStoredProc, aPrm)
 End If
 Fixgrd2
 End Sub
@@ -1236,13 +1236,13 @@ If grid1.Rows > 1 Then
     
     If grid1.ValueMatrix(grid1.Rows - 1, 8) = grid2.ValueMatrix(grid2.Rows - 1, 8) And grid1.ValueMatrix(grid1.Rows - 1, 10) = grid2.ValueMatrix(grid2.Rows - 1, 10) Then
         xQuant_Ret.Caption = grid1.ValueMatrix(grid1.Rows - 1, 8)
-        xtotal_item_ret.Caption = xTotal_item.Caption
+        xtotal_item_ret.Caption = xtotal_item.Caption
         xDiscount_offer_ret.Caption = xDiscount_offer.Caption
-        xdiscount_offer_ret_Rate.Caption = xDiscount_offer_Rate.Caption
+        xdiscount_offer_ret_Rate.Caption = xDiscount_offer_rate.Caption
         xtotal_offer_ret.Caption = xTotal_offer.Caption
         xdiscount_add_Ret.Caption = xDiscount_add.Caption
-        xdiscount_add_ret_Rate.Caption = xdiscount_Add_rate.Caption
-        xdiscount_ret.Caption = xDiscount.Caption
+        xdiscount_add_ret_Rate.Caption = xDiscount_add_rate.Caption
+        xdiscount_ret.Caption = xdiscount.Caption
         xdiscount_Ret_rate.Caption = xdiscount_rate.Caption
         xtotal_Ret.Caption = xtotal.Caption
     Else
@@ -1267,7 +1267,7 @@ If grid1.Rows > 1 Then
         
         
         xtotal_offer_ret.Caption = grid1.ValueMatrix(grid1.Rows - 1, 10) - nDiscountOffer
-        xdiscount_add_Ret.Caption = mRound(Val(xdiscount_Add_rate.Tag) * Val(xtotal_offer_ret.Caption))
+        xdiscount_add_Ret.Caption = mRound(Val(xDiscount_add_rate.Tag) * Val(xtotal_offer_ret.Caption))
         If Val(xtotal_offer_ret.Caption) <> 0 Then
             xdiscount_add_ret_Rate.Caption = Format(xdiscount_add_Ret.Caption / Val(xtotal_offer_ret.Caption), "0%")
         Else
@@ -1537,7 +1537,7 @@ Private Sub xdiscount_add_rate_ret_Click()
 End Sub
 
 Private Sub xItem_Change()
-xdesca.Caption = ""
+xDesca.Caption = ""
 End Sub
 
 Private Sub xitem_GotFocus()
@@ -1561,7 +1561,7 @@ If KeyAscii = 13 Then
         xItem.text = cm.Parameters("@ITEM").Value
     End If
     
-    xdesca.Caption = cm.Parameters("@DESCA").Value
+    xDesca.Caption = cm.Parameters("@DESCA").Value
     Dim i As Long
     For i = 1 To grid2.Rows - 2
         If grid2.TextMatrix(i, 1) = Trim(xItem.text) And grid2.ValueMatrix(i, 12) > 0 Then

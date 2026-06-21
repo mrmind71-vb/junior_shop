@@ -618,13 +618,13 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim con As New ADODB.Connection
-Public myform As Form
+Public myForm As Form
 Dim sPO_NO As String
 Dim sDate As String
 Dim sCode As String
 Private Sub Check1_Click()
 FilterGrd grid1
-FilterGrd GRID2
+FilterGrd grid2
 End Sub
 
 Private Sub CMD_SEND_Click()
@@ -635,7 +635,7 @@ Dim sDoc_no_add As String, nCount As Long
 nCount = Val(myreplace(sDoc_no_add) & "")
 If nCount >= 0 Then
     'MsgBox " „  ”ÃÌ· " & nCount & " ”Ã·"
-    myform.sDoc_no_add = sDoc_no_add
+    myForm.sDoc_no_add = sDoc_no_add
     Unload Me
 End If
 End Sub
@@ -648,7 +648,7 @@ cmdWeb.Enabled = False
 SSTab1.TabEnabled(0) = False
 SSTab1.TabEnabled(1) = False
 grid1.Rows = 1
-GRID2.Rows = 1
+grid2.Rows = 1
 sDate = ""
 sCode = ""
 sPO_NO = ""
@@ -656,7 +656,7 @@ sPO_NO = ""
 getCSV
 
 FilterGrd grid1
-FilterGrd GRID2
+FilterGrd grid2
 cmdWeb.Enabled = True
 SSTab1.TabEnabled(0) = True
 SSTab1.TabEnabled(1) = True
@@ -665,10 +665,10 @@ End Sub
 Private Sub Form_Load()
 openCon con
 Set grid1.DataSource = data1
-fixGrd
+Fixgrd
 Fixgrd2
 End Sub
-Private Sub fixGrd()
+Private Sub Fixgrd()
 With grid1
 .Cols = 11
 .TextMatrix(0, 0) = "#"
@@ -695,7 +695,7 @@ With grid1
 .ColHidden(.Cols - 3) = True
 .ColHidden(.Cols - 2) = True
 
-Dim Col As Long
+Dim col As Long
 For i = 1 To .Rows - 1
     .TextMatrix(i, 0) = i
     If .TextMatrix(i, .Cols - 2) = "" Then
@@ -712,9 +712,9 @@ For i = 1 To .Rows - 1
         Else
             .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &HC0C0FF
         End If
-        GRID2.AddItem ""
-        For Col = 0 To .Cols - 1
-            GRID2.TextMatrix(GRID2.Rows - 1, Col) = .TextMatrix(i, Col)
+        grid2.AddItem ""
+        For col = 0 To .Cols - 1
+            grid2.TextMatrix(grid2.Rows - 1, col) = .TextMatrix(i, col)
         Next
     End If
 Next
@@ -725,7 +725,7 @@ End If
 End With
 End Sub
 Private Sub Fixgrd2()
-With GRID2
+With grid2
 .TextMatrix(0, 0) = "#"
 .TextMatrix(0, 1) = "ASIN"
 .TextMatrix(0, 2) = "Order No"
@@ -761,7 +761,7 @@ End Sub
 Private Sub Form_Resize()
 SSTab1.Height = IIf(Me.Height - SSTab1.Top - 1000 < 1000, 1000, Me.Height - SSTab1.Top - 1000)
 grid1.Height = SSTab1.Height - 500
-GRID2.Height = SSTab1.Height - 500
+grid2.Height = SSTab1.Height - 500
 End Sub
 
 Private Sub grid1_EnterCell()
@@ -774,7 +774,7 @@ End Sub
 
 Private Sub Option1_Click(Index As Integer)
 FilterGrd grid1
-FilterGrd GRID2
+FilterGrd grid2
 End Sub
 Private Sub FilterGrd(pGrid)
 Dim i As Long
@@ -886,12 +886,12 @@ If ordTable.EOF Then
    Exit Function
 End If
 
-If IsNull(ordTable!Code) Then
+If IsNull(ordTable!code) Then
    MsgBox "„” ‰œ «·ÿ·»Ì… »œÊ‰ ⁄„Ì·"
    Exit Function
 End If
 
-sCode = ordTable!Code
+sCode = ordTable!code
 Set ordTable = Nothing
 
 If myField("select * from file6_52H WHERE PO_NO = " & MyParn(sPO_NO), con) & "" <> "" Then
@@ -935,13 +935,13 @@ sb.AppendLine "SELECT tb.ASIN," & _
                " ORDER BY tb.Record_Number ", 1
 
 Set data1.Recordset = cmd(sb.GetAsString, con).Execute
-fixGrd
+Fixgrd
 Fixgrd2
 
 prog1.Visible = False
 Me.Caption = sCaption
 Exit Function
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Function
@@ -966,7 +966,7 @@ cString.Append addstring(sCode) & ","
 cString.Append addDate(sDate)
 cString.Append ");"
 
-On Error GoTo myError
+On Error GoTo myerror
 con.BeginTrans
 con.Execute cString.GetAsString
 sCaption = Me.Caption
@@ -1007,7 +1007,7 @@ prog1.Visible = False
 Me.Caption = sCaption
 pDoc_no = sDoc_no
 Exit Function
-myError:
+myerror:
 myreplace = -1
 MsgBox Err.Description
 Err.Clear
