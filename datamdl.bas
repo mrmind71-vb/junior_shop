@@ -118,7 +118,7 @@ closeCon = True
 Exit Function
 myerror:
 Err.Clear
-'MsgBox err.Description
+'MsgBox Err.Description
 End Function
 Function ReadFile(cFile) As String
 Dim TextLine

@@ -1506,21 +1506,21 @@ Private Sub Form_Load()
     openCon con
     'If cBranch <> "00" Then openCon con_MyShop
     
-    Set grid1.DataSource = DATA1
+    Set grid1.DataSource = data1
     Set grid2.DataSource = data2
     
     Frame2.Visible = (cBranch = "00")
     Check1.Visible = (cBranch = "00")
     'cmd_addexel.Visible = (cBranch = "00")
-    cmdCSV.Enabled = (cBranch = "00")
+    cmdCsv.Enabled = (cBranch = "00")
     
-    Set data3.Recordset = myRecordSet("SELECT Payment_Method FROM file6_90h GROUP BY Payment_Method ", con)
-    Set xpay.RowSource = data3
-    xpay.ListField = "Payment_Method"
-    xpay.BoundColumn = "Payment_Method"
+    Set DATA3.Recordset = myRecordSet("SELECT Payment_Method FROM file6_90h GROUP BY Payment_Method ", con)
+    Set xPay.RowSource = DATA3
+    xPay.ListField = "Payment_Method"
+    xPay.BoundColumn = "Payment_Method"
     
-    Set DATA4.Recordset = myRecordSet("SELECT CODE , DESCA FROM FILE0_40 WHERE online =  1 ORDER BY CODE ", con)
-    Set xStore.RowSource = DATA4
+    Set data4.Recordset = myRecordSet("SELECT CODE , DESCA FROM FILE0_40 WHERE online =  1 ORDER BY CODE ", con)
+    Set xStore.RowSource = data4
     xStore.ListField = "Desca"
     xStore.BoundColumn = "Code"
         
@@ -1585,11 +1585,11 @@ With grid1
               " FILE6_25.DESCA,FILE6_90H.MAN" & _
               " FROM FILE6_90H LEFT JOIN FILE6_25 ON FILE6_90H.MAN = FILE6_25.CODE"
     If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xdoc_no.text)
-    If xphone.text <> "" Then cWhere = cWhere & Tr(cWhere) & " [phone] = " & MyParn(xphone.text)
-    If xpay.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " [Payment_Method] = " & MyParn(xpay.text)
+    If xPhone.text <> "" Then cWhere = cWhere & Tr(cWhere) & " [phone] = " & MyParn(xPhone.text)
+    If xPay.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " [Payment_Method] = " & MyParn(xPay.text)
     If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " [STORE] = " & MyParn(xStore.BoundText)
     If xMan.MatchedWithList Then cWhere = cWhere & Tr(cWhere) & "MAN = " & MyParn(xMan.BoundText)
-    If IsDate(xDate1.text) Then cWhere = cWhere & Tr(cWhere) & " [DATE] >= " & DateSq(xDate1.text)
+    If IsDate(xdate1.text) Then cWhere = cWhere & Tr(cWhere) & " [DATE] >= " & DateSq(xdate1.text)
     If IsDate(xdate2.text) Then cWhere = cWhere & Tr(cWhere) & " [DATE] <= " & DateSq(xdate2.text)
     
     If cBranch = "00" Then
@@ -1609,7 +1609,7 @@ With grid1
     cString = cString & " ORDER BY DOC_NO "
     
     
-    Set DATA1.Recordset = mycmd(cString, con)
+    Set data1.Recordset = mycmd(cString, con)
 
 End With
 Fixgrd
@@ -1728,7 +1728,7 @@ Private Sub Form_Unload(Cancel As Integer)
     On Error Resume Next
     closeCon con
     'If cBranch <> "00" Then closeCon con_MyShop
-    SaveText Me, , Array(xDate1.Name, xdate2.Name)
+    SaveText Me, , Array(xdate1.Name, xdate2.Name)
 End Sub
 Sub AddFromExel()
     Dim xl As New Excel.Application, nREcOrder As Double
@@ -1916,9 +1916,9 @@ Else
 End If
 Dim cString  As String, cStrStore As String
 With StoreTable
-    cStrStore = " , (SELECT SUM(BALITEM) FROM [BAL_ITEM_ORDERONLINE] WHERE [BAL_ITEM_ORDERONLINE].ITEM = FILE6_90.ITEM AND [BAL_ITEM_ORDERONLINE].STORE  = " & MyParn(StoreTable!CODE) & " ) AS 'Total All Order' "
+    cStrStore = " , (SELECT SUM(BALITEM) FROM [BAL_ITEM_ORDERONLINE] WHERE [BAL_ITEM_ORDERONLINE].ITEM = FILE6_90.ITEM AND [BAL_ITEM_ORDERONLINE].STORE  = " & MyParn(StoreTable!code) & " ) AS 'Total All Order' "
     Do While Not .EOF
-        cStrStore = cStrStore & " , (SELECT SUM([IN]-[OUT]) FROM FILE1_11 WHERE FILE1_11.ITEM = FILE6_90.ITEM AND FILE1_11.STORE  = " & MyParn(StoreTable!CODE) & " ) AS '" & StoreTable!DESCA & "'"
+        cStrStore = cStrStore & " , (SELECT SUM([IN]-[OUT]) FROM FILE1_11 WHERE FILE1_11.ITEM = FILE6_90.ITEM AND FILE1_11.STORE  = " & MyParn(StoreTable!code) & " ) AS '" & StoreTable!DESCA & "'"
         .MoveNext
     Loop
 End With
@@ -2263,15 +2263,15 @@ If xdoc_no.text <> "" Then
     cString.Append " AND [DOC_NO] = " & MyParn(xdoc_no.text)
 End If
 
-If xpay.MatchedWithList Then
-    cString.Append " AND [Payment_Method] = " & MyParn(xpay.text)
+If xPay.MatchedWithList Then
+    cString.Append " AND [Payment_Method] = " & MyParn(xPay.text)
 End If
 
 If xStore.MatchedWithList Then
     cString.Append " AND [STORE] = " & MyParn(xStore.BoundText)
 End If
-If IsDate(xDate1.text) Then
-    cString.Append " AND [DATE] >= " & DateSq(xDate1.text)
+If IsDate(xdate1.text) Then
+    cString.Append " AND [DATE] >= " & DateSq(xdate1.text)
 End If
 If IsDate(xdate2.text) Then
     cString.Append " AND [DATE] <= " & DateSq(xdate2.text)
@@ -2363,10 +2363,10 @@ Set temptable = Nothing
 End Sub
 
 Private Sub xPhone_GotFocus()
-myGotFocus xphone
+myGotFocus xPhone
 End Sub
 Private Sub XPHONE_LostFocus()
-myLostFocus xphone
+myLostFocus xPhone
 End Sub
 Private Sub xDoc_No_GotFocus()
 myGotFocus xdoc_no
@@ -2382,18 +2382,18 @@ myLostFocus xdate2
 myValidDate xdate2
 End Sub
 Private Sub xdate1_GotFocus()
-myGotFocus xDate1
+myGotFocus xdate1
 End Sub
 Private Sub xdate1_LostFocus()
-myLostFocus xDate1
-myValidDate xDate1
+myLostFocus xdate1
+myValidDate xdate1
 End Sub
 Private Sub xPay_GotFocus()
-myGotFocus xpay
+myGotFocus xPay
 End Sub
 Private Sub xPay_LostFocus()
-myLostFocus xpay
-If Not xpay.MatchedWithList Then xpay.BoundText = ""
+myLostFocus xPay
+If Not xPay.MatchedWithList Then xPay.BoundText = ""
 End Sub
 Private Sub XSTORE_GotFocus()
 myGotFocus xStore

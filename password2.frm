@@ -1438,11 +1438,11 @@ ElseIf bopt3 Then
 Else
     nUser = enUser.User
 End If
-If DefUser And False Then
+'If DefUser Or True Then
     servername_vpn = "MRMIND\MRMIND71"
-Else
+'Else
     servername_vpn = "154.236.187.105"
-End If
+'End If
 End Sub
 Private Sub HandleOnline()
 Dim loctable As New ADODB.Recordset

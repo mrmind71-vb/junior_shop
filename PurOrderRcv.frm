@@ -1470,15 +1470,15 @@ User = 0
 End Enum
 Private Function myreplace(Optional Row As Long = -1) As Boolean
 Dim aInsert As Variant
-aInsert = AddFlag(Empty, "[DATE]", addDate(xDate.text))
+aInsert = AddFlag(Empty, "[DATE]", addDate(xdate.text))
 'aInsert = AddFlag(aInsert, "[STORE]", addstring(xStore.BoundText))
-aInsert = AddFlag(aInsert, "[NOTES]", addstring(XNOTES.text))
-aInsert = AddFlag(aInsert, "[ORDER_NO]", addstring(XORDER_NO.text))
+aInsert = AddFlag(aInsert, "[NOTES]", addstring(xNotes.text))
+aInsert = AddFlag(aInsert, "[ORDER_NO]", addstring(xorder_no.text))
 'On Error GoTo myError
 con.BeginTrans
-If xDoc_no.Tag = DefineMode Then
-    xDoc_no.text = IncrementString(RetZero(Newflag("FILE6_55H", "DOC_NO", con)))
-    aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_no.text))
+If xdoc_no.Tag = DefineMode Then
+    xdoc_no.text = IncrementString(RetZero(Newflag("FILE6_55H", "DOC_NO", con)))
+    aInsert = AddFlag(aInsert, "DOC_NO", addstring(xdoc_no.text))
     aInsert = AddFlag(aInsert, "userName1", addstring(cUserName))
     aInsert = AddFlag(aInsert, "TIME1", addDate("GETDATE()"))
     con.Execute addInsert(aInsert, "file6_55H")
@@ -1486,14 +1486,14 @@ Else
     aInsert = AddFlag(aInsert, "userName2", addstring(cUserName))
     aInsert = AddFlag(aInsert, "TIME2", addDate("GETDATE()"))
     
-    con.Execute addUpdate(aInsert, "file6_55H", "doc_no = " & addstring(xDoc_no.text))
+    con.Execute addUpdate(aInsert, "file6_55H", "doc_no = " & addstring(xdoc_no.text))
 End If
 
 If Row > -2 Then myreplaceGrd Row
 con.CommitTrans
 myreplace = True
 Exit Function
-myError:
+myerror:
 prog1.Visible = False
 MsgBox Err.Description
 'con.RollbackTrans
@@ -1509,10 +1509,10 @@ If ActiveControl.Name = grid1.Name Then
     If GrdDesc(oSearchItem.grid1.TextMatrix(oSearchItem.grid1.Row, 0), grid1.Row, RowFound, sMsg) Then
         If RowFound <> grid1.Row And Row > 0 Then
             If sMsg <> "" Then Inform sMsg
-            Grid1_AfterEdit RowFound, grid1.Col
+            Grid1_AfterEdit RowFound, grid1.col
         Else
-            Grid1_AfterEdit grid1.Row, grid1.Col
-            CellPos 13, grid1.Row, grid1.Col
+            Grid1_AfterEdit grid1.Row, grid1.col
+            CellPos 13, grid1.Row, grid1.col
         End If
     Else
         If sMsg <> "" Then MsgBox sMsg
@@ -1521,16 +1521,16 @@ If ActiveControl.Name = grid1.Name Then
 ElseIf ActiveControl.Name = cmdInform.Name Then
     openCardTable tbMode.tbFind, oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
     Unload oSearchDoc
-ElseIf ActiveControl.Name = XORDER_NO.Name Then
-    XORDER_NO.text = oSearchOrder.grid1.TextMatrix(oSearchOrder.grid1.Row, 0)
-    XORDER_NO.Tag = oSearchOrder.grid1.TextMatrix(oSearchOrder.grid1.Row, 0)
-    xcode_desca.Caption = oSearchOrder.grid1.TextMatrix(oSearchOrder.grid1.Row, 2)
+ElseIf ActiveControl.Name = xorder_no.Name Then
+    xorder_no.text = oSearchOrder.grid1.TextMatrix(oSearchOrder.grid1.Row, 0)
+    xorder_no.Tag = oSearchOrder.grid1.TextMatrix(oSearchOrder.grid1.Row, 0)
+    xCode_desca.Caption = oSearchOrder.grid1.TextMatrix(oSearchOrder.grid1.Row, 2)
     xStore_Desca.Caption = oSearchOrder.grid1.TextMatrix(oSearchOrder.grid1.Row, 3)
     xMax_Rcv.Value = IIf(oSearchOrder.grid1.ValueMatrix(oSearchOrder.grid1.Row, 4) = 0, 0, 1)
     Unload oSearchOrder
 End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -1554,20 +1554,20 @@ Private Sub CmdDel_Click()
 If MsgBox("Õ–› ?", vbOKCancel + vbDefaultButton2 + vbCritical) <> vbOK Then Exit Sub
 
 con.BeginTrans
-On Error GoTo myError
-con.Execute "Delete  FROM FILE6_55 where Doc_No = " & addstring(xDoc_no.text)
-con.Execute "Delete  FROM file6_55H where Doc_No = " & addstring(xDoc_no.text)
+On Error GoTo myerror
+con.Execute "Delete  FROM FILE6_55 where Doc_No = " & addstring(xdoc_no.text)
+con.Execute "Delete  FROM file6_55H where Doc_No = " & addstring(xdoc_no.text)
 con.CommitTrans
 
 If sDoc_no <> "" Then Exit Sub
 
-If Not openCardTable(tbMode.tbPrevious, xDoc_no.text) Then
+If Not openCardTable(tbMode.tbPrevious, xdoc_no.text) Then
     If Not openCardTable(tbMode.tbFirst) Then
         myDefine
     End If
 End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 con.RollbackTrans
@@ -1591,14 +1591,14 @@ If Not openCardTable Then
 End If
 End Sub
 Private Sub CmdNext_Click()
-If Not openCardTable(tbMode.tbNext, xDoc_no.text) Then
+If Not openCardTable(tbMode.tbNext, xdoc_no.text) Then
     If Not openCardTable(tbMode.tblast) Then
         myDefine
     End If
 End If
 End Sub
 Private Sub CmdPrevious_Click()
-If Not openCardTable(tbMode.tbPrevious, xDoc_no.text) Then
+If Not openCardTable(tbMode.tbPrevious, xdoc_no.text) Then
     If Not openCardTable(tbMode.tbFirst) Then
         myDefine
     End If
@@ -1616,7 +1616,7 @@ If sDoc_no <> "" Then
     Exit Sub
 End If
 
-If Not openCardTable(tbMode.tbFind, xDoc_no.text) Then
+If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
     If Not openCardTable Then myDefine
 End If
 End Sub
@@ -1627,10 +1627,10 @@ Private Sub Form_Activate()
 If Not bAct Then
     bAct = True
     On Error Resume Next
-    If xDoc_no.Tag = LoadMode Then
+    If xdoc_no.Tag = LoadMode Then
         grid1.SetFocus
     Else
-        xDate.SetFocus
+        xdate.SetFocus
     End If
     Err.Clear
 End If
@@ -1689,14 +1689,14 @@ closeCon con
 Set Purch_recev = Nothing
 Err.Clear
 End Sub
-Private Sub Grid1_AfterEdit(ByVal Row As Long, ByVal Col As Long)
+Private Sub Grid1_AfterEdit(ByVal Row As Long, ByVal col As Long)
 If Not myValid(True) Then
     On Error Resume Next
     grid1.SetFocus
     Err.Clear
     myLoadGrd
     If Row < grid1.Rows - 1 Then
-        grid1.Select Row, Col
+        grid1.Select Row, col
     Else
         CellPos 13, grid1.Rows - 2, grid1.Cols - 1
     End If
@@ -1713,12 +1713,12 @@ With grid1
     If Row = grid1.Rows - 1 Then
         bNew = True
         myAddItem
-    ElseIf Row = grid1.Rows - 2 And (Col = 0 Or Col = 1) Then
+    ElseIf Row = grid1.Rows - 2 And (col = 0 Or col = 1) Then
         'MyEditItem grid1, Row, col
     End If
     
     If myreplace(Row) Then
-        If xDoc_no.Tag = DefineMode Then
+        If xdoc_no.Tag = DefineMode Then
             Handlecontrols LoadMode
             myLoadGrd
         ElseIf grid1.TextMatrix(Row, grid1.Cols - 1) = "" Then
@@ -1738,7 +1738,7 @@ End Sub
 Private Sub grid1_EnterCell()
 If Not bEditRecord Then
     grid1.Editable = flexEDNone
-ElseIf (grid1.Col = 1 And grid1.TextMatrix(grid1.Row, grid1.Cols - 1) = "") Or grid1.Col = 9 Then
+ElseIf (grid1.col = 1 And grid1.TextMatrix(grid1.Row, grid1.Cols - 1) = "") Or grid1.col = 9 Then
     grid1.Editable = flexEDKbdMouse
 Else
     grid1.Editable = flexEDNone
@@ -1756,8 +1756,8 @@ If KeyAscii = 13 Then
     KeyAscii = 0
 End If
 End Sub
-Private Sub grid1_ValidateEdit(ByVal Row As Long, ByVal Col As Long, Cancel As Boolean)
-If Col = 1 Then
+Private Sub grid1_ValidateEdit(ByVal Row As Long, ByVal col As Long, Cancel As Boolean)
+If col = 1 Then
     If Trim(grid1.EditText) = "" Then
         MsgBox "ﬂÊœ «·’‰› €Ì— „”Ã·"
         Cancel = True
@@ -1778,16 +1778,16 @@ If Col = 1 Then
         If RowFound <> Row And RowFound > 0 Then
             'grid1.Select RowFound, 0
             'grid1.ShowCell RowFound, 0
-            Grid1_AfterEdit RowFound, Col
+            Grid1_AfterEdit RowFound, col
             If sMsg <> "" Then Inform sMsg
             Cancel = True
         Else
             grid1.EditText = grid1.TextMatrix(Row, 1)
         End If
     End If
-ElseIf Col = 9 And Val(grid1.EditText) = 0 Then
+ElseIf col = 9 And Val(grid1.EditText) = 0 Then
     Cancel = True
-ElseIf Col = 9 Then
+ElseIf col = 9 Then
     If xMax_Rcv.Value = 1 Then
         If Val(grid1.EditText) + grid1.ValueMatrix(Row, 10) - grid1.TextMatrix(Row, 8) > 0 Then
             Inform "«·’‰› Ê’· Õœ «· ”·Ì„"
@@ -1801,20 +1801,20 @@ If KeyCode = 112 And xClosed.Value = 0 Then SuppLookupAll Me, Search3
 End Sub
 
 Private Sub TO_EXEL_Click(Index As Integer)
-fixGrd
+Fixgrd
 End Sub
 
 Private Sub xDate_Validate(Cancel As Boolean)
-    If Not IsDate(xDate.text) Then Cancel = True
+    If Not IsDate(xdate.text) Then Cancel = True
 End Sub
 Private Function myValid(Optional bIgMsg As Boolean = False) As Boolean
-If Not IsDate(xDate.text) Then
+If Not IsDate(xdate.text) Then
     If Not bIgMsg Then MsgBox "«· «—ÌŒ €Ì— ”·Ì„"
     Exit Function
 End If
 
 
-If XORDER_NO.text = "" Then
+If xorder_no.text = "" Then
     If Not bIgMsg Then MsgBox " ”ÃÌ· —ﬁ„ ÿ·»Ì… «·„Ê—œ "
     Exit Function
 End If
@@ -1823,15 +1823,15 @@ End If
 myValid = True
 End Function
 Private Sub myload(Optional bLeaveBal As Boolean = False)
-xDoc_no.text = CardTable!DOC_NO
-XORDER_NO.text = CardTable!ORDER_NO
-XORDER_NO.Tag = CardTable!ORDER_NO
+xdoc_no.text = CardTable!DOC_NO
+xorder_no.text = CardTable!ORDER_NO
+xorder_no.Tag = CardTable!ORDER_NO
 xMax_Rcv.Value = IIf(CardTable!max_rcv, 1, 0)
-xDate.text = myFormat_p(CardTable!Date)
+xdate.text = myFormat_p(CardTable!Date)
 xStore_Desca.Caption = CardTable!STORE_DESCA
-xcode_desca.Caption = CardTable!code_desca
+xCode_desca.Caption = CardTable!code_desca
 'xStore.BoundText = CardTable!STORE & ""
-XNOTES.text = CardTable!NOTES & ""
+xNotes.text = CardTable!NOTES & ""
 myLoadGrd
 Handlecontrols LoadMode
 
@@ -1848,49 +1848,49 @@ On Error Resume Next
 grid1.SetFocus
 Err.Clear
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
 Private Sub myDefine()
-xDoc_no.text = RetZero(IncRec(GetDesca("select MAX(doc_no) from file6_55h ", con)), 6)
+xdoc_no.text = RetZero(IncRec(GetDesca("select MAX(doc_no) from file6_55h ", con)), 6)
 
-If xDoc_no.text = "000000" Then xDoc_no.text = "000001"
-XORDER_NO.text = ""
-xDoc_no.Tag = DefineMode
+If xdoc_no.text = "000000" Then xdoc_no.text = "000001"
+xorder_no.text = ""
+xdoc_no.Tag = DefineMode
 
 xisClosed.Value = 0
 xMax_Rcv.Value = 0
-xDate.text = myFormat_p(Date)
+xdate.text = myFormat_p(Date)
 xStore_Desca.Caption = ""
-xcode_desca.Caption = ""
-XNOTES.text = ""
+xCode_desca.Caption = ""
+xNotes.text = ""
 
 grid1.Rows = 1
 myAddItem
-xDoc_no.Tag = 0
+xdoc_no.Tag = 0
 
-fixGrd
+Fixgrd
 Handlecontrols DefineMode
 cmdSave.Enabled = True
-cmddel.Enabled = True
+cmdDel.Enabled = True
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus xDoc_no
+myLostFocus xdoc_no
 If CardTable.EOF And CardTable.BOF Then Exit Sub
-CardTable.Find "Doc_no = " & MyParn(xDoc_no.text), , adSearchForward, adBookmarkFirst
+CardTable.Find "Doc_no = " & MyParn(xdoc_no.text), , adSearchForward, adBookmarkFirst
 If Not CardTable.EOF Then myload True
 End Sub
 Private Sub grid1_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 13 Then
-    CellPos KeyCode, grid1.Row, grid1.Col
+    CellPos KeyCode, grid1.Row, grid1.col
 ElseIf Not bEditRecord Then
     Exit Sub
-ElseIf KeyCode = 112 And grid1.Col = 1 And bEditRecord And grid1.TextMatrix(grid1.Row, grid1.Cols - 1) = "" And Trim(XORDER_NO.text) <> "" Then
-    ItemsLook Me, oSearchItem, XORDER_NO.text
+ElseIf KeyCode = 112 And grid1.col = 1 And bEditRecord And grid1.TextMatrix(grid1.Row, grid1.Cols - 1) = "" And Trim(xorder_no.text) <> "" Then
+    ItemsLook Me, oSearchItem, xorder_no.text
 ElseIf KeyCode = 46 And grid1.Row <> grid1.Rows - 1 Then
     If MsgBox("Õ–› „‰ «·„” ‰œ ?, Â· «‰  „Ê«›ﬁ ø", vbOKCancel + vbDefaultButton2) = vbOK Then
-        On Error GoTo myError
+        On Error GoTo myerror
         If grid1.TextMatrix(grid1.Row, grid1.Cols - 1) <> "" Then
             con.Execute "Delete from FILE6_55 where ID = " & grid1.TextMatrix(grid1.Row, grid1.Cols - 1)
         End If
@@ -1898,7 +1898,7 @@ ElseIf KeyCode = 46 And grid1.Row <> grid1.Rows - 1 Then
     End If
 End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -1909,7 +1909,7 @@ If pItem = "" Or Len(pItem) < 3 Then
     Exit Function
 End If
 
-If XORDER_NO.text = "" Then
+If xorder_no.text = "" Then
     sMsg = "„” ‰œ «·ÿ·»Ì… €Ì— „”Ã·"
     Exit Function
 End If
@@ -1931,7 +1931,7 @@ If xMax_Rcv.Value = 1 Then
     Dim cString As String
     cString = "SELECT ITEM,QUANT FROM FILE6_50 " & _
               " WHERE ITEM = " & MyParn(sitem) & _
-              " AND DOC_NO = " & MyParn(XORDER_NO.text)
+              " AND DOC_NO = " & MyParn(xorder_no.text)
     
     Set loctable = cmd(cString, con).Execute
     If loctable.EOF Then
@@ -2021,14 +2021,14 @@ oSearchDoc.sCaption = "«” ⁄·«„"
 oSearchDoc.Show 1
 End Sub
 Private Sub xDoc_No_Validate(Cancel As Boolean)
-If xDoc_no.text = "" Then Cancel = True
+If xdoc_no.text = "" Then Cancel = True
 End Sub
 Private Sub MakeSerial(Optional nBeginRow As Integer = 1)
 For i = 1 To grid1.Rows - 1
     grid1.TextMatrix(i, 0) = i
 Next
 End Sub
-Private Sub fixGrd()
+Private Sub Fixgrd()
 With grid1
 .Redraw = flexRDNone
 .RowHeight(0) = 800
@@ -2093,7 +2093,7 @@ Private Function myreplaceGrd(nRow) As Boolean
 Dim aInsert As Variant
 With grid1
     For i = IIf(nRow = -1, 1, nRow) To IIf(nRow = -1, grid1.Rows - 2, nRow)
-        aInsert = AddFlag(Empty, "DOC_NO", addstring(xDoc_no.text))
+        aInsert = AddFlag(Empty, "DOC_NO", addstring(xdoc_no.text))
         aInsert = AddFlag(aInsert, "ITEM", addstring(.TextMatrix(i, 1)))
         aInsert = AddFlag(aInsert, "QUANT", .ValueMatrix(i, 9))
         If grid1.TextMatrix(i, grid1.Cols - 1) = "" Then
@@ -2128,20 +2128,20 @@ With grid1
 '              " WHERE FILE6_55.DOC_NO = " & MyParn(xDoc_no.text)
 
     Dim aPrm As Variant
-    aPrm = AddFlag(aPrm, "DOC_NO", TurnValue(xDoc_no.text))
-    aPrm = AddFlag(aPrm, "ORDER_NO", TurnValue(XORDER_NO.text))
+    aPrm = AddFlag(aPrm, "DOC_NO", TurnValue(xdoc_no.text))
+    aPrm = AddFlag(aPrm, "ORDER_NO", TurnValue(xorder_no.text))
     Set DATA11.Recordset = cmd("[dbo].[sp_sup_order_rcv]", con, adStoredProc, aPrm).Execute
     .AddItem ""
 End With
-fixGrd
+Fixgrd
 End Sub
 Private Sub myUndo()
-If xDoc_no.Tag = DefineMode Then
+If xdoc_no.Tag = DefineMode Then
     If Not openCardTable Then
         CmdNewInv_Click
     End If
 Else
-    If Not openCardTable(tbMode.tbFind, xDoc_no.text) Then
+    If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
         If Not openCardTable Then
             myDefine
         End If
@@ -2160,7 +2160,7 @@ End If
 
 Me.MousePointer = vbHourglass
 
-On Error GoTo myError
+On Error GoTo myerror
 cFilter = ""
 If cmdFilter.Tag <> "" Then cFilter = cFilter & Tr(cFilter) & "DOC_NO IN (" & cmdFilter.Tag & ")"
 
@@ -2206,7 +2206,7 @@ End If
 
 cString = cString & " " & cOrder
 
-Set CardTable = mycmd(cString, con, adText)
+Set CardTable = mycmd(cString, con, ADTEXT)
 
 If (Not CardTable.EOF) Then
     myload
@@ -2214,7 +2214,7 @@ If (Not CardTable.EOF) Then
 End If
 Me.MousePointer = 0
 Exit Function
-myError:
+myerror:
 Me.MousePointer = vbNormal
 MsgBox Err.Description
 Err.Clear
@@ -2233,37 +2233,37 @@ If .ValueMatrix(Row, 9) = 0 Then Exit Function
 End With
 validRow = True
 End Function
-Private Sub grid1_KeyUpEdit(ByVal Row As Long, ByVal Col As Long, KeyCode As Integer, ByVal Shift As Integer)
+Private Sub grid1_KeyUpEdit(ByVal Row As Long, ByVal col As Long, KeyCode As Integer, ByVal Shift As Integer)
 If KeyCode = 13 Then
 '    If col = 0 And grid1.TextMatrix(Row, col) = "" Then Exit Sub
-    CellPos KeyCode, Row, Col
+    CellPos KeyCode, Row, col
 End If
 End Sub
-Private Sub CellPos(ByRef KeyCode, ByVal Row As Long, ByVal Col As Long)
+Private Sub CellPos(ByRef KeyCode, ByVal Row As Long, ByVal col As Long)
 KeyCode = 0
 If bStopCell Then
-ElseIf Col = 1 And grid1.TextMatrix(Row, Col) = "" Then
-ElseIf Col < 9 Then
-    grid1.Col = 9
+ElseIf col = 1 And grid1.TextMatrix(Row, col) = "" Then
+ElseIf col < 9 Then
+    grid1.col = 9
 ElseIf Row < grid1.Rows - 1 Then
     grid1.Select Row + 1, NextEmpty(grid1, Row + 1, 1, 10)
     grid1.ShowCell grid1.Row, 1
 Else
-    grid1.Select Row, Col
+    grid1.Select Row, col
 End If
 End Sub
 
 Private Sub xIsClosed_Click()
 If bIg Then Exit Sub
 If MsgBox(IIf(xisClosed.Value = 0, "› Õ «·„” ‰œ", "«€·«ﬁ «·„” ‰œ"), vbDefaultButton2 + vbOKCancel) <> vbOK Then Exit Sub
-On Error GoTo myError
+On Error GoTo myerror
 con.Execute "update FILE6_55H" & _
             " SET ISCLOSED = " & xisClosed.Value & _
-            " WHERE DOC_NO = " & MyParn(xDoc_no.text)
+            " WHERE DOC_NO = " & MyParn(xdoc_no.text)
 Inform " „ " & IIf(xisClosed.Value = 0, "› Õ «·„” ‰œ", "«€·«ﬁ «·„” ‰œ") & " »‰Ã«Õ"
 myUndo
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -2277,7 +2277,7 @@ Dim sourcetable As New ADODB.Recordset
 contemp.Execute "DELETE * FROM TEMP"
 temptable.Open "temp", contemp, adOpenStatic, adLockOptimistic, adCmdTable
 cStr1 = " SELECT FACT.DESCA AS fact_name, FILE1_10.MODELFACT0, FILE1_10.desca AS desca_item, FILE1_10.COLOR, FILE1_10.SCAL, FILE1_10.C_SCAL, FILE6_55.QUANT, FILE1_10.COST , FILE1_10.BARCODE_GS1 , FILE1_10.BARCODE , FILE1_10.BARCODE13 " & _
-        " FROM   FILE1_10 INNER JOIN FILE6_55 ON FILE1_10.ITEM = FILE6_55.ITEM INNER JOIN FACT ON FILE1_10.FACT = FACT.CODE where file6_55.DOC_NO = " & MyParn(xDoc_no.text)
+        " FROM   FILE1_10 INNER JOIN FILE6_55 ON FILE1_10.ITEM = FILE6_55.ITEM INNER JOIN FACT ON FILE1_10.FACT = FACT.CODE where file6_55.DOC_NO = " & MyParn(xdoc_no.text)
 sourcetable.Open cStr1, con, adOpenStatic, adLockReadOnly, adCmdText
 
 
@@ -2287,7 +2287,7 @@ Do While Not .EOF
         temptable.AddNew
         temptable!STR6 = TurnValue(xCode.text)
         temptable!str3 = TurnValue(xCode.text)
-        temptable!Date1 = xDate.text
+        temptable!Date1 = xdate.text
         temptable!STR4 = !fact_name
         temptable!str10 = !MODELFACT0
         temptable!str2 = !desca_item
@@ -2298,14 +2298,14 @@ Do While Not .EOF
         ElseIf Not IsNull(!BARCODE) Then
             temptable!str9 = !BARCODE
         End If
-        temptable!str8 = xDoc_no.text
+        temptable!str8 = xdoc_no.text
         
         temptable!str2 = !desca_item
         temptable!STR7 = !color
         temptable!STR5 = !SCAL
         temptable!val5 = !C_SCAL
         temptable!VAL1 = !Quant
-        temptable!str11 = TurnValue(xDoc_no.text)
+        temptable!str11 = TurnValue(xdoc_no.text)
         temptable.Update
     End If
     .MoveNext
@@ -2331,13 +2331,13 @@ xisClosed.Enabled = nMode = LoadMode And (nUser = enUser.Admin Or (nUser = enUse
 bEditRecord = bEditRecord And xisClosed.Value = 0
 cmdFilter.Visible = cmdFilter.Tag <> ""
 'cmdNewInv.Enabled = nMode = LoadMode And bEdit
-cmddel.Enabled = nMode = LoadMode And bEditRecord
+cmdDel.Enabled = nMode = LoadMode And bEditRecord
 
 cmdSave.Enabled = bEditRecord
-cmddel.Enabled = nMode = LoadMode And bEditRecord
+cmdDel.Enabled = nMode = LoadMode And bEditRecord
 
 Dim nRecord As Long, nRecords As Long
-retRecords xDoc_no.text, nRecords, nRecord
+retRecords xdoc_no.text, nRecords, nRecord
 
 If nMode = LoadMode Then
     panel1(0).Caption = "”Ã· " & nRecord & " „‰ " & nRecords
@@ -2350,8 +2350,8 @@ cmdNext.Enabled = (nMode = LoadMode) And nRecord < nRecords And sDoc_no = ""
 cmdLast.Enabled = (nMode = LoadMode) And nRecord < nRecords And nRecords > 2 And sDoc_no = ""
 cmdFirst.Enabled = (nMode = LoadMode) And nRecord > 1 And nRecords > 2 And sDoc_no = ""
 
-xDoc_no.Enabled = (nMode = DefineMode)
-xDoc_no.Tag = nMode
+xdoc_no.Enabled = (nMode = DefineMode)
+xdoc_no.Tag = nMode
 End Sub
 Private Function retRecords(pCode, ByRef nRecords As Long, ByRef nRecord As Long) As Variant
 Dim cString As String, loctable As New ADODB.Recordset
@@ -2406,21 +2406,21 @@ Next
 End With
 End Function
 Private Sub xOrder_no_LostFocus()
-myLostFocus xDoc_no
-If XORDER_NO.Locked Then Exit Sub
+myLostFocus xdoc_no
+If xorder_no.Locked Then Exit Sub
 
-If Trim(XORDER_NO.text) <> "" And XORDER_NO.Tag = XORDER_NO.text Then
+If Trim(xorder_no.text) <> "" And xorder_no.Tag = xorder_no.text Then
     Exit Sub
 End If
 
-xcode_desca.Caption = ""
+xCode_desca.Caption = ""
 xStore_Desca.Caption = ""
-XORDER_NO.Tag = ""
+xorder_no.Tag = ""
 xMax_Rcv.Value = 0
 
-If Trim(XORDER_NO.text) = "" Then Exit Sub
+If Trim(xorder_no.text) = "" Then Exit Sub
 
-XORDER_NO.text = RetZero(XORDER_NO.text)
+xorder_no.text = RetZero(xorder_no.text)
 
 Dim loctable As New ADODB.Recordset
 Dim cString As String
@@ -2433,10 +2433,10 @@ cString = "SELECT FILE6_50H.MAX_RCV," & _
 Set loctable = cmd(cString, con).Execute
 
 If Not loctable.EOF Then
-    xcode_desca.Caption = loctable!code_desca
+    xCode_desca.Caption = loctable!code_desca
     xStore_Desca.Caption = loctable!STORE_DESCA
     xMax_Rcv.Value = IIf(loctable!max_rcv, 1, 0)
-    XORDER_NO.Tag = XORDER_NO.text
+    xorder_no.Tag = xorder_no.text
 End If
 End Sub
 Private Sub orderLookup()
@@ -2490,21 +2490,21 @@ oSearchOrder.sCaption = "«” ⁄·«„"
 oSearchOrder.Show 1
 End Sub
 Private Sub xNotes_GotFocus()
-myGotFocus XNOTES
+myGotFocus xNotes
 End Sub
 Private Sub xNotes_LostFocus()
-myLostFocus XNOTES
+myLostFocus xNotes
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xDoc_no
+myGotFocus xdoc_no
 End Sub
 Private Sub xOrder_no_GotFocus()
-myGotFocus XORDER_NO
+myGotFocus xorder_no
 End Sub
 Private Sub xdate_GotFocus()
-myGotFocus xDate
+myGotFocus xdate
 End Sub
 Private Sub xDate_LostFocus()
-myLostFocus xDate
-myValidDate xDate
+myLostFocus xdate
+myValidDate xdate
 End Sub

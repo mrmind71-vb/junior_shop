@@ -1,7 +1,7 @@
 Attribute VB_Name = "dataNewMdl"
 Public Enum cmType
 adStoredProc = adCmdStoredProc
-adText = adCmdText
+ADTEXT = adCmdText
 adTable = adCmdTable
 End Enum
 
@@ -19,7 +19,7 @@ NotFound = 2
 NoRecords = 3
 NotMatch = 3
 End Enum
-Public Function mycmd(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300) As ADODB.Recordset
+Public Function mycmd(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300) As ADODB.Recordset
 Dim loctable As New ADODB.Recordset
 Dim cmd As New ADODB.command
 cmd.CommandTimeout = nTimeout
@@ -34,7 +34,7 @@ If Not IsEmpty(aParam) Then
 End If
 Set mycmd = cmd.Execute
 End Function
-Public Function myCmdRecord(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300) As ADODB.Record
+Public Function myCmdRecord(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300) As ADODB.Record
 Dim loctable As New ADODB.Recordset
 Dim cmd As New ADODB.command
 cmd.CommandTimeout = nTimeout
@@ -77,7 +77,7 @@ End If
 cmd.Execute
 Set mycmdEx = cmd
 End Function
-Public Function myCommand(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300) As ADODB.command
+Public Function myCommand(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300) As ADODB.command
 Dim loctable As New ADODB.Recordset
 Dim cmd As New ADODB.command
 cmd.CommandTimeout = nTimeout
@@ -93,7 +93,7 @@ End If
 cmd.Execute
 Set myCommand = cmd
 End Function
-Public Function cmd(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 1000) As ADODB.command
+Public Function cmd(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 1000) As ADODB.command
 Set cmd = New ADODB.command
 cmd.CommandTimeout = nTimeout
 cmd.ActiveConnection = con
@@ -106,7 +106,7 @@ If Not IsEmpty(aParam) Then
     Next
 End If
 End Function
-Public Function myField(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional pDef As Variant = Empty, Optional nTimeout As Integer = 100) As Variant
+Public Function myField(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional pDef As Variant = Empty, Optional nTimeout As Integer = 100) As Variant
 On Error GoTo myerror:
 Dim loctable As ADODB.Recordset
 Set loctable = cmd(pString, con, pType).Execute
@@ -125,7 +125,7 @@ MsgBox Err.Description
 myField = pDef
 GoTo Finally
 End Function
-Public Function myFields(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 100) As Variant
+Public Function myFields(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 100) As Variant
 Dim cmd As New ADODB.command
 Dim loctable As ADODB.Recordset
 cmd.CommandTimeout = nTimeout
@@ -193,6 +193,7 @@ Else
 End If
 End Function
 Function TransCount(con As ADODB.Connection) As Integer
+If con.State <> adStateOpen Then Exit Function
 Dim loctable As New ADODB.Recordset
 Set loctable = mycmd("select @@TRANCOUNT as myCount", con)
 On Error GoTo myerror
@@ -253,7 +254,7 @@ If Not rsTable.EOF Then
      rsField = rsTable(pReturn)
 End If
 End Function
-Public Function myFieldValue(pString As String, pField As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional pDef As Variant = Empty, Optional nTimeout As Integer = 100) As Variant
+Public Function myFieldValue(pString As String, pField As String, Optional con As ADODB.Connection, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional pDef As Variant = Empty, Optional nTimeout As Integer = 100) As Variant
 On Error GoTo myerror:
 Dim cmd As New ADODB.command
 Dim loctable As ADODB.Recordset

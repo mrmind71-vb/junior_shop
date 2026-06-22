@@ -1,8 +1,8 @@
 VERSION 5.00
 Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
-Begin VB.Form online_error 
+Begin VB.Form online_Show_Msg 
    BackColor       =   &H00FFFFFF&
-   Caption         =   "„‘ﬂ·«  «·«Ê‰·«Ì‰"
+   Caption         =   "≈ŸÂ«— «·—”«∆·"
    ClientHeight    =   4080
    ClientLeft      =   60
    ClientTop       =   405
@@ -18,16 +18,17 @@ Begin VB.Form online_error
       Left            =   45
       TabIndex        =   3
       Top             =   3240
-      Width           =   7710
+      Width           =   1545
       Begin Threed.SSCommand cmdExit 
-         Height          =   555
+         Cancel          =   -1  'True
+         Height          =   600
          Left            =   45
          TabIndex        =   4
          TabStop         =   0   'False
          Top             =   135
-         Width           =   1410
-         _ExtentX        =   2487
-         _ExtentY        =   979
+         Width           =   1455
+         _ExtentX        =   2566
+         _ExtentY        =   1058
          _Version        =   196610
          ForeColor       =   0
          BackColor       =   16777215
@@ -41,43 +42,12 @@ Begin VB.Form online_error
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_error.frx":0000
+         Picture         =   "online_show_msg.frx":0000
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          ShapeSize       =   1
-      End
-      Begin Threed.SSCommand cmdSave 
-         Default         =   -1  'True
-         Height          =   555
-         Left            =   1485
-         TabIndex        =   5
-         Top             =   135
-         Width           =   1410
-         _ExtentX        =   2487
-         _ExtentY        =   979
-         _Version        =   196610
-         ForeColor       =   0
-         BackColor       =   16777215
-         PictureFrames   =   1
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Picture         =   "online_error.frx":2323
-         Alignment       =   8
-         ButtonStyle     =   3
-         PictureAlignment=   11
-         BevelWidth      =   0
-         PictureDisabledFrames=   1
-         ShapeSize       =   1
-         PictureDisabled =   "online_error.frx":4C48
       End
    End
    Begin VB.Frame Frame6 
@@ -103,6 +73,7 @@ Begin VB.Form online_error
          EndProperty
          Height          =   2895
          Left            =   90
+         Locked          =   -1  'True
          MaxLength       =   500
          MultiLine       =   -1  'True
          RightToLeft     =   -1  'True
@@ -134,31 +105,22 @@ Begin VB.Form online_error
       End
    End
 End
-Attribute VB_Name = "online_error"
+Attribute VB_Name = "online_Show_Msg"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Public myForm As Form
 Public sCaption As String
+Public sMsg As String
 Private Sub cmdExit_Click()
-sMsg = ""
 Unload Me
-End Sub
-Private Sub cmdSave_Click()
-If Trim(xMsg.text) <> "" Then
-    myForm.sMsg = Trim(xMsg.text)
-    Unload Me
-End If
 End Sub
 Private Sub Form_Load()
 If sCaption <> "" Then Me.Caption = sCaption
-If myForm.sMsg <> "" Then
-    xMsg.text = myForm.sMsg
-End If
+xMsg.text = sMsg
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
-Set online_error = Nothing
+Set online_Show_Msg = Nothing
 End Sub
 Private Sub xMsg_GotFocus()
 myGotFocus xMsg

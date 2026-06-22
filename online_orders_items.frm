@@ -32,18 +32,18 @@ Begin VB.Form orders_online_items
       BackColor       =   &H80000005&
       ForeColor       =   &H80000008&
       Height          =   780
-      Left            =   2565
+      Left            =   135
       RightToLeft     =   -1  'True
-      TabIndex        =   45
-      Top             =   8775
-      Width           =   1815
+      TabIndex        =   44
+      Top             =   7920
+      Width           =   4290
       Begin Threed.SSCommand cmdEdit 
          Height          =   555
          Left            =   45
-         TabIndex        =   46
+         TabIndex        =   45
          Top             =   180
-         Width           =   1680
-         _ExtentX        =   2963
+         Width           =   2040
+         _ExtentX        =   3598
          _ExtentY        =   979
          _Version        =   196610
          CaptionStyle    =   1
@@ -66,6 +66,35 @@ Begin VB.Form orders_online_items
          ShapeSize       =   1
          PictureDisabled =   "online_orders_items.frx":0000
       End
+      Begin Threed.SSCommand cmdMsg 
+         Height          =   555
+         Left            =   2115
+         TabIndex        =   46
+         Top             =   180
+         Width           =   2085
+         _ExtentX        =   3678
+         _ExtentY        =   979
+         _Version        =   196610
+         CaptionStyle    =   1
+         ForeColor       =   0
+         BackColor       =   16777215
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   -1  'True
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Caption         =   "«—”«· —”«·…"
+         ButtonStyle     =   2
+         PictureAlignment=   10
+         BevelWidth      =   0
+         PictureDisabledFrames=   1
+         ShapeSize       =   1
+         PictureDisabled =   "online_orders_items.frx":22F6
+      End
    End
    Begin VB.Frame Frame4 
       Appearance      =   0  'Flat
@@ -74,13 +103,13 @@ Begin VB.Form orders_online_items
       Height          =   1230
       Left            =   1665
       RightToLeft     =   -1  'True
-      TabIndex        =   32
+      TabIndex        =   31
       Top             =   810
       Width           =   1635
       Begin Threed.SSCommand cmdExit 
          Height          =   1005
          Left            =   45
-         TabIndex        =   14
+         TabIndex        =   13
          TabStop         =   0   'False
          Top             =   180
          Width           =   1545
@@ -99,7 +128,7 @@ Begin VB.Form orders_online_items
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_orders_items.frx":22F6
+         Picture         =   "online_orders_items.frx":45EC
          Alignment       =   8
          ButtonStyle     =   2
          PictureAlignment=   11
@@ -122,13 +151,13 @@ Begin VB.Form orders_online_items
       Index           =   4
       Left            =   3330
       RightToLeft     =   -1  'True
-      TabIndex        =   30
+      TabIndex        =   29
       Top             =   855
       Width           =   1365
       Begin Threed.SSCommand cmdSave 
          Height          =   465
          Left            =   45
-         TabIndex        =   12
+         TabIndex        =   11
          Top             =   135
          Width           =   1275
          _ExtentX        =   2249
@@ -147,19 +176,19 @@ Begin VB.Form orders_online_items
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_orders_items.frx":4619
+         Picture         =   "online_orders_items.frx":690F
          Alignment       =   8
          ButtonStyle     =   2
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "online_orders_items.frx":6F3E
+         PictureDisabled =   "online_orders_items.frx":9234
       End
       Begin Threed.SSCommand cmdUndo 
          Height          =   510
          Left            =   45
-         TabIndex        =   13
+         TabIndex        =   12
          TabStop         =   0   'False
          Top             =   630
          Width           =   1275
@@ -178,14 +207,14 @@ Begin VB.Form orders_online_items
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_orders_items.frx":9792
+         Picture         =   "online_orders_items.frx":BA88
          Alignment       =   8
          ButtonStyle     =   2
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "online_orders_items.frx":B8F2
+         PictureDisabled =   "online_orders_items.frx":DBE8
       End
    End
    Begin VB.Frame Frame2 
@@ -193,7 +222,7 @@ Begin VB.Form orders_online_items
       Height          =   1095
       Left            =   4725
       RightToLeft     =   -1  'True
-      TabIndex        =   25
+      TabIndex        =   24
       Top             =   945
       Width           =   6585
       Begin VB.TextBox xNotes 
@@ -252,7 +281,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   5445
          RightToLeft     =   -1  'True
-         TabIndex        =   27
+         TabIndex        =   26
          Top             =   675
          Width           =   960
       End
@@ -262,7 +291,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   5445
          RightToLeft     =   -1  'True
-         TabIndex        =   26
+         TabIndex        =   25
          Top             =   315
          Width           =   1005
       End
@@ -281,7 +310,7 @@ Begin VB.Form orders_online_items
       Height          =   2040
       Left            =   11340
       RightToLeft     =   -1  'True
-      TabIndex        =   19
+      TabIndex        =   18
       Top             =   0
       Width           =   8970
       Begin VB.TextBox xphone 
@@ -336,7 +365,7 @@ Begin VB.Form orders_online_items
          ForeColor       =   &H00000000&
          Height          =   330
          Left            =   1395
-         TabIndex        =   44
+         TabIndex        =   43
          Top             =   540
          Width           =   1455
       End
@@ -346,7 +375,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   2925
          RightToLeft     =   -1  'True
-         TabIndex        =   43
+         TabIndex        =   42
          Top             =   585
          Width           =   690
       End
@@ -357,7 +386,7 @@ Begin VB.Form orders_online_items
          ForeColor       =   &H00000000&
          Height          =   330
          Left            =   3690
-         TabIndex        =   36
+         TabIndex        =   35
          Top             =   180
          Width           =   1275
       End
@@ -367,7 +396,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   7830
          RightToLeft     =   -1  'True
-         TabIndex        =   35
+         TabIndex        =   34
          Top             =   225
          Width           =   870
       End
@@ -378,7 +407,7 @@ Begin VB.Form orders_online_items
          ForeColor       =   &H00000000&
          Height          =   330
          Left            =   6300
-         TabIndex        =   34
+         TabIndex        =   33
          Top             =   180
          Width           =   1455
       End
@@ -388,7 +417,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   2925
          RightToLeft     =   -1  'True
-         TabIndex        =   24
+         TabIndex        =   23
          Top             =   900
          Width           =   645
       End
@@ -398,7 +427,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   7875
          RightToLeft     =   -1  'True
-         TabIndex        =   23
+         TabIndex        =   22
          Top             =   945
          Width           =   645
       End
@@ -408,7 +437,7 @@ Begin VB.Form orders_online_items
          Height          =   285
          Left            =   5040
          RightToLeft     =   -1  'True
-         TabIndex        =   22
+         TabIndex        =   21
          Top             =   225
          Width           =   1095
       End
@@ -418,7 +447,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   7830
          RightToLeft     =   -1  'True
-         TabIndex        =   21
+         TabIndex        =   20
          Top             =   1305
          Width           =   645
       End
@@ -428,7 +457,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   7875
          RightToLeft     =   -1  'True
-         TabIndex        =   20
+         TabIndex        =   19
          Top             =   540
          Width           =   645
       End
@@ -484,7 +513,7 @@ Begin VB.Form orders_online_items
       Align           =   2  'Align Bottom
       Height          =   375
       Left            =   0
-      TabIndex        =   15
+      TabIndex        =   14
       Top             =   9840
       Width           =   20400
       _ExtentX        =   35983
@@ -506,7 +535,7 @@ Begin VB.Form orders_online_items
          Height          =   270
          Index           =   0
          Left            =   0
-         TabIndex        =   16
+         TabIndex        =   15
          Top             =   45
          Width           =   3195
          _ExtentX        =   5636
@@ -530,7 +559,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Index           =   1
          Left            =   3240
-         TabIndex        =   17
+         TabIndex        =   16
          Top             =   45
          Width           =   3855
          _ExtentX        =   6800
@@ -554,7 +583,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Index           =   2
          Left            =   7110
-         TabIndex        =   18
+         TabIndex        =   17
          Top             =   45
          Width           =   4365
          _ExtentX        =   7699
@@ -576,14 +605,14 @@ Begin VB.Form orders_online_items
       End
    End
    Begin VSFlex7Ctl.VSFlexGrid grdError 
-      Height          =   1905
+      Height          =   2805
       Left            =   4500
-      TabIndex        =   10
+      TabIndex        =   9
       TabStop         =   0   'False
-      Top             =   7740
+      Top             =   6840
       Width           =   15810
       _cx             =   27887
-      _cy             =   3360
+      _cy             =   4948
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -675,7 +704,7 @@ Begin VB.Form orders_online_items
       Height          =   690
       Left            =   4725
       RightToLeft     =   -1  'True
-      TabIndex        =   28
+      TabIndex        =   27
       Top             =   270
       Visible         =   0   'False
       Width           =   6585
@@ -695,114 +724,20 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   5310
          RightToLeft     =   -1  'True
-         TabIndex        =   29
+         TabIndex        =   28
          Top             =   270
          Width           =   1185
       End
    End
-   Begin VSFlex7Ctl.VSFlexGrid grdMsg 
-      Height          =   1950
-      Left            =   180
-      TabIndex        =   9
-      Top             =   5805
-      Width           =   20130
-      _cx             =   35507
-      _cy             =   3440
-      _ConvInfo       =   1
-      Appearance      =   0
-      BorderStyle     =   1
-      Enabled         =   -1  'True
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Arial"
-         Size            =   11.25
-         Charset         =   178
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      MousePointer    =   0
-      BackColor       =   -2147483643
-      ForeColor       =   -2147483640
-      BackColorFixed  =   12648384
-      ForeColorFixed  =   0
-      BackColorSel    =   12648447
-      ForeColorSel    =   -2147483630
-      BackColorBkg    =   -2147483636
-      BackColorAlternate=   -2147483643
-      GridColor       =   12632256
-      GridColorFixed  =   -2147483632
-      TreeColor       =   -2147483632
-      FloodColor      =   192
-      SheetBorder     =   -2147483642
-      FocusRect       =   2
-      HighLight       =   1
-      AllowSelection  =   -1  'True
-      AllowBigSelection=   0   'False
-      AllowUserResizing=   0
-      SelectionMode   =   3
-      GridLines       =   1
-      GridLinesFixed  =   1
-      GridLineWidth   =   1
-      Rows            =   1
-      Cols            =   8
-      FixedRows       =   1
-      FixedCols       =   0
-      RowHeightMin    =   0
-      RowHeightMax    =   0
-      ColWidthMin     =   0
-      ColWidthMax     =   0
-      ExtendLastCol   =   0   'False
-      FormatString    =   ""
-      ScrollTrack     =   0   'False
-      ScrollBars      =   3
-      ScrollTips      =   0   'False
-      MergeCells      =   0
-      MergeCompare    =   0
-      AutoResize      =   0   'False
-      AutoSizeMode    =   0
-      AutoSearch      =   0
-      AutoSearchDelay =   2
-      MultiTotals     =   -1  'True
-      SubtotalPosition=   1
-      OutlineBar      =   0
-      OutlineCol      =   0
-      Ellipsis        =   0
-      ExplorerBar     =   0
-      PicturesOver    =   0   'False
-      FillStyle       =   0
-      RightToLeft     =   -1  'True
-      PictureType     =   0
-      TabBehavior     =   1
-      OwnerDraw       =   0
-      Editable        =   0
-      ShowComboButton =   -1  'True
-      WordWrap        =   -1  'True
-      TextStyle       =   0
-      TextStyleFixed  =   0
-      OleDragMode     =   0
-      OleDropMode     =   0
-      DataMode        =   0
-      VirtualData     =   -1  'True
-      DataMember      =   ""
-      ComboSearch     =   3
-      AutoSizeMouse   =   0   'False
-      FrozenRows      =   0
-      FrozenCols      =   0
-      AllowUserFreezing=   0
-      BackColorFrozen =   0
-      ForeColorFrozen =   0
-      WallPaperAlignment=   9
-   End
    Begin VSFlex7Ctl.VSFlexGrid grid1 
-      Height          =   3705
+      Height          =   4740
       Left            =   180
       TabIndex        =   8
       TabStop         =   0   'False
       Top             =   2070
       Width           =   20130
       _cx             =   35507
-      _cy             =   6535
+      _cy             =   8361
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -896,8 +831,8 @@ Begin VB.Form orders_online_items
       Height          =   1095
       Left            =   135
       RightToLeft     =   -1  'True
-      TabIndex        =   37
-      Top             =   7695
+      TabIndex        =   36
+      Top             =   6795
       Width           =   4335
       Begin VB.CheckBox xClosed 
          Appearance      =   0  'Flat
@@ -908,7 +843,7 @@ Begin VB.Form orders_online_items
          Height          =   285
          Left            =   135
          RightToLeft     =   -1  'True
-         TabIndex        =   42
+         TabIndex        =   41
          Top             =   675
          Width           =   780
       End
@@ -919,7 +854,7 @@ Begin VB.Form orders_online_items
          ForeColor       =   &H00000000&
          Height          =   330
          Left            =   1125
-         TabIndex        =   41
+         TabIndex        =   40
          Top             =   270
          Width           =   1770
       End
@@ -929,7 +864,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   2970
          RightToLeft     =   -1  'True
-         TabIndex        =   40
+         TabIndex        =   39
          Top             =   315
          Width           =   1320
       End
@@ -940,7 +875,7 @@ Begin VB.Form orders_online_items
          ForeColor       =   &H00000000&
          Height          =   330
          Left            =   1125
-         TabIndex        =   39
+         TabIndex        =   38
          Top             =   630
          Width           =   1770
       End
@@ -950,7 +885,7 @@ Begin VB.Form orders_online_items
          Height          =   285
          Left            =   2970
          RightToLeft     =   -1  'True
-         TabIndex        =   38
+         TabIndex        =   37
          Top             =   675
          Width           =   1320
       End
@@ -960,18 +895,18 @@ Begin VB.Form orders_online_items
       BackColor       =   &H80000005&
       ForeColor       =   &H80000008&
       Height          =   870
-      Left            =   135
+      Left            =   45
       RightToLeft     =   -1  'True
-      TabIndex        =   33
-      Top             =   8730
-      Width           =   2400
+      TabIndex        =   32
+      Top             =   8775
+      Width           =   4380
       Begin Threed.SSCommand cmdAddInvoice 
          Height          =   555
          Left            =   45
-         TabIndex        =   11
+         TabIndex        =   10
          Top             =   225
-         Width           =   2310
-         _ExtentX        =   4075
+         Width           =   4245
+         _ExtentX        =   7488
          _ExtentY        =   979
          _Version        =   196610
          CaptionStyle    =   1
@@ -992,7 +927,7 @@ Begin VB.Form orders_online_items
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "online_orders_items.frx":DBDF
+         PictureDisabled =   "online_orders_items.frx":FED5
       End
    End
    Begin VB.Label xSales_doc 
@@ -1009,7 +944,7 @@ Begin VB.Form orders_online_items
       Height          =   285
       Left            =   -495
       RightToLeft     =   -1  'True
-      TabIndex        =   31
+      TabIndex        =   30
       Top             =   180
       Visible         =   0   'False
       Width           =   1185
@@ -1022,6 +957,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public sDoc_no As String
 Public bAllStore As Boolean
+Public sMsg As String
 Dim bEditRecord As Boolean, bAct As Boolean
 Dim oSalesRefund As New sales_refundfrm
 Dim con As New ADODB.Connection
@@ -1047,7 +983,7 @@ End Sub
 Private Function cancelDelete() As Boolean
 Dim con As New ADODB.Connection
 openCon con
-On Error GoTo myError:
+On Error GoTo myerror:
 con.Execute "UPDATE FILE6_90H " & _
             " SET FILE6_90H.DELORDER_DATE = NULL," & _
             " FILE6_90H.NOTES = NULL" & _
@@ -1056,7 +992,7 @@ cancelDelete = True
 Finally:
 closeCon con
 Exit Function
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 GoTo Finally
@@ -1064,22 +1000,49 @@ End Function
 
 Private Sub cmdEdit_Click()
 If MsgBox(" „ «· ⁄œÌ·", vbDefaultButton2 + vbOKCancel) Then
-    On Error GoTo myError
+    On Error GoTo myerror
     If openCn(con) Then
+    
+        sMsg = " „ «· ⁄œÌ·"
+        Set online_error.myForm = Me
+        online_error.sCaption = "»Ì«‰ «· ⁄œÌ·"
+        online_error.Show 1
+        
+        If sMsg = "" Then
+            Inform_OK "«·»Ì«‰ ÷—Ê—Ì"
+            Exit Sub
+        End If
+        
+        Dim aInsert As Variant
+        aInsert = AddFlag(Empty, "DESCA", addstring(sMsg))
+        aInsert = AddFlag(aInsert, "USERNAME", addstring(cUserName))
+        aInsert = AddFlag(aInsert, "ORDER_NO", addstring(xdoc_no.Caption))
+        aInsert = AddFlag(aInsert, "[TIME]", "getdate()")
+        
+        con.BeginTrans
         con.Execute "UPDATE FILE6_90H " & _
-                    " SET STAGE = 3," & _
-                    " MAN3 = MAN6," & _
-                    " TIME3 = TIME6" & _
+                    " SET STAGE = 8," & _
+                    " TIME8 = getDate()" & _
                     " FROM FILE6_90H WHERE DOC_NO = " & addstring(xdoc_no.Caption)
-                            
+                    
+        con.Execute addInsert(aInsert, "FILE6_90_MSG"), nAffect
+        con.CommitTrans
     End If
+    
+    myload
+    myloadGrdError
+    myLoadCount
+    cmdEdit.Enabled = xStage.Tag = "6"
+        
     Inform_OK " „ «· ⁄œÌ·"
 Finally:
-        closeCon con
+    closeCon con
 End If
 Exit Sub
-myError:
-closeCon con
+myerror:
+MsgBox Err.Description
+Err.Clear
+con.RollbackTrans
 Resume Finally
 End Sub
 
@@ -1089,6 +1052,11 @@ End Sub
 Private Sub CmdInform_Click()
 'CardLookup cFilter
 End Sub
+
+Private Sub cmdMsg_Click()
+SendMsg
+End Sub
+
 Private Sub cmdSave_Click()
 If MsgBox("Õ›Ÿ", vbOKCancel + vbDefaultButton2) <> vbOK Then Exit Sub
 If myreplace Then
@@ -1099,13 +1067,13 @@ End Sub
 Private Function myreplace() As Boolean
 Dim aInsert As Variant
 aInsert = AddFlag(aInsert, "[NAME]", addstring(xName.text))
-aInsert = AddFlag(aInsert, "[PHONE]", addstring(xphone.text))
+aInsert = AddFlag(aInsert, "[PHONE]", addstring(xPhone.text))
 aInsert = AddFlag(aInsert, "[CITY]", addstring(xcity.text))
 aInsert = AddFlag(aInsert, "[street]", addstring(xStreet.text))
 aInsert = AddFlag(aInsert, "[NOTE_MAIN]", addstring(xNote_main.text))
 aInsert = AddFlag(aInsert, "[DELORDER_DATE]", addDate(xDelOrder_Date.text))
 aInsert = AddFlag(aInsert, "[NOTES]", addstring(xNotes.text))
-On Error GoTo myError
+On Error GoTo myerror
 If openCn(con) Then
     con.Execute addUpdate(aInsert, "FILE6_90H", "DOC_NO = " & MyParn(sDoc_no))
     myreplace = True
@@ -1113,7 +1081,7 @@ End If
 Finally:
 closeCon con
 Exit Function
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 GoTo Finally
@@ -1134,12 +1102,25 @@ Set oOnlineCheck.myForm = Me
 oOnlineCheck.sDoc_no = sDoc_no
 oOnlineCheck.Show 1
 End Sub
+Private Sub SendMsg()
+sMsg = ""
+Set online_error.myForm = Me
+online_error.sCaption = "»Ì«‰ «· ⁄œÌ·"
+online_error.Show 1
 
-Private Sub Form_Activate()
-grdMsg.SetFocus
-CellPos 13, grdMsg.Rows - 2, grdMsg.Cols - 1
+If Trim(sMsg) = "" Then
+    Inform "·„ Ì „  ”ÃÌ· «·—”«·…"
+    Exit Sub
+End If
+
+Dim aInsert As Variant
+aInsert = AddFlag(Empty, "DESCA", addstring(sMsg))
+aInsert = AddFlag(aInsert, "USERNAME", addstring(cUserName))
+aInsert = AddFlag(aInsert, "ORDER_NO", addstring(xdoc_no.Caption))
+aInsert = AddFlag(aInsert, "STAGE", addvalue(xStage.Tag))
+aInsert = AddFlag(aInsert, "[TIME]", "getdate()")
+con.Execute addInsert(aInsert, "FILE6_90_MSG"), nAffect
 End Sub
-
 Private Sub Form_KeyPress(KeyAscii As Integer)
 If KeyAscii = 13 Then
     If TypeOf ActiveControl Is TextBox Or TypeOf ActiveControl Is DataCombo Then KeyAscii = 0
@@ -1158,9 +1139,7 @@ cBranch = "00"
 myload
 myloadGrdError
 myLoadCount
-myloadGrdMsg
 cmdEdit.Enabled = xStage.Tag = "6"
-CellPos 13, grdMsg.Rows - 2, grdMsg.Cols - 1
 End Sub
 Public Sub myload()
 myLoadHeader
@@ -1180,7 +1159,7 @@ If Not loctable.EOF Then
     xdate.Caption = myFormat_p(loctable!Date)
     xName.text = loctable!Name & ""
     xonline_doc.Caption = loctable!sales_Doc & ""
-    xphone.text = loctable!phone & ""
+    xPhone.text = loctable!phone & ""
     xcity.text = loctable!city & ""
     xStreet.text = loctable!Street & ""
     xStage.Caption = loctable!stage_Desca & ""
@@ -1199,7 +1178,7 @@ Set loctable = Nothing
 End Sub
 Private Sub myLoadGrd()
 Dim cString As String
-On Error GoTo myError
+On Error GoTo myerror
 With grid1
     cString = " SELECT FILE6_90.ITEM," & _
               " FILE6_90.SKU," & _
@@ -1224,7 +1203,7 @@ Fixgrd
 grid1.Cell(flexcpAlignment, 0, 0, grid1.Rows - 1, grid1.Cols - 1) = 7
 
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -1289,41 +1268,10 @@ End Sub
 
 Private Sub grdError_DblClick()
 If grdError.Row > 0 Then
-    Clipboard.Clear
-    Clipboard.SetText grdError.TextMatrix(grdError.Row, 2)
-    Inform " „ «·‰”Œ"
+    online_Show_Msg.sMsg = grdError.TextMatrix(grdError.Row, 2)
+    online_Show_Msg.Show 1
 End If
 End Sub
-
-Private Sub grdMsg_KeyUp(KeyCode As Integer, Shift As Integer)
-If KeyCode = 13 Then
-    'If Col = 12 And grdMsg.TextMatrix(Row, Col) = "" Then Exit Sub
-    CellPos KeyCode, grdMsg.Row, grdMsg.col
-ElseIf KeyCode = 46 And grdMsg.Row <> grdMsg.Rows - 1 And grdMsg.TextMatrix(grdMsg.Row, 3) = "" Then
-    If MsgBox("Õ–› ?, Â· «‰  „Ê«›ﬁ ø", vbOKCancel + vbDefaultButton2) = vbOK And xClosed.Value = 0 Then
-        On Error GoTo myError
-        If grdMsg.TextMatrix(grdMsg.Row, grdMsg.Cols - 1) <> "" Then
-            Dim con As New ADODB.Connection
-            If openCn(con) Then
-                con.Execute "delete from file6_90_msg where ID = " & grdMsg.TextMatrix(grdMsg.Row, grdMsg.Cols - 1)
-            End If
-        End If
-        grdMsg.RemoveItem grdMsg.Row
-    End If
-End If
-Finally:
-closeCon con
-Exit Sub
-myError:
-MsgBox Err.Description
-Err.Clear
-Resume Finally
-End Sub
-
-Private Sub SSCommand1_Click()
-
-End Sub
-
 Private Sub xdoc_no_Click()
 Clipboard.Clear
 Clipboard.SetText xdoc_no.Caption
@@ -1350,10 +1298,10 @@ myLostFocus xDelOrder_Date
 myValidDate xDelOrder_Date
 End Sub
 Private Sub xPhone_GotFocus()
-myGotFocus xphone
+myGotFocus xPhone
 End Sub
 Private Sub XPHONE_LostFocus()
-myLostFocus xphone
+myLostFocus xPhone
 End Sub
 Private Sub xcity_GotFocus()
 myGotFocus xcity
@@ -1382,194 +1330,45 @@ myLostFocus xName
 End Sub
 Private Sub myloadGrdError()
 Dim strSql As String
-strSql = "SELECT STAGES_CODES.DESCA AS [«·„—Õ·…], " & _
-         " FILE6_25.DESCA AS [«·„‰œÊ»], " & _
-         " e.DESCA AS [«·»Ì«‰], " & _
-         " FORMAT(e.TIME, 'yyyy/M/d HH:mm') AS [«·Êﬁ ]" & _
-         " FROM STAGES_CODES " & _
-         "    INNER JOIN FILE6_90_ER e " & _
-         "        ON STAGES_CODES.CODE = e.STAGE " & _
-         "    INNER JOIN FILE6_25 " & _
-         "        ON e.MAN = FILE6_25.CODE" & _
-         " WHERE e.ORDER_NO = " & MyParn(xdoc_no.Caption) & _
-         " AND e.DOC_NO_SUP = 0"
+strSql = "SELECT FORMAT([TIME], 'yyyy/M/d HH:mm') AS [«·Êﬁ ]" & _
+          ",[BRANCH] AS [«·„Œ“‰]" & _
+          ",[MSG] AS [«·—”«·…]" & _
+          ",[DESCA_MAN] AS [«·„—”·]" & _
+          ",[STAGE_DESCA] AS [«·„—Õ·…]" & _
+          ",[DOC_NO_SUP]" & _
+          ",[ORDER_NO]" & _
+          ",[TYPE]" & _
+           ",[STAGE]" & _
+          " From [dbo].[vw_msg]" & _
+          " WHERE ORDER_NO = " & MyParn(xdoc_no.Caption) & _
+          " AND DOC_NO_SUP = 0" & _
+          " ORDER BY TIME"
 
-On Error GoTo myError
+On Error GoTo myerror
 
 With grdError
 Set .DataSource = myRs(strSql)
 
-.ColWidth(0) = 1300
-.ColWidth(1) = 1500
-.ColWidth(2) = 10000
-.ColWidth(3) = 1600
+.ColWidth(0) = 1800
+.ColWidth(1) = 1300
+.ColWidth(2) = 8000
+.ColWidth(3) = 1800
+.ColWidth(4) = 1800
 
-For i = 0 To .Cols - 1
-    .ColAlignment(i) = flexAlignRightCenter
-Next
-.RowHeightMin = 300
-.WordWrap = False
-End With
-Exit Sub
-myError:
-MsgBox Err.Description
-Err.Clear
-End Sub
-Public Sub grdMsg_AfterEdit(ByVal Row As Long, ByVal col As Long)
-On Error GoTo myError
-Dim bNew As Boolean
-With grdMsg
-If Not validRow(Row) Then
-    Exit Sub
-End If
-
-If Row = grdMsg.Rows - 1 Then
-    grdMsg.AddItem ""
-    bNew = True
-End If
-
-If myreplaceGrd(Row) Then
-    myloadGrdMsg
-    If bNew Then
-        grdMsg.Select grdMsg.Rows - 1, 2
-        grdMsg.ShowCell grdMsg.Rows - 1, 2
-    End If
-End If
-End With
-Exit Sub
-myError:
-MsgBox Err.Description
-Err.Clear
-End Sub
-Private Sub grdMsg_AfterRowColChange(ByVal OldRow As Long, ByVal OldCol As Long, ByVal NewRow As Long, ByVal NewCol As Long)
-grdMsg_EnterCell
-End Sub
-Private Sub grdMsg_EnterCell()
-With grdMsg
-    If xClosed.Value = 1 Then
-        .Editable = flexEDNone
-            
-    ElseIf grdMsg.col = 2 And .TextMatrix(.Row, 3) = "" Then
-          .Editable = flexEDKbdMouse
-    Else
-        .Editable = flexEDNone
-    End If
-End With
-End Sub
-Private Sub grdMsg_GotFocus()
-grdMsg_EnterCell
-Err.Clear
-End Sub
-Private Sub grdMsg_KeyPress(KeyAscii As Integer)
-If KeyAscii = 13 Then
-    'If grdMsg.Col = 12 And grdMsg.TextMatrix(grdMsg.Row, grdMsg.Col) = "" Then Exit Sub
-    KeyAscii = 0
-End If
-End Sub
-Private Sub grdMsg_KeyUpEdit(ByVal Row As Long, ByVal col As Long, KeyCode As Integer, ByVal Shift As Integer)
-If KeyCode = 13 Then
-    'If Col = 12 And grdMsg.TextMatrix(Row, Col) = "" Then Exit Sub
-    CellPos KeyCode, Row, col
-End If
-End Sub
-Private Sub grdMsg_ValidateEdit(ByVal Row As Long, ByVal col As Long, Cancel As Boolean)
-With grdMsg
-    If col = 2 Then
-        If (.EditText) = "" Then
-            Cancel = True
-            Exit Sub
-        End If
-    End If
-End With
-End Sub
-Private Sub myloadGrdMsg()
-Dim strSql As String
-strSql = "SELECT FORMAT(m.TIME, 'yyyy/M/d HH:mm') AS [«·Êﬁ ]," & _
-         " m.USERNAME AS [«·„—”·], " & _
-         " m.DESCA AS [«·„·ÕÊŸ…], " & _
-         " FORMAT(m.TIME_SEEN, 'yyyy/M/d HH:mm') AS [Êﬁ  «·ﬁ—«¡…], " & _
-         " F25.DESCA AS [«·„‰œÊ»], " & _
-         " s.DESCA AS [«·„—Õ·…], " & _
-         " m.ID " & _
-         " FROM FILE6_90_MSG M" & _
-         " LEFT JOIN FILE6_25 F25 ON m.MAN = F25.CODE" & _
-         " LEFT JOIN STAGES_CODES S ON m.STAGE = s.CODE" & _
-         " WHERE m.ORDER_NO = " & MyParn(sDoc_no) & _
-         " AND m.DOC_NO_SUP = 0" & _
-         " ORDER BY ID"
-         
-
-On Error GoTo myError
-With grdMsg
-Set .DataSource = myRs(strSql)
-FixGrdMsg
-End With
-Exit Sub
-myError:
-MsgBox Err.Description
-Err.Clear
-End Sub
-Private Sub FixGrdMsg()
-With grdMsg
-.ColWidth(0) = 1700
-.ColWidth(1) = 2200
-.ColWidth(2) = 10000
-.ColWidth(3) = 1700
-.ColWidth(4) = 2000
-.ColWidth(5) = 1500
+.ColHidden(.Cols - 4) = True
+.ColHidden(.Cols - 3) = True
+.ColHidden(.Cols - 2) = True
 .ColHidden(.Cols - 1) = True
+
 For i = 0 To .Cols - 1
     .ColAlignment(i) = flexAlignRightCenter
 Next
-.AddItem ""
+grdError.ShowCell grdError.Rows - 1, 1
 End With
-End Sub
-Private Function myreplaceGrd(Row) As Boolean
-Dim aInsert As Variant
-On Error GoTo myError
-If openCn(con) Then
-    With grdMsg
-        For i = IIf(Row = -1, 1, Row) To IIf(Row = -1, .Rows - 2, Row)
-            aInsert = AddFlag(Empty, "DESCA", addstring(.TextMatrix(i, 2)))
-            aInsert = AddFlag(aInsert, "USERNAME", addstring(cUserName))
-            If .TextMatrix(i, .Cols - 1) = "" Then
-                aInsert = AddFlag(aInsert, "ORDER_NO", addstring(sDoc_no))
-                aInsert = AddFlag(aInsert, "[TIME]", "getdate()")
-                con.Execute addInsert(aInsert, "FILE6_90_MSG")
-            Else
-                con.Execute addUpdate(aInsert, "FILE6_90_MSG", "ID = " & .TextMatrix(i, .Cols - 1) & _
-                                                                " AND TIME_SEEN IS NULL")
-            End If
-        Next
-    End With
-End If
-myreplaceGrd = True
-Finally:
-closeCon con
-Exit Function
-myError:
+Exit Sub
+myerror:
 MsgBox Err.Description
 Err.Clear
-Resume Finally
-End Function
-Private Sub CellPos(ByRef KeyCode, ByVal Row As Long, ByVal col As Long)
-With grdMsg
-KeyCode = 0
-If bStopCell Then
-    bStopCell = False
-ElseIf col = 2 And .TextMatrix(Row, col) = "" Then
-ElseIf col < 2 Then
-    .col = 2
-ElseIf Row < .Rows - 1 Then
-    .Select Row + 1, NextEmpty(grdMsg, Row + 1, 2, 2)
-    .ShowCell .Row, 0
-End If
-End With
 End Sub
-Private Function validRow(Row As Long, Optional bIgMsg As Boolean = False, Optional bIgMsgsub As Boolean = True) As Boolean
-With grdMsg
-If Trim(.TextMatrix(Row, 2)) = "" Then Exit Function
-End With
-validRow = True
-End Function
+
 

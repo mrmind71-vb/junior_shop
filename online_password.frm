@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
-Begin VB.Form online_stage_pass 
+Begin VB.Form online_password 
    BackColor       =   &H00FFFFFF&
    Caption         =   "ﬂÊœ «·„‰œÊ»"
    ClientHeight    =   8955
@@ -101,7 +101,7 @@ Begin VB.Form online_stage_pass
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "password_man.frx":0000
+         Picture         =   "online_password.frx":0000
          Caption         =   "2"
          ButtonStyle     =   3
       End
@@ -128,7 +128,7 @@ Begin VB.Form online_stage_pass
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "password_man.frx":2D23
+         Picture         =   "online_password.frx":2D23
          Caption         =   "1"
          ButtonStyle     =   3
       End
@@ -155,7 +155,7 @@ Begin VB.Form online_stage_pass
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "password_man.frx":5A46
+         Picture         =   "online_password.frx":5A46
          Caption         =   "3"
          ButtonStyle     =   3
       End
@@ -182,7 +182,7 @@ Begin VB.Form online_stage_pass
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "password_man.frx":8769
+         Picture         =   "online_password.frx":8769
          Caption         =   "4"
          ButtonStyle     =   3
       End
@@ -209,7 +209,7 @@ Begin VB.Form online_stage_pass
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "password_man.frx":B48C
+         Picture         =   "online_password.frx":B48C
          Caption         =   "5"
          ButtonStyle     =   3
       End
@@ -236,7 +236,7 @@ Begin VB.Form online_stage_pass
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "password_man.frx":E1AF
+         Picture         =   "online_password.frx":E1AF
          Caption         =   "6"
          ButtonStyle     =   3
       End
@@ -263,7 +263,7 @@ Begin VB.Form online_stage_pass
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "password_man.frx":10ED2
+         Picture         =   "online_password.frx":10ED2
          Caption         =   "7"
          ButtonStyle     =   3
       End
@@ -290,7 +290,7 @@ Begin VB.Form online_stage_pass
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "password_man.frx":13BF5
+         Picture         =   "online_password.frx":13BF5
          Caption         =   "8"
          ButtonStyle     =   3
       End
@@ -317,7 +317,7 @@ Begin VB.Form online_stage_pass
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "password_man.frx":16918
+         Picture         =   "online_password.frx":16918
          Caption         =   "9"
          ButtonStyle     =   3
       End
@@ -345,7 +345,7 @@ Begin VB.Form online_stage_pass
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "password_man.frx":1963B
+         Picture         =   "online_password.frx":1963B
          Caption         =   "Enter"
          ButtonStyle     =   3
       End
@@ -372,7 +372,7 @@ Begin VB.Form online_stage_pass
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "password_man.frx":1DC49
+         Picture         =   "online_password.frx":1DC49
          Caption         =   "0"
          ButtonStyle     =   3
       End
@@ -398,7 +398,7 @@ Begin VB.Form online_stage_pass
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "password_man.frx":2112E
+         Picture         =   "online_password.frx":2112E
          Caption         =   "Esc"
          ButtonStyle     =   3
       End
@@ -424,7 +424,7 @@ Begin VB.Form online_stage_pass
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "password_man.frx":23E51
+         Picture         =   "online_password.frx":23E51
          Caption         =   "Del"
          ButtonStyle     =   3
       End
@@ -451,7 +451,7 @@ Begin VB.Form online_stage_pass
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "password_man.frx":26B74
+         Picture         =   "online_password.frx":26B74
          Caption         =   "."
          ButtonStyle     =   3
       End
@@ -477,7 +477,7 @@ Begin VB.Form online_stage_pass
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "password_man.frx":29897
+         Picture         =   "online_password.frx":29897
          Caption         =   "Back Space"
          ButtonStyle     =   3
       End
@@ -533,13 +533,12 @@ Begin VB.Form online_stage_pass
       End
    End
 End
-Attribute VB_Name = "online_stage_pass"
+Attribute VB_Name = "online_password"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public myForm As Form
-Public sFlag As String
 Private Sub CmdApply_Click()
 If Trim(xPass.text) <> "" Then
     On Error GoTo myerror
@@ -561,11 +560,8 @@ If Trim(xPass.text) <> "" Then
         GoTo Finally
     End If
     
-    If sFlag = "" Then
-        myForm.myProc loctable!code & ""
-    Else
-        myForm.myProc loctable!code & "", sFlag
-    End If
+    myForm.sManCode = loctable!code
+    Unload Me
 End If
 Finally:
 Set loctable = Nothing
@@ -601,6 +597,10 @@ If KeyAscii = 13 Then
     If TypeOf ActiveControl Is TextBox Then KeyAscii = 0
 End If
 End Sub
+Private Sub Form_Load()
+myForm.sManCode = ""
+End Sub
+
 Private Sub Form_Unload(Cancel As Integer)
 Set online_stage_pass = Nothing
 End Sub
