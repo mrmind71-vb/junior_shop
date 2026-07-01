@@ -76,7 +76,7 @@ Begin VB.Form online_stage_invoice_trans
       Width           =   4425
       Begin Threed.SSCommand cmdSend 
          Height          =   600
-         Left            =   45
+         Left            =   90
          TabIndex        =   19
          Top             =   180
          Width           =   4335
@@ -737,7 +737,7 @@ Private Sub cmdAccept_Click()
 If myValid Then
     Dim con As New ADODB.Connection
     nCount = rsEx("update file6_90bh " & _
-            "set date1 = " & addDate(xdate1.text) & _
+            "set date1 = " & addDate(xDate1.text) & _
             " where doc_no = " & sDoc_no)
     If nCount > 0 Then
         Inform_OK (" „ «·«” ·«„ »‰Õ«Õ")
@@ -804,8 +804,8 @@ Fixgrd2
 If xtype.Tag = "0" Or xtype.Tag = "1" Or xtype.Tag = "2" Or xtype.Tag = "3" Then
     fmInvoice.Visible = True
 Else
-    xdate1.text = rsDateBranch(sBranchOnline)
-    fmdate.Visible = True
+    xDate1.text = rsDateBranch(sBranchOnline)
+    fmDate.Visible = True
 End If
 
 CellPos 13, 0, grid1.Cols - 1
@@ -835,13 +835,13 @@ cString = cString & _
             "FILE1_10.SCAL," & _
             "FILE1_10.MODELFACT0"
 
-On Error GoTo myError
+On Error GoTo myerror
 
 Set grid2.DataSource = myRs(cString)
 Finally:
 Set loctable = Nothing
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 Resume Finally
@@ -1155,16 +1155,16 @@ strSql = "SELECT v.ORDER_NO," & _
           " WHERE v.ORDER_NO = " & MyParn(sOrder_No) & _
           " AND v.doc_no = " & Val(sDoc_no)
 
-On Error GoTo myError
+On Error GoTo myerror
 Set loctable = myRs(strSql)
 If Not loctable.EOF Then
     xorder_no.Caption = loctable!ORDER_NO & ""
-    xdoc_no.Caption = loctable!DOC_NO & ""
-    xdate.Caption = myFormat_p(loctable!Date)
+    XDOC_NO.Caption = loctable!DOC_NO & ""
+    xDate.Caption = myFormat_p(loctable!Date)
     xtype.Caption = loctable!TYPE_dESCA
     xtype.Tag = loctable!Type
-    xdate.Caption = myFormat_p(loctable!Date)
-    xShip_no.text = loctable!ship_no & ""
+    xDate.Caption = myFormat_p(loctable!Date)
+    xship_no.text = loctable!ship_no & ""
     xship.BoundText = loctable!SHIP & ""
     If loctable!Type = 0 Or loctable!Type = 1 Then
         cmdSend.Caption = " ÕÊÌ· «·Ì „»Ì⁄« "
@@ -1177,12 +1177,12 @@ If Not loctable.EOF Then
     End If
     
     lbldoc.Visible = loctable!Type <> 0
-    xdoc_no.Visible = loctable!Type <> 0
+    XDOC_NO.Visible = loctable!Type <> 0
 End If
 Finally:
 Set loctable = Nothing
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 Resume Finally
@@ -1210,7 +1210,7 @@ Private Function myReplaceOnline() As String
               " FILE6_90H.SHIPPING_CITY," & _
               " FILE6_90H.CITY," & _
               " FILE6_90H.STREET, " & _
-              " FILE6_90H.SHIPPING, " & _
+              " V.CHARGE2, " & _
               " FILE6_90H.Payment_Method," & _
               " FILE6_90H.DISCOUNT_CODE," & _
               " FILE6_90H.PAYMENT_ID" & _
@@ -1219,7 +1219,7 @@ Private Function myReplaceOnline() As String
               " WHERE v.ORDER_NO = " & MyParn(sOrder_No) & _
               " AND v.DOC_NO = " & sDoc_no
     
-    On Error GoTo myError
+    On Error GoTo myerror
     
     Dim con As New ADODB.Connection
     If Not openCn(con) Then Exit Function
@@ -1266,7 +1266,8 @@ Private Function myReplaceOnline() As String
     
     aInsert = AddFlag(aInsert, "ADDRESS", addstring(cAddress))
     aInsert = AddFlag(aInsert, "[NAME]", addstring(loctable!Name))
-    aInsert = AddFlag(aInsert, "[CHARGE2]", addstring(loctable!Shipping))
+    
+    aInsert = AddFlag(aInsert, "[CHARGE2]", IIf(xtype.Tag = "0" Or xtype.Tag = "1", 1, -1) * Val(loctable!charge2 & ""))
     
     If xtype.Tag <> "0" Then
         aInsert = AddFlag(aInsert, "[doc_no_online]", addvalue(sDoc_no))
@@ -1276,7 +1277,7 @@ Private Function myReplaceOnline() As String
     aInsert = AddFlag(aInsert, "[Shipping_City]", addstring(loctable!Shipping_City))
     aInsert = AddFlag(aInsert, "[street]", addstring(loctable!Street))
     aInsert = AddFlag(aInsert, "[Payment_Method]", addstring(loctable!Payment_Method))
-    aInsert = AddFlag(aInsert, "[ship_no]", addstring(xShip_no.text))
+    aInsert = AddFlag(aInsert, "[ship_no]", addstring(xship_no.text))
     aInsert = AddFlag(aInsert, "[ship]", addstring(xship.BoundText))
     'aInsert = AddFlag(aInsert, "[ISCLOSED]", "1")
     
@@ -1307,7 +1308,7 @@ Private Function myReplaceOnline() As String
         aInsert = AddFlag(aInsert, "PRICE", Val(loctable!price))
         aInsert = AddFlag(aInsert, "MAN", addstring(sMan))
         aInsert = AddFlag(aInsert, "USER_IP", addstring(addstring(GetComputerName)))
-        aInsert = AddFlag(aInsert, "PRICE_C", Val(loctable!PRICE_c & ""))
+        aInsert = AddFlag(aInsert, "PRICE_C", Val(loctable!price_c & ""))
         aInsert = AddFlag(aInsert, "COST", Val(loctable!costitem & ""))
         aInsert = AddFlag(aInsert, "DOC_OFFER", addstring(loctable!DOC_OFFER))
         aInsert = AddFlag(aInsert, "OFFER_NO", addstring(loctable!OFFER_NO))
@@ -1335,7 +1336,7 @@ Private Function myReplaceOnline() As String
 Finally:
 closeCon con
 Exit Function
-myError:
+myerror:
 MsgBox Err.Description
 If TransCount(con) > 0 Then con.RollbackTrans
 Err.Clear
@@ -1344,7 +1345,7 @@ End Function
 Private Function myValid() As Boolean
 Dim i As Long
 Dim nFound As Long
-If Trim(xShip_no.text) = "" Then
+If Trim(xship_no.text) = "" Then
     MsgBox "—ﬁ„ »Ê·Ì’… «·‘Õ‰ €Ì— „”Ã·"
     Exit Function
 End If
@@ -1357,6 +1358,11 @@ End If
 If grid1.Rows < 3 Then
     MsgBox "·«  ÊÃœ «’‰«› „”Ã·…"
     Exit Function
+End If
+
+If cBranch <> sBranchOnline Then
+   MsgBox "«·›—⁄ ·Ì” ›—⁄ «Ê‰·«Ì‰"
+   Exit Function
 End If
 
 With grid1
@@ -1391,7 +1397,7 @@ Private Sub grid2_EnterCell()
 grid2.Editable = flexEDKbdMouse
 End Sub
 Private Sub xdate1_Change()
-cmdAccept.Enabled = IsDate(xdate1.text)
+cmdAccept.Enabled = IsDate(xDate1.text)
 End Sub
 
 Private Sub xorder_no_Click()

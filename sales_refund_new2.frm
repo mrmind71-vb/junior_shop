@@ -1008,7 +1008,7 @@ Private Sub Form_Load()
 openCon con
 
 Set grid1.DataSource = DATA1
-Set grid2.DataSource = DATA2
+Set grid2.DataSource = data2
 
 myLoadInv
 
@@ -1046,7 +1046,6 @@ If Not bOnline Then
               "FR6_20H.DISCOUNT_ADD," & _
               "FR6_20H.DISCOUNT_ADD_RATE," & _
               "FR6_20H.DISCOUNT," & _
-              "FR6_20H.DISCOUNT," & _
               "FR6_20H.DISCOUNT_RATE," & _
               "BRANCH_FR.DESCA AS BRANCH," & _
               "FR6_20H.PHONE" & _
@@ -1057,10 +1056,10 @@ End If
           
 Set loctable = cmd(cString, con).Execute
 If Not loctable.EOF Then
-    xdoc_no.Caption = sDoc_no
+    xDoc_No.Caption = sDoc_no
     XBRANCH.Caption = loctable!branch & ""
     If IsValidMobile(loctable!phone & "") Then
-        xphone.Caption = loctable!phone
+        xPhone.Caption = loctable!phone
     End If
     xDate.Caption = myFormat_p(loctable!Date)
         
@@ -1071,20 +1070,20 @@ If Not loctable.EOF Then
     xDiscount_add.Caption = Myvalue(loctable!discount_add)
     xDiscount_add_rate.Caption = Format(loctable!discount_add_Rate, "0%")
     xDiscount_add_rate.Tag = loctable!discount_add_Rate
-    xdiscount.Caption = Myvalue(loctable!discount)
+    xDiscount.Caption = Myvalue(loctable!discount)
     xdiscount_rate.Caption = Format(loctable!discount_Rate, "0%")
     xdiscount_rate.Tag = loctable!discount_Rate
     
-    xtotal.Caption = Myvalue(loctable!TOTAL)
+    xTotal.Caption = Myvalue(loctable!TOTAL)
 End If
 End Sub
 Private Sub myloadgrd2()
 Dim aPrm As Variant
 aPrm = AddFlag(aPrm, "DOC_NO", sDoc_no)
 If Not bOnline Then
-    Set DATA2.Recordset = mycmd("dbo.sp_SALES_REFUND", con, adStoredProc, aPrm)
+    Set data2.Recordset = mycmd("dbo.sp_SALES_REFUND", con, adStoredProc, aPrm)
 Else
-    Set DATA2.Recordset = mycmd("dbo.sp_SALES_REFUND_ONLINE", con, adStoredProc, aPrm)
+    Set data2.Recordset = mycmd("dbo.sp_SALES_REFUND_ONLINE", con, adStoredProc, aPrm)
 End If
 Fixgrd2
 End Sub
@@ -1242,9 +1241,9 @@ If grid1.Rows > 1 Then
         xtotal_offer_ret.Caption = xTotal_offer.Caption
         xdiscount_add_Ret.Caption = xDiscount_add.Caption
         xdiscount_add_ret_Rate.Caption = xDiscount_add_rate.Caption
-        xdiscount_ret.Caption = xdiscount.Caption
+        xdiscount_ret.Caption = xDiscount.Caption
         xdiscount_Ret_rate.Caption = xdiscount_rate.Caption
-        xtotal_Ret.Caption = xtotal.Caption
+        xtotal_Ret.Caption = xTotal.Caption
     Else
         For i = 1 To .Rows - 2
             If .ValueMatrix(i, 11) <> 0 Then

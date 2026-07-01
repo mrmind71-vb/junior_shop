@@ -1050,7 +1050,7 @@ Begin VB.Form online_Stage_main
       Left            =   90
       TabIndex        =   17
       TabStop         =   0   'False
-      Top             =   1485
+      Top             =   1440
       Width           =   20220
       _cx             =   35666
       _cy             =   12885
@@ -1309,7 +1309,7 @@ End Sub
 Private Sub CmdUndo_Click()
     Unload Me
 End Sub
-Private Sub cmdGo_Click()
+Private Sub CmdGo_Click()
 myload
 End Sub
 
@@ -1359,6 +1359,7 @@ With grid1
               "FILE6_90H.TOTAL_ITEM - FILE6_90H.DISCOUNT ," & _
               "DISCOUNT_CODE," & _
               "SHIPPING, " & _
+              "FILE6_90H.TOTAL_ITEM + SHIPPING - FILE6_90H.DISCOUNT ," & _
               "Payment_Method," & _
               "STORE," & _
               "STAGES_CODES.DESCA ," & _
@@ -1370,10 +1371,12 @@ With grid1
               "FORMAT(SALES_DATE,'yyyy/M/d')," & _
               "SHIP_NO," & _
               "FORMAT(SHIP_DATE,'yyyy/M/d'),"
+
 cString = cString & _
               " NOTES," & _
               " FORMAT(DelOrder_Date,'yyyy/M/d')," & _
-              " FILE6_90H.MAN" & _
+              " FILE6_90H.MAN," & _
+              " FILE6_90H.STAGE" & _
               " FROM FILE6_90H " & _
               " LEFT JOIN FILE6_25 ON FILE6_90H.MAN = FILE6_25.CODE" & _
               " INNER JOIN STAGES_CODES ON FILE6_90H.STAGE = STAGES_CODES.CODE"
@@ -1389,8 +1392,10 @@ cString = cString & _
     End If
     
     If cmdStage.Tag <> "" Then
-        cWhere = cWhere & Tr(cWhere) & "FILE6_90H.STAGE = " & cmdStage.Tag
+        cWhere = cWhere & Tr(cWhere) & "(FILE6_90H.STAGE = " & cmdStage.Tag & _
+                 " OR (FILE6_90H.DOC_NO IN(SELECT ORDER_NO FROM FILE6_90BH WHERE FILE6_90BH.STAGE = " & cmdStage.Tag & ")))"
     End If
+
 '    If opt(2).Value Then
 '        cString = cString & _
 '                 " INNER JOIN vw_online_orders_closed as v on FILE6_90H.DOC_NO = v.ORDER_NO"
@@ -1424,8 +1429,8 @@ cString = cString & _
         cWhere = cWhere & Tr(cWhere) & "MAN = " & MyParn(xMan.BoundText)
     End If
     
-    If IsDate(xDate1.text) Then
-        cWhere = cWhere & Tr(cWhere) & " [DATE] >= " & DateSq(xDate1.text)
+    If IsDate(xdate1.text) Then
+        cWhere = cWhere & Tr(cWhere) & " [DATE] >= " & DateSq(xdate1.text)
     End If
     
     If IsDate(xdate2.text) Then
@@ -1469,22 +1474,24 @@ With grid1
     .TextMatrix(0, 8) = "«·≈Ã„«·Ï"
     .TextMatrix(0, 9) = "ﬂÊœ Œ’„"
     .TextMatrix(0, 10) = "«·‘Õ‰"
+    .TextMatrix(0, 11) = "«·≈Ã„«·Ì"
     
-    .TextMatrix(0, 11) = "ÿ—Ìﬁ… «·œ›⁄"
-    .TextMatrix(0, 12) = "«·›—⁄"
-    .TextMatrix(0, 13) = "«·„—Õ·…"
-    .TextMatrix(0, 14) = "«·„‰œÊ»"
-    .TextMatrix(0, 15) = "«·„—”·"
-    .TextMatrix(0, 16) = "SEND TIME "
-    .TextMatrix(0, 17) = "„·«ÕŸ«  ÿ·»Ì…"
-    .TextMatrix(0, 18) = "»Ê‰ „»Ì⁄« "
-    .TextMatrix(0, 19) = " «—ÌŒ"
+    .TextMatrix(0, 11 + 1) = "ÿ—Ìﬁ… «·œ›⁄"
+    .TextMatrix(0, 11 + 1) = "ÿ—Ìﬁ… «·œ›⁄"
+    .TextMatrix(0, 12 + 1) = "«·›—⁄"
+    .TextMatrix(0, 13 + 1) = "«·„—Õ·…"
+    .TextMatrix(0, 14 + 1) = "«·„‰œÊ»"
+    .TextMatrix(0, 15 + 1) = "«·„—”·"
+    .TextMatrix(0, 16 + 1) = "SEND TIME "
+    .TextMatrix(0, 17 + 1) = "„·«ÕŸ«  ÿ·»Ì…"
+    .TextMatrix(0, 18 + 1) = "»Ê‰ „»Ì⁄« "
+    .TextMatrix(0, 19 + 1) = " «—ÌŒ"
     
-    .TextMatrix(0, 20) = "»Ê·Ì’… ‘Õ‰"
-    .TextMatrix(0, 21) = " «—ÌŒ «·‘Õ‰"
+    .TextMatrix(0, 20 + 1) = "»Ê·Ì’… ‘Õ‰"
+    .TextMatrix(0, 21 + 1) = " «—ÌŒ «·‘Õ‰"
         
     .ColHidden(9) = True
-    .ColHidden(10) = True
+    '.ColHidden(10) = True
     .ColHidden(12) = True
     .ColHidden(15) = True
     .ColHidden(21) = True
@@ -1515,7 +1522,7 @@ With grid1
     .ColWidth(5) = 4000
     .ColWidth(6) = 1000
     .ColWidth(7) = 900
-    .ColWidth(8) = 800
+    .ColWidth(8) = 1300
     .ColWidth(9) = 800
     .ColWidth(10) = 900
     .ColWidth(11) = 1400
@@ -1544,20 +1551,32 @@ With grid1
     
     .Subtotal flexSTSum, -1, 6, "#", vbYellow, , True, ""
     .Subtotal flexSTSum, -1, 7, "#", vbYellow, , True, ""
+    .Subtotal flexSTSum, -1, 8, "#", vbYellow, , True, ""
     .Subtotal flexSTSum, -1, 9, "#", vbYellow, , True, ""
     .Subtotal flexSTSum, -1, 10, "#", vbYellow, , True, ""
+    .Subtotal flexSTSum, -1, 11, "#", vbYellow, , True, ""
+    
     End With
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
     On Error Resume Next
     'closeCon con
     'If cBranch <> "00" Then closeCon con_MyShop
-    SaveText Me, , Array(xDate1.Name, xdate2.Name)
+    SaveText Me, , Array(xdate1.Name, xdate2.Name)
 End Sub
 Private Sub grid1_DblClick()
 If grid1.Row < 1 Or grid1.Row = grid1.Rows - 1 Then Exit Sub
-orders_online_items.sDoc_no = grid1.TextMatrix(grid1.Row, 0)
-orders_online_items.Show 1
+If cmdStage.Tag <> grid1.TextMatrix(grid1.Row, grid1.Cols - 1) Then
+    orders_online_invoices.bEdit = False
+    orders_online_invoices.sOrder_No = grid1.TextMatrix(grid1.Row, 0)
+    orders_online_invoices.sStore = sStoreOnline
+    orders_online_invoices.sStage = cmdStage.Tag
+    Set orders_online_invoices.myForm = Me
+    orders_online_invoices.Show 1
+Else
+    orders_online_items.sDoc_no = grid1.TextMatrix(grid1.Row, 0)
+    orders_online_items.Show 1
+End If
 End Sub
 Private Sub grid1_GotFocus()
 'grid1_EnterCell
@@ -1592,7 +1611,7 @@ End Sub
 Private Sub xDoc_No_LostFocus()
 myLostFocus xdoc_no
 End Sub
-Private Sub xDate2_GotFocus()
+Private Sub xdate2_GotFocus()
 myGotFocus xdate2
 End Sub
 Private Sub xDate2_LostFocus()
@@ -1600,11 +1619,11 @@ myLostFocus xdate2
 myValidDate xdate2
 End Sub
 Private Sub xdate1_GotFocus()
-myGotFocus xDate1
+myGotFocus xdate1
 End Sub
-Private Sub xdate1_LostFocus()
-myLostFocus xDate1
-myValidDate xDate1
+Private Sub xDate1_LostFocus()
+myLostFocus xdate1
+myValidDate xdate1
 End Sub
 Private Sub xPay_GotFocus()
 myGotFocus xpay
@@ -1680,10 +1699,10 @@ If col = 4 Then
         Exit Sub
     End If
     
-    If Val(xTotal.Caption) > 0 And Val(grid1.EditText) <= 0 Then
+    If Val(xtotal.Caption) > 0 And Val(grid1.EditText) <= 0 Then
         Cancel = True
         Exit Sub
-    ElseIf Val(xTotal.Caption) < 0 And Val(grid1.EditText) >= 0 Then
+    ElseIf Val(xtotal.Caption) < 0 And Val(grid1.EditText) >= 0 Then
         Cancel = True
         Exit Sub
     End If

@@ -817,14 +817,14 @@ Private Sub CMD_PRINT_Click()
     cHead1 = "»Ì«‰ ≈Ã„«·Ï  ⁄«„·«  «·„Ã„Ê⁄«  "
     cHead2 = " Õ Ï   «—ÌŒ " & Format(xDate1.text, "DD-MM-YYYY")
     
-8    Load PrintGrd
+    Load PrintGrd
     PrintGrd.doprint Me.grid1, 0.75, -2, cHead1, cHead2, , False, True, 6
     PrintGrd.Show 1
 End Sub
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
     Unload Me
 End Sub
-Private Sub cmdGo_Click()
+Private Sub CmdGo_Click()
     myload
 End Sub
 Private Sub Form_Load()
@@ -834,37 +834,37 @@ Private Sub Form_Load()
     
     DATA7.ConnectionString = strCon
     DATA7.RecordSource = "Select Code,DescA From BRANCH_FR ORDER BY DESCA"
-    Set XSTORE.RowSource = DATA7
-    XSTORE.ListField = "Desca"
-    XSTORE.BoundColumn = "Code"
+    Set xStore.RowSource = DATA7
+    xStore.ListField = "Desca"
+    xStore.BoundColumn = "Code"
     
     If cBranch <> "00" Then
-        XSTORE.BoundText = cBranchStore
-        XSTORE.Enabled = False
+        xStore.BoundText = cBranchStore
+        xStore.Enabled = False
     End If
     
-    DATA2.ConnectionString = strCon
-    DATA2.RecordSource = "Select Code,DescA From File4_10 order by Desca"
-    Set xSupp.RowSource = DATA2
+    data2.ConnectionString = strCon
+    data2.RecordSource = "Select Code,DescA From File4_10 order by Desca"
+    Set xSupp.RowSource = data2
     xSupp.ListField = "Desca"
     xSupp.BoundColumn = "Code"
     
     
-    data4.ConnectionString = strCon
-    data4.RecordSource = "Select mosm ,descA From mosm ORDER BY date DESC "
-    Set xMosm.RowSource = data4
+    DATA4.ConnectionString = strCon
+    DATA4.RecordSource = "Select mosm ,descA From mosm ORDER BY date DESC "
+    Set xMosm.RowSource = DATA4
     xMosm.ListField = "Desca"
     xMosm.BoundColumn = "MOSM"
     xMosm.BoundText = cPMosm
     
     data5.ConnectionString = strCon
     data5.RecordSource = "Select code ,desca From FILE1_10SC ORDER BY code "
-    Set xSection.RowSource = data5
-    xSection.ListField = "Desca"
-    xSection.BoundColumn = "Code"
+    Set XSECTION.RowSource = data5
+    XSECTION.ListField = "Desca"
+    XSECTION.BoundColumn = "Code"
     
-    Set grid1.DataSource = data6
-    data6.ConnectionString = strCon
+    Set grid1.DataSource = DATA6
+    DATA6.ConnectionString = strCon
     
     grid1.Rows = 1
     grid1.Cols = 9
@@ -876,10 +876,10 @@ Private Sub myload()
     
     If xMosm.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.MOSM = " & MyParn(xMosm.BoundText)
     If xSupp.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.CODE = " & MyParn(xSupp.BoundText)
-    If xSection.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[SECTION] = " & Val(xSection.BoundText)
+    If XSECTION.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[SECTION] = " & Val(XSECTION.BoundText)
     If XSEC.text <> "" Then cStr2 = cStr2 & " AND FILE1_10.[Sec] = " & MyParn(XSEC.text)
-    If XSTORE.BoundText <> "" Then cStr2 = cStr2 & " AND FR1_11.store = " & MyParn(XSTORE.BoundText)
-    If XSTORE.BoundText <> "" Then
+    If xStore.BoundText <> "" Then cStr2 = cStr2 & " AND FR1_11.store = " & MyParn(xStore.BoundText)
+    If xStore.BoundText <> "" Then
         cField3 = " SUM ( case when ( type = '2' OR type = '7' OR type = 'T' OR type = 'F' ) THEN ([IN] - [OUT])  else 0 end ) AS t_purch    , "
         cField7 = " SUM ( case when ( type = '2' OR type = '7' OR type = 'T' OR type = 'F' ) THEN (([IN] - [OUT]) * FILE1_10.COST )  else 0 end ) AS VAL_PURCH     , "
     Else
@@ -889,7 +889,7 @@ Private Sub myload()
     cField4 = " (SELECT COUNT(DISTINCT FILE1_10_2.MODELNO ) FROM FR1_11 AS FR1_11_2 INNER JOIN FILE1_10 AS FILE1_10_2 ON FR1_11_2.ITEM = FILE1_10_2.ITEM WHERE FR1_11_2.TYPE = '6' AND FILE1_10_2.[GROUP] = FILE1_50.CODE "
     If xMosm.BoundText <> "" Then cField4 = cField4 & " AND FILE1_10_2.MOSM = " & MyParn(xMosm.BoundText)
     If xSupp.BoundText <> "" Then cField4 = cField4 & " AND FILE1_10_2.CODE = " & MyParn(xSupp.BoundText)
-    If xSection.BoundText <> "" Then cField4 = cField4 & " AND FILE1_10_2.[SECTION] = " & Val(xSection.BoundText)
+    If XSECTION.BoundText <> "" Then cField4 = cField4 & " AND FILE1_10_2.[SECTION] = " & Val(XSECTION.BoundText)
     If XSEC.text <> "" Then cField4 = cField4 & " AND FILE1_10_2.[Sec] = " & MyParn(XSEC.text)
     cField4 = cField4 & " )   AS CountSALES   , "
     cField5 = " SUM ( case when (type = '6' )   THEN ([out] )  else 0 end ) AS t_sal     , "
@@ -906,8 +906,8 @@ Private Sub myload()
     If IsDate(xDate1.text) Then cString = cString & " AND FR1_11.DATE <= " & DateSq(xDate1.text)
     cString = cString & cStr2 & " group BY FILE1_50.CODE , FILE1_50.DESCA ORDER BY FILE1_50.CODE "
 
-    data6.RecordSource = cString
-    data6.Refresh
+    DATA6.RecordSource = cString
+    DATA6.Refresh
     
     FIXGRID
 End Sub
@@ -998,12 +998,12 @@ With grid1
         VsTitemShop.xMosm.BoundText = xMosm.BoundText
         VsTitemShop.xDate1.text = xDate1.text
         VsTitemShop.xSupp.BoundText = xSupp.BoundText
-        VsTitemShop.XSTORE.BoundText = XSTORE.BoundText
+        VsTitemShop.xStore.BoundText = xStore.BoundText
         VsTitemShop.Show
     End If
 End With
 End Sub
-Private Sub grid1_EnterCell()
+Private Sub Grid1_EnterCell()
     xModelNo.Caption = grid1.TextMatrix(grid1.Row, 0)
 End Sub
 Sub FixSubView(cPstr)

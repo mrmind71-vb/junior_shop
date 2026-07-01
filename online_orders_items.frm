@@ -1032,7 +1032,7 @@ If MsgBox("Êã ÇáÊÚÏíá", vbDefaultButton2 + vbOKCancel) Then
     myload
     myloadGrdError
     myLoadCount
-    cmdEdit.Enabled = xStage.Tag = "6"
+    cmdEdit.Enabled = xstage.Tag = "6"
         
     Inform_OK "Êã ÇáÊÚÏíá"
 Finally:
@@ -1067,7 +1067,7 @@ End Sub
 Private Function myreplace() As Boolean
 Dim aInsert As Variant
 aInsert = AddFlag(aInsert, "[NAME]", addstring(xName.text))
-aInsert = AddFlag(aInsert, "[PHONE]", addstring(xPhone.text))
+aInsert = AddFlag(aInsert, "[PHONE]", addstring(xphone.text))
 aInsert = AddFlag(aInsert, "[CITY]", addstring(xcity.text))
 aInsert = AddFlag(aInsert, "[street]", addstring(xStreet.text))
 aInsert = AddFlag(aInsert, "[NOTE_MAIN]", addstring(xNote_main.text))
@@ -1117,9 +1117,17 @@ Dim aInsert As Variant
 aInsert = AddFlag(Empty, "DESCA", addstring(sMsg))
 aInsert = AddFlag(aInsert, "USERNAME", addstring(cUserName))
 aInsert = AddFlag(aInsert, "ORDER_NO", addstring(xdoc_no.Caption))
-aInsert = AddFlag(aInsert, "STAGE", addvalue(xStage.Tag))
+aInsert = AddFlag(aInsert, "STAGE", addvalue(xstage.Tag))
 aInsert = AddFlag(aInsert, "[TIME]", "getdate()")
-con.Execute addInsert(aInsert, "FILE6_90_MSG"), nAffect
+On Error GoTo myerror
+nAffrect = rsEx(addInsert(aInsert, "FILE6_90_MSG"))
+
+myloadGrdError
+
+Exit Sub
+myerror:
+MsgBox Err.Description
+Err.Clear
 End Sub
 Private Sub Form_KeyPress(KeyAscii As Integer)
 If KeyAscii = 13 Then
@@ -1135,11 +1143,10 @@ If KeyCode = 13 Then
 End If
 End Sub
 Private Sub Form_Load()
-cBranch = "00"
 myload
 myloadGrdError
 myLoadCount
-cmdEdit.Enabled = xStage.Tag = "6"
+cmdEdit.Enabled = xstage.Tag = "6"
 End Sub
 Public Sub myload()
 myLoadHeader
@@ -1159,11 +1166,11 @@ If Not loctable.EOF Then
     xdate.Caption = myFormat_p(loctable!Date)
     xName.text = loctable!Name & ""
     xonline_doc.Caption = loctable!sales_Doc & ""
-    xPhone.text = loctable!phone & ""
+    xphone.text = loctable!phone & ""
     xcity.text = loctable!city & ""
     xStreet.text = loctable!Street & ""
-    xStage.Caption = loctable!stage_Desca & ""
-    xStage.Tag = loctable!Stage & ""
+    xstage.Caption = loctable!stage_Desca & ""
+    xstage.Tag = loctable!Stage & ""
     xSales_date.Caption = myFormat_p(loctable!sales_date)
     'xship_date.text = myFormat_p(loctable!ship_date)
     xNotes.text = loctable!NOTES & ""
@@ -1272,6 +1279,7 @@ If grdError.Row > 0 Then
     online_Show_Msg.Show 1
 End If
 End Sub
+
 Private Sub xdoc_no_Click()
 Clipboard.Clear
 Clipboard.SetText xdoc_no.Caption
@@ -1298,10 +1306,10 @@ myLostFocus xDelOrder_Date
 myValidDate xDelOrder_Date
 End Sub
 Private Sub xPhone_GotFocus()
-myGotFocus xPhone
+myGotFocus xphone
 End Sub
 Private Sub XPHONE_LostFocus()
-myLostFocus xPhone
+myLostFocus xphone
 End Sub
 Private Sub xcity_GotFocus()
 myGotFocus xcity

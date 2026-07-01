@@ -26,28 +26,6 @@ Begin VB.Form online_stage_manager
    ScaleHeight     =   10635
    ScaleWidth      =   20370
    WindowState     =   2  'Maximized
-   Begin VB.CheckBox chkEdit 
-      Alignment       =   1  'Right Justify
-      Appearance      =   0  'Flat
-      BackColor       =   &H80000005&
-      Caption         =   "ØáÈíÇÊ ãÚÏáÉ"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   11.25
-         Charset         =   178
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H80000008&
-      Height          =   420
-      Left            =   135
-      RightToLeft     =   -1  'True
-      TabIndex        =   10
-      Top             =   1125
-      Width           =   1365
-   End
    Begin VB.Frame Frame6 
       BackColor       =   &H00FFFFFF&
       Height          =   1320
@@ -1368,22 +1346,21 @@ If grdError.Row > 1 Then
     oPassword.Show 1
 End If
 End Sub
-
-Private Sub grdPrep_Click()
+Private Sub grdPrep_DblClick()
 If grdError.Row > 1 Then
     Set oPassword = New online_stage_pass
     Set oPassword.myForm = Me
     oPassword.Show 1
 End If
 End Sub
-
-Private Sub grdRefund_Click()
+Private Sub grdRefund_DblClick()
 If grdRefund.Row > 1 Then
     online_stage_invoice_trans.sOrder_No = grdRefund.TextMatrix(grdRefund.Row, 0)
     online_stage_invoice_trans.sDoc_no = Val(grdRefund.TextMatrix(grdRefund.Row, 1))
     online_stage_invoice_trans.Show 1
 End If
 End Sub
+
 Private Sub grdRefund2_DblClick()
 If grdRefund2.Row > 1 Then
     online_stage_invoice_trans.sOrder_No = grdRefund2.TextMatrix(grdRefund2.Row, 0)

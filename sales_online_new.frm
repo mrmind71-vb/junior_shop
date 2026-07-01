@@ -3294,7 +3294,7 @@ myUndo
 End Sub
 
 Private Sub chkDayBranch_Click()
-If IsDate(xdate1.text) Or IsDate(xdate2.text) Then Exit Sub
+If IsDate(xDate1.text) Or IsDate(xdate2.text) Then Exit Sub
 myUndo
 End Sub
 
@@ -3464,15 +3464,15 @@ Private Sub LOOKPH_BARCODE_Click()
 
 End Sub
 
-Private Sub optclosed_Click(Index As Integer)
+Private Sub optclosed_Click(index As Integer)
 If bIgClick Then Exit Sub
 myUndo
 End Sub
-Private Sub optLading1_Click(Index As Integer)
+Private Sub optLading1_Click(index As Integer)
 myUndo
 End Sub
 
-Private Sub optLading_Click(Index As Integer)
+Private Sub optLading_Click(index As Integer)
 If bIgClick Then Exit Sub
 myUndo
 End Sub
@@ -3683,13 +3683,13 @@ Set xMan.RowSource = data2
 xMan.ListField = "Desca"
 xMan.BoundColumn = "Code"
 
-Set DATA3.Recordset = mycmd("SELECT * FROM MOSM ", con)
-Set xMosm.RowSource = DATA3
+Set data3.Recordset = mycmd("SELECT * FROM MOSM ", con)
+Set xMosm.RowSource = data3
 xMosm.ListField = "DESCA"
 xMosm.BoundColumn = "MOSM"
 
-Set data4.Recordset = mycmd("SELECT CODE,DESCA FROM SHIP ORDER BY  STOPED,DESCA", con)
-Set xship.RowSource = data4
+Set DATA4.Recordset = mycmd("SELECT CODE,DESCA FROM SHIP ORDER BY  STOPED,DESCA", con)
+Set xship.RowSource = DATA4
 xship.ListField = "DESCA"
 xship.BoundColumn = "CODE"
 
@@ -4105,8 +4105,7 @@ bEditRecord = (bEdit And xPrinted.Value = 0 And xClosed.Value = 0)
 bEditRecord = bEditRecord And (myFormat(xDate.text) = myFormat(sDateSales) Or nUser = enUser.Admin)
 
 cmdNewInv.Enabled = bEdit And nMode = LoadMode And nUser = enUser.Casher
-'cmdDel.Enabled = bEditRecord And nMode = LoadMode And nUser >= enUser.Casher
-cmddel.Enabled = True
+cmdDel.Enabled = bEditRecord And nMode = LoadMode And nUser >= enUser.Casher
 cmdSave.Enabled = bEditRecord
 
 xClosed.Enabled = nUser = enUser.Admin And nMode = LoadMode
@@ -4317,7 +4316,7 @@ End If
 End Sub
 Private Sub xMonth_Change()
 If bIgClick Then Exit Sub
-If chkDay.Value = 1 Or IsDate(xdate1.text) Then Exit Sub
+If chkDay.Value = 1 Or IsDate(xDate1.text) Then Exit Sub
 myUndo
 End Sub
 
@@ -5314,7 +5313,7 @@ End If
 End Sub
 Private Sub xYear_Change()
 If bIgClick Then Exit Sub
-If chkDay.Value = 1 Or IsDate(xdate1.text) Then Exit Sub
+If chkDay.Value = 1 Or IsDate(xDate1.text) Then Exit Sub
 myUndo
 End Sub
 Private Sub xInv_No_GotFocus()
@@ -5361,11 +5360,11 @@ myLostFocus xdate2
 myValidDate xdate2
 End Sub
 Private Sub xdate1_GotFocus()
-myGotFocus xdate1
+myGotFocus xDate1
 End Sub
 Private Sub xdate1_LostFocus()
-myLostFocus xdate1
-myValidDate xdate1
+myLostFocus xDate1
+myValidDate xDate1
 End Sub
 Private Sub xDoc_No_GotFocus()
 myGotFocus xdoc_no
@@ -5491,8 +5490,8 @@ ElseIf optclosed(2).Value Then
 End If
 
 If nUser = enUser.Admin Then
-    If IsDate(xdate1.text) Then
-        cFilter = cFilter & Tr(cFilter) & "FILE6_20H.DATE = " & DateSq(xdate1.text)
+    If IsDate(xDate1.text) Then
+        cFilter = cFilter & Tr(cFilter) & "FILE6_20H.DATE = " & DateSq(xDate1.text)
     ElseIf chkDayBranch.Value = 1 Then
         cFilter = cFilter & Tr(cFilter) & "FILE6_20H.DATE = " & DateSq(sDateSales)
     ElseIf chkDay.Value = 1 Then
@@ -5532,11 +5531,11 @@ End Sub
 Private Sub retFilterLading()
 cFilter = ""
 If nUser = enUser.Admin Then
-    If IsDate(xdate1.text) Then
+    If IsDate(xDate1.text) Then
         If optLading(3).Value Then
-            cFilter = "LADING_BILL.DATE_DELIVERY = " & DateSq(xdate1.text)
+            cFilter = "LADING_BILL.DATE_DELIVERY = " & DateSq(xDate1.text)
         Else
-            cFilter = "FILE6_20H.DATE = " & DateSq(xdate1.text)
+            cFilter = "FILE6_20H.DATE = " & DateSq(xDate1.text)
         End If
     ElseIf chkDayBranch.Value = 1 Then
         If optLading(3).Value Then

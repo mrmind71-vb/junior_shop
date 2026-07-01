@@ -34,7 +34,7 @@ Begin VB.Form online_stage_dash
       Left            =   270
       RightToLeft     =   -1  'True
       TabIndex        =   10
-      Top             =   855
+      Top             =   1530
       Width           =   1545
       Begin Threed.SSCommand cmdGet 
          Height          =   870
@@ -71,7 +71,7 @@ Begin VB.Form online_stage_dash
       Left            =   315
       RightToLeft     =   -1  'True
       TabIndex        =   9
-      Top             =   1890
+      Top             =   2565
       Width           =   1500
       Begin Threed.SSCommand cmdGo 
          Height          =   510
@@ -561,14 +561,14 @@ Begin VB.Form online_stage_dash
       _Version        =   393216
    End
    Begin VSFlex7Ctl.VSFlexGrid grid1 
-      Height          =   3120
-      Left            =   18000
+      Height          =   3795
+      Left            =   17865
       TabIndex        =   0
       TabStop         =   0   'False
       Top             =   90
-      Width           =   2265
-      _cx             =   3995
-      _cy             =   5503
+      Width           =   2400
+      _cx             =   4233
+      _cy             =   6694
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -656,14 +656,14 @@ Begin VB.Form online_stage_dash
       WallPaperAlignment=   9
    End
    Begin VSFlex7Ctl.VSFlexGrid grdError 
-      Height          =   3120
+      Height          =   3840
       Left            =   1845
       TabIndex        =   1
       TabStop         =   0   'False
-      Top             =   90
-      Width           =   16125
-      _cx             =   28443
-      _cy             =   5503
+      Top             =   45
+      Width           =   15990
+      _cx             =   28205
+      _cy             =   6773
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -751,14 +751,14 @@ Begin VB.Form online_stage_dash
       WallPaperAlignment=   9
    End
    Begin VSFlex7Ctl.VSFlexGrid grdPrep 
-      Height          =   3930
+      Height          =   3525
       Left            =   10305
       TabIndex        =   2
       TabStop         =   0   'False
-      Top             =   3285
+      Top             =   3915
       Width           =   9960
       _cx             =   17568
-      _cy             =   6932
+      _cy             =   6218
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -846,14 +846,14 @@ Begin VB.Form online_stage_dash
       WallPaperAlignment=   9
    End
    Begin VSFlex7Ctl.VSFlexGrid grdDone 
-      Height          =   2535
-      Left            =   270
+      Height          =   2265
+      Left            =   315
       TabIndex        =   3
       TabStop         =   0   'False
-      Top             =   3285
-      Width           =   9960
-      _cx             =   17568
-      _cy             =   4471
+      Top             =   3915
+      Width           =   9915
+      _cx             =   17489
+      _cy             =   3995
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -941,14 +941,14 @@ Begin VB.Form online_stage_dash
       WallPaperAlignment=   9
    End
    Begin VSFlex7Ctl.VSFlexGrid grdEdit 
-      Height          =   2625
+      Height          =   2670
       Left            =   10305
       TabIndex        =   4
       TabStop         =   0   'False
-      Top             =   7245
+      Top             =   7470
       Width           =   9960
       _cx             =   17568
-      _cy             =   4630
+      _cy             =   4710
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -1036,14 +1036,14 @@ Begin VB.Form online_stage_dash
       WallPaperAlignment=   9
    End
    Begin VSFlex7Ctl.VSFlexGrid grdCancel 
-      Height          =   2265
+      Height          =   1950
       Left            =   270
       TabIndex        =   5
       TabStop         =   0   'False
-      Top             =   7605
+      Top             =   8190
       Width           =   9960
       _cx             =   17568
-      _cy             =   3995
+      _cy             =   3440
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -1131,14 +1131,14 @@ Begin VB.Form online_stage_dash
       WallPaperAlignment=   9
    End
    Begin VSFlex7Ctl.VSFlexGrid grdEditDone 
-      Height          =   1725
+      Height          =   1950
       Left            =   270
       TabIndex        =   11
       TabStop         =   0   'False
-      Top             =   5850
+      Top             =   6210
       Width           =   9960
       _cx             =   17568
-      _cy             =   3043
+      _cy             =   3440
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -1259,7 +1259,7 @@ Private Sub cmdGet_Click()
 'oPassword.Show 1
 GetOrder
 End Sub
-Private Sub cmdGo_Click()
+Private Sub CmdGo_Click()
 myload
 End Sub
 Private Sub Form_Load()
@@ -1436,6 +1436,17 @@ Private Sub Form_Unload(Cancel As Integer)
     'If cBranch <> "00" Then closeCon con_MyShop
     SaveText Me, , Array(xDate1.Name, xdate2.Name)
 End Sub
+Private Sub GetErrorCancel(Optional pManCode As String = "")
+Set online_Stage_order.myForm = Me
+online_Stage_order.sOrder_No = grdCancel.TextMatrix(grdCancel.Row, 0)
+online_Stage_order.sDoc_no = grdCancel.TextMatrix(grdCancel.Row, 1)
+online_Stage_order.sManCode = pManCode
+online_Stage_order.Show 1
+End Sub
+
+Private Sub grdCancel_DblClick()
+GetErrorCancel
+End Sub
 
 Private Sub grdDone_DblClick()
 'If grdDone.Row > 1 Then
@@ -1452,6 +1463,9 @@ Private Sub grdEdit_Click()
 '    Set oPassword.myForm = Me
 '    oPassword.Show 1
 'End If
+End Sub
+
+Private Sub grdEdit_DblClick()
 GetEditValue
 End Sub
 

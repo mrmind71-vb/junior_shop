@@ -613,6 +613,7 @@ Begin VB.Form OrderOnline_New
       BeginProperty Panels {0713E89E-850A-101B-AFC0-4210102A8DA7} 
          NumPanels       =   1
          BeginProperty Panel1 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.Tag             =   ""
          EndProperty
       EndProperty
@@ -1495,7 +1496,7 @@ End Sub
 Private Sub CmdUndo_Click()
     Unload Me
 End Sub
-Private Sub cmdGo_Click()
+Private Sub CmdGo_Click()
     myload
 End Sub
 Private Sub Form_Load()
@@ -1506,21 +1507,21 @@ Private Sub Form_Load()
     openCon con
     'If cBranch <> "00" Then openCon con_MyShop
     
-    Set grid1.DataSource = data1
+    Set grid1.DataSource = DATA1
     Set grid2.DataSource = data2
     
     Frame2.Visible = (cBranch = "00")
     Check1.Visible = (cBranch = "00")
     'cmd_addexel.Visible = (cBranch = "00")
-    cmdCsv.Enabled = (cBranch = "00")
+    cmdCSV.Enabled = (cBranch = "00")
     
-    Set DATA3.Recordset = myRecordSet("SELECT Payment_Method FROM file6_90h GROUP BY Payment_Method ", con)
-    Set xPay.RowSource = DATA3
-    xPay.ListField = "Payment_Method"
-    xPay.BoundColumn = "Payment_Method"
+    Set data3.Recordset = myRecordSet("SELECT Payment_Method FROM file6_90h GROUP BY Payment_Method ", con)
+    Set xpay.RowSource = data3
+    xpay.ListField = "Payment_Method"
+    xpay.BoundColumn = "Payment_Method"
     
-    Set data4.Recordset = myRecordSet("SELECT CODE , DESCA FROM FILE0_40 WHERE online =  1 ORDER BY CODE ", con)
-    Set xStore.RowSource = data4
+    Set DATA4.Recordset = myRecordSet("SELECT CODE , DESCA FROM FILE0_40 WHERE online =  1 ORDER BY CODE ", con)
+    Set xStore.RowSource = DATA4
     xStore.ListField = "Desca"
     xStore.BoundColumn = "Code"
         
@@ -1586,7 +1587,7 @@ With grid1
               " FROM FILE6_90H LEFT JOIN FILE6_25 ON FILE6_90H.MAN = FILE6_25.CODE"
     If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xdoc_no.text)
     If xPhone.text <> "" Then cWhere = cWhere & Tr(cWhere) & " [phone] = " & MyParn(xPhone.text)
-    If xPay.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " [Payment_Method] = " & MyParn(xPay.text)
+    If xpay.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " [Payment_Method] = " & MyParn(xpay.text)
     If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " [STORE] = " & MyParn(xStore.BoundText)
     If xMan.MatchedWithList Then cWhere = cWhere & Tr(cWhere) & "MAN = " & MyParn(xMan.BoundText)
     If IsDate(xdate1.text) Then cWhere = cWhere & Tr(cWhere) & " [DATE] >= " & DateSq(xdate1.text)
@@ -1609,7 +1610,7 @@ With grid1
     cString = cString & " ORDER BY DOC_NO "
     
     
-    Set data1.Recordset = mycmd(cString, con)
+    Set DATA1.Recordset = mycmd(cString, con)
 
 End With
 Fixgrd
@@ -2263,8 +2264,8 @@ If xdoc_no.text <> "" Then
     cString.Append " AND [DOC_NO] = " & MyParn(xdoc_no.text)
 End If
 
-If xPay.MatchedWithList Then
-    cString.Append " AND [Payment_Method] = " & MyParn(xPay.text)
+If xpay.MatchedWithList Then
+    cString.Append " AND [Payment_Method] = " & MyParn(xpay.text)
 End If
 
 If xStore.MatchedWithList Then
@@ -2318,7 +2319,7 @@ With SourchTable
         i = i + 1
         prog1.Value = i
         temptable.AddNew
-        temptable!STR4 = !DOC_NO
+        temptable!STR4 = !doc_no
         temptable!Date1 = !Date
         temptable!STR7 = !Name
         temptable!STR6 = !phone
@@ -2374,7 +2375,7 @@ End Sub
 Private Sub xDoc_No_LostFocus()
 myLostFocus xdoc_no
 End Sub
-Private Sub xDate2_GotFocus()
+Private Sub xdate2_GotFocus()
 myGotFocus xdate2
 End Sub
 Private Sub xDate2_LostFocus()
@@ -2384,16 +2385,16 @@ End Sub
 Private Sub xdate1_GotFocus()
 myGotFocus xdate1
 End Sub
-Private Sub xdate1_LostFocus()
+Private Sub xDate1_LostFocus()
 myLostFocus xdate1
 myValidDate xdate1
 End Sub
 Private Sub xPay_GotFocus()
-myGotFocus xPay
+myGotFocus xpay
 End Sub
 Private Sub xPay_LostFocus()
-myLostFocus xPay
-If Not xPay.MatchedWithList Then xPay.BoundText = ""
+myLostFocus xpay
+If Not xpay.MatchedWithList Then xpay.BoundText = ""
 End Sub
 Private Sub XSTORE_GotFocus()
 myGotFocus xStore
@@ -2462,10 +2463,10 @@ If col = 4 Then
         Exit Sub
     End If
     
-    If Val(xTotal.Caption) > 0 And Val(grid1.EditText) <= 0 Then
+    If Val(xtotal.Caption) > 0 And Val(grid1.EditText) <= 0 Then
         Cancel = True
         Exit Sub
-    ElseIf Val(xTotal.Caption) < 0 And Val(grid1.EditText) >= 0 Then
+    ElseIf Val(xtotal.Caption) < 0 And Val(grid1.EditText) >= 0 Then
         Cancel = True
         Exit Sub
     End If

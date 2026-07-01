@@ -5,13 +5,13 @@ Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
 Begin VB.Form online_Stage_order 
    BackColor       =   &H00FFFFFF&
    Caption         =   " ÃÂÌ“ ÿ·»Ì…"
-   ClientHeight    =   9705
+   ClientHeight    =   9540
    ClientLeft      =   60
    ClientTop       =   345
    ClientWidth     =   16305
    LinkTopic       =   "Form1"
    RightToLeft     =   -1  'True
-   ScaleHeight     =   9705
+   ScaleHeight     =   9540
    ScaleWidth      =   16305
    StartUpPosition =   2  'CenterScreen
    Begin VB.Frame Frame3 
@@ -235,7 +235,7 @@ Begin VB.Form online_Stage_order
       ScaleHeight     =   735
       ScaleWidth      =   16305
       TabIndex        =   6
-      Top             =   8970
+      Top             =   8805
       Width           =   16305
       Begin VB.Frame Frame2 
          BackColor       =   &H00FFFFFF&
@@ -244,7 +244,7 @@ Begin VB.Form online_Stage_order
          RightToLeft     =   -1  'True
          TabIndex        =   7
          Top             =   -45
-         Width           =   5190
+         Width           =   5055
          Begin Threed.SSCommand cmdExit 
             Height          =   555
             Left            =   45
@@ -335,8 +335,8 @@ Begin VB.Form online_Stage_order
             TabIndex        =   27
             Top             =   135
             Visible         =   0   'False
-            Width           =   1455
-            _ExtentX        =   2566
+            Width           =   1320
+            _ExtentX        =   2328
             _ExtentY        =   979
             _Version        =   196610
             CaptionStyle    =   1
@@ -364,8 +364,8 @@ Begin VB.Form online_Stage_order
          TabIndex        =   13
          Top             =   90
          Visible         =   0   'False
-         Width           =   2220
-         _ExtentX        =   3916
+         Width           =   1410
+         _ExtentX        =   2487
          _ExtentY        =   979
          _Version        =   196610
          CaptionStyle    =   1
@@ -388,12 +388,12 @@ Begin VB.Form online_Stage_order
       Begin Threed.SSCommand cmdStage 
          Height          =   555
          Index           =   2
-         Left            =   13995
+         Left            =   14760
          TabIndex        =   11
          Top             =   90
          Visible         =   0   'False
-         Width           =   2220
-         _ExtentX        =   3916
+         Width           =   1455
+         _ExtentX        =   2566
          _ExtentY        =   979
          _Version        =   196610
          CaptionStyle    =   1
@@ -416,12 +416,12 @@ Begin VB.Form online_Stage_order
       Begin Threed.SSCommand cmdStage 
          Height          =   555
          Index           =   5
-         Left            =   9855
+         Left            =   10215
          TabIndex        =   17
          Top             =   90
          Visible         =   0   'False
-         Width           =   1860
-         _ExtentX        =   3281
+         Width           =   1500
+         _ExtentX        =   2646
          _ExtentY        =   979
          _Version        =   196610
          CaptionStyle    =   1
@@ -444,12 +444,12 @@ Begin VB.Form online_Stage_order
       Begin Threed.SSCommand cmdStage 
          Height          =   555
          Index           =   3
-         Left            =   12015
+         Left            =   13185
          TabIndex        =   12
          Top             =   90
          Visible         =   0   'False
-         Width           =   2220
-         _ExtentX        =   3916
+         Width           =   1545
+         _ExtentX        =   2725
          _ExtentY        =   979
          _Version        =   196610
          CaptionStyle    =   1
@@ -472,12 +472,12 @@ Begin VB.Form online_Stage_order
       Begin Threed.SSCommand cmdStage 
          Height          =   555
          Index           =   6
-         Left            =   7965
+         Left            =   8640
          TabIndex        =   18
          Top             =   90
          Visible         =   0   'False
-         Width           =   1860
-         _ExtentX        =   3281
+         Width           =   1545
+         _ExtentX        =   2725
          _ExtentY        =   979
          _Version        =   196610
          CaptionStyle    =   1
@@ -1062,6 +1062,14 @@ If openCn(con) Then
                       " MAN3 = NULL," & _
                       " TIME3 = NULL " & _
                       " WHERE DOC_NO = " & MyParn(xorder_no.Caption)
+        ElseIf xStage.Tag = 5 Then
+            cString = "UPDATE FILE6_90H " & _
+                      " SET STAGE = " & (index) & "," & _
+                      " TIME" & index & " = " & addstring(Format(Now, "YYYY-MM-DD HH:NN")) & "," & _
+                      " MAN = " & addstring(sManCode) & "," & _
+                      " MAN" & index & " = " & addstring(sManCode) & _
+                      " WHERE DOC_NO = " & MyParn(xorder_no.Caption) & _
+                      " AND DelOrder_Date IS NULL"
         ElseIf xStage.Tag = 6 Then
             cString = "UPDATE FILE6_90H " & _
                       " SET STAGE = " & (index) & "," & _
@@ -1069,7 +1077,7 @@ If openCn(con) Then
                       " MAN = " & addstring(sManCode) & "," & _
                       " MAN" & index & " = " & addstring(sManCode) & "," & _
                       " TIME3 = " & addstring(Format(Now, "YYYY-MM-DD HH:NN")) & "," & _
-                      " MAN3 = " & addstring(sManCode) & "," & _
+                      " MAN3 = " & addstring(sManCode) & _
                       " WHERE DOC_NO = " & MyParn(xorder_no.Caption)
         Else
             cString = "UPDATE FILE6_90H " & _
@@ -1168,7 +1176,7 @@ Dim loctable As New ADODB.Recordset
 Set loctable = myRs(cString)
 
 xorder_no.Caption = loctable!ORDER_NO & ""
-xdoc_no.Caption = loctable!DOC_NO & ""
+xdoc_no.Caption = loctable!doc_no & ""
 xStage.Caption = loctable!stage_Desca
 xStage.Tag = loctable!Stage
 xPhone.Caption = loctable!phone & ""
@@ -1176,15 +1184,15 @@ xName.Caption = loctable!Name & ""
 xdate.Caption = myFormat_p(loctable!Date)
 xPrinted.Value = IIf(loctable!printed, 1, 0)
 xtype_desca.Caption = loctable!TYPE_dESCA & ""
-fmPr.Visible = loctable!DOC_NO <> "0"
+fmPr.Visible = loctable!doc_no <> "0"
 If loctable!Stage = 4 Then
     cmdStage(3).Caption = " „ Õ· «·„‘ﬂ·… Ê«· ÃÂÌ“"
 End If
 cmdStage(2).Visible = loctable!Stage = 1
 cmdStage(3).Visible = loctable!Stage = 2 Or loctable!Stage = 4
-cmdStage(4).Visible = loctable!Stage = 3 Or loctable!Stage = 2 Or loctable!Stage = 8
+cmdStage(4).Visible = loctable!Stage = 3 Or loctable!Stage = 2 Or loctable!Stage = 8 Or loctable!Stage = 5
 cmdStage(5).Visible = loctable!Stage = 4
-cmdStage(6).Visible = loctable!Stage = 4 Or loctable!Stage = 8
+cmdStage(6).Visible = loctable!Stage = 4 Or loctable!Stage = 8 Or loctable!Stage = 5
 cmdErrorMsg.Visible = bShowMsg
 myload
 myloadGrdError
