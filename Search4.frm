@@ -290,10 +290,10 @@ Attribute VB_Exposed = False
 Dim con As New ADODB.Connection
 Dim Generalarray, listarray, GrdArray
 Dim cString As String
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
 Unload Me
 End Sub
-Private Sub cmdGo_Click()
+Private Sub CmdGo_Click()
 fillgrd
 FIXGRID
 If grid1.Rows > 1 Then
@@ -301,21 +301,21 @@ If grid1.Rows > 1 Then
    ' grid1.Row = 1
 End If
 End Sub
-Private Sub cmbLookup_Click(Index As Integer, Area As Integer)
+Private Sub cmbLookup_Click(index As Integer, Area As Integer)
 If Area = 2 Then fillgrd
 End Sub
-Private Sub cmbLookup_KeyPress(Index As Integer, KeyAscii As Integer)
+Private Sub cmbLookup_KeyPress(index As Integer, KeyAscii As Integer)
 If KeyAscii = 13 Then
-    If Not cmbLookup(Index).MatchedWithList Then cmbLookup(Index).BoundText = ""
+    If Not cmbLookup(index).MatchedWithList Then cmbLookup(index).BoundText = ""
     fillgrd
 End If
 End Sub
-Private Sub cmbLookup_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
-If KeyCode = 46 Then cmbLookup(Index).BoundText = ""
+Private Sub cmbLookup_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
+If KeyCode = 46 Then cmbLookup(index).BoundText = ""
 End Sub
-Private Sub cmbLookup_LostFocus(Index As Integer)
+Private Sub cmbLookup_LostFocus(index As Integer)
 On Error Resume Next
-If Index = UBound(listarray) + 1 Then
+If index = UBound(listarray) + 1 Then
     grid1.SetFocus
     If grid1.Rows > 1 Then grid1.Row = 1
 End If
@@ -323,8 +323,8 @@ Err.Clear
 Exit Sub
 End Sub
 
-Private Sub cmbLookup_Validate(Index As Integer, Cancel As Boolean)
-If Not cmbLookup(Index).MatchedWithList Then cmbLookup(Index).BoundText = ""
+Private Sub cmbLookup_Validate(index As Integer, Cancel As Boolean)
+If Not cmbLookup(index).MatchedWithList Then cmbLookup(index).BoundText = ""
 End Sub
 
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
@@ -342,12 +342,12 @@ Private Sub Form_Activate()
 'If txtlookup(1).Visible Then txtlookup(1).SetFocus
 End Sub
 Private Sub Form_Load()
-openCon con
+opencon con
 Set grid1.DataSource = Ado1
 grid1.ExplorerBar = flexExSort
 StatusBar1.Panels(1).Width = 2500
 'Ado1.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Persist Security Info=False;Data Source=" & MainPath & "\DATA\Data.mdb"
-Ado1.ConnectionString = strCon
+Ado1.connectionString = strCon
 Ado1.CommandType = adCmdText
 Generalarray = searchArray(0)
 listarray = searchArray(1)
@@ -380,7 +380,7 @@ If KeyAscii = 13 Then
 End If
 End Sub
 Sub fillgrd()
-On Error GoTo myError
+On Error GoTo myerror
 cString = Generalarray(1)
 For i = 0 To UBound(listarray)
    If listarray(i, 4) = "" Then
@@ -404,7 +404,7 @@ Ado1.RecordSource = cString
 Ado1.Refresh
 FIXGRID
 Exit Sub
-myError:
+myerror:
 MsgBox "«œŒ«· ‰’ €Ì— „‰«”»"
 End Sub
 Private Sub Handlecontrols()
@@ -435,10 +435,10 @@ For i = 0 To UBound(listarray)
         Load cmbLookup(nRow)
         cmbLookup(nRow).Visible = True
         cmbLookup(nRow).Top = cmbLookup(0).Top + (nVSpace * (nRow - 1))
-        Load data2(nRow)
-        data2(nRow).ConnectionString = strCon
-        data2(nRow).RecordSource = listarray(i, 2)
-        Set cmbLookup(nRow).RowSource = data2(nRow)
+        Load DATA2(nRow)
+        DATA2(nRow).connectionString = strCon
+        DATA2(nRow).RecordSource = listarray(i, 2)
+        Set cmbLookup(nRow).RowSource = DATA2(nRow)
         cmbLookup(nRow).BoundColumn = listarray(i, 3)
         cmbLookup(nRow).ListField = listarray(i, 4)
         cmbLookup(nRow).BoundText = listarray(i, 5)
@@ -463,15 +463,15 @@ For i = 1 To Label1.Count - 1
     End If
 Next
 End Sub
-Private Sub txtlookup_Change(Index As Integer)
+Private Sub txtlookup_Change(index As Integer)
 fillgrd
 End Sub
 
-Private Sub txtlookup_GotFocus(Index As Integer)
-txtlookup(Index).SelStart = 0
-txtlookup(Index).SelLength = Len(txtlookup(Index).text)
+Private Sub txtlookup_GotFocus(index As Integer)
+txtlookup(index).SelStart = 0
+txtlookup(index).SelLength = Len(txtlookup(index).text)
 End Sub
-Private Sub txtlookup_KeyPress(Index As Integer, KeyAscii As Integer)
+Private Sub txtlookup_KeyPress(index As Integer, KeyAscii As Integer)
 If KeyAscii = 13 Then grid1.SetFocus
 End Sub
 Private Function FixString(cString)
@@ -481,7 +481,7 @@ For i = 0 To UBound(aString)
 Next
 FixString = "%" & Replace(Trim(FixString), " ", "%") & "%"
 End Function
-Private Sub txtlookup_LostFocus(Index As Integer)
+Private Sub txtlookup_LostFocus(index As Integer)
 'On Error Resume Next
 'If Index = UBound(listarray) + 1 Then
 '    Grid1.SetFocus

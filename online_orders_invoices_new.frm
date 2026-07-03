@@ -1241,7 +1241,7 @@ Public sSales_doc As String
 Public sStore As String
 Public myForm As Form
 Public bEdit As Boolean
-Dim temptable As New adodb.Recordset, cMsgDisplay As String, nDayDiscout As Double, cDescDiscout As String
+Dim temptable As New ADODB.Recordset, cMsgDisplay As String, nDayDiscout As Double, cDescDiscout As String
 Dim bAct As Boolean
 Dim bUpdated As Boolean
 Dim cFilter As String
@@ -1249,7 +1249,7 @@ Dim bIg As Boolean
 Dim bStopCell As Boolean
 Dim cFilterLook As String
 Dim nRound As Long
-Dim CardTable As adodb.Recordset
+Dim CardTable As ADODB.Recordset
 Dim oSearchItem As New Search_abd, oSearchDoc   As New Search_abd
 Dim oSearchDocRet As New Search_abd
 Dim bEditRecord As Boolean
@@ -1268,30 +1268,30 @@ ItemsLookupAll Me, oSearchItem
 End Sub
 Function myreplace(Optional Row As Long = -1, Optional bOffer As Boolean, Optional bReplace As Boolean) As Boolean
 Dim aInsert As Variant
-aInsert = AddFlag(aInsert, "[DISCOUNT]", Val(xdiscount.Caption))
+aInsert = AddFlag(aInsert, "[DISCOUNT]", Val(xDiscount.Caption))
 aInsert = AddFlag(aInsert, "[TYPE]", addvalue(xtype.Tag))
 aInsert = AddFlag(aInsert, "[SHIP]", addstring(xship.BoundText))
-aInsert = AddFlag(aInsert, "[SHIP_NO]", addstring(xShip_no.text))
+aInsert = AddFlag(aInsert, "[SHIP_NO]", addstring(xship_no.text))
 aInsert = AddFlag(aInsert, "[ORDER_NO]", addstring(sOrder_No))
 aInsert = AddFlag(aInsert, "[SALES_REPLACE]", addstring(xSales_Replace.Caption))
 aInsert = AddFlag(aInsert, "[DATE]", addDate(xDate.text))
-aInsert = AddFlag(aInsert, "[charge2]", Val(xCharge2.text))
+aInsert = AddFlag(aInsert, "[charge2]", Val(xcharge2.text))
 
 'aInsert = AddFlag(aInsert, "[DATE1]", addDate(xdate1.Caption))
 
 On Error GoTo myerror
-Dim con As New adodb.Connection
-If openCon(con) <> "ok" Then Exit Function
+Dim con As New ADODB.Connection
+If OpenCon(con) <> "ok" Then Exit Function
 con.BeginTrans
-If XDOC_NO.Tag = DefineMode Then
-    XDOC_NO.Caption = Newflag("FILE6_90BH", "DOC_NO", con)
-    aInsert = AddFlag(aInsert, "DOC_NO", addstring(XDOC_NO.Caption))
+If xDoc_No.Tag = DefineMode Then
+    xDoc_No.Caption = Newflag("FILE6_90BH", "DOC_NO", con)
+    aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_No.Caption))
     aInsert = AddFlag(aInsert, "[USERNAME]", addstring(cUserName))
     aInsert = AddFlag(aInsert, "[USER_IP]", addstring(GetComputerName))
     aInsert = AddFlag(aInsert, "[STAGE]", IIf(xtype.Tag = 1 Or xtype.Tag = 11, "1", "7"))
     con.Execute addInsert(aInsert, "FILE6_90BH")
 Else
-    con.Execute addUpdate(aInsert, "FILE6_90BH", "DOC_NO = " & addstring(XDOC_NO.Caption))
+    con.Execute addUpdate(aInsert, "FILE6_90BH", "DOC_NO = " & addstring(xDoc_No.Caption))
 End If
 
 If bOffer Then
@@ -1333,7 +1333,7 @@ ElseIf ActiveControl.Name = xSales_Replace.Name Then
     GrdDesc grid1.TextMatrix(grid1.Row, 1), grid1.Row
     Grid1_AfterEdit grid1.Row, grid1.col
 ElseIf ActiveControl.Name = cmdInform.Name Then
-    XDOC_NO.Caption = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
+    xDoc_No.Caption = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
     Unload oSearchDoc
     myUndo
 ElseIf sControl = "inv_replace" Then
@@ -1356,7 +1356,7 @@ ElseIf sControl = "inv_ret" Then
 '    Handlecontrols xDoc_no.Tag
 ElseIf ActiveControl.Name = xtype.Name Then
     xSales_Replace.Caption = ""
-    xSales_ret.Caption = ""
+    XSALES_RET.Caption = ""
     
     fmReplace.Visible = False
     fmSend.Visible = False
@@ -1427,7 +1427,7 @@ End If
 
 If retFlag(aValues, "COUNT_OF") = 1 Then
     xSales_Replace.Caption = retFlag(aValues, "DOC_NO") & ""
-    Handlecontrols XDOC_NO.Tag
+    Handlecontrols xDoc_No.Tag
 Else
     invLook "inv_replace"
 End If
@@ -1458,7 +1458,7 @@ End If
 'If retFlag(aValues, "COUNT_OF") = 1 Then
     'xSales_Replace.Caption = retFlag(aValues, "DOC_NO") & ""
 xSales_Replace.Caption = sValue
-Handlecontrols XDOC_NO.Tag
+Handlecontrols xDoc_No.Tag
 'Else
 '    invLook "inv_add"
 'End If
@@ -1514,7 +1514,7 @@ oSearchDocRet.sControl = sControl
 oSearchDocRet.Show 1
 End Sub
 Private Function addRefundOrder(pDoc_no, pType As String) As Boolean
-Dim loctable As New adodb.Recordset
+Dim loctable As New ADODB.Recordset
 Dim cString As String
 cString = "select TOP 1 FILE6_20H.BRANCH," & _
           " FILE6_20H.PRINTED," & _
@@ -1568,14 +1568,14 @@ End Function
 Private Sub CmdDel_Click()
 If MsgBox("Õ–›", vbOKCancel + vbDefaultButton2) <> vbOK Then Exit Sub
 
-Dim con As New adodb.Connection
-openCon con
+Dim con As New ADODB.Connection
+OpenCon con
 con.BeginTrans
-con.Execute "Delete  From FILE6_90B where Doc_No = " & XDOC_NO.Caption
-con.Execute "Delete  From FILE6_90BH where Doc_No = " & XDOC_NO.Caption
+con.Execute "Delete  From FILE6_90B where Doc_No = " & xDoc_No.Caption
+con.Execute "Delete  From FILE6_90BH where Doc_No = " & xDoc_No.Caption
 con.CommitTrans
 
-If Not openCardTable(tbMode.tbPrevious, XDOC_NO.Caption) Then
+If Not openCardTable(tbMode.tbPrevious, xDoc_No.Caption) Then
     If Not openCardTable(tbMode.tbFirst) Then
         myDefine
     End If
@@ -1592,7 +1592,7 @@ If MsgBox(" „ «· ⁄œÌ·", vbDefaultButton2 + vbOKCancel) <> vbOK Then Exit Sub
     If sendEdit Then
         Inform_OK " „ «· ⁄œÌ·"
     
-        If Not openCardTable(tbMode.tbFind, XDOC_NO.Caption) Then
+        If Not openCardTable(tbMode.tbFind, xDoc_No.Caption) Then
             If Not openCardTable Then
                 myDefine
             End If
@@ -1601,8 +1601,8 @@ If MsgBox(" „ «· ⁄œÌ·", vbDefaultButton2 + vbOKCancel) <> vbOK Then Exit Sub
 End Sub
 Private Function sendEdit() As Boolean
     On Error GoTo myerror
-    Dim con As New adodb.Connection
-    If openCn(con) Then
+    Dim con As New ADODB.Connection
+    If opencn(con) Then
     
         sMsg = " „ «· ⁄œÌ·"
         Set online_error.myForm = Me
@@ -1618,14 +1618,14 @@ Private Function sendEdit() As Boolean
         aInsert = AddFlag(Empty, "DESCA", addstring(sMsg))
         aInsert = AddFlag(aInsert, "USERNAME", addstring(cUserName))
         aInsert = AddFlag(aInsert, "ORDER_NO", addstring(sOrder_No))
-        aInsert = AddFlag(aInsert, "DOC_NO_SUP", addvalue(XDOC_NO.Caption))
+        aInsert = AddFlag(aInsert, "DOC_NO_SUP", addvalue(xDoc_No.Caption))
         aInsert = AddFlag(aInsert, "[TIME]", "getdate()")
         
         con.BeginTrans
         con.Execute "UPDATE FILE6_90BH " & _
                     " SET STAGE = 8," & _
                     " TIME8 = getDate()" & _
-                    " FROM FILE6_90BH WHERE DOC_NO = " & addstring(XDOC_NO.Caption)
+                    " FROM FILE6_90BH WHERE DOC_NO = " & addstring(xDoc_No.Caption)
                     
         con.Execute addInsert(aInsert, "FILE6_90_MSG"), nAffect
         con.CommitTrans
@@ -1668,7 +1668,7 @@ Dim aInsert As Variant
 aInsert = AddFlag(Empty, "DESCA", addstring(sMsg))
 aInsert = AddFlag(aInsert, "USERNAME", addstring(cUserName))
 aInsert = AddFlag(aInsert, "ORDER_NO", addstring(sOrder_No))
-aInsert = AddFlag(aInsert, "DOC_NO_SUP", addvalue(XDOC_NO.Caption))
+aInsert = AddFlag(aInsert, "DOC_NO_SUP", addvalue(xDoc_No.Caption))
 aInsert = AddFlag(aInsert, "STAGE", addvalue(xStage.Tag))
 aInsert = AddFlag(aInsert, "[TIME]", "getdate()")
 On Error GoTo myerror
@@ -1693,7 +1693,7 @@ If grid1.Rows = 2 Then Exit Sub
 If Not myValid Then Exit Sub
 If myreplace Then
     Inform " „ «·Õ›Ÿ"
-    If Not openCardTable(tbMode.tbFind, XDOC_NO.Caption) Then
+    If Not openCardTable(tbMode.tbFind, xDoc_No.Caption) Then
         If Not openCardTable Then
             myDefine
         End If
@@ -1706,7 +1706,7 @@ If sDoc_no_no <> "" Then
     MsgBox " „ «· —ÕÌ· «·Ì «·›« Ê—… —ﬁ„ : " & sdoc_no_new
 End If
 
-If Not openCardTable(tbMode.tbFind, XDOC_NO.Caption) Then
+If Not openCardTable(tbMode.tbFind, xDoc_No.Caption) Then
     If Not openCardTable Then
         myDefine
     End If
@@ -1725,7 +1725,7 @@ End Sub
 Private Sub Form_Activate()
 If Not bAct Then
     bAct = True
-    If XDOC_NO.Tag = LoadMode Then
+    If xDoc_No.Tag = LoadMode Then
         On Error Resume Next
         grid1.SetFocus
         CellPos 13, grid1.Rows - 2, grid1.Cols - 1
@@ -1830,8 +1830,8 @@ End If
 CalcTotals
 
 If myreplace(Row) Then
-    If XDOC_NO.Tag = DefineMode Then
-        openCardTable tbMode.tbFind, XDOC_NO.Caption
+    If xDoc_No.Tag = DefineMode Then
+        openCardTable tbMode.tbFind, xDoc_No.Caption
     ElseIf grid1.TextMatrix(Row, grid1.Cols - 1) = "" Then
         myLoadGrd
     End If
@@ -1927,7 +1927,7 @@ End If
 'End If
 
 If Not bIgShip Then
-    If Trim(xShip_no.text) = "" Then
+    If Trim(xship_no.text) = "" Then
         MsgBox "—ﬁ„ »Ê·Ì’… «·‘Õ‰ „ÿ·Ê»"
         Exit Function
     End If
@@ -1952,22 +1952,22 @@ End If
 myValid = True
 End Function
 Private Sub myload()
-XDOC_NO.Caption = CardTable!doc_no
+xDoc_No.Caption = CardTable!doc_no
 xDate.text = myFormat_p(CardTable!Date)
 xDate1.Caption = myFormat_p(CardTable!Date1)
 xtype.Tag = CardTable!Type
 xtype.Caption = CardTable!TYPE_dESCA
-xdiscount.Caption = CardTable!discount & ""
-xShip_no.text = CardTable!ship_no & ""
+xDiscount.Caption = CardTable!discount & ""
+xship_no.text = CardTable!ship_no & ""
 xship.BoundText = CardTable!SHIP & ""
 xdoc_no_sales.Caption = CardTable!doc_no_sales & ""
 xSales_Replace.Caption = CardTable!sales_replace & ""
-xSales_ret.Caption = CardTable!SALES_RET & ""
+XSALES_RET.Caption = CardTable!SALES_RET & ""
 xClosed.Value = IIf(CardTable!CLOSED, 1, 0)
 xStage.Tag = CardTable!Stage & ""
-xCharge2.text = CardTable!charge2 & ""
+xcharge2.text = CardTable!charge2 & ""
 xStage.Caption = CardTable!stage_Desca & ""
-panel1(1).Caption = CardTable!user_ip & ""
+panel1(1).Caption = CardTable!USER_IP & ""
 
 myLoadGrd
 
@@ -1984,23 +1984,23 @@ grid1.SetFocus
 Err.Clear
 End Sub
 Private Sub myDefine()
-XDOC_NO.Caption = ""
+xDoc_No.Caption = ""
 xDate.text = myFormat_p(Date)
 xdoc_no_sales.Caption = ""
 xSales_Replace.Caption = ""
-xSales_ret.Caption = ""
+XSALES_RET.Caption = ""
 xtype.Caption = xtype.TagVariant
 xtype.Tag = ""
 
 xship.BoundText = ""
-xShip_no.text = ""
-xCharge2.text = ""
+xship_no.text = ""
+xcharge2.text = ""
 
 addShip
 
 xtotal_item.Caption = ""
-xdiscount.Caption = ""
-xtotal.Caption = ""
+xDiscount.Caption = ""
+xTotal.Caption = ""
 xClosed.Value = 0
 
 grid1.Rows = 1
@@ -2034,7 +2034,7 @@ cmdEdit.Enabled = xClosed.Value = 0 And xStage.Tag = 6
 xtype.Enabled = nMode = DefineMode
 
 Dim nRecord As Long, nRecords As Long
-retRecords XDOC_NO.Caption, nRecords, nRecord
+retRecords xDoc_No.Caption, nRecords, nRecord
 
 cmdNext.Enabled = nRecord < nRecords And nRecords <> 0 And nMode = LoadMode
 cmdPrevious.Enabled = nRecord <> 1 And nRecords <> 0 And nMode = LoadMode
@@ -2053,7 +2053,7 @@ fmSend.Visible = nMode = LoadMode And (xtype.Tag = "2" Or xtype.Tag = "3" Or xty
 'lblReplace.Visible = nMode = LoadMode And xSales_replace.Caption <> ""
 'xSales_replace.Visible = nMode = LoadMode And xSales_replace.Caption = ""
 
-XDOC_NO.Tag = nMode
+xDoc_No.Tag = nMode
 End Sub
 Private Sub grid1_KeyUp(KeyCode As Integer, Shift As Integer)
 If Not bEditRecord Then
@@ -2079,10 +2079,10 @@ If Trim(pItem) = "" Or Len(pItem) < 3 Or Len(pItem) > 30 Then
     Exit Function
 End If
 
-Dim con As New adodb.Connection
-openCon con
+Dim con As New ADODB.Connection
+OpenCon con
 
-Dim cm As New adodb.command
+Dim cm As New ADODB.command
 Set cm = cmd("dbo.sp_item", con, adStoredProc, AddFlag(Empty, "BARCODE_FIND", pItem))
 cm.Execute
 
@@ -2103,7 +2103,7 @@ If Not cm.Parameters("@ISNOITEM").Value Then
 '    End If
 End If
 
-Dim cmDiscount As New adodb.command
+Dim cmDiscount As New ADODB.command
 aPrm = AddFlag(Empty, "ITEM", cm.Parameters("@ITEM").Value)
 aPrm = AddFlag(aPrm, "DATE", myFormat_sp(xDate.text))
 Set cmDiscount = cmd("dbo.sp_offer_price", con, adStoredProc, aPrm)
@@ -2159,7 +2159,7 @@ For i = 1 To grid1.Rows - 2
     nTotalItemDiscount = nTotalItemDiscount + nDisountRow
 Next
 
-xtotalQuant.Caption = Myvalue(nTotalQuant)
+xTotalQuant.Caption = Myvalue(nTotalQuant)
 'xTotal_itemNoDiscount.Caption = Myvalue(nTotalItemNoDiscount)
 'xTotal_itemDiscount.Caption = Myvalue(nTotalItemDiscount)
 xtotal_item.Caption = Myvalue(nTotalItem)
@@ -2193,14 +2193,14 @@ bIg = True
 'End If
 
 If Val(xtotal_item.Caption) <> 0 Then
-    If Round(Val(xrate.Caption), nRound) <> Round(Val(xdiscount.Caption) / Val(xtotal_item.Caption) * 100, nRound) Then
-        xrate.Caption = Myvalue(Round((Val(xdiscount.Caption) / Val(xtotal_item.Caption)) * 100, nRound))
+    If Round(Val(xRate.Caption), nRound) <> Round(Val(xDiscount.Caption) / Val(xtotal_item.Caption) * 100, nRound) Then
+        xRate.Caption = Myvalue(Round((Val(xDiscount.Caption) / Val(xtotal_item.Caption)) * 100, nRound))
     End If
 Else
-    xrate.Caption = ""
+    xRate.Caption = ""
 End If
 
-xtotal.Caption = mRound(nTotalItem - Val(xdiscount.Caption), 2)
+xTotal.Caption = mRound(nTotalItem - Val(xDiscount.Caption), 2)
 bIg = False
 End With
 End Function
@@ -2288,8 +2288,8 @@ With grid1
 .Cell(flexcpAlignment, 0, 0, 0, .Cols - 1) = flexAlignCenterCenter
 .Cell(flexcpAlignment, 1, 0, .Rows - 1, .Cols - 1) = flexAlignRightCenter
 
-Dim con As New adodb.Connection
-sOk = openCon(con)
+Dim con As New ADODB.Connection
+sOk = OpenCon(con)
 Dim bGroup As Boolean
 Dim sGroup As String
 For i = 1 To grid1.Rows - 2
@@ -2321,8 +2321,8 @@ End If
 
 If grid1.TextMatrix(Row, grid1.Cols - 1) <> "" Then
     On Error GoTo myerror
-    Dim con As New adodb.Connection
-    openCon con
+    Dim con As New ADODB.Connection
+    OpenCon con
     con.Execute "Delete  From FILE6_90B where id = " & grid1.TextMatrix(Row, grid1.Cols - 1)
     closeCon con
 End If
@@ -2334,7 +2334,7 @@ MsgBox Err.Description
 Err.Clear
 closeCon con
 End Function
-Private Function myreplaceGrd(Row, con As adodb.Connection) As Boolean
+Private Function myreplaceGrd(Row, con As ADODB.Connection) As Boolean
 Dim aInsert As Variant
 With grid1
     For i = IIf(Row = -1, 1, Row) To IIf(Row = -1, grid1.Rows - 2, Row)
@@ -2350,7 +2350,7 @@ With grid1
         aInsert = AddFlag(aInsert, "OFFER_NO", addstring(grid1.TextMatrix(i, 19)))
         
         If grid1.TextMatrix(i, grid1.Cols - 1) = "" Then
-            aInsert = AddFlag(aInsert, "DOC_NO", addstring(XDOC_NO.Caption))
+            aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_No.Caption))
             con.Execute addInsert(aInsert, "FILE6_90B")
         Else
             con.Execute addUpdate(aInsert, "FILE6_90B", "ID = " & grid1.TextMatrix(i, .Cols - 1))
@@ -2360,8 +2360,8 @@ End With
 myreplaceGrd = True
 End Function
 Public Function myReplaceRefund(pDiscount_add As Double, pDiscount_total As Double) As Boolean
-Dim con As New adodb.Connection
-openCon con
+Dim con As New ADODB.Connection
+OpenCon con
 
 Dim aInsert As Variant
 With oSalesRefund
@@ -2377,13 +2377,13 @@ aInsert = AddFlag(aInsert, "[DATE]", addDate(Date))
 aInsert = AddFlag(aInsert, "[TYPE]", oSalesRefund.sFlag)
 aInsert = AddFlag(aInsert, "[SHIP]", addstring(xship.BoundText))
 aInsert = AddFlag(aInsert, "[MAN]", addstring(xMan.Tag))
-aInsert = AddFlag(aInsert, "[SHIP_NO]", addstring(xShip_no.text))
+aInsert = AddFlag(aInsert, "[SHIP_NO]", addstring(xship_no.text))
 aInsert = AddFlag(aInsert, "[USERNAME]", addstring(cUserName))
 aInsert = AddFlag(aInsert, "[USER_IP]", addstring(GetComputerName))
 If oSalesRefund.sFlag = "2" Or oSalesRefund.sFlag = "3" Then
-    aInsert = AddFlag(aInsert, "[SALES_RET]", addstring(.XDOC_NO.Caption))
+    aInsert = AddFlag(aInsert, "[SALES_RET]", addstring(.xDoc_No.Caption))
 ElseIf oSalesRefund.sFlag = "11" Then
-    aInsert = AddFlag(aInsert, "[SALES_REPLACE]", addstring(.XDOC_NO.Caption))
+    aInsert = AddFlag(aInsert, "[SALES_REPLACE]", addstring(.xDoc_No.Caption))
 End If
 aInsert = AddFlag(aInsert, "[STAGE]", "7")
 End With
@@ -2419,7 +2419,7 @@ MsgBox " „ Õ›Ÿ «·„” ‰œ »‰Ã«Õ"
 
 Unload oSalesRefund
 
-If Not openCardTable(tbMode.tbFind, XDOC_NO.Caption) Then
+If Not openCardTable(tbMode.tbFind, xDoc_No.Caption) Then
     If Not openCardTable Then
         myDefine
     End If
@@ -2434,9 +2434,9 @@ Err.Clear
 GoTo Finally
 End Function
 Public Function myReplaceRefundAll(pDoc_no As String) As Boolean
-Dim con As New adodb.Connection
-openCon con
-Dim loctable As New adodb.Recordset
+Dim con As New ADODB.Connection
+OpenCon con
+Dim loctable As New ADODB.Recordset
 Set loctable = myRs("SELECT * FROM FILE6_20H WHERE DOC_NO = " & MyParn(pDoc_no), con)
 
 Dim aInsert As Variant
@@ -2461,7 +2461,7 @@ con.BeginTrans
 On Error GoTo myerror
 con.Execute addInsert(aInsert, "FILE6_90BH")
 
-Set loctable = New adodb.Recordset
+Set loctable = New ADODB.Recordset
 Set loctable = myRs("SELECT * FROM FILE6_20 WHERE DOC_NO = " & MyParn(pDoc_no), con)
 
 Do Until loctable.EOF
@@ -2487,7 +2487,7 @@ myReplaceRefundAll = True
 
 MsgBox " „ Õ›Ÿ «·„” ‰œ »‰Ã«Õ"
 
-If Not openCardTable(tbMode.tbFind, XDOC_NO.Caption) Then
+If Not openCardTable(tbMode.tbFind, xDoc_No.Caption) Then
     If Not openCardTable Then
         myDefine
     End If
@@ -2534,12 +2534,12 @@ grid1.AddItem ""
 MakeSerial
 End Sub
 Private Sub myUndo()
-If XDOC_NO.Tag = DefineMode Then
+If xDoc_No.Tag = DefineMode Then
     If Not openCardTable Then
         CmdNewInv_Click
     End If
 Else
-    If Not openCardTable(tbMode.tbFind, XDOC_NO.Caption) Then
+    If Not openCardTable(tbMode.tbFind, xDoc_No.Caption) Then
         If Not openCardTable Then
             myDefine
         End If
@@ -2551,14 +2551,14 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Private Sub CmdNext_Click()
-If Not openCardTable(tbMode.tbNext, XDOC_NO.Caption) Then
+If Not openCardTable(tbMode.tbNext, xDoc_No.Caption) Then
     If Not openCardTable(tbMode.tblast) Then
         myDefine
     End If
 End If
 End Sub
 Private Sub CmdPrevious_Click()
-If Not openCardTable(tbMode.tbPrevious, XDOC_NO.Caption) Then
+If Not openCardTable(tbMode.tbPrevious, xDoc_No.Caption) Then
     If Not openCardTable(tbMode.tbFirst) Then
         myDefine
     End If
@@ -2589,7 +2589,7 @@ Me.MousePointer = vbHourglass
 On Error GoTo myerror
 cFilter = retFilter
 
-Set CardTable = New adodb.Recordset
+Set CardTable = New ADODB.Recordset
 cString = "SELECT TOP 1 FILE6_90BH.*," & _
           " FILE6_90BH.INV_NO AS DOC_NO_SALES," & _
           " ONLINE_TYPE_CODES.DESCA AS TYPE_DESCA," & _
@@ -2646,7 +2646,7 @@ End With
 ValidQuant = True
 End Function
 Private Function retRecords(pDoc_no, ByRef nRecords As Long, ByRef nRecord As Long) As Variant
-Dim cString As String, loctable As New adodb.Recordset
+Dim cString As String, loctable As New ADODB.Recordset
 If pDoc_no <> "" Then
     cString = "SELECT Count(FILE6_90BH.DOC_NO) AS records,COUNT(CASE WHEN FILE6_90BH.DOC_NO <= " & MyParn(pDoc_no) & " THEN 1 END) AS record"
 Else
@@ -2724,9 +2724,9 @@ cString = " SELECT FILE6_90BH.DOC_NO," & _
           " FILE6_90BH.DISCOUNT " & _
           " FROM FILE6_90BH " & _
           " INNER JOIN FILE6_90H ON FILE6_90BH.ORDER_NO = FILE6_90H.DOC_NO" & _
-          " WHERE FILE6_90BH.DOC_NO = " & MyParn(XDOC_NO.Caption)
+          " WHERE FILE6_90BH.DOC_NO = " & MyParn(xDoc_No.Caption)
        
-Dim loctable As New adodb.Recordset
+Dim loctable As New ADODB.Recordset
 Set loctable = myRs(cString)
 
 If loctable.EOF And loctable.BOF Then
@@ -2777,8 +2777,8 @@ aInsert = AddFlag(aInsert, "[Payment_Method]", addstring(loctable!Payment_Method
 sDoc_New = NewflagDocRs(sDate, cManBox)
 aInsert = AddFlag(aInsert, "[doc_no]", addstring(sDoc_New))
 
-Dim con As New adodb.Connection
-If openCon(con) <> "ok" Then
+Dim con As New ADODB.Connection
+If OpenCon(con) <> "ok" Then
     GoTo Finally
 End If
 
@@ -2825,7 +2825,7 @@ End With
 con.Execute cInsert.GetAsString()
 con.Execute "UPDATE FILE6_90BH " & _
             " SET FILE6_90HB.INV_NO = " & MyParn(sDoc_New) & _
-            " WHERE FILE6_90BH = " & MyParn(XDOC_NO.Caption)
+            " WHERE FILE6_90BH = " & MyParn(xDoc_No.Caption)
 UpdateInvTotal sDoc_New, con
 
 con.CommitTrans
@@ -2844,7 +2844,7 @@ End Function
 Private Sub xdate1_GotFocus()
 myGotFocus xDate1
 End Sub
-Private Sub xDate1_LostFocus()
+Private Sub xdate1_LostFocus()
 myLostFocus xDate1
 myValidDate xDate1
 End Sub
@@ -2865,7 +2865,7 @@ strSql = "SELECT FORMAT([TIME], 'yyyy/M/d HH:mm') AS [«·Êﬁ ]" & _
            ",[STAGE]" & _
           " From [dbo].[vw_msg]" & _
           " WHERE ORDER_NO = " & MyParn(sOrder_No) & _
-          " AND DOC_NO_SUP = " & XDOC_NO.Caption & _
+          " AND DOC_NO_SUP = " & xDoc_No.Caption & _
           " ORDER BY TIME"
 
 On Error GoTo myerror
@@ -2927,7 +2927,7 @@ cString = "SELECT " & _
           " WHERE FILE6_90BH.ORDER_NO = " & MyParn(sOrder_No) & _
           " AND FILE6_90BH.CLOSED = 0"
 
-Dim loctable As New adodb.Recordset
+Dim loctable As New ADODB.Recordset
 Set loctable = myRs(cString)
 If Not loctable.EOF Then
     If loctable!type1 + loctable!type3 + loctable!type11 + loctable!type12 = 0 And loctable!type2 > 0 Then filterType = "1"
@@ -2972,7 +2972,7 @@ cString = "SELECT FILE6_90B.ITEM," & _
           " LEFT JOIN FACT ON FACT.CODE = FILE1_10.FACT" & _
           " LEFT JOIN FILE6_25 ON FILE6_90B.MAN  = FILE6_25.CODE "
           
-cString = cString & " WHERE FILE6_90B.DOC_NO = " & MyParn(XDOC_NO.Caption)
+cString = cString & " WHERE FILE6_90B.DOC_NO = " & MyParn(xDoc_No.Caption)
 cString = cString & " ORDER BY FILE6_90B.ID"
 Set grid1.DataSource = myRs(cString)
 myAddItem
@@ -2981,11 +2981,11 @@ CalcTotals
 Fixgrd
 End Sub
 Private Sub addShip()
-Dim loctable As New adodb.Recordset
+Dim loctable As New ADODB.Recordset
 On Error GoTo myerror
 Set loctable = myRs("SELECT TOP 1 * FROM FILE6_90BH WHERE ORDER_NO = " & MyParn(sOrder_No) & " AND  CLOSED = 0 AND (TYPE = 2 OR TYPE = 11 OR TYPE = 12)")
 If Not loctable.EOF Then
-    xShip_no.text = loctable!ship_no & ""
+    xship_no.text = loctable!ship_no & ""
     xship.BoundText = loctable!SHIP & ""
 End If
 Exit Sub

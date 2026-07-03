@@ -442,6 +442,9 @@ Begin VB.MDIForm main
       Begin VB.Menu tmopensal 
          Caption         =   "»Ê‰«   ”·Ì„ «Ê‰ ·«Ì‰"
       End
+      Begin VB.Menu tm_orrder_online_ship 
+         Caption         =   "‘Õ‰ «Ê‰·«Ì‰"
+      End
       Begin VB.Menu tmpayshiponline 
          Caption         =   "”œ«œ »Ê«·’ ‘Õ‰ «Ê‰·«Ì‰"
       End
@@ -1391,6 +1394,11 @@ End Sub
 Private Sub tm_online_stage_manager_Click()
 online_stage_manager.Show
 End Sub
+
+Private Sub tm_orrder_online_ship_Click()
+online_ship_order.Show
+End Sub
+
 Private Sub tm_printers_Click()
 printersfrm.Show 1
 End Sub
@@ -3099,8 +3107,8 @@ Sub FixStoreCode()
 
 End Sub
 Sub Show_NewDoc()
-    Set grid1.DataSource = data1
-    data1.ConnectionString = strCon
+    Set grid1.DataSource = DATA1
+    DATA1.ConnectionString = strCon
     grid1.Rows = 1
     Fixgrd
     myload
@@ -3109,8 +3117,8 @@ End Sub
 Private Sub myload()
     Dim cWhere As String
     cString = " SELECT     flag, desca, DOC_NO, DATE, [name], QUANT, USERSEND, TIMESEND FROM         Q_DATA_SEND "
-    data1.RecordSource = cString
-    data1.Refresh
+    DATA1.RecordSource = cString
+    DATA1.Refresh
     Fixgrd
 End Sub
 Sub Fixgrd()

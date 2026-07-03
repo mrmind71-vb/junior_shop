@@ -1416,8 +1416,8 @@ cString = cString & _
         cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xdoc_no.text)
     End If
     
-    If xphone.text <> "" Then
-        cWhere = cWhere & Tr(cWhere) & " [phone] = " & MyParn(xphone.text)
+    If xPhone.text <> "" Then
+        cWhere = cWhere & Tr(cWhere) & " [phone] = " & MyParn(xPhone.text)
     End If
     
     If xpay.BoundText <> "" Then
@@ -1429,8 +1429,8 @@ cString = cString & _
         cWhere = cWhere & Tr(cWhere) & "MAN = " & MyParn(xMan.BoundText)
     End If
     
-    If IsDate(xdate1.text) Then
-        cWhere = cWhere & Tr(cWhere) & " [DATE] >= " & DateSq(xdate1.text)
+    If IsDate(xDate1.text) Then
+        cWhere = cWhere & Tr(cWhere) & " [DATE] >= " & DateSq(xDate1.text)
     End If
     
     If IsDate(xdate2.text) Then
@@ -1562,11 +1562,11 @@ Private Sub Form_Unload(Cancel As Integer)
     On Error Resume Next
     'closeCon con
     'If cBranch <> "00" Then closeCon con_MyShop
-    SaveText Me, , Array(xdate1.Name, xdate2.Name)
+    SaveText Me, , Array(xDate1.Name, xdate2.Name)
 End Sub
 Private Sub grid1_DblClick()
 If grid1.Row < 1 Or grid1.Row = grid1.Rows - 1 Then Exit Sub
-If cmdStage.Tag <> grid1.TextMatrix(grid1.Row, grid1.Cols - 1) Then
+If cmdStage.Tag <> grid1.TextMatrix(grid1.Row, grid1.Cols - 1) And cmdStage.Tag <> "" Then
     orders_online_invoices.bEdit = False
     orders_online_invoices.sOrder_No = grid1.TextMatrix(grid1.Row, 0)
     orders_online_invoices.sStore = sStoreOnline
@@ -1600,10 +1600,10 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Private Sub xPhone_GotFocus()
-myGotFocus xphone
+myGotFocus xPhone
 End Sub
 Private Sub XPHONE_LostFocus()
-myLostFocus xphone
+myLostFocus xPhone
 End Sub
 Private Sub xDoc_No_GotFocus()
 myGotFocus xdoc_no
@@ -1619,11 +1619,11 @@ myLostFocus xdate2
 myValidDate xdate2
 End Sub
 Private Sub xdate1_GotFocus()
-myGotFocus xdate1
+myGotFocus xDate1
 End Sub
 Private Sub xDate1_LostFocus()
-myLostFocus xdate1
-myValidDate xdate1
+myLostFocus xDate1
+myValidDate xDate1
 End Sub
 Private Sub xPay_GotFocus()
 myGotFocus xpay
@@ -1699,10 +1699,10 @@ If col = 4 Then
         Exit Sub
     End If
     
-    If Val(xtotal.Caption) > 0 And Val(grid1.EditText) <= 0 Then
+    If Val(xTotal.Caption) > 0 And Val(grid1.EditText) <= 0 Then
         Cancel = True
         Exit Sub
-    ElseIf Val(xtotal.Caption) < 0 And Val(grid1.EditText) >= 0 Then
+    ElseIf Val(xTotal.Caption) < 0 And Val(grid1.EditText) >= 0 Then
         Cancel = True
         Exit Sub
     End If

@@ -31,6 +31,38 @@ Begin VB.Form sales_abdfrm
    WhatsThisButton =   -1  'True
    WhatsThisHelp   =   -1  'True
    WindowState     =   2  'Maximized
+   Begin VB.Frame fmClose 
+      BackColor       =   &H00FFFFFF&
+      Enabled         =   0   'False
+      BeginProperty Font 
+         Name            =   "Tahoma"
+         Size            =   8.25
+         Charset         =   178
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   600
+      Left            =   2565
+      TabIndex        =   62
+      Top             =   1215
+      Width           =   1815
+      Begin VB.CheckBox xPrinted 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H00FFFFFF&
+         Caption         =   "»Ê‰ „ÿ»Ê⁄"
+         ForeColor       =   &H80000008&
+         Height          =   270
+         Left            =   315
+         RightToLeft     =   -1  'True
+         TabIndex        =   112
+         TabStop         =   0   'False
+         Top             =   225
+         Width           =   1320
+      End
+   End
    Begin VB.PictureBox Picture1 
       Align           =   2  'Align Bottom
       BackColor       =   &H00FFFFFF&
@@ -1175,11 +1207,11 @@ Begin VB.Form sales_abdfrm
          Strikethrough   =   0   'False
       EndProperty
       Height          =   600
-      Left            =   765
+      Left            =   945
       TabIndex        =   114
       Top             =   1215
       Visible         =   0   'False
-      Width           =   1770
+      Width           =   1590
       Begin VB.CheckBox chkprint 
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
@@ -1187,12 +1219,12 @@ Begin VB.Form sales_abdfrm
          Caption         =   "«·€«¡ ÿ»«⁄…"
          ForeColor       =   &H80000008&
          Height          =   285
-         Left            =   315
+         Left            =   270
          RightToLeft     =   -1  'True
          TabIndex        =   115
          TabStop         =   0   'False
-         Top             =   225
-         Width           =   1275
+         Top             =   180
+         Width           =   1185
       End
    End
    Begin VB.Frame Frame14 
@@ -3607,38 +3639,6 @@ Begin VB.Form sales_abdfrm
       EndProperty
       _Version        =   393216
    End
-   Begin VB.Frame fmClose 
-      BackColor       =   &H00FFFFFF&
-      Enabled         =   0   'False
-      BeginProperty Font 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   178
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   600
-      Left            =   2565
-      TabIndex        =   62
-      Top             =   1215
-      Width           =   1815
-      Begin VB.CheckBox xPrinted 
-         Alignment       =   1  'Right Justify
-         Appearance      =   0  'Flat
-         BackColor       =   &H00FFFFFF&
-         Caption         =   "»Ê‰ „ÿ»Ê⁄"
-         ForeColor       =   &H80000008&
-         Height          =   270
-         Left            =   315
-         RightToLeft     =   -1  'True
-         TabIndex        =   112
-         TabStop         =   0   'False
-         Top             =   225
-         Width           =   1320
-      End
-   End
    Begin VB.Frame fmRc 
       BackColor       =   &H00FFFFFF&
       BeginProperty Font 
@@ -5694,7 +5694,7 @@ End If
                                     
 With frmOfferReplace.grid1
     For i = 1 To .Rows - 1
-        If grid1.TextMatrix(i, 1) <> "" Then
+        If .TextMatrix(i, 1) <> "" Then
             aInsert = AddFlag(Empty, "DOC_NO", addstring(xDoc_No.text))
             aInsert = AddFlag(aInsert, "ITEM", addstring(.TextMatrix(i, 1)))
             aInsert = AddFlag(aInsert, "QUANT", .ValueMatrix(i, 10))
@@ -6863,7 +6863,7 @@ End Sub
 Private Sub xdate1_GotFocus()
 myGotFocus xDate1
 End Sub
-Private Sub xDate1_LostFocus()
+Private Sub xdate1_LostFocus()
 myLostFocus xDate1
 myValidDate xDate1
 End Sub

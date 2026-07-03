@@ -825,13 +825,13 @@ strConfact2 = LoadConStringfact2
 strConfact3 = LoadConStringfact3
     
 Dim cError As String
-cError = testData
+cError = TestData
 If cError <> "ok" Then
     MsgBox cError
     End
 End If
 
-openCon con
+opencon con
 myLoadVar
 MakeLocal
 HandleOnline
@@ -869,9 +869,9 @@ strConPICT = LoadConStringPICT
 If strConPICT <> "" Then openConPICT conPict
 
 
-Set grid1.DataSource = data2
+Set grid1.DataSource = DATA2
 cString = "SELECT MOSM , DESCA FROM MOSM WHERE CLOSED = 0 ORDER BY DATE DESC "
-Set data2.Recordset = myRecordSet(cString, con)
+Set DATA2.Recordset = myRecordSet(cString, con)
 
 Set GRBRANCH.DataSource = data3
 If cBranch = "00" Then
@@ -946,7 +946,7 @@ Private Sub GRBRANCH_DBLClick()
     sCatalog = GetDesca("SELECT DATA FROM QBRANCH_ALL WHERE CODE = " & MyParn(GRBRANCH.TextMatrix(GRBRANCH.Row, 0)), GetCon)
     strCon = LoadConString_B(GRBRANCH.TextMatrix(GRBRANCH.Row, 0))
     
-    openCon con, strCon
+    opencon con, strCon
     
     'fixSql
 
@@ -954,7 +954,7 @@ Private Sub GRBRANCH_DBLClick()
     cBranch = sBranchCode
     cBranchStore = GetDesca("SELECT STORE FROM BRANCH ", GetCon)
     closeCon con
-    openCon con
+    opencon con
     
     lMainShow = True
     cComp_Name = GetDesca("SELECT DESCA FROM ADDRESS ", con)
@@ -1047,11 +1047,11 @@ myerror:
     MsgBox Err.Description
     Err.Clear
 End Sub
-Private Function testData() As String
+Private Function TestData() As String
 Dim cString As String, cError As String
-cError = openCon(GetCon)
+cError = opencon(GetCon)
 If cError = "ok" Then
-    testData = "ok"
+    TestData = "ok"
     Exit Function
 End If
 
@@ -1063,7 +1063,7 @@ If LCase(Right(cError, Len(cString))) = LCase(cString) Then
         End
     Else
         MsgBox cError
-        testData = cError
+        TestData = cError
     End If
 End If
 
@@ -1072,7 +1072,7 @@ If LCase(Mid(cError, 1, 21)) = LCase(cString) Then
     cError = createLogin
     If cError = "ok" Then
         Inform " „ «÷«›… „” Œœ„ »‰Ã«Õ"
-        cError = openCon(GetCon)
+        cError = opencon(GetCon)
     End If
 End If
 
@@ -1081,7 +1081,7 @@ If cError <> "ok" Then
     If Left(LCase(cError), 20) = LCase(cString) Then
         cError = AttachData
         If cError = "ok" Then Inform " „ —»ÿ «·»Ì«‰«  »‰Ã«Õ"
-        cError = openCon(GetCon)
+        cError = opencon(GetCon)
     End If
 End If
 
@@ -1091,7 +1091,7 @@ If cError <> "ok" Then
         cError = bringOnLine
         If cError = "ok" Then
             Inform " „ › Õ «·„·› »‰Ã«Õ"
-            cError = openCon(GetCon)
+            cError = opencon(GetCon)
          End If
     End If
 End If
@@ -1100,7 +1100,7 @@ If cError <> "ok" Then
     MsgBox cError
     confFrm.Show 1
 End If
-testData = "ok"
+TestData = "ok"
 End Function
 Private Function CreateRemote() As String
 On Error GoTo myerror
@@ -1456,9 +1456,6 @@ Finally:
 Set loctable = Nothing
 Exit Sub
 myerror:
-    MsgBox Err.Description
-    Err.Clear
-    Resume Finally
-Exit Sub
+CloseRs loctable
 End Sub
 

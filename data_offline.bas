@@ -1,13 +1,12 @@
 Attribute VB_Name = "data_offline"
-Public Function myRs(pString As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As ADODB.Recordset
+Public Function myRs(strSql As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As ADODB.Recordset
 Dim bClose As Boolean
 
 On Error GoTo myerror
-
 If con Is Nothing Then
     bClose = True
     Set con = New ADODB.Connection
-    If Not openConEr(con, pConString, nConTimeout) Then
+    If Not openconEr(con, pConString, nConTimeout) Then
         Exit Function
     End If
 End If
@@ -16,7 +15,7 @@ Dim cmd As New ADODB.command
 cmd.CommandTimeout = nTimeout
 cmd.ActiveConnection = con
 cmd.CommandType = pType
-cmd.CommandText = pString
+cmd.CommandText = strSql
 
 If Not IsEmpty(aParam) Then
     Dim i As Long
@@ -28,9 +27,12 @@ End If
 Set myRs = New ADODB.Recordset
 myRs.CursorLocation = adUseClient
 Set myRs = cmd.Execute
+
 Set myRs.ActiveConnection = Nothing
 Set cmd.ActiveConnection = Nothing
+
 If bClose Then closeCon con
+
 Exit Function
 myerror:
 If Not myRs Is Nothing Then
@@ -40,10 +42,7 @@ End If
 
 ' ?????? ?? ????? ??????? ?????? ???????? ??? ??? ???????
 If bClose Then
-    If Not con Is Nothing Then
-        If con.State = adStateOpen Then con.Close
-        Set con = Nothing
-    End If
+    closeCon con
 End If
 ' 5. ????? ??? ????? ?????? ??? ?????? ?????????
 Err.Raise Err.Number, Err.Source, Err.Description, Err.HelpFile, Err.HelpContext
@@ -64,7 +63,7 @@ cString = "Select " & pFunction & "(" & cPrm & ") as [value]"
 
 rsFunc = rsValue(cString, con, pConString, , aParam, nTimeout)
 End Function
-Public Function rsValue(pString As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional pDef As Variant = Null, Optional nTimeout As Integer = 300, Optional nConTimeout = 3) As Variant
+Public Function rsValue(pString As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional pDef As Variant = Null, Optional nTimeout As Integer = 300, Optional nConTimeout = 3) As Variant
 Dim loctable As ADODB.Recordset
 Set loctable = myRs(pString, con, pConString, pType, aParam, nTimeout)
 If Not loctable.EOF Then
@@ -78,7 +77,7 @@ If loctable.State = adStateOpen Then loctable.Close
 Finally:
 Set loctable = Nothing
 End Function
-Public Function rsValues(pString As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As Variant
+Public Function rsValues(pString As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As Variant
 Dim loctable As ADODB.Recordset
 Set loctable = myRs(pString, con, pConString, pType, aParam, nTimeout, nConTimeout)
 If Not (loctable.BOF And loctable.EOF) Then
@@ -91,11 +90,11 @@ End If
 loctable.Close
 Set loctable = Nothing
 End Function
-Public Function myRsCmd(pString As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As Boolean
+Public Function myRsCmd(pString As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As Boolean
 Dim bClose As Boolean
 If con Is Nothing Then
     Set con = New ADODB.Connection
-    If Not openConEr(con, pConString, nConTimeout) Then
+    If Not openconEr(con, pConString, nConTimeout) Then
         Exit Function
     End If
     bClose = True
@@ -118,13 +117,13 @@ cmd.ActiveConnection = Nothing
 If bClose Then closeCon con
 myRsCmd = True
 End Function
-Public Function rsEx(pString As String, Optional ByVal pConString As String, Optional pType As cmType = ADTEXT, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As Integer
+Public Function rsEx(pString As String, Optional ByVal pConString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As Integer
 Dim bClose As Boolean
 
 On Error GoTo myerror
 
 Dim con As New ADODB.Connection
-If Not openConEr(con, pConString, nConTimeout) Then
+If Not openconEr(con, pConString, nConTimeout) Then
     Exit Function
 End If
 
@@ -153,5 +152,69 @@ If Not con Is Nothing Then
 End If
 ' 5. ????? ??? ????? ?????? ??? ?????? ?????????
 Err.Raise Err.Number, Err.Source, Err.Description, Err.HelpFile, Err.HelpContext
+End Function
+Public Sub CloseRs(ByRef rs As ADODB.Recordset, Optional bIgError As Boolean = True)
+    Dim lngErrNum As Long
+    Dim strErrDesc As String
+    
+    ' Capture the error details
+    lngErrNum = Err.Number
+    strErrDesc = Err.Description
+    
+    On Error Resume Next
+    
+    If Not rs Is Nothing Then
+        ' Check if the recordset is open before closing
+        If (rs.State And adStateOpen) = adStateOpen Then
+            rs.Close
+        End If
+        
+        ' Free memory
+        Set rs = Nothing
+    End If
+    
+    If lngErrNum <> 0 Then
+        If bIgError Then
+            On Error GoTo 0
+        Else
+            Err.Raise lngErrNum, "DatabaseHandler", strErrDesc
+        End If
+    Else
+        closeCon = True
+    End If
+End Sub
+Public Function closeCon(ByRef pConnection As ADODB.Connection, Optional bIgError As Boolean = True) As Boolean
+    On Error Resume Next ' Prevent new errors from masking the original one
+    
+    Dim lngErrNum As Long
+    Dim strErrDesc As String
+    
+    ' Capture the error details
+    lngErrNum = Err.Number
+    strErrDesc = Err.Description
+    
+    If Not pConnection Is Nothing Then
+        If pConnection.State = adStateOpen Then
+            ' Check if a transaction is currently active (State > 0)
+            ' Note: ADO does not provide a direct trancount, so we attempt Rollback
+            On Error Resume Next
+            pConnection.RollbackTrans
+            
+            ' Close the connection
+            pConnection.Close
+        End If
+        Set pConnection = Nothing
+    End If
+    
+    ' Re-raise the error to the calling procedure so the user gets notified
+    If lngErrNum <> 0 Then
+        If bIgError Then
+            On Error GoTo 0
+        Else
+            Err.Raise lngErrNum, "DatabaseHandler", strErrDesc
+        End If
+    Else
+        closeCon = True
+    End If
 End Function
 

@@ -170,14 +170,14 @@ If cBranch = "00" Then
     Exit Function
 End If
 
-Dim loctable As New ADODB.Recordset
+Dim Loctable As New ADODB.Recordset
 Dim cString As String
-Set loctable = cmd("SELECT dSales FROM DSALES" & _
+Set Loctable = cmd("SELECT dSales FROM DSALES" & _
             " WHERE BRANCH = " & MyParn(cBranch), con).Execute
-If Not loctable.EOF Then
-    fnDateSales = myFormat(loctable!dSales)
+If Not Loctable.EOF Then
+    fnDateSales = myFormat(Loctable!dSales)
 End If
-loctable.Close
+Loctable.Close
 End Function
 Public Function rsDateBranch(Optional pBranch As String, Optional con As ADODB.Connection) As String
 If pBranch = "00" Then
@@ -201,19 +201,19 @@ fnBalance = Val(cmBalance.Parameters("@BALANCE") & "")
 Set cmBalance = Nothing
 End Function
 Public Function rsBalance(pItem As String, Optional pstore As String = "", Optional pDate As String = "", Optional pId As String = "") As Long
-Dim loctable As New ADODB.Recordset
+Dim Loctable As New ADODB.Recordset
 Dim aPrm As Variant
 aPrm = AddFlag(aPrm, "ITEM", pItem)
 If pstore <> "" Then aPrm = AddFlag(aPrm, "STORE", pstore)
 If IsDate(pDate) Then aPrm = AddFlag(aPrm, "DATE", myFormat_sp(pDate))
 If pId <> "" Then aPrm = AddFlag(aPrm, "ID", pId)
 
-Set loctable = myRs("dbo.sp_balance_rs", , , adStoredProc, aPrm)
-If Not loctable.EOF Then
-    rsBalance = Val(loctable!balance & "")
+Set Loctable = myRs("dbo.sp_balance_rs", , , adStoredProc, aPrm)
+If Not Loctable.EOF Then
+    rsBalance = Val(Loctable!balance & "")
 End If
-loctable.Close
-Set loctable = Nothing
+Loctable.Close
+Set Loctable = Nothing
 End Function
 Public Function IsFormOpen(ByVal FormName As String) As Boolean
     Dim frm As Form
@@ -427,7 +427,7 @@ Next
 ValidMinus = True
 End Function
 Public Function fn_order_Sates(sOrder_No As String, sType As String) As Variant
-Dim loctable As New ADODB.Recordset
+Dim Loctable As New ADODB.Recordset
 Dim aPrm As Variant
 'aPrm = AddFlag(Empty, "DOC_NO", sOrder_no)
 'aPrm = AddFlag(aPrm, "DOC_NO", sOrder_no)
@@ -496,5 +496,18 @@ Public Function CompareGrids(grid1 As Variant, grid2 As Variant, col1 As Integer
     ' ??? ?????? ?? ??????????? ??? ???????? ?????????
     CompareGrids = True
 End Function
+Public Sub UnloadForms(ExcludeFormName As String)
+    Dim i As Integer
+    
+    ' Loop backwards through the Forms collection
+    For i = Forms.Count - 1 To 0 Step -1
+        If LCase(Trim(Forms(i).Name)) = LCase(Trim(ExcludeFormName)) Then
+            Unload Forms(i)
+            Set Forms(i) = Nothing
+        End If
+    Next i
+End Sub
+
+
 
 
