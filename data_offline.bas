@@ -2,7 +2,7 @@ Attribute VB_Name = "data_offline"
 Public Function myRs(strSql As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As ADODB.Recordset
 Dim bClose As Boolean
 
-On Error GoTo myerror
+On Error GoTo myError
 If con Is Nothing Then
     bClose = True
     Set con = New ADODB.Connection
@@ -34,7 +34,7 @@ Set cmd.ActiveConnection = Nothing
 If bClose Then closeCon con
 
 Exit Function
-myerror:
+myError:
 If Not myRs Is Nothing Then
     If myRs.State = adStateOpen Then rs.Close
     Set myRs = Nothing
@@ -120,7 +120,7 @@ End Function
 Public Function rsEx(pString As String, Optional ByVal pConString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As Integer
 Dim bClose As Boolean
 
-On Error GoTo myerror
+On Error GoTo myError
 
 Dim con As New ADODB.Connection
 If Not openconEr(con, pConString, nConTimeout) Then
@@ -144,7 +144,7 @@ cmd.Execute rsEx
 Set cmd.ActiveConnection = Nothing
 If bClose Then closeCon con
 Exit Function
-myerror:
+myError:
 ' ?????? ?? ????? ??????? ?????? ???????? ??? ??? ???????
 If Not con Is Nothing Then
     If con.State = adStateOpen Then con.Close
@@ -153,7 +153,7 @@ End If
 ' 5. ????? ??? ????? ?????? ??? ?????? ?????????
 Err.Raise Err.Number, Err.Source, Err.Description, Err.HelpFile, Err.HelpContext
 End Function
-Public Sub CloseRs(ByRef rs As ADODB.Recordset, Optional bIgError As Boolean = True)
+Public Function CloseRs(ByRef rs As ADODB.Recordset, Optional bIgError As Boolean = True) As Boolean
     Dim lngErrNum As Long
     Dim strErrDesc As String
     
@@ -180,9 +180,9 @@ Public Sub CloseRs(ByRef rs As ADODB.Recordset, Optional bIgError As Boolean = T
             Err.Raise lngErrNum, "DatabaseHandler", strErrDesc
         End If
     Else
-        closeCon = True
+        CloseRs = True
     End If
-End Sub
+End Function
 Public Function closeCon(ByRef pConnection As ADODB.Connection, Optional bIgError As Boolean = True) As Boolean
     On Error Resume Next ' Prevent new errors from masking the original one
     

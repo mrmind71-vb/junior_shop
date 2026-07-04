@@ -3812,7 +3812,7 @@ aInsert = AddFlag(aInsert, "[CARD_DESCA]", addstring(xcard_desca.Caption))
 aInsert = AddFlag(aInsert, "[CARD_VALUE]", addstring(xcard_value.Caption))
 aInsert = AddFlag(aInsert, "[CARD_DOC]", addstring(xcard_doc.Caption))
 
-On Error GoTo myerror
+On Error GoTo myError
 con.BeginTrans
 If xDoc_No.Tag = DefineMode Then
     dSalesDate = fnDateSales(con)
@@ -3845,7 +3845,7 @@ End If
 con.CommitTrans
 myreplace = True
 Exit Function
-myerror:
+myError:
 'prog1.Visible = False
 MsgBox Err.Description
 con.RollbackTrans
@@ -3855,7 +3855,7 @@ Private Sub myLoadGrdOffer()
 
 End Sub
 Sub myProc()
-On Error GoTo myerror
+On Error GoTo myError
 If ActiveControl.Name = grid1.Name Then
     Dim bNew As Boolean
     bNew = grid1.Row = grid1.Rows - 1
@@ -3891,7 +3891,7 @@ ElseIf ActiveControl.Name = cmdMan.Name Then
     oSearchMan.Hide
 End If
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -3928,7 +3928,7 @@ aInsert = AddFlag(aInsert, "[USERNAME]", addstring(cUserName))
 aInsert = AddFlag(aInsert, "[USER_IP]", addstring(GetComputerName))
 
 con.BeginTrans
-On Error GoTo myerror
+On Error GoTo myError
 con.Execute addInsert(aInsert, "FILE6_20H")
 
 End With
@@ -3961,7 +3961,7 @@ Unload oSalesRefund
 
 If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then Exit Function
 Exit Function
-myerror:
+myError:
 MsgBox Err.Description
 con.RollbackTrans
 Err.Clear
@@ -4053,7 +4053,7 @@ con.CommitTrans
     
 CmdNewInv_Click
 Exit Sub
-myerror:
+myError:
 con.RollbackTrans
 MsgBox Err.Description
 Err.Clear
@@ -4442,7 +4442,7 @@ Private Sub Form_KeyUp2(KeyCode As Integer, Shift As Integer)
 End Sub
 Private Sub Form_Load()
 'On Error GoTo myerror
-openCon con
+OpenCon con
 
 Me.Caption = "„»»⁄«  " & myFormat_p(dSalesDate)
 
@@ -4504,7 +4504,7 @@ Else
     If Not openCardTable Then myDefine
 End If
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -4595,13 +4595,13 @@ If KeyCode = 46 Then
     MsgBox " „ Õ–› «·⁄—÷ »«·ﬂ«„· Ê ÕœÌÀ «·Œ’„"
 End If
 Exit Sub
-myerror:
+myError:
 con.RollbackTrans
 MsgBox Err.Description
 Err.Clear
 End Sub
 Public Sub Grid1_AfterEdit(ByVal Row As Long, ByVal col As Long)
-On Error GoTo myerror
+On Error GoTo myError
 Dim bNew As Boolean
 With grid1
 If Not myValid(True) Then
@@ -4643,7 +4643,7 @@ If myreplace(Row) Then
 End If
 End With
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -5587,7 +5587,7 @@ End Sub
 Private Sub xSendRc_Click()
 If bIgClick Then Exit Sub
 If xDoc_No.text <> "" Then
-    On Error GoTo myerror
+    On Error GoTo myError
     If xUUID_RC.Caption <> "" Then
         If Not IsEmpty(myField("select doc_no from file6_20h where PREVIOUS_UUID = " & MyParn(xUUID_RC.Caption), con)) Then
             MsgBox "—ﬁ„ „”·”· „—Ã⁄Ì ”«»ﬁ ··›« Ê—… —ﬁ„ " & MyParn(xDoc_No.text)
@@ -5600,7 +5600,7 @@ End If
 Finaly:
 Handlecontrols xDoc_No.Tag
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 bIgClick = True
@@ -5630,14 +5630,14 @@ If grid1.TextMatrix(Row, grid1.Cols - 1) <> "" Then
     End If
     
     If subUserCode <> "" Then
-        On Error GoTo myerror
+        On Error GoTo myError
         con.Execute "Delete  From FILE6_20 where id = " & grid1.TextMatrix(Row, grid1.Cols - 1)
     End If
 End If
 grid1.RemoveItem Row
 RemoveItem = True
 Exit Function
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Function
@@ -5812,7 +5812,7 @@ myDefine
     
 End Function
 Private Sub SavePrint()
-On Error GoTo myerror
+On Error GoTo myError
 'con.BeginTrans
 con.Execute "update file6_20h set isnew = 1 ,ISRET = 1, FILE6_20H.PRINTED = 1 , ISCLOSED = 1  WHERE DOC_NO = " & MyParn(xDoc_No.text)
 'con.CommitTrans
@@ -5820,7 +5820,7 @@ bIg = True
 xPrinted.Value = 1
 bIg = False
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -5997,7 +5997,7 @@ Finllay:
 temptable.Close
 Set temptable = Nothing
 Exit Function
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 GoTo Finllay
@@ -6114,7 +6114,7 @@ If IsDate(sDate) Then
     End If
 End If
 Exit Function
-myerror:
+myError:
 If TransCount(con) > 0 Then
     con.RollbackTrans
 End If
@@ -6172,7 +6172,7 @@ Private Sub Timer1_Timer()
 'xDate.Text = Format(dSalesDate, "DD-MM-YYYY")
 End Sub
 Sub opencom()
-On Error GoTo myerror
+On Error GoTo myError
 Dim i As Integer
 Dim comFlag As Boolean
 If cComPort = "" Then Exit Sub
@@ -6192,12 +6192,12 @@ If cComPort = "" Then Exit Sub
   IntrCh7E$ = Chr$(&H7E)
    lDisplayCom = True
   Exit Sub
-myerror:
+myError:
 lDisplayCom = False
   Err.Clear
 End Sub
 Sub ClearDisplay()
-    On Error GoTo myerror
+    On Error GoTo myError
     Dim i, Pagei, nn As Integer
     Dim ss As String
     Dim TmpTime$
@@ -6213,7 +6213,7 @@ Sub ClearDisplay()
     ss = Chr$(&HC)
     DoEvents
     Exit Sub
-myerror:
+myError:
     Err.Clear
 End Sub
 Private Sub Epson_Init()
@@ -6597,7 +6597,7 @@ REPORT1.Destination = crptToWindow
 REPORT1.WindowState = crptMaximized
 REPORT1.Action = 1
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -6667,7 +6667,7 @@ Else
     End If
 End If
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -6749,7 +6749,7 @@ If (Not CardTable.EOF) Then
 End If
 Me.MousePointer = vbNormal
 Exit Function
-myerror:
+myError:
 Me.MousePointer = vbNormal
 MsgBox Err.Description
 Err.Clear
@@ -6863,7 +6863,7 @@ End Sub
 Private Sub xdate1_GotFocus()
 myGotFocus xDate1
 End Sub
-Private Sub xdate1_LostFocus()
+Private Sub xDate1_LostFocus()
 myLostFocus xDate1
 myValidDate xDate1
 End Sub
@@ -7058,7 +7058,7 @@ mySendInvoices
 CmdNewInv_Click
 PayInvoice = True
 Exit Function
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Function

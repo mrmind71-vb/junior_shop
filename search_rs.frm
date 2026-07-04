@@ -448,6 +448,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim Generalarray, listarray, GrdArray
+Dim dbm As New DBManager
 Public nMax_records As Long
 Public aMerge As Variant
 Public sCaption As String, aFormat As Variant, bNoEsc As Boolean, aAddRow As Variant
@@ -460,23 +461,23 @@ Public sControl As String, bGo As Boolean, bEnter As Boolean
 Private Sub cmdExit_Click()
 Unload Me
 End Sub
-Private Sub cmbLookup_Change(Index As Integer)
-If (cmbLookup(Index).MatchedWithList Or Trim(cmbLookup(Index).BoundText) = "") And (Not bEnter) Then
+Private Sub cmbLookup_Change(index As Integer)
+If (cmbLookup(index).MatchedWithList Or Trim(cmbLookup(index).BoundText) = "") And (Not bEnter) Then
     myLoadGrd
 End If
 End Sub
-Private Sub cmbLookup_GotFocus(Index As Integer)
-myGotFocus cmbLookup(Index)
+Private Sub cmbLookup_GotFocus(index As Integer)
+myGotFocus cmbLookup(index)
 End Sub
 
-Private Sub cmbLookup_KeyPress(Index As Integer, KeyAscii As Integer)
+Private Sub cmbLookup_KeyPress(index As Integer, KeyAscii As Integer)
 If KeyAscii = 13 Then KeyAscii = 0
 End Sub
 
 Private Sub cmdFilter_MouseEnter(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
 cmdFilter.SetFocus
 End Sub
-Private Sub txtlookup_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
+Private Sub txtlookup_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
 If (KeyCode = 13 Or KeyCode = 40 Or KeyCode = 38) And (bEnterwork Or xEnter.Value = 1 Or KeyCode = 40 Or KeyCode = 38) Then
     KeyCode = 0
     csource = Ado1.RecordSource
@@ -493,7 +494,7 @@ If (KeyCode = 13 Or KeyCode = 40 Or KeyCode = 38) And (bEnterwork Or xEnter.Valu
     bEnterPress = True
 End If
 End Sub
-Private Sub cmbLookup_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
+Private Sub cmbLookup_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
 If KeyCode = 13 And bEnterwork Then
     KeyCode = 0
     csource = Ado1.RecordSource
@@ -509,14 +510,14 @@ If KeyCode = 13 And bEnterwork Then
     bEnterPress = True
 End If
 End Sub
-Private Sub cmbLookup_LostFocus(Index As Integer)
+Private Sub cmbLookup_LostFocus(index As Integer)
 'On Error Resume Next
-myLostFocus cmbLookup(Index)
-If (Not cmbLookup(Index).MatchedWithList) And Trim(cmbLookup(Index).BoundText) <> "" Then
-    cmbLookup(Index).BoundText = ""
+myLostFocus cmbLookup(index)
+If (Not cmbLookup(index).MatchedWithList) And Trim(cmbLookup(index).BoundText) <> "" Then
+    cmbLookup(index).BoundText = ""
     If Not bEnter Then myLoadGrd
 End If
-If Index = UBound(listarray) + 1 Then
+If index = UBound(listarray) + 1 Then
     grid1.SetFocus
 End If
 Err.Clear
@@ -611,7 +612,7 @@ If UBound(Generalarray) = 3 Then
     myLoadGrd
 Else
     If UBound(Generalarray) >= 4 Then
-        If Not Generalarray(4) Then myLoadGrd Else fixGrd
+        If Not Generalarray(4) Then myLoadGrd Else Fixgrd
     End If
 End If
 cmdFilter.Visible = retFlag(aFilter, "filter")
@@ -631,6 +632,7 @@ Private Sub Form_Unload(Cancel As Integer)
 '        End If
 '    End If
 'Next
+Set dbm = Nothing
 If sid <> "" Then
     addSetting "left", Me.Left, TempSave(Me, sid)
     addSetting "top", Me.Top, TempSave(Me, sid)
@@ -652,7 +654,7 @@ Private Sub grid1_GotFocus()
 End Sub
 Sub myLoadGrd()
 Dim cString As String, nRow As Long
-'On Error GoTo myerror
+On Error GoTo myError
 cString = Generalarray(1)
 
 If Val(xRecords.text) <> 0 Then
@@ -684,9 +686,12 @@ For i = 0 To UBound(listarray)
 Next
 cString = cString & Space(1) & Generalarray(2)
 
-Set grid1.DataSource = myRs(cString)
+If dbm.OpenCon Then
+    Set grid1.DataSource = dbm.myRs(cString)
+    dbm.closeCon
+End If
 
-fixGrd
+Fixgrd
 chkRecords
 
 If Not IsEmpty(aAddRow) Then
@@ -703,10 +708,11 @@ Exit Sub
 myError:
 MsgBox Err.Description
 Err.Clear
+dbm.closeCon
 End Sub
 Private Sub Handlecontrols()
 End Sub
-Private Sub fixGrd()
+Private Sub Fixgrd()
 For i = 0 To grid1.Cols - 1
    grid1.TextMatrix(0, i) = GrdArray(i, 0)
    grid1.ColWidth(i) = GrdArray(i, 1)
@@ -748,8 +754,9 @@ For i = 0 To UBound(listarray)
         cmbLookup(nRow).Top = cmbLookup(0).Top + (nVSpace * (nRow - 1))
         
         On Error GoTo myError
-        Set cmbLookup(nRow).RowSource = myRs(listarray(i, 2) & "")
-        
+        If dbm.OpenCon Then
+            Set cmbLookup(nRow).RowSource = dbm.myRs(listarray(i, 2) & "")
+        End If
         cmbLookup(nRow).BoundColumn = listarray(i, 3)
         cmbLookup(nRow).ListField = listarray(i, 4)
         If mySplit(listarray(i, 5), 1, ":") = "last_clicked" Then
@@ -781,6 +788,7 @@ For i = 1 To Label1.Count - 1
 Next
 Exit Sub
 myError:
+dbm.closeCon
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -800,12 +808,12 @@ If KeyCode = 13 And bEnterwork Then
 End If
 End Sub
 
-Private Sub txtlookup_Change(Index As Integer)
+Private Sub txtlookup_Change(index As Integer)
 If xEnter.Value = 0 Then myLoadGrd
-txtlookup(Index).Tag = txtlookup(Index).text
+txtlookup(index).Tag = txtlookup(index).text
 End Sub
-Private Sub txtlookup_GotFocus(Index As Integer)
-myGotFocus txtlookup(Index)
+Private Sub txtlookup_GotFocus(index As Integer)
+myGotFocus txtlookup(index)
 End Sub
 Private Function FixString(pString)
 aString = Split(Trim(pString), " ")
@@ -814,7 +822,7 @@ For i = 0 To UBound(aString)
 Next
 FixString = "%" & Replace(Trim(FixString), " ", "%") & "%"
 End Function
-Private Sub txtlookup_KeyPress(Index As Integer, KeyAscii As Integer)
+Private Sub txtlookup_KeyPress(index As Integer, KeyAscii As Integer)
 If KeyAscii = 13 Then KeyAscii = 0
 End Sub
 Private Function FixMulti(ByVal cString, cSearch) As String
@@ -916,8 +924,8 @@ aValue = AddFlag(Empty, "enter", RetSetting(cField, TempSave(Generalarray(0), si
 cField = "search_begin:" & Generalarray(0).Name
 aValue = AddFlag(aValue, "begin", RetSetting(cField, TempSave(Generalarray(0), sid)) = "TRUE")
 End Function
-Private Sub txtlookup_LostFocus(Index As Integer)
-myLostFocus txtlookup(Index)
+Private Sub txtlookup_LostFocus(index As Integer)
+myLostFocus txtlookup(index)
 End Sub
 
 Private Sub xEnd_Click()

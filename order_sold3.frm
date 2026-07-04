@@ -428,7 +428,7 @@ Dim bStopCell As Boolean
 Dim con As New ADODB.Connection
 Dim conServer As New ADODB.Connection
 Private Sub CMD_SEND_Click()
-If Not MYVALID Then Exit Sub
+If Not myValid Then Exit Sub
 Dim sNewDoc As String
 sNewDoc = myreplace
 If sNewDoc = "" Then Exit Sub
@@ -446,13 +446,13 @@ addRow
 End Sub
 
 Private Sub Form_Load()
-openCon con
+OpenCon con
 
 Set grid1.DataSource = data1
 Set grid2.DataSource = data2
 
 myloadgrd2
-fixGrd
+Fixgrd
 CalcTotals
 
 CellPos 13 + 1, 0, grid1.Cols - 1
@@ -572,7 +572,7 @@ With grid1
     .Subtotal flexSTSum, -1, 10 + 1, "#.##", &HE0E0E0, , True, "«·≈Ã„«·Ì"
 End With
 End Sub
-Sub fixGrd()
+Sub Fixgrd()
 With grid1
     .RowHeight(0) = 600
     '.Cols = 13
@@ -682,7 +682,7 @@ End Sub
 Private Sub myRemove(Row As Long)
 grid1.RemoveItem Row
 End Sub
-Private Function MYVALID() As Boolean
+Private Function myValid() As Boolean
 Dim i As Long
 Dim nFound As Long
 
@@ -721,7 +721,7 @@ End If
 '    Exit Function
 'End If
 
-MYVALID = True
+myValid = True
 End With
 End Function
 Private Sub Grid2_dblClick()
@@ -781,7 +781,7 @@ Private Function myreplace() As String
     aInsert = AddFlag(aInsert, "STORE", addstring(myForm.xStore.BoundText))
     aInsert = AddFlag(aInsert, "BRANCH", addstring("00"))
     aInsert = AddFlag(aInsert, "CASH", "0")
-    aInsert = AddFlag(aInsert, "ORDER_NO", addstring(orderTable!DOC_NO))
+    aInsert = AddFlag(aInsert, "ORDER_NO", addstring(orderTable!doc_no))
     aInsert = AddFlag(aInsert, "PO_NO", addstring(orderTable!PO_NO))
     aInsert = AddFlag(aInsert, "USERNAME", addstring(cUserName))
     aInsert = AddFlag(aInsert, "TIME1", addDate("GETDATE()"))
@@ -860,7 +860,7 @@ Private Function myreplace() As String
     
     myreplace = sdoc_no_new
 Exit Function
-myerror:
+myError:
 MsgBox Err.Description
 con.RollbackTrans
 Err.Clear

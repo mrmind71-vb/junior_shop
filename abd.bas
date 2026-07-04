@@ -17,6 +17,25 @@ End If
 loctable.Close
 Set loctable = Nothing
 End Function
+Function IncData(sTable As String, sField As String, con As ADODB.Connection, Optional pWhere As String = "", Optional bNum As Boolean = False) As String
+Dim loctable As New ADODB.Recordset
+Dim cString As String
+cString = "Select Max(" & sField & ") as Maxof " & _
+       " FROM " & sTable
+If pWhere <> "" Then cString = cString & " where " & pWhere
+Set loctable = cmd(cString, con).Execute
+If Not (loctable.EOF) Then
+    If IsNull(loctable!maxOf) Then
+        IncData = ""
+    ElseIf bNum Then
+        IncData = Val(loctable!maxOf & "") + 1
+    Else
+        IncData = IncrementString(loctable!maxOf & "")
+    End If
+End If
+loctable.Close
+Set loctable = Nothing
+End Function
 Function IncDataRs(sTable As String, sField As String, Optional pWhere As String = "", Optional bNum As Boolean = False) As String
 Dim loctable As New ADODB.Recordset
 Dim cString As String
@@ -1001,7 +1020,7 @@ For Row = grid1.FixedRows To grid1.Rows - 1
 Next
 End Function
 Public Function DefUser() As Boolean
-DefUser = RetSetting("DefUser", "C:\USERS\Users.txt") = "1"
+'DefUser = RetSetting("DefUser", "C:\USERS\Users.txt") = "1"
 End Function
 Function isNum(pNumber As Variant) As Boolean
 If Round(Val(pNumber & ""), 0) & "" <> Trim(pNumber & "") Then Exit Function
