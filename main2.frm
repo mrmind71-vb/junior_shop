@@ -994,7 +994,7 @@ End If
 
 If con.State = adStateOpen Then con.Close
 
-openCon con
+OpenCon con
 
 FIXDATA
 
@@ -1122,9 +1122,9 @@ Dim cConStr As String
 
 If lShowBranch Then
     cConStr = LoadConStringServer
-    openCon con, cConStr
+    OpenCon con, cConStr
 Else
-   openCon con
+   OpenCon con
 End If
 
 Dim sectable As New ADODB.Recordset
@@ -1769,7 +1769,7 @@ Private Sub TMGRCUST_Click()
     'VsTBalCustGR.Show
 End Sub
 Private Sub tmfixcostsales_Click()
-    openCon con
+    OpenCon con
     AddLod_Data cUserName, 0, " Ÿ»ÿ  ﬂ·›… «·„ÊœÌ·«  ", con
     Dim DDate1 As String, dDateSales As Date
     DDate1 = InputBox(" „‰  «—ÌŒ  ", , Format("01-01-" & Year(Date), "DD-MM-YY"))
@@ -2268,7 +2268,7 @@ Private Sub tmrebranch_Click()
     strConfact = LoadConStringfact
     strConfact2 = LoadConStringfact2
     GetCon.Close
-    openCon GetCon, strCon
+    OpenCon GetCon, strCon
     PassWord.Show
 End Sub
 
@@ -3015,7 +3015,7 @@ FlagFrm2.Show 1
 End Sub
 Private Sub FixData1()
 Dim FS1 As New ADODB.command
-openCon con
+OpenCon con
 On Error Resume Next
 
 
@@ -3031,7 +3031,7 @@ End Sub
 Private Sub FixData2()
 Dim FS1 As New ADODB.command, cDesca As String
 cDesca = "’·«ÕÌ… „— Ã⁄"
-openCon con
+OpenCon con
 On Error Resume Next
 If GetDesca("SELECT ID FROM [option] WHERE ID = 7 ", con) = "" Then
     cStr1 = " INSERT INTO [option] ([desca]) VALUES ( " & addstring(cDesca) & " ) "
@@ -3042,7 +3042,7 @@ End Sub
 
 Private Sub FixData4()
 Dim FS1 As New ADODB.command
-openCon con
+OpenCon con
 On Error Resume Next
 cString = "alter TABLE [dbo].[FILE0_10H] add   [branch] [nvarchar](50) COLLATE Arabic_CI_AS NULL"
 
@@ -3056,7 +3056,7 @@ End Sub
 
 Private Sub FixData12()
 Dim FS1 As New ADODB.command
-openCon con
+OpenCon con
 On Error Resume Next
 cString = "ALTER TABLE [dbo].[FILE7_20h] ADD [isnew2] [bit] NULL"
 FS1.CommandType = adCmdText
@@ -3068,7 +3068,7 @@ Err.Clear
 End Sub
 Private Sub FixData13()
 Dim FS1 As New ADODB.command
-openCon con
+OpenCon con
 On Error Resume Next
 cString = "ALTER TABLE [dbo].[FILE7_20h] ADD [isnew3] [bit] NULL"
 FS1.CommandType = adCmdText
@@ -3081,7 +3081,7 @@ End Sub
 
 Private Sub FixData5()
 Dim FS1 As New ADODB.command
-openCon con
+OpenCon con
 On Error Resume Next
 
 cString = " ALTER VIEW [dbo].[FILE1_10H] AS SELECT     model, MAX(desca) AS DESCA, MAX([GROUP]) AS [GROUP], MAX(RATE) AS RATE, MAX(OKAZ) AS OKAZ, MAX(FACT) AS FACT, MAX(MOSM) AS MOSM, MAX(modelno)  AS MODELNO, MAX(MODELFACT) AS MODELFACT, MAX(code) AS code, MAX(SUPP) AS SUPP, MAX(MODELFACT0) AS MODELFACT0, REDEM, FIXPRICE,  SHOWSALES, ISOKAZITEM, SECTION " & _
@@ -3107,8 +3107,8 @@ Sub FixStoreCode()
 
 End Sub
 Sub Show_NewDoc()
-    Set grid1.DataSource = DATA1
-    DATA1.ConnectionString = strCon
+    Set grid1.DataSource = data1
+    data1.connectionString = strCon
     grid1.Rows = 1
     Fixgrd
     myload
@@ -3117,8 +3117,8 @@ End Sub
 Private Sub myload()
     Dim cWhere As String
     cString = " SELECT     flag, desca, DOC_NO, DATE, [name], QUANT, USERSEND, TIMESEND FROM         Q_DATA_SEND "
-    DATA1.RecordSource = cString
-    DATA1.Refresh
+    data1.RecordSource = cString
+    data1.Refresh
     Fixgrd
 End Sub
 Sub Fixgrd()
@@ -3200,7 +3200,7 @@ End Function
 Private Function createBackUp(pFileName) As Boolean
 Dim cFile As String
 Dim con As New ADODB.Connection
-openCon con
+OpenCon con
 
 Dim cmd
 'Set cmd = con.CreateObject("ADODB.Command")
@@ -3219,7 +3219,7 @@ closeCon con
 createBackUp = True
 End Function
 Sub ClosedCashDoc()
-    openCon con
+    OpenCon con
     Dim pDate As Date
 '    con.Execute " UPDATE FILE7_10H SET CLOSED = 1   WHERE CLOSED  = 0 AND DATE < " & DateSq(Date)
 '    con.Execute " UPDATE FILE7_20H SET CLOSED = 1   WHERE CLOSED  = 0 AND DATE < " & DateSq(Date)
@@ -3246,7 +3246,7 @@ Sub ClosedCashDoc()
 End Sub
 Sub FixData_ALL_FR()
 Dim cString As String
-openCon con
+OpenCon con
 On Error Resume Next
 Inform cBranch
 
@@ -3357,7 +3357,7 @@ LoadConStringServer = "provider=SQLOLEDB;data source=" & cServerName & ";initial
 End Function
 Sub FixData_ALL()
 Dim cString As String
-openCon con
+OpenCon con
 On Error Resume Next
 
 

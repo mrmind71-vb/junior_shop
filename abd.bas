@@ -575,7 +575,7 @@ Myvalue = IIf(Val(pValue & "") = 0, "", pValue)
 If pFormat <> "" Then Myvalue = Format(Myvalue)
 End Function
 Private Sub xDate_Validate(Cancel As Boolean)
-With xDate
+With xdate
 If (Not IsDate(.text)) And Trim(.text) <> "" Then .text = ""
 .text = Format(.text, "dd-mm-yyyy")
 End With
@@ -1020,7 +1020,7 @@ For Row = grid1.FixedRows To grid1.Rows - 1
 Next
 End Function
 Public Function DefUser() As Boolean
-'DefUser = RetSetting("DefUser", "C:\USERS\Users.txt") = "1"
+DefUser = RetSetting("DefUser", "C:\USERS\Users.txt") = "1"
 End Function
 Function isNum(pNumber As Variant) As Boolean
 If Round(Val(pNumber & ""), 0) & "" <> Trim(pNumber & "") Then Exit Function

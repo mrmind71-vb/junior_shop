@@ -263,6 +263,7 @@ Begin VB.Form onlineCollectCSVnewfrm
       _ExtentY        =   17251
       _Version        =   393216
       Tabs            =   2
+      Tab             =   1
       TabsPerRow      =   2
       TabHeight       =   520
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -276,18 +277,18 @@ Begin VB.Form onlineCollectCSVnewfrm
       EndProperty
       TabCaption(0)   =   "»Ê«·’ «” —Ã«⁄ «Ê  »œÌ· »œÊ‰ ›« Ê—…"
       TabPicture(0)   =   "collectCSVnew.frx":98B0
-      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "GRID2"
-      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).ControlCount=   1
       TabCaption(1)   =   "”œ«œ ‘—ﬂ… «·‘Õ‰"
       TabPicture(1)   =   "collectCSVnew.frx":98CC
-      Tab(1).ControlEnabled=   0   'False
+      Tab(1).ControlEnabled=   -1  'True
       Tab(1).Control(0)=   "grid1"
+      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       Begin VSFlex7Ctl.VSFlexGrid GRID2 
          Height          =   9330
-         Left            =   45
+         Left            =   -74955
          TabIndex        =   13
          Top             =   360
          Width           =   20175
@@ -381,7 +382,7 @@ Begin VB.Form onlineCollectCSVnewfrm
       End
       Begin VSFlex7Ctl.VSFlexGrid grid1 
          Height          =   9330
-         Left            =   -74955
+         Left            =   45
          TabIndex        =   14
          Top             =   360
          Width           =   20175
@@ -565,7 +566,7 @@ If GRID2.Rows > 1 Then
     SSTab1.Tab = 0
 End If
 
-Option1(0).Value = True
+Option1(0).value = True
 End Sub
 
 Private Sub cmdWeb_Click()
@@ -578,7 +579,7 @@ getDataWeb
 cmdWeb.Enabled = True
 SSTab1.TabEnabled(0) = True
 SSTab1.TabEnabled(1) = True
-Option1(0).Value = True
+Option1(0).value = True
 Fixgrd
 End Sub
 Private Function getDataWeb()
@@ -610,9 +611,9 @@ If sBank = "" Then
     Exit Function
 End If
 
-Dim loctable As New ADODB.Recordset
-Set loctable = mycmd("SELECT * FROM FILE5_10 WHERE CODE = " & MyParn(sBank), con)
-If loctable.EOF Then
+Dim locTable As New ADODB.Recordset
+Set locTable = mycmd("SELECT * FROM FILE5_10 WHERE CODE = " & MyParn(sBank), con)
+If locTable.EOF Then
     MsgBox "»Ì«‰ «·»‰ﬂ €Ì— ’«·Õ"
     Exit Function
 End If
@@ -621,12 +622,12 @@ Dim id_header As String, type_header As String, gross_header As String
 Dim fees_header As String, vat_header As String, net_header As String
 
 
-id_header = loctable!id_header & ""
-type_header = loctable!type_header & ""
-gross_header = loctable!gross_header & ""
-fees_header = loctable!fees_header & ""
-vat_header = loctable!vat_header & ""
-net_header = loctable!net_header & ""
+id_header = locTable!id_header & ""
+type_header = locTable!type_header & ""
+gross_header = locTable!gross_header & ""
+fees_header = locTable!fees_header & ""
+vat_header = locTable!vat_header & ""
+net_header = locTable!net_header & ""
 
 If id_header = "" Then
     MsgBox "⁄‰Ê«‰ ⁄„Êœ ﬂÊœ «· ⁄—Ì› €Ì— „”Ã· ›Ï »Ì«‰«  «·»‰ﬂ"
@@ -666,7 +667,7 @@ Dim nGross As Double
 
 For i = 0 To cSv.NumRows - 1
     Me.Caption = sCaption & " - " & "”Ã· " & (i + 1) & " „‰ " & cSv.NumRows
-    prog1.Value = Round(i / (cSv.NumRows), 2) * 100
+    prog1.value = Round(i / (cSv.NumRows), 2) * 100
     
     sid = cSv.GetCellByName(i, id_header)
     If sid <> "" Then
@@ -704,7 +705,7 @@ prog1.Visible = False
 Me.Caption = sCaption
 End Function
 Private Sub Form_Load()
-openCon con
+OpenCon con
 Fixgrd
 Fixgrd2
 End Sub
@@ -794,16 +795,16 @@ Next
 End With
 End Sub
 Private Function GrdDesc(sPayment_id As String, Row As Long, ByRef pMsg As String) As Boolean
-Dim sOrder_No As String
-sOrder_No = rsFunc("[dbo].[fn_order_collect]", , addstring(sPayment_id), "default") & ""
-If sOrder_No = "" Then
+Dim sOrder_no As String
+sOrder_no = rsFunc("[dbo].[fn_order_collect]", , addstring(sPayment_id), "default") & ""
+If sOrder_no = "" Then
     pMsg = "—ﬁ„ " & "Payment id" & " €Ì— ’ÕÌÕ"
     Exit Function
 End If
 
 
-Dim loctable As New ADODB.Recordset
-Set loctable = myRs("SELECT FILE6_90H.*," & _
+Dim locTable As New ADODB.Recordset
+Set locTable = myRs("SELECT FILE6_90H.*," & _
                     "vw_online_order_total.total," & _
                     "vw_online_order_total.total_plus ," & _
                     "vw_online_order_total.total_minus ," & _
@@ -812,23 +813,23 @@ Set loctable = myRs("SELECT FILE6_90H.*," & _
                     " FROM FILE6_90H " & _
                     " LEFT JOIN vw_online_order_total ON FILE6_90H.DOC_NO = vw_online_order_total.ORDER_NO" & _
                     " LEFT JOIN vw_online_order_pay ON FILE6_90H.DOC_NO = vw_online_order_pay.ORDER_NO" & _
-                    " WHERE DOC_NO = " & MyParn(sOrder_No), con)
+                    " WHERE DOC_NO = " & MyParn(sOrder_no), con)
 
-If loctable.EOF Then
+If locTable.EOF Then
     MsgBox "—ﬁ„ ÿ·»»… €Ì— ’ÕÌÕ"
     Exit Function
 End If
 
-grid1.TextMatrix(Row, 0) = loctable!PAYMENT_ID & ""
-grid1.TextMatrix(Row, 1) = loctable!DOC_NO & ""
-grid1.TextMatrix(Row, 2) = loctable!Name & ""
-grid1.TextMatrix(Row, 3) = loctable!phone & ""
-grid1.TextMatrix(Row, 4) = loctable!count_of & ""
-grid1.TextMatrix(Row, 5) = loctable!total_plus & ""
-grid1.TextMatrix(Row, 6) = loctable!total_minus & ""
-grid1.TextMatrix(Row, 7) = loctable!TOTAL & ""
-grid1.TextMatrix(Row, 8) = loctable!total_pay & ""
-grid1.TextMatrix(Row, 9) = mRound(loctable!TOTAL & "") - mRound(loctable!total_pay)
+grid1.TextMatrix(Row, 0) = locTable!PAYMENT_ID & ""
+grid1.TextMatrix(Row, 1) = locTable!doc_no & ""
+grid1.TextMatrix(Row, 2) = locTable!Name & ""
+grid1.TextMatrix(Row, 3) = locTable!phone & ""
+grid1.TextMatrix(Row, 4) = locTable!count_of & ""
+grid1.TextMatrix(Row, 5) = locTable!total_plus & ""
+grid1.TextMatrix(Row, 6) = locTable!total_minus & ""
+grid1.TextMatrix(Row, 7) = locTable!TOTAL & ""
+grid1.TextMatrix(Row, 8) = locTable!total_pay & ""
+grid1.TextMatrix(Row, 9) = mRound(locTable!TOTAL & "") - mRound(locTable!total_pay)
 GrdDesc = True
 End Function
 Private Sub Form_Resize()
@@ -845,24 +846,24 @@ Private Sub GRID1_Click()
 'End If
 End Sub
 
-Private Sub Option1_Click(Index As Integer)
+Private Sub Option1_Click(index As Integer)
 Dim i As Long
 For i = 1 To grid1.Rows - 1
-    If Option1(0).Value Then
+    If Option1(0).value Then
         grid1.RowHidden(i) = False
-    ElseIf Option1(1).Value Then
+    ElseIf Option1(1).value Then
         grid1.RowHidden(i) = grid1.ValueMatrix(i, grid1.Cols - 1) = 0
-    ElseIf Option1(2).Value Then
+    ElseIf Option1(2).value Then
         grid1.RowHidden(i) = grid1.ValueMatrix(i, grid1.Cols - 1) <> 0
     End If
 Next
 
 For i = 1 To GRID2.Rows - 1
-    If Option1(0).Value Then
+    If Option1(0).value Then
         GRID2.RowHidden(i) = False
-    ElseIf Option1(1).Value Then
+    ElseIf Option1(1).value Then
         GRID2.RowHidden(i) = GRID2.ValueMatrix(i, GRID2.Cols - 1) = 0
-    ElseIf Option1(2).Value Then
+    ElseIf Option1(2).value Then
         GRID2.RowHidden(i) = GRID2.ValueMatrix(i, GRID2.Cols - 1) <> 0
     End If
 Next
@@ -880,7 +881,7 @@ With grid1
 con.BeginTrans
 For i = 1 To .Rows - 1
     Me.Caption = sCaption & " - " & "”Ã· " & (i + 1) & " „‰ " & grid1.Rows - 1
-    prog1.Value = Round(i / (grid1.Rows - 1), 2) * 100
+    prog1.value = Round(i / (grid1.Rows - 1), 2) * 100
     If .ValueMatrix(i, .Cols - 1) <> 0 Then
         aInsert = AddFlag(Empty, "DOC_NO", addstring(sDoc_no))
         aInsert = AddFlag(aInsert, "PAYMENT_ID", addstring(grid1.TextMatrix(i, 0)))
@@ -901,7 +902,7 @@ prog1.Visible = True
 With GRID2
 For i = 1 To .Rows - 1
     Me.Caption = sCaption & " - " & "”Ã· " & (i + 1) & " „‰ " & GRID2.Rows - 1
-    prog1.Value = Round(i / (GRID2.Rows - 1), 2) * 100
+    prog1.value = Round(i / (GRID2.Rows - 1), 2) * 100
     If .ValueMatrix(i, .Cols - 1) <> 0 Then
         aInsert = AddFlag(Empty, "DOC_NO", addstring(sDoc_no))
         aInsert = AddFlag(aInsert, "SHIP_NO", addstring(.TextMatrix(i, 0)))
@@ -949,17 +950,17 @@ Next
 myValid = True
 End Function
 Private Function grdDesc2(sShip_no As String, Row As Long, ByRef pMsg As String) As Boolean
-Dim sOrder_No As String
+Dim sOrder_no As String
 
-sOrder_No = rsFunc("[dbo].[fn_order_collect]", con, "default", addstring(sShip_no)) & ""
-If sOrder_No = "" Then
+sOrder_no = rsFunc("[dbo].[fn_order_collect]", con, "default", addstring(sShip_no)) & ""
+If sOrder_no = "" Then
     'MsgBox "—ﬁ„ »Ê·Ì’… «·‘Õ‰ €Ì— ’ÕÌÕ"
     pMsg = "—ﬁ„ »Ê·Ì’… «·‘Õ‰ €Ì— ’ÕÌÕ"
     Exit Function
 End If
 
-Dim loctable As New ADODB.Recordset
-Set loctable = myRs("SELECT FILE6_90H.*," & _
+Dim locTable As New ADODB.Recordset
+Set locTable = myRs("SELECT FILE6_90H.*," & _
                     "vw_online_order_total.total," & _
                     "vw_online_order_total.total_plus ," & _
                     "vw_online_order_total.total_minus ," & _
@@ -968,16 +969,16 @@ Set loctable = myRs("SELECT FILE6_90H.*," & _
                     " FROM FILE6_90H " & _
                     " LEFT JOIN vw_online_order_total ON FILE6_90H.DOC_NO = vw_online_order_total.ORDER_NO" & _
                     " LEFT JOIN vw_online_order_pay ON FILE6_90H.DOC_NO = vw_online_order_pay.ORDER_NO" & _
-                    " WHERE DOC_NO = " & MyParn(sOrder_No), con)
-GRID2.TextMatrix(Row, 1) = loctable!DOC_NO & ""
-GRID2.TextMatrix(Row, 2) = loctable!Name
-GRID2.TextMatrix(Row, 3) = loctable!phone & ""
-GRID2.TextMatrix(Row, 4) = loctable!count_of & ""
-GRID2.TextMatrix(Row, 5) = loctable!total_plus & ""
-GRID2.TextMatrix(Row, 6) = loctable!total_minus & ""
-GRID2.TextMatrix(Row, 7) = loctable!TOTAL & ""
-GRID2.TextMatrix(Row, 8) = loctable!total_pay & ""
-GRID2.TextMatrix(Row, 9) = mRound(loctable!TOTAL & "") - mRound(loctable!total_pay)
+                    " WHERE DOC_NO = " & MyParn(sOrder_no), con)
+GRID2.TextMatrix(Row, 1) = locTable!doc_no & ""
+GRID2.TextMatrix(Row, 2) = locTable!Name
+GRID2.TextMatrix(Row, 3) = locTable!phone & ""
+GRID2.TextMatrix(Row, 4) = locTable!count_of & ""
+GRID2.TextMatrix(Row, 5) = locTable!total_plus & ""
+GRID2.TextMatrix(Row, 6) = locTable!total_minus & ""
+GRID2.TextMatrix(Row, 7) = locTable!TOTAL & ""
+GRID2.TextMatrix(Row, 8) = locTable!total_pay & ""
+GRID2.TextMatrix(Row, 9) = mRound(locTable!TOTAL & "") - mRound(locTable!total_pay)
 grdDesc2 = True
 End Function
 Private Function getDataShip()
@@ -1001,9 +1002,9 @@ If nAccess = 0 Then
     Exit Function
 End If
 
-Dim loctable As New ADODB.Recordset
-Set loctable = mycmd("SELECT * FROM SHIP WHERE CODE = " & MyParn(sShip), con)
-If loctable.EOF Then
+Dim locTable As New ADODB.Recordset
+Set locTable = mycmd("SELECT * FROM SHIP WHERE CODE = " & MyParn(sShip), con)
+If locTable.EOF Then
     MsgBox "»Ì«‰ ‘—ﬂ… «·‘Õ‰ €Ì— ’«·Õ"
     Exit Function
 End If
@@ -1012,11 +1013,11 @@ Dim id_header As String, type_header As String, gross_header As String
 Dim fees_header As String, vat_header As String, net_header As String
 
 
-order_header = loctable!order_header & ""
-cod_HEADER = loctable!cod_HEADER & ""
-fees_header = loctable!fees_header & ""
-vat_header = loctable!vat_header & ""
-net_header = loctable!net_header & ""
+order_header = locTable!order_header & ""
+cod_HEADER = locTable!cod_HEADER & ""
+fees_header = locTable!fees_header & ""
+vat_header = locTable!vat_header & ""
+net_header = locTable!net_header & ""
 
 If order_header = "" Then
     MsgBox "⁄‰Ê«‰ ⁄„Êœ —ﬁ„ «·»Ê·Ì’… €Ì— „”Ã· ›Ï »Ì«‰«  ‘—ﬂ… «·‘Õ‰"
@@ -1057,11 +1058,11 @@ Dim bDone As Boolean
 Dim cod As Double
 Dim fee As Double
 Dim vat As Double
-Dim Value As Double
+Dim value As Double
 
 For i = 0 To cSv.NumRows - 1
     Me.Caption = sCaption & " - " & "”Ã· " & (i + 1) & " „‰ " & cSv.NumRows
-    prog1.Value = Round(i / (cSv.NumRows), 2) * 100
+    prog1.value = Round(i / (cSv.NumRows), 2) * 100
     
     ship_no = cSv.GetCellByName(i, order_header)
     If ship_no <> "" Then

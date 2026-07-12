@@ -107,7 +107,7 @@ If Not IsEmpty(aParam) Then
 End If
 End Function
 Public Function myField(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional pDef As Variant = Empty, Optional nTimeout As Integer = 100) As Variant
-On Error GoTo myError:
+On Error GoTo myerror:
 Dim loctable As ADODB.Recordset
 Set loctable = cmd(pString, con, pType).Execute
 If Not loctable.EOF Then
@@ -119,7 +119,7 @@ loctable.Close
 Finally:
 Set loctable = Nothing
 Exit Function
-myError:
+myerror:
 MsgBox Err.Description
 'Err.Clear
 myField = pDef
@@ -148,7 +148,7 @@ loctable.Close
 Set loctable = Nothing
 End Function
 Public Function openConHr(ByRef pCon As ADODB.Connection, Optional ByVal pString As String = "", Optional ByVal lMsg As Boolean = True) As String
-On Error GoTo myError
+On Error GoTo myerror
 Dim cString As String
 If pString = "" Then cString = LoadConStringHr Else cString = pString
 If pCon.State = adStateOpen Then pCon.Close
@@ -156,7 +156,7 @@ pCon.CursorLocation = adUseClient
 pCon.Open cString
 openConHr = "ok"
 Exit Function
-myError:
+myerror:
 openConHr = Err.Description
 Err.Clear
 End Function
@@ -196,7 +196,7 @@ Function TransCount(con As ADODB.Connection) As Integer
 If con.State <> adStateOpen Then Exit Function
 Dim loctable As New ADODB.Recordset
 Set loctable = mycmd("select @@TRANCOUNT as myCount", con)
-On Error GoTo myError
+On Error GoTo myerror
 If Not loctable.EOF Then
     TransCount = loctable!myCount
 End If
@@ -204,8 +204,8 @@ Finally:
 loctable.Close
 Set loctable = Nothing
 Exit Function
-On Error GoTo myError:
-myError:
+On Error GoTo myerror:
+myerror:
 TransCount = -1
 Err.Clear
 GoTo Finally
@@ -255,7 +255,7 @@ If Not rsTable.EOF Then
 End If
 End Function
 Public Function myFieldValue(pString As String, pField As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional pDef As Variant = Empty, Optional nTimeout As Integer = 100) As Variant
-On Error GoTo myError:
+On Error GoTo myerror:
 Dim cmd As New ADODB.command
 Dim loctable As ADODB.Recordset
 cmd.CommandTimeout = nTimeout
@@ -275,7 +275,7 @@ ElseIf Not IsEmpty(pDef) Then
     myFieldValue = pDef
 End If
 Exit Function
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 myFieldValue = pDef

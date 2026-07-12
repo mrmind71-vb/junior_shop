@@ -9,7 +9,7 @@ Begin VB.Form VsTBranshSalDay
    ClientHeight    =   10365
    ClientLeft      =   75
    ClientTop       =   450
-   ClientWidth     =   11280
+   ClientWidth     =   18750
    BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.25
@@ -23,14 +23,14 @@ Begin VB.Form VsTBranshSalDay
    MDIChild        =   -1  'True
    RightToLeft     =   -1  'True
    ScaleHeight     =   10365
-   ScaleWidth      =   11280
+   ScaleWidth      =   18750
    WindowState     =   2  'Maximized
    Begin VB.Frame Frame2 
       Height          =   510
-      Left            =   135
+      Left            =   3645
       RightToLeft     =   -1  'True
       TabIndex        =   23
-      Top             =   1395
+      Top             =   1440
       Width           =   3840
       Begin VB.OptionButton xall 
          Alignment       =   1  'Right Justify
@@ -96,10 +96,10 @@ Begin VB.Form VsTBranshSalDay
    End
    Begin VB.Frame Frame4 
       Height          =   1455
-      Left            =   135
+      Left            =   3645
       RightToLeft     =   -1  'True
       TabIndex        =   15
-      Top             =   -45
+      Top             =   0
       Width           =   3840
       Begin VB.CommandButton CMD_PRINT 
          Height          =   465
@@ -171,10 +171,10 @@ Begin VB.Form VsTBranshSalDay
    End
    Begin VB.Frame Frame1 
       Height          =   1980
-      Left            =   3960
+      Left            =   7605
       RightToLeft     =   -1  'True
       TabIndex        =   2
-      Top             =   -45
+      Top             =   0
       Width           =   11100
       Begin VB.ComboBox xmosm22 
          BeginProperty Font 
@@ -651,8 +651,8 @@ Begin VB.Form VsTBranshSalDay
       Left            =   0
       TabIndex        =   0
       Top             =   10035
-      Width           =   11280
-      _ExtentX        =   19897
+      Width           =   18750
+      _ExtentX        =   33073
       _ExtentY        =   582
       SimpleText      =   ""
       _Version        =   327682
@@ -716,9 +716,9 @@ Begin VB.Form VsTBranshSalDay
       Height          =   7290
       Left            =   135
       TabIndex        =   1
-      Top             =   1980
-      Width           =   14955
-      _cx             =   26379
+      Top             =   2025
+      Width           =   18555
+      _cx             =   32729
       _cy             =   12859
       _ConvInfo       =   1
       Appearance      =   1
@@ -1235,13 +1235,13 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Dim StoreTable As New ADODB.Recordset
 Dim cString As String
 Dim cStr1 As String, cStr2 As String
+Dim dbm As New DBManager
 Dim con As New ADODB.Connection
 
 Private Sub Check1_Click()
-    FIXGRID
+    'FIXGRID store
 End Sub
 
 Private Sub cmd_excel_Click()
@@ -1253,7 +1253,7 @@ Private Sub CMD_PRINT_Click()
     Dim cHead1 As String
     Dim cHead2 As String
     cHead1 = Me.Caption
-    cHead2 = " Õ Ï  «—ÌŒ " & Format(xdate1.text, "DD-MM-YYYY")
+    cHead2 = " Õ Ï  «—ÌŒ " & Format(xDate1.text, "DD-MM-YYYY")
     Dim cHead3 As String
     cHead3 = XSECTION.text & "  " & xGroup.text & "  " & xFact.text & "  " & xSupp.text
     
@@ -1262,7 +1262,7 @@ Private Sub CMD_PRINT_Click()
 '    printGrd3.Show 1
     
     Load PrintGrd
-    PrintGrd.DOPRINT grid1, 1, , cHead1, cHead2, cHead3, , True, 10
+    PrintGrd.doprint grid1, 1, , cHead1, cHead2, cHead3, , True, 10
     PrintGrd.Show 1
 End Sub
 Private Sub cmdExit_Click()
@@ -1273,92 +1273,78 @@ Private Sub CmdUndo_Click()
     Unload Me
 End Sub
 Private Sub cmdGo_Click()
-    If StoreTable.State = adStateOpen Then StoreTable.Close
-    If xall(0).Value <> 0 Then
-        If bOpt5 Then
-            StoreTable.Open "select CODE , DESCA FROM STORE_BR WHERE S_BRANCH < '60' ORDER BY CODE ", con, adOpenStatic, adLockReadOnly, adCmdText
-        Else
-            StoreTable.Open "select CODE , DESCA FROM STORE_BR WHERE S_BRANCH < '60' AND CODE IN (SELECT STORE FROM USERSHOP WHERE CODE = " & MyParn(nusercode) & " )  ORDER BY CODE ", con, adOpenStatic, adLockReadOnly, adCmdText
-        End If
+    Dim StoreTable As New ADODB.Recordset
+    
+    strSql = "SELECT s.CODE," & _
+             "s.DESCA " & _
+             " FROM STORE_BR s" & _
+             " INNER JOIN vw_FILE6_20 ON s.CODE = vw_FILE6_20.STORE" & _
+             " INNER JOIN FILE1_10 ON FILE1_10.ITEM = vw_FILE6_20.ITEM"
+        
+    If retWhere <> "" Then
+        cWhere = cWhere & Tr(cWhere, " AND ") & retWhere
     End If
-    If xall(1).Value <> 0 Then
-        If bOpt5 Then
-            StoreTable.Open "select CODE , DESCA FROM STORE_BR WHERE S_BRANCH > '60' ORDER BY CODE ", con, adOpenStatic, adLockReadOnly, adCmdText
-        Else
-            StoreTable.Open "select CODE , DESCA FROM STORE_BR WHERE S_BRANCH > '60' AND CODE IN (SELECT STORE FROM USERSHOP WHERE CODE = " & MyParn(nusercode) & " )  ORDER BY CODE ", con, adOpenStatic, adLockReadOnly, adCmdText
-        End If
+    
+    If cWhere <> "" Then
+        strSql = strSql & " WHERE " & retWhere
     End If
-    If xall(2).Value <> 0 Then
-        If bOpt5 Then
-            StoreTable.Open "select CODE , DESCA FROM STORE_BR ORDER BY S_BRANCH ", con, adOpenStatic, adLockReadOnly, adCmdText
-        Else
-            StoreTable.Open "select CODE , DESCA FROM STORE_BR WHERE CODE IN (SELECT STORE FROM USERSHOP WHERE CODE = " & MyParn(nusercode) & " )  ORDER BY CODE ", con, adOpenStatic, adLockReadOnly, adCmdText
-        End If
+    strSql = strSql & " GROUP BY s.CODE,s.DESCA"
+    strSql = strSql & " ORDER BY s.CODE"
+    If dbm.OpenCon Then
+        Set StoreTable = dbm.myRs(strSql)
     End If
-    myload
+    
+    myload StoreTable
+    
 End Sub
 Private Sub Form_Load()
-    openCon con
-    
+        
     xMosm22.AddItem " "
     xMosm22.AddItem "S"
     xMosm22.AddItem "W"
     xMosm22.AddItem "M"
+    If Not dbm.OpenCon Then Exit Sub
     
-    Set data11.Recordset = myRecordSet("Select Code,DescA From File0_82  order by Desca", con)
-    Set xage.RowSource = data11
+    Set xage.RowSource = dbm.myRs("Select Code,DescA From File0_82  order by Desca")
     xage.ListField = "Desca"
     xage.BoundColumn = "Code"
     
-    Set data12.Recordset = myRecordSet("Select Code,DescA From File0_81  order by Desca", con)
-    Set xsex.RowSource = data12
+    Set xsex.RowSource = dbm.myRs("Select Code,DescA From File0_81  order by Desca")
     xsex.ListField = "Desca"
     xsex.BoundColumn = "Code"
     
     
-    xdate1.text = Format("1-1-" & Year(Date), "dd-mm-yyyy")
-    xDate2.text = Format(Date, "dd-mm-yyyy")
+    xDate1.text = Format("1-1-" & Year(Date), "dd-mm-yyyy")
+    xdate2.text = Format(Date, "dd-mm-yyyy")
     
-    DATA1.ConnectionString = strCon
-    DATA1.RecordSource = "Select Code,DescA From File1_10SC order by Desca"
-    Set XSECTION.RowSource = DATA1
+    Set XSECTION.RowSource = dbm.myRs("Select Code,DescA From File1_10SC order by Desca")
     XSECTION.ListField = "Desca"
     XSECTION.BoundColumn = "Code"
     
-    data2.ConnectionString = strCon
-    data2.RecordSource = "Select Code,DescA From File4_10 order by Desca"
-    Set xSupp.RowSource = data2
+    Set xSupp.RowSource = dbm.myRs("Select Code,DescA From File4_10 order by Desca")
     xSupp.ListField = "Desca"
     xSupp.BoundColumn = "Code"
     
-    DATA3.ConnectionString = strCon
-    DATA3.RecordSource = "Select Code,DescA From File1_50 ORDER BY DESCA"
-    Set xGroup.RowSource = DATA3
+    Set xGroup.RowSource = dbm.myRs("Select Code,DescA From File1_50 ORDER BY DESCA")
     xGroup.ListField = "Desca"
     xGroup.BoundColumn = "Code"
     
-    data4.ConnectionString = strCon
-    data4.RecordSource = "Select mosm ,descA From mosm ORDER BY date DESC "
-    Set xmosm.RowSource = data4
-    xmosm.ListField = "Desca"
-    xmosm.BoundColumn = "MOSM"
+    Set xMosm.RowSource = dbm.myRs("Select mosm ,descA From mosm ORDER BY date DESC ")
+    xMosm.ListField = "Desca"
+    xMosm.BoundColumn = "MOSM"
     
 '    xMosm.BoundText = cPMosm
     
-    DATA5.ConnectionString = strCon
-    DATA5.RecordSource = "Select code ,desca From fact ORDER BY code "
-    Set xFact.RowSource = DATA5
+    Set xFact.RowSource = dbm.myRs("Select code ,desca From fact ORDER BY code ")
     xFact.ListField = "Desca"
     xFact.BoundColumn = "Code"
+    dbm.closeCon
     
-    Set grid1.DataSource = DATA6
-    DATA6.ConnectionString = strCon
     grid1.Rows = 2
     grid1.FixedRows = 2
     grid1.Cols = 2
-'    FixGrid
 End Sub
-Private Sub myload()
+Private Sub myload(StoreTable As ADODB.Recordset)
 Dim i As Double
 Dim cStrall  As String
 
@@ -1367,50 +1353,119 @@ grid1.Rows = 2
 grid1.FixedRows = 2
 grid1.Cols = 7
 
+
+
 Dim lOk As Boolean
-StoreTable.MoveFirst
-Do Until StoreTable.EOF
-    cWhere = " STORE = " & MyParn(StoreTable!CODE)
-    cField2 = cField2 & turnFound(cField2, ",") & myiif(cWhere, "QUANT")
-    cField2 = cField2 & turnFound(cField2, ",") & myiif(cWhere, "(TOTAL * ((100-QFILE6_20.RATE)/100))")
-    StoreTable.MoveNext
-Loop
+If StoreTable.RecordCount > 0 Then
+    StoreTable.MoveFirst
+    Do Until StoreTable.EOF
+        cWhere = " STORE = " & MyParn(StoreTable!code)
+        cField2 = cField2 & "," & myiif(cWhere, "QUANT")
+        cField2 = cField2 & "," & myiif(cWhere, "TOTAL_NET")
+        'cField2 = cField2 & turnFound(cField2, ",") & myiif(cWhere, "(TOTAL * ((100-QFILE6_20.RATE)/100))")
+        StoreTable.MoveNext
+    Loop
+End If
 
 With grid1
-'                           0               1                 2                3               4                        5
-    cStrall = " SELECT     [DATE] , ' ' AS N2 , SUM(QUANT) , SUM(TOTAL * ((100-QFILE6_20.RATE)/100))  , " & _
-                cField2 & _
-            " FROM  QFILE6_20 INNER JOIN FILE1_10 ON FILE1_10.ITEM = QFILE6_20.ITEM WHERE file1_10.ITEM IS not NULL "
-    If xmosm.BoundText <> "" Then cStrall = cStrall & " AND FILE1_10.MOSM = " & MyParn(xmosm.BoundText)
-    If xSupp.BoundText <> "" Then cStrall = cStrall & " AND FILE1_10.CODE = " & MyParn(xSupp.BoundText)
-    If xGroup.BoundText <> "" Then cStrall = cStrall & " AND FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
-    If xFact.BoundText <> "" Then cStrall = cStrall & " AND FILE1_10.FACT = " & MyParn(xFact.BoundText)
-    If XSECTION.BoundText <> "" Then cStrall = cStrall & " AND FILE1_10.[Section] = " & XSECTION.BoundText
-    If IsDate(xdate1.text) Then cStrall = cStrall & " AND [DATE] >= " & DateSq(xdate1.text)
-    If IsDate(xdate1.text) Then cStrall = cStrall & " AND [DATE] <= " & DateSq(xDate2.text)
-    If Not bOpt5 Then cStrall = cStrall & " AND STORE IN (SELECT STORE FROM USERSHOP WHERE CODE = " & nusercode & ")"
-    
-    If XMOSM2.text <> "W" Then
-        If XMOSM2.text <> "" Then cStrall = cStrall & " AND SUBSTRING(FILE1_10.MOSM ,1,1) = " & MyParn(XMOSM2.text)
-    Else
-        If XMOSM2.text <> "" Then cStrall = cStrall & " AND ( SUBSTRING(FILE1_10.MOSM ,1,1) = 'W' OR SUBSTRING(FILE1_10.MOSM ,1,1) = 'M') "
+    '                           0               1                 2                3               4                        5
+    Dim strSql As String
+    strSql = " SELECT [DATE]," & _
+              "' ' AS N2 ," & _
+              " SUM(QUANT)," & _
+              " SUM(TOTAL_NET)" & _
+              cField2 & _
+              " FROM  vw_FILE6_20 " & _
+              " INNER JOIN FILE1_10 ON FILE1_10.ITEM = vw_FILE6_20.ITEM" & _
+              " INNER JOIN STORE_BR ON vw_FILE6_20.STORE = STORE_BR.CODE"
+
+    If retWhere <> "" Then
+        strSql = strSql & " WHERE " & retWhere
     End If
-    If xMosm22.text <> "" Then cStrall = cStrall & " AND FILE1_10.MOSM2 = " & MyParn(xMosm22.text)
-    If xsex.BoundText <> "" Then cStrall = cStrall & " AND FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
-    If xage.BoundText <> "" Then cStrall = cStrall & " AND FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
+    strSql = strSql & " GROUP BY  [DATE] ORDER BY [DATE] "
     
+    If Not dbm.OpenCon Then Exit Sub
     
-    If xall(0).Value <> 0 Then cStrall = cStrall & " AND QFILE6_20.ISBRANCH = 1 "
-    If xall(1).Value <> 0 Then cStrall = cStrall & " AND QFILE6_20.ISBRANCH = 2 "
-    
-    cStrall = cStrall & " GROUP BY  [DATE] ORDER BY [DATE] "
-    DATA6.RecordSource = cStrall
-    DATA6.Refresh
+    Set grid1.DataSource = dbm.myRs(strSql)
 End With
-FIXGRID
+FIXGRID StoreTable
 If grid1.Rows > 0 Then grid1.TextMatrix(1, 1) = "«·≈Ã„«·Ï"
 End Sub
-Sub FIXGRID()
+Private Function retWhere()
+Dim strSql As String
+
+'If xall(0).Value <> 0 Then
+'    'strSql = "S_BRANCH < '60'"
+'ElseIf xall(1).Value <> 0 Then
+'    'strSql = "S_BRANCH > '60'"
+'End If
+
+If Not bOpt5 Then
+    strSql = strSql & Tr(strSql) & "STORE_BR.CODE IN (SELECT STORE FROM USERSHOP WHERE CODE = " & MyParn(nusercode) & " )"
+End If
+                     
+
+If xMosm.MatchedWithList Then
+    strSql = strSql & Tr(strSql) & "FILE1_10.MOSM = " & MyParn(xMosm.BoundText)
+End If
+
+If xSupp.MatchedWithList Then
+    strSql = strSql & Tr(strSql) & "FILE1_10.code = " & MyParn(xSupp.BoundText)
+End If
+
+If xGroup.MatchedWithList Then
+    strSql = strSql & Tr(strSql) & "FILE1_10.[Group] = " & MyParn(xGroup.BoundText)
+End If
+
+If xFact.MatchedWithList Then
+    strSql = strSql & Tr(strSql) & "FILE1_10.Fact = " & MyParn(xFact.BoundText)
+End If
+
+If XSECTION.MatchedWithList Then
+    strSql = strSql & Tr(strSql) & "FILE1_10.[Section] = " & XSECTION.BoundText
+End If
+
+If IsDate(xDate1.text) Then
+    strSql = strSql & Tr(strSql) & "[Date] >= " & DateSq(xDate1.text)
+End If
+
+If IsDate(xDate1.text) Then
+    strSql = strSql & Tr(strSql) & "[DATE] <= " & DateSq(xdate2.text)
+End If
+
+If Not bOpt5 Then
+    strSql = strSql & Tr(strSql) & "STORE IN (SELECT STORE FROM USERSHOP WHERE CODE = " & nusercode & ")"
+End If
+
+If XMOSM2.text <> "W" Then
+    If XMOSM2.text <> "" Then strSql = strSql & Tr(strSql) & "SUBSTRING(FILE1_10.MOSM, 1, 1) = " & MyParn(XMOSM2.text)
+Else
+    If XMOSM2.text <> "" Then strSql = strSql & Tr(strSql) & "(SUBSTRING(FILE1_10.MOSM ,1,1) = 'W' OR SUBSTRING(FILE1_10.MOSM ,1,1) = 'M') "
+End If
+
+If xMosm22.text <> "" Then
+    strSql = strSql & Tr(strSql) & "FILE1_10.MOSM2 = " & MyParn(xMosm22.text)
+End If
+
+If xsex.MatchedWithList Then
+    strSql = strSql & Tr(strSql) & "FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
+End If
+
+If xage.MatchedWithList Then
+    strSql = strSql & Tr(strSql) & "FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
+End If
+
+If xall(0).Value <> 0 Then
+    strSql = strSql & Tr(strSql) & " vw_FILE6_20.ISBRANCH = 1 "
+End If
+
+If xall(1).Value <> 0 Then
+    strSql = strSql & Tr(strSql) & " vw_FILE6_20.ISBRANCH = 0 "
+End If
+
+retWhere = strSql
+End Function
+Sub FIXGRID(StoreTable As ADODB.Recordset)
 Dim nColS1 As Double
 Dim nColS2 As Double
 
@@ -1449,21 +1504,22 @@ With grid1
     .Cell(flexcpAlignment, 0, 0, .Rows - 1, .Cols - 1) = 4
     
     nCol = 4
-    StoreTable.MoveFirst
-    Do Until StoreTable.EOF
-        .TextMatrix(0, nCol) = StoreTable!desca
-        .TextMatrix(0, nCol + 1) = StoreTable!desca
-        .ColWidth(nCol) = 800
-        .ColWidth(nCol + 1) = 1100
-        .TextMatrix(1, nCol) = "⁄œœ"
-        .TextMatrix(1, nCol + 1) = "≈Ã„«·Ï"
-        If Check1.Value <> 0 Then
-            .ColHidden(nCol) = True
-        End If
-        nCol = nCol + 2
-        StoreTable.MoveNext
-    Loop
-    
+    If StoreTable.RecordCount > 0 Then
+        StoreTable.MoveFirst
+        Do Until StoreTable.EOF
+            .TextMatrix(0, nCol) = StoreTable!DESCA
+            .TextMatrix(0, nCol + 1) = StoreTable!DESCA
+            .ColWidth(nCol) = 800
+            .ColWidth(nCol + 1) = 1100
+            .TextMatrix(1, nCol) = "⁄œœ"
+            .TextMatrix(1, nCol + 1) = "≈Ã„«·Ï"
+            If Check1.Value <> 0 Then
+                .ColHidden(nCol) = True
+            End If
+            nCol = nCol + 2
+            StoreTable.MoveNext
+        Loop
+    End If
     For nRow = 2 To .Rows - 1
         .TextMatrix(nRow, 1) = ArabicDay(.TextMatrix(nRow, 0))
         For nCol = 2 To .Cols - 2 Step 2
@@ -1481,6 +1537,7 @@ With grid1
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
     On Error Resume Next
+    Set dbm = Nothing
     StoreTable.Close
     Set StoreTable = Nothing
     closeCon con

@@ -14,12 +14,18 @@ Public strConShop_Fr As String
 Public GetCon As New ADODB.Connection
 Public sMdfName As String, sCatalog As String, cExpress As String
 Public Function OpenCon(ByRef cn As ADODB.Connection, Optional ByVal connectionString As String, Optional ByVal timeout As Long = 15, Optional ByVal Querytimeout As Long = 180) As String
-    On Error GoTo ErrorHandler
+    'On Error GoTo ErrorHandler
     
     ' Initialize a new connection
     ' Attempt to open the connection
     
     ' Set the connection timeout limit
+    If cn Is Nothing Then
+        Set cn = New ADODB.Connection
+    Else
+        If cn.State = adStateOpen Then cn.Close
+    End If
+    
     cn.CursorLocation = adUseClient
     cn.ConnectionTimeout = timeout
     cn.CommandTimeout = Querytimeout
@@ -29,16 +35,22 @@ Public Function OpenCon(ByRef cn As ADODB.Connection, Optional ByVal connectionS
     Exit Function
 
 ErrorHandler:
-    ' Traps timeout or network/authentication errors
-    MsgBox "Connection Error: " & Err.Description, vbCritical, "Database Error"
+    ' ?????? ????? ?????? ??????? ?????
+    OpenCon = False
     
-    ' Ensure the connection object is closed if it's open, then release it
     If Not cn Is Nothing Then
-        If (cn.State And adStateOpen) = adStateOpen Then cn.Close
-        Set cn = Nothing
+        If cn.State = adStateOpen Then
+            cn.Close
+        End If
+        Set con = Nothing
     End If
     
-    OpenCon = Err.Description
+    ' ??? ?????? ????? ????????
+    MsgBox "ÕœÀ Œÿ√ «À‰«¡ «·« ’«· »ﬁ«⁄œ… «·»Ì«‰« :" & vbCrLf & _
+           "—ﬁ„ «·Œÿ√ : " & Err.Number & vbCrLf & _
+           "«·Ê’› : " & Err.Description, vbCritical, "Œÿ√ ›Ï «·« ’«·"
+           
+    Err.Clear
 End Function
 Public Function opencn(ByRef cn As ADODB.Connection, Optional ByVal connectionString As String, Optional ByVal timeout As Long = 15, Optional ByVal Querytimeout As Long = 180) As Boolean
     On Error GoTo ErrorHandler
@@ -101,20 +113,20 @@ ErrorHandler:
     Err.Raise lngErrNum, "openCn", strErrDesc
 End Function
 Function openConFACT(ByRef pCon As ADODB.Connection) As String
-On Error GoTo myError
+On Error GoTo myerror
 Dim cString As String
 If pCon.State = adStateOpen Then pCon.Close
 pCon.CursorLocation = adUseClient
 pCon.Open strConfact
 openConFACT = "ok"
 Exit Function
-myError:
+myerror:
 openConFACT = Err.Description
 MsgBox Err.Description
 Err.Clear
 End Function
 Function openConPICT(ByRef pCon As ADODB.Connection) As String
-On Error GoTo myError
+On Error GoTo myerror
 Dim cString As String
 If pCon.State = adStateOpen Then pCon.Close
 pCon.CommandTimeout = 20
@@ -123,14 +135,14 @@ pCon.Open strConPICT
 openConPICT = "ok"
 lServerPict = True
 Exit Function
-myError:
+myerror:
 openConPICT = Err.Description
 'MsgBox strConfact
 'MsgBox Err.Description
 Err.Clear
 End Function
 Function openConFACT2(ByRef pCon As ADODB.Connection) As String
-On Error GoTo myError
+On Error GoTo myerror
 Dim cString As String
 
 If pCon.State = adStateOpen Then pCon.Close
@@ -138,25 +150,25 @@ pCon.CursorLocation = adUseClient
 pCon.Open strConfact2
 openConFACT2 = "ok"
 Exit Function
-myError:
+myerror:
 openConFACT2 = Err.Description
 Err.Clear
 End Function
 Function openConFACT3(ByRef pCon As ADODB.Connection) As String
-On Error GoTo myError
+On Error GoTo myerror
 Dim cString As String
 If pCon.State = adStateOpen Then pCon.Close
 pCon.CursorLocation = adUseClient
 pCon.Open strConfact3
 openConFACT3 = "ok"
 Exit Function
-myError:
+myerror:
 openConFACT3 = Err.Description
 Err.Clear
 End Function
 Function ReadFile(cFile) As String
 Dim TextLine
-On Error GoTo myError
+On Error GoTo myerror
 Open cFile For Input As #1   ' Open file.
 Do While Not EOF(1)
     Line Input #1, TextLine  ' Read line into variable.
@@ -164,7 +176,7 @@ Do While Not EOF(1)
 Loop
 Close #1   ' Close file.
 Exit Function
-myError:
+myerror:
 Err.Clear
 ReadFile = ""
 End Function
@@ -300,7 +312,7 @@ For i = 0 To UBound(pString)
 Next
 End Function
 Function openConShop(ByRef pCon As ADODB.Connection, Optional ByVal pString As String = "", Optional ByVal lMsg As Boolean = True, Optional nTimeout As Integer = 600) As String
-On Error GoTo myError
+On Error GoTo myerror
 Dim cString As String
 If pString = "" Then cString = strConShop Else cString = pString
 If pCon.State = adStateOpen Then pCon.Close
@@ -308,7 +320,7 @@ pCon.CursorLocation = adUseClient
 pCon.Open cString
 openConShop = "ok"
 Exit Function
-myError:
+myerror:
 'If lMsg Then MsgBox cString
 openConShop = Err.Description
 Err.Clear
@@ -612,7 +624,7 @@ myFormat_sp = TurnValue(myFormat(sDate))
 End Function
 
 Function openCon_F(ByRef pCon As ADODB.Connection, Optional ByVal pString As String = "") As String
-On Error GoTo myError
+On Error GoTo myerror
 Dim cString As String
 If pString = "" Then cString = strCon Else cString = pString
 If lMainShow Then cString = LoadConString_J
@@ -621,7 +633,7 @@ pCon.CursorLocation = adUseClient
 pCon.Open cString
 openCon_F = "ok"
 Exit Function
-myError:
+myerror:
 MsgBox cString
 openCon_F = Err.Description
 Err.Clear

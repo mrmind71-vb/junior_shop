@@ -663,8 +663,8 @@ SSTab1.TabEnabled(1) = True
 SSTab1.Tab = 1
 End Sub
 Private Sub Form_Load()
-openCon con
-Set grid1.DataSource = data1
+OpenCon con
+Set grid1.DataSource = DATA1
 Fixgrd
 Fixgrd2
 End Sub
@@ -772,7 +772,7 @@ Private Sub grid1_EnterCell()
 'End If
 End Sub
 
-Private Sub Option1_Click(Index As Integer)
+Private Sub Option1_Click(index As Integer)
 FilterGrd grid1
 FilterGrd grid2
 End Sub
@@ -934,7 +934,7 @@ sb.AppendLine "SELECT tb.ASIN," & _
                " LEFT JOIN FILE6_51 ON TB.ASIN = FILE6_51.ASIN AND TB.DOC_NO = FILE6_51.DOC_NO " & _
                " ORDER BY tb.Record_Number ", 1
 
-Set data1.Recordset = cmd(sb.GetAsString, con).Execute
+Set DATA1.Recordset = cmd(sb.GetAsString, con).Execute
 Fixgrd
 Fixgrd2
 
@@ -992,7 +992,7 @@ For i = 1 To grid1.Rows - 1
         cString.Append MyParn(sDoc_no) & ","
         cString.Append addvalue(grid1.TextMatrix(i, grid1.Cols - 3)) & ","
         cString.Append addstring(grid1.TextMatrix(i, 1)) & ","
-        cString.Append addstring(grid1.TextMatrix(i, 3)) & ","
+        cString.Append addstring(Mid(grid1.TextMatrix(i, 3), 1, 100)) & ","
         cString.Append grid1.ValueMatrix(i, 4) & ","
         cString.Append grid1.ValueMatrix(i, 5) & ","
         cString.Append grid1.ValueMatrix(i, 7) & ","

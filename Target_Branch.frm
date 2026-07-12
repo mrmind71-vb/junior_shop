@@ -545,7 +545,7 @@ Begin VB.Form Target_Branch
          EndProperty
          BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
-            TextSave        =   "02:35 ’"
+            TextSave        =   "03:06 „"
          EndProperty
       EndProperty
    End
@@ -1102,9 +1102,9 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public myPublic As Byte, cStrBox As String
-Public con As New adodb.Connection
-Public bedit As Boolean
-Dim CardTable As adodb.Recordset
+Public con As New ADODB.Connection
+Public bEdit As Boolean
+Dim CardTable As ADODB.Recordset
 Dim dLastdate As String, defBox As String
 Dim DocField As String, dDateLast As String
 Dim formMode, cFileHeader As String
@@ -1121,12 +1121,12 @@ aInsert(1, 1) = addDate(xDate1.text)
 aInsert(2, 0) = "Date2"
 aInsert(2, 1) = addDate(xDate2.text)
 
-On Error GoTo myError
+On Error GoTo myerror
 con.BeginTrans
 If xDoc_No.Enabled Then
     
     aInsert(3, 0) = "username"
-    aInsert(3, 1) = addstring(cusername)
+    aInsert(3, 1) = addstring(cUserName)
     aInsert(4, 0) = "time"
     aInsert(4, 1) = "getdate()"
     
@@ -1135,7 +1135,7 @@ If xDoc_No.Enabled Then
     con.Execute CreateInsert(aInsert, "FILE6_80H")
 Else
     aInsert(3, 0) = "username2"
-    aInsert(3, 1) = addstring(cusername)
+    aInsert(3, 1) = addstring(cUserName)
     aInsert(4, 0) = "time2"
     aInsert(4, 1) = "getdate()"
     
@@ -1145,7 +1145,7 @@ myreplaceGrd
 con.CommitTrans
 myreplace = True
 Exit Function
-myError:
+myerror:
 MsgBox Err.Description
 con.RollbackTrans
 Err.Clear
@@ -1191,7 +1191,7 @@ Private Sub CMD_ADDBRANCH_Click()
     con.Execute " delete FROM FILE6_80 WHERE DOC_NO = " & MyParn(xDoc_No.text) & " and branch is null  "
     con.Execute " INSERT INTO FILE6_80  (BRANCH  , DOC_NO, [VALUE_TARGET] , GR_MAN ) SELECT CODE, " & addstring(xDoc_No.text) & " , 0 , BRANCH_GR FROM STORE_BR2 WHERE  branch_gr is not null and (CODE NOT IN  (SELECT BRANCH FROM FILE6_80 AS FILE6_80_1 WHERE DOC_NO = " & MyParn(xDoc_No.text) & " ))"
     
-    AddLod_Data cusername, 0, " ≈÷«›… «·›—Ê⁄ " & Me.Caption, con, xDoc_No.text, xDate1.text, , xDate2.text
+    AddLod_Data cUserName, 0, " ≈÷«›… «·›—Ê⁄ " & Me.Caption, con, xDoc_No.text, xDate1.text, , xDate2.text
     
     myLoadGrd ""
     myloadgrd3
@@ -1218,13 +1218,13 @@ Private Sub CMD_ZONE_Click()
 End Sub
 Private Sub cmdDelinv_Click()
 If MsgBox("Õ–› «·„” ‰œ »«·ﬂ«„·  ?, Â· «‰  „Ê«›ﬁ ø", 1 + 256) = vbOK Then
-    On Error GoTo myError
+    On Error GoTo myerror
     con.BeginTrans
     con.Execute "Delete  From FILE6_80 where Doc_No = " & MyParn(xDoc_No.text)
     con.Execute "Delete  From FILE6_80H where Doc_No = " & MyParn(xDoc_No.text)
     con.CommitTrans
     
-    AddLod_Data cusername, 2, " Õ–› „” ‰œ " & Me.Caption, con, xDoc_No.text, xDate1.text, , xDate2.text
+    AddLod_Data cUserName, 2, " Õ–› „” ‰œ " & Me.Caption, con, xDoc_No.text, xDate1.text, , xDate2.text
     
     CardTable.Requery
     If CardTable.EOF And CardTable.EOF Then
@@ -1236,12 +1236,12 @@ If MsgBox("Õ–› «·„” ‰œ »«·ﬂ«„·  ?, Â· «‰  „Ê«›ﬁ ø", 1 + 256) = vbOK Then
     End If
 End If
 Exit Sub
-myError:
+myerror:
 con.RollbackTrans
 MsgBox Err.Description
 Err.Clear
 End Sub
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
     Unload Me
 End Sub
 Private Sub CmdFirst_Click()
@@ -1309,7 +1309,7 @@ Private Sub cmdSave_Click()
     If Not myreplace Then Exit Sub
     Inform " „ Õ›Ÿ «·„” ‰œ »‰Ã«Õ"
     
-    AddLod_Data cusername, 1, " Õ›Ÿ „” ‰œ " & Me.Caption, con, xDoc_No.text, xDate1.text, , xDate2.text
+    AddLod_Data cUserName, 1, " Õ›Ÿ „” ‰œ " & Me.Caption, con, xDoc_No.text, xDate1.text, , xDate2.text
     
     CardTable.Requery
     CardTable.Find "Doc_No = " & MyParn(xDoc_No.text), , adSearchForward, adBookmarkFirst
@@ -1335,7 +1335,7 @@ End If
 End Sub
 Private Sub Form_Load()
 Me.Caption = DocTitle
-openCon con
+OpenCon con
 
 CMD_ADDBRANCH.Visible = bSupermode Or lSupperVisor
 
@@ -1344,22 +1344,22 @@ cStrBox = StrBox
 FRM_CLOSED.Visible = Not lIsBranchStore
 FRM_CLOSED.Visible = lSupperVisor Or (bopt2 And (cBranch = "00" Or cBranch > "60"))
 
-CmdSave.Visible = lSupperVisor
+cmdSave.Visible = lSupperVisor
 CmdDelInv.Visible = lSupperVisor
 
 XTEXT1.Visible = lSupperVisor 'Or bSupermode
 XTEXT3.Visible = lSupperVisor 'Or bSupermode
 
 
-Set CardTable = New adodb.Recordset
+Set CardTable = New ADODB.Recordset
 CardTable.Open "SELECT * FROM FILE6_80H  ORDER BY DOC_NO", con, adOpenStatic, adLockOptimistic, adCmdText
 cFileHeader = "FILE6_80H"
 
-Set grid1.DataSource = DATA1
+Set grid1.DataSource = data1
 
 
 Set grid3.DataSource = DATA3
-DATA3.ConnectionString = strCon
+DATA3.connectionString = strCon
 
 StatusBar1.Panels.Add 1
 StatusBar1.Panels(1).Width = 2000
@@ -1381,9 +1381,9 @@ CardTable.Close
 Set CardTable = Nothing
 closeCon con
 End Sub
-Private Sub Grid1_AfterEdit(ByVal Row As Long, ByVal Col As Long)
+Private Sub Grid1_AfterEdit(ByVal Row As Long, ByVal col As Long)
 With grid1
-    If .Col = 10 Then con.Execute " UPDATE FILE6_80 SET FILE6_80.GR_MAN   = " & addstring(.TextMatrix(.Row, 10)) & "  WHERE ID = " & Val(.TextMatrix(.Row, .Cols - 1))
+    If .col = 10 Then con.Execute " UPDATE FILE6_80 SET FILE6_80.GR_MAN   = " & addstring(.TextMatrix(.Row, 10)) & "  WHERE ID = " & Val(.TextMatrix(.Row, .Cols - 1))
 End With
 End Sub
 Private Sub grid1_DblClick()
@@ -1396,7 +1396,7 @@ End With
 End Sub
 
 Private Sub grid1_EnterCell()
-If grid1.Col = 2 Or grid1.Col = 10 Then
+If grid1.col = 2 Or grid1.col = 10 Then
     grid1.Editable = flexEDKbdMouse
 Else
     grid1.Editable = flexEDNone
@@ -1412,7 +1412,7 @@ End Sub
 Private Sub Grid1_KeyDown(KeyCode As Integer, Shift As Integer)
 If KeyCode = 46 And grid1.Row <> grid1.Rows - 1 And grid1.Rows > 3 Then
     If MsgBox("Õ–› «·’‰› „‰ «·„” ‰œ ?, Â· «‰  „Ê«›ﬁ ø", 1 + 256) = vbOK Then
-        On Error GoTo myError
+        On Error GoTo myerror
         con.BeginTrans
         If grid1.TextMatrix(grid1.Row, grid1.Cols - 1) <> "" Then
             con.Execute "Delete from FILE6_80 where ID = " & grid1.TextMatrix(grid1.Row, grid1.Cols - 1)
@@ -1422,12 +1422,12 @@ If KeyCode = 46 And grid1.Row <> grid1.Rows - 1 And grid1.Rows > 3 Then
     End If
 End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 con.RollbackTrans
 Err.Clear
 End Sub
-Private Sub grid1_KeyDownEdit(ByVal Row As Long, ByVal Col As Long, KeyCode As Integer, ByVal Shift As Integer)
+Private Sub grid1_KeyDownEdit(ByVal Row As Long, ByVal col As Long, KeyCode As Integer, ByVal Shift As Integer)
 If KeyCode = 46 And Row <> grid1.Rows - 1 Then
     If MsgBox("Õ–› «·’‰› „‰ «·„” ‰œ ?, Â· «‰  „Ê«›ﬁ ø", 1 + 256) = vbOK Then
         grid1.RemoveItem Row
@@ -1519,7 +1519,7 @@ With grid1
 '    If pGr <> "" Then cString = cString & " AND STORE_BR2.BRANCH_GR =  " & Val(pGr)
     If pGr <> "" Then cString = cString & " AND FILE6_80.GR_MAN =  " & Val(pGr)
     cString = cString & " Order by STORE_BR2.TYPE_STORE,FILE6_80.[BRANCH]"
-    Set DATA1.Recordset = cmd(cString, con).Execute
+    Set data1.Recordset = cmd(cString, con).Execute
 
     XTEXT1.text = cString
 End With
@@ -1547,7 +1547,7 @@ Sub myloadgrd3()
     DATA3.Refresh
     FixGrid3
     Exit Sub
-myError:
+myerror:
     MsgBox Err.Description
     Err.Clear
 End Sub
@@ -1586,14 +1586,14 @@ cmdNext.Enabled = (nMode = LoadMode)
 CmdDelInv.Enabled = (nMode = LoadMode) And (xClosed.Value = 0)
 cmdPrevious.Enabled = (nMode = LoadMode)
 xDoc_No.Enabled = (nMode = DefineMode)
-CmdSave.Enabled = (xClosed.Value = 0)
+cmdSave.Enabled = (xClosed.Value = 0)
 End Sub
 
 Private Sub GRID3_DblClick()
     myLoadGrd (grid3.TextMatrix(grid3.Row, 0))
 End Sub
 
-Private Sub xdate1_LostFocus()
+Private Sub xDate1_LostFocus()
     If IsDate(xDate1.text) Then xDate2.text = DateAdd("D", -1, DateAdd("M", 1, DateValue(xDate1.text)))
 End Sub
 
@@ -1982,7 +1982,7 @@ End Sub
 Private Sub cmd_closed_Click()
 If CardTable!ISCLOSED Then
     con.Execute " update " & cFileHeader & " set isclosed = 0 where doc_no = " & MyParn(xDoc_No.text)
-    AddLod_Data cusername, 0, " ›«Õ «·„” ‰œ ·· ⁄œÌ· " & Me.Caption, con, xDoc_No.text, xDate1.text, , xDate2.text
+    AddLod_Data cUserName, 0, " ›«Õ «·„” ‰œ ·· ⁄œÌ· " & Me.Caption, con, xDoc_No.text, xDate1.text, , xDate2.text
 
 Else
     con.Execute " update " & cFileHeader & " set isclosed = 1 where doc_no = " & MyParn(xDoc_No.text)

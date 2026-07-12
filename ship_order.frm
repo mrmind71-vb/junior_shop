@@ -819,7 +819,7 @@ Dim bIg As Boolean
 Public bCheck As Boolean
 Dim dbm As New DBManager
 Dim bEditRecord As Boolean, bAct As Boolean
-Dim oSeachCode As New Search, oSearchDoc As New Search_rs, oSearchShip As New Search_rs, oSearchSup As New Search
+Dim oSeachCode As New Search, oSearchDoc As New Search_rs, oSearchship As New Search_rs, oSearchSup As New Search
 Dim cFilter As String, cSelect As String
 Dim CardTable As ADODB.Recordset
 Dim clist1 As String, cList2 As String, cList3 As String, sDef As String
@@ -853,7 +853,7 @@ If ActiveControl.Name = grid1.Name Then
     Dim bNew As Boolean
     bNew = grid1.Row = grid1.Rows - 1
     'grid1.TextMatrix(grid1.Row, 1) = oSearchShip.grid1.TextMatrix(oSearchShip.grid1.Row, 0)
-    GrdDesc oSearchShip.grid1.TextMatrix(oSearchShip.grid1.Row, 0), grid1.Row
+    GrdDesc oSearchship.grid1.TextMatrix(oSearchship.grid1.Row, 0), grid1.Row
     Grid1_AfterEdit grid1.Row, grid1.col
 ElseIf ActiveControl.Name = cmdInform.Name Then
     openCardTable tbMode.tbFind, oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
@@ -891,7 +891,7 @@ If Not openCardTable(tbMode.tbPrevious, xDoc_No.text) Then
     End If
 End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -1008,10 +1008,10 @@ aFilter = AddFlag(aFilter, "FILTER", True)
 aFilter = AddFlag(aFilter, "FIELD", "DOC_NO")
 
 searchArray = Array(Generalarray, listarray, GrdArray)
-oSearchShip.sCaption = "„” ‰œ«  «·‘Õ‰"
-oSearchShip.aFilter = aFilter
-oSearchShip.nMax_records = 500
-oSearchShip.Show 1
+oSearchship.sCaption = "„” ‰œ«  «·‘Õ‰"
+oSearchship.aFilter = aFilter
+oSearchship.nMax_records = 500
+oSearchship.Show 1
 End Sub
 Private Sub CmdInform_Click()
 CardLookup cFilter
@@ -1247,7 +1247,7 @@ End If
 
 Me.MousePointer = vbHourglass
 
-On Error GoTo myError
+On Error GoTo myerror
 cFilter = ""
 If cmdFilter.Tag <> "" Then cFilter = cFilter & Tr(cFilter) & "DOC_NO IN (" & cmdFilter.Tag & ")"
 If sDoc_no <> "" Then cFilter = "DOC_NO = " & sDoc_no
@@ -1286,7 +1286,7 @@ If dbm.OpenCon Then
     Me.MousePointer = 0
 End If
 Exit Function
-myError:
+myerror:
 Me.MousePointer = vbNormal
 MsgBox Err.Description
 Err.Clear
@@ -1428,10 +1428,11 @@ If myreplace(Row) Then
     If bNew Then
         'bStopCell = True
         grid1.Select grid1.Rows - 1, 1
+        grid1.ShowCell grid1.Rows - 1, 1
     End If
 End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -1482,7 +1483,7 @@ ElseIf KeyCode = 112 And grid1.col = 1 And grid1.Editable = flexEDKbdMouse Then
     ShipLookup
 ElseIf KeyCode = 46 And grid1.Row <> grid1.Rows - 1 Then
     If MsgBox("Õ–› „‰ «·„” ‰œ ?, Â· «‰  „Ê«›ﬁ ø", vbOKCancel) = vbOK Then
-        On Error GoTo myError
+        On Error GoTo myerror
         
         If grid1.TextMatrix(grid1.Row, grid1.Cols - 1) <> "" Then
             If dbm.OpenCon Then
@@ -1497,7 +1498,7 @@ ElseIf KeyCode = 46 And grid1.Row <> grid1.Rows - 1 Then
     End If
 End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 con.RollbackTrans
 Err.Clear
@@ -1558,8 +1559,10 @@ validRow = True
 End Function
 Private Sub CellPos(ByRef KeyCode, ByVal Row As Long, ByVal col As Long)
 KeyCode = 0
-If col < grid1.Cols - 10 Then
-    grid1.col = col + 1
+If col < 2 Then
+    If grid1.TextMatrix(Row, 1) <> "" Then
+        grid1.col = col + 1
+    End If
 ElseIf Row < grid1.Rows - 1 Then
     grid1.Select Row + 1, NextEmpty(grid1, Row + 1, 0, 2)
     grid1.ShowCell grid1.Row, 0
@@ -1588,14 +1591,14 @@ End If
 End Sub
 Private Sub xClosed_Click()
 If bIg Then Exit Sub
-On Error GoTo myError
+On Error GoTo myerror
 con.Execute "UPDATE FILE6_90SH" & _
             " SET CLOSED = " & xClosed.Value & _
             " WHERE DOC_NO = " & MyParn(xDoc_No.text)
 Inform " „ " & IIf(xClosed.Value = 0, "› Õ «·„” ‰œ", "«€·«ﬁ «·„” ‰œ") & " »‰Ã«Õ"
 myUndo
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -1640,16 +1643,16 @@ dbm.closeCon
 Set loctable = Nothing
 End With
 End Function
-Private Sub xnotes_GotFocus()
+Private Sub xNotes_GotFocus()
 myGotFocus xNotes
 End Sub
-Private Sub xnotes_lostFocus()
+Private Sub xNotes_LostFocus()
 myLostFocus xNotes
 End Sub
-Private Sub xShip_GotFocus()
+Private Sub xship_GotFocus()
 myGotFocus xship
 End Sub
-Private Sub xShip_LostFocus()
+Private Sub xship_LostFocus()
 myLostFocus xship
 If Not xship.MatchedWithList Then xship.BoundText = ""
 End Sub

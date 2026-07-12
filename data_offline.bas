@@ -2,7 +2,7 @@ Attribute VB_Name = "data_offline"
 Public Function myRs(strSql As String, Optional con As ADODB.Connection, Optional ByVal pConString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As ADODB.Recordset
 Dim bClose As Boolean
 
-On Error GoTo myError
+On Error GoTo myerror
 If con Is Nothing Then
     bClose = True
     Set con = New ADODB.Connection
@@ -34,7 +34,7 @@ Set cmd.ActiveConnection = Nothing
 If bClose Then closeCon con
 
 Exit Function
-myError:
+myerror:
 If Not myRs Is Nothing Then
     If myRs.State = adStateOpen Then rs.Close
     Set myRs = Nothing
@@ -120,7 +120,7 @@ End Function
 Public Function rsEx(pString As String, Optional ByVal pConString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As Integer
 Dim bClose As Boolean
 
-On Error GoTo myError
+On Error GoTo myerror
 
 Dim con As New ADODB.Connection
 If Not openconEr(con, pConString, nConTimeout) Then
@@ -144,7 +144,7 @@ cmd.Execute rsEx
 Set cmd.ActiveConnection = Nothing
 If bClose Then closeCon con
 Exit Function
-myError:
+myerror:
 ' ?????? ?? ????? ??????? ?????? ???????? ??? ??? ???????
 If Not con Is Nothing Then
     If con.State = adStateOpen Then con.Close
@@ -198,7 +198,7 @@ Public Function closeCon(ByRef pConnection As ADODB.Connection, Optional bIgErro
             ' Check if a transaction is currently active (State > 0)
             ' Note: ADO does not provide a direct trancount, so we attempt Rollback
             On Error Resume Next
-            pConnection.RollbackTrans
+            'pConnection.RollbackTrans
             
             ' Close the connection
             pConnection.Close

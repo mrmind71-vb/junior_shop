@@ -488,12 +488,11 @@ Unload Me
 End Sub
 
 Private Sub Form_Load()
-
-openCon conServer, LoadConString_OnLine
-openCon con
+OpenCon conServer, LoadConString_OnLine
+OpenCon con
 
 Set grid2.DataSource = DATA1
-Set grdTotal.DataSource = DATA2
+Set grdTotal.DataSource = data2
 
 Fixgrd
 fixGrdTotal
@@ -811,7 +810,7 @@ Next
 cString.Append ")"
 cString.Append "SELECT ITEM,SUM(QUANT) FROM tb GROUP BY ITEM ORDER BY MIN(ITEM_ORDER)"
 
-Set DATA2.Recordset = mycmd(cString.GetAsString(), con)
+Set data2.Recordset = mycmd(cString.GetAsString(), con)
 fixGrdTotal
 
 myLoadDiffer

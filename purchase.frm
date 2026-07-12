@@ -3512,7 +3512,7 @@ Dim searchitem As New Search3, oSearchDoc As New Search3
 Dim Search1 As New Search3, Search2 As New Search3, oSearchSup As New Search3, Search4 As New Search3
 Dim Search_FACT As New Search3_FACT
 Dim Search_SOCK As New SearchFACT_SOCK
-Dim bedit As Boolean, pGrCust As String
+Dim bEdit As Boolean, pGrCust As String
 Dim cFileClient, cFieldClient, cCodeDesca As String
 Dim formMode, dDateLast As String
 Dim bUpdated As Boolean
@@ -3521,37 +3521,37 @@ Const LoadMode = 0, DefineMode = 1
 Private Function myreplace(Optional bAddModel As Boolean = False) As Boolean
 Dim aInsert(19, 1), nR_Tax As Double, nR_DISC As Double, nRCost As Double
 aInsert(0, 0) = "Doc_No"
-aInsert(0, 1) = addstring(xDoc_No.text)
+aInsert(0, 1) = addstring(xdoc_no.text)
 
 aInsert(1, 0) = "[Date]"
 aInsert(1, 1) = DateSq(xDate.text)
 
 aInsert(2, 0) = "Code"
-aInsert(2, 1) = addstring(Xcode.text)
+aInsert(2, 1) = addstring(xCode.text)
 
 aInsert(3, 0) = "Discount"
-aInsert(3, 1) = Val(xDiscount.text)
+aInsert(3, 1) = Val(xdiscount.text)
 
 aInsert(4, 0) = "Tax"
 aInsert(4, 1) = Val(xTax.text)
 
 aInsert(5, 0) = "Store"
-aInsert(5, 1) = addstring(XSTORE.BoundText)
+aInsert(5, 1) = addstring(xStore.BoundText)
 
 aInsert(6, 0) = "MOSM"
 aInsert(6, 1) = addstring(xMosm.BoundText)
 
 aInsert(7, 0) = "INV_NO"
-aInsert(7, 1) = addstring(xinv_no.text)
+aInsert(7, 1) = addstring(xInv_No.text)
 
 aInsert(8, 0) = "ONEST"
-aInsert(8, 1) = addstring(xonest.Value)
+aInsert(8, 1) = addstring(XONEST.Value)
 
 aInsert(9, 0) = "Notes"
-aInsert(9, 1) = addstring(xNotes.text)
+aInsert(9, 1) = addstring(XNotes.text)
 
 aInsert(10, 0) = "ORDER_NO"
-aInsert(10, 1) = addstring(xOrder_no.text)
+aInsert(10, 1) = addstring(xorder_no.text)
 
 aInsert(12, 0) = "Notes_Doc"
 aInsert(12, 1) = addstring(XNotes_Doc.text)
@@ -3560,16 +3560,16 @@ aInsert(13, 0) = "TIMESEND"
 aInsert(13, 1) = "GETDATE()"
 
 aInsert(14, 0) = "USERSEND"
-aInsert(14, 1) = addstring(cusername)
+aInsert(14, 1) = addstring(cUserName)
 
 aInsert(19, 0) = "CUST"
-aInsert(19, 1) = addstring(xcust.BoundText)
+aInsert(19, 1) = addstring(XCUST.BoundText)
 
 If Val(xTotalNoTax.Caption) <> 0 Then nR_Tax = Round(Val(xTax.text) / Val(xTotalNoTax.Caption) * 100, 2)
 aInsert(16, 0) = "R_TAX"
 aInsert(16, 1) = nR_Tax
 
-If Val(xTotalItem.Caption) <> 0 Then nR_DISC = Round(Val(xDiscount.text) / Val(xTotalItem.Caption) * 100, 2)
+If Val(xTotalItem.Caption) <> 0 Then nR_DISC = Round(Val(xdiscount.text) / Val(xTotalItem.Caption) * 100, 2)
 
 aInsert(17, 0) = "R_DISC"
 aInsert(17, 1) = nR_DISC
@@ -3580,16 +3580,16 @@ If Check1.Value = 0 Then
 End If
 
 'con.BeginTrans
-If xDoc_No.Tag = DefineMode Then
+If xdoc_no.Tag = DefineMode Then
     If myPublic = 0 Or myPublic = 1 Then
-        xDoc_No.text = RetZero(Newflag(cFileHeader, "doc_no", con))
+        xdoc_no.text = RetZero(Newflag(cFileHeader, "doc_no", con))
     Else
-        xDoc_No.text = RetZero(Newflag_PurchBr(cFileHeader, "doc_no", XSTORE.BoundText, con))
+        xdoc_no.text = RetZero(Newflag_PurchBr(cFileHeader, "doc_no", xStore.BoundText, con))
     End If
-    aInsert(0, 1) = addstring(xDoc_No.text)
+    aInsert(0, 1) = addstring(xdoc_no.text)
     con.Execute CreateInsert(aInsert, cFileHeader)
 Else
-   con.Execute CreateUpdate(aInsert, cFileHeader, " where doc_no = " & MyParn(xDoc_No.text))
+   con.Execute CreateUpdate(aInsert, cFileHeader, " where doc_no = " & MyParn(xdoc_no.text))
 End If
 
 If bAddModel Then
@@ -3600,30 +3600,30 @@ End If
 myreplace = True
 
 Exit Function
-myError:
+myerror:
 'con.RollbackTrans
 MsgBox Err.Description
 Err.Clear
 End Function
 Sub myProc()
 'On Error GoTo myerror
-If ActiveControl.Name = CmdInform.Name Then
-    xDoc_No.text = Search1.grid1.TextMatrix(Search1.grid1.Row, 0)
+If ActiveControl.Name = cmdInform.Name Then
+    xdoc_no.text = Search1.grid1.TextMatrix(Search1.grid1.Row, 0)
     Search1.Hide
     myUndo
 ElseIf ActiveControl.Name = CMD_LOOK2.Name Then
-    xDoc_No.text = Search4.grid1.TextMatrix(Search4.grid1.Row, 0)
+    xdoc_no.text = Search4.grid1.TextMatrix(Search4.grid1.Row, 0)
     Unload Search4
     myUndo
 ElseIf ActiveControl.Name = CMD_ADDINV.Name Then
-    If Xcode.text = "001" And XSTORE.BoundText <> "" Then
-        If xDoc_No.Enabled Then
+    If xCode.text = "001" And xStore.BoundText <> "" Then
+        If xdoc_no.Enabled Then
             If Not mysave Then Exit Sub
         End If
         AddInvFact Search_FACT.grid1.TextMatrix(Search_FACT.grid1.Row, 0)
         Unload Search_FACT
-    ElseIf Xcode.text = "095" And XSTORE.BoundText <> "" Then
-        If xDoc_No.Enabled Then
+    ElseIf xCode.text = "095" And xStore.BoundText <> "" Then
+        If xdoc_no.Enabled Then
             If Not mysave Then Exit Sub
         End If
         AddInvFact_SOCK Search_SOCK.grid1.TextMatrix(Search_SOCK.grid1.Row, 0)
@@ -3632,20 +3632,20 @@ ElseIf ActiveControl.Name = CMD_ADDINV.Name Then
         MsgBox " «·„Ê—œ €Ì— ’ÕÌÕ - «Œ Ì«— «·›—⁄ "
     End If
 ElseIf ActiveControl.Name = CMD_CHANGE.Name Then
-    Xcode.text = oSearchSup.grid1.TextMatrix(oSearchSup.grid1.Row, 0)
-ElseIf ActiveControl.Name = xOrder_no.Name Then
-    xOrder_no.text = Search1.grid1.TextMatrix(Search1.grid1.Row, 0)
+    xCode.text = oSearchSup.grid1.TextMatrix(oSearchSup.grid1.Row, 0)
+ElseIf ActiveControl.Name = xorder_no.Name Then
+    xorder_no.text = Search1.grid1.TextMatrix(Search1.grid1.Row, 0)
     Unload Search1
 ElseIf TypeOf ActiveControl Is TextBox Then
     ActiveControl.text = oSearchSup.grid1.TextMatrix(oSearchSup.grid1.Row, 0)
     Unload oSearchSup
 ElseIf ActiveControl.Name = GRD_REC.Name Then
     cDoc = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
-    con.Execute " UPDATE FILE6_55H SET INV_NO = " & addstring(xDoc_No.text) & " WHERE DOC_NO =  " & MyParn(cDoc)
+    con.Execute " UPDATE FILE6_55H SET INV_NO = " & addstring(xdoc_no.text) & " WHERE DOC_NO =  " & MyParn(cDoc)
     myloadgrd2
 End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -3661,11 +3661,11 @@ Private Sub CM_OK_Click()
 If xDiscAll.text <> "" Then
     If MsgBox(" ⁄œÌ· Œ’„ «·„ÊœÌ·«  ·ﬂ· «·›« Ê—…", vbOKCancel) = vbOK Then
         If myPublic = 0 Then
-            con.Execute " UPDATE FILE7_20 SET DISCOUNT = " & Val(xDiscAll.text) & " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+            con.Execute " UPDATE FILE7_20 SET DISCOUNT = " & Val(xDiscAll.text) & " WHERE DOC_NO = " & MyParn(xdoc_no.text)
 '            cStr1 = " UPDATE FILE1_10 SET FILE1_10.COSTITEM = [FILE7_20].[PRICE]*(1-([FILE7_20].[DISCOUNT ]/100)) FROM   FILE1_10 LEFT JOIN FILE7_20 ON FILE1_10.ITEM = FILE7_20.ITEM  WHERE DOC_NO = " & MyParn(xDoc_No.Text)
 '            con.Execute cStr1
         Else
-            con.Execute " UPDATE " & cFile & " SET DISCOUNT = " & Val(xDiscAll.text) & " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+            con.Execute " UPDATE " & cFile & " SET DISCOUNT = " & Val(xDiscAll.text) & " WHERE DOC_NO = " & MyParn(xdoc_no.text)
         End If
     End If
 End If
@@ -3676,26 +3676,26 @@ End Sub
 
 Private Sub CMD_ACCEPT_Click()
     If MsgBox(" «·„” ‰œ „ÿ«»ﬁ Ê  „  «·„—«Ã⁄… Ê «·ﬁ»Ê· ", vbYesNo + vbDefaultButton2) = vbYes Then
-        con.Execute " UPDATE " & cFileHeader & " SET Received = 1  , closed = 1 , ISACCEPT = 1 , USERACCEPT2 = " & addstring(cusername) & " , TIMEACCEPT2 = GETDATE() WHERE DOC_NO = " & MyParn(xDoc_No.text)
+        con.Execute " UPDATE " & cFileHeader & " SET Received = 1  , closed = 1 , ISACCEPT = 1 , USERACCEPT2 = " & addstring(cUserName) & " , TIMEACCEPT2 = GETDATE() WHERE DOC_NO = " & MyParn(xdoc_no.text)
         myUndo
     End If
 End Sub
 Private Sub CMD_ADDBAL_Click()
-    On Error GoTo myError
-    If Not xDoc_No.Enabled And Xcode.text <> "" And XSTORE.BoundText <> "" And xMosm.BoundText <> "" Then
+    On Error GoTo myerror
+    If Not xdoc_no.Enabled And xCode.text <> "" And xStore.BoundText <> "" And xMosm.BoundText <> "" Then
     If MsgBox(" √÷«›… —’Ìœ «·„Ê—œ »«·ﬂ«„· ﬂ„— Ã⁄  ", vbYesNo + vbDefaultButton2) = vbYes Then
         If myPublic = "1" Then
             cStr1 = " INSERT    INTO FILE7_10 (ITEM, QUANT                         , PRICE         , DISCOUNT  , DOC_NO) " & _
-                    " SELECT    FILE1_10.ITEM, SUM(FILE1_11.[IN] - FILE1_11.OUT ) , FILE1_10.COST , 0         , " & addstring(xDoc_No.text) & _
+                    " SELECT    FILE1_10.ITEM, SUM(FILE1_11.[IN] - FILE1_11.OUT ) , FILE1_10.COST , 0         , " & addstring(xdoc_no.text) & _
                     " FROM      FILE1_11 INNER JOIN FILE1_10 ON FILE1_11.ITEM = FILE1_10.ITEM  " & _
-                    " WHERE     FILE1_10.CODE = " & MyParn(Xcode.text) & " AND FILE1_10.MOSM = " & MyParn(xMosm.BoundText) & " AND DATE <= " & DateSq(xDate.text) & _
+                    " WHERE     FILE1_10.CODE = " & MyParn(xCode.text) & " AND FILE1_10.MOSM = " & MyParn(xMosm.BoundText) & " AND DATE <= " & DateSq(xDate.text) & _
                     " GROUP BY  FILE1_10.ITEM , FILE1_10.COST  "
             con.Execute cStr1, nRec
         Else
             cStr1 = " INSERT    INTO FR7_10 (ITEM, QUANT                         , PRICE         , DISCOUNT  , DOC_NO) " & _
-                    " SELECT    FILE1_10.ITEM, SUM(FR1_11.[IN] - FR1_11.OUT ) , FILE1_10.COST , 0         , " & addstring(xDoc_No.text) & _
+                    " SELECT    FILE1_10.ITEM, SUM(FR1_11.[IN] - FR1_11.OUT ) , FILE1_10.COST , 0         , " & addstring(xdoc_no.text) & _
                     " FROM      FR1_11 INNER JOIN FILE1_10 ON FR1_11.ITEM = FILE1_10.ITEM  " & _
-                    " WHERE     FILE1_10.CODE = " & MyParn(Xcode.text) & " AND FILE1_10.MOSM = " & MyParn(xMosm.BoundText) & " AND DATE <= " & DateSq(xDate.text) & _
+                    " WHERE     FILE1_10.CODE = " & MyParn(xCode.text) & " AND FILE1_10.MOSM = " & MyParn(xMosm.BoundText) & " AND DATE <= " & DateSq(xDate.text) & _
                     " GROUP BY  FILE1_10.ITEM , FILE1_10.COST  "
             con.Execute cStr1, nRec
         End If
@@ -3704,7 +3704,7 @@ Private Sub CMD_ADDBAL_Click()
     End If
 End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 
@@ -3712,21 +3712,21 @@ End Sub
 
 Private Sub CMD_ADDRETURN_Click()
     Dim cDoc_No As String
-    On Error GoTo myError
-    If Not xDoc_No.Enabled And Xcode.text <> "" And XSTORE.BoundText <> "" And xMosm.BoundText <> "" Then
+    On Error GoTo myerror
+    If Not xdoc_no.Enabled And xCode.text <> "" And xStore.BoundText <> "" And xMosm.BoundText <> "" Then
     cDoc_No = InputBox("", " —ﬁ„ „” ‰œ «·„— Ã⁄  ")
     If cDoc_No = "" Then Exit Sub
     cDoc_No = RetZero(cDoc_No, 6)
     If MsgBox(" √÷«›… ﬂ„Ì«  «·„— Ã⁄ »«·ﬂ«„· ﬂ›« Ê—… „‘ —Ì«  ", vbYesNo + vbDefaultButton2) = vbYes Then
         If myPublic = 0 Then
             cStr1 = " INSERT    INTO FILE7_20 ( ITEM            , QUANT , PRICE             , DISCOUNT          , DOC_NO) " & _
-                    " SELECT                    FILE7_10.ITEM   , QUANT , FILE7_10.PRICE    , FILE7_10.DISCOUNT , " & addstring(xDoc_No.text) & _
+                    " SELECT                    FILE7_10.ITEM   , QUANT , FILE7_10.PRICE    , FILE7_10.DISCOUNT , " & addstring(xdoc_no.text) & _
                     " FROM      FILE7_10 " & _
                     " WHERE     FILE7_10.DOC_NO = " & MyParn(cDoc_No)
             con.Execute cStr1, nRec
     ElseIf myPublic = 3 Then
             cStr1 = " INSERT    INTO FR7_10 ( ITEM            , QUANT , PRICE             , DISCOUNT          , DOC_NO) " & _
-                    " SELECT                    FR7_10.ITEM   , QUANT , FR7_10.PRICE    , FR7_10.DISCOUNT , " & addstring(xDoc_No.text) & _
+                    " SELECT                    FR7_10.ITEM   , QUANT , FR7_10.PRICE    , FR7_10.DISCOUNT , " & addstring(xdoc_no.text) & _
                     " FROM      FR7_10 " & _
                     " WHERE     FR7_10.DOC_NO = " & MyParn(cDoc_No)
             con.Execute cStr1, nRec
@@ -3736,7 +3736,7 @@ Private Sub CMD_ADDRETURN_Click()
     End If
 End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -3754,7 +3754,7 @@ End Sub
 
 Private Sub cmd_editonest_Click()
     If myPublic = 0 Then
-        cStr1 = " UPDATE   FILE1_10 SET  ISONEST = " & Val(xonest.Value) & " WHERE FILE1_10.ITEM IN (SELECT ITEM FROM FILE7_20 WHERE DOC_NO = " & MyParn(xDoc_No.text) & ")"
+        cStr1 = " UPDATE   FILE1_10 SET  ISONEST = " & Val(XONEST.Value) & " WHERE FILE1_10.ITEM IN (SELECT ITEM FROM FILE7_20 WHERE DOC_NO = " & MyParn(xdoc_no.text) & ")"
         con.Execute cStr1, nRec
         myLoadGrd
     End If
@@ -3884,9 +3884,9 @@ MsgBox ok
 End Sub
 
 Private Sub CMD_FIXSEC_Click()
-If XSECTION.BoundText = "" Then Exit Sub
+If xSection.BoundText = "" Then Exit Sub
 If MsgBox(" ⁄œÌ· „ÊœÌ·«  «·›« Ê—… ··ﬁ”„", vbYesNo) = vbYes Then
-    con.Execute " UPDATE FILE1_10 SET [SECTION] = " & Val(XSECTION.BoundText) & " WHERE ITEM IN (SELECT ITEM FROM FILE7_20 WHERE DOC_NO = " & MyParn(xDoc_No.text) & " )"
+    con.Execute " UPDATE FILE1_10 SET [SECTION] = " & Val(xSection.BoundText) & " WHERE ITEM IN (SELECT ITEM FROM FILE7_20 WHERE DOC_NO = " & MyParn(xdoc_no.text) & " )"
     Inform " „  «· ⁄œÌ· »‰Ã«Õ"
 End If
 End Sub
@@ -3903,9 +3903,9 @@ End Sub
 Private Sub CMD_NOTDEM_Click()
 '    ModelNotDem.pDoc_No = xDoc_No.Text
 '    ModelNotDem.Show
-    If xOrder_no.text = "" Then Exit Sub
+    If xorder_no.text = "" Then Exit Sub
     
-    ModelNotDem_ORDER.pDoc_no = xDoc_No.text
+    ModelNotDem_ORDER.pDoc_no = xdoc_no.text
     ModelNotDem_ORDER.Show
 
 End Sub
@@ -3960,18 +3960,18 @@ Search1.Caption = "«” ⁄·«„"
 Search1.Show 1
 End Sub
 Private Sub CMD_RECEVED_Click()
-    On Error GoTo myError
+    On Error GoTo myerror
     strConShop = LoadConStringshop
     If openConShop(conShop) <> "ok" Then
         MsgBox "·« ÌÊÃœ « ’«· »«·”Ì—›—"
         Exit Sub
     End If
     If cBranch < "60" Then
-        conShop.Execute " UPDATE " & cFileHeader & " SET Received = 1 , USERACCEPT = " & addstring(cusername) & " , TIMEACCEPT = GETDATE() WHERE DOC_NO = " & MyParn(xDoc_No.text), nRec
+        conShop.Execute " UPDATE " & cFileHeader & " SET Received = 1 , USERACCEPT = " & addstring(cUserName) & " , TIMEACCEPT = GETDATE() WHERE DOC_NO = " & MyParn(xdoc_no.text), nRec
     Else
-        conShop.Execute " UPDATE " & cFileHeader_FR & " SET Received = 1 , USERACCEPT = " & addstring(cusername) & " , TIMEACCEPT = GETDATE() WHERE DOC_NO = " & MyParn(xDoc_No.text), nRec
+        conShop.Execute " UPDATE " & cFileHeader_FR & " SET Received = 1 , USERACCEPT = " & addstring(cUserName) & " , TIMEACCEPT = GETDATE() WHERE DOC_NO = " & MyParn(xdoc_no.text), nRec
     End If
-    con.Execute " UPDATE " & cFileHeader & " SET Received = 1 , USERACCEPT = " & addstring(cusername) & " , TIMEACCEPT = GETDATE() WHERE DOC_NO = " & MyParn(xDoc_No.text)
+    con.Execute " UPDATE " & cFileHeader & " SET Received = 1 , USERACCEPT = " & addstring(cUserName) & " , TIMEACCEPT = GETDATE() WHERE DOC_NO = " & MyParn(xdoc_no.text)
     If myPublic = 0 Then
 '        con.Execute " delete from model_dem where item in (select item from file7_20 where doc_no = " & MyParn(xDoc_No.Text) & " ) "
     End If
@@ -3980,7 +3980,7 @@ Private Sub CMD_RECEVED_Click()
         myUndo
     End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -3988,25 +3988,25 @@ Private Sub cmd_ret_Click()
     SubRet.Show 1
 End Sub
 Private Sub CMD_SEND_Click()
-    On Error GoTo myError
+    On Error GoTo myerror
     strConShop = LoadConStringshop
     If openConShop(conShop) <> "ok" Then
         MsgBox "·« ÌÊÃœ « ’«· »«·”Ì—›—"
         Exit Sub
     End If
-    conShop.Execute " update " & cFileHeader & " SET Notes_Doc = " & addstring(XNotes_Doc) & " where  DOC_NO = " & MyParn(xDoc_No.text), nRec
-    con.Execute " update " & cFileHeader & " SET Notes_Doc = " & addstring(XNotes_Doc) & " where  DOC_NO = " & MyParn(xDoc_No.text), nRec
+    conShop.Execute " update " & cFileHeader & " SET Notes_Doc = " & addstring(XNotes_Doc) & " where  DOC_NO = " & MyParn(xdoc_no.text), nRec
+    con.Execute " update " & cFileHeader & " SET Notes_Doc = " & addstring(XNotes_Doc) & " where  DOC_NO = " & MyParn(xdoc_no.text), nRec
     If nRec = 1 Then
         Inform "  „ «—”«· «·»Ì«‰ ··”Ì—›—"
     End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
 Private Sub CMD_SENDTRANS_Click()
     If MsgBox("«ŸÂ«— «·„” ‰œ ··›—⁄", vbYesNo + vbDefaultButton2) = vbYes Then
-        con.Execute " update " & cFileHeader & " set issend = 1  , isACCEPT = 0  , TIMESEND2 = GETDATE() , USERSEND2 = " & addstring(cusername) & " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+        con.Execute " update " & cFileHeader & " set issend = 1  , isACCEPT = 0  , TIMESEND2 = GETDATE() , USERSEND2 = " & addstring(cUserName) & " WHERE DOC_NO = " & MyParn(xdoc_no.text)
         myUndo
     End If
 End Sub
@@ -4016,11 +4016,11 @@ Private Sub cmdAddItems_Click()
     myAddModels
 '    cmd_barcode_fix_Click
     If cBranch = "00" And myPublic = 0 Then
-        lIsNoItem = IIf(GetDesca("SELECT ITEM FROM FILE1_10 WHERE ISNOITEM = 0 AND ITEM IN (SELECT ITEM FROM " & cFile & " WHERE DOC_NO = " & MyParn(xDoc_No.text) & " )", con) = "", True, False)
+        lIsNoItem = IIf(GetDesca("SELECT ITEM FROM FILE1_10 WHERE ISNOITEM = 0 AND ITEM IN (SELECT ITEM FROM " & cFile & " WHERE DOC_NO = " & MyParn(xdoc_no.text) & " )", con) = "", True, False)
         If lIsNoItem Then
-            con.Execute " UPDATE " & cFileHeader & " SET ISNOITEM = 1 where doc_no = " & MyParn(xDoc_No.text)
+            con.Execute " UPDATE " & cFileHeader & " SET ISNOITEM = 1 where doc_no = " & MyParn(xdoc_no.text)
         Else
-            con.Execute " UPDATE " & cFileHeader & " SET ISNOITEM = 0 where doc_no = " & MyParn(xDoc_No.text)
+            con.Execute " UPDATE " & cFileHeader & " SET ISNOITEM = 0 where doc_no = " & MyParn(xdoc_no.text)
         End If
     End If
 End Sub
@@ -4040,34 +4040,37 @@ Case 1
 End Select
 End Sub
 Private Sub cmdcopy_Click()
-    cDocCopy = xDoc_No.text
-    cDocCopySales = xDoc_No.text
-    cCodeCopy = Xcode.text
+    cDocCopy = xdoc_no.text
+    cDocCopySales = xdoc_no.text
+    cCodeCopy = xCode.text
     Inform " Copy " & cDocCopy
 End Sub
 
 Private Sub cmdDelinv_Click()
 If MsgBox("Õ–› «·„” ‰œ »«·ﬂ«„·  ?, Â· «‰  „Ê«›ﬁ ø", 1 + 256) = vbOK Then
-    On Error GoTo myError
+    On Error GoTo myerror
     If myPublic = 0 Then
-        con.Execute " DELETE FROM NEW7_20H WHERE DOC_NO = " & addstring(xDoc_No.text) & " AND BRANCH = " & MyParn(XSTORE.BoundText)
-        con.Execute " INSERT INTO NEW7_20H (DOC_NO , BRANCH) SELECT " & addstring(xDoc_No.text) & " ,  branch FROM  FILE0_40  WHERE CODE = " & addstring(XSTORE.BoundText)
+        con.Execute " DELETE FROM NEW7_20H WHERE DOC_NO = " & addstring(xdoc_no.text) & " AND BRANCH = " & MyParn(xStore.BoundText)
+        con.Execute " INSERT INTO NEW7_20H (DOC_NO , BRANCH) SELECT " & addstring(xdoc_no.text) & " ,  branch FROM  FILE0_40  WHERE CODE = " & addstring(xStore.BoundText)
     ElseIf myPublic = 1 Then
-        con.Execute " DELETE FROM NEW7_10H WHERE DOC_NO = " & addstring(xDoc_No.text) & " AND BRANCH = " & MyParn(XSTORE.BoundText)
-        con.Execute " INSERT INTO NEW7_10H (DOC_NO , BRANCH) SELECT " & addstring(xDoc_No.text) & " ,  branch FROM  FILE0_40  WHERE CODE = " & addstring(XSTORE.BoundText)
+        con.Execute " DELETE FROM NEW7_10H WHERE DOC_NO = " & addstring(xdoc_no.text) & " AND BRANCH = " & MyParn(xStore.BoundText)
+        con.Execute " INSERT INTO NEW7_10H (DOC_NO , BRANCH) SELECT " & addstring(xdoc_no.text) & " ,  branch FROM  FILE0_40  WHERE CODE = " & addstring(xStore.BoundText)
     End If
     
-    con.Execute "Delete  From " & cFile & " where Doc_No = " & MyParn(xDoc_No.text)
-    con.Execute "update " & cFileHeader & " set isdate = getdate() , ISNOITEM = 0, isnew1 = 1 , discount =0 , tax = 0 where Doc_No = " & MyParn(xDoc_No.text)
+    con.Execute "Delete  From " & cFile & " where Doc_No = " & MyParn(xdoc_no.text)
+    con.Execute "update " & cFileHeader & " set isdate = getdate() , ISNOITEM = 0, isnew1 = 1 , discount =0 , tax = 0 where Doc_No = " & MyParn(xdoc_no.text)
+    
+    AddLod_Data cUserName, 2, " Õ–› „‘ —Ì«  ", con, xdoc_no.text, xDate.text
+    
     myUndo
     CmdNewInv_Click
 End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clearh
 End Sub
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
     Unload Me
 End Sub
 Private Sub CmdInform_Click()
@@ -4075,29 +4078,29 @@ Private Sub CmdInform_Click()
 End Sub
 Private Sub CmdNewInv_Click()
     myDefine
-    xinv_no.SetFocus
+    xInv_No.SetFocus
 End Sub
 Private Sub cmdpast_Click()
-    If cDocCopy <> "" And Xcode.text = cCodeCopy Then
+    If cDocCopy <> "" And xCode.text = cCodeCopy Then
         If grid1.Rows > 3 Then
             MsgBox " ÌÊÃœ „ÊœÌ·«  „”Ã·… ⁄·Ï «·›« Ê—… "
             Exit Sub
         End If
-        If xDoc_No.Enabled Then
+        If xdoc_no.Enabled Then
             If MsgBox("  ﬂ—«— ›« Ê—… —ﬁ„  " & cDocCopy, vbYesNo) = vbYes Then
                 If Not mysave Then Exit Sub
                 If myPublic = 0 Then
                     If Mid(cDocCopy, 1, 2) < "60" Then
-                        con.Execute " INSERT INTO FILE7_20 (doc_no , ITEM, QUANT, PRICE, DISCOUNT, ROW, MODEL, REMARK, r_tax) SELECT " & addstring(xDoc_No.text) & "  , ITEM, QUANT, PRICE, DISCOUNT, ROW, MODEL, REMARK, r_tax FROM  FILE7_20 AS FILE7_20_1 WHERE DOC_NO = " & MyParn(cDocCopy)
+                        con.Execute " INSERT INTO FILE7_20 (doc_no , ITEM, QUANT, PRICE, DISCOUNT, ROW, MODEL, REMARK, r_tax) SELECT " & addstring(xdoc_no.text) & "  , ITEM, QUANT, PRICE, DISCOUNT, ROW, MODEL, REMARK, r_tax FROM  FILE7_20 AS FILE7_20_1 WHERE DOC_NO = " & MyParn(cDocCopy)
                     Else
-                        con.Execute " INSERT INTO FILE7_20 (doc_no , ITEM, QUANT, PRICE, DISCOUNT, ROW, MODEL, REMARK, r_tax) SELECT " & addstring(xDoc_No.text) & "  , ITEM, QUANT, PRICE, DISCOUNT, ROW, MODEL, REMARK, r_tax FROM  FR7_20 AS FR7_20_1 WHERE DOC_NO = " & MyParn(cDocCopy)
+                        con.Execute " INSERT INTO FILE7_20 (doc_no , ITEM, QUANT, PRICE, DISCOUNT, ROW, MODEL, REMARK, r_tax) SELECT " & addstring(xdoc_no.text) & "  , ITEM, QUANT, PRICE, DISCOUNT, ROW, MODEL, REMARK, r_tax FROM  FR7_20 AS FR7_20_1 WHERE DOC_NO = " & MyParn(cDocCopy)
                     End If
                 End If
                 If myPublic = 2 Then
                     If Mid(cDocCopy, 1, 2) < "60" Then
-                        con.Execute " INSERT INTO FR7_20 (doc_no , ITEM, QUANT, PRICE, DISCOUNT, ROW, MODEL, REMARK, r_tax) SELECT " & addstring(xDoc_No.text) & "  , ITEM, QUANT, PRICE, DISCOUNT, ROW, MODEL, REMARK, r_tax FROM  FILE7_20 AS FILE7_20_1 WHERE DOC_NO = " & MyParn(cDocCopy)
+                        con.Execute " INSERT INTO FR7_20 (doc_no , ITEM, QUANT, PRICE, DISCOUNT, ROW, MODEL, REMARK, r_tax) SELECT " & addstring(xdoc_no.text) & "  , ITEM, QUANT, PRICE, DISCOUNT, ROW, MODEL, REMARK, r_tax FROM  FILE7_20 AS FILE7_20_1 WHERE DOC_NO = " & MyParn(cDocCopy)
                     Else
-                        con.Execute " INSERT INTO FR7_20 (doc_no , ITEM, QUANT, PRICE, DISCOUNT, ROW, MODEL, REMARK, r_tax) SELECT " & addstring(xDoc_No.text) & "  , ITEM, QUANT, PRICE, DISCOUNT, ROW, MODEL, REMARK, r_tax FROM  FR7_20 AS FR7_20_1 WHERE DOC_NO = " & MyParn(cDocCopy)
+                        con.Execute " INSERT INTO FR7_20 (doc_no , ITEM, QUANT, PRICE, DISCOUNT, ROW, MODEL, REMARK, r_tax) SELECT " & addstring(xdoc_no.text) & "  , ITEM, QUANT, PRICE, DISCOUNT, ROW, MODEL, REMARK, r_tax FROM  FR7_20 AS FR7_20_1 WHERE DOC_NO = " & MyParn(cDocCopy)
                     End If
                 End If
                 myUndo
@@ -4109,27 +4112,27 @@ Private Sub cmdSave_Click()
     If Check1.Value = 0 Then
         If myPublic = 0 Then
 '           con.Execute " DELETE FROM NEW7_20H WHERE DOC_NO = " & addstring(xDoc_No.text) & " AND BRANCH = " & MyParn(xStore.BoundText)
-            con.Execute " INSERT INTO NEW7_20H (DOC_NO , BRANCH) SELECT " & addstring(xDoc_No.text) & " ,  branch FROM  FILE0_40  WHERE CODE = " & addstring(XSTORE.BoundText)
+            con.Execute " INSERT INTO NEW7_20H (DOC_NO , BRANCH) SELECT " & addstring(xdoc_no.text) & " ,  branch FROM  FILE0_40  WHERE CODE = " & addstring(xStore.BoundText)
         ElseIf myPublic = 1 Then
 '           con.Execute " DELETE FROM NEW7_10H WHERE DOC_NO = " & addstring(xDoc_No.text) & " AND BRANCH = " & MyParn(xStore.BoundText)
-            con.Execute " INSERT INTO NEW7_10H (DOC_NO , BRANCH) SELECT " & addstring(xDoc_No.text) & " ,  branch FROM  FILE0_40  WHERE CODE = " & addstring(XSTORE.BoundText)
+            con.Execute " INSERT INTO NEW7_10H (DOC_NO , BRANCH) SELECT " & addstring(xdoc_no.text) & " ,  branch FROM  FILE0_40  WHERE CODE = " & addstring(xStore.BoundText)
         End If
     End If
     
     mysave
     
     If Val(xTotalItem.Caption) <> 0 Then
-        nRCost = Val(xTotal.Caption) / (Val(xTotalItem.Caption))
+        nRCost = Val(xtotal.Caption) / (Val(xTotalItem.Caption))
         con.CommandTimeout = 100
-        con.Execute " UPDATE " & cFile & " SET R_TAX = " & nRCost & " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+        con.Execute " UPDATE " & cFile & " SET R_TAX = " & nRCost & " WHERE DOC_NO = " & MyParn(xdoc_no.text)
     End If
     
     If myPublic = 0 Then
-        cStr1 = " UPDATE       FILE1_10 SET  COSTITEM = FILE7_20.cost_inv FROM  FILE1_10 INNER JOIN FILE7_20 ON FILE1_10.ITEM = FILE7_20.ITEM WHERE DOC_NO = " & MyParn(xDoc_No.text)
+        cStr1 = " UPDATE       FILE1_10 SET  COSTITEM = FILE7_20.cost_inv FROM  FILE1_10 INNER JOIN FILE7_20 ON FILE1_10.ITEM = FILE7_20.ITEM WHERE DOC_NO = " & MyParn(xdoc_no.text)
         con.Execute cStr1, nRec
         Inform "  „ Ÿ»ÿ  ﬂ·›… «·„ÊœÌ·«  " & nRec
     ElseIf myPublic = 2 Then
-        cStr1 = " UPDATE   FILE1_10 SET  COSTITEM_FR = FR7_20.cost_inv FROM  FILE1_10 INNER JOIN FR7_20 ON FILE1_10.ITEM = FR7_20.ITEM WHERE DOC_NO = " & MyParn(xDoc_No.text)
+        cStr1 = " UPDATE   FILE1_10 SET  COSTITEM_FR = FR7_20.cost_inv FROM  FILE1_10 INNER JOIN FR7_20 ON FILE1_10.ITEM = FR7_20.ITEM WHERE DOC_NO = " & MyParn(xdoc_no.text)
         con.Execute cStr1, nRec
         Inform "  „ Ÿ»ÿ  ﬂ·›… «·„ÊœÌ·«  " & nRec
     End If
@@ -4147,15 +4150,15 @@ End Sub
 Private Sub Command1_Click()
     Dim cBrc As String
     If myPublic = 0 Or myPublic = 1 Then
-        cBrc = GetDesca("SELECT BRANCH FROM FILE0_40 WHERE CODE = " & MyParn(XSTORE.BoundText), con)
+        cBrc = GetDesca("SELECT BRANCH FROM FILE0_40 WHERE CODE = " & MyParn(xStore.BoundText), con)
         If cBrc <> "" Then
-            con.Execute "  INSERT INTO NEW_ITEM (ITEM ,  BRANCH) SELECT ITEM , " & addstring(cBrc) & " FROM  FILE1_10  WHERE ITEM IN (SELECT ITEM FROM " & cFile & " WHERE DOC_NO = " & MyParn(xDoc_No.text) & " ) ", nRec
+            con.Execute "  INSERT INTO NEW_ITEM (ITEM ,  BRANCH) SELECT ITEM , " & addstring(cBrc) & " FROM  FILE1_10  WHERE ITEM IN (SELECT ITEM FROM " & cFile & " WHERE DOC_NO = " & MyParn(xdoc_no.text) & " ) ", nRec
             Inform "  „ «÷«›… " & nRec
         End If
     Else
-        cBrc = XSTORE.BoundText
+        cBrc = xStore.BoundText
         If cBrc <> "" Then
-            con.Execute "  INSERT INTO NEW_ITEM_FR (ITEM ,  BRANCH) SELECT ITEM , " & addstring(cBrc) & " FROM  FILE1_10  WHERE ITEM IN (SELECT ITEM FROM " & cFile & " WHERE DOC_NO = " & MyParn(xDoc_No.text) & " ) ", nRec
+            con.Execute "  INSERT INTO NEW_ITEM_FR (ITEM ,  BRANCH) SELECT ITEM , " & addstring(cBrc) & " FROM  FILE1_10  WHERE ITEM IN (SELECT ITEM FROM " & cFile & " WHERE DOC_NO = " & MyParn(xdoc_no.text) & " ) ", nRec
             Inform "  „ «÷«›… " & nRec
         End If
     End If
@@ -4189,7 +4192,7 @@ Private Sub cmd_exRET_Click()
         Common1.ShowOpen
         cFileName = Common1.FileName
         If cFileName <> "" Then
-            If xDoc_No.Enabled Then
+            If xdoc_no.Enabled Then
                 If Not mysave Then Exit Sub
             End If
             
@@ -4211,10 +4214,10 @@ Private Sub cmd_exRET_Click()
                 aRet = aGetDesca("select model , cost from  FILE1_10 where item = " & Val(cItem), con)
                 If cItem = "" Then Exit For
                 If UBound(aRet) > 0 Then
-                    If GetDesca("select item from " & cFile & " where item = " & Val(cItem) & " and doc_no = " & MyParn(xDoc_No.text), con) = "" Then
+                    If GetDesca("select item from " & cFile & " where item = " & Val(cItem) & " and doc_no = " & MyParn(xdoc_no.text), con) = "" Then
                         cString = "Insert into " & cFile & " (doc_no,item,MODEL,price,Quant)" & _
                                    "Values(" & _
-                                   addstring(xDoc_No.text) & "," & _
+                                   addstring(xdoc_no.text) & "," & _
                                    addvalue(cItem) & "," & _
                                    addstring(aRet(1)) & "," & _
                                    Val(aRet(2)) & "," & _
@@ -4279,7 +4282,7 @@ With ItemFactTable
 End With
 End Sub
 Private Sub FIX_PRICE_Click()
-On Error GoTo myError
+On Error GoTo myerror
 If lServerOnLine Then
     openConFACT conFact
     openConFACT3 confact2
@@ -4294,7 +4297,7 @@ End If
 closeCon conFact
 closeCon confact2
 
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -4355,7 +4358,7 @@ Private Sub Form_Load()
     CMD_SEND.Visible = (cBranch <> "00")
     'Frame8.Visible = lSupperVisor
     
-    bedit = True
+    bEdit = True
     Select Case myPublic
     Case 0
         cmd_editonest.Visible = True
@@ -4385,7 +4388,7 @@ Private Sub Form_Load()
         cmdpast.Visible = False
         cmdcopy.Visible = False
         Label21.Visible = False
-        xOrder_no.Visible = False
+        xorder_no.Visible = False
         cmd_exRET.Visible = True And (cBranch = "00")
         pGrCust = "04"
         Frame14.Visible = True
@@ -4476,13 +4479,13 @@ Private Sub Form_Load()
 ''''''xFact.BoundColumn = "Code"
         
     If myPublic = 0 Or myPublic = 1 Then
-        Set data1.Recordset = myRecordSet("SELECT * FROM FILE0_40", con)
+        Set DATA1.Recordset = myRecordSet("SELECT * FROM FILE0_40", con)
     Else
-        Set data1.Recordset = myRecordSet("SELECT * FROM BRANCH_FR", con)
+        Set DATA1.Recordset = myRecordSet("SELECT * FROM BRANCH_FR", con)
     End If
-    Set XSTORE.RowSource = data1
-    XSTORE.ListField = "Desca"
-    XSTORE.BoundColumn = "Code"
+    Set xStore.RowSource = DATA1
+    xStore.ListField = "Desca"
+    xStore.BoundColumn = "Code"
     
     
     Set data4.Recordset = myRecordSet("SELECT * FROM MOSM ORDER BY DATE DESC ", con)
@@ -4491,15 +4494,15 @@ Private Sub Form_Load()
     xMosm.BoundColumn = "MOSM"
     xMosm.BoundText = cPMosm
     
-    Set DATA2.Recordset = myRecordSet("SELECT * FROM FILE1_10SC ", con)
-    Set XSECTION.RowSource = DATA2
-    XSECTION.ListField = "Desca"
-    XSECTION.BoundColumn = "CODE"
+    Set data2.Recordset = myRecordSet("SELECT * FROM FILE1_10SC ", con)
+    Set xSection.RowSource = data2
+    xSection.ListField = "Desca"
+    xSection.BoundColumn = "CODE"
     
-    Set data5.Recordset = myRecordSet("SELECT * FROM FILE3_10 WHERE ISONEST = 1 ", con)
-    Set xcust.RowSource = data5
-    xcust.ListField = "Desca"
-    xcust.BoundColumn = "CODE"
+    Set DATA5.Recordset = myRecordSet("SELECT * FROM FILE3_10 WHERE ISONEST = 1 ", con)
+    Set XCUST.RowSource = DATA5
+    XCUST.ListField = "Desca"
+    XCUST.BoundColumn = "CODE"
     
     With grid1
         .Cols = 10
@@ -4511,10 +4514,10 @@ Private Sub Form_Load()
     End With
     
     FIX_FACTITEM.Visible = (cBranch = "00")
-    Set grid1.DataSource = data3
+    Set grid1.DataSource = DATA3
     Set GRD_REC.DataSource = DATA13
         
-    xDoc_No.text = sDoc_no
+    xdoc_no.text = sDoc_no
     myUndo
     If sDoc_no = "" Then myDefine
         
@@ -4530,7 +4533,7 @@ Private Sub Form_Load()
         cmdcopy.Visible = False
         cmdpast.Visible = False
         Check1.Visible = False
-        xonest.Visible = False
+        XONEST.Visible = False
         cmd_editonest.Visible = False
         cmd_barcode_fix.Visible = False
         FIX_FACTITEM.Visible = False
@@ -4570,10 +4573,10 @@ Private Sub Grid1_AfterEdit(ByVal Row As Long, ByVal col As Long)
 If xClosed.Value = 1 Then Exit Sub
 With grid1
     If .col = 8 Then
-        con.Execute " update " & cFile & " set PRICE = " & Val(.TextMatrix(.Row, 8)) & " where ITEM = " & Val(.TextMatrix(.Row, 0)) & " and doc_no = " & MyParn(xDoc_No.text)
+        con.Execute " update " & cFile & " set PRICE = " & Val(.TextMatrix(.Row, 8)) & " where ITEM = " & Val(.TextMatrix(.Row, 0)) & " and doc_no = " & MyParn(xdoc_no.text)
     End If
     If .col = 9 Then
-        con.Execute " update " & cFile & " set discount = " & Val(.TextMatrix(.Row, 9)) & " FROM   " & cFile & " JOIN FILE1_10 ON " & cFile & ".ITEM = FILE1_10.ITEM  where FILE1_10.modelno = " & MyParn(.TextMatrix(.Row, 14)) & " and doc_no = " & MyParn(xDoc_No.text)
+        con.Execute " update " & cFile & " set discount = " & Val(.TextMatrix(.Row, 9)) & " FROM   " & cFile & " JOIN FILE1_10 ON " & cFile & ".ITEM = FILE1_10.ITEM  where FILE1_10.modelno = " & MyParn(.TextMatrix(.Row, 14)) & " and doc_no = " & MyParn(xdoc_no.text)
     End If
     If .col = 15 Then
         con.Execute " update file1_10 set barcode = " & addstring(.TextMatrix(.Row, 15)) & " ,ISDATE = GETDATE() where item = " & MyParn(.TextMatrix(.Row, 0))
@@ -4590,7 +4593,7 @@ Private Sub grid1_DblClick()
         myAddModels True
     Else
         If IsNumeric(grid1.TextMatrix(grid1.Row, 0)) Then
-            items.bedit = True
+            items.bEdit = True
             items.bAddModel = True
             items.sModel = GetDesca("select model from file1_10 where item = " & MyParn(grid1.TextMatrix(grid1.Row, 0)), con)
             items.Show 1
@@ -4621,13 +4624,13 @@ Private Sub reprice_inv_Click()
     If MsgBox(" ⁄œÌ· «”⁄«— «·„” ‰œ »«”⁄«— «·„’‰⁄ «·Õ«·Ì…", vbYesNo + vbDefaultButton2) = vbYes Then
         Select Case myPublic
         Case 0
-            con.Execute " UPDATE       FILE7_20  SET  PRICE = FILE1_10.COST FROM  FILE1_10 INNER JOIN FILE7_20 ON FILE1_10.ITEM = FILE7_20.ITEM where doc_no = " & MyParn(xDoc_No.text), nRec
+            con.Execute " UPDATE       FILE7_20  SET  PRICE = FILE1_10.COST FROM  FILE1_10 INNER JOIN FILE7_20 ON FILE1_10.ITEM = FILE7_20.ITEM where doc_no = " & MyParn(xdoc_no.text), nRec
         Case 1
-            con.Execute " UPDATE       FILE7_10  SET  PRICE = FILE1_10.COST FROM  FILE1_10 INNER JOIN FILE7_10 ON FILE1_10.ITEM = FILE7_10.ITEM where doc_no = " & MyParn(xDoc_No.text), nRec
+            con.Execute " UPDATE       FILE7_10  SET  PRICE = FILE1_10.COST FROM  FILE1_10 INNER JOIN FILE7_10 ON FILE1_10.ITEM = FILE7_10.ITEM where doc_no = " & MyParn(xdoc_no.text), nRec
         Case 2
-            con.Execute " UPDATE       FR7_20  SET    PRICE = FILE1_10.COST FROM  FILE1_10 INNER JOIN FR7_20 ON FILE1_10.ITEM = FR7_20.ITEM where doc_no = " & MyParn(xDoc_No.text), nRec
+            con.Execute " UPDATE       FR7_20  SET    PRICE = FILE1_10.COST FROM  FILE1_10 INNER JOIN FR7_20 ON FILE1_10.ITEM = FR7_20.ITEM where doc_no = " & MyParn(xdoc_no.text), nRec
         Case 3
-            con.Execute " UPDATE       FR7_10  SET    PRICE = FILE1_10.COST FROM  FILE1_10 INNER JOIN FR7_10 ON FILE1_10.ITEM = FR7_10.ITEM where doc_no = " & MyParn(xDoc_No.text), nRec
+            con.Execute " UPDATE       FR7_10  SET    PRICE = FILE1_10.COST FROM  FILE1_10 INNER JOIN FR7_10 ON FILE1_10.ITEM = FR7_10.ITEM where doc_no = " & MyParn(xdoc_no.text), nRec
                 
         End Select
         myUndo
@@ -4635,28 +4638,28 @@ Private Sub reprice_inv_Click()
     End If
 End Sub
 Private Sub xcode_GotFocus()
-    myGotFocus Xcode
+    myGotFocus xCode
 End Sub
 Private Sub xCode_KeyDown(KeyCode As Integer, Shift As Integer)
     If KeyCode = 112 Then SuppLookupAll Me, oSearchSup
 End Sub
 Private Sub xcode_LostFocus()
-myLostFocus Xcode
+myLostFocus xCode
 xCodeDesca.Caption = ""
 xr_Discount.text = ""
 xsubcode.Caption = ""
 xSupp.Value = 0
 xsup_desca.Caption = ""
-If Xcode.text = "" Then Exit Sub
-Xcode.text = RetZero(Xcode.text, 3)
-If Xcode.text = "" Then Exit Sub
+If xCode.text = "" Then Exit Sub
+xCode.text = RetZero(xCode.text, 3)
+If xCode.text = "" Then Exit Sub
 
 Dim cString As String, cWhere As String
 cString = "select code,desca, SUPP , DISC ,SUBCODE  FROM FILE4_10"
-cString = cString & " WHERE CODE = " & MyParn(Xcode.text)
+cString = cString & " WHERE CODE = " & MyParn(xCode.text)
 aRet = aGetDesca(cString, con)
 If UBound(aRet) > 0 Then
-    Xcode.text = aRet(1)
+    xCode.text = aRet(1)
     xCodeDesca.Caption = aRet(2)
     xSupp.Value = IIf(aRet(3), 1, 0)
     xsup_desca.Caption = IIf(aRet(3), "„ﬂ » Ã„·…", "„’‰⁄")
@@ -4675,12 +4678,12 @@ End Sub
 Private Sub xDate_Validate(Cancel As Boolean)
 myValidDate xDate
 End Sub
-Private Function MYVALID() As Boolean
+Private Function myValid() As Boolean
     If Not IsDate(xDate.text) Then
         MsgBox "«· «—ÌŒ €Ì— ”·Ì„"
         Exit Function
     End If
-    If XSTORE.BoundText = "" Then
+    If xStore.BoundText = "" Then
         MsgBox "·„ Ì „ «œŒ«· «·„Œ“‰ "
         Exit Function
     End If
@@ -4703,19 +4706,19 @@ Private Function MYVALID() As Boolean
     End If
     
     If myPublic = 0 Or myPublic = 2 Then
-        If xOrder_no.text = "" Then
+        If xorder_no.text = "" Then
             MsgBox "  ·« ÌÊÃœ ÿ·»Ì… ··„Ê—œ "
             Exit Function
         End If
     End If
     
-    If xOrder_no.text <> "" And grid1.Rows <= 2 Then
-        If GetDesca("SELECT DOC_NO FROM FILE6_50H WHERE ISEND_ORDER = 0 and CODE = " & MyParn(Xcode.text) & " AND DOC_NO = " & MyParn(xOrder_no.text), con) = "" Then
+    If xorder_no.text <> "" And grid1.Rows <= 2 Then
+        If GetDesca("SELECT DOC_NO FROM FILE6_50H WHERE ISEND_ORDER = 0 and CODE = " & MyParn(xCode.text) & " AND DOC_NO = " & MyParn(xorder_no.text), con) = "" Then
             MsgBox " —ﬁ„ ÿ·»Ì… €Ì— ’ÕÌÕ ··„Ê—œ  «Ê „€·ﬁ… "
-            If xOrder_no.text <> "000000" Then Exit Function
+            If xorder_no.text <> "000000" Then Exit Function
         End If
     End If
-    MYVALID = True
+    myValid = True
 End Function
 Private Sub myload(Optional bLeaveBal As Boolean = False)
 'lblBarCode.Visible = Not CardTable!isbar
@@ -4745,38 +4748,38 @@ xTimeSend2.Caption = CardTable!TimeSend2 & ""
 xIssend.Value = IIf(CardTable!ISSEND, 1, 0)
 XISACCEPT.Value = IIf(CardTable!ISACCEPT, 1, 0)
 
-xNotes.text = CardTable!NOTES & ""
-xOrder_no.text = CardTable!ORDER_NO & ""
+XNotes.text = CardTable!NOTES & ""
+xorder_no.text = CardTable!ORDER_NO & ""
 XTRANS_DOC.Caption = CardTable!TRANS_DOC & ""
-xUserAccept.text = CardTable!UserAccept & ""
-xUserSend.text = CardTable!USERSEND & ""
-xTimeAccept.text = CardTable!TimeAccept & ""
-xTimeSend.text = CardTable!TimeSend & ""
+XUSERACCEPT.text = CardTable!UserAccept & ""
+XUSERSEND.text = CardTable!USERSEND & ""
+XTIMEACCEPT.text = CardTable!TimeAccept & ""
+XTIMESEND.text = CardTable!TimeSend & ""
 XNotes_Doc.text = CardTable!Notes_Doc & ""
-xReceived.Value = IIf(CardTable!Received, 1, 0)
-CMD_RECEVED.Enabled = (xReceived.Value = 0)
+XReceived.Value = IIf(CardTable!Received, 1, 0)
+CMD_RECEVED.Enabled = (XReceived.Value = 0)
 
-xDoc_No.text = CardTable!doc_no
-xinv_no.text = CardTable!INV_NO & ""
+xdoc_no.text = CardTable!doc_no
+xInv_No.text = CardTable!INV_NO & ""
 xDate.text = Format(CardTable!Date, "dd-mm-yyyy")
 
-XSTORE.BoundText = CardTable!STORE & ""
+xStore.BoundText = CardTable!STORE & ""
 If myPublic = 2 Or myPublic = 3 Then
-    XSTORE.Locked = True
+    xStore.Locked = True
 End If
 xMosm.BoundText = Trim(CardTable!MOSM & "")
-Xcode.text = CardTable!code & ""
-xcust.BoundText = Trim(CardTable!CUST & "")
+xCode.text = CardTable!code & ""
+XCUST.BoundText = Trim(CardTable!CUST & "")
 
-xCodeDesca.Caption = CardTable!CodeDesca & ""
+xCodeDesca.Caption = CardTable!CodeDESCA & ""
 xSupp.Value = IIf(CardTable!SUPP, 1, 0)
 xsup_desca.Caption = IIf(CardTable!SUPP, "„ﬂ » Ã„·…", "„’‰⁄")
 xsubcode.Caption = CardTable!SUBCODE & ""
 
-xDiscount.text = CardTable!discount & ""
+xdiscount.text = CardTable!discount & ""
 xTax.text = TurnValue(Val(CardTable!tax & ""), 0, "")
 xRateSup.Caption = Val(CardTable!disc & "")
-xonest.Value = IIf(CardTable!ONEST, 1, 0)
+XONEST.Value = IIf(CardTable!ONEST, 1, 0)
 'If GetDesca("Select doc_no from addprint where BRANCH = " & MyParn(cBranch) & " AND doc_no = " & MyParn(xDoc_no.Text)) <> "" Then
 '    Me.StatusBar1.Panels(1).Text = "„”Ã· ·Â« »«—ﬂÊœ"
 'Else
@@ -4805,13 +4808,13 @@ With grid1
         cString = "SELECT " & cFile & ".ITEM,file1_10.mosm,FACT.DESCA ,file1_10.modelfact0,file1_10.desca ,file1_10.scal,file1_10.color,Quant," & cFile & ".Price, DISCOUNT, total   , FILE1_10.PRICE, 0 , " & cCostItem & " ,FILE1_10.MODELNO,FILE1_10.barcode ,CASE WHEN BARCODE13 IS NULL THEN BARCODE ELSE BARCODE13 END , file1_10.ISONEST " & _
               " FROM (" & cFile & " INNER JOIN FILE1_10 ON " & cFile & ".ITEM = FILE1_10.ITEM) LEFT JOIN FACT ON FILE1_10.FACT = FACT.CODE"
     End If
-    cString = cString & " where DOC_NO = " & MyParn(xDoc_No.text)
+    cString = cString & " where DOC_NO = " & MyParn(xdoc_no.text)
     cString = cString & " order by id "
     
-    Set data3.Recordset = myRecordSet(cString, con)
+    Set DATA3.Recordset = myRecordSet(cString, con)
     grid1.AddItem ""
-    Xcode.Enabled = .Rows <= 2
-    xDoc_No.Enabled = .Rows <= 2
+    xCode.Enabled = .Rows <= 2
+    xdoc_no.Enabled = .Rows <= 2
 
 End With
 If cBranch = "00" Then myloadgrd2
@@ -4823,51 +4826,51 @@ Private Sub myDefine()
     xRateSup.Caption = ""
     xClosed.Value = 0
     XMODELNOT.text = ""
-    xOrder_no.text = ""
+    xorder_no.text = ""
     If cmd_closed.Caption <> "≈€·«ﬁ „” ‰œ" Then
         cmd_closed.BackColor = &H8000000F
         cmd_closed.Caption = "≈€·«ﬁ „” ‰œ"
         xClosed.Visible = False
     End If
     
-    xcust.BoundText = ""
+    XCUST.BoundText = ""
     xUserAccept2.Caption = ""
     xUserSend2.Caption = ""
     xTimeAccept2.Caption = ""
     xTimeSend2.Caption = ""
     xIssend.Value = 0
     XISACCEPT.Value = 0
-    xNotes.text = ""
+    XNotes.text = ""
     
     XTRANS_DOC.Caption = ""
     xDiscAll.text = ""
-    xUserAccept.text = ""
-    xUserSend.text = ""
-    xTimeAccept.text = ""
-    xTimeSend.text = ""
-    xReceived.Value = 0
+    XUSERACCEPT.text = ""
+    XUSERSEND.text = ""
+    XTIMEACCEPT.text = ""
+    XTIMESEND.text = ""
+    XReceived.Value = 0
     CMD_RECEVED.Enabled = False
     XNotes_Doc.text = ""
     cmdAddItems.Enabled = True
     xsubcode.Caption = ""
     xClosed.Visible = False
     xClosed.Value = ssCBUnchecked
-    XSTORE.BoundText = ""
-    Xcode.Enabled = True
-    xinv_no.text = ""
+    xStore.BoundText = ""
+    xCode.Enabled = True
+    xInv_No.text = ""
     xDate.text = Format(Date, "dd-mm-yyyy")
-    XSTORE.Locked = False
+    xStore.Locked = False
     If myPublic = 0 Or myPublic = 1 Then
-        xDoc_No.text = RetZero(Newflag(cFileHeader, "doc_no", con))
+        xdoc_no.text = RetZero(Newflag(cFileHeader, "doc_no", con))
     Else
-        xDoc_No.text = ""
+        xdoc_no.text = ""
 '        xdoc_no.Text = RetZero(Newflag(cFileHeader, "doc_no"))
     End If
-    xonest.Value = 0
+    XONEST.Value = 0
     xCodeDesca.Caption = ""
     xBalance.Caption = ""
-    Xcode.text = ""
-    xDiscount.text = ""
+    xCode.text = ""
+    xdiscount.text = ""
 '   lblBarCode.Visible = True
     
     xtotalOrg.Caption = ""
@@ -4877,12 +4880,12 @@ Private Sub myDefine()
     xTotalNoTax.Caption = ""
     xr_tax.text = ""
     xTax.text = ""
-    xTotal.Caption = ""
-    xTotalQuant.Caption = ""
+    xtotal.Caption = ""
+    xtotalQuant.Caption = ""
     xsup_desca.Caption = ""
 
 '    xTotalDis.Caption = ""
-    xusername.Caption = ""
+    xUserName.Caption = ""
 '    xRate.Text = ""
     xMosm.BoundText = cPMosm
     grid1.Rows = 1
@@ -4892,31 +4895,31 @@ Private Sub myDefine()
 End Sub
 Private Sub Handlecontrols(nMode)
         
-    cmdSave.Enabled = (xClosed.Value = 0) And (xReceived.Value = 0)
-    cmdpast.Enabled = (xClosed.Value = 0) And (xReceived.Value = 0)
+    cmdSave.Enabled = (xClosed.Value = 0) And (XReceived.Value = 0)
+    cmdpast.Enabled = (xClosed.Value = 0) And (XReceived.Value = 0)
     If lIsBranchStore Then
         CMD_ACCEPT.Enabled = (XISACCEPT.Value = 0)
     End If
     If cBranch = "00" Then
         CMD_SENDTRANS.Enabled = (xIssend.Value = 0)
     End If
-    CmdDelInv.Enabled = nMode = LoadMode And (xClosed.Value = 0) And (xReceived.Value = 0)
+    CmdDelInv.Enabled = nMode = LoadMode And (xClosed.Value = 0) And (XReceived.Value = 0)
     
-    cmdCSV.Enabled = nMode = LoadMode And (xClosed.Value = 0) And (xReceived.Value = 0)
+    cmdCSV.Enabled = nMode = LoadMode And (xClosed.Value = 0) And (XReceived.Value = 0)
     
-    cmdAddItems.Enabled = (xClosed.Value = 0) And (xClosed.Value = 0) And (xReceived.Value = 0)
+    cmdAddItems.Enabled = (xClosed.Value = 0) And (xClosed.Value = 0) And (XReceived.Value = 0)
     CMD_ALL.Enabled = (xClosed.Value = 0)
     cmdNewInv.Enabled = nMode = LoadMode
     cmd_closed.Enabled = nMode = LoadMode
-    GRD_REC.Editable = (xClosed.Value = 0) And xDoc_No.text <> ""
+    GRD_REC.Editable = (xClosed.Value = 0) And xdoc_no.text <> ""
     cmdFirst.Enabled = (nMode = LoadMode)
     cmdLast.Enabled = (nMode = LoadMode)
     cmdNext.Enabled = (nMode = LoadMode)
     cmdPrevious.Enabled = (nMode = LoadMode)
     xClosed.Enabled = (nMode = LoadMode)
-    xDoc_No.Enabled = (nMode = DefineMode)
+    xdoc_no.Enabled = (nMode = DefineMode)
     cmd_closed.Enabled = (nMode = LoadMode)
-    xDoc_No.Tag = nMode
+    xdoc_no.Tag = nMode
 '    If xClosed.Value = 1 Then
 '        cmd_closed.BackColor = &H8000000F
 '        cmd_closed.Caption = "› Õ „” ‰œ"
@@ -4935,12 +4938,12 @@ CalcTotals
 End Sub
 
 Private Sub xDoc_No_GotFocus()
-myGotFocus xDoc_No
+myGotFocus xdoc_no
 End Sub
 Private Sub xDoc_No_LostFocus()
-    myLostFocus xDoc_No
-    If xDoc_No.text = "" Then Exit Sub
-    xDoc_No.text = RetZero(xDoc_No.text)
+    myLostFocus xdoc_no
+    If xdoc_no.text = "" Then Exit Sub
+    xdoc_no.text = RetZero(xdoc_no.text)
     myUndo
 End Sub
 Private Function CalcTotals()
@@ -4954,21 +4957,21 @@ For i = 1 To grid1.Rows - 2
     nDiscountItem = nDiscountItem + (Val(.TextMatrix(i, 7)) * Val(.TextMatrix(i, 8)) * Val(.TextMatrix(i, 9)) / 100)
 Next
 End With
-xTotalQuant.Caption = Format(nTotalQuant, "#")
+xtotalQuant.Caption = Format(nTotalQuant, "#")
 
 xtotalOrg.Caption = Format(nTotalOrg, "#0.00")
 xDiscountItem.Caption = Format(nDiscountItem, "#0.00")
 xTotalItem.Caption = Format(Val(xtotalOrg.Caption) - Val(xDiscountItem.Caption), "#0.00")
 
 If Val(xTotalItem.Caption) <> 0 Then
-    If Round(Val(xr_Discount.text), nRound) <> Round(Val(xDiscount.text) / Val(xTotalItem.Caption) * 100, nRound) Then
-        xr_Discount.text = Myvalue(Round((Val(xDiscount.text) / Val(xTotalItem.Caption)) * 100, nRound))
+    If Round(Val(xr_Discount.text), nRound) <> Round(Val(xdiscount.text) / Val(xTotalItem.Caption) * 100, nRound) Then
+        xr_Discount.text = Myvalue(Round((Val(xdiscount.text) / Val(xTotalItem.Caption)) * 100, nRound))
     End If
 Else
     xr_Discount.text = ""
 End If
 
-xTotalNoTax.Caption = Format(Val(xTotalItem.Caption) - Val(xDiscount.text), "#0.00")
+xTotalNoTax.Caption = Format(Val(xTotalItem.Caption) - Val(xdiscount.text), "#0.00")
 
 If Val(xTotalNoTax.Caption) <> 0 Then
     If Round(Val(xr_tax.text), nRound) <> Round(Val(xTax.text) / Val(xTotalNoTax.Caption) * 100, nRound) Then
@@ -4977,7 +4980,7 @@ If Val(xTotalNoTax.Caption) <> 0 Then
 Else
     xr_tax.text = ""
 End If
-xTotal.Caption = Format(Val(xTotalNoTax.Caption) + Val(xTax.text))
+xtotal.Caption = Format(Val(xTotalNoTax.Caption) + Val(xTax.text))
 End Function
 Private Sub CardLookup()
 Dim Generalarray(5)
@@ -5070,10 +5073,10 @@ Private Sub xfilter_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub xInv_No_GotFocus()
-myGotFocus xinv_no
+myGotFocus xInv_No
 End Sub
 Private Sub xInv_No_LostFocus()
-myLostFocus xinv_no
+myLostFocus xInv_No
 End Sub
 
 Private Sub xIsClosed_Click()
@@ -5081,14 +5084,14 @@ Private Sub xIsClosed_Click()
 End Sub
 
 Private Sub xMosm_GotFocus()
-myGotFocus xinv_no
+myGotFocus xInv_No
 End Sub
 Private Sub xMosm_LostFocus()
-myLostFocus xinv_no
+myLostFocus xInv_No
 End Sub
 Private Sub xRate_LostFocus()
-If Val(xRate.text) <> 0 Then
-    xTax.text = Format(Val(xTotalDis.Caption) * (Val(xRate.text) / 100), "Fixed")
+If Val(xrate.text) <> 0 Then
+    xTax.text = Format(Val(xTotalDis.Caption) * (Val(xrate.text) / 100), "Fixed")
     CalcTotals
 End If
 End Sub
@@ -5147,7 +5150,7 @@ Next
 End With
 End Sub
 Private Sub xOrder_no_KeyUp(KeyCode As Integer, Shift As Integer)
-If KeyCode = 112 And Xcode.text <> "" And XSTORE.BoundText <> "" Then
+If KeyCode = 112 And xCode.text <> "" And xStore.BoundText <> "" Then
     Dim Generalarray(5)
     Dim listarray(1, 4)
     Dim GrdArray(5, 1)
@@ -5156,7 +5159,7 @@ If KeyCode = 112 And Xcode.text <> "" And XSTORE.BoundText <> "" Then
 '                               0       1               2       3               4
     Generalarray(1) = "SELECT  FILE6_50H.DOC_NO,FILE6_50H.[DATE] AS DATE1,FILE6_50H.DATE, FILE4_10.Desca , STORE_BR.desca , FILE6_50H.REMARK" & _
                       " FROM  FILE6_50H INNER JOIN FILE4_10 ON FILE6_50H.CODE  = FILE4_10.CODE inner join STORE_BR on STORE_BR.CODE = FILE6_50H.STORE WHERE ISEND_ORDER = 0 "
-    Generalarray(1) = Generalarray(1) & " AND FILE6_50H.store = " & MyParn(XSTORE.BoundText) & " AND FILE6_50H.CODE = " & MyParn(Xcode.text)
+    Generalarray(1) = Generalarray(1) & " AND FILE6_50H.store = " & MyParn(xStore.BoundText) & " AND FILE6_50H.CODE = " & MyParn(xCode.text)
     Generalarray(2) = "Order by FILE6_50H.DATE DESC , FILE6_50H.doc_no desc "
     Generalarray(3) = 6000
     Generalarray(5) = True
@@ -5193,11 +5196,11 @@ End Sub
 Private Sub xr_Discount_Validate(Cancel As Boolean)
 
 If Val(xTotalItem.Caption) <> 0 Then
-    If Round(Val(xr_Discount.text), nRound) <> Round(Val(xDiscount.text) / Val(xTotalItem.Caption) * 100, nRound) Then
-        xDiscount.text = Round((Val(xr_Discount.text) * Val(xTotalItem.Caption)) / 100, nRound)
+    If Round(Val(xr_Discount.text), nRound) <> Round(Val(xdiscount.text) / Val(xTotalItem.Caption) * 100, nRound) Then
+        xdiscount.text = Round((Val(xr_Discount.text) * Val(xTotalItem.Caption)) / 100, nRound)
     End If
 Else
-    xDiscount.text = ""
+    xdiscount.text = ""
 End If
 CalcTotals
 End Sub
@@ -5219,14 +5222,14 @@ xr_Discount_Validate False
 End Sub
 
 Private Sub xSection_GotFocus()
-myGotFocus XSECTION
+myGotFocus xSection
 End Sub
 Private Sub xSection_LostFocus()
-myLostFocus XSECTION
+myLostFocus xSection
 End Sub
 
 Private Sub XSTORE_LostFocus()
-    con.Execute " INSERT INTO NEW1_60H (DOC_NO , BRANCH) SELECT " & addstring(xDoc_No.text) & " ,  branch FROM FILE0_40  WHERE CODE = " & addstring(XSTORE.BoundText)
+    con.Execute " INSERT INTO NEW1_60H (DOC_NO , BRANCH) SELECT " & addstring(xdoc_no.text) & " ,  branch FROM FILE0_40  WHERE CODE = " & addstring(xStore.BoundText)
 End Sub
 
 Private Sub xTax_GotFocus()
@@ -5246,33 +5249,33 @@ contemp.Execute "DELETE * FROM TEMP"
 temptable.Open "temp", contemp, adOpenStatic, adLockOptimistic, adCmdTable
 For i = 1 To grid1.Rows - 2
     temptable.AddNew
-    temptable!str10 = Me.Caption & "  " & XSTORE.text
-    temptable!str6 = xDoc_No.text
+    temptable!str10 = Me.Caption & "  " & xStore.text
+    temptable!STR6 = xdoc_no.text
     temptable!STR7 = xCodeDesca.Caption
-    temptable!str5 = TurnValue(xinv_no.text)
+    temptable!STR5 = TurnValue(xInv_No.text)
     temptable!Date1 = xDate.text
     temptable!str1 = TurnValue(grid1.TextMatrix(i, 0))
     temptable!str13 = TurnValue(grid1.TextMatrix(i, 3))
     temptable!str2 = TurnValue(grid1.TextMatrix(i, 2), "", Null)
     temptable!str3 = TurnValue(grid1.TextMatrix(i, 4))
-    temptable!str4 = TurnValue(grid1.TextMatrix(i, 5))
+    temptable!STR4 = TurnValue(grid1.TextMatrix(i, 5))
     temptable!str8 = TurnValue(grid1.TextMatrix(i, 6))
-    temptable!val3 = Val(grid1.TextMatrix(i, 7))
+    temptable!VAL3 = Val(grid1.TextMatrix(i, 7))
     temptable!VAL1 = Val(grid1.TextMatrix(i, 8))
     temptable!VAL4 = Val(grid1.TextMatrix(i, 11))
     temptable!val15 = Val(grid1.TextMatrix(i, 10))
     temptable!Val10 = Val(grid1.TextMatrix(i, 9))
-    temptable!val2 = Val(grid1.TextMatrix(i, 12))
+    temptable!VAL2 = Val(grid1.TextMatrix(i, 12))
     temptable!str14 = TurnValue(grid1.TextMatrix(i, 14))
     
     If myPublic = 0 Then
-        temptable!str16 = " ÕÊÌ· ≈·Ï : " & XSTORE.text
+        temptable!str16 = " ÕÊÌ· ≈·Ï : " & xStore.text
     ElseIf myPublic = 1 Then
-        temptable!str16 = " ÕÊÌ· „‰ : " & XSTORE.text
+        temptable!str16 = " ÕÊÌ· „‰ : " & xStore.text
     End If
-    temptable!val5 = Val(xDiscount.text)
+    temptable!val5 = Val(xdiscount.text)
     temptable!VAL6 = Val(xTax.text)
-    temptable!val17 = Val(xTotal.Caption)
+    temptable!val17 = Val(xtotal.Caption)
     temptable!STR19 = Firsttitle
     temptable!VAL14 = i
     temptable.Update
@@ -5310,7 +5313,7 @@ temptable.Close
 Set temptable = Nothing
 End Sub
 Function mysave(Optional bMsg As Boolean = True) As Boolean
-If Not MYVALID Then Exit Function
+If Not myValid Then Exit Function
 If Not myreplace Then Exit Function
 If bMsg Then Inform " „ Õ›Ÿ «·„” ‰œ »‰Ã«Õ", , 300
 mysave = True
@@ -5329,18 +5332,18 @@ End Sub
 Private Sub cmd_closed_Click()
 Dim cString As String
 con.BeginTrans
-On Error GoTo myError
+On Error GoTo myerror
 If bopt2 Then
     cString = " update " & cFileHeader & " set closed = " & IIf(xClosed.Value = 1, "0", "1") & " , Received = " & IIf(xClosed.Value = 1, "0", "1")
 Else
     cString = " update " & cFileHeader & " set closed = " & IIf(xClosed.Value = 1, "0", "1")
 End If
-cString = cString & turn(cString) & "doc_no = " & MyParn(xDoc_No.text)
+cString = cString & turn(cString) & "doc_no = " & MyParn(xdoc_no.text)
 con.Execute cString
 con.CommitTrans
 myUndo
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 con.RollbackTrans
 Err.Clear
@@ -5366,10 +5369,10 @@ Private Sub CardLookupSupp()
 Dim Generalarray(5)
 Dim listarray(0, 4)
 Dim GrdArray(5, 1)
-If Xcode.text = "" Then Exit Sub
+If xCode.text = "" Then Exit Sub
 Set Generalarray(0) = Me
 Generalarray(1) = "SELECT  DOC_NO,[DATE] AS DATE1,DATE, " & cFileClient & ".Desca , inv_no , mosm " & _
-                  " FROM  (" & cFileHeader & " left JOIN " & cFileClient & " ON " & cFileHeader & ".CODE " & " = " & cFileClient & ".CODE ) WHERE FILE4_10.CODE = " & MyParn(Xcode.text)
+                  " FROM  (" & cFileHeader & " left JOIN " & cFileClient & " ON " & cFileHeader & ".CODE " & " = " & cFileClient & ".CODE ) WHERE FILE4_10.CODE = " & MyParn(xCode.text)
 
 Generalarray(2) = "Order by Date"
 Generalarray(3) = 6000
@@ -5405,20 +5408,20 @@ End Sub
 Private Function myreplaceGrd() As Boolean
 Dim loctable As ADODB.Recordset, cString As String, nItem As Double, cQDem As String
 cString = " DELETE FROM " & cFile & " FROM   FILE1_10 INNER JOIN " & cFile & " ON FILE1_10.ITEM = " & cFile & ".ITEM"
-cString = cString & turn(cString) & "DOC_NO = " & MyParn(xDoc_No.text)
-cString = cString & turn(cString) & "FILE1_10.MODEL = " & MyParn(addModelfrm.XMODEL.Caption)
+cString = cString & turn(cString) & "DOC_NO = " & MyParn(xdoc_no.text)
+cString = cString & turn(cString) & "FILE1_10.MODEL = " & MyParn(addModelfrm.xModel.Caption)
 con.Execute cString, nDel
 With addModelfrm.grid1
     For nRow = 3 To .Rows - 1
         For nCol = 2 To .Cols - 1
             If Val(.TextMatrix(nRow, nCol)) <> 0 Then
-                nItem = addModelfrm.GRID2.TextMatrix(nRow, nCol)
-                cQDem = GetDesca("SELECT QUANT FROM Model_Dem WHERE ITEM = " & nItem & " AND STORE = " & MyParn(XSTORE.BoundText), con)
+                nItem = addModelfrm.grid2.TextMatrix(nRow, nCol)
+                cQDem = GetDesca("SELECT QUANT FROM Model_Dem WHERE ITEM = " & nItem & " AND STORE = " & MyParn(xStore.BoundText), con)
                 If Val(cQDem) < Val(.TextMatrix(nRow, nCol)) Then
                     cString = "Insert into SUB7_20  (doc_no,STORE,item,QUANT,Q_DEM)" & _
                                "Values(" & _
-                               addstring(xDoc_No.text) & "," & _
-                               addstring(XSTORE.BoundText) & "," & _
+                               addstring(xdoc_no.text) & "," & _
+                               addstring(xStore.BoundText) & "," & _
                                addvalue(nItem) & "," & _
                                Val(.TextMatrix(nRow, nCol)) & "," & _
                                Val(cQDem) & _
@@ -5426,16 +5429,16 @@ With addModelfrm.grid1
                       
                     con.Execute cString
                 End If
-                Set loctable = ItemFind(addModelfrm.GRID2.TextMatrix(nRow, nCol), con)
+                Set loctable = ItemFind(addModelfrm.grid2.TextMatrix(nRow, nCol), con)
                 If Not (loctable.EOF And loctable.BOF) Then
                     If myPublic = 0 Or myPublic = 1 Then
                         cString = "Insert into " & cFile & " (doc_no,item,MODEL,REMARK,discount,price,Quant,trust_model)" & _
                                    "Values(" & _
-                                   addstring(xDoc_No.text) & "," & _
+                                   addstring(xdoc_no.text) & "," & _
                                    addvalue(loctable!Item) & "," & _
                                    addstring(loctable!MODEL) & "," & _
                                    addstring(addModelfrm.xRemark.text) & "," & _
-                                   Val(addModelfrm.xDiscount.text) & "," & _
+                                   Val(addModelfrm.xdiscount.text) & "," & _
                                    Val(loctable!cost & "") & "," & _
                                    Val(.TextMatrix(nRow, nCol)) & "," & _
                                    addModelfrm.xTrust_model.Value & _
@@ -5443,11 +5446,11 @@ With addModelfrm.grid1
                     Else
                         cString = "Insert into " & cFile & " (doc_no,item,MODEL,REMARK,discount,price,Quant,trust_model)" & _
                                    "Values(" & _
-                                   addstring(xDoc_No.text) & "," & _
+                                   addstring(xdoc_no.text) & "," & _
                                    addvalue(loctable!Item) & "," & _
                                    addstring(loctable!MODEL) & "," & _
                                    addstring(addModelfrm.xRemark.text) & "," & _
-                                   Val(addModelfrm.xDiscount.text) & "," & _
+                                   Val(addModelfrm.xdiscount.text) & "," & _
                                    Val(loctable!cost2 & "") & "," & _
                                    Val(.TextMatrix(nRow, nCol)) & "," & _
                                    addModelfrm.xTrust_model.Value & _
@@ -5462,11 +5465,11 @@ With addModelfrm.grid1
 End With
 End Function
 Sub myProcAddModel()
-If Not MYVALID Then Exit Sub
+If Not myValid Then Exit Sub
 If myreplace(True) Then
     bUpdated = True
     Inform " „  «÷«›… «·„ÊœÌ·«  »‰Ã«Õ", , 500
-    If xDoc_No.Tag = DefineMode Then
+    If xdoc_no.Tag = DefineMode Then
         myUndo
     Else
         myLoadGrd
@@ -5482,33 +5485,33 @@ cmd_closed.PictureDisabled = LoadPicture(App.Path & "\SYSIMG\" & IIf(pValue = 0,
 Err.Clear
 End Sub
 Private Sub LoadPhoto(sModelNo As String)
-On Error GoTo myError
+On Error GoTo myerror
 ImgX1.Images.Clear
 ImgX1.Import.FromFile retFile(sModelNo)
 Exit Sub
-myError:
+myerror:
 Err.Clear
 End Sub
 Private Function addBarCode() As String
 con.BeginTrans
 'On Error GoTo myerror
-con.Execute "DELETE FROM ADDPRINT WHERE BRANCH = " & MyParn(cBranch) & " AND DOC_NO = " & MyParn(xDoc_No.text)
+con.Execute "DELETE FROM ADDPRINT WHERE BRANCH = " & MyParn(cBranch) & " AND DOC_NO = " & MyParn(xdoc_no.text)
 cString = "INSERT INTO ADDPRINT(DOC_NO,ITEM,BRANCH,QUANT,ISPRINT)"
 
 cString = cString & _
           " SELECT DOC_NO,ITEM," & addstring(cBranch) & ",QUANT,1 FROM FILE7_20"
-cString = cString & turn(cString) & " DOC_NO = " & MyParn(xDoc_No.text)
+cString = cString & turn(cString) & " DOC_NO = " & MyParn(xdoc_no.text)
 con.Execute cString
 
 
 cString = " update FILE7_20H set isbar = 1"
-cString = cString & turn(cString) & " doc_no = " & MyParn(xDoc_No.text)
+cString = cString & turn(cString) & " doc_no = " & MyParn(xdoc_no.text)
 con.Execute cString
  
 con.CommitTrans
 Inform " „ «· ÕÊÌ· »‰Ã«Õ"
 Exit Function
-myError:
+myerror:
 con.RollbackTrans
 MsgBox Err.Description
 Err.Clear
@@ -5535,32 +5538,32 @@ For i = 1 To grid1.Rows - 2
 Next
 
 cString = " update FILE7_10H set isbar = 1"
-cString = cString & turn(cString) & " doc_no = " & MyParn(xDoc_No.text)
+cString = cString & turn(cString) & " doc_no = " & MyParn(xdoc_no.text)
 con.Execute cString
 
 con.CommitTrans
 Inform " „ «·€«¡ »‰Ã«Õ"
 Exit Sub
-myError:
+myerror:
 con.RollbackTrans
 MsgBox Err.Description
 Err.Clear
 End Sub
 Private Sub myAddModels(Optional bAddModel As Boolean = False)
-If Not MYVALID Then Exit Sub
+If Not myValid Then Exit Sub
 Set addModelfrm.myForm = Me
 addModelfrm.nColItem = 0
 addModelfrm.nColQuant = 7
-addModelfrm.sStore = XSTORE.BoundText
+addModelfrm.sStore = xStore.BoundText
 addModelfrm.bshowBal = True
 addModelfrm.SMosm = xMosm.BoundText
 addModelfrm.Sdiscount = Val(grid1.TextMatrix(grid1.Row, 9))
-If xSupp.Value = 1 Then addModelfrm.sSupp = Xcode.text Else addModelfrm.SFact = xsubcode.Caption
+If xSupp.Value = 1 Then addModelfrm.sSupp = xCode.text Else addModelfrm.SFact = xsubcode.Caption
 If IsNumeric(grid1.TextMatrix(grid1.Row, 0)) And bAddModel Then
     Dim loctable As ADODB.Recordset
     Set loctable = ItemFind(grid1.TextMatrix(grid1.Row, 0), con)
     If Not (loctable.EOF And loctable.BOF) Then
-        addModelfrm.SModelFact = loctable!modelfact0 & ""
+        addModelfrm.SModelFact = loctable!MODELFACT0 & ""
         addModelfrm.SFact = loctable!Fact & ""
         addModelfrm.sSupp = loctable!SUPP & ""
         addModelfrm.SMosm = loctable!MOSM & ""
@@ -5573,7 +5576,7 @@ End If
 bUpdated = False
 addModelfrm.Show 1
 If bUpdated Then
-    If Not MYVALID Then Exit Sub
+    If Not myValid Then Exit Sub
     xr_Discount.text = Val(xRateSup.Caption)
     xr_Discount_Validate False
     myreplace
@@ -5585,33 +5588,33 @@ End Sub
 
 Private Function addBarCodeModel(cModel) As String
 con.BeginTrans
-On Error GoTo myError
+On Error GoTo myerror
 'con.Execute "DELETE FROM ADDPRINT WHERE DOC_NO = " & MyParn(xDoc_No.Text)
 cString = "INSERT INTO ADDPRINT(DOC_NO,ITEM,BRANCH,QUANT,ISPRINT)"
 
 cString = cString & _
           " SELECT DOC_NO,ITEM, " & addstring(cBranch) & " ,QUANT,1 FROM FILE7_20"
-cString = cString & turn(cString) & " DOC_NO = " & MyParn(xDoc_No.text) & " AND MODEL = " & MyParn(cModel)
+cString = cString & turn(cString) & " DOC_NO = " & MyParn(xdoc_no.text) & " AND MODEL = " & MyParn(cModel)
 con.Execute cString
 
 
 cString = " update FILE7_20H set isbar = 1"
-cString = cString & turn(cString) & " doc_no = " & MyParn(xDoc_No.text)
+cString = cString & turn(cString) & " doc_no = " & MyParn(xdoc_no.text)
 con.Execute cString
  
 con.CommitTrans
 Inform " „ «· ÕÊÌ· »‰Ã«Õ"
 Exit Function
-myError:
+myerror:
 con.RollbackTrans
 MsgBox Err.Description
 Err.Clear
 End Function
 Private Sub myReplaceOrder()
 If myPublic = 0 Then
-    con.Execute "DELETE FROM ORDERS1 WHERE MODELNO IN (SELECT FILE1_10.MODELNO FROM FILE7_20 INNER JOIN FILE1_10 ON FILE7_20.ITEM = FILE1_10.ITEM WHERE DOC_NO = " & MyParn(xDoc_No.text) & ")"
+    con.Execute "DELETE FROM ORDERS1 WHERE MODELNO IN (SELECT FILE1_10.MODELNO FROM FILE7_20 INNER JOIN FILE1_10 ON FILE7_20.ITEM = FILE1_10.ITEM WHERE DOC_NO = " & MyParn(xdoc_no.text) & ")"
 ElseIf myPublic = 1 Then
-    con.Execute "DELETE FROM ORDERS2 WHERE MODELNO IN (SELECT FILE1_10.MODELNO FROM FILE7_10 INNER JOIN FILE1_10 ON FILE7_10.ITEM = FILE1_10.ITEM WHERE DOC_NO = " & MyParn(xDoc_No.text) & ")"
+    con.Execute "DELETE FROM ORDERS2 WHERE MODELNO IN (SELECT FILE1_10.MODELNO FROM FILE7_10 INNER JOIN FILE1_10 ON FILE7_10.ITEM = FILE1_10.ITEM WHERE DOC_NO = " & MyParn(xdoc_no.text) & ")"
 End If
 End Sub
 Private Sub cmd_ex_Click()
@@ -5656,7 +5659,7 @@ Private Sub cmd_ex_Click()
                 prog1.Visible = True
                 prog1.Value = nRow
                 If Len(xlsheet.Cells(nRow, 1)) = 0 Then Exit For
-                cDoc_No = xDoc_No.text
+                cDoc_No = xdoc_no.text
                 cBarCode = Trim(xlsheet.Cells(nRow, 1))
                 nQTY = Val(xlsheet.Cells(nRow, 2))
                 cItem = ""
@@ -5687,9 +5690,9 @@ Private Sub cmd_ex_Click()
             Next nRow
             If cStr2 <> "" Then con.Execute cStr2
             If myPublic = 0 Then
-                con.Execute " UPDATE FILE7_20 SET   FILE7_20.MODEL = FILE1_10.MODEL , FILE7_20.PRICE = FILE1_10.COST FROM FILE7_20 INNER JOIN FILE1_10 ON FILE7_20.ITEM = FILE1_10.ITEM  WHERE ( FILE7_20.PRICE = 0 OR FILE7_20.PRICE IS NULL ) AND FILE7_20.DOC_NO = " & MyParn(xDoc_No.text)
+                con.Execute " UPDATE FILE7_20 SET   FILE7_20.MODEL = FILE1_10.MODEL , FILE7_20.PRICE = FILE1_10.COST FROM FILE7_20 INNER JOIN FILE1_10 ON FILE7_20.ITEM = FILE1_10.ITEM  WHERE ( FILE7_20.PRICE = 0 OR FILE7_20.PRICE IS NULL ) AND FILE7_20.DOC_NO = " & MyParn(xdoc_no.text)
             Else
-                con.Execute " UPDATE FILE7_10 SET   FILE7_10.MODEL = FILE1_10.MODEL , FILE7_10.PRICE = FILE1_10.COST FROM FILE7_10 INNER JOIN FILE1_10 ON FILE7_10.ITEM = FILE1_10.ITEM  WHERE ( FILE7_10.PRICE = 0 OR FILE7_10.PRICE IS NULL ) AND FILE7_10.DOC_NO = " & MyParn(xDoc_No.text)
+                con.Execute " UPDATE FILE7_10 SET   FILE7_10.MODEL = FILE1_10.MODEL , FILE7_10.PRICE = FILE1_10.COST FROM FILE7_10 INNER JOIN FILE1_10 ON FILE7_10.ITEM = FILE1_10.ITEM  WHERE ( FILE7_10.PRICE = 0 OR FILE7_10.PRICE IS NULL ) AND FILE7_10.DOC_NO = " & MyParn(xdoc_no.text)
             End If
             myLoadGrd
         End If
@@ -5751,7 +5754,7 @@ For i = 1 To cSv.NumRows - 1
 Next
 Tb.Shorten 11
 
-If Tb.Length = 0 Then Exit Function
+If Tb.length = 0 Then Exit Function
 
 cString.Append "WITH tb AS ("
 cString.Append Tb.GetAsString
@@ -5771,7 +5774,7 @@ nRecordCount = loctable.RecordCount
 
 Dim aInsert As Variant
 con.BeginTrans
-On Error GoTo myError
+On Error GoTo myerror
 Dim nAffect As Long, nAffectAll As Long
 i = 0
 prog1.Value = 0
@@ -5784,12 +5787,12 @@ Do Until loctable.EOF
     aInsert = AddFlag(aInsert, "PRICE", loctable!price)
     aInsert = AddFlag(aInsert, "QUANT", loctable!Quant)
     aInsert = AddFlag(aInsert, "MODEL", addstring(loctable!MODEL))
-    If IsEmpty(myField("SELECT DOC_NO FROM " & cFile & " WHERE DOC_NO = " & MyParn(xDoc_No.text) & " AND ITEM = " & addvalue(loctable!Item), con)) Then
-        aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_No.text))
+    If IsEmpty(myField("SELECT DOC_NO FROM " & cFile & " WHERE DOC_NO = " & MyParn(xdoc_no.text) & " AND ITEM = " & addvalue(loctable!Item), con)) Then
+        aInsert = AddFlag(aInsert, "DOC_NO", addstring(xdoc_no.text))
         con.Execute addInsert(aInsert, cFile), nAffect
         nAffect = 1
     Else
-        con.Execute addUpdate(aInsert, cFile, "DOC_NO = " & MyParn(xDoc_No.text) & " AND ITEM = " & addvalue(loctable!Item)), nAffect
+        con.Execute addUpdate(aInsert, cFile, "DOC_NO = " & MyParn(xdoc_no.text) & " AND ITEM = " & addvalue(loctable!Item)), nAffect
     End If
     nAffectAll = nAffectAll + nAffect
     loctable.MoveNext
@@ -5803,7 +5806,7 @@ Finaly:
 loctable.Close
 Set loctable = Nothing
 Exit Function
-myError:
+myerror:
 con.RollbackTrans
 MsgBox Err.Description
 Err.Clear
@@ -5814,7 +5817,7 @@ Dim aInsert(19, 1)
 Dim sitem As String, aRet As Variant
 Dim cBarCode As String
 
-cModel = Xcode.text & "000" & RetZero(pModelFact, 10)
+cModel = xCode.text & "000" & RetZero(pModelFact, 10)
 
 aInsert(0, 0) = "Model"
 aInsert(0, 1) = addstring(cModel)
@@ -5826,7 +5829,7 @@ aInsert(2, 0) = "Desca"
 aInsert(2, 1) = addstring(pDesca)
 
 aInsert(3, 0) = "FACT"
-aInsert(3, 1) = addstring(Xcode.text)
+aInsert(3, 1) = addstring(xCode.text)
 
 aInsert(4, 0) = "MOSM"
 aInsert(4, 1) = addstring("000")
@@ -5838,10 +5841,10 @@ aInsert(6, 0) = "MODELFACT0"
 aInsert(6, 1) = addstring(DelZero(pModelFact))
 
 aInsert(7, 0) = "[section]"
-aInsert(7, 1) = addstring(XSECTION.BoundText)
+aInsert(7, 1) = addstring(xSection.BoundText)
 
 aInsert(8, 0) = "Code"
-aInsert(8, 1) = addstring(Xcode.text)
+aInsert(8, 1) = addstring(xCode.text)
 
 aInsert(9, 0) = "[group]"
 aInsert(9, 1) = addstring("00")
@@ -5926,24 +5929,24 @@ Search_FACT.Caption = "«” ⁄·«„"
 Search_FACT.Show 1
 End Sub
 Private Sub CMD_ADDINV_Click()
-    On Error GoTo myError
+    On Error GoTo myerror
         If lServerOnLine Then
             openConFACT conFact
             openConFACT3 confact2
         End If
     
     
-        If xDoc_No.Enabled Then
-            If Not MYVALID Then Exit Sub
+        If xdoc_no.Enabled Then
+            If Not myValid Then Exit Sub
             If Not myreplace Then Exit Sub
         End If
         XMODELNOT.text = ""
-        If Xcode.text = "001" Then Sales_FactLookup
-        If Xcode.text = "095" Then Sales_FactLookup_SOCK
+        If xCode.text = "001" Then Sales_FactLookup
+        If xCode.text = "095" Then Sales_FactLookup_SOCK
         closeCon conFact
         closeCon confact2
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -6042,7 +6045,7 @@ Private Sub sned_purch_Click()
     Dim cDoc As String, cCode As String
     Dim aInsert As Variant
     If MsgBox("≈·Ï „” ‰œ „‘ —Ì«  ··›—Ê⁄", vbYesNo + vbDefaultButton2) = vbYes Then
-        cCode = GetDesca("SELECT CODE FROM FILE4_10 WHERE BRANCH = " & MyParn(XSTORE.BoundText), con)
+        cCode = GetDesca("SELECT CODE FROM FILE4_10 WHERE BRANCH = " & MyParn(xStore.BoundText), con)
         If cCode = "" Then
             MsgBox " ·« ÌÊÃœ „Ê—œ ·Â–« «·›—⁄  "
             Exit Sub
@@ -6052,7 +6055,7 @@ Private Sub sned_purch_Click()
         aInsert = AddFlag(aInsert, "[STORE]", addstring("000"))
         aInsert = AddFlag(aInsert, "[code]", addstring(cCode))
         aInsert = AddFlag(aInsert, "[isdate]", "getdate()")
-        aInsert = AddFlag(aInsert, "[USERSEND]", addstring(cusername))
+        aInsert = AddFlag(aInsert, "[USERSEND]", addstring(cUserName))
         aInsert = AddFlag(aInsert, "[REMARK]", addstring(XNotes_Doc.text & " " & XTRANS_DOC.Caption))
         aInsert = AddFlag(aInsert, "[ISNEW1]", 1)
             
@@ -6060,10 +6063,10 @@ Private Sub sned_purch_Click()
         aInsert = AddFlag(aInsert, "DOC_NO", addstring(cDoc))
         con.Execute addInsert(aInsert, "FILE7_20h")
         
-        con.Execute " INSERT INTO FILE7_20 (DOC_NO , quant, ITEM, price )  SELECT  " & addstring(cDoc) & " , quant, FR7_10.ITEM, file1_10.COST  From FR7_10 inner join file1_10 on FR7_10.item = file1_10.item WHERE FR7_10.item <> 0 and DOC_NO = " & MyParn(xDoc_No.text)
+        con.Execute " INSERT INTO FILE7_20 (DOC_NO , quant, ITEM, price )  SELECT  " & addstring(cDoc) & " , quant, FR7_10.ITEM, file1_10.COST  From FR7_10 inner join file1_10 on FR7_10.item = file1_10.item WHERE FR7_10.item <> 0 and DOC_NO = " & MyParn(xdoc_no.text)
         
-        con.Execute " DELETE FROM NEW7_20H WHERE DOC_NO = " & addstring(xDoc_No.text) & " AND BRANCH = " & MyParn(XSTORE.BoundText)
-        con.Execute " INSERT INTO NEW7_20H (DOC_NO , BRANCH) SELECT " & addstring(xDoc_No.text) & " ,  branch FROM  FILE0_40  WHERE CODE = " & addstring(XSTORE.BoundText)
+        con.Execute " DELETE FROM NEW7_20H WHERE DOC_NO = " & addstring(xdoc_no.text) & " AND BRANCH = " & MyParn(xStore.BoundText)
+        con.Execute " INSERT INTO NEW7_20H (DOC_NO , BRANCH) SELECT " & addstring(xdoc_no.text) & " ,  branch FROM  FILE0_40  WHERE CODE = " & addstring(xStore.BoundText)
         
         Inform " „  ÕÊÌ· ≈·Ï „” ‰œ „‘ —Ì«  ··›—Ê⁄ —ﬁ„ " & cDoc
         openCardTable
@@ -6149,8 +6152,8 @@ Private Function SendPurchaseHeader(cFile, cFile2) As Boolean
 ''''''GoTo lastsub
 End Function
 Private Sub myUndo()
-If IsNumeric(xDoc_No.text) Then
-    openCardTable xDoc_No.text
+If IsNumeric(xdoc_no.text) Then
+    openCardTable xdoc_no.text
     If Not CardTable.EOF Then
         myload
         Exit Sub
@@ -6159,7 +6162,7 @@ End If
 openCardTable , "<"
 If CardTable.EOF Then myDefine Else myload
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -6191,13 +6194,13 @@ Set CardTable = New ADODB.Recordset
 CardTable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
 End Function
 Private Sub CmdNext_Click()
-openCardTable xDoc_No.text, ">"
-If CardTable.EOF Then openCardTable xDoc_No.text
+openCardTable xdoc_no.text, ">"
+If CardTable.EOF Then openCardTable xdoc_no.text
 myload
 End Sub
 Private Sub CmdPrevious_Click()
-openCardTable xDoc_No.text, "<"
-If CardTable.EOF Then openCardTable xDoc_No.text
+openCardTable xdoc_no.text, "<"
+If CardTable.EOF Then openCardTable xdoc_no.text
 myload
 End Sub
 Private Sub CmdFirst_Click()
@@ -6227,11 +6230,11 @@ Sub EditAllItemPrice()
         Exit Sub
     End If
     If myPublic = 0 Then
-        InvFactTable.Open "SELECT file1_10.MODELFACT0 FROM FILE1_10 INNER JOIN FILE7_20 ON FILE7_20.ITEM = FILE1_10.ITEM  where DOC_NO = " & MyParn(xDoc_No.text) & " GROUP BY MODELFACT0 ", con, adOpenStatic, adLockReadOnly
+        InvFactTable.Open "SELECT file1_10.MODELFACT0 FROM FILE1_10 INNER JOIN FILE7_20 ON FILE7_20.ITEM = FILE1_10.ITEM  where DOC_NO = " & MyParn(xdoc_no.text) & " GROUP BY MODELFACT0 ", con, adOpenStatic, adLockReadOnly
     End If
     
     If myPublic = 2 Then
-        InvFactTable.Open "SELECT file1_10.MODELFACT0 FROM FILE1_10 INNER JOIN FR7_20 ON FR7_20.ITEM = FILE1_10.ITEM  where DOC_NO = " & MyParn(xDoc_No.text) & " GROUP BY MODELFACT0 ", con, adOpenStatic, adLockReadOnly
+        InvFactTable.Open "SELECT file1_10.MODELFACT0 FROM FILE1_10 INNER JOIN FR7_20 ON FR7_20.ITEM = FILE1_10.ITEM  where DOC_NO = " & MyParn(xdoc_no.text) & " GROUP BY MODELFACT0 ", con, adOpenStatic, adLockReadOnly
     End If
     prog1.Max = InvFactTable.RecordCount
     prog1.Min = 0
@@ -6242,7 +6245,7 @@ Sub EditAllItemPrice()
             i = i + 1
             prog1.Value = i
             If SubModel.State = adStateOpen Then SubModel.Close
-            SubModel.Open " SELECT * FROM FILE1_10 WHERE MODELFACT0 = " & MyParn(!modelfact0), conFact, adOpenStatic, adLockReadOnly, adCmdText
+            SubModel.Open " SELECT * FROM FILE1_10 WHERE MODELFACT0 = " & MyParn(!MODELFACT0), conFact, adOpenStatic, adLockReadOnly, adCmdText
             Do While Not SubModel.EOF
                 If Not IsNull(SubModel!BARCODE2) Then
                     nItem = GetDesca("SELECT ITEM FROM FILE1_10 WHERE BARCODE2 = " & MyParn(SubModel!BARCODE2), con)
@@ -6510,7 +6513,7 @@ Search_SOCK.Caption = "«” ⁄·«„"
 Search_SOCK.Show 1
 End Sub
 Sub AddInvFact_SOCK_OLD(pDoc)
-    On Error GoTo myError
+    On Error GoTo myerror
     Dim InvFactTable As New ADODB.Recordset, nQ As Double, nPrice1 As Double, nPrice2 As Double
     Dim lIsEditPrice As Boolean
     Dim nquant As Double
@@ -6519,7 +6522,7 @@ Sub AddInvFact_SOCK_OLD(pDoc)
     Else
         lIsEditPrice = False
     End If
-    If Xcode.text = "095" Then
+    If xCode.text = "095" Then
         If myPublic = 0 Or myPublic = 2 Then
             InvFactTable.Open "SELECT FILE6_20.* , FILE1_10.BARCODE2 , FILE1_10.GRITEM FROM FILE1_10 INNER JOIN FILE6_20 ON FILE6_20.ITEM = FILE1_10.ITEM WHERE DOC_NO = " & MyParn(pDoc), confact2, adOpenStatic, adLockReadOnly
         Else
@@ -6560,7 +6563,7 @@ Sub AddInvFact_SOCK_OLD(pDoc)
                     nquant = Round((!Quant * nQ), 0)
                     cString = "Insert into " & cFile & " (doc_no,item,Quant)" & _
                                "Values(" & _
-                               addstring(xDoc_No.text) & "," & _
+                               addstring(xdoc_no.text) & "," & _
                                addvalue(nItem) & "," & _
                                nquant & _
                                ")"
@@ -6584,31 +6587,31 @@ Sub AddInvFact_SOCK_OLD(pDoc)
         
         Select Case myPublic
             Case 0
-                con.Execute " UPDATE       FILE7_20  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FILE7_20 ON FILE1_10.ITEM = FILE7_20.ITEM WHERE DOC_NO = " & MyParn(xDoc_No.text)
-                cDocSaleS = "Junior SHOP " & xDoc_No.text
+                con.Execute " UPDATE       FILE7_20  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FILE7_20 ON FILE1_10.ITEM = FILE7_20.ITEM WHERE DOC_NO = " & MyParn(xdoc_no.text)
+                cDocSaleS = "Junior SHOP " & xdoc_no.text
                 confact2.Execute " UPDATE   FILE6_20H SET  DESCA = " & addstring(cDocSaleS) & " WHERE DOC_NO = " & MyParn(pDoc)
-                con.Execute " UPDATE   FILE6_20H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+                con.Execute " UPDATE   FILE6_20H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xdoc_no.text)
             Case 1
-                con.Execute " UPDATE       FILE7_10  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FILE7_10 ON FILE1_10.ITEM = FILE7_10.ITEM WHERE DOC_NO = " & MyParn(xDoc_No.text)
-                cDocSaleS = "Junior SHOP " & xDoc_No.text
+                con.Execute " UPDATE       FILE7_10  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FILE7_10 ON FILE1_10.ITEM = FILE7_10.ITEM WHERE DOC_NO = " & MyParn(xdoc_no.text)
+                cDocSaleS = "Junior SHOP " & xdoc_no.text
                 confact2.Execute " UPDATE   FILE6_10H SET  DESCA = " & addstring(cDocSaleS) & " WHERE DOC_NO = " & MyParn(pDoc)
-                con.Execute " UPDATE   FILE6_10H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+                con.Execute " UPDATE   FILE6_10H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xdoc_no.text)
             Case 2
-                con.Execute " UPDATE       FR7_20   SET MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM  FILE1_10 INNER JOIN FR7_20 ON FILE1_10.ITEM = FR7_20.ITEM WHERE DOC_NO = " & MyParn(xDoc_No.text)
-                cDocSaleS = "Junior_Fr SHOP " & xDoc_No.text
+                con.Execute " UPDATE       FR7_20   SET MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM  FILE1_10 INNER JOIN FR7_20 ON FILE1_10.ITEM = FR7_20.ITEM WHERE DOC_NO = " & MyParn(xdoc_no.text)
+                cDocSaleS = "Junior_Fr SHOP " & xdoc_no.text
                 confact2.Execute " UPDATE   FILE6_20H SET  DESCA = " & addstring(cDocSaleS) & " WHERE DOC_NO = " & MyParn(pDoc)
-                con.Execute " UPDATE   FILE6_20H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+                con.Execute " UPDATE   FILE6_20H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xdoc_no.text)
             Case 3
-                con.Execute " UPDATE       FR7_10  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FR7_10 ON FILE1_10.ITEM = FR7_10.ITEM WHERE DOC_NO = " & MyParn(xDoc_No.text)
-                cDocSaleS = "Junior SHOP " & xDoc_No.text
+                con.Execute " UPDATE       FR7_10  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FR7_10 ON FILE1_10.ITEM = FR7_10.ITEM WHERE DOC_NO = " & MyParn(xdoc_no.text)
+                cDocSaleS = "Junior SHOP " & xdoc_no.text
                 confact2.Execute " UPDATE   FILE6_10H SET  DESCA = " & addstring(cDocSaleS) & " WHERE DOC_NO = " & MyParn(pDoc)
-                con.Execute " UPDATE        FILE6_10H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+                con.Execute " UPDATE        FILE6_10H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xdoc_no.text)
         End Select
         myUndo
     End With
     MsgBox " OK "
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -6634,7 +6637,7 @@ Dim GrdArray(5, 1)
 Set Generalarray(0) = Me
 '                                   0               1                   2                   3                                   4
 Generalarray(1) = "SELECT   file6_55H.DOC_NO, file6_55H.ORDER_NO ,  FILE4_10.DESCA ,FILE6_55H.INV_NO ,file6_55H.date, CONVERT(VARCHAR(10), file6_55H.date, 111) " & _
-                  " FROM    file6_55H LEFT JOIN FILE4_10 ON FILE4_10.CODE = file6_55H.CODE WHERE FILE6_55H.INV_NO IS NULL AND FILE6_55H.CODE = " & MyParn(Xcode.text) & " AND STORE = " & MyParn(XSTORE.BoundText)
+                  " FROM    file6_55H LEFT JOIN FILE4_10 ON FILE4_10.CODE = file6_55H.CODE WHERE FILE6_55H.INV_NO IS NULL AND FILE6_55H.CODE = " & MyParn(xCode.text) & " AND STORE = " & MyParn(xStore.BoundText)
 Generalarray(2) = "Order by doc_no  DESC "
 Generalarray(3) = 6000
 Generalarray(5) = False
@@ -6669,7 +6672,7 @@ oSearchDoc.Show 1
 End Sub
 Sub myloadgrd2()
     Dim cString As String
-    cString = " SELECT FILE6_55H.DOC_NO, FILE6_55H.date, SUM(FILE6_55.QUANT) AS QUANT FROM  FILE6_55H INNER JOIN FILE6_55 ON FILE6_55H.DOC_NO = FILE6_55.DOC_NO WHERE FILE6_55H.INV_NO = " & MyParn(xDoc_No.text) & " GROUP BY FILE6_55H.DOC_NO, FILE6_55H.date"
+    cString = " SELECT FILE6_55H.DOC_NO, FILE6_55H.date, SUM(FILE6_55.QUANT) AS QUANT FROM  FILE6_55H INNER JOIN FILE6_55 ON FILE6_55H.DOC_NO = FILE6_55.DOC_NO WHERE FILE6_55H.INV_NO = " & MyParn(xdoc_no.text) & " GROUP BY FILE6_55H.DOC_NO, FILE6_55H.date"
     Set DATA13.Recordset = myRecordSet(cString, con)
     GRD_REC.AddItem ""
     Fixgrd2
@@ -6681,28 +6684,28 @@ Dim aHeader(2)
 Dim temptable As New ADODB.Recordset
 Dim sourcetable As New ADODB.Recordset
 Dim lPrice As Boolean
-cStr1 = " SELECT  FACT.DESCA AS FACTNAME , FILE1_10.MODEL , FILE1_10.MOSM, FILE1_10.MODELFACT, FILE1_10.desca , FILE1_10.COLOR, FILE1_10.code, FILE1_10.C_SCAL, FILE1_10.SCAL , FILE1_10.COLOR , SUM(Q_INV_REC.QUANT) AS Q_INV , SUM(Q_INV_REC.REC) AS Q_REC FROM  FACT INNER JOIN FILE1_10 ON FACT.CODE = FILE1_10.code INNER JOIN Q_INV_REC ON FILE1_10.ITEM = Q_INV_REC.ITEM WHERE Q_INV_REC.INV_NO = " & MyParn(xDoc_No.text) & _
+cStr1 = " SELECT  FACT.DESCA AS FACTNAME , FILE1_10.MODEL , FILE1_10.MOSM, FILE1_10.MODELFACT, FILE1_10.desca , FILE1_10.COLOR, FILE1_10.code, FILE1_10.C_SCAL, FILE1_10.SCAL , FILE1_10.COLOR , SUM(Q_INV_REC.QUANT) AS Q_INV , SUM(Q_INV_REC.REC) AS Q_REC FROM  FACT INNER JOIN FILE1_10 ON FACT.CODE = FILE1_10.code INNER JOIN Q_INV_REC ON FILE1_10.ITEM = Q_INV_REC.ITEM WHERE Q_INV_REC.INV_NO = " & MyParn(xdoc_no.text) & _
         " GROUP BY FACT.DESCA, FILE1_10.MODEL , FILE1_10.MOSM, FILE1_10.MODELFACT, FILE1_10.desca, FILE1_10.COLOR, FILE1_10.code, FILE1_10.C_SCAL , FILE1_10.SCAL , FILE1_10.COLOR "
 sourcetable.Open cStr1, con, adOpenStatic, adLockReadOnly, adCmdText
 contemp.Execute "DELETE * FROM TEMP"
 temptable.Open "temp", contemp, adOpenStatic, adLockOptimistic, adCmdTable
 Do While Not sourcetable.EOF
     temptable.AddNew
-    temptable!str10 = Me.Caption & "  " & XSTORE.text
-    temptable!str6 = xDoc_No.text
+    temptable!str10 = Me.Caption & "  " & xStore.text
+    temptable!STR6 = xdoc_no.text
     temptable!STR7 = xCodeDesca.Caption
-    temptable!str5 = TurnValue(xinv_no.text)
+    temptable!STR5 = TurnValue(xInv_No.text)
     temptable!Date1 = xDate.text
     temptable!str2 = sourcetable!FACTNAME
     temptable!str13 = DelZero(sourcetable!modelfact)
     temptable!str3 = sourcetable!DESCA
-    temptable!str4 = sourcetable!SCAL
-    temptable!str5 = sourcetable!color
+    temptable!STR4 = sourcetable!SCAL
+    temptable!STR5 = sourcetable!color
     temptable!VAL1 = sourcetable!C_SCAL
     temptable!str15 = sourcetable!MODEL
     
     
-    temptable!val3 = sourcetable!Q_REC
+    temptable!VAL3 = sourcetable!Q_REC
     temptable!VAL4 = sourcetable!Q_INV
     
     temptable!STR19 = Firsttitle
@@ -6727,9 +6730,9 @@ Sub AddInvFact(pDoc)
     Dim lIsEditPrice As Boolean, loctable As ADODB.Recordset
     Dim nquant As Double, nRowRec As Integer, cStr1_10 As String
     Dim cStr_Dem1 As String, cStr_Dem2 As String
-    On Error GoTo myError
+    On Error GoTo myerror
     lIsEditPrice = False
-    If Xcode.text = "001" Then
+    If xCode.text = "001" Then
         If myPublic = 0 Or myPublic = 2 Then
             InvFactTable.Open "SELECT FILE6_20.* , FILE1_10.BARCODE2 , FILE1_10.GRITEM ,file1_10.isdoz  , FILE1_10.PRICE , FILE1_10.PRICE2   FROM FILE1_10 INNER JOIN FILE6_20 ON FILE6_20.ITEM = FILE1_10.ITEM WHERE DOC_NO = " & MyParn(pDoc), conFact, adOpenStatic, adLockReadOnly
         Else
@@ -6750,19 +6753,19 @@ Sub AddInvFact(pDoc)
                 End If
                 
                 Set loctable = ItemFind_BARCODE2(!BARCODE2, con)
-                If (!GrItem = "01" And !ISDOZ) Or Xcode.text = "095" Then
+                If (!GrItem = "01" And !ISDOZ) Or xCode.text = "095" Then
                     nQ = 12
                 Else
                     nQ = 1
                 End If
                 If Not (loctable.EOF And loctable.BOF) Then
                     nItem = loctable!Item
-                    cQDem = GetDesca("SELECT QUANT FROM Model_Dem WHERE ITEM = " & nItem & " AND STORE = " & MyParn(XSTORE.BoundText), con)
+                    cQDem = GetDesca("SELECT QUANT FROM Model_Dem WHERE ITEM = " & nItem & " AND STORE = " & MyParn(xStore.BoundText), con)
                     If Val(cQDem) < (!Quant * nQ) Then
                         cString = "Insert into SUB7_20  (doc_no,STORE,item,QUANT,Q_DEM)" & _
                                    "Values(" & _
-                                   addstring(xDoc_No.text) & "," & _
-                                   addstring(XSTORE.BoundText) & "," & _
+                                   addstring(xdoc_no.text) & "," & _
+                                   addstring(xStore.BoundText) & "," & _
                                    addvalue(nItem) & "," & _
                                    Val(!Quant * nQ) & "," & _
                                    Val(cQDem) & _
@@ -6774,7 +6777,7 @@ Sub AddInvFact(pDoc)
                     nquant = Round((!Quant * nQ), 0)
                     cString = "Insert into " & cFile & " (doc_no,item,Quant)" & _
                                "Values(" & _
-                               addstring(xDoc_No.text) & "," & _
+                               addstring(xdoc_no.text) & "," & _
                                addvalue(nItem) & "," & _
                                nquant & _
                                ")"
@@ -6795,31 +6798,31 @@ Sub AddInvFact(pDoc)
 
         Select Case myPublic
             Case 0
-                con.Execute " UPDATE  FILE7_20  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FILE7_20 ON FILE1_10.ITEM = FILE7_20.ITEM WHERE DOC_NO = " & MyParn(xDoc_No.text)
-                cDocSaleS = "Junior SHOP " & xDoc_No.text
+                con.Execute " UPDATE  FILE7_20  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FILE7_20 ON FILE1_10.ITEM = FILE7_20.ITEM WHERE DOC_NO = " & MyParn(xdoc_no.text)
+                cDocSaleS = "Junior SHOP " & xdoc_no.text
                 conFact.Execute " UPDATE   FILE6_20H SET  DESCA = " & addstring(cDocSaleS) & " WHERE DOC_NO = " & MyParn(pDoc)
-                con.Execute " UPDATE   FILE6_20H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+                con.Execute " UPDATE   FILE6_20H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xdoc_no.text)
             Case 1
-                con.Execute " UPDATE       FILE7_10  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FILE7_10 ON FILE1_10.ITEM = FILE7_10.ITEM WHERE DOC_NO = " & MyParn(xDoc_No.text)
-                cDocSaleS = "Junior SHOP " & xDoc_No.text
+                con.Execute " UPDATE       FILE7_10  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FILE7_10 ON FILE1_10.ITEM = FILE7_10.ITEM WHERE DOC_NO = " & MyParn(xdoc_no.text)
+                cDocSaleS = "Junior SHOP " & xdoc_no.text
                 conFact.Execute " UPDATE   FILE6_10H SET  DESCA = " & addstring(cDocSaleS) & " WHERE DOC_NO = " & MyParn(pDoc)
-                con.Execute " UPDATE   FILE6_10H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+                con.Execute " UPDATE   FILE6_10H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xdoc_no.text)
             Case 2
-                con.Execute " UPDATE       FR7_20   SET MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM  FILE1_10 INNER JOIN FR7_20 ON FILE1_10.ITEM = FR7_20.ITEM WHERE DOC_NO = " & MyParn(xDoc_No.text)
-                cDocSaleS = "Junior_Fr SHOP " & xDoc_No.text
+                con.Execute " UPDATE       FR7_20   SET MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM  FILE1_10 INNER JOIN FR7_20 ON FILE1_10.ITEM = FR7_20.ITEM WHERE DOC_NO = " & MyParn(xdoc_no.text)
+                cDocSaleS = "Junior_Fr SHOP " & xdoc_no.text
                 conFact.Execute " UPDATE   FILE6_20H SET  DESCA = " & addstring(cDocSaleS) & " WHERE DOC_NO = " & MyParn(pDoc)
-                con.Execute " UPDATE   FILE6_20H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+                con.Execute " UPDATE   FILE6_20H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xdoc_no.text)
             Case 3
-                con.Execute " UPDATE       FR7_10  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FR7_10 ON FILE1_10.ITEM = FR7_10.ITEM WHERE DOC_NO = " & MyParn(xDoc_No.text)
-                cDocSaleS = "Junior SHOP " & xDoc_No.text
+                con.Execute " UPDATE       FR7_10  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FR7_10 ON FILE1_10.ITEM = FR7_10.ITEM WHERE DOC_NO = " & MyParn(xdoc_no.text)
+                cDocSaleS = "Junior SHOP " & xdoc_no.text
                 conFact.Execute " UPDATE   FILE6_10H SET  DESCA = " & addstring(cDocSaleS) & " WHERE DOC_NO = " & MyParn(pDoc)
-                con.Execute " UPDATE        FILE6_10H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+                con.Execute " UPDATE        FILE6_10H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xdoc_no.text)
         End Select
         myUndo
     End With
     MsgBox " OK "
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -6830,9 +6833,9 @@ Sub AddInvFact_SOCK(pDoc)
     Dim lIsEditPrice As Boolean, loctable As ADODB.Recordset
     Dim nquant As Double, nRowRec As Integer, cStr1_10 As String
     Dim cStr_Dem1 As String, cStr_Dem2 As String
-    On Error GoTo myError
+    On Error GoTo myerror
     lIsEditPrice = False
-    If Xcode.text = "095" Then
+    If xCode.text = "095" Then
         If myPublic = 0 Or myPublic = 2 Then
             InvFactTable.Open "SELECT FILE6_20.* , FILE1_10.BARCODE2 , FILE1_10.GRITEM ,file1_10.isdoz  , FILE1_10.PRICE , FILE1_10.PRICE2   FROM FILE1_10 INNER JOIN FILE6_20 ON FILE6_20.ITEM = FILE1_10.ITEM WHERE DOC_NO = " & MyParn(pDoc), confact2, adOpenStatic, adLockReadOnly
         Else
@@ -6849,19 +6852,19 @@ Sub AddInvFact_SOCK(pDoc)
             nRowRec = nRowRec + 1
             If Not IsNull(!BARCODE2) Then
                 Set loctable = ItemFind_BARCODE2(!BARCODE2, con)
-                If (!GrItem = "01" And !ISDOZ) Or Xcode.text = "095" Then
+                If (!GrItem = "01" And !ISDOZ) Or xCode.text = "095" Then
                     nQ = 12
                 Else
                     nQ = 1
                 End If
                 If Not (loctable.EOF And loctable.BOF) Then
                     nItem = loctable!Item
-                    cQDem = GetDesca("SELECT QUANT FROM Model_Dem WHERE ITEM = " & nItem & " AND STORE = " & MyParn(XSTORE.BoundText), con)
+                    cQDem = GetDesca("SELECT QUANT FROM Model_Dem WHERE ITEM = " & nItem & " AND STORE = " & MyParn(xStore.BoundText), con)
                     If Val(cQDem) < (!Quant * nQ) Then
                         cString = "Insert into SUB7_20  (doc_no,STORE,item,QUANT,Q_DEM)" & _
                                    "Values(" & _
-                                   addstring(xDoc_No.text) & "," & _
-                                   addstring(XSTORE.BoundText) & "," & _
+                                   addstring(xdoc_no.text) & "," & _
+                                   addstring(xStore.BoundText) & "," & _
                                    addvalue(nItem) & "," & _
                                    Val(!Quant * nQ) & "," & _
                                    Val(cQDem) & _
@@ -6873,7 +6876,7 @@ Sub AddInvFact_SOCK(pDoc)
                     nquant = Round((!Quant * nQ), 0)
                     cString = "Insert into " & cFile & " (doc_no,item,Quant)" & _
                                "Values(" & _
-                               addstring(xDoc_No.text) & "," & _
+                               addstring(xdoc_no.text) & "," & _
                                addvalue(nItem) & "," & _
                                nquant & _
                                ")"
@@ -6894,31 +6897,31 @@ Sub AddInvFact_SOCK(pDoc)
 
         Select Case myPublic
             Case 0
-                con.Execute " UPDATE  FILE7_20  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FILE7_20 ON FILE1_10.ITEM = FILE7_20.ITEM WHERE DOC_NO = " & MyParn(xDoc_No.text)
-                cDocSaleS = "Junior SHOP " & xDoc_No.text
+                con.Execute " UPDATE  FILE7_20  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FILE7_20 ON FILE1_10.ITEM = FILE7_20.ITEM WHERE DOC_NO = " & MyParn(xdoc_no.text)
+                cDocSaleS = "Junior SHOP " & xdoc_no.text
                 confact2.Execute " UPDATE   FILE6_20H SET  DESCA = " & addstring(cDocSaleS) & " WHERE DOC_NO = " & MyParn(pDoc)
-                con.Execute " UPDATE   FILE6_20H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+                con.Execute " UPDATE   FILE6_20H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xdoc_no.text)
             Case 1
-                con.Execute " UPDATE       FILE7_10  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FILE7_10 ON FILE1_10.ITEM = FILE7_10.ITEM WHERE DOC_NO = " & MyParn(xDoc_No.text)
-                cDocSaleS = "Junior SHOP " & xDoc_No.text
+                con.Execute " UPDATE       FILE7_10  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FILE7_10 ON FILE1_10.ITEM = FILE7_10.ITEM WHERE DOC_NO = " & MyParn(xdoc_no.text)
+                cDocSaleS = "Junior SHOP " & xdoc_no.text
                 confact2.Execute " UPDATE   FILE6_10H SET  DESCA = " & addstring(cDocSaleS) & " WHERE DOC_NO = " & MyParn(pDoc)
-                con.Execute " UPDATE   FILE6_10H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+                con.Execute " UPDATE   FILE6_10H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xdoc_no.text)
             Case 2
-                con.Execute " UPDATE       FR7_20   SET MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM  FILE1_10 INNER JOIN FR7_20 ON FILE1_10.ITEM = FR7_20.ITEM WHERE DOC_NO = " & MyParn(xDoc_No.text)
-                cDocSaleS = "Junior_Fr SHOP " & xDoc_No.text
+                con.Execute " UPDATE       FR7_20   SET MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM  FILE1_10 INNER JOIN FR7_20 ON FILE1_10.ITEM = FR7_20.ITEM WHERE DOC_NO = " & MyParn(xdoc_no.text)
+                cDocSaleS = "Junior_Fr SHOP " & xdoc_no.text
                 confact2.Execute " UPDATE   FILE6_20H SET  DESCA = " & addstring(cDocSaleS) & " WHERE DOC_NO = " & MyParn(pDoc)
-                con.Execute " UPDATE   FILE6_20H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+                con.Execute " UPDATE   FILE6_20H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xdoc_no.text)
             Case 3
-                con.Execute " UPDATE       FR7_10  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FR7_10 ON FILE1_10.ITEM = FR7_10.ITEM WHERE DOC_NO = " & MyParn(xDoc_No.text)
-                cDocSaleS = "Junior SHOP " & xDoc_No.text
+                con.Execute " UPDATE       FR7_10  SET                MODEL = FILE1_10.MODEL, PRICE = FILE1_10.COST FROM            FILE1_10 INNER JOIN FR7_10 ON FILE1_10.ITEM = FR7_10.ITEM WHERE DOC_NO = " & MyParn(xdoc_no.text)
+                cDocSaleS = "Junior SHOP " & xdoc_no.text
                 confact2.Execute " UPDATE   FILE6_10H SET  DESCA = " & addstring(cDocSaleS) & " WHERE DOC_NO = " & MyParn(pDoc)
-                con.Execute " UPDATE        FILE6_10H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+                con.Execute " UPDATE        FILE6_10H SET  INV_NO = " & addstring(pDoc) & " WHERE DOC_NO = " & MyParn(xdoc_no.text)
         End Select
         myUndo
     End With
     MsgBox " OK "
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -6927,35 +6930,35 @@ Private Sub FIX_COST_SALES_Click()
     If MsgBox("Ÿ»ÿ  ﬂ·›… «·„»Ì⁄«  Ê «· ÕÊÌ·«   ··√’‰«› «·Œ«’… »«·›« Ê—…", vbYesNo + vbDefaultButton2) = vbYes Then
         con.CommandTimeout = 5000
         cStr1 = " UPDATE    FILE6_20 SET  cost = (SELECT TOP 1 (COST ) FROM Q_ITEMCOST WHERE FILE6_20.ITEM = Q_ITEMCOST.ITEM AND Q_ITEMCOST.DATE <= FILE6_20H.DATE ORDER BY DATE DESC ) " & _
-                " FROM      FILE6_20 INNER JOIN FILE6_20H ON FILE6_20.DOC_NO = FILE6_20H.DOC_NO where FILE6_20.ITEM IN (SELECT ITEM FROM FILE7_20 WHERE DOC_NO = " & MyParn(xDoc_No.text) & ")"
+                " FROM      FILE6_20 INNER JOIN FILE6_20H ON FILE6_20.DOC_NO = FILE6_20H.DOC_NO where FILE6_20.ITEM IN (SELECT ITEM FROM FILE7_20 WHERE DOC_NO = " & MyParn(xdoc_no.text) & ")"
         con.Execute cStr1, nRec
         Inform "  „ Ÿ»ÿ  ﬂ·›… «·„»Ì⁄«  " & nRec
         If cBranch = "00" And myPublic = 2 Then
             cStr1 = " UPDATE    FR6_20 SET  cost = (SELECT TOP 1 (COST ) FROM Q_ITEMCOST_FR WHERE FR6_20.ITEM = Q_ITEMCOST_FR.ITEM  AND FR6_20H.STORE = Q_ITEMCOST_FR.STORE AND Q_ITEMCOST_FR.DATE <= FR6_20H.DATE ORDER BY DATE DESC ) " & _
-                    " FROM      FR6_20 INNER JOIN FR6_20H ON FR6_20.DOC_NO = FR6_20H.DOC_NO where FR6_20.ITEM IN (SELECT ITEM FROM FR7_20 WHERE DOC_NO = " & MyParn(xDoc_No.text) & ")"
+                    " FROM      FR6_20 INNER JOIN FR6_20H ON FR6_20.DOC_NO = FR6_20H.DOC_NO where FR6_20.ITEM IN (SELECT ITEM FROM FR7_20 WHERE DOC_NO = " & MyParn(xdoc_no.text) & ")"
             con.Execute cStr1, nRec
             Inform "  „ Ÿ»ÿ  ﬂ·›… «·„»Ì⁄«  «· ÊﬂÌ·« " & nRec
         End If
         If cBranch = "00" Then
             cStr1 = " UPDATE    FILE1_60 SET  cost = (SELECT TOP 1 (COST ) FROM Q_ITEMCOST WHERE FILE1_60.ITEM = Q_ITEMCOST.ITEM AND Q_ITEMCOST.DATE <= FILE1_60H.DATE ORDER BY DATE DESC ) " & _
-                    " FROM      FILE1_60 INNER JOIN FILE1_60H ON FILE1_60.DOC_NO = FILE1_60H.DOC_NO where FILE1_60.ITEM IN (SELECT ITEM FROM FILE7_20 WHERE DOC_NO = " & MyParn(xDoc_No.text) & ")"
+                    " FROM      FILE1_60 INNER JOIN FILE1_60H ON FILE1_60.DOC_NO = FILE1_60H.DOC_NO where FILE1_60.ITEM IN (SELECT ITEM FROM FILE7_20 WHERE DOC_NO = " & MyParn(xdoc_no.text) & ")"
             con.Execute cStr1, nRec
             Inform "  „ Ÿ»ÿ  ﬂ·›… «· ÕÊÌ·« " & nRec
         
             cStr1 = " UPDATE    FILE1_60 SET  cost = (SELECT TOP 1 (COST ) FROM Q_ITEMCOST WHERE FILE1_60.ITEM = Q_ITEMCOST.ITEM AND Q_ITEMCOST.DATE > FILE1_60H.DATE ORDER BY DATE ) " & _
-                    " FROM      FILE1_60 INNER JOIN FILE1_60H ON FILE1_60.DOC_NO = FILE1_60H.DOC_NO where FILE1_60.COST = 0 and FILE1_60.ITEM IN (SELECT ITEM FROM FILE7_20 WHERE DOC_NO = " & MyParn(xDoc_No.text) & ")"
+                    " FROM      FILE1_60 INNER JOIN FILE1_60H ON FILE1_60.DOC_NO = FILE1_60H.DOC_NO where FILE1_60.COST = 0 and FILE1_60.ITEM IN (SELECT ITEM FROM FILE7_20 WHERE DOC_NO = " & MyParn(xdoc_no.text) & ")"
             con.Execute cStr1, nRec
             Inform "  „ Ÿ»ÿ  ﬂ·›… «· ÕÊÌ·« " & nRec
         
         
             If myPublic = 2 Then
                 cStr1 = " UPDATE    FR1_60 SET  cost = (SELECT TOP 1 (COST ) FROM Q_ITEMCOST_FR WHERE FR1_60.ITEM = Q_ITEMCOST_FR.ITEM AND Q_ITEMCOST_FR.DATE <= FR1_60H.DATE ORDER BY DATE DESC ) " & _
-                        " FROM      FR1_60 INNER JOIN FR1_60H ON FR1_60.DOC_NO = FR1_60H.DOC_NO where FR1_60.ITEM IN (SELECT ITEM FROM FR7_20 WHERE DOC_NO = " & MyParn(xDoc_No.text) & ")"
+                        " FROM      FR1_60 INNER JOIN FR1_60H ON FR1_60.DOC_NO = FR1_60H.DOC_NO where FR1_60.ITEM IN (SELECT ITEM FROM FR7_20 WHERE DOC_NO = " & MyParn(xdoc_no.text) & ")"
                 con.Execute cStr1, nRec
                 Inform "  „ Ÿ»ÿ  ﬂ·›… «· ÕÊÌ·« " & nRec
             End If
         End If
-        cStr1 = " UPDATE   FILE1_10 SET  COSTITEM = (SELECT TOP 1 ( COST ) FROM Q_ITEMCOST WHERE FILE1_10.ITEM = Q_ITEMCOST.ITEM ORDER BY DATE DESC ) From FILE1_10 WHERE file1_10.ITEM IN (SELECT ITEM FROM FILE7_20 WHERE DOC_NO = " & MyParn(xDoc_No.text) & ")"
+        cStr1 = " UPDATE   FILE1_10 SET  COSTITEM = (SELECT TOP 1 ( COST ) FROM Q_ITEMCOST WHERE FILE1_10.ITEM = Q_ITEMCOST.ITEM ORDER BY DATE DESC ) From FILE1_10 WHERE file1_10.ITEM IN (SELECT ITEM FROM FILE7_20 WHERE DOC_NO = " & MyParn(xdoc_no.text) & ")"
         con.Execute cStr1, nRec
         Inform "  „ Ÿ»ÿ  ﬂ·›… 1 «·„ÊœÌ·«  " & nRec
         
@@ -6963,7 +6966,7 @@ Private Sub FIX_COST_SALES_Click()
         Exit Sub
     End If
 Exit Sub
-myError:
+myerror:
     MsgBox Err.Description
     Err.Clear
 

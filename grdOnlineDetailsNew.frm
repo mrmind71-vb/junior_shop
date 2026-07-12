@@ -567,7 +567,7 @@ Begin VB.Form grdOnlineDetailsNewfrm
       GridLinesFixed  =   1
       GridLineWidth   =   1
       Rows            =   1
-      Cols            =   40
+      Cols            =   79
       FixedRows       =   1
       FixedCols       =   0
       RowHeightMin    =   0
@@ -895,7 +895,7 @@ End If
 ToFileExelNew grid1, , , aRow, , 1.2, , , , , , Me, Array(Me.Caption, retHeader(aHeader, 0, 2), retHeader(aHeader, 2, 2), retHeader(aHeader, 4, 5))
 
 Me.MousePointer = 0
-Fixgrd
+fixGrd
 End Sub
 
 Private Sub cmdExit_Click()
@@ -904,7 +904,7 @@ End Sub
 Private Sub CmdUndo_Click()
     Unload Me
 End Sub
-Private Sub CmdGo_Click()
+Private Sub cmdGo_Click()
 Me.MousePointer = vbHourglass
 myload
 Me.MousePointer = vbNormal
@@ -929,7 +929,7 @@ Frame2.Left = Frame1.Left - Frame2.Width - 50
 End Sub
 Private Sub Form_Load()
 Dim con As New ADODB.Connection
-If openCn(con) Then
+If opencn(con) Then
     Set xStore.RowSource = myRs("Select code ,descA From file0_40 ORDER BY CODE", con)
     xStore.ListField = "Desca"
     xStore.BoundColumn = "CODE"
@@ -938,7 +938,7 @@ End If
 
 Set grid1.DataSource = DATA11
 
-Fixgrd
+fixGrd
 End Sub
 Private Sub myload(Optional bString As Boolean = False)
 Dim aPrm As Variant
@@ -952,42 +952,42 @@ End If
 
 If IsDate(xDate1.text) Then
     aPrm = AddFlag(aPrm, "DATE1", addDate(xDate1.text))
-    aHeader(1) = BetweenString(xDate1.text, xDate2.text)
+    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
 End If
 
 If IsDate(xDate1.text) Then
-    aPrm = AddFlag(aPrm, "DATE2", addDate(xDate2.text))
-    aHeader(1) = BetweenString(xDate1.text, xDate2.text)
+    aPrm = AddFlag(aPrm, "DATE2", addDate(xdate2.text))
+    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
 End If
 
-If xtype(1).Value Then
+If xtype(1).value Then
     aPrm = AddFlag(aPrm, "CLOSED", "1")
     aHeader(2) = "ÿ·»Ì«  " & xtype(1).Caption
-ElseIf xtype(2).Value Then
+ElseIf xtype(2).value Then
     aPrm = AddFlag(aPrm, "OPEN", "1")
     aHeader(2) = "ÿ·»Ì«  " & xtype(2).Caption
-ElseIf xtype(3).Value Then
+ElseIf xtype(3).value Then
     aPrm = AddFlag(aPrm, "CANCEL", "1")
     aHeader(2) = "ÿ·»Ì«  " & xtype(3).Caption
 End If
 
-If Trim(xdoc_no.text) <> "" Then
-    aPrm = AddFlag(aPrm, "DOC_NO", addstring(xdoc_no.text))
-    aHeader(3) = "›« Ê—… : " & xdoc_no.text
+If Trim(xDoc_No.text) <> "" Then
+    aPrm = AddFlag(aPrm, "DOC_NO", addstring(xDoc_No.text))
+    aHeader(3) = "›« Ê—… : " & xDoc_No.text
 End If
 
-If Trim(xOrder_No.text) <> "" Then
-    aPrm = AddFlag(aPrm, "ORDER_NO", addstring(xOrder_No.text))
-    aHeader(4) = "ÿ·»Ì… : " & xOrder_No.text
+If Trim(xorder_no.text) <> "" Then
+    aPrm = AddFlag(aPrm, "ORDER_NO", addstring(xorder_no.text))
+    aHeader(4) = "ÿ·»Ì… : " & xorder_no.text
 End If
 
-If Trim(xShip_no.text) <> "" Then
-    aPrm = AddFlag(aPrm, "SHIP_NO", addstring(xShip_no.text))
-    aHeader(5) = "»Ê·Ì’… ‘Õ‰ : " & xShip_no.text
+If Trim(xship_no.text) <> "" Then
+    aPrm = AddFlag(aPrm, "SHIP_NO", addstring(xship_no.text))
+    aHeader(5) = "»Ê·Ì’… ‘Õ‰ : " & xship_no.text
 End If
 
 Dim cString As String
-cString = myPrcString("dbo.sp_online_pay_detail", aPrm)
+cString = myPrcString("dbo.sp_online_pay2", aPrm)
 
 If bString Then
     Clipboard.Clear
@@ -996,12 +996,12 @@ If bString Then
 End If
 
 Dim con As New ADODB.Connection
-If openCn(con) Then
+If opencn(con) Then
     Set grid1.DataSource = myRs(cString, con)
-    Fixgrd
+    fixGrd
 End If
 End Sub
-Sub Fixgrd()
+Sub fixGrd()
 With grid1
     .RowHeight(0) = 1000
     .WordWrap = True
@@ -1010,7 +1010,7 @@ With grid1
     .TextMatrix(0, 0) = "«· «—ÌŒ"
     .TextMatrix(0, 1) = "—ﬁ„ ÿ·»Ì…"
     .TextMatrix(0, 2) = "⁄œœ «·ﬁÿ⁄"
-    .TextMatrix(0, 3) = "ﬁÌ„… «·«Êœ—"
+    .TextMatrix(0, 3) = "ﬁÌ„… «·ÿ·»Ì…"
     
     .TextMatrix(0, 4) = "—ﬁ„ «·›« Ê—…"
     .TextMatrix(0, 5) = " «—ÌŒ «·›« Ê—…"
@@ -1021,69 +1021,96 @@ With grid1
     .TextMatrix(0, 9) = "‘—ﬂ… «·‘Õ‰"
     .TextMatrix(0, 10) = " «—ÌŒ «·‘Õ‰"
     .TextMatrix(0, 11) = "ÿ—Ìﬁ… «·”œ«œ"
+    .TextMatrix(0, 12) = " «—ÌŒ «·«·€«¡"
         
-    .TextMatrix(0, 12) = " «—ÌŒ «·”œ«œ"
-    .TextMatrix(0, 13) = "⁄œœ „” ‰œ«  «· Õ’Ì·"
+    .TextMatrix(0, 13) = "⁄œœ ›Ê« Ì— «” »œ«·"
+    .TextMatrix(0, 14) = "ﬂ„Ì«  ›Ê« Ì— «” »œ«·"
+    .TextMatrix(0, 15) = "≈Ã„«·Ì ›Ê« Ì— «” »œ«·"
     
-    .TextMatrix(0, 14) = "≈Ã„«·Ì «· Õ’Ì·"
-    .TextMatrix(0, 15) = "≈Ã„«·Ì «·„’«—Ì›"
+    .TextMatrix(0, 16) = "⁄œœ ›Ê« Ì— „— Ã⁄"
+    .TextMatrix(0, 17) = "ﬂ„Ì«  ›Ê« Ì— „— Ã⁄"
+    .TextMatrix(0, 18) = "≈Ã„«·Ì ›Ê« Ì— „— Ã⁄"
     
-    .TextMatrix(0, 16) = "„” ‰œ«   Õ’Ì· „‰ «·⁄„Ì·"
-    .TextMatrix(0, 17) = "≈Ã„«·Ì  Õ’Ì·"
+    .TextMatrix(0, 19) = "⁄œœ ›Ê« Ì— —›÷ «” ·«„"
+    .TextMatrix(0, 20) = "ﬂ„Ì«  ›Ê« Ì— —›÷ «” ·«„"
+    .TextMatrix(0, 21) = "≈Ã„«·Ì ›Ê« Ì— —›÷ «” ·«„"
+            
+    .TextMatrix(0, 22) = "⁄œœ ›Ê« Ì— »Ì⁄"
+    .TextMatrix(0, 23) = "ﬂ„Ì«  ›Ê« Ì— »Ì⁄"
+    .TextMatrix(0, 24) = "ﬁÌ„… ›Ê« Ì— »Ì⁄"
+    
+    .TextMatrix(0, 25) = "”œ«œ «Ê‰ ·«Ì‰"
+    .TextMatrix(0, 26) = "⁄„Ê·…  Õ’Ì·"
+    .TextMatrix(0, 27) = "”œœ ⁄‰œ «·«” ·«„"
+    .TextMatrix(0, 28) = "⁄„Ê·…  Õ’Ì· ⁄‰œ «·«” ·«„"
+    .TextMatrix(0, 29) = "⁄„Ê·…  Õ’Ì· ⁄‰œ «·«” ·«„"
+    
+    .TextMatrix(0, 30) = "≈Ã„«·Ì ›Ê« Ì— »Ì⁄"
+    .TextMatrix(0, 31) = "⁄œœ ›Ê« Ì— »Ì⁄"
+    
+    .TextMatrix(0, 32) = "›Ê« Ì— „— Ã⁄"
+    .TextMatrix(0, 33) = "⁄œœ ›Ê« Ì— „— Ã⁄"
+    
+    .TextMatrix(0, 34) = "’«›Ì «·›Ê« Ì—"
+    .TextMatrix(0, 35) = "⁄œœ ›Ê« Ì—"
         
-    .TextMatrix(0, 18) = "„” ‰œ«   Õ’Ì· „— Ã⁄…"
-    .TextMatrix(0, 19) = "≈Ã„«·Ì  Õ’Ì· „— Ã⁄"
+    .TextMatrix(0, 36) = "ÿ·»Ì«  «” »œ«· »›« Ê—…"
+    .TextMatrix(0, 37) = "ÿ·»Ì«  «” »œ«· »›« Ê—… „‰›–…"
+    .TextMatrix(0, 38) = "ÿ·»Ì«  «” »œ«· »›« Ê—… €Ì— „‰›–…"
+    
+    .TextMatrix(0, 39) = "ﬂ„Ì«  «” »œ«· »›« Ê—…"
+    .TextMatrix(0, 40) = "ﬂ„Ì«  «” »œ«· »›« Ê—… „‰›–…"
+    .TextMatrix(0, 41) = "ﬂ„Ì«  «” »œ«· »›« Ê—… €Ì— „‰›–…"
+    
+    .TextMatrix(0, 42) = "ﬁÌ„ «” »œ«· »›« Ê—…"
+    .TextMatrix(0, 43) = "ﬁÌ„ «” »œ«· »›« Ê—… „‰›–…"
+    .TextMatrix(0, 44) = "ﬁÌ„ «” »œ«· »›« Ê—… €Ì— „‰›–…"
+    
+    .TextMatrix(0, 45) = "ÿ·»Ì«  „— Ã⁄ »›« Ê—…"
+    .TextMatrix(0, 46) = "ÿ·»Ì«  «” »œ«· »›« Ê—… „‰›–…"
+    .TextMatrix(0, 47) = "ÿ·»Ì«  «” »œ«· »›« Ê—… €Ì— „‰›–…"
         
-    .TextMatrix(0, 20) = "›« Ê—… „— Ã⁄"
-    .TextMatrix(0, 21) = "ﬂ„Ì… «·„— Ã⁄"
-    .TextMatrix(0, 22) = "ﬁÌ„… «·„— Ã⁄"
+    .TextMatrix(0, 48) = "ﬂ„Ì«  „— Ã⁄ »›« Ê—…"
+    .TextMatrix(0, 49) = "ﬂ„Ì«  „— Ã⁄ »›« Ê—… „‰›–…"
+    .TextMatrix(0, 50) = "ﬂ„Ì«  „— Ã⁄ »›« Ê—… €Ì— „‰›–…"
     
-    .TextMatrix(0, 23) = "—ﬁ„ »Ê·Ì’… «·‘Õ‰"
-    .TextMatrix(0, 24) = " «—ÌŒ «·«·€«¡"
+    .TextMatrix(0, 51) = "ﬁÌ„ „— Ã⁄ »›« Ê—…"
+    .TextMatrix(0, 52) = "ﬁÌ„ „— Ã⁄ »›« Ê—… „‰›–…"
+    .TextMatrix(0, 53) = "ﬁÌ„ „— Ã⁄ »›« Ê—… €Ì— „‰›–…"
     
-    .TextMatrix(0, 25) = "⁄œœ «·›Ê« Ì—"
-    .TextMatrix(0, 26) = "’«›Ì ﬁÌ„… «·›Ê« Ì—"
-    
-    .TextMatrix(0, 27) = "⁄œœ ›Ê« Ì— »Ì⁄"
-    .TextMatrix(0, 28) = "≈Ã„«·Ì ›Ê« Ì— »Ì⁄"
-    
-    .TextMatrix(0, 29) = "⁄œœ ›Ê« Ì— „— Ã⁄"
-    .TextMatrix(0, 30) = "≈Ã„«·Ì ›Ê« Ì— „— Ã⁄"
-    
-    .TextMatrix(0, 31) = "ÿ·»Ì«  «” »œ«· Ê«” —Ã«⁄"
-    .TextMatrix(0, 32) = "ÿ·»Ì«  «” »œ«· Ê«” —Ã«⁄ €Ì— „”·„…"
+    .TextMatrix(0, 54) = "ÿ·»Ì«  —›÷ «” ·«„"
+    .TextMatrix(0, 55) = "ÿ·»Ì«  —›÷ «” ·«„ „‰›–…"
+    .TextMatrix(0, 56) = "ÿ·»Ì«  —›÷ «” ·«„ €Ì— „‰›–…"
         
-    .TextMatrix(0, 33) = "ÿ·»Ì«  «” —Ã«⁄"
-    .TextMatrix(0, 34) = "ÿ·»Ì«  «” —Ã«⁄ €Ì— „”·„…"
+    .TextMatrix(0, 57) = "ﬂ„Ì«  —›÷ «” ·«„"
+    .TextMatrix(0, 58) = "ﬂ„Ì«  —›÷ «” ·«„ „‰›–…"
+    .TextMatrix(0, 59) = "ﬂ„Ì«  —›÷ «” ·«„ €Ì— „‰›–…"
     
-    .TextMatrix(0, 35) = "ÿ·»Ì«  «” »œ«·"
-    .TextMatrix(0, 36) = "ÿ·»Ì«  «” »œ«· €Ì— „”·„…"
+    .TextMatrix(0, 60) = "ﬁÌ„ —›÷ «” ·«„"
+    .TextMatrix(0, 61) = "ﬁÌ„ —›÷ «” ·«„ „‰›–…"
+    .TextMatrix(0, 62) = "ﬁÌ„ —›÷ «” ·«„ €Ì— „‰›–…"
+        
+    .TextMatrix(0, 63) = "'ÿ·»Ì«  «” »œ«· »œÊ‰ ›« Ê—…"
+    .TextMatrix(0, 64) = "ÿ·»Ì«  «” »œ«· »œÊ‰ ›« Ê—… „‰›–…"
+    .TextMatrix(0, 65) = "ÿ·»Ì«  «” »œ«· »œÊ‰ ›« Ê—… €Ì— „‰›–…"
+    
+    .TextMatrix(0, 66) = "ﬂ„Ì«  «” »œ«· »œÊ‰ ›« Ê—…"
+    .TextMatrix(0, 67) = "ﬂ„Ì«  «” »œ«· »œÊ‰ ›« Ê—… „‰›–…"
+    .TextMatrix(0, 68) = "ﬂ„Ì«  «” »œ«· »œÊ‰ ›« Ê—… €Ì— „‰›–…"
+    
+    .TextMatrix(0, 69) = "ÿ·»Ì«  „— Ã⁄ »œÊ‰ ›« Ê—…"
+    .TextMatrix(0, 70) = "ÿ·»Ì«  „— Ã⁄ »œÊ‰ ›« Ê—… „‰›–…"
+    .TextMatrix(0, 71) = "ÿ·»Ì«  „— Ã⁄ »œÊ‰ ›« Ê—… €Ì— „‰›–…"
+    
+    .TextMatrix(0, 72) = "ﬂ„Ì«  „— Ã⁄ »œÊ‰ ›« Ê—…"
+    .TextMatrix(0, 73) = "ﬂ„Ì«  „— Ã⁄ »œÊ‰ ›« Ê—… „‰›–…"
+    .TextMatrix(0, 74) = "ﬂ„Ì«  „— Ã⁄ »œÊ‰ ›« Ê—… €Ì— „‰›–…"
+    
+    .TextMatrix(0, 75) = "⁄œœ «·ÿ·»Ì« "
+    .TextMatrix(0, 76) = "⁄œœ «·ÿ·»Ì«  «·„‰›–…"
+    .TextMatrix(0, 77) = "⁄œœ «·ÿ·»Ì«  «·€Ì—«·„‰›–…"
+    .TextMatrix(0, 78) = "«·„‰œÊ»"
 
-    .TextMatrix(0, 37) = "«” »œ«· »œÊ‰ ›« Ê—…"
-    .TextMatrix(0, 38) = "«” »œ«· »œÊ‰ ›« Ê—… €Ì— „”·„…"
-    
-    .TextMatrix(0, 39) = "≈”„ «·„‰œÊ»"
-
-    .ColDataType(5) = flexDTDate
-    .ColDataType(12) = flexDTDate
-    .ColDataType(10) = flexDTDate
-    .ColDataType(24) = flexDTDate
-
-    .ColDataType(1) = flexDTDouble
-    .ColDataType(2) = flexDTDouble
-    .ColDataType(3) = flexDTDouble
-    .ColDataType(13) = flexDTDouble
-    .ColDataType(14) = flexDTDouble
-    .ColDataType(15) = flexDTDouble
-    .ColDataType(16) = flexDTDouble
-    .ColDataType(18) = flexDTDouble
-    .ColDataType(19) = flexDTDouble
-    .ColDataType(21) = flexDTDouble
-    .ColDataType(22) = flexDTDouble
-    
-    For i = 25 To 38
-        .ColDataType(i) = flexDTDouble
-    Next
     
     
     .ColWidth(0) = 1300
@@ -1193,8 +1220,8 @@ End Sub
 Private Sub Form_Unload(Cancel As Integer)
 Set grdOnlineDetailsNewfrm = Nothing
 End Sub
-Private Function MYVALID() As Boolean
-MYVALID = True
+Private Function myValid() As Boolean
+myValid = True
 End Function
 Private Sub myPrint(Optional pDevice As String = "", Optional bIgPreview As Boolean = False)
 If grid1.Rows < 3 Then Exit Sub
@@ -1216,7 +1243,7 @@ Else
 End If
 End Sub
 
-Private Sub xdesca_GotFocus()
+Private Sub xDescA_GotFocus()
 myGotFocus xDesca
 End Sub
 Private Sub xDesca_LostFocus()
@@ -1261,16 +1288,16 @@ End Sub
 Private Sub xdate1_GotFocus()
 myGotFocus xDate1
 End Sub
-Private Sub xdate1_LostFocus()
+Private Sub xDate1_LostFocus()
 myLostFocus xDate1
 myValidDate xDate1
 End Sub
-Private Sub xDate2_GotFocus()
-myGotFocus xDate2
+Private Sub xdate2_GotFocus()
+myGotFocus xdate2
 End Sub
 Private Sub xDate2_LostFocus()
-myLostFocus xDate2
-myValidDate xDate2
+myLostFocus xdate2
+myValidDate xdate2
 End Sub
 Private Sub XPO_NO_GotFocus()
 myGotFocus XPO_NO
@@ -1286,8 +1313,8 @@ myLostFocus xCode
 If Not xCode.MatchedWithList Then xCode.BoundText = ""
 End Sub
 Public Sub myProc()
-If ActiveControl.Name = xdoc_no.Name Then
-    xdoc_no.text = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
+If ActiveControl.Name = xDoc_No.Name Then
+    xDoc_No.text = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
     oSearchDoc.Hide
 End If
 End Sub
@@ -1295,21 +1322,21 @@ Private Sub xdoc_no_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 112 Then SalesOnlineLookup Me, oSearchDoc
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xdoc_no
+myGotFocus xDoc_No
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus xdoc_no
+myLostFocus xDoc_No
 End Sub
 Private Sub xship_no_GotFocus()
-myGotFocus xShip_no
+myGotFocus xship_no
 End Sub
 Private Sub xship_no_LostFocus()
-myLostFocus xShip_no
+myLostFocus xship_no
 End Sub
 Private Sub xOrder_no_GotFocus()
-myGotFocus xOrder_No
+myGotFocus xorder_no
 End Sub
 Private Sub xOrder_no_LostFocus()
-myLostFocus xOrder_No
+myLostFocus xorder_no
 End Sub
 

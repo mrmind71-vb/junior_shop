@@ -613,7 +613,6 @@ Begin VB.Form OrderOnline_New
       BeginProperty Panels {0713E89E-850A-101B-AFC0-4210102A8DA7} 
          NumPanels       =   1
          BeginProperty Panel1 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.Tag             =   ""
          EndProperty
       EndProperty
@@ -1496,7 +1495,7 @@ End Sub
 Private Sub CmdUndo_Click()
     Unload Me
 End Sub
-Private Sub CmdGo_Click()
+Private Sub cmdGo_Click()
     myload
 End Sub
 Private Sub Form_Load()
@@ -1504,7 +1503,7 @@ Private Sub Form_Load()
     
     'openCon con, LoadConString_OnLine
     
-    openCon con
+    OpenCon con
     'If cBranch <> "00" Then openCon con_MyShop
     
     Set grid1.DataSource = DATA1
@@ -1585,12 +1584,12 @@ With grid1
               " NOTES,DelOrder_Date,DelOrder_Date2,Note_main,Note_branch," & _
               " FILE6_25.DESCA,FILE6_90H.MAN" & _
               " FROM FILE6_90H LEFT JOIN FILE6_25 ON FILE6_90H.MAN = FILE6_25.CODE"
-    If xdoc_no.text <> "" Then cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xdoc_no.text)
+    If xDoc_No.text <> "" Then cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xDoc_No.text)
     If xPhone.text <> "" Then cWhere = cWhere & Tr(cWhere) & " [phone] = " & MyParn(xPhone.text)
     If xpay.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " [Payment_Method] = " & MyParn(xpay.text)
     If xStore.BoundText <> "" Then cWhere = cWhere & Tr(cWhere) & " [STORE] = " & MyParn(xStore.BoundText)
     If xMan.MatchedWithList Then cWhere = cWhere & Tr(cWhere) & "MAN = " & MyParn(xMan.BoundText)
-    If IsDate(xdate1.text) Then cWhere = cWhere & Tr(cWhere) & " [DATE] >= " & DateSq(xdate1.text)
+    If IsDate(xDate1.text) Then cWhere = cWhere & Tr(cWhere) & " [DATE] >= " & DateSq(xDate1.text)
     If IsDate(xdate2.text) Then cWhere = cWhere & Tr(cWhere) & " [DATE] <= " & DateSq(xdate2.text)
     
     If cBranch = "00" Then
@@ -1729,7 +1728,7 @@ Private Sub Form_Unload(Cancel As Integer)
     On Error Resume Next
     closeCon con
     'If cBranch <> "00" Then closeCon con_MyShop
-    SaveText Me, , Array(xdate1.Name, xdate2.Name)
+    SaveText Me, , Array(xDate1.Name, xdate2.Name)
 End Sub
 Sub AddFromExel()
     Dim xl As New Excel.Application, nREcOrder As Double
@@ -2260,8 +2259,8 @@ cString.Append "SELECT  FILE6_90H.DOC_NO," & _
                "LEFT JOIN FILE0_40 ON FILE0_40.CODE = FILE6_90H.STORE "
 cString.Append "WHERE  SALES_DOC IS NULL"
 
-If xdoc_no.text <> "" Then
-    cString.Append " AND [DOC_NO] = " & MyParn(xdoc_no.text)
+If xDoc_No.text <> "" Then
+    cString.Append " AND [DOC_NO] = " & MyParn(xDoc_No.text)
 End If
 
 If xpay.MatchedWithList Then
@@ -2271,8 +2270,8 @@ End If
 If xStore.MatchedWithList Then
     cString.Append " AND [STORE] = " & MyParn(xStore.BoundText)
 End If
-If IsDate(xdate1.text) Then
-    cString.Append " AND [DATE] >= " & DateSq(xdate1.text)
+If IsDate(xDate1.text) Then
+    cString.Append " AND [DATE] >= " & DateSq(xDate1.text)
 End If
 If IsDate(xdate2.text) Then
     cString.Append " AND [DATE] <= " & DateSq(xdate2.text)
@@ -2370,12 +2369,12 @@ Private Sub XPHONE_LostFocus()
 myLostFocus xPhone
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xdoc_no
+myGotFocus xDoc_No
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus xdoc_no
+myLostFocus xDoc_No
 End Sub
-Private Sub xdate2_GotFocus()
+Private Sub xDate2_GotFocus()
 myGotFocus xdate2
 End Sub
 Private Sub xDate2_LostFocus()
@@ -2383,11 +2382,11 @@ myLostFocus xdate2
 myValidDate xdate2
 End Sub
 Private Sub xdate1_GotFocus()
-myGotFocus xdate1
+myGotFocus xDate1
 End Sub
-Private Sub xDate1_LostFocus()
-myLostFocus xdate1
-myValidDate xdate1
+Private Sub xdate1_LostFocus()
+myLostFocus xDate1
+myValidDate xDate1
 End Sub
 Private Sub xPay_GotFocus()
 myGotFocus xpay
@@ -2463,10 +2462,10 @@ If col = 4 Then
         Exit Sub
     End If
     
-    If Val(xtotal.Caption) > 0 And Val(grid1.EditText) <= 0 Then
+    If Val(xTotal.Caption) > 0 And Val(grid1.EditText) <= 0 Then
         Cancel = True
         Exit Sub
-    ElseIf Val(xtotal.Caption) < 0 And Val(grid1.EditText) >= 0 Then
+    ElseIf Val(xTotal.Caption) < 0 And Val(grid1.EditText) >= 0 Then
         Cancel = True
         Exit Sub
     End If
@@ -2572,12 +2571,12 @@ Do Until loctable.EOF
     aInsert = AddFlag(aInsert, "PRICE", loctable!price)
     aInsert = AddFlag(aInsert, "QUANT", loctable!Quant)
     aInsert = AddFlag(aInsert, "MODEL", addstring(loctable!MODEL))
-    If IsEmpty(myField("SELECT DOC_NO FROM " & cFile & " WHERE DOC_NO = " & MyParn(xdoc_no.text) & " AND ITEM = " & addvalue(loctable!Item), con)) Then
-        aInsert = AddFlag(aInsert, "DOC_NO", addstring(xdoc_no.text))
+    If IsEmpty(myField("SELECT DOC_NO FROM " & cFile & " WHERE DOC_NO = " & MyParn(xDoc_No.text) & " AND ITEM = " & addvalue(loctable!Item), con)) Then
+        aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_No.text))
         con.Execute addInsert(aInsert, cFile), nAffect
         nAffect = 1
     Else
-        con.Execute addUpdate(aInsert, cFile, "DOC_NO = " & MyParn(xdoc_no.text) & " AND ITEM = " & addvalue(loctable!Item)), nAffect
+        con.Execute addUpdate(aInsert, cFile, "DOC_NO = " & MyParn(xDoc_No.text) & " AND ITEM = " & addvalue(loctable!Item)), nAffect
     End If
     nAffectAll = nAffectAll + nAffect
     loctable.MoveNext

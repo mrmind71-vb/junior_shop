@@ -1244,14 +1244,11 @@ Private Sub cmd_addexel_Click()
 Inform "  „ «÷«›… «·ÿ·»Ì«  "
 myload
 End Sub
-
 Private Sub chkEcit_Click()
 myloadGrdDone
 End Sub
-
-
 Private Sub cmdExit_Click()
-    Unload Me
+Unload Me
 End Sub
 Private Sub cmdGet_Click()
 'Set oPassword = New online_stage_pass
@@ -1259,7 +1256,7 @@ Private Sub cmdGet_Click()
 'oPassword.Show 1
 GetOrder
 End Sub
-Private Sub CmdGo_Click()
+Private Sub cmdGo_Click()
 myload
 End Sub
 Private Sub Form_Load()
@@ -1303,7 +1300,7 @@ oPassword.Show 1
 If sManCode = "" Then Exit Sub
 
 Dim con As New ADODB.Connection
-If Not openCn(con) Then Exit Sub
+If Not opencn(con) Then Exit Sub
 
 Dim aRet As Variant
 Dim cString As String
