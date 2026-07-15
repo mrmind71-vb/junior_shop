@@ -399,7 +399,7 @@ Public Sub ToFileExel2(MyGrid, Optional aIg As Variant, Optional nRowHead As Lon
             nCols = nCols + 1
             If nFixedRows > 0 Then objSht.Range(objSht.Cells(1, nCols), objSht.Cells(nFixedRows, nCols)).NumberFormat = "@"
             If MyGrid.Rows > nFixedRows Then
-                If Not (MyGrid.ColDataType(icol) = flexDTDouble) Then
+                If Not (MyGrid.ColDataType(icol) = flexDTDouble Or MyGrid.ColDataType(icol) = flexDTDate) Then
                     objSht.Range(objSht.Cells(nFixedRows + 1, nCols), objSht.Cells(MyGrid.Rows, nCols)).NumberFormat = "@"
                 Else
                     objSht.Range(objSht.Cells(nFixedRows + 1, nCols), objSht.Cells(MyGrid.Rows, nCols)).NumberFormat = ""
@@ -410,12 +410,12 @@ Public Sub ToFileExel2(MyGrid, Optional aIg As Variant, Optional nRowHead As Lon
     
     If Not myForm Is Nothing Then
         myForm.prog1.Visible = True
-        myForm.prog1.Value = 0
+        myForm.prog1.value = 0
     End If
     
     For irow = 0 To MyGrid.Rows - 1
         If (Not myForm Is Nothing) And MyGrid.Rows > 1 Then
-            myForm.prog1.Value = IIf((irow / (MyGrid.Rows - 1)) * 100 > 100, 100, (irow / (MyGrid.Rows - 1)) * 100)
+            myForm.prog1.value = IIf((irow / (MyGrid.Rows - 1)) * 100 > 100, 100, (irow / (MyGrid.Rows - 1)) * 100)
         End If
         If Not MyGrid.RowHidden(irow) Then
             NROWS = NROWS + 1
@@ -595,7 +595,7 @@ Public Sub ToFileExel2(MyGrid, Optional aIg As Variant, Optional nRowHead As Lon
     End If
     If Not myForm Is Nothing Then
         myForm.prog1.Visible = True
-        myForm.prog1.Value = 0
+        myForm.prog1.value = 0
     End If
     objExcl.Application.Visible = True
 '    If Not IsEmpty(aRowMerge) Then
@@ -615,6 +615,7 @@ Set objSht = Nothing
 Set objWk = Nothing
 Set objExcl = Nothing
 If Not myForm Is Nothing Then myForm.prog1.Visible = False
+On Error GoTo 0
 End Sub
 Function myFormat(sDate As Variant) As String
     myFormat = Format(sDate, "YYYY-MM-DD")
@@ -670,7 +671,7 @@ Public Sub ToFileExelNew(MyGrid, Optional aIg As Variant, Optional nRowHead As L
     Dim objSht As Excel.Worksheet
     Dim iHead As Long
     Dim vHead As Variant
-    On Error Resume Next
+    'On Error Resume Next
     Set objExcl = Excel.Application
     objExcl.Application.Visible = False
     Set objWk = objExcl.Workbooks.Add
@@ -703,7 +704,7 @@ Public Sub ToFileExelNew(MyGrid, Optional aIg As Variant, Optional nRowHead As L
                 objSht.Range(objSht.Cells(1, nCols), objSht.Cells(nFixedRows, nCols)).NumberFormat = "@"
             End If
             If MyGrid.Rows > nFixedRows Then
-                If Not (MyGrid.ColDataType(icol) = flexDTDouble) Then
+                If Not (MyGrid.ColDataType(icol) = flexDTDouble Or MyGrid.ColDataType(icol) = flexDTDate) Then
                     objSht.Range(objSht.Cells(nFixedRows + 1, nCols), objSht.Cells(MyGrid.Rows, nCols)).NumberFormat = "@"
                 Else
                     objSht.Range(objSht.Cells(nFixedRows + 1, nCols), objSht.Cells(MyGrid.Rows, nCols)).NumberFormat = ""
@@ -714,12 +715,12 @@ Public Sub ToFileExelNew(MyGrid, Optional aIg As Variant, Optional nRowHead As L
     
     If Not myForm Is Nothing Then
         myForm.prog1.Visible = True
-        myForm.prog1.Value = 0
+        myForm.prog1.value = 0
     End If
     
     For irow = 0 To MyGrid.Rows - 1
         If (Not myForm Is Nothing) And MyGrid.Rows > 1 Then
-            myForm.prog1.Value = IIf((irow / (MyGrid.Rows - 1)) * 100 > 100, 100, (irow / (MyGrid.Rows - 1)) * 100)
+            myForm.prog1.value = IIf((irow / (MyGrid.Rows - 1)) * 100 > 100, 100, (irow / (MyGrid.Rows - 1)) * 100)
         End If
         If Not MyGrid.RowHidden(irow) Then
             NROWS = NROWS + 1
@@ -729,7 +730,14 @@ Public Sub ToFileExelNew(MyGrid, Optional aIg As Variant, Optional nRowHead As L
                 If Not MyGrid.ColHidden(icol) Then
                     nCols = nCols + 1
                     If MyGrid.ColDataType(icol) = flexDTDate And irow >= MyGrid.FixedRows Then
-                        objSht.Cells(NROWS, nCols) = myFormat_p(MyGrid.Cell(flexcpTextDisplay, irow, icol))
+                        With objSht.Cells(NROWS, nCols)
+                         If IsDate(myFormat_p(MyGrid.Cell(flexcpTextDisplay, irow, icol))) Then
+                            '.NumberFormatLocal = "dd-mm-yyyy"
+                            .value = myFormat_p(MyGrid.Cell(flexcpTextDisplay, irow, icol))
+                            .NumberFormat = "dd/mm/yyyy" ' Change this to your preferred Excel date format this cell format created will be custom not date how to make it data directely
+                            'objSht.Cells(NROWS, nCols).value = myFormat_p(MyGrid.Cell(flexcpTextDisplay, irow, icol))
+                         End If
+                        End With
                     ElseIf MyGrid.ColDataType(icol) = flexDTBoolean And irow >= MyGrid.FixedRows And MyGrid.ValueMatrix(irow, icol) <> "" Then
                         objSht.Cells(NROWS, nCols) = IIf(MyGrid.ValueMatrix(irow, icol) = 0, "·«", "‰⁄„")
                     Else
@@ -901,7 +909,7 @@ Public Sub ToFileExelNew(MyGrid, Optional aIg As Variant, Optional nRowHead As L
     End If
     If Not myForm Is Nothing Then
         myForm.prog1.Visible = True
-        myForm.prog1.Value = 0
+        myForm.prog1.value = 0
     End If
     objExcl.Application.Visible = True
 '    If Not IsEmpty(aRowMerge) Then

@@ -3110,7 +3110,7 @@ Sub Show_NewDoc()
     Set grid1.DataSource = data1
     data1.connectionString = strCon
     grid1.Rows = 1
-    Fixgrd
+    fixGrd
     myload
     
 End Sub
@@ -3119,9 +3119,9 @@ Private Sub myload()
     cString = " SELECT     flag, desca, DOC_NO, DATE, [name], QUANT, USERSEND, TIMESEND FROM         Q_DATA_SEND "
     data1.RecordSource = cString
     data1.Refresh
-    Fixgrd
+    fixGrd
 End Sub
-Sub Fixgrd()
+Sub fixGrd()
     With grid1
     .ExplorerBar = flexExSortShow
     .FixedRows = 1

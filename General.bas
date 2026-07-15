@@ -10,7 +10,8 @@ Public lRepCust As Byte, pDevice As String, cCust As String, lDisplayCom As Bool
 Public cRepItem As String, cDataShop As String, cBranchBoxVisa As String, cComputerName As String
 Public DRepDate1 As Date, sUsername As String, lokaz As Boolean, lokazItem As Boolean
 Public DRepDate2 As Date, cAddressBranch As String, cPhoneBranch As String, cBranchSales As String
-Public lHeadStore As Boolean, cPStore As String, lHeadBox As Boolean, lOneVisa As Boolean, cPathConf As String
+Public lHeadStore As Boolean
+Public cPStore As String, lHeadBox As Boolean, lOneVisa As Boolean, cPathConf As String
 Function aTurnValue(pSource, aOld, pNew)
 Dim i As Long
 For i = 0 To UBound(aOld)
@@ -371,7 +372,7 @@ Function RetSeek(pTable, pIndex, pFind, pField) As String
 If Trim(pFind) = "" Then Exit Function
 Dim loctable As New ADODB.Recordset
 loctable.CursorLocation = adUseServer
-loctable.Index = pIndex
+loctable.index = pIndex
 loctable.Open pTable, con, adOpenDynamic, adLockOptimistic, adCmdTableDirect
 loctable.Seek pFind, adSeekFirstEQ
 If Not loctable.EOF Then RetSeek = loctable(pField) & ""

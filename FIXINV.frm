@@ -7,11 +7,11 @@ Begin VB.Form FIXINV
    ClientHeight    =   8070
    ClientLeft      =   165
    ClientTop       =   555
-   ClientWidth     =   11280
+   ClientWidth     =   17685
    LinkTopic       =   "Form1"
    RightToLeft     =   -1  'True
    ScaleHeight     =   8070
-   ScaleWidth      =   11280
+   ScaleWidth      =   17685
    WindowState     =   2  'Maximized
    Begin VB.CommandButton cmd_ok 
       Caption         =   " €Ì— «·„Ê—œ"
@@ -466,27 +466,29 @@ Private Sub CMD_EXIT_Click()
     Unload Me
 End Sub
 Private Sub CMD_OK_Click()
-If xSupp.BoundText <> Purchasefrm.xCode.text Then
+If xSupp.BoundText <> purchasefrm.xCode.text Then
     If MsgBox(" €Ì— «·„Ê—œ  ·«’‰«› «·›« Ê—…", vbYesNo) = vbYes Then
-        con.Execute " update " & Purchasefrm.cFileHeader & " set code = " & addstring(xSupp.BoundText) & " where doc_no = " & MyParn(Purchasefrm.xdoc_no.text)
-        con.Execute " update file1_10 set code = " & addstring(xSupp.BoundText) & "  where item in ( select item from " & Purchasefrm.cFile & " where doc_no = " & MyParn(Purchasefrm.xdoc_no.text) & " ) "
-        Purchasefrm.xCode.text = xSupp.BoundText
+        con.Execute " update " & purchasefrm.cFileHeader & " set code = " & addstring(xSupp.BoundText) & " where doc_no = " & MyParn(purchasefrm.xDoc_No.text)
+            con.Execute " update file1_10 " & _
+                        "set code = " & addstring(xSupp.BoundText) & _
+                        "  where item in ( select item from " & purchasefrm.cFile & " where doc_no = " & MyParn(purchasefrm.xDoc_No.text) & " ) "
+            purchasefrm.xCode.text = xSupp.BoundText
         
         
             Dim cString As String, cWhere As String
             cString = "select code,desca, SUPP , DISC ,SUBCODE  FROM FILE4_10"
-            cWhere = cWhere & turn(cWhere, " OR ") & " CODE = " & MyParn(Purchasefrm.xCode.text)
-            cWhere = cWhere & turn(cWhere, " OR ") & " SUBCODE = " & MyParn(Purchasefrm.xCode.text)
+            cWhere = cWhere & turn(cWhere, " OR ") & " CODE = " & MyParn(purchasefrm.xCode.text)
+            cWhere = cWhere & turn(cWhere, " OR ") & " SUBCODE = " & MyParn(purchasefrm.xCode.text)
             cString = cString & turn(cWhere) & cWhere
             aRet = aGetDesca(cString, con)
             If UBound(aRet) > 0 Then
-                Purchasefrm.xCode.text = aRet(1)
-                Purchasefrm.xCodeDesca.Caption = aRet(2)
-                Purchasefrm.xSupp.Value = IIf(aRet(3), 1, 0)
-                Purchasefrm.xsup_desca.Caption = IIf(aRet(3), "„ﬂ » Ã„·…", "„’‰⁄")
-                Purchasefrm.xr_Discount.text = Val(aRet(4) & "")
-                Purchasefrm.xRateSup.Caption = Val(aRet(4) & "")
-                Purchasefrm.xsubcode.Caption = aRet(5) & ""
+                purchasefrm.xCode.text = aRet(1)
+                purchasefrm.xCodeDesca.Caption = aRet(2)
+                purchasefrm.xSupp.value = IIf(aRet(3), 1, 0)
+                purchasefrm.xsup_desca.Caption = IIf(aRet(3), "„ﬂ » Ã„·…", "„’‰⁄")
+                purchasefrm.xr_Discount.text = Val(aRet(4) & "")
+                purchasefrm.xRateSup.Caption = Val(aRet(4) & "")
+                purchasefrm.xSubCode.Caption = aRet(5) & ""
             End If
         With grid1
             For nRow = 1 To .Rows - 1
@@ -504,7 +506,7 @@ Dim MyItemTable As New ADODB.Recordset
 con.BeginTrans
 If MsgBox("Õ›Ÿ «· ⁄œÌ·« ", vbOKCancel) = vbOK Then
     With grid1
-        For i = 1 To .Rows - 1
+        For i = 2 To .Rows - 1
             If Trim(.TextMatrix(i, 9)) <> "" Then
                 cModel = .TextMatrix(i, .Cols - 1)
                 cFact = .TextMatrix(i, 7)
@@ -528,7 +530,14 @@ If MsgBox("Õ›Ÿ «· ⁄œÌ·« ", vbOKCancel) = vbOK Then
                     MyItemTable.MoveNext
                 Loop
                 
-                con.Execute " UPDATE FILE1_10 SET isdate = getdate() , isnew1 = 1 , isnew2 = 1 , isnew3 = 1 , isnew4 = 1 , isnew5 = 1 , MODEL = " & MyParn(cModel) & " , MODELNO = " & MyParn(cModelNo) & " , FACT = " & MyParn(cFact) & " , MODELFACT0 = " & MyParn(DelZero(cModelFact)) & " , MOSM = " & MyParn(cMosm) & " , MODELFACT = " & MyParn(RetZero(cModelFact, 10)) & " WHERE MODEL = " & MyParn(.TextMatrix(i, 0))
+                con.Execute " UPDATE FILE1_10" & _
+                            " SET isdate = getdate()," & _
+                            " isnew1 = 1," & _
+                            " isnew2 = 1," & _
+                            " isnew3 = 1," & _
+                            " isnew4 = 1," & _
+                            " isnew5 = 1," & _
+                            " MODEL = " & MyParn(cModel) & " , MODELNO = " & MyParn(cModelNo) & " , FACT = " & MyParn(cFact) & " , MODELFACT0 = " & MyParn(DelZero(cModelFact)) & " , MOSM = " & MyParn(cMosm) & " , MODELFACT = " & MyParn(RetZero(cModelFact, 10)) & " WHERE MODEL = " & MyParn(.TextMatrix(i, 0)), nAffect
             End If
         Next i
     End With
@@ -547,21 +556,21 @@ Private Sub Form_Load()
 con.CursorLocation = adUseClient
 con.Open strCon
 Set grid1.DataSource = data1
-data1.ConnectionString = strCon
+data1.connectionString = strCon
 
-DATA2.ConnectionString = strCon
+DATA2.connectionString = strCon
 DATA2.RecordSource = "SELECT * FROM file4_10 order by desca "
 Set xSupp.RowSource = DATA2
 xSupp.ListField = "DESCA"
 xSupp.BoundColumn = "code"
 
-data3.ConnectionString = strCon
-data3.RecordSource = "SELECT * FROM MOSM"
-Set xMosm.RowSource = data3
+DATA3.connectionString = strCon
+DATA3.RecordSource = "SELECT * FROM MOSM"
+Set xMosm.RowSource = DATA3
 xMosm.ListField = "DESCA"
 xMosm.BoundColumn = "MOSM"
 
-data5.ConnectionString = strCon
+data5.connectionString = strCon
 data5.RecordSource = "SELECT * FROM fact order by desca"
 Set xFact.RowSource = data5
 xFact.ListField = "DESCA"
@@ -572,13 +581,13 @@ With grid1
 .FixedRows = 2
 '                           0               1               2               3                   4               5               6           7               8                       9
     cString = "SELECT FILE1_10.MODEL , FILE1_10.mosm,FILE1_10.fact,FILE1_10.modelfact0,FILE1_10.desca ,SUM(Quant)  , FILE1_10.mosm,FILE1_10.fact,FILE1_10.modelfact0 , ' ' AS NEWMPDEL " & _
-          " FROM " & Purchasefrm.cFile & " LEFT JOIN FILE1_10 ON " & Purchasefrm.cFile & ".ITEM = FILE1_10.ITEM WHERE DOC_NO = " & MyParn(Purchasefrm.xdoc_no.text) & " GROUP BY FILE1_10.MOSM,FILE1_10.FACT,FILE1_10.MODELFACT0 , FILE1_10.DESCA , FILE1_10.MODEL order by FILE1_10.MOSM,FILE1_10.FACT,FILE1_10.MODELFACT0 "
+          " FROM " & purchasefrm.cFile & " LEFT JOIN FILE1_10 ON " & purchasefrm.cFile & ".ITEM = FILE1_10.ITEM WHERE DOC_NO = " & MyParn(purchasefrm.xDoc_No.text) & " GROUP BY FILE1_10.MOSM,FILE1_10.FACT,FILE1_10.MODELFACT0 , FILE1_10.DESCA , FILE1_10.MODEL order by FILE1_10.MOSM,FILE1_10.FACT,FILE1_10.MODELFACT0 "
     data1.RecordSource = cString
     data1.Refresh
 End With
-Fixgrd
+fixGrd
 End Sub
-Private Sub Fixgrd()
+Private Sub fixGrd()
 With grid1
 '                   0          1        2            3           4               5          6             7             8              9
 '.FormatString = "„ÊœÌ·|" & "„Ê”„|" & "„’‰⁄|" & "—ﬁ„ „ÊœÌ·|" & "≈”„ «·„ÊœÌ·|" & " ﬂ„Ì…|" & "„Ê”„|" & " „’‰⁄|" & "—ﬁ„ „ÊœÌ·|" & "„ÊœÌ· ÃœÌœ|"
@@ -615,7 +624,7 @@ With grid1
 
 .MergeCells = flexMergeFree
 .MergeRow(0) = True
-.ColWidth(0) = 0
+.ColWidth(0) = 1000
 .ColWidth(1) = 700
 .ColWidth(2) = 2200
 .ColWidth(3) = 1300
@@ -628,10 +637,10 @@ With grid1
 .ColComboList(9) = "..."
 
 '.ColHidden(7) = (Purchasefrm.xsupp.Value = 0)
-.ColComboList(1) = StrList("SELECT MOSM, MOSM FROM MOSM", con)
-.ColComboList(2) = StrList("SELECT CODE , DESCA FROM FACT ", con)
-.ColComboList(6) = StrList("SELECT MOSM, MOSM FROM MOSM", con)
-.ColComboList(7) = StrList("SELECT CODE , DESCA FROM FACT ", con)
+.ColComboList(1) = strList("SELECT MOSM, MOSM FROM MOSM", con)
+.ColComboList(2) = strList("SELECT CODE , DESCA FROM FACT ", con)
+.ColComboList(6) = strList("SELECT MOSM, MOSM FROM MOSM", con)
+.ColComboList(7) = strList("SELECT CODE , DESCA FROM FACT ", con)
 .SubtotalPosition = flexSTBelow
 .Subtotal flexSTSum, -1, 5, "#0", vbYellow, vbRed, True, "≈Ã„«·Ï "
 .Cell(flexcpAlignment, 0, 0, .Rows - 1, .Cols - 1) = 4
@@ -645,14 +654,14 @@ End Sub
 
 Private Sub GRID1_Click()
 With grid1
-    If .Col = 6 Or .Col = 7 Or .Col = 8 Or .Col = 9 Then
+    If .col = 6 Or .col = 7 Or .col = 8 Or .col = 9 Then
         .Editable = flexEDKbdMouse
     Else
         .Editable = flexEDNone
     End If
 End With
 End Sub
-Private Sub grid1_CellButtonClick(ByVal Row As Long, ByVal Col As Long)
+Private Sub grid1_CellButtonClick(ByVal Row As Long, ByVal col As Long)
 With grid1
 If MsgBox(" €ÌÌ— —ﬁ„ «·„ÊœÌ·", vbYesNo + vbDefaultButton2) = vbYes Then
     For i = 2 To .Rows - 1
@@ -670,11 +679,12 @@ Sub UpdateModel(nRow)
             .Cell(flexcpFontStrikethru, nRow, 0, nRow, .Cols - 1) = True
             Exit Sub
         End If
-        If Purchasefrm.xSupp.Value = 1 Then
-            cModel = .TextMatrix(nRow, 7) & .TextMatrix(nRow, 6) & RetZero(.TextMatrix(nRow, 8), 10) & Purchasefrm.xCode.text
+        If purchasefrm.xSupp.value = 1 Then
+            cModel = .TextMatrix(nRow, 7) & .TextMatrix(nRow, 6) & RetZero(.TextMatrix(nRow, 8), 10) & purchasefrm.xCode.text
         Else
             cModel = .TextMatrix(nRow, 7) & .TextMatrix(nRow, 6) & RetZero(.TextMatrix(nRow, 8), 10)
         End If
+        
         If cModel <> .TextMatrix(nRow, 0) Then
             If GetDesca("SELECT ITEM FROM FILE1_10 WHERE MODEL = " & MyParn(cModel), con) = "" Then
                 .TextMatrix(nRow, .Cols - 1) = cModel

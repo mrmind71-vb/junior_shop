@@ -205,7 +205,6 @@ Begin VB.Form online_collect_newfrm
       _ExtentY        =   10901
       _Version        =   393216
       Tabs            =   2
-      Tab             =   1
       TabsPerRow      =   2
       TabHeight       =   520
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -219,18 +218,18 @@ Begin VB.Form online_collect_newfrm
       EndProperty
       TabCaption(0)   =   "»Ê«·’ «” —Ã«⁄ «Ê  »œÌ· »œÊ‰ ›« Ê—…"
       TabPicture(0)   =   "online_collect_new3.frx":4A07
-      Tab(0).ControlEnabled=   0   'False
+      Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "grid2"
+      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).ControlCount=   1
       TabCaption(1)   =   "”œ«œ ‘—ﬂ… «·‘Õ‰"
       TabPicture(1)   =   "online_collect_new3.frx":4A23
-      Tab(1).ControlEnabled=   -1  'True
+      Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "grid1"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       Begin VSFlex7Ctl.VSFlexGrid grid1 
          Height          =   5730
-         Left            =   45
+         Left            =   -74955
          TabIndex        =   53
          Top             =   360
          Width           =   20175
@@ -324,7 +323,7 @@ Begin VB.Form online_collect_newfrm
       End
       Begin VSFlex7Ctl.VSFlexGrid grid2 
          Height          =   5730
-         Left            =   -74955
+         Left            =   45
          TabIndex        =   54
          Top             =   360
          Width           =   20175
@@ -1710,7 +1709,7 @@ Private Function myreplace(Optional Row As Long = -1, Optional Row2 As Long = -1
 Dim aInsert As Variant
 aInsert = AddFlag(Empty, "[DATE]", addDate(xDate.text))
 aInsert = AddFlag(aInsert, "[BANK]", addstring(xBank.BoundText))
-aInsert = AddFlag(aInsert, "[SHIP]", addstring(xShip.BoundText))
+aInsert = AddFlag(aInsert, "[SHIP]", addstring(xship.BoundText))
 aInsert = AddFlag(aInsert, "[PAYMENT_TYPE]", addvalue(xPayment_type.BoundText))
 aInsert = AddFlag(aInsert, IIf(xDoc_No.Tag = DefineMode, "[USERNAME]", "[USERNAME2]"), addstring(GetComputerName))
 aInsert = AddFlag(aInsert, IIf(xDoc_No.Tag = DefineMode, "[TIME]", "[TIME2]"), "getdate()")
@@ -1812,11 +1811,11 @@ Private Sub cmdCompEdit_Click()
 End Sub
 
 Private Sub cmdCompHeader_Click()
-If Not xShip.MatchedWithList Then
+If Not xship.MatchedWithList Then
     MsgBox "‘—ﬂ… «·‘Õ‰ €Ì— „”Ã·…"
     Exit Sub
 End If
-online_ship_headerfrm.sShip = xShip.BoundText
+online_ship_headerfrm.sShip = xship.BoundText
 online_ship_headerfrm.Show 1
 End Sub
 Private Sub CmdDel_Click()
@@ -1887,13 +1886,21 @@ Unload Me
 End Sub
 Private Sub CardLookup(Optional pFilter As String = "")
 Dim Generalarray(5)
-Dim listarray(1, 5)
-Dim GrdArray(2, 1)
+Dim listarray(2, 5)
+Dim GrdArray(4, 1)
 
 Set Generalarray(0) = Me
-cString = "SELECT FILE9_10H.Doc_No, Convert(Varchar(10),FILE9_10H.DATE,111),FILE9_10H.DESCA " & _
-          " FROM FILE9_10H "
+cString = "SELECT FILE9_10H.Doc_No," & _
+          "FORMAT(FILE9_10H.DATE,'yyyy/M/d')," & _
+          " FILE9_10H.DESCA, " & _
+          " FILE5_10.DESCA, " & _
+          " SHIP.DESCA " & _
+          " FROM FILE9_10H " & _
+          " LEFT JOIN FILE5_10 ON FILE9_10H.BANK = FILE5_10.CODE" & _
+          " LEFT JOIN SHIP ON FILE9_10H.SHIP = SHIP.CODE"
+
 If pFilter <> "" Then cString = cString & " WHERE " & pFilter
+
 Generalarray(1) = cString
 Generalarray(2) = "order by FILE9_10H.DATE ,FILE9_10H.DOC_NO "
 Generalarray(3) = 7000
@@ -1905,6 +1912,9 @@ listarray(0, 1) = "(%%FILE9_10H.DESCA%%)"
 listarray(1, 0) = " «—ÌŒ «·„” ‰œ"
 listarray(1, 1) = "(##[Date]##)"
 
+listarray(2, 0) = "«·»‰ﬂ-‘—ﬂ… «·‘Õ‰"
+listarray(2, 1) = "(%%FILE5_10.DESCA%% OR %%SHIP.DESCA%%)"
+
 GrdArray(0, 0) = "—ﬁ„ «·„” ‰œ"
 GrdArray(0, 1) = 1000
 
@@ -1912,7 +1922,13 @@ GrdArray(1, 0) = " «—ÌŒ «·„” ‰œ"
 GrdArray(1, 1) = 1350
 
 GrdArray(2, 0) = "«·»Ì«‰"
-GrdArray(2, 1) = 8000
+GrdArray(2, 1) = 3000
+
+GrdArray(3, 0) = "«·»‰ﬂ"
+GrdArray(3, 1) = 3000
+
+GrdArray(4, 0) = "‘—ﬂ… «·‘Õ‰"
+GrdArray(4, 1) = 2000
 
 Dim aFilter As Variant
 aFilter = AddFlag(aFilter, "FILTER", True)
@@ -1995,7 +2011,7 @@ End If
 
 onlineCollectCSVnewfrm.sDoc_no = xDoc_No.text
 onlineCollectCSVnewfrm.sBank = xBank.BoundText
-onlineCollectCSVnewfrm.sShip = xShip.BoundText
+onlineCollectCSVnewfrm.sShip = xship.BoundText
 onlineCollectCSVnewfrm.Show 1
 
 myLoadGrd
@@ -2051,17 +2067,17 @@ bEdit = True
 cFile = "FILE9_10"
 cFileHeader = "FILE9_10H"
 
-openCon con
+OpenCon con
 
-Set DATA1.Recordset = mycmd("SELECT * FROM FILE5_10 WHERE ISSHIP = 1 ORDER BY DESCA", con)
-Set xBank.RowSource = DATA1
+Set data1.Recordset = mycmd("SELECT * FROM FILE5_10 WHERE ISSHIP = 1 ORDER BY DESCA", con)
+Set xBank.RowSource = data1
 xBank.ListField = "Desca"
 xBank.BoundColumn = "Code"
 
 Set DATA2.Recordset = mycmd("SELECT * FROM SHIP WHERE STOPED = 0 ORDER BY DESCA ", con)
-Set xShip.RowSource = DATA2
-xShip.ListField = "Desca"
-xShip.BoundColumn = "Code"
+Set xship.RowSource = DATA2
+xship.ListField = "Desca"
+xship.BoundColumn = "Code"
 
 Set DATA3.Recordset = mycmd("SELECT * FROM PAYMENT_TYPE ORDER BY DESCA ", con)
 Set xPayment_type.RowSource = DATA3
@@ -2069,7 +2085,7 @@ xPayment_type.ListField = "Desca"
 xPayment_type.BoundColumn = "Code"
 
 Set grid1.DataSource = data10
-Set grid2.DataSource = data11
+Set grid2.DataSource = DATA11
 
 If Not openCardTable Then myDefine
 End Sub
@@ -2110,10 +2126,10 @@ Next
 validRows = True
 End Function
 Private Sub myload()
-xDoc_No.text = CardTable!DOC_NO
+xDoc_No.text = CardTable!doc_no
 xDate.text = myFormat_p(CardTable!Date)
 xBank.BoundText = CardTable!BANK & ""
-xShip.BoundText = CardTable!SHIP & ""
+xship.BoundText = CardTable!SHIP & ""
 xPayment_type.BoundText = CardTable!payment_type & ""
 panel1(2).Caption = CardTable!UserName & " " & myFormat_p(CardTable!Time, True)
 panel1(3).Caption = CardTable!USERNAME2 & " " & myFormat_p(CardTable!TIME2, True)
@@ -2139,13 +2155,13 @@ Private Sub myDefine()
 xDoc_No.text = Newflag(cFileHeader, "DOC_NO", con)
 xDate.text = myFormat_p(Date)
 xBank.BoundText = ""
-xShip.BoundText = ""
+xship.BoundText = ""
 xPayment_type.BoundText = ""
 xDesca.text = ""
 
 grid1.Rows = 1
 myAddItem
-Fixgrd
+fixGrd
 
 grid2.Rows = 1
 myAddItem2
@@ -2208,7 +2224,7 @@ If Not ValidNum(xDoc_No.text) Then
     End If
 Else
     If (Not (CardTable.EOF)) And xDoc_No.Tag = LoadMode Then
-        If CardTable!DOC_NO = xDoc_No.text Then
+        If CardTable!doc_no = xDoc_No.text Then
             Exit Sub
         End If
     End If
@@ -2390,7 +2406,7 @@ Private Sub myreplaceGrd(Row As Long)
 Dim aInsert As Variant
 With grid1
     For i = IIf(Row = -1, 1, Row) To IIf(Row = -1, grid1.Rows - 2, Row)
-        If Row = -1 Then prog1.Value = Round(i / (.Rows - 1), 2) * 100
+        If Row = -1 Then prog1.value = Round(i / (.Rows - 1), 2) * 100
         aInsert = AddFlag(Empty, "DOC_NO", addstring(xDoc_No.text))
         aInsert = AddFlag(aInsert, "PAYMENT_ID", addstring(grid1.TextMatrix(i, 0)))
         aInsert = AddFlag(aInsert, "ORDER_NO", addstring(grid1.TextMatrix(i, 1)))
@@ -2494,7 +2510,7 @@ aPrm = AddFlag(aPrm, "DOC_NO", xDoc_No.text)
 Set grid1.DataSource = myRs("sp_oline_pay_grd", con, , adStoredProc, aPrm)
 myAddItem
 CalcTotals
-Fixgrd
+fixGrd
 End Sub
 Private Sub grid1_GotFocus()
 grid1_EnterCell
@@ -2541,7 +2557,7 @@ ElseIf col = 1 Then
     End If
 End If
 End Sub
-Private Sub Fixgrd()
+Private Sub fixGrd()
 With grid1
 .RowHeight(0) = 600
 .TextMatrix(0, 0) = "„⁄—› «·”œ«œ"
@@ -2605,7 +2621,7 @@ If Trim(.TextMatrix(Row, 0)) = "" Then
     Exit Function
 End If
 
-If .ValueMatrix(Row, 5) = 0 And .ValueMatrix(Row, 6) = 0 Then
+If .ValueMatrix(Row, 4) = 0 And .ValueMatrix(Row, 5) = 0 Then
     If bMsg Then
         MsgBox "·« ÌÊÃœ ⁄„Ê·… «Ê ”œ«œ"
     End If
@@ -2675,7 +2691,7 @@ If loctable.EOF Then
 End If
 
 grid1.TextMatrix(Row, 0) = loctable!PAYMENT_ID & ""
-grid1.TextMatrix(Row, 1) = loctable!DOC_NO & ""
+grid1.TextMatrix(Row, 1) = loctable!doc_no & ""
 grid1.TextMatrix(Row, 2) = loctable!Name & ""
 grid1.TextMatrix(Row, 3) = loctable!phone & ""
 GrdDesc = True
@@ -2696,8 +2712,8 @@ If loctable.EOF Then
         MsgBox "—ﬁ„ ÿ·»Ì… €Ì— ’ÕÌÕ"
         Exit Function
 End If
-grid2.TextMatrix(Row, 0) = loctable!PAYMENT_ID
-grid2.TextMatrix(Row, 1) = loctable!DOC_NO & ""
+grid2.TextMatrix(Row, 0) = ""
+grid2.TextMatrix(Row, 1) = loctable!doc_no & ""
 grid2.TextMatrix(Row, 2) = loctable!Name
 grid2.TextMatrix(Row, 3) = loctable!phone & ""
 grdDesc2 = True
@@ -2706,7 +2722,7 @@ Private Sub myreplaceGrd2(Row As Long)
 Dim aInsert As Variant
 With grid2
     For i = IIf(Row = -1, 1, Row) To IIf(Row = -1, .Rows - 2, Row)
-        If Row = -1 Then prog1.Value = Round(i / (.Rows - 1), 2) * 100
+        If Row = -1 Then prog1.value = Round(i / (.Rows - 1), 2) * 100
         aInsert = AddFlag(Empty, "DOC_NO", addstring(xDoc_No.text))
         aInsert = AddFlag(aInsert, "SHIP_NO", addstring(.TextMatrix(i, 0)))
         aInsert = AddFlag(aInsert, "ORDER_NO", addstring(.TextMatrix(i, 1)))
@@ -2906,6 +2922,13 @@ CalcTotals
 End Sub
 Private Function validrow2(Row As Long, Optional bMsg As Boolean = False) As Boolean
 With grid2
+If Trim(.TextMatrix(Row, 0)) = "" Then
+    If bMsg Then
+        MsgBox "—ﬁ„ »Ê·Ì÷… «·‘Õ‰ €Ì— „”Ã·"
+    End If
+    Exit Function
+End If
+
 If Trim(.TextMatrix(Row, 1)) = "" Then
     If bMsg Then
         MsgBox "—ﬁ„ «·ÿ·»Ì… €Ì— „”Ã·"
@@ -2913,14 +2936,7 @@ If Trim(.TextMatrix(Row, 1)) = "" Then
     Exit Function
 End If
 
-If Trim(.TextMatrix(Row, 2)) = "" Then
-    If bMsg Then
-        MsgBox "—ﬁ„ «·›« Ê—… €Ì— „”Ã·"
-    End If
-    Exit Function
-End If
-
-If .ValueMatrix(Row, 5) = 0 And .ValueMatrix(Row, 6) = 0 Then
+If .ValueMatrix(Row, 4) = 0 And .ValueMatrix(Row, 5) = 0 Then
     If bMsg Then
         MsgBox "·« ÌÊÃœ COD «Ê ﬁÌ„… ‘Õ‰"
     End If
@@ -2987,7 +3003,7 @@ Private Sub xMonth_LostFocus()
 myLostFocus xMonth
 If Not xMonth.MatchedWithList Then xMonth.BoundText = ""
 End Sub
-Private Sub xdesca_GotFocus()
+Private Sub xDescA_GotFocus()
 myGotFocus xDesca
 End Sub
 Private Sub xDesca_LostFocus()
@@ -3001,11 +3017,11 @@ myLostFocus xBank
 If Not xBank.MatchedWithList Then xBank.BoundText = ""
 End Sub
 Private Sub xship_GotFocus()
-myGotFocus xShip
+myGotFocus xship
 End Sub
 Private Sub xship_LostFocus()
-myLostFocus xShip
-If Not xShip.MatchedWithList Then xShip.BoundText = ""
+myLostFocus xship
+If Not xship.MatchedWithList Then xship.BoundText = ""
 End Sub
 Private Sub xPayment_type_GotFocus()
 myGotFocus xPayment_type

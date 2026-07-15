@@ -155,7 +155,7 @@ ReDim aRet(0)
 If Not (loctable.BOF And loctable.EOF) Then
     ReDim aRet(loctable.Fields.Count)
     For i = 0 To loctable.Fields.Count - 1
-        aRet(i + 1) = loctable.Fields(i).Value
+        aRet(i + 1) = loctable.Fields(i).value
     Next
 End If
 aGetDesca = aRet
@@ -216,6 +216,7 @@ End Function
 
 Function retHeader(aHeader, nBegin, pCount, Optional pSep As String = "  ") As String
 Dim nFound As Integer, i As Integer, nCount As Integer
+If IsEmpty(aHeader) Then Exit Function
 For i = 0 To UBound(aHeader)
     If aHeader(i) <> "" Then
         If nFound >= nBegin Then
@@ -265,7 +266,7 @@ ReDim aFilter(pTable.Fields.Count - 1)
 pTable.Filter = pFilter
 If Not (pTable.EOF And pTable.BOF) Then
     For i = 0 To pTable.Fields.Count - 1
-        aFilter(i) = pTable.Fields(i).Value
+        aFilter(i) = pTable.Fields(i).value
     Next
 Else
     For i = 0 To pTable.Fields.Count - 1
@@ -360,11 +361,11 @@ If Not (loctable.BOF And loctable.EOF) Then DefGet = loctable!FlagVAlue & ""
 loctable.Close
 Set loctable = Nothing
 End Function
-Function StrList(cString, pCon As ADODB.Connection)
+Function strList(cString, pCon As ADODB.Connection)
 Dim listTable As New ADODB.Recordset
 listTable.Open cString, pCon, adOpenStatic, adLockReadOnly, adCmdText
 Do Until listTable.EOF
-    StrList = StrList & "|#" & listTable.Fields(0) & ";" & listTable.Fields(1)
+    strList = strList & "|#" & listTable.Fields(0) & ";" & listTable.Fields(1)
     listTable.MoveNext
 Loop
 End Function
@@ -575,7 +576,7 @@ Myvalue = IIf(Val(pValue & "") = 0, "", pValue)
 If pFormat <> "" Then Myvalue = Format(Myvalue)
 End Function
 Private Sub xDate_Validate(Cancel As Boolean)
-With xdate
+With xDate
 If (Not IsDate(.text)) And Trim(.text) <> "" Then .text = ""
 .text = Format(.text, "dd-mm-yyyy")
 End With
@@ -870,7 +871,7 @@ Dim loctable As New ADODB.Recordset
 'End If
 If Not (loctable.BOF And loctable.EOF) Then
     For i = 0 To loctable.Fields.Count - 1
-        GetFields = AddFlag(GetFields, LCase(loctable.Fields(i).Name), loctable.Fields(i).Value)
+        GetFields = AddFlag(GetFields, LCase(loctable.Fields(i).Name), loctable.Fields(i).value)
     Next
 End If
 loctable.Close
@@ -884,7 +885,7 @@ Dim loctable As New ADODB.Recordset
     loctable.Open pString, pCon, adOpenStatic, adLockReadOnly, adCmdText
 'End If
 If Not (loctable.BOF And loctable.EOF) Then
-    GetField = loctable(0).Value
+    GetField = loctable(0).value
 End If
 loctable.Close
 Set loctable = Nothing
@@ -904,7 +905,7 @@ If Not (loctable.BOF And loctable.EOF) Then
         ReDim Preserve aRet(UBound(aRet) + 1)
     
         For i = 0 To loctable.Fields.Count - 1
-            aRet(UBound(aRet)) = AddFlag(aRet(UBound(aRet)), LCase(loctable.Fields(i).Name), loctable.Fields(i).Value)
+            aRet(UBound(aRet)) = AddFlag(aRet(UBound(aRet)), LCase(loctable.Fields(i).Name), loctable.Fields(i).value)
         Next
         loctable.MoveNext
     Loop
@@ -924,7 +925,7 @@ For i = 0 To myForm.Count - 1
     ElseIf TypeOf myForm(i) Is DataCombo Then
         myForm(i).BoundText = RetSetting(myForm(i).Name, cFilesave)
     ElseIf TypeOf myForm(i) Is CheckBox Then
-        If RetSetting(myForm(i).Name, cFilesave) <> "" Then myForm(i).Value = RetSetting(myForm(i).Name, cFilesave)
+        If RetSetting(myForm(i).Name, cFilesave) <> "" Then myForm(i).value = RetSetting(myForm(i).Name, cFilesave)
     End If
 Next
 End Sub
@@ -944,7 +945,7 @@ For i = 0 To myForm.Count - 1
         ElseIf TypeOf myForm(i) Is DataCombo Then
             addSetting myForm(i).Name, myForm(i).BoundText, cFilesave
         ElseIf TypeOf myForm(i) Is CheckBox Then
-            addSetting myForm(i).Name, myForm(i).Value, cFilesave
+            addSetting myForm(i).Name, myForm(i).value, cFilesave
         End If
     End If
 Next

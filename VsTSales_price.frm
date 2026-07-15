@@ -1344,17 +1344,17 @@ Private Sub CMD_PRINT_Click()
     Dim cHead1 As String
     Dim cHead2 As String
     Dim cHead3 As String
-    cHead1 = Me.Caption & "  " & XSTORE.text
-    cHead2 = " „‰  «—ÌŒ " & Format(xdate1.text, "DD-MM-YYYY") & " Õ Ï  «—ÌŒ " & Format(xdate2.text, "DD-MM-YYYY")
+    cHead1 = Me.Caption & "  " & xStore.text
+    cHead2 = " „‰  «—ÌŒ " & Format(xDate1.text, "DD-MM-YYYY") & " Õ Ï  «—ÌŒ " & Format(xDate2.text, "DD-MM-YYYY")
     cHead3 = ""
     If xFact.BoundText <> "" Then cHead3 = cHead3 & " „’‰⁄ " & xFact.text
     If xSupp.BoundText <> "" Then cHead3 = cHead3 & " „Ê—œ " & xSupp.text & "  " & xGrCust.text
     If xGroup.BoundText <> "" Then cHead3 = cHead3 & " „Ã„Ê⁄…" & xGroup.text
-    If xSection.text <> "" Then cHead3 = cHead3 & " ﬁ”„ " & xSection.text
+    If XSECTION.text <> "" Then cHead3 = cHead3 & " ﬁ”„ " & XSECTION.text
     
     If xMosm.BoundText <> "" Then cHead3 = cHead3 & " „Ê”„ " & xMosm.text
     
-    printGrdNew.DOPRINT grid1, 1, , cHead1, cHead2, cHead3, , False, 8
+    printGrdNew.doprint grid1, 1, , cHead1, cHead2, cHead3, , False, 8
     printGrdNew.Show 1
 End Sub
 Private Sub cmdExit_Click()
@@ -1372,68 +1372,68 @@ myerror:
     MsgBox Err.Description
 End Sub
 Private Sub Form_Load()
-    openCon con
+    OpenCon con
     
     xMosm22.AddItem " "
     xMosm22.AddItem "S"
     xMosm22.AddItem "W"
     xMosm22.AddItem "M"
     
-    DATA9.ConnectionString = strCon
-    DATA9.RecordSource = "Select Code,DescA From File3_10  order by Desca"
-    Set XCUST.RowSource = DATA9
-    XCUST.ListField = "Desca"
-    XCUST.BoundColumn = "Code"
+    data9.connectionString = strCon
+    data9.RecordSource = "Select Code,DescA From File3_10  order by Desca"
+    Set xcust.RowSource = data9
+    xcust.ListField = "Desca"
+    xcust.BoundColumn = "Code"
     
-    data1.ConnectionString = strCon
+    data1.connectionString = strCon
     data1.RecordSource = "SELECT * FROM FILE4_50 "
     Set xGrCust.RowSource = data1
     xGrCust.ListField = "Desca"
     xGrCust.BoundColumn = "Code"
     
-    DATA8.ConnectionString = strCon
-    DATA8.RecordSource = "Select Code,DescA From File1_10SC order by Desca"
-    Set xSection.RowSource = DATA8
-    xSection.ListField = "Desca"
-    xSection.BoundColumn = "Code"
+    data8.connectionString = strCon
+    data8.RecordSource = "Select Code,DescA From File1_10SC order by Desca"
+    Set XSECTION.RowSource = data8
+    XSECTION.ListField = "Desca"
+    XSECTION.BoundColumn = "Code"
     
-    DATA7.ConnectionString = strCon
+    DATA7.connectionString = strCon
     DATA7.RecordSource = "Select Code,DescA From STORE_BR WHERE " & cUserStore
-    Set XSTORE.RowSource = DATA7
-    XSTORE.ListField = "Desca"
-    XSTORE.BoundColumn = "Code"
+    Set xStore.RowSource = DATA7
+    xStore.ListField = "Desca"
+    xStore.BoundColumn = "Code"
     If cBranch <> "00" Then
-        XSTORE.BoundText = cBranchStore
-        XSTORE.Enabled = False
+        xStore.BoundText = cBranchStore
+        xStore.Enabled = False
     End If
     
-    DATA2.ConnectionString = strCon
+    DATA2.connectionString = strCon
     DATA2.RecordSource = "Select Code,DescA From File4_10 order by Desca"
     Set xSupp.RowSource = DATA2
     xSupp.ListField = "Desca"
     xSupp.BoundColumn = "Code"
     
-    data3.ConnectionString = strCon
-    data3.RecordSource = "Select Code,DescA From File1_50 ORDER BY DESCA"
-    Set xGroup.RowSource = data3
+    DATA3.connectionString = strCon
+    DATA3.RecordSource = "Select Code,DescA From File1_50 ORDER BY DESCA"
+    Set xGroup.RowSource = DATA3
     xGroup.ListField = "Desca"
     xGroup.BoundColumn = "Code"
     
-    data4.ConnectionString = strCon
-    data4.RecordSource = "Select mosm ,descA From mosm ORDER BY date DESC "
-    Set xMosm.RowSource = data4
+    DATA4.connectionString = strCon
+    DATA4.RecordSource = "Select mosm ,descA From mosm ORDER BY date DESC "
+    Set xMosm.RowSource = DATA4
     xMosm.ListField = "Desca"
     xMosm.BoundColumn = "MOSM"
     
     
-    data5.ConnectionString = strCon
+    data5.connectionString = strCon
     data5.RecordSource = "Select code ,desca From fact ORDER BY DESCA "
     Set xFact.RowSource = data5
     xFact.ListField = "Desca"
     xFact.BoundColumn = "Code"
     
     Set grid1.DataSource = DATA6
-    DATA6.ConnectionString = strCon
+    DATA6.connectionString = strCon
     
     
     grid1.Rows = 2
@@ -1449,7 +1449,7 @@ With grid1
     cString = " select FACT.desca , file1_10.ModelNo , file1_10.mosm , file1_10.MODELFACT0, file1_10.desca , min(file1_10.cost ) ,   " & _
             " SUM(QFILE6_20.QUANT) AS t_q, SUM(FILE1_10.cost * QFILE6_20.QUANT) " & _
             " FROM FILE1_10 INNER JOIN QFILE6_20 ON FILE1_10.ITEM = QFILE6_20.ITEM INNER JOIN FACT ON FILE1_10.FACT = FACT.CODE inner join file4_10 on file4_10.code = file1_10.code WHERE FILE1_10.MODELNO IS NOT NULL "
-    If XCUST.BoundText <> "" Then cStr2 = cStr2 & " AND QFILE6_20.code = " & MyParn(XCUST.BoundText)
+    If xcust.BoundText <> "" Then cStr2 = cStr2 & " AND QFILE6_20.code = " & MyParn(xcust.BoundText)
     If xMosm.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.MOSM = " & MyParn(xMosm.BoundText)
     If xMosm22.text <> "" Then cStr2 = cStr2 & " AND FILE1_10.MOSM2 = " & MyParn(xMosm22.text)
     If XMOSM2.text <> "W" Then
@@ -1461,17 +1461,17 @@ With grid1
     If xGrCust.BoundText <> "" Then cStr2 = cStr2 & " AND FILE4_10.[group] = " & MyParn(xGrCust.BoundText)
     If xGroup.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.FACT = " & MyParn(xFact.BoundText)
-    If xDoc_No.text <> "" Then cStr2 = cStr2 & " AND QFILE6_20.doc_no = " & MyParn(xDoc_No.text)
-    If XSTORE.BoundText <> "" Then cStr2 = cStr2 & " AND STORE = " & MyParn(XSTORE.BoundText)
+    If xdoc_no.text <> "" Then cStr2 = cStr2 & " AND QFILE6_20.doc_no = " & MyParn(xdoc_no.text)
+    If xStore.BoundText <> "" Then cStr2 = cStr2 & " AND STORE = " & MyParn(xStore.BoundText)
     If Not bOpt5 Then cStr2 = cStr2 & " AND [store] IN (SELECT STORE FROM USERSHOP WHERE CODE = " & nusercode & " ) "
     
-    If xSection.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[Section] = " & MyParn(xSection.BoundText)
+    If XSECTION.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[Section] = " & MyParn(XSECTION.BoundText)
     
-    If IsDate(xdate1.text) Then cStr2 = cStr2 & " AND QFILE6_20.[DATE] >= " & DateSq(xdate1.text)
-    If IsDate(xdate2.text) Then cStr2 = cStr2 & " AND QFILE6_20.[DATE] <= " & DateSq(xdate2.text)
+    If IsDate(xDate1.text) Then cStr2 = cStr2 & " AND QFILE6_20.[DATE] >= " & DateSq(xDate1.text)
+    If IsDate(xDate2.text) Then cStr2 = cStr2 & " AND QFILE6_20.[DATE] <= " & DateSq(xDate2.text)
     
-    If xall(0).Value <> 0 Then cStr2 = cStr2 & " AND QFILE6_20.ISBRANCH = 1 "
-    If xall(1).Value <> 0 Then cStr2 = cStr2 & " AND QFILE6_20.ISBRANCH = 2 "
+    If xall(0).value <> 0 Then cStr2 = cStr2 & " AND QFILE6_20.ISBRANCH = 1 "
+    If xall(1).value <> 0 Then cStr2 = cStr2 & " AND QFILE6_20.ISBRANCH = 2 "
 
     cString = cString & cStr2 & " GROUP BY file1_10.ModelNo, FACT.desca , file1_10.mosm, file1_10.MODELFACT0, file1_10.desca  , file1_10.price having SUM(QFILE6_20.QUANT) <> 0 ORDER BY file1_10.ModelNo "
     DATA6.RecordSource = cString
@@ -1530,16 +1530,16 @@ Private Sub Form_Unload(Cancel As Integer)
 End Sub
 
 Private Sub xSection_LostFocus()
-    data3.ConnectionString = strCon
-    If xSection.BoundText = "" Then
-        data3.RecordSource = "Select Code,DescA From File1_50 ORDER BY DESCA"
+    DATA3.connectionString = strCon
+    If XSECTION.BoundText = "" Then
+        DATA3.RecordSource = "Select Code,DescA From File1_50 ORDER BY DESCA"
     Else
-        data3.RecordSource = "Select Code,DescA From File1_50 where [group] = " & Val(xSection.BoundText) & " ORDER BY DESCA"
+        DATA3.RecordSource = "Select Code,DescA From File1_50 where [group] = " & Val(XSECTION.BoundText) & " ORDER BY DESCA"
     End If
-    Set xGroup.RowSource = data3
+    Set xGroup.RowSource = DATA3
     xGroup.ListField = "Desca"
     xGroup.BoundColumn = "Code"
-    data3.Refresh
+    DATA3.Refresh
 End Sub
 
 Private Sub xSupp_KeyUp(KeyCode As Integer, Shift As Integer)

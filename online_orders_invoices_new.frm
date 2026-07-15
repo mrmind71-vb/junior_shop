@@ -29,75 +29,6 @@ Begin VB.Form orders_online_invoices
    WhatsThisButton =   -1  'True
    WhatsThisHelp   =   -1  'True
    WindowState     =   2  'Maximized
-   Begin VB.Frame Frame6 
-      Appearance      =   0  'Flat
-      BackColor       =   &H80000005&
-      ForeColor       =   &H80000008&
-      Height          =   780
-      Left            =   3825
-      RightToLeft     =   -1  'True
-      TabIndex        =   59
-      Top             =   9000
-      Width           =   4290
-      Begin Threed.SSCommand cmdEdit 
-         Height          =   555
-         Left            =   45
-         TabIndex        =   60
-         Top             =   180
-         Width           =   2040
-         _ExtentX        =   3598
-         _ExtentY        =   979
-         _Version        =   196610
-         CaptionStyle    =   1
-         ForeColor       =   0
-         BackColor       =   16777215
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   -1  'True
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Caption         =   " „ «· ⁄œÌ·"
-         ButtonStyle     =   2
-         PictureAlignment=   10
-         BevelWidth      =   0
-         PictureDisabledFrames=   1
-         ShapeSize       =   1
-         PictureDisabled =   "online_orders_invoices_new.frx":0000
-      End
-      Begin Threed.SSCommand cmdMsg 
-         Height          =   555
-         Left            =   2115
-         TabIndex        =   61
-         Top             =   180
-         Width           =   2085
-         _ExtentX        =   3678
-         _ExtentY        =   979
-         _Version        =   196610
-         CaptionStyle    =   1
-         ForeColor       =   0
-         BackColor       =   16777215
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   -1  'True
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Caption         =   "«—”«· —”«·…"
-         ButtonStyle     =   2
-         PictureAlignment=   10
-         BevelWidth      =   0
-         PictureDisabledFrames=   1
-         ShapeSize       =   1
-         PictureDisabled =   "online_orders_invoices_new.frx":22F6
-      End
-   End
    Begin VB.Frame Frame3 
       BackColor       =   &H00FFFFFF&
       BeginProperty Font 
@@ -112,13 +43,13 @@ Begin VB.Form orders_online_invoices
       Height          =   690
       Left            =   225
       RightToLeft     =   -1  'True
-      TabIndex        =   44
-      Top             =   9045
+      TabIndex        =   58
+      Top             =   9000
       Width           =   3570
       Begin Threed.SSCommand cmdFirst 
          Height          =   510
          Left            =   2700
-         TabIndex        =   45
+         TabIndex        =   19
          TabStop         =   0   'False
          Top             =   135
          Width           =   825
@@ -136,18 +67,18 @@ Begin VB.Form orders_online_invoices
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_orders_invoices_new.frx":45EC
+         Picture         =   "online_orders_invoices_new.frx":0000
          Caption         =   "√Ê·"
          ButtonStyle     =   3
          PictureAlignment=   10
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "online_orders_invoices_new.frx":6793
+         PictureDisabled =   "online_orders_invoices_new.frx":21A7
       End
       Begin Threed.SSCommand cmdPrevious 
          Height          =   510
          Left            =   1800
-         TabIndex        =   46
+         TabIndex        =   20
          TabStop         =   0   'False
          Top             =   135
          Width           =   870
@@ -165,47 +96,18 @@ Begin VB.Form orders_online_invoices
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_orders_invoices_new.frx":87DA
+         Picture         =   "online_orders_invoices_new.frx":41EE
          Caption         =   "”«»ﬁ"
          ButtonStyle     =   3
          PictureAlignment=   10
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "online_orders_invoices_new.frx":A8C5
+         PictureDisabled =   "online_orders_invoices_new.frx":62D9
       End
       Begin Threed.SSCommand cmdNext 
          Height          =   510
-         Left            =   945
-         TabIndex        =   47
-         TabStop         =   0   'False
-         Top             =   135
-         Width           =   825
-         _ExtentX        =   1455
-         _ExtentY        =   900
-         _Version        =   196610
-         BackColor       =   16777215
-         PictureFrames   =   1
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Picture         =   "online_orders_invoices_new.frx":C8BF
-         Caption         =   "·«Õﬁ"
-         ButtonStyle     =   3
-         PictureAlignment=   9
-         BevelWidth      =   0
-         PictureDisabledFrames=   1
-         PictureDisabled =   "online_orders_invoices_new.frx":E9D0
-      End
-      Begin Threed.SSCommand cmdLast 
-         Height          =   510
-         Left            =   0
-         TabIndex        =   48
+         Left            =   900
+         TabIndex        =   21
          TabStop         =   0   'False
          Top             =   135
          Width           =   870
@@ -223,13 +125,42 @@ Begin VB.Form orders_online_invoices
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_orders_invoices_new.frx":109CA
+         Picture         =   "online_orders_invoices_new.frx":82D3
+         Caption         =   "·«Õﬁ"
+         ButtonStyle     =   3
+         PictureAlignment=   9
+         BevelWidth      =   0
+         PictureDisabledFrames=   1
+         PictureDisabled =   "online_orders_invoices_new.frx":A3E4
+      End
+      Begin Threed.SSCommand cmdLast 
+         Height          =   510
+         Left            =   0
+         TabIndex        =   22
+         TabStop         =   0   'False
+         Top             =   135
+         Width           =   870
+         _ExtentX        =   1535
+         _ExtentY        =   900
+         _Version        =   196610
+         BackColor       =   16777215
+         PictureFrames   =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Picture         =   "online_orders_invoices_new.frx":C3DE
          Caption         =   "√ŒÌ—"
          ButtonStyle     =   3
          PictureAlignment=   9
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "online_orders_invoices_new.frx":12BEE
+         PictureDisabled =   "online_orders_invoices_new.frx":E602
       End
    End
    Begin VB.Frame Frame4 
@@ -246,16 +177,27 @@ Begin VB.Form orders_online_invoices
       Height          =   1770
       Left            =   7425
       RightToLeft     =   -1  'True
-      TabIndex        =   14
+      TabIndex        =   33
       Top             =   0
       Width           =   12885
+      Begin VB.TextBox xDate_mail 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         Height          =   330
+         Left            =   720
+         RightToLeft     =   -1  'True
+         TabIndex        =   4
+         TabStop         =   0   'False
+         Top             =   540
+         Width           =   1500
+      End
       Begin VB.TextBox xPayment_id 
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
          Height          =   330
          Left            =   8055
          RightToLeft     =   -1  'True
-         TabIndex        =   1
+         TabIndex        =   8
          Top             =   1305
          Width           =   3615
       End
@@ -265,7 +207,7 @@ Begin VB.Form orders_online_invoices
          Height          =   330
          Left            =   3645
          RightToLeft     =   -1  'True
-         TabIndex        =   56
+         TabIndex        =   7
          Top             =   945
          Width           =   2040
       End
@@ -278,7 +220,7 @@ Begin VB.Form orders_online_invoices
          Height          =   285
          Left            =   7470
          RightToLeft     =   -1  'True
-         TabIndex        =   50
+         TabIndex        =   2
          Top             =   585
          Width           =   780
       End
@@ -288,7 +230,7 @@ Begin VB.Form orders_online_invoices
          Height          =   345
          Left            =   45
          RightToLeft     =   -1  'True
-         TabIndex        =   31
+         TabIndex        =   10
          TabStop         =   0   'False
          Top             =   1305
          Width           =   5640
@@ -299,7 +241,7 @@ Begin VB.Form orders_online_invoices
          Height          =   330
          Left            =   3645
          RightToLeft     =   -1  'True
-         TabIndex        =   2
+         TabIndex        =   0
          Top             =   180
          Width           =   2040
       End
@@ -309,7 +251,7 @@ Begin VB.Form orders_online_invoices
          Height          =   330
          Left            =   9585
          RightToLeft     =   -1  'True
-         TabIndex        =   0
+         TabIndex        =   6
          TabStop         =   0   'False
          Top             =   945
          Width           =   2085
@@ -317,7 +259,7 @@ Begin VB.Form orders_online_invoices
       Begin MSDataListLib.DataCombo xship 
          Height          =   360
          Left            =   3645
-         TabIndex        =   29
+         TabIndex        =   3
          Top             =   540
          Width           =   2040
          _ExtentX        =   3598
@@ -339,7 +281,7 @@ Begin VB.Form orders_online_invoices
       Begin Threed.SSCommand xtype 
          Height          =   330
          Left            =   9585
-         TabIndex        =   49
+         TabIndex        =   1
          TabStop         =   0   'False
          Top             =   585
          Width           =   2085
@@ -368,7 +310,7 @@ Begin VB.Form orders_online_invoices
       Begin Threed.SSCommand cmdSavePayment 
          Height          =   330
          Left            =   7425
-         TabIndex        =   63
+         TabIndex        =   9
          TabStop         =   0   'False
          Top             =   1305
          Width           =   600
@@ -394,13 +336,52 @@ Begin VB.Form orders_online_invoices
          BevelWidth      =   0
          ShapeSize       =   1
       End
+      Begin Threed.SSCommand cmdSaveDateMail 
+         Height          =   330
+         Left            =   135
+         TabIndex        =   5
+         TabStop         =   0   'False
+         Top             =   540
+         Width           =   555
+         _ExtentX        =   979
+         _ExtentY        =   582
+         _Version        =   196610
+         CaptionStyle    =   1
+         ForeColor       =   0
+         BackColor       =   16777215
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   9.75
+            Charset         =   178
+            Weight          =   700
+            Underline       =   -1  'True
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Caption         =   "save"
+         TagVariant      =   "«Œ «— ‰Ê⁄ «·ÿ·»Ì…"
+         ButtonStyle     =   3
+         PictureAlignment=   10
+         BevelWidth      =   0
+         ShapeSize       =   1
+      End
+      Begin VB.Label Label11 
+         BackColor       =   &H00FFFFFF&
+         Caption         =   " «—ÌŒ „Ì·"
+         Height          =   330
+         Left            =   2340
+         RightToLeft     =   -1  'True
+         TabIndex        =   66
+         Top             =   540
+         Width           =   915
+      End
       Begin VB.Label Label14 
          BackColor       =   &H00FFFFFF&
          Caption         =   "—ﬁ„ ”œ«œ"
          Height          =   330
          Left            =   11835
          RightToLeft     =   -1  'True
-         TabIndex        =   62
+         TabIndex        =   65
          Top             =   1350
          Width           =   825
       End
@@ -410,7 +391,7 @@ Begin VB.Form orders_online_invoices
          Height          =   285
          Left            =   5760
          RightToLeft     =   -1  'True
-         TabIndex        =   57
+         TabIndex        =   63
          Top             =   945
          Width           =   1230
       End
@@ -420,7 +401,7 @@ Begin VB.Form orders_online_invoices
          BorderStyle     =   1  'Fixed Single
          Height          =   330
          Left            =   7425
-         TabIndex        =   53
+         TabIndex        =   60
          Tag             =   "1"
          Top             =   945
          Width           =   2130
@@ -430,19 +411,19 @@ Begin VB.Form orders_online_invoices
          Appearance      =   0  'Flat
          BorderStyle     =   1  'Fixed Single
          Height          =   330
-         Left            =   45
-         TabIndex        =   33
+         Left            =   135
+         TabIndex        =   49
          Tag             =   "1"
          Top             =   180
-         Width           =   1995
+         Width           =   2085
       End
       Begin VB.Label Label8 
          BackColor       =   &H00FFFFFF&
-         Caption         =   " «—ÌŒ  ”·Ì„/»Ì⁄ :"
+         Caption         =   " «—ÌŒ  ”·Ì„/»Ì⁄"
          Height          =   330
-         Left            =   2115
+         Left            =   2295
          RightToLeft     =   -1  'True
-         TabIndex        =   32
+         TabIndex        =   48
          Top             =   180
          Width           =   1455
       End
@@ -453,7 +434,7 @@ Begin VB.Form orders_online_invoices
          Height          =   270
          Left            =   5760
          RightToLeft     =   -1  'True
-         TabIndex        =   30
+         TabIndex        =   47
          Top             =   585
          Width           =   945
       End
@@ -463,7 +444,7 @@ Begin VB.Form orders_online_invoices
          Height          =   330
          Left            =   11745
          RightToLeft     =   -1  'True
-         TabIndex        =   28
+         TabIndex        =   46
          Top             =   585
          Width           =   1050
       End
@@ -473,7 +454,7 @@ Begin VB.Form orders_online_invoices
          BorderStyle     =   1  'Fixed Single
          Height          =   330
          Left            =   9585
-         TabIndex        =   27
+         TabIndex        =   45
          Tag             =   "1"
          Top             =   225
          Width           =   2085
@@ -484,7 +465,7 @@ Begin VB.Form orders_online_invoices
          Height          =   330
          Left            =   11745
          RightToLeft     =   -1  'True
-         TabIndex        =   26
+         TabIndex        =   44
          Top             =   225
          Width           =   825
       End
@@ -494,7 +475,7 @@ Begin VB.Form orders_online_invoices
          Height          =   285
          Left            =   5850
          RightToLeft     =   -1  'True
-         TabIndex        =   17
+         TabIndex        =   36
          Top             =   1350
          Width           =   690
       End
@@ -504,7 +485,7 @@ Begin VB.Form orders_online_invoices
          Height          =   285
          Left            =   5805
          RightToLeft     =   -1  'True
-         TabIndex        =   16
+         TabIndex        =   35
          Top             =   225
          Width           =   1230
       End
@@ -514,7 +495,7 @@ Begin VB.Form orders_online_invoices
          Height          =   330
          Left            =   11790
          RightToLeft     =   -1  'True
-         TabIndex        =   15
+         TabIndex        =   34
          Top             =   945
          Width           =   690
       End
@@ -533,13 +514,13 @@ Begin VB.Form orders_online_invoices
       Height          =   690
       Left            =   2250
       RightToLeft     =   -1  'True
-      TabIndex        =   10
+      TabIndex        =   32
       Top             =   0
       Width           =   5145
       Begin Threed.SSCommand cmdNewInv 
          Height          =   510
          Left            =   2655
-         TabIndex        =   11
+         TabIndex        =   24
          TabStop         =   0   'False
          Top             =   135
          Width           =   1230
@@ -558,18 +539,18 @@ Begin VB.Form orders_online_invoices
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_orders_invoices_new.frx":14CBF
+         Picture         =   "online_orders_invoices_new.frx":106D3
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "online_orders_invoices_new.frx":16CC7
+         PictureDisabled =   "online_orders_invoices_new.frx":126DB
       End
       Begin Threed.SSCommand cmddel 
          Height          =   510
          Left            =   1350
-         TabIndex        =   12
+         TabIndex        =   25
          TabStop         =   0   'False
          Top             =   135
          Width           =   1275
@@ -588,19 +569,19 @@ Begin VB.Form orders_online_invoices
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_orders_invoices_new.frx":18C7E
+         Picture         =   "online_orders_invoices_new.frx":14692
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "online_orders_invoices_new.frx":1B41A
+         PictureDisabled =   "online_orders_invoices_new.frx":16E2E
       End
       Begin Threed.SSCommand cmdInform 
          Height          =   510
          Left            =   3915
-         TabIndex        =   13
+         TabIndex        =   23
          TabStop         =   0   'False
          Top             =   135
          Width           =   1185
@@ -619,19 +600,19 @@ Begin VB.Form orders_online_invoices
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_orders_invoices_new.frx":1D8AE
+         Picture         =   "online_orders_invoices_new.frx":192C2
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "online_orders_invoices_new.frx":1FC79
+         PictureDisabled =   "online_orders_invoices_new.frx":1B68D
       End
       Begin Threed.SSCommand cmdExit 
          Height          =   510
          Left            =   45
-         TabIndex        =   18
+         TabIndex        =   26
          TabStop         =   0   'False
          Top             =   135
          Width           =   1275
@@ -650,7 +631,7 @@ Begin VB.Form orders_online_invoices
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_orders_invoices_new.frx":21D22
+         Picture         =   "online_orders_invoices_new.frx":1D736
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
@@ -673,13 +654,13 @@ Begin VB.Form orders_online_invoices
       Index           =   4
       Left            =   5850
       RightToLeft     =   -1  'True
-      TabIndex        =   7
+      TabIndex        =   31
       Top             =   630
       Width           =   1545
       Begin Threed.SSCommand cmdSave 
          Height          =   465
          Left            =   45
-         TabIndex        =   8
+         TabIndex        =   11
          Top             =   135
          Width           =   1455
          _ExtentX        =   2566
@@ -697,19 +678,19 @@ Begin VB.Form orders_online_invoices
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_orders_invoices_new.frx":24045
+         Picture         =   "online_orders_invoices_new.frx":1FA59
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "online_orders_invoices_new.frx":2696A
+         PictureDisabled =   "online_orders_invoices_new.frx":2237E
       End
       Begin Threed.SSCommand cmdUndo 
          Height          =   465
          Left            =   45
-         TabIndex        =   9
+         TabIndex        =   12
          TabStop         =   0   'False
          Top             =   630
          Width           =   1455
@@ -728,14 +709,14 @@ Begin VB.Form orders_online_invoices
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_orders_invoices_new.frx":291BE
+         Picture         =   "online_orders_invoices_new.frx":24BD2
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "online_orders_invoices_new.frx":2B31E
+         PictureDisabled =   "online_orders_invoices_new.frx":26D32
       End
    End
    Begin MSAdodcLib.Adodc DATA1 
@@ -789,7 +770,7 @@ Begin VB.Form orders_online_invoices
       Align           =   2  'Align Bottom
       Height          =   375
       Left            =   0
-      TabIndex        =   3
+      TabIndex        =   27
       Top             =   10200
       Width           =   20400
       _ExtentX        =   35983
@@ -811,7 +792,7 @@ Begin VB.Form orders_online_invoices
          Height          =   270
          Index           =   0
          Left            =   0
-         TabIndex        =   4
+         TabIndex        =   28
          Top             =   45
          Width           =   3195
          _ExtentX        =   5636
@@ -835,7 +816,7 @@ Begin VB.Form orders_online_invoices
          Height          =   330
          Index           =   1
          Left            =   3240
-         TabIndex        =   5
+         TabIndex        =   29
          Top             =   45
          Width           =   3855
          _ExtentX        =   6800
@@ -859,7 +840,7 @@ Begin VB.Form orders_online_invoices
          Height          =   330
          Index           =   2
          Left            =   7110
-         TabIndex        =   6
+         TabIndex        =   30
          Top             =   45
          Width           =   4365
          _ExtentX        =   7699
@@ -887,7 +868,7 @@ Begin VB.Form orders_online_invoices
       Height          =   1005
       Left            =   2295
       RightToLeft     =   -1  'True
-      TabIndex        =   24
+      TabIndex        =   42
       Top             =   765
       Width           =   3525
       Begin VB.Label Label13 
@@ -897,7 +878,7 @@ Begin VB.Form orders_online_invoices
          Height          =   270
          Left            =   2025
          RightToLeft     =   -1  'True
-         TabIndex        =   55
+         TabIndex        =   62
          Top             =   630
          Width           =   600
       End
@@ -907,7 +888,7 @@ Begin VB.Form orders_online_invoices
          BorderStyle     =   1  'Fixed Single
          Height          =   330
          Left            =   45
-         TabIndex        =   54
+         TabIndex        =   61
          Tag             =   "1"
          Top             =   585
          Width           =   1905
@@ -918,7 +899,7 @@ Begin VB.Form orders_online_invoices
          BorderStyle     =   1  'Fixed Single
          Height          =   330
          Left            =   45
-         TabIndex        =   52
+         TabIndex        =   59
          Tag             =   "1"
          Top             =   225
          Width           =   1905
@@ -930,7 +911,7 @@ Begin VB.Form orders_online_invoices
          Height          =   270
          Left            =   2025
          RightToLeft     =   -1  'True
-         TabIndex        =   25
+         TabIndex        =   43
          Top             =   270
          Width           =   1080
       End
@@ -940,7 +921,7 @@ Begin VB.Form orders_online_invoices
       Height          =   1005
       Left            =   2205
       RightToLeft     =   -1  'True
-      TabIndex        =   19
+      TabIndex        =   37
       Top             =   720
       Width           =   3615
       Begin VB.Label lblReturn 
@@ -950,7 +931,7 @@ Begin VB.Form orders_online_invoices
          Height          =   270
          Left            =   2115
          RightToLeft     =   -1  'True
-         TabIndex        =   23
+         TabIndex        =   41
          Top             =   630
          Width           =   1110
       End
@@ -960,7 +941,7 @@ Begin VB.Form orders_online_invoices
          BorderStyle     =   1  'Fixed Single
          Height          =   330
          Left            =   90
-         TabIndex        =   22
+         TabIndex        =   40
          Tag             =   "1"
          Top             =   585
          Width           =   1905
@@ -971,7 +952,7 @@ Begin VB.Form orders_online_invoices
          BorderStyle     =   1  'Fixed Single
          Height          =   330
          Left            =   90
-         TabIndex        =   21
+         TabIndex        =   39
          Tag             =   "1"
          Top             =   225
          Width           =   1905
@@ -983,7 +964,7 @@ Begin VB.Form orders_online_invoices
          Height          =   270
          Left            =   2115
          RightToLeft     =   -1  'True
-         TabIndex        =   20
+         TabIndex        =   38
          Top             =   270
          Width           =   1215
       End
@@ -991,7 +972,7 @@ Begin VB.Form orders_online_invoices
    Begin VSFlex7Ctl.VSFlexGrid grid1 
       Height          =   4335
       Left            =   225
-      TabIndex        =   51
+      TabIndex        =   13
       Top             =   1800
       Width           =   20085
       _cx             =   35428
@@ -1085,7 +1066,7 @@ Begin VB.Form orders_online_invoices
    Begin VSFlex7Ctl.VSFlexGrid grdError 
       Height          =   2805
       Left            =   225
-      TabIndex        =   58
+      TabIndex        =   14
       TabStop         =   0   'False
       Top             =   6165
       Width           =   20085
@@ -1184,16 +1165,41 @@ Begin VB.Form orders_online_invoices
       Height          =   1050
       Left            =   14130
       RightToLeft     =   -1  'True
-      TabIndex        =   34
+      TabIndex        =   50
       Top             =   8955
       Width           =   6180
+      Begin VB.TextBox xDiscount 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         ForeColor       =   &H00400000&
+         Height          =   330
+         Left            =   3870
+         MaxLength       =   15
+         TabIndex        =   15
+         TabStop         =   0   'False
+         Top             =   585
+         Width           =   1005
+      End
+      Begin VB.TextBox xRate 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H00FFFFFF&
+         ForeColor       =   &H00400000&
+         Height          =   330
+         Left            =   3150
+         MaxLength       =   10
+         TabIndex        =   16
+         TabStop         =   0   'False
+         Top             =   585
+         Width           =   690
+      End
       Begin VB.Label Label4 
          BackColor       =   &H00FFFFFF&
          Caption         =   "≈Ã„«·Ì «·«’‰«›"
          Height          =   285
          Left            =   1530
          RightToLeft     =   -1  'True
-         TabIndex        =   43
+         TabIndex        =   57
          Top             =   225
          Width           =   1320
       End
@@ -1203,7 +1209,7 @@ Begin VB.Form orders_online_invoices
          Height          =   285
          Left            =   1530
          RightToLeft     =   -1  'True
-         TabIndex        =   42
+         TabIndex        =   56
          Top             =   630
          Width           =   1185
       End
@@ -1213,7 +1219,7 @@ Begin VB.Form orders_online_invoices
          Height          =   285
          Left            =   4950
          RightToLeft     =   -1  'True
-         TabIndex        =   41
+         TabIndex        =   55
          Top             =   630
          Width           =   735
       End
@@ -1223,19 +1229,9 @@ Begin VB.Form orders_online_invoices
          BorderStyle     =   1  'Fixed Single
          Height          =   330
          Left            =   90
-         TabIndex        =   40
+         TabIndex        =   54
          Top             =   225
          Width           =   1365
-      End
-      Begin VB.Label xdiscount 
-         Alignment       =   1  'Right Justify
-         Appearance      =   0  'Flat
-         BorderStyle     =   1  'Fixed Single
-         Height          =   330
-         Left            =   3870
-         TabIndex        =   39
-         Top             =   585
-         Width           =   1005
       End
       Begin VB.Label xtotal 
          Alignment       =   1  'Right Justify
@@ -1243,7 +1239,7 @@ Begin VB.Form orders_online_invoices
          BorderStyle     =   1  'Fixed Single
          Height          =   330
          Left            =   3870
-         TabIndex        =   38
+         TabIndex        =   53
          Top             =   225
          Width           =   1005
       End
@@ -1253,7 +1249,7 @@ Begin VB.Form orders_online_invoices
          BorderStyle     =   1  'Fixed Single
          Height          =   330
          Left            =   90
-         TabIndex        =   37
+         TabIndex        =   52
          Top             =   585
          Width           =   1365
       End
@@ -1263,19 +1259,78 @@ Begin VB.Form orders_online_invoices
          Height          =   285
          Left            =   4950
          RightToLeft     =   -1  'True
-         TabIndex        =   36
+         TabIndex        =   51
          Top             =   270
          Width           =   1185
       End
-      Begin VB.Label xrate 
-         Alignment       =   1  'Right Justify
-         Appearance      =   0  'Flat
-         BorderStyle     =   1  'Fixed Single
-         Height          =   330
-         Left            =   3240
-         TabIndex        =   35
-         Top             =   585
-         Width           =   600
+   End
+   Begin VB.Frame Frame6 
+      Appearance      =   0  'Flat
+      BackColor       =   &H80000005&
+      ForeColor       =   &H80000008&
+      Height          =   780
+      Left            =   3825
+      RightToLeft     =   -1  'True
+      TabIndex        =   64
+      Top             =   8955
+      Width           =   4290
+      Begin Threed.SSCommand cmdEdit 
+         Height          =   555
+         Left            =   45
+         TabIndex        =   18
+         Top             =   180
+         Width           =   2040
+         _ExtentX        =   3598
+         _ExtentY        =   979
+         _Version        =   196610
+         CaptionStyle    =   1
+         ForeColor       =   0
+         BackColor       =   16777215
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   -1  'True
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Caption         =   " „ «· ⁄œÌ·"
+         ButtonStyle     =   2
+         PictureAlignment=   10
+         BevelWidth      =   0
+         PictureDisabledFrames=   1
+         ShapeSize       =   1
+         PictureDisabled =   "online_orders_invoices_new.frx":2901F
+      End
+      Begin Threed.SSCommand cmdMsg 
+         Height          =   555
+         Left            =   2115
+         TabIndex        =   17
+         Top             =   180
+         Width           =   2085
+         _ExtentX        =   3678
+         _ExtentY        =   979
+         _Version        =   196610
+         CaptionStyle    =   1
+         ForeColor       =   0
+         BackColor       =   16777215
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   -1  'True
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Caption         =   "«—”«· —”«·…"
+         ButtonStyle     =   2
+         PictureAlignment=   10
+         BevelWidth      =   0
+         PictureDisabledFrames=   1
+         ShapeSize       =   1
+         PictureDisabled =   "online_orders_invoices_new.frx":2B315
       End
    End
 End
@@ -1290,8 +1345,8 @@ Public sSales_doc As String
 Public sStore As String
 Public myForm As Form
 Public bEdit As Boolean
-Public dbm As New DBManager
-Dim temptable As New ADODB.Recordset, cMsgDisplay As String, nDayDiscout As Double, cDescDiscout As String
+Dim dbm As New DBManager
+
 Dim bAct As Boolean
 Dim bUpdated As Boolean
 Dim cFilter As String
@@ -1318,13 +1373,14 @@ ItemsLookupAll Me, oSearchItem
 End Sub
 Function myreplace(Optional Row As Long = -1, Optional bOffer As Boolean, Optional bReplace As Boolean) As Boolean
 Dim aInsert As Variant
-aInsert = AddFlag(aInsert, "[DISCOUNT]", Val(xDiscount.Caption))
+aInsert = AddFlag(aInsert, "[DISCOUNT]", Val(xDiscount.text))
 aInsert = AddFlag(aInsert, "[TYPE]", addvalue(xtype.Tag))
 aInsert = AddFlag(aInsert, "[SHIP]", addstring(xship.BoundText))
 aInsert = AddFlag(aInsert, "[SHIP_NO]", addstring(xship_no.text))
 aInsert = AddFlag(aInsert, "[ORDER_NO]", addstring(sOrder_No))
 aInsert = AddFlag(aInsert, "[SALES_REPLACE]", addstring(xSales_Replace.Caption))
 aInsert = AddFlag(aInsert, "[PAYMENT_ID]", addstring(xPayment_id.text))
+aInsert = AddFlag(aInsert, "DATE_MAIL", addDate(xDate_mail.text))
 aInsert = AddFlag(aInsert, "[DATE]", addDate(xDate.text))
 aInsert = AddFlag(aInsert, "[charge2]", Val(xcharge2.text))
 
@@ -1334,15 +1390,15 @@ On Error GoTo myerror
 Dim con As New ADODB.Connection
 If OpenCon(con) <> "ok" Then Exit Function
 con.BeginTrans
-If xDoc_No.Tag = DefineMode Then
-    xDoc_No.Caption = Newflag("FILE6_90BH", "DOC_NO", con)
-    aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_No.Caption))
+If xdoc_no.Tag = DefineMode Then
+    xdoc_no.Caption = Newflag("FILE6_90BH", "DOC_NO", con)
+    aInsert = AddFlag(aInsert, "DOC_NO", addstring(xdoc_no.Caption))
     aInsert = AddFlag(aInsert, "[USERNAME]", addstring(cUserName))
     aInsert = AddFlag(aInsert, "[USER_IP]", addstring(GetComputerName))
     aInsert = AddFlag(aInsert, "[STAGE]", IIf(xtype.Tag = 1 Or xtype.Tag = 11, "1", "7"))
     con.Execute addInsert(aInsert, "FILE6_90BH")
 Else
-    con.Execute addUpdate(aInsert, "FILE6_90BH", "DOC_NO = " & addstring(xDoc_No.Caption))
+    con.Execute addUpdate(aInsert, "FILE6_90BH", "DOC_NO = " & addstring(xdoc_no.Caption))
 End If
 
 If bOffer Then
@@ -1384,7 +1440,7 @@ ElseIf ActiveControl.Name = xSales_Replace.Name Then
     GrdDesc grid1.TextMatrix(grid1.Row, 1), grid1.Row
     Grid1_AfterEdit grid1.Row, grid1.col
 ElseIf ActiveControl.Name = cmdInform.Name Then
-    xDoc_No.Caption = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
+    xdoc_no.Caption = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
     Unload oSearchDoc
     myUndo
 ElseIf sControl = "inv_replace" Then
@@ -1483,7 +1539,7 @@ End If
 
 If retFlag(aValues, "COUNT_OF") = 1 Then
     xSales_Replace.Caption = retFlag(aValues, "DOC_NO") & ""
-    Handlecontrols xDoc_No.Tag
+    Handlecontrols xdoc_no.Tag
 Else
     invLook "inv_replace"
 End If
@@ -1514,7 +1570,7 @@ End If
 'If retFlag(aValues, "COUNT_OF") = 1 Then
     'xSales_Replace.Caption = retFlag(aValues, "DOC_NO") & ""
 xSales_Replace.Caption = sValue
-Handlecontrols xDoc_No.Tag
+Handlecontrols xdoc_no.Tag
 'Else
 '    invLook "inv_add"
 'End If
@@ -1627,11 +1683,11 @@ If MsgBox("Õ–›", vbOKCancel + vbDefaultButton2) <> vbOK Then Exit Sub
 Dim con As New ADODB.Connection
 OpenCon con
 con.BeginTrans
-con.Execute "Delete  From FILE6_90B where Doc_No = " & xDoc_No.Caption
-con.Execute "Delete  From FILE6_90BH where Doc_No = " & xDoc_No.Caption
+con.Execute "Delete  From FILE6_90B where Doc_No = " & xdoc_no.Caption
+con.Execute "Delete  From FILE6_90BH where Doc_No = " & xdoc_no.Caption
 con.CommitTrans
 
-If Not openCardTable(tbMode.tbPrevious, xDoc_No.Caption) Then
+If Not openCardTable(tbMode.tbPrevious, xdoc_no.Caption) Then
     If Not openCardTable(tbMode.tbFirst) Then
         myDefine
     End If
@@ -1648,7 +1704,7 @@ If MsgBox(" „ «· ⁄œÌ·", vbDefaultButton2 + vbOKCancel) <> vbOK Then Exit Sub
     If sendEdit Then
         Inform_OK " „ «· ⁄œÌ·"
     
-        If Not openCardTable(tbMode.tbFind, xDoc_No.Caption) Then
+        If Not openCardTable(tbMode.tbFind, xdoc_no.Caption) Then
             If Not openCardTable Then
                 myDefine
             End If
@@ -1674,14 +1730,14 @@ Private Function sendEdit() As Boolean
         aInsert = AddFlag(Empty, "DESCA", addstring(sMsg))
         aInsert = AddFlag(aInsert, "USERNAME", addstring(cUserName))
         aInsert = AddFlag(aInsert, "ORDER_NO", addstring(sOrder_No))
-        aInsert = AddFlag(aInsert, "DOC_NO_SUP", addvalue(xDoc_No.Caption))
+        aInsert = AddFlag(aInsert, "DOC_NO_SUP", addvalue(xdoc_no.Caption))
         aInsert = AddFlag(aInsert, "[TIME]", "getdate()")
         
         con.BeginTrans
         con.Execute "UPDATE FILE6_90BH " & _
                     " SET STAGE = 8," & _
                     " TIME8 = getDate()" & _
-                    " FROM FILE6_90BH WHERE DOC_NO = " & addstring(xDoc_No.Caption)
+                    " FROM FILE6_90BH WHERE DOC_NO = " & addstring(xdoc_no.Caption)
                     
         con.Execute addInsert(aInsert, "FILE6_90_MSG"), nAffect
         con.CommitTrans
@@ -1724,7 +1780,7 @@ Dim aInsert As Variant
 aInsert = AddFlag(Empty, "DESCA", addstring(sMsg))
 aInsert = AddFlag(aInsert, "USERNAME", addstring(cUserName))
 aInsert = AddFlag(aInsert, "ORDER_NO", addstring(sOrder_No))
-aInsert = AddFlag(aInsert, "DOC_NO_SUP", addvalue(xDoc_No.Caption))
+aInsert = AddFlag(aInsert, "DOC_NO_SUP", addvalue(xdoc_no.Caption))
 aInsert = AddFlag(aInsert, "STAGE", addvalue(xStage.Tag))
 aInsert = AddFlag(aInsert, "[TIME]", "getdate()")
 On Error GoTo myerror
@@ -1749,7 +1805,7 @@ If grid1.Rows = 2 Then Exit Sub
 If Not myValid Then Exit Sub
 If myreplace Then
     Inform " „ «·Õ›Ÿ"
-    If Not openCardTable(tbMode.tbFind, xDoc_No.Caption) Then
+    If Not openCardTable(tbMode.tbFind, xdoc_no.Caption) Then
         If Not openCardTable Then
             myDefine
         End If
@@ -1762,39 +1818,40 @@ If sDoc_no_no <> "" Then
     MsgBox " „ «· —ÕÌ· «·Ì «·›« Ê—… —ﬁ„ : " & sdoc_no_new
 End If
 
-If Not openCardTable(tbMode.tbFind, xDoc_No.Caption) Then
+If Not openCardTable(tbMode.tbFind, xdoc_no.Caption) Then
     If Not openCardTable Then
         myDefine
     End If
 End If
 End Sub
-Private Sub cmdType_Click()
+Private Sub cmdSaveDateMail_Click()
+If dbm.OpenCon Then
+    If dbm.Execute("update file6_90BH " & _
+                   " SET DATE_MAIL = " & addDate(xDate_mail.text) & _
+                   " WHERE DOC_NO = " & MyParn(xdoc_no.Caption)) Then
+        Inform " „ Õ›Ÿ  «—ÌŒ «·„Ì· »‰Ã«Õ"
+    End If
+    dbm.closeCon
+End If
 End Sub
-
 Private Sub cmdSavePayment_Click()
 If dbm.OpenCon Then
     If dbm.Execute("update file6_90BH " & _
                    " SET PAYMENT_ID = " & addstring(xPayment_id.text) & "," & _
                    "  Ship_no = " & addstring(xship_no.text) & _
-                   " WHERE DOC_NO = " & MyParn(xDoc_No.Caption)) Then
+                   " WHERE DOC_NO = " & MyParn(xdoc_no.Caption)) Then
         Inform " „ Õ›Ÿ —ﬁ„ «·”œ«œ »‰Ã«Õ"
     End If
     dbm.closeCon
 End If
 End Sub
-
 Private Sub CmdUndo_Click()
 myUndo
 End Sub
-
-Private Sub Command1_Click()
-TabStrip1.Tabs(2).Selected = True
-End Sub
-
 Private Sub Form_Activate()
 If Not bAct Then
     bAct = True
-    If xDoc_No.Tag = LoadMode Then
+    If xdoc_no.Tag = LoadMode Then
         On Error Resume Next
         grid1.SetFocus
         CellPos 13, grid1.Rows - 2, grid1.Cols - 1
@@ -1900,8 +1957,8 @@ End If
 CalcTotals
 
 If myreplace(Row) Then
-    If xDoc_No.Tag = DefineMode Then
-        openCardTable tbMode.tbFind, xDoc_No.Caption
+    If xdoc_no.Tag = DefineMode Then
+        openCardTable tbMode.tbFind, xdoc_no.Caption
     ElseIf grid1.TextMatrix(Row, grid1.Cols - 1) = "" Then
         myLoadGrd
     End If
@@ -2022,18 +2079,19 @@ End If
 myValid = True
 End Function
 Private Sub myload()
-xDoc_No.Caption = CardTable!doc_no
+xdoc_no.Caption = CardTable!doc_no
 xDate.text = myFormat_p(CardTable!Date)
-xDate1.Caption = myFormat_p(CardTable!Date1)
+xdate1.Caption = myFormat_p(CardTable!Date1)
+xDate_mail.text = myFormat_p(CardTable!DATE_MAIL)
 xtype.Tag = CardTable!Type
 xtype.Caption = CardTable!TYPE_dESCA
-xDiscount.Caption = CardTable!discount & ""
+xDiscount.text = CardTable!discount & ""
 xship_no.text = CardTable!ship_no & ""
 xship.BoundText = CardTable!SHIP & ""
 xdoc_no_sales.Caption = CardTable!doc_no_sales & ""
 xSales_Replace.Caption = CardTable!sales_replace & ""
 XSALES_RET.Caption = CardTable!SALES_RET & ""
-xClosed.Value = IIf(CardTable!CLOSED, 1, 0)
+xClosed.value = IIf(CardTable!CLOSED, 1, 0)
 xStage.Tag = CardTable!Stage & ""
 xcharge2.text = CardTable!charge2 & ""
 xStage.Caption = CardTable!stage_Desca & ""
@@ -2055,8 +2113,9 @@ grid1.SetFocus
 Err.Clear
 End Sub
 Private Sub myDefine()
-xDoc_No.Caption = ""
+xdoc_no.Caption = ""
 xDate.text = myFormat_p(Date)
+xDate_mail.text = ""
 xdoc_no_sales.Caption = ""
 xSales_Replace.Caption = ""
 XSALES_RET.Caption = ""
@@ -2068,22 +2127,23 @@ xship_no.text = ""
 xcharge2.text = ""
 
 addShip
-
+bIg = True
 xtotal_item.Caption = ""
-xDiscount.Caption = ""
+xDiscount.text = ""
 xTotal.Caption = ""
-xClosed.Value = 0
+bIg = False
+xClosed.value = 0
 
 grid1.Rows = 1
 myAddItem
-Fixgrd
+fixGrd
 
 
 grdError.Rows = 1
 fixGrdError
 
 Handlecontrols DefineMode
-Fixgrd
+fixGrd
 
 CalcTotals
 
@@ -2092,21 +2152,23 @@ Private Sub Handlecontrols(nMode)
 bEditRecord = bEdit
 bEditRecord = bEditRecord And cBranch = "00"
 bEditRecord = bEditRecord And xtype.Tag <> ""
-bEditRecord = bEditRecord And xClosed.Value = 0
+bEditRecord = bEditRecord And xClosed.value = 0
 bEditRecord = bEditRecord And xStage.Tag <> "2"
 
 
 cmdSave.Enabled = bEditRecord
 cmdSavePayment.Enabled = nMode = LoadMode And cmdSave.Enabled = False
 cmdNewInv.Enabled = bEdit And cBranch = "00"
-cmddel.Enabled = bEditRecord And nMode = LoadMode And cBranch = "00" And (Trim(xDate1.Caption) = "" Or xtype.Tag <> "3")
+cmddel.Enabled = bEditRecord And nMode = LoadMode And cBranch = "00" And (Trim(xdate1.Caption) = "" Or xtype.Tag <> "3")
+cmdSaveDateMail.Enabled = xtype.Tag = "2" Or xtype.Tag = "3" Or xtype.Tag = "12"
+xDate_mail.Enabled = xtype.Tag = "2" Or xtype.Tag = "3" Or xtype.Tag = "12"
 
-cmdEdit.Enabled = xClosed.Value = 0 And xStage.Tag = 6
+cmdEdit.Enabled = xClosed.value = 0 And xStage.Tag = 6
 
 xtype.Enabled = nMode = DefineMode
 
 Dim nRecord As Long, nRecords As Long
-retRecords xDoc_No.Caption, nRecords, nRecord
+retRecords xdoc_no.Caption, nRecords, nRecord
 
 cmdNext.Enabled = nRecord < nRecords And nRecords <> 0 And nMode = LoadMode
 cmdPrevious.Enabled = nRecord <> 1 And nRecords <> 0 And nMode = LoadMode
@@ -2125,7 +2187,7 @@ fmSend.Visible = nMode = LoadMode And (xtype.Tag = "2" Or xtype.Tag = "3" Or xty
 'lblReplace.Visible = nMode = LoadMode And xSales_replace.Caption <> ""
 'xSales_replace.Visible = nMode = LoadMode And xSales_replace.Caption = ""
 
-xDoc_No.Tag = nMode
+xdoc_no.Tag = nMode
 End Sub
 Private Sub grid1_KeyUp(KeyCode As Integer, Shift As Integer)
 If Not bEditRecord Then
@@ -2158,14 +2220,14 @@ Dim cm As New ADODB.command
 Set cm = cmd("dbo.sp_item", con, adStoredProc, AddFlag(Empty, "BARCODE_FIND", pItem))
 cm.Execute
 
-If IsNull(cm.Parameters("@ITEM").Value) Then
+If IsNull(cm.Parameters("@ITEM").value) Then
     sMsg = "ﬂÊœ €Ì— ’«·Õ"
     GoTo Finally
 End If
 
 Dim nBalance As Double
-If Not cm.Parameters("@ISNOITEM").Value Then
-    If cm.Parameters("@PRICE").Value = 0 Then
+If Not cm.Parameters("@ISNOITEM").value Then
+    If cm.Parameters("@PRICE").value = 0 Then
         MsgBox "”⁄— «·»Ì⁄ ’›— "
         GoTo Finally
     End If
@@ -2176,30 +2238,30 @@ If Not cm.Parameters("@ISNOITEM").Value Then
 End If
 
 Dim cmDiscount As New ADODB.command
-aPrm = AddFlag(Empty, "ITEM", cm.Parameters("@ITEM").Value)
+aPrm = AddFlag(Empty, "ITEM", cm.Parameters("@ITEM").value)
 aPrm = AddFlag(aPrm, "DATE", myFormat_sp(xDate.text))
 Set cmDiscount = cmd("dbo.sp_offer_price", con, adStoredProc, aPrm)
 cmDiscount.Execute
 
-grid1.TextMatrix(Row, 1) = cm.Parameters("@ITEM").Value
-grid1.TextMatrix(Row, 2) = cm.Parameters("@MOSM").Value
-grid1.TextMatrix(Row, 3) = cm.Parameters("@FACT").Value
-grid1.TextMatrix(Row, 4) = cm.Parameters("@SUPP").Value & ""
-grid1.TextMatrix(Row, 5) = cm.Parameters("@MODELFACT0").Value
-grid1.TextMatrix(Row, 6) = cm.Parameters("@DESCA").Value
-grid1.TextMatrix(Row, 7) = cm.Parameters("@SCAL").Value
-grid1.TextMatrix(Row, 8) = cm.Parameters("@COLOR").Value
-grid1.TextMatrix(Row, 9) = cm.Parameters("@PRICE").Value
+grid1.TextMatrix(Row, 1) = cm.Parameters("@ITEM").value
+grid1.TextMatrix(Row, 2) = cm.Parameters("@MOSM").value
+grid1.TextMatrix(Row, 3) = cm.Parameters("@FACT").value
+grid1.TextMatrix(Row, 4) = cm.Parameters("@SUPP").value & ""
+grid1.TextMatrix(Row, 5) = cm.Parameters("@MODELFACT0").value
+grid1.TextMatrix(Row, 6) = cm.Parameters("@DESCA").value
+grid1.TextMatrix(Row, 7) = cm.Parameters("@SCAL").value
+grid1.TextMatrix(Row, 8) = cm.Parameters("@COLOR").value
+grid1.TextMatrix(Row, 9) = cm.Parameters("@PRICE").value
 grid1.TextMatrix(Row, 10) = "1"
 
 'grid1.TextMatrix(i, 14) = fnBalance(grid1.TextMatrix(Row, 1), con, sStore)
-If IsNull(cmDiscount.Parameters("@ID").Value) Then
-    grid1.TextMatrix(Row, 11) = cm.Parameters("@PRICE").Value
+If IsNull(cmDiscount.Parameters("@ID").value) Then
+    grid1.TextMatrix(Row, 11) = cm.Parameters("@PRICE").value
 End If
-grid1.TextMatrix(Row, 17) = Val(cm.Parameters("@COSTITEM").Value & "")
-If Not IsNull(cmDiscount.Parameters("@ID").Value) Then
-    grid1.TextMatrix(Row, 11) = cmDiscount.Parameters("@PRICE").Value
-    grid1.TextMatrix(Row, 18) = cmDiscount.Parameters("@DOC_NO").Value
+grid1.TextMatrix(Row, 17) = Val(cm.Parameters("@COSTITEM").value & "")
+If Not IsNull(cmDiscount.Parameters("@ID").value) Then
+    grid1.TextMatrix(Row, 11) = cmDiscount.Parameters("@PRICE").value
+    grid1.TextMatrix(Row, 18) = cmDiscount.Parameters("@DOC_NO").value
     grid1.TextMatrix(Row, 19) = 0
     grid1.TextMatrix(Row, 20) = 0
 End If
@@ -2265,14 +2327,14 @@ bIg = True
 'End If
 
 If Val(xtotal_item.Caption) <> 0 Then
-    If Round(Val(xRate.Caption), nRound) <> Round(Val(xDiscount.Caption) / Val(xtotal_item.Caption) * 100, nRound) Then
-        xRate.Caption = Myvalue(Round((Val(xDiscount.Caption) / Val(xtotal_item.Caption)) * 100, nRound))
+    If Round(Val(xRate.text), nRound) <> Round(Val(xDiscount.text) / Val(xtotal_item.Caption) * 100, nRound) Then
+        xRate.text = Myvalue(Round((Val(xDiscount.text) / Val(xtotal_item.Caption)) * 100, nRound))
     End If
 Else
-    xRate.Caption = ""
+    xRate.text = ""
 End If
 
-xTotal.Caption = mRound(nTotalItem - Val(xDiscount.Caption), 2)
+xTotal.Caption = mRound(nTotalItem - Val(xDiscount.text), 2)
 bIg = False
 End With
 End Function
@@ -2321,7 +2383,7 @@ For i = 1 To grid1.Rows - 1
     grid1.TextMatrix(i, 0) = i
 Next
 End Sub
-Private Sub Fixgrd()
+Private Sub fixGrd()
 With grid1
 '                 0          1          2         3        4          5              6          7          8            9           10          11             12           13            14            15          16          17           18           19        20
 .FormatString = "„.|" & "»«—ﬂÊœ|" & "„Ê”„|" & "„’‰⁄|" & "„ﬂ »|" & "—ﬁ„ „ÊœÌ·|" & "«·’‰›|" & "„ﬁ«”|" & "«··Ê‰|" & "”⁄— „” Â·ﬂ|" & "⁄œœ|" & "”⁄— «·»Ì⁄|" & "‰”»… Œ’„|" & "«·≈Ã„«·Ï|" & "«·—’Ìœ|" & "ﬂÊœ «·»«∆⁄|" & "«·»«∆⁄|" & "«· ﬂ·›…|" & "„” ‰œ «·⁄—÷|" & "—ﬁ„ «·⁄—÷|" & "Œ’„ «·⁄—÷|"
@@ -2422,7 +2484,7 @@ With grid1
         aInsert = AddFlag(aInsert, "OFFER_NO", addstring(grid1.TextMatrix(i, 19)))
         
         If grid1.TextMatrix(i, grid1.Cols - 1) = "" Then
-            aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_No.Caption))
+            aInsert = AddFlag(aInsert, "DOC_NO", addstring(xdoc_no.Caption))
             con.Execute addInsert(aInsert, "FILE6_90B")
         Else
             con.Execute addUpdate(aInsert, "FILE6_90B", "ID = " & grid1.TextMatrix(i, .Cols - 1))
@@ -2453,9 +2515,9 @@ aInsert = AddFlag(aInsert, "[SHIP_NO]", addstring(xship_no.text))
 aInsert = AddFlag(aInsert, "[USERNAME]", addstring(cUserName))
 aInsert = AddFlag(aInsert, "[USER_IP]", addstring(GetComputerName))
 If oSalesRefund.sFlag = "2" Or oSalesRefund.sFlag = "3" Then
-    aInsert = AddFlag(aInsert, "[SALES_RET]", addstring(.xDoc_No.Caption))
+    aInsert = AddFlag(aInsert, "[SALES_RET]", addstring(.xdoc_no.Caption))
 ElseIf oSalesRefund.sFlag = "11" Then
-    aInsert = AddFlag(aInsert, "[SALES_REPLACE]", addstring(.xDoc_No.Caption))
+    aInsert = AddFlag(aInsert, "[SALES_REPLACE]", addstring(.xdoc_no.Caption))
 End If
 aInsert = AddFlag(aInsert, "[STAGE]", "7")
 End With
@@ -2491,7 +2553,7 @@ MsgBox " „ Õ›Ÿ «·„” ‰œ »‰Ã«Õ"
 
 Unload oSalesRefund
 
-If Not openCardTable(tbMode.tbFind, xDoc_No.Caption) Then
+If Not openCardTable(tbMode.tbFind, xdoc_no.Caption) Then
     If Not openCardTable Then
         myDefine
     End If
@@ -2607,12 +2669,12 @@ grid1.AddItem ""
 MakeSerial
 End Sub
 Private Sub myUndo()
-If xDoc_No.Tag = DefineMode Then
+If xdoc_no.Tag = DefineMode Then
     If Not openCardTable Then
         CmdNewInv_Click
     End If
 Else
-    If Not openCardTable(tbMode.tbFind, xDoc_No.Caption) Then
+    If Not openCardTable(tbMode.tbFind, xdoc_no.Caption) Then
         If Not openCardTable Then
             myDefine
         End If
@@ -2624,14 +2686,14 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Private Sub CmdNext_Click()
-If Not openCardTable(tbMode.tbNext, xDoc_No.Caption) Then
+If Not openCardTable(tbMode.tbNext, xdoc_no.Caption) Then
     If Not openCardTable(tbMode.tblast) Then
         myDefine
     End If
 End If
 End Sub
 Private Sub CmdPrevious_Click()
-If Not openCardTable(tbMode.tbPrevious, xDoc_No.Caption) Then
+If Not openCardTable(tbMode.tbPrevious, xdoc_no.Caption) Then
     If Not openCardTable(tbMode.tbFirst) Then
         myDefine
     End If
@@ -2758,6 +2820,9 @@ Private Sub xNotes_LostFocus()
 myLostFocus xNotes
 End Sub
 
+Private Sub SSCommand1_Click()
+End Sub
+
 Private Sub xdate_GotFocus()
 myGotFocus xDate
 End Sub
@@ -2765,6 +2830,19 @@ Private Sub xDate_LostFocus()
 myLostFocus xDate
 myValidDate xDate
 End Sub
+
+Private Sub xdate_mail_GotFocus()
+myGotFocus xDate_mail
+End Sub
+Private Sub xdate_mail_LostFocus()
+myLostFocus xDate_mail
+myValidDate xDate_mail
+End Sub
+Private Sub xDiscount_Change()
+If bIg Then Exit Sub
+CalcTotals
+End Sub
+
 Private Sub xPayment_id_GotFocus()
 myGotFocus xPayment_id
 End Sub
@@ -2804,7 +2882,7 @@ cString = " SELECT FILE6_90BH.DOC_NO," & _
           " FILE6_90BH.DISCOUNT " & _
           " FROM FILE6_90BH " & _
           " INNER JOIN FILE6_90H ON FILE6_90BH.ORDER_NO = FILE6_90H.DOC_NO" & _
-          " WHERE FILE6_90BH.DOC_NO = " & MyParn(xDoc_No.Caption)
+          " WHERE FILE6_90BH.DOC_NO = " & MyParn(xdoc_no.Caption)
        
 Dim loctable As New ADODB.Recordset
 Set loctable = myRs(cString)
@@ -2905,7 +2983,7 @@ End With
 con.Execute cInsert.GetAsString()
 con.Execute "UPDATE FILE6_90BH " & _
             " SET FILE6_90HB.INV_NO = " & MyParn(sDoc_New) & _
-            " WHERE FILE6_90BH = " & MyParn(xDoc_No.Caption)
+            " WHERE FILE6_90BH = " & MyParn(xdoc_no.Caption)
 UpdateInvTotal sDoc_New, con
 
 con.CommitTrans
@@ -2922,12 +3000,27 @@ sdoc_no_new = ""
 GoTo Finally
 End Function
 Private Sub xdate1_GotFocus()
-myGotFocus xDate1
+myGotFocus xdate1
 End Sub
-Private Sub xDate1_LostFocus()
-myLostFocus xDate1
-myValidDate xDate1
+Private Sub xdate1_LostFocus()
+myLostFocus xdate1
+myValidDate xdate1
 End Sub
+
+Private Sub xRate_Change()
+If bIg Then Exit Sub
+bIg = True
+If Val(xtotal_item.Caption) <> 0 Then
+    If Round(Val(xRate.text), 0) <> Round(Val(xDiscount.text) / Val(xtotal_item.Caption) * 100, 0) Then
+        xDiscount.text = Round((Val(xRate.text) * Val(xtotal_item.Caption)) / 100, 2)
+    End If
+Else
+    xDiscount.text = ""
+End If
+CalcTotals
+bIg = False
+End Sub
+
 Private Sub xSales_replace_Click()
 ItemsLook Me, oSearchItem, , , "FILE1_10.ITEM IN(SELECT ITEM FROM FILE6_20 WHERE DOC_NO = " & MyParn(xSales_Replace.Caption) & ")", False
 End Sub
@@ -2945,7 +3038,7 @@ strSql = "SELECT FORMAT([TIME], 'yyyy/M/d HH:mm') AS [«·Êﬁ ]" & _
            ",[STAGE]" & _
           " From [dbo].[vw_msg]" & _
           " WHERE ORDER_NO = " & MyParn(sOrder_No) & _
-          " AND DOC_NO_SUP = " & xDoc_No.Caption & _
+          " AND DOC_NO_SUP = " & xdoc_no.Caption & _
           " ORDER BY TIME"
 
 On Error GoTo myerror
@@ -2986,7 +3079,6 @@ Next
 grdError.ShowCell grdError.Rows - 1, 1
 End With
 End Sub
-
 Private Sub xtype_Click()
 On Error GoTo myerror
 OnlineTypeLookup Me, oSearchType, filterType, , , "type"
@@ -3052,13 +3144,13 @@ cString = "SELECT FILE6_90B.ITEM," & _
           " LEFT JOIN FACT ON FACT.CODE = FILE1_10.FACT" & _
           " LEFT JOIN FILE6_25 ON FILE6_90B.MAN  = FILE6_25.CODE "
           
-cString = cString & " WHERE FILE6_90B.DOC_NO = " & MyParn(xDoc_No.Caption)
+cString = cString & " WHERE FILE6_90B.DOC_NO = " & MyParn(xdoc_no.Caption)
 cString = cString & " ORDER BY FILE6_90B.ID"
 Set grid1.DataSource = myRs(cString)
 myAddItem
 End With
 CalcTotals
-Fixgrd
+fixGrd
 End Sub
 Private Sub addShip()
 Dim loctable As New ADODB.Recordset
@@ -3073,3 +3165,4 @@ myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
+

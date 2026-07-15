@@ -3179,6 +3179,7 @@ Dim cFilter As String, cFilterLook As String
 Dim bAct As Boolean
 Dim sDateSales As String
 Dim computerName As String
+Dim dbm As New DBManage
 Dim nRound As Long, lIsBoxOnline As Boolean
 Dim CardTable As ADODB.Recordset
 Dim cDefClient As String, cDefClientDesca As String
@@ -3294,12 +3295,12 @@ myUndo
 End Sub
 
 Private Sub chkDayBranch_Click()
-If IsDate(xDate1.text) Or IsDate(xdate2.text) Then Exit Sub
+If IsDate(xdate1.text) Or IsDate(xdate2.text) Then Exit Sub
 myUndo
 End Sub
 
 Private Sub chkprint_Click()
-    addSetting "print", chkprint.Value, App.Path & "\other.txt"
+    addSetting "print", chkprint.value, App.Path & "\other.txt"
 End Sub
 
 Private Sub cmd_disc_Click()
@@ -3349,19 +3350,31 @@ If cBranch <> "" Then
         Exit Sub
     End If
     
-    cString = "SELECT COUNT(DISTINCT FILE6_20H.DOC_NO) " & _
-              " FROM FILE6_20H " & _
-              " INNER JOIN LADING_BILL ON FILE6_20H.DOC_NO = LADING_BILL.DOC_NO" & _
-              " WHERE FILE6_20H.BRANCH = " & MyParn(cBranch) & _
-              " AND LADING_BILL.DATE_MAIL IS NOT NULL" & _
-              " AND LADING_BILL.CLOSED = 0"
-        
-    nCount = myField(cString, con, , , 0)
+'    cString = "SELECT COUNT(DISTINCT FILE6_20H.DOC_NO) " & _
+'              " FROM FILE6_20H " & _
+'              " INNER JOIN LADING_BILL ON FILE6_20H.DOC_NO = LADING_BILL.DOC_NO" & _
+'              " WHERE FILE6_20H.BRANCH = " & MyParn(cBranch) & _
+'              " AND LADING_BILL.DATE_MAIL IS NOT NULL" & _
+'              " AND LADING_BILL.CLOSED = 0"
+'
+'    nCount = myField(cString, con, , , 0)
+'    If nCount > 0 Then
+'        MsgBox nCount & " ›Ê« Ì— »Ê«·’ ”«»ﬁ… €Ì— „€·ﬁ…"
+'        Exit Sub
+'    End If
+    
+    
+    cString = "SELECT COUNT(*) " & _
+              " FROM FILE6_90BH " & _
+              " WHERE CLOSED = 0" & _
+              " AND DATE_MAIL IS NOT NULL " & _
+              " AND DATE_MAIL <= " & DateSq(sDateSales)
+    Dim nCount As Long
+    If Not dbm.rsValue(cString, nCount) Then Exit Sub
     If nCount > 0 Then
-        MsgBox nCount & " ›Ê« Ì— »Ê«·’ ”«»ﬁ… €Ì— „€·ﬁ…"
+        MsgBox nCount & " „ÿ«·»«  „— Ã⁄ „› ÊÕ… ·œÌÂ«  «—ÌŒ „Ì· ﬁ»· «Ê Ì”«ÊÌ  «—ÌŒ «·«€·«ﬁ "
         Exit Sub
     End If
-    
     
     Dim nAffect As Long
     con.Execute "UPDATE DSALES " & _
@@ -3479,7 +3492,7 @@ End Sub
 
 Private Sub xClosed_Click()
 If bIgClick Then Exit Sub
-If xClosed.Value = 0 Then
+If xClosed.value = 0 Then
     con.Execute "update file6_20h set " & _
                 "isnew = 1," & _
                 "isclosed = 0," & _
@@ -3655,7 +3668,7 @@ If KeyCode = 13 Then
 End If
 End Sub
 Private Sub Form_Load()
-openCon con
+OpenCon con
 
 fixDateSales
 
@@ -3683,13 +3696,13 @@ Set xMan.RowSource = data2
 xMan.ListField = "Desca"
 xMan.BoundColumn = "Code"
 
-Set data3.Recordset = mycmd("SELECT * FROM MOSM ", con)
-Set xMosm.RowSource = data3
+Set DATA3.Recordset = mycmd("SELECT * FROM MOSM ", con)
+Set xMosm.RowSource = DATA3
 xMosm.ListField = "DESCA"
 xMosm.BoundColumn = "MOSM"
 
-Set DATA4.Recordset = mycmd("SELECT CODE,DESCA FROM SHIP ORDER BY  STOPED,DESCA", con)
-Set xship.RowSource = DATA4
+Set data4.Recordset = mycmd("SELECT CODE,DESCA FROM SHIP ORDER BY  STOPED,DESCA", con)
+Set xship.RowSource = data4
 xship.ListField = "DESCA"
 xship.BoundColumn = "CODE"
 
@@ -3923,7 +3936,7 @@ End If
 myValid = True
 End Function
 Private Sub myload(Optional bLeaveBal As Boolean = False)
-xdoc_no.text = CardTable!DOC_NO
+xdoc_no.text = CardTable!doc_no
 xdoc_ret.text = ""
 xCode.text = CardTable!code & ""
 xCodeDesca.Caption = CardTable!ClientDesca & ""
@@ -3931,15 +3944,15 @@ xCodeDesca.Caption = CardTable!ClientDesca & ""
 xUUID_RC.Caption = CardTable!UUID_RC & ""
 
 bIgClick = True
-xSendRc.Value = IIf(CardTable!sendRc, 1, 0)
-xClosed.Value = IIf(CardTable!ISCLOSED, 1, 0)
+xSendRc.value = IIf(CardTable!sendRc, 1, 0)
+xClosed.value = IIf(CardTable!ISCLOSED, 1, 0)
 bIgClick = False
 
 XBRANCH.Caption = CardTable!branch & ""
 xCode.Enabled = False
-XISRETS.Value = 0
-XISONEST.Value = 0
-XISONEST.Value = IIf(CardTable!ISONEST, 1, 0)
+XISRETS.value = 0
+XISONEST.value = 0
+XISONEST.value = IIf(CardTable!ISONEST, 1, 0)
 'XISNODEL.Value = IIf(CardTable!ISNODEL, 1, 0)
 xIpName.Caption = CardTable!USER_IP & ""
 xship_no.text = CardTable!ship_no & ""
@@ -3974,7 +3987,7 @@ panel1(3).Caption = CardTable!username_ret & ""
 'xusername.Caption = CardTable!UserName & ""
 'XUSERNAME_DISC.Caption = CardTable!username_disc & ""
 
-chkCash.Value = IIf(CardTable!CASH, 1, 0)
+chkCash.value = IIf(CardTable!CASH, 1, 0)
 xDiscount.text = TurnValue(Val(CardTable!discount & ""), 0, "")
 xRate.text = TurnValue(Val(CardTable!Rate & ""), 0, "")
 
@@ -3986,8 +3999,8 @@ xcharge1.text = Myvalue(CardTable!CHARGE1)
 xcharge2.text = Myvalue(CardTable!charge2)
 xTotal_bill.Caption = Myvalue(Abs(Val(xTotal.text)) + Val(xcharge1.text) + Val(xcharge2.text))
 
-xIsRet.Value = 0
-xPrinted.Value = IIf(CardTable!printed, 1, 0)
+xIsRet.value = 0
+xPrinted.value = IIf(CardTable!printed, 1, 0)
 'xTotal.Enabled = IIf(xPrinted.Value = 0, True, False)
 xtime.Caption = Format(CardTable!Time, "hh:nn")
 'xLading.Caption = CardTable!LADING & ""
@@ -4000,14 +4013,14 @@ grid1.SetFocus
 Err.Clear
 End Sub
 Private Sub myDefine()
-xIsRet.Value = 0
+xIsRet.value = 0
 xUUID_RC.Caption = ""
 xdoc_no_online.Caption = ""
 'XISNODEL.Value = 0
 
 bIgClick = True
-xSendRc.Value = 0
-xClosed.Value = 0
+xSendRc.value = 0
+xClosed.value = 0
 bIgClick = False
 
 XBRANCH.Caption = cBranch
@@ -4018,7 +4031,7 @@ xship_no.text = ""
 xonline_doc.Caption = ""
 xIpName.Caption = GetComputerName
 'XTRANS_DOC.Caption = ""
-XISRETS.Value = 0
+XISRETS.value = 0
 'XCODEVISA.Enabled = True
 sUserDisc = ""
 lIsDocRet = False
@@ -4069,7 +4082,7 @@ xTotal_bill.Caption = ""
 xMosm.BoundText = cPMosm
 
 xDiscount.text = ""
-chkCash.Value = 1
+chkCash.value = 1
 xTotalQuant.Caption = ""
 xTotalQuant2.Caption = ""
 xTotalItemNoDiscount.Caption = ""
@@ -4080,14 +4093,14 @@ xTotal.text = ""
 xDiscount.text = ""
 xTotal.text = ""
 
-xPrinted.Value = 0
+xPrinted.value = 0
 xNotes.text = ""
 xtime.Caption = Format(Time, "hh:nn")
 
 
 grid1.Rows = 1
 myAddItem
-Fixgrd
+fixGrd
 
 
 grdLading.Rows = 1
@@ -4101,11 +4114,11 @@ On Error Resume Next
 'Err.Clear
 End Sub
 Private Sub Handlecontrols(nMode)
-bEditRecord = (bEdit And xPrinted.Value = 0 And xClosed.Value = 0)
+bEditRecord = (bEdit And xPrinted.value = 0 And xClosed.value = 0)
 bEditRecord = bEditRecord And (myFormat(xDate.text) = myFormat(sDateSales) Or nUser = enUser.Admin)
 
 cmdNewInv.Enabled = bEdit And nMode = LoadMode And nUser = enUser.Casher
-cmdDel.Enabled = bEditRecord And nMode = LoadMode And nUser >= enUser.Casher
+cmddel.Enabled = bEditRecord And nMode = LoadMode And nUser >= enUser.Casher
 cmdSave.Enabled = bEditRecord
 
 xClosed.Enabled = nUser = enUser.Admin And nMode = LoadMode
@@ -4123,8 +4136,8 @@ xClosed.Enabled = nUser = enUser.Admin And nMode = LoadMode
 '                        And (xdate_Delivery.text = "" Or bOpt9)
 
 xdoc_no.Tag = nMode
-cmdGo.Enabled = (xUUID_RC.Caption = "" Or xSendRc.Value = 0) And nMode = LoadMode And xPrinted.Value = 1
-xSendRc.Enabled = nMode = LoadMode And xUUID_RC.Caption <> "" And xPrinted.Value = 1
+cmdGo.Enabled = (xUUID_RC.Caption = "" Or xSendRc.value = 0) And nMode = LoadMode And xPrinted.value = 1
+xSendRc.Enabled = nMode = LoadMode And xUUID_RC.Caption <> "" And xPrinted.value = 1
 'xCode.Enabled = xPrinted.Value = 0 And bEdit = True
 'XISRET.Enabled = bOpt9 And nMode = LoadMode
 
@@ -4155,7 +4168,7 @@ If nUser = enUser.Admin Then
     bIgClick = True
     xYear.BoundText = Year(Date)
     xMonth.BoundText = Month(Date)
-    chkDay.Value = 1
+    chkDay.value = 1
     bIgClick = False
 End If
 
@@ -4316,7 +4329,7 @@ End If
 End Sub
 Private Sub xMonth_Change()
 If bIgClick Then Exit Sub
-If chkDay.Value = 1 Or IsDate(xDate1.text) Then Exit Sub
+If chkDay.value = 1 Or IsDate(xdate1.text) Then Exit Sub
 myUndo
 End Sub
 
@@ -4336,7 +4349,7 @@ For i = 1 To grid1.Rows - 1
     grid1.TextMatrix(i, 0) = i
 Next
 End Sub
-Private Sub Fixgrd()
+Private Sub fixGrd()
 
 With grid1
 '                0        1           2          3          4           5           6           7       8              9           10          11           12            13          14                    15              16          17
@@ -4423,7 +4436,7 @@ If xdoc_no.text <> "" Then
             'xSendRc.Value = IIf(xSendRc.Value = 1, 0, 1)
         End If
     End If
-    con.Execute "UPDATE FILE6_20H SET FILE6_20H.sendRc = " & xSendRc.Value & " FROM FILE6_20H WHERE FILE6_20H.DOC_NO = " & MyParn(xdoc_no.text)
+    con.Execute "UPDATE FILE6_20H SET FILE6_20H.sendRc = " & xSendRc.value & " FROM FILE6_20H WHERE FILE6_20H.DOC_NO = " & MyParn(xdoc_no.text)
     Inform " „ «· ⁄œÌ· »‰Ã«Õ"
 End If
 Finaly:
@@ -4433,7 +4446,7 @@ myerror:
 MsgBox Err.Description
 Err.Clear
 bIgClick = True
-xSendRc.Value = IIf(xSendRc.Value = 1, 0, 1)
+xSendRc.value = IIf(xSendRc.value = 1, 0, 1)
 bIgClick = False
 GoTo Finaly
 End Sub
@@ -4549,7 +4562,7 @@ With grid1
     myAddItem
 End With
 CalcTotals
-Fixgrd
+fixGrd
 End Sub
 Private Sub myLoadGrdLading()
 With grid1
@@ -4602,7 +4615,7 @@ ElseIf cBranchBox <> "" And cBranch <> "" Then
 End If
 
 computerName = GetComputerName
-chkprint.Value = Val(RetSetting("print", App.Path & "\other.txt"))
+chkprint.value = Val(RetSetting("print", App.Path & "\other.txt"))
 
 bEdit = bEdit And nUser >= enUser.Casher
 End Sub
@@ -5313,7 +5326,7 @@ End If
 End Sub
 Private Sub xYear_Change()
 If bIgClick Then Exit Sub
-If chkDay.Value = 1 Or IsDate(xDate1.text) Then Exit Sub
+If chkDay.value = 1 Or IsDate(xdate1.text) Then Exit Sub
 myUndo
 End Sub
 Private Sub xInv_No_GotFocus()
@@ -5360,11 +5373,11 @@ myLostFocus xdate2
 myValidDate xdate2
 End Sub
 Private Sub xdate1_GotFocus()
-myGotFocus xDate1
+myGotFocus xdate1
 End Sub
 Private Sub xdate1_LostFocus()
-myLostFocus xDate1
-myValidDate xDate1
+myLostFocus xdate1
+myValidDate xdate1
 End Sub
 Private Sub xDoc_No_GotFocus()
 myGotFocus xdoc_no
@@ -5472,9 +5485,9 @@ End Function
 Private Sub retFilter(Optional pDoc_no_Filter As String = "")
 If pDoc_no_Filter <> "" Then
     cFilter = "FILE6_20H.DOC_NO = " & MyParn(pDoc_no_Filter)
-ElseIf optclosed(3).Value Then
+ElseIf optclosed(3).value Then
     retFilterMail
-ElseIf optLading(0).Value Or optLading(1).Value Or optLading(2).Value Then
+ElseIf optLading(0).value Or optLading(1).value Or optLading(2).value Then
     retFilterNoLading
 Else
     retFilterLading
@@ -5483,18 +5496,18 @@ End Sub
 Private Sub retFilterNoLading()
 cFilter = ""
 
-If optclosed(1).Value Then
+If optclosed(1).value Then
     cFilter = cFilter & Tr(cFilter) & "(FILE6_20H.isClosed = 0 OR FILE6_20H.PRINTED = 0)"
-ElseIf optclosed(2).Value Then
+ElseIf optclosed(2).value Then
     cFilter = cFilter & Tr(cFilter) & "(FILE6_20H.isClosed = 1 AND FILE6_20H.PRINTED = 1)"
 End If
 
 If nUser = enUser.Admin Then
-    If IsDate(xDate1.text) Then
-        cFilter = cFilter & Tr(cFilter) & "FILE6_20H.DATE = " & DateSq(xDate1.text)
-    ElseIf chkDayBranch.Value = 1 Then
+    If IsDate(xdate1.text) Then
+        cFilter = cFilter & Tr(cFilter) & "FILE6_20H.DATE = " & DateSq(xdate1.text)
+    ElseIf chkDayBranch.value = 1 Then
         cFilter = cFilter & Tr(cFilter) & "FILE6_20H.DATE = " & DateSq(sDateSales)
-    ElseIf chkDay.Value = 1 Then
+    ElseIf chkDay.value = 1 Then
         cFilter = cFilter & Tr(cFilter) & "FILE6_20H.DATE = " & DateSq(Date)
     Else
         If xMonth.BoundText <> "" And xYear.BoundText <> "" Then
@@ -5507,9 +5520,9 @@ Else
     cFilter = cFilter & Tr(cFilter) & "FILE6_20H.DATE = " & DateSq(sDateSales)
 End If
 
-If optLading(1).Value Then
+If optLading(1).value Then
     cFilter = cFilter & Tr(cFilter) & "FILE6_20H.TOTAL_ITEM >= 0"
-ElseIf optLading(2).Value Then
+ElseIf optLading(2).value Then
     cFilter = cFilter & Tr(cFilter) & "FILE6_20H.TOTAL_ITEM < 0"
 End If
 
@@ -5531,33 +5544,33 @@ End Sub
 Private Sub retFilterLading()
 cFilter = ""
 If nUser = enUser.Admin Then
-    If IsDate(xDate1.text) Then
-        If optLading(3).Value Then
-            cFilter = "LADING_BILL.DATE_DELIVERY = " & DateSq(xDate1.text)
+    If IsDate(xdate1.text) Then
+        If optLading(3).value Then
+            cFilter = "LADING_BILL.DATE_DELIVERY = " & DateSq(xdate1.text)
         Else
-            cFilter = "FILE6_20H.DATE = " & DateSq(xDate1.text)
+            cFilter = "FILE6_20H.DATE = " & DateSq(xdate1.text)
         End If
-    ElseIf chkDayBranch.Value = 1 Then
-        If optLading(3).Value Then
+    ElseIf chkDayBranch.value = 1 Then
+        If optLading(3).value Then
             cFilter = "LADING_BILL.DATE_DELIVERY = " & DateSq(sDateSales)
         Else
             cFilter = "FILE6_20H.DATE = " & DateSq(sDateSales)
         End If
-    ElseIf chkDay.Value = 1 Then
-        If optLading(3).Value Then
+    ElseIf chkDay.value = 1 Then
+        If optLading(3).value Then
             cFilter = "LADING_BILL.DATE_DELIVERY = " & DateSq(Date)
         Else
             cFilter = "FILE6_20H.DATE = " & DateSq(Date)
         End If
     Else
         If xMonth.BoundText <> "" And xYear.BoundText <> "" Then
-            If optLading(3).Value Then
+            If optLading(3).value Then
                 cFilter = "LADING_BILL.YEAR_MONTH_DELIVERY = " & MyParn(xYear.BoundText & "-" & RetZero(xMonth.BoundText, 2))
             Else
                 cFilter = "FILE6_20H.YEAR_MONTH = " & MyParn(xYear.BoundText & "-" & RetZero(xMonth.BoundText, 2))
             End If
         ElseIf xYear.BoundText <> "" Then
-            If optLading(3).Value Then
+            If optLading(3).value Then
                 cFilter = "LADING_BILL.YEAR_MONTH_DELIVERY LIKE " & MyParn(xYear.BoundText & "%")
             Else
                 cFilter = "FILE6_20H.YEAR_MONTH LIKE " & MyParn(xYear.BoundText & "%")
@@ -5565,23 +5578,23 @@ If nUser = enUser.Admin Then
         End If
     End If
 Else
-    If optLading(3).Value Then
+    If optLading(3).value Then
         cFilter = "LADING_BILL.DATE_DELIVERY = " & DateSq(sDateSales)
     Else
         cFilter = "FILE6_20H.DATE = " & DateSq(sDateSales)
     End If
 End If
 
-If optLading(3).Value Then
+If optLading(3).value Then
     cFilter = "FILE6_20H.DOC_NO IN (SELECT LADING_BILL.DOC_NO FROM LADING_BILL  WHERE LADING_BILL.CLOSED_NO_INV = 1 " & _
                Tr(cFilter, " And ") & cFilter & ")"
-ElseIf optLading(4).Value Then
+ElseIf optLading(4).value Then
     cFilter = "FILE6_20H.DOC_NO IN (SELECT LADING_BILL.DOC_NO FROM LADING_BILL WHERE LADING_BILL.CLOSED_INV = 1) " & _
                " AND " & _
                " FILE6_20H.DOC_NO IN (SELECT SALES_RET FROM FILE6_20H " & Tr(cFilter, " WHERE ") & cFilter & ")"
-ElseIf optLading(5).Value Then
+ElseIf optLading(5).value Then
     cFilter = "FILE6_20H.DOC_NO IN (SELECT LADING_BILL.DOC_NO FROM LADING_BILL WHERE CLOSED_NO_INV = 0)"
-ElseIf optLading(6).Value Then
+ElseIf optLading(6).value Then
     cFilter = "FILE6_20H.DOC_NO IN (SELECT LADING_BILL.DOC_NO FROM LADING_BILL WHERE CLOSED_INV = 0)"
 End If
 
@@ -5642,7 +5655,7 @@ On Error GoTo myerror
 'con.BeginTrans
 con.Execute "update file6_20h set isnew = 1 , FILE6_20H.PRINTED = 1 , ISCLOSED = 1  WHERE DOC_NO = " & MyParn(xdoc_no.text)
 'con.CommitTrans
-xPrinted.Value = 1
+xPrinted.value = 1
 Exit Sub
 myerror:
 MsgBox Err.Description
