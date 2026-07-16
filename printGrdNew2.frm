@@ -218,13 +218,13 @@ End If
 
 If Not myForm Is Nothing Then
     myForm.prog1.Visible = True
-    myForm.prog1.Value = 0
+    myForm.prog1.value = 0
 End If
 
 Dim sCaption As String
 Dim cBody As New ChilkatStringBuilder
 For nRow = 0 To grid1.Rows - 1
-    If grid1.Rows > 1 And Not myForm Is Nothing Then myForm.prog1.Value = Round(nRow / (grid1.Rows - 1), 2) * 100
+    If grid1.Rows > 1 And Not myForm Is Nothing Then myForm.prog1.value = Round(nRow / (grid1.Rows - 1), 2) * 100
     If Not myForm Is Nothing Then myForm.Caption = sCaption & " Row " & nRow & " From " & grid1.Rows
     If Not grid1.RowHidden(nRow) Then
         For nCol = nBegin To nEnd Step nStep
@@ -247,7 +247,7 @@ For nRow = 0 To grid1.Rows - 1
 Next
 If Not myForm Is Nothing Then
     myForm.prog1.Visible = False
-    myForm.prog1.Value = 0
+    myForm.prog1.value = 0
 End If
 .StartDoc
 '.FontSize = 12
@@ -375,7 +375,7 @@ For i = 0 To UBound(aColSpan)
    MergeCol Abs(aColSpan(i))
 Next
 End Sub
-Private Sub MergeRow(aRow As Variant)
+Private Sub MergeRow(arow As Variant)
 Dim nValue As Integer, cString As String
 'cValue = "dummy"
 'NCOLS = Vp.TableCell(tcCols)
@@ -393,11 +393,11 @@ Dim nValue As Integer, cString As String
 'If nValue > 1 Then
 '    Vp.TableCell(tcColSpan, nRow, i - (nValue)) = nValue
 'End If
-If Not IsEmpty(retFlag(aRow, "text")) Then Vp.TableCell(tcText, retFlag(aRow, "row"), retFlag(aRow, "col")) = retFlag(aRow, "text")
-Vp.TableCell(tcColSpan, retFlag(aRow, "row"), retFlag(aRow, "col"), retFlag(aRow, "row"), retFlag(aRow, "col")) = retFlag(aRow, "cols")
-Vp.TableCell(tcColAlign, retFlag(aRow, "row"), retFlag(aRow, "col")) = taRightMiddle
-Vp.TableCell(tcFontBold, retFlag(aRow, "row"), 1, retFlag(aRow, "row"), Vp.TableCell(tcCols)) = True
-Vp.TableCell(tcBackColor, retFlag(aRow, "row"), 1, retFlag(aRow, "row"), Vp.TableCell(tcCols)) = &HC0FFFF
+If Not IsEmpty(retFlag(arow, "text")) Then Vp.TableCell(tcText, retFlag(arow, "row"), retFlag(arow, "col")) = retFlag(arow, "text")
+Vp.TableCell(tcColSpan, retFlag(arow, "row"), retFlag(arow, "col"), retFlag(arow, "row"), retFlag(arow, "col")) = retFlag(arow, "cols")
+Vp.TableCell(tcColAlign, retFlag(arow, "row"), retFlag(arow, "col")) = taRightMiddle
+Vp.TableCell(tcFontBold, retFlag(arow, "row"), 1, retFlag(arow, "row"), Vp.TableCell(tcCols)) = True
+Vp.TableCell(tcBackColor, retFlag(arow, "row"), 1, retFlag(arow, "row"), Vp.TableCell(tcCols)) = &HC0FFFF
 
 'If Not IsEmpty(retFlag(aRow, "text")) Then Vp.TableCell(tcText, retFlag(aRow, "row"), retFlag(aRow, "col")) = retFlag(aRow, "text")
 'Vp.TableCell(tcColSpan, retFlag(aRow, "row"), retFlag(aRow, "col"), retFlag(aRow, "row"), retFlag(aRow, "col")) = retFlag(aRow, "cols")
@@ -438,6 +438,7 @@ Vp.TableCell(tcRowSpan, nBegin, nCol, nBegin, nCol) = nValue
 End Sub
 Private Function Printcol(nCol, pGrid) As Long
 With pGrid
+Dim i As Long
 For i = .Cols - 1 To nCol Step -1
     If Not pGrid.ColHidden(i) Then
          Printcol = Printcol + 1

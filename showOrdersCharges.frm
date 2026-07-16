@@ -1,23 +1,23 @@
 VERSION 5.00
 Object = "{D76D7128-4A96-11D3-BD95-D296DC2DD072}#1.0#0"; "Vsflex7.ocx"
-Begin VB.Form ShowOrdersInvoicesfrm 
-   Caption         =   "≈Ã„«·Ì ›Ê« Ì— «·ÿ·»Ì« "
+Begin VB.Form ShowOrdersChargesfrm 
+   Caption         =   "„’«—Ì› «·ÿ·»Ì…"
    ClientHeight    =   5415
    ClientLeft      =   60
    ClientTop       =   345
-   ClientWidth     =   13485
+   ClientWidth     =   12255
    LinkTopic       =   "Form1"
    RightToLeft     =   -1  'True
    ScaleHeight     =   5415
-   ScaleWidth      =   13485
+   ScaleWidth      =   12255
    StartUpPosition =   2  'CenterScreen
    Begin VSFlex7Ctl.VSFlexGrid grid1 
       Height          =   4155
       Left            =   90
       TabIndex        =   0
       Top             =   495
-      Width           =   13335
-      _cx             =   23521
+      Width           =   12075
+      _cx             =   21299
       _cy             =   7329
       _ConvInfo       =   1
       Appearance      =   0
@@ -115,7 +115,7 @@ Begin VB.Form ShowOrdersInvoicesfrm
       Begin VB.CommandButton cmdExel 
          Height          =   555
          Left            =   1215
-         Picture         =   "showOrdersInvoices.frx":0000
+         Picture         =   "showOrdersCharges.frx":0000
          RightToLeft     =   -1  'True
          Style           =   1  'Graphical
          TabIndex        =   4
@@ -126,7 +126,7 @@ Begin VB.Form ShowOrdersInvoicesfrm
       Begin VB.CommandButton cmdPrint 
          Height          =   555
          Left            =   2415
-         Picture         =   "showOrdersInvoices.frx":27EB
+         Picture         =   "showOrdersCharges.frx":27EB
          RightToLeft     =   -1  'True
          Style           =   1  'Graphical
          TabIndex        =   3
@@ -136,7 +136,7 @@ Begin VB.Form ShowOrdersInvoicesfrm
       Begin VB.CommandButton cmdExit 
          Height          =   555
          Left            =   45
-         Picture         =   "showOrdersInvoices.frx":4C15
+         Picture         =   "showOrdersCharges.frx":4C15
          RightToLeft     =   -1  'True
          Style           =   1  'Graphical
          TabIndex        =   2
@@ -156,7 +156,7 @@ Begin VB.Form ShowOrdersInvoicesfrm
          Strikethrough   =   0   'False
       EndProperty
       Height          =   285
-      Left            =   9090
+      Left            =   7830
       RightToLeft     =   -1  'True
       TabIndex        =   6
       Top             =   135
@@ -174,20 +174,24 @@ Begin VB.Form ShowOrdersInvoicesfrm
          Strikethrough   =   0   'False
       EndProperty
       Height          =   285
-      Left            =   12330
+      Left            =   11070
       RightToLeft     =   -1  'True
       TabIndex        =   5
       Top             =   135
       Width           =   1050
    End
 End
-Attribute VB_Name = "ShowOrdersInvoicesfrm"
+Attribute VB_Name = "ShowOrdersChargesfrm"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public sOrder_No As String
+Public sCaption As String
 Public sWhere As String
+Public bCharge As Boolean
+Public bIncome As Boolean
+Public sDesca As String
 Dim aHeader(2) As String
 Dim arow As Variant, aXl As Variant
 Dim dbm As New DBManage
@@ -208,32 +212,42 @@ printGrdNew.doprint grid1, 0.85, -3, Me.Caption, retHeader(aHeader, 0, 2), retHe
 printGrdNew.Show 1
 End Sub
 Private Sub Form_Load()
+If sCaption <> "" Then Me.Caption = sCaption
 xOrder_No.Caption = sOrder_No
 myload
 End Sub
 Sub fixGrd()
 With grid1
-    .RowHeight(0) = 800
+    .RowHeight(0) = 400
     .WordWrap = True
-  
-    .ColWidth(0) = 1800
-    .ColWidth(1) = 1800
-    .ColWidth(2) = 1500
-    .ColWidth(3) = 1000
-    .ColWidth(4) = 1300
-    .ColWidth(5) = 1800
-    .ColWidth(6) = 1300
-    .ColWidth(7) = 2500
+    
+    .ColWidth(0) = 1400
+    .ColWidth(1) = 3000
+    .ColWidth(2) = 2000
+    .ColWidth(3) = 1400
+    .ColWidth(4) = 1400
+    .ColWidth(5) = 1400
                             
+    .ColHidden(3) = bIncome
+    .ColHidden(4) = bCharge
+    .ColHidden(5) = bCharge Or bIncome
+    
+    If bCharge Then .TextMatrix(0, 3) = sDesca
+    If bIncome Then .TextMatrix(0, 4) = sDesca
+    
     .ExplorerBar = flexExSort
     
     .SubtotalPosition = flexSTBelow
     .ColDataType(2) = flexDTDate
     .ColDataType(3) = flexDTDouble
     .ColDataType(4) = flexDTDouble
+    .ColDataType(5) = flexDTDouble
     
-    .Subtotal flexSTSum, -1, 3, "#", &HC0FFC0, , True, "≈Ã„«·Ì"
+    .ColFormat(0) = "yyyy/M/d"
+    
+    .Subtotal flexSTSum, -1, 3, "#0.00", &HC0FFC0, , True, "≈Ã„«·Ì"
     .Subtotal flexSTSum, -1, 4, "#0.00", &HC0FFC0, , True, "≈Ã„«·Ì"
+    .Subtotal flexSTSum, -1, 5, "#0.00", &HC0FFC0, , True, "≈Ã„«·Ì"
     
     .Cell(flexcpAlignment, 0, 0, .Rows - 1, .Cols - 1) = 4
     
@@ -244,30 +258,25 @@ End Sub
 Private Sub myload()
 Dim strSql As String
     strSql = "SELECT " & _
-            " FILE6_20H.[DOC_NO] AS [—ﬁ„ «·›« Ê—…]" & _
-            ",ONLINE_TYPES.DESCA AS [‰Ê⁄ «·›« Ê—…]" & _
-            ",FORMAT(FILE6_20H.[DATE],'yyyy/M/d') AS [ «—ÌŒ «·ÿ·»Ì…]" & _
-            ",FILE6_20H.[TOTAL_QUANT] AS [«·ﬂ„Ì…]" & _
-            ",FILE6_20H.[TOTAL_ITEM] - FILE6_20H.[DISCOUNT] AS [«·ﬁÌ„…]" & _
-            ",COALESCE(FILE6_20H.SHIP_NO,FILE6_90S.SHIP_NO) AS [»Ê·Ì’… «·‘Õ‰]" & _
-            ",FORMAT(COALESCE(FILE6_90SH.[DATE],FILE6_20H.DATE_SHIP),'yyy/M/d') AS [ «—ÌŒ «·‘Õ‰]" & _
-            ",FILE6_25.DESCA AS [«·„‰œÊ»]" & _
-            " FROM FILE6_20H" & _
-            " INNER JOIN ONLINE_TYPES ON FILE6_20H.INV_TYPE_ONLINE = ONLINE_TYPES.CODE" & _
-            " LEFT JOIN FILE6_90S ON FILE6_20H.DOC_NO = FILE6_90S.INV_NO" & _
-            " LEFT JOIN FILE6_90SH ON FILE6_90S.DOC_NO = FILE6_90SH.DOC_NO " & _
-            " LEFT JOIN FILE6_25 ON FILE6_20H.MAN = FILE6_25.CODE "
-strSql = strSql & " WHERE FILE6_20H.ONLINE_DOC = " & MyParn(sOrder_No)
+            " [DATE] AS [«· «—ÌŒ]" & _
+            ",[DESCA] AS [«·»Ì«‰]" & _
+            ",[DOC_NO] AS [—ﬁ„ «·„” ‰œ]" & _
+            ",[CHARGE] AS [«·„’—Ê›]" & _
+            ",[INCOME] AS [«·«Ì—«œ]" & _
+            ",(CHARGE - INCOME) AS [’«›Ì «·„’—Ê›]" & _
+           " From vw_online_chagres_dtl"
+strSql = strSql & " WHERE ORDER_NO = " & MyParn(sOrder_No)
+                    
 If sWhere <> "" Then
     strSql = strSql & " AND " & sWhere
 End If
-strSql = strSql & " ORDER BY FILE6_20H.DATE,FILE6_20H.DOC_NO"
+strSql = strSql & " ORDER BY DATE,FLAG,DOC_NO"
 Set grid1.DataSource = dbm.myRs(strSql)
 fixGrd
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
 Set dbm = Nothing
-Set ShowOrdersInvoicesfrm = Nothing
+Set ShowOrdersChargesfrm = Nothing
 End Sub
 
 

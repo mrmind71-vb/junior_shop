@@ -1193,6 +1193,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim sDateSales As String
+Dim dbm As New DBManage
 Private Sub cmd_addexel_Click()
 Inform "  „ «÷«›… «·ÿ·»Ì«  "
 myload
@@ -1205,7 +1206,7 @@ End Sub
 Private Sub cmdExit_Click()
     Unload Me
 End Sub
-Private Sub cmdGo_Click()
+Private Sub CmdGo_Click()
 myload
 End Sub
 Private Sub Form_Load()
@@ -1230,7 +1231,7 @@ End Sub
 Private Sub GetOrder(sManCode As String)
 
 Dim con As New ADODB.Connection
-If Not openCn(con) Then Exit Sub
+If Not opencn(con) Then Exit Sub
 
 
 Dim aRet As Variant
@@ -1287,14 +1288,14 @@ With grid1
     aPrm = AddFlag(aPrm, "DATE", sDateSales)
     Set grid1.DataSource = myRs("sp_manager_stage", , , adStoredProc, aPrm)
 End With
-Fixgrd
+fixGrd
 'grid1.Cell(flexcpAlignment, 0, 0, grid1.Rows - 1, grid1.Cols - 1) = 7
 Exit Sub
 myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Sub Fixgrd()
+Sub fixGrd()
 With grid1
     .TextMatrix(0, 0) = "«·„—Õ·…"
     .TextMatrix(0, 1) = "«·„—Õ·…"
@@ -1328,6 +1329,8 @@ Private Sub Form_Unload(Cancel As Integer)
     On Error Resume Next
     'closeCon con
     'If cBranch <> "00" Then closeCon con_MyShop
+    Set online_stage_manager = Nothing
+    Set dmb = Nothing
     SaveText Me, , Array(xDate1.Name, xdate2.Name)
 End Sub
 
@@ -1584,7 +1587,7 @@ strSql = "SELECT v.ORDER_NO, " & _
          "t.desca, " & _
          "FORMAT(v.[DATE],'yyyy/M/d'), " & _
          "v.[SALES_RET], " & _
-         "FILE6_25.DESCA, " & _
+         "FORMAT(v.[DATE_MAIL],'yyyy/M/d'), " & _
          "FORMAT(v.TIME,'yyyy/M/d HH:mm'), " & _
          "dbo.fn_time_diff([time], getDate()) AS TimePeriod," & _
          " v.TOTAL_QUANT, " & _
@@ -1593,7 +1596,6 @@ strSql = "SELECT v.ORDER_NO, " & _
          " v.TOTAL_ITEM - v.DISCOUNT " & _
          " FROM vw_online_order v" & _
          " INNER JOIN ONLINE_TYPES t ON v.TYPE = t.CODE" & _
-         " INNER JOIN FILE6_25 ON v.MAN = FILE6_25.CODE " & _
          " WHERE (v.STAGE = 7)" & _
          " AND (TYPE = 2 OR TYPE = 3)"
          
@@ -1618,7 +1620,7 @@ Next
 .TextMatrix(1, 2) = "‰Ê⁄ «·ÿ·»Ì…"
 .TextMatrix(1, 3) = " «—ÌŒ «·ÿ·»Ì…"
 .TextMatrix(1, 4) = "«·›« Ê—… «·„— Ã⁄…"
-.TextMatrix(1, 5) = "«·„‰œÊ»"
+.TextMatrix(1, 5) = " «—ÌŒ «·Ê’Ê·"
 .TextMatrix(1, 6) = "Êﬁ  «·ÿ·»»…"
 .TextMatrix(1, 7) = "«·„œ…"
 .TextMatrix(1, 8) = "«·ﬂ„Ì…"
@@ -1638,11 +1640,11 @@ Next
 
 .ColWidth(0) = 1000
 .ColWidth(1) = 1000
-.ColWidth(2) = 2000
+.ColWidth(2) = 2500
 .ColWidth(3) = 1250
 .ColWidth(4) = 2000
-.ColWidth(5) = 2000
-.ColWidth(6) = 2000
+.ColWidth(5) = 1350
+.ColWidth(6) = 1400
 .ColWidth(7) = 1200
 .ColWidth(8) = 1000
 .ColWidth(9) = 1200

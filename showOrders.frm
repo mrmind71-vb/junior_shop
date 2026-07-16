@@ -235,10 +235,10 @@ With grid1
     .SubtotalPosition = flexSTBelow
     
     
-    .Subtotal flexSTSum, -1, 6, "#", &HC0FFC0, , True, "≈Ã„«·Ì"
-    .Subtotal flexSTSum, -1, 7, "#", &HC0FFC0, , True, "≈Ã„«·Ì"
-    .Subtotal flexSTSum, -1, 8, "#", &HC0FFC0, , True, "≈Ã„«·Ì"
-    .Subtotal flexSTSum, -1, 9, "#", &HC0FFC0, , True, "≈Ã„«·Ì"
+    .Subtotal flexSTSum, -1, 6, "#0", &HC0FFC0, , True, "≈Ã„«·Ì"
+    .Subtotal flexSTSum, -1, 7, "#0.00", &HC0FFC0, , True, "≈Ã„«·Ì"
+    '.Subtotal flexSTSum, -1, 8, "#0.00", &HC0FFC0, , True, "≈Ã„«·Ì"
+    '.Subtotal flexSTSum, -1, 9, "#0.00", &HC0FFC0, , True, "≈Ã„«·Ì"
     
     .Cell(flexcpAlignment, 0, 0, .Rows - 1, .Cols - 1) = 4
     

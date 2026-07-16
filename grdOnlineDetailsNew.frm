@@ -282,7 +282,7 @@ Begin VB.Form grdOnlineDetailsNewfrm
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
          BackColor       =   &H80000005&
-         Caption         =   "„”·„…"
+         Caption         =   "„€·ﬁ…"
          BeginProperty Font 
             Name            =   "Arial"
             Size            =   11.25
@@ -305,7 +305,7 @@ Begin VB.Form grdOnlineDetailsNewfrm
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
          BackColor       =   &H80000005&
-         Caption         =   "€Ì— „”·„…"
+         Caption         =   "„› ÊÕ…"
          BeginProperty Font 
             Name            =   "Arial"
             Size            =   11.25
@@ -318,11 +318,11 @@ Begin VB.Form grdOnlineDetailsNewfrm
          ForeColor       =   &H80000008&
          Height          =   375
          Index           =   2
-         Left            =   1380
+         Left            =   1650
          RightToLeft     =   -1  'True
          TabIndex        =   21
          Top             =   585
-         Width           =   1185
+         Width           =   915
       End
       Begin VB.OptionButton xtype 
          Alignment       =   1  'Right Justify
@@ -1014,12 +1014,12 @@ End Sub
 Private Sub toExcel2()
 Me.MousePointer = 11
 
-Dim aRow As Variant
+Dim arow As Variant
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
 aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "height", 20)
-aRow = AddFlag(aRow, aSub)
+arow = AddFlag(arow, aSub)
 
 aSub = AddFlag(Empty, "row", 1)
 aSub = AddFlag(aSub, "bold", True)
@@ -1027,23 +1027,23 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "cols", 2)
 aSub = AddFlag(aSub, "text", "«·≈Ã„«·Ì")
 aSub = AddFlag(aSub, "height", 20)
-aRow = AddFlag(aRow, aSub)
+arow = AddFlag(arow, aSub)
 
-ToFileExelNew grid2, , , aRow, , 1.2, , , , , , Me
+ToFileExelNew grid2, , , arow, , 1.2, , , , , , Me
 
 Me.MousePointer = 0
 End Sub
 Private Sub toExcel1()
 Me.MousePointer = 11
 
-Dim aRow As Variant
+Dim arow As Variant
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
 aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 0)
 aSub = AddFlag(aSub, "cols", 4)
 aSub = AddFlag(aSub, "height", 20)
-aRow = AddFlag(aRow, aSub)
+arow = AddFlag(arow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1051,7 +1051,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 4)
 aSub = AddFlag(aSub, "cols", 9)
 aSub = AddFlag(aSub, "height", 20)
-aRow = AddFlag(aRow, aSub)
+arow = AddFlag(arow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1059,7 +1059,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 13)
 aSub = AddFlag(aSub, "cols", 12)
 aSub = AddFlag(aSub, "height", 20)
-aRow = AddFlag(aRow, aSub)
+arow = AddFlag(arow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1067,7 +1067,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 25)
 aSub = AddFlag(aSub, "cols", 9)
 aSub = AddFlag(aSub, "height", 20)
-aRow = AddFlag(aRow, aSub)
+arow = AddFlag(arow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1075,7 +1075,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 34)
 aSub = AddFlag(aSub, "cols", 9)
 aSub = AddFlag(aSub, "height", 20)
-aRow = AddFlag(aRow, aSub)
+arow = AddFlag(arow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1083,7 +1083,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 43)
 aSub = AddFlag(aSub, "cols", 9)
 aSub = AddFlag(aSub, "height", 20)
-aRow = AddFlag(aRow, aSub)
+arow = AddFlag(arow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1091,7 +1091,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 52)
 aSub = AddFlag(aSub, "cols", 9)
 aSub = AddFlag(aSub, "height", 20)
-aRow = AddFlag(aRow, aSub)
+arow = AddFlag(arow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1099,7 +1099,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 61)
 aSub = AddFlag(aSub, "cols", 6)
 aSub = AddFlag(aSub, "height", 20)
-aRow = AddFlag(aRow, aSub)
+arow = AddFlag(arow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1107,7 +1107,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 67)
 aSub = AddFlag(aSub, "cols", 6)
 aSub = AddFlag(aSub, "height", 20)
-aRow = AddFlag(aRow, aSub)
+arow = AddFlag(arow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1115,7 +1115,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 73)
 aSub = AddFlag(aSub, "cols", 6)
 aSub = AddFlag(aSub, "height", 20)
-aRow = AddFlag(aRow, aSub)
+arow = AddFlag(arow, aSub)
 
 
 aSub = AddFlag(Empty, "row", 1)
@@ -1123,7 +1123,7 @@ aSub = AddFlag(aSub, "bold", True)
 aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "back_color", 40)
 aSub = AddFlag(aSub, "height", 60)
-aRow = AddFlag(aRow, aSub)
+arow = AddFlag(arow, aSub)
 
 If grid1.Rows > 2 Then
     aSub = AddFlag(Empty, "row", 2)
@@ -1132,10 +1132,10 @@ If grid1.Rows > 2 Then
     aSub = AddFlag(aSub, "bold", True)
     aSub = AddFlag(aSub, "back_color", 40)
     aSub = AddFlag(aSub, "text", "«·≈Ã„«·Ì")
-    aRow = AddFlag(aRow, aSub)
+    arow = AddFlag(arow, aSub)
 End If
 
-ToFileExelNew grid1, , , aRow, , 1.2, , , , , , Me
+ToFileExelNew grid1, , , arow, , 1.2, , , , , , Me
 
 Me.MousePointer = 0
 End Sub
@@ -1145,7 +1145,7 @@ End Sub
 Private Sub CmdUndo_Click()
     Unload Me
 End Sub
-Private Sub cmdGo_Click()
+Private Sub CmdGo_Click()
 Me.MousePointer = vbHourglass
 grid1.ExplorerBar = flexExSortShow
 grid2.ExplorerBar = flexExSortShow
@@ -1153,7 +1153,7 @@ grid2.ExplorerBar = flexExSortShow
 If SSTab1.Tab = 0 Then
     myload
 ElseIf SSTab1.Tab = 1 Then
-    MYLOAD2
+    myload2
 End If
 Me.MousePointer = vbNormal
 End Sub
@@ -1198,14 +1198,14 @@ If xStore.MatchedWithList Then
     aHeader(0) = "«·›—⁄ : " & xStore.text
 End If
 
-If IsDate(xdate1.text) Then
-    aPrm = AddFlag(aPrm, "DATE1", addDate(xdate1.text))
-    aHeader(1) = BetweenString(xdate1.text, xdate2.text)
+If IsDate(xDate1.text) Then
+    aPrm = AddFlag(aPrm, "DATE1", addDate(xDate1.text))
+    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
 End If
 
-If IsDate(xdate1.text) Then
+If IsDate(xDate1.text) Then
     aPrm = AddFlag(aPrm, "DATE2", addDate(xdate2.text))
-    aHeader(1) = BetweenString(xdate1.text, xdate2.text)
+    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
 End If
 
 If xtype(1).value Then
@@ -1219,9 +1219,9 @@ ElseIf xtype(3).value Then
     aHeader(2) = "ÿ·»Ì«  " & xtype(3).Caption
 End If
 
-If Trim(xdoc_no.text) <> "" Then
-    aPrm = AddFlag(aPrm, "DOC_NO", addstring(xdoc_no.text))
-    aHeader(3) = "›« Ê—… : " & xdoc_no.text
+If Trim(xDoc_No.text) <> "" Then
+    aPrm = AddFlag(aPrm, "DOC_NO", addstring(xDoc_No.text))
+    aHeader(3) = "›« Ê—… : " & xDoc_No.text
 End If
 
 If Trim(xOrder_No.text) <> "" Then
@@ -1506,16 +1506,16 @@ myValid = True
 End Function
 Private Sub myPrint(Optional pDevice As String = "", Optional bIgPreview As Boolean = False)
 If grid1.Rows < 3 Then Exit Sub
-Dim aRow As Variant, aSub As Variant
+Dim arow As Variant, aSub As Variant
 
 aSub = AddFlag(Empty, "row", grid1.Rows - 1)
 aSub = AddFlag(aSub, "col", 1)
 aSub = AddFlag(aSub, "cols", 2)
 aSub = AddFlag(aSub, "text", "≈Ã„«·Ì")
-aRow = AddFlag(aRow, aSub)
+arow = AddFlag(arow, aSub)
 
 Set printGrdNew.myForm = Me
-printGrdNew.doprint Me.grid1, 0.75, 0, "ÃÊ‰ÌÊ—", Me.Caption, retHeader(aHeader, 0, 2), , True, True, 8, , aRow, Array(1)
+printGrdNew.doprint Me.grid1, 0.75, 0, "ÃÊ‰ÌÊ—", Me.Caption, retHeader(aHeader, 0, 2), , True, True, 8, , arow, Array(1)
 
 If Not bIgPreview Then
     printGrdNew.Show 1
@@ -1568,7 +1568,7 @@ End Sub
 Private Sub Grid2_dblClick()
 If grid2.Row < 2 Then
     Exit Sub
-ElseIf grid2.col = 2 Or grid2.col = 3 Or grid2.col = 4 Then
+ElseIf grid2.col = 0 Or grid2.col = 1 Or grid2.col = 2 Or grid2.col = 3 Or grid2.col = 4 Then
     ShowOrdersfrm.bNoInvoice = False
     ShowOrdersfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
     ShowOrdersfrm.Show 1
@@ -1576,19 +1576,48 @@ ElseIf grid2.col = 5 Or grid2.col = 6 Then
     ShowOrdersfrm.bNoInvoice = True
     ShowOrdersfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
     ShowOrdersfrm.Show 1
-ElseIf grid2.col = 7 Then
+ElseIf grid2.col = 7 Or grid2.col = 8 Or grid2.col = 9 Then
     ShowOrdersInvoicesfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
     ShowOrdersInvoicesfrm.Show 1
+ElseIf grid2.col = 11 Then
+    ShowOrdersChargesfrm.sCaption = "≈Ã„«·Ì  Õ’Ì· ÿ·»Ì« "
+    ShowOrdersChargesfrm.sDesca = grid2.TextMatrix(0, grid2.col)
+    ShowOrdersChargesfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
+    ShowOrdersChargesfrm.sWhere = "(FLAG = 1 OR FLAG = 6)"
+    ShowOrdersChargesfrm.bIncome = True
+    ShowOrdersChargesfrm.Show 1
+ElseIf grid2.col = 12 Then
+    ShowOrdersChargesfrm.sCaption = "⁄„Ê·…  Õ’Ì· ÿ·»Ì« "
+    ShowOrdersChargesfrm.sDesca = grid2.TextMatrix(0, grid2.col)
+    ShowOrdersChargesfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
+    ShowOrdersChargesfrm.sWhere = "(FLAG = 2)"
+    ShowOrdersChargesfrm.bCharge = True
+    ShowOrdersChargesfrm.Show 1
+ElseIf grid2.col = 13 Then
+    ShowOrdersInvoicesfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
+    ShowOrdersInvoicesfrm.sWhere = "PRINTED = 1"
+    ShowOrdersInvoicesfrm.Show 1
+ElseIf grid2.col = 14 Then
+    ShowOrdersChargesfrm.sCaption = "„’«—Ì›  Ê’Ì· ⁄‰œ «·«” ·«„"
+    ShowOrdersChargesfrm.sDesca = grid2.TextMatrix(0, grid2.col)
+    ShowOrdersChargesfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
+    ShowOrdersChargesfrm.sWhere = "(FLAG = 7)"
+    ShowOrdersChargesfrm.bCharge = True
+    ShowOrdersChargesfrm.Show 1
+ElseIf grid2.col = 15 Then
+    ShowOrdersChargesfrm.sCaption = "≈Ã„«·Ì „’«—Ì› ÿ·»Ì…"
+    ShowOrdersChargesfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
+    ShowOrdersChargesfrm.Show 1
 End If
 End Sub
 Private Sub xdate1_GotFocus()
-myGotFocus xdate1
+myGotFocus xDate1
 End Sub
-Private Sub xdate1_LostFocus()
-myLostFocus xdate1
-myValidDate xdate1
+Private Sub xDate1_LostFocus()
+myLostFocus xDate1
+myValidDate xDate1
 End Sub
-Private Sub xDate2_GotFocus()
+Private Sub xdate2_GotFocus()
 myGotFocus xdate2
 End Sub
 Private Sub xDate2_LostFocus()
@@ -1609,8 +1638,8 @@ myLostFocus xCode
 If Not xCode.MatchedWithList Then xCode.BoundText = ""
 End Sub
 Public Sub myProc()
-If ActiveControl.Name = xdoc_no.Name Then
-    xdoc_no.text = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
+If ActiveControl.Name = xDoc_No.Name Then
+    xDoc_No.text = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
     oSearchDoc.Hide
 End If
 End Sub
@@ -1618,10 +1647,10 @@ Private Sub xdoc_no_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 112 Then SalesOnlineLookup Me, oSearchDoc
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xdoc_no
+myGotFocus xDoc_No
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus xdoc_no
+myLostFocus xDoc_No
 End Sub
 Private Sub xship_no_GotFocus()
 myGotFocus xship_no
@@ -1635,9 +1664,8 @@ End Sub
 Private Sub xOrder_no_LostFocus()
 myLostFocus xOrder_No
 End Sub
-Private Sub MYLOAD2(Optional bString As Boolean = False)
+Private Sub myload2(Optional bString As Boolean = False)
 Dim aPrm As Variant
-
 ReDim aHeader(5)
 
 If xStore.MatchedWithList Then
@@ -1645,14 +1673,14 @@ If xStore.MatchedWithList Then
     aHeader(0) = "«·›—⁄ : " & xStore.text
 End If
 
-If IsDate(xdate1.text) Then
-    aPrm = AddFlag(aPrm, "DATE1", addDate(xdate1.text))
-    aHeader(1) = BetweenString(xdate1.text, xdate2.text)
+If IsDate(xDate1.text) Then
+    aPrm = AddFlag(aPrm, "DATE1", addDate(xDate1.text))
+    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
 End If
 
-If IsDate(xdate1.text) Then
+If IsDate(xDate1.text) Then
     aPrm = AddFlag(aPrm, "DATE2", addDate(xdate2.text))
-    aHeader(1) = BetweenString(xdate1.text, xdate2.text)
+    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
 End If
 
 If xtype(1).value Then
@@ -1666,9 +1694,9 @@ ElseIf xtype(3).value Then
     aHeader(2) = "ÿ·»Ì«  " & xtype(3).Caption
 End If
 
-If Trim(xdoc_no.text) <> "" Then
-    aPrm = AddFlag(aPrm, "DOC_NO", addstring(xdoc_no.text))
-    aHeader(3) = "›« Ê—… : " & xdoc_no.text
+If Trim(xDoc_No.text) <> "" Then
+    aPrm = AddFlag(aPrm, "DOC_NO", addstring(xDoc_No.text))
+    aHeader(3) = "›« Ê—… : " & xDoc_No.text
 End If
 
 If Trim(xOrder_No.text) <> "" Then
@@ -1711,7 +1739,7 @@ With grid2
 .TextMatrix(0, 11) = "≈Ã„«·Ì «·”œ«œ"
 .TextMatrix(0, 12) = "⁄„Ê·…  Õ’Ì·"
 .TextMatrix(0, 13) = "’«›Ì «·›Ê« Ì—"
-.TextMatrix(0, 14) = "„’«—Ì› ‘Õ‰ „”œœ…"
+.TextMatrix(0, 14) = "„’«—Ì›  Ê’Ì· „”œœ…"
 .TextMatrix(0, 15) = "’«›Ì „’—Ê› «·ÿ·»Ì…"
 .TextMatrix(0, 16) = "«·„‰œÊ»"
 

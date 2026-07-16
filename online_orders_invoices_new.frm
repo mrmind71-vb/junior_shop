@@ -1376,7 +1376,7 @@ Dim aInsert As Variant
 aInsert = AddFlag(aInsert, "[DISCOUNT]", Val(xDiscount.text))
 aInsert = AddFlag(aInsert, "[TYPE]", addvalue(xtype.Tag))
 aInsert = AddFlag(aInsert, "[SHIP]", addstring(xship.BoundText))
-aInsert = AddFlag(aInsert, "[SHIP_NO]", addstring(xship_no.text))
+aInsert = AddFlag(aInsert, "[SHIP_NO]", addstring(xShip_no.text))
 aInsert = AddFlag(aInsert, "[ORDER_NO]", addstring(sOrder_No))
 aInsert = AddFlag(aInsert, "[SALES_REPLACE]", addstring(xSales_Replace.Caption))
 aInsert = AddFlag(aInsert, "[PAYMENT_ID]", addstring(xPayment_id.text))
@@ -1447,14 +1447,14 @@ ElseIf sControl = "inv_replace" Then
     If Not myValid() Then Exit Sub
     sDoc = oSearchDocRet.grid1.TextMatrix(oSearchDocRet.grid1.Row, 0)
     Unload oSearchDocRet
-    If Not myValid Then
+    If myValid Then
         addRefundOrder sDoc, "11"
     End If
 ElseIf sControl = "inv_ret" Then
     If Not myValid Then Exit Sub
     sDoc = oSearchDocRet.grid1.TextMatrix(oSearchDocRet.grid1.Row, 0)
     Unload oSearchDocRet
-    If Not myValid Then
+    If myValid Then
         addRefundOrder sDoc, "2"
     End If
 ElseIf sControl = "inv_ret_all" Then
@@ -1838,7 +1838,7 @@ Private Sub cmdSavePayment_Click()
 If dbm.OpenCon Then
     If dbm.Execute("update file6_90BH " & _
                    " SET PAYMENT_ID = " & addstring(xPayment_id.text) & "," & _
-                   "  Ship_no = " & addstring(xship_no.text) & _
+                   "  Ship_no = " & addstring(xShip_no.text) & _
                    " WHERE DOC_NO = " & MyParn(xdoc_no.Caption)) Then
         Inform " „ Õ›Ÿ —ﬁ„ «·”œ«œ »‰Ã«Õ"
     End If
@@ -2054,7 +2054,7 @@ End If
 'End If
 
 If Not bIgShip Then
-    If Trim(xship_no.text) = "" Then
+    If Trim(xShip_no.text) = "" Then
         MsgBox "—ﬁ„ »Ê·Ì’… «·‘Õ‰ „ÿ·Ê»"
         Exit Function
     End If
@@ -2081,12 +2081,12 @@ End Function
 Private Sub myload()
 xdoc_no.Caption = CardTable!doc_no
 xDate.text = myFormat_p(CardTable!Date)
-xdate1.Caption = myFormat_p(CardTable!Date1)
+xDate1.Caption = myFormat_p(CardTable!Date1)
 xDate_mail.text = myFormat_p(CardTable!DATE_MAIL)
 xtype.Tag = CardTable!Type
 xtype.Caption = CardTable!TYPE_dESCA
 xDiscount.text = CardTable!discount & ""
-xship_no.text = CardTable!ship_no & ""
+xShip_no.text = CardTable!ship_no & ""
 xship.BoundText = CardTable!SHIP & ""
 xdoc_no_sales.Caption = CardTable!doc_no_sales & ""
 xSales_Replace.Caption = CardTable!sales_replace & ""
@@ -2123,7 +2123,7 @@ xtype.Caption = xtype.TagVariant
 xtype.Tag = ""
 
 xship.BoundText = ""
-xship_no.text = ""
+xShip_no.text = ""
 xcharge2.text = ""
 
 addShip
@@ -2159,7 +2159,7 @@ bEditRecord = bEditRecord And xStage.Tag <> "2"
 cmdSave.Enabled = bEditRecord
 cmdSavePayment.Enabled = nMode = LoadMode And cmdSave.Enabled = False
 cmdNewInv.Enabled = bEdit And cBranch = "00"
-cmddel.Enabled = bEditRecord And nMode = LoadMode And cBranch = "00" And (Trim(xdate1.Caption) = "" Or xtype.Tag <> "3")
+cmddel.Enabled = bEditRecord And nMode = LoadMode And cBranch = "00" And (Trim(xDate1.Caption) = "" Or xtype.Tag <> "3")
 cmdSaveDateMail.Enabled = xtype.Tag = "2" Or xtype.Tag = "3" Or xtype.Tag = "12"
 xDate_mail.Enabled = xtype.Tag = "2" Or xtype.Tag = "3" Or xtype.Tag = "12"
 
@@ -2511,7 +2511,7 @@ aInsert = AddFlag(aInsert, "[DATE]", addDate(Date))
 aInsert = AddFlag(aInsert, "[TYPE]", oSalesRefund.sFlag)
 aInsert = AddFlag(aInsert, "[SHIP]", addstring(xship.BoundText))
 aInsert = AddFlag(aInsert, "[MAN]", addstring(xMan.Tag))
-aInsert = AddFlag(aInsert, "[SHIP_NO]", addstring(xship_no.text))
+aInsert = AddFlag(aInsert, "[SHIP_NO]", addstring(xShip_no.text))
 aInsert = AddFlag(aInsert, "[USERNAME]", addstring(cUserName))
 aInsert = AddFlag(aInsert, "[USER_IP]", addstring(GetComputerName))
 If oSalesRefund.sFlag = "2" Or oSalesRefund.sFlag = "3" Then
@@ -3000,11 +3000,11 @@ sdoc_no_new = ""
 GoTo Finally
 End Function
 Private Sub xdate1_GotFocus()
-myGotFocus xdate1
+myGotFocus xDate1
 End Sub
-Private Sub xdate1_LostFocus()
-myLostFocus xdate1
-myValidDate xdate1
+Private Sub xDate1_LostFocus()
+myLostFocus xDate1
+myValidDate xDate1
 End Sub
 
 Private Sub xRate_Change()
@@ -3157,7 +3157,7 @@ Dim loctable As New ADODB.Recordset
 On Error GoTo myerror
 Set loctable = myRs("SELECT TOP 1 * FROM FILE6_90BH WHERE ORDER_NO = " & MyParn(sOrder_No) & " AND  CLOSED = 0 AND (TYPE = 2 OR TYPE = 11 OR TYPE = 12)")
 If Not loctable.EOF Then
-    xship_no.text = loctable!ship_no & ""
+    xShip_no.text = loctable!ship_no & ""
     xship.BoundText = loctable!SHIP & ""
 End If
 Exit Sub
