@@ -1278,8 +1278,8 @@ Private Sub mxtrans_Click()
     TransBox.Show 1
 End Sub
 Private Sub PHO_MAI_Click()
-Load phone
-phone.Show 1
+Load Phone
+Phone.Show 1
 End Sub
 Private Sub RBAN_Click()
     Load RepBank
@@ -3107,21 +3107,21 @@ Sub FixStoreCode()
 
 End Sub
 Sub Show_NewDoc()
-    Set grid1.DataSource = data1
-    data1.connectionString = strCon
+    Set grid1.DataSource = DATA1
+    DATA1.ConnectionString = strCon
     grid1.Rows = 1
-    fixGrd
+    Fixgrd
     myload
     
 End Sub
 Private Sub myload()
     Dim cWhere As String
     cString = " SELECT     flag, desca, DOC_NO, DATE, [name], QUANT, USERSEND, TIMESEND FROM         Q_DATA_SEND "
-    data1.RecordSource = cString
-    data1.Refresh
-    fixGrd
+    DATA1.RecordSource = cString
+    DATA1.Refresh
+    Fixgrd
 End Sub
-Sub fixGrd()
+Sub Fixgrd()
     With grid1
     .ExplorerBar = flexExSortShow
     .FixedRows = 1

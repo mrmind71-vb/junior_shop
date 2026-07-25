@@ -24,12 +24,12 @@ Private Sub Class_Initialize()
 clearSql
 End Sub
 ' Clear previous errors
-Public Function myRs(strSql, Optional pType As Long = 1, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300, Optional nConTimeout As Integer = 3) As ADODB.Recordset
+Public Function myRs(strSql, Optional pType As Long = 1, Optional aParam As Variant = Empty, Optional nTimeOut As Integer = 300, Optional nConTimeout As Integer = 3) As ADODB.Recordset
     On Error GoTo myerror
             
     Set myRs = New ADODB.Recordset
     Dim cmd As New ADODB.command
-    cmd.CommandTimeout = nTimeout
+    cmd.CommandTimeout = nTimeOut
     cmd.ActiveConnection = cn
     cmd.CommandType = pType
     cmd.CommandText = strSql ' Ensure strSql is declared globally or in your module
@@ -37,7 +37,7 @@ Public Function myRs(strSql, Optional pType As Long = 1, Optional aParam As Vari
     If Not IsEmpty(aParam) Then
         Dim i As Long
         For i = 0 To UBound(aParam) Step 2
-            cmd.Parameters("@" & aParam(i)).Value = aParam(i + 1)
+            cmd.Parameters("@" & aParam(i)).value = aParam(i + 1)
         Next
     End If
 
@@ -53,12 +53,11 @@ myerror:
         If myRs.State = 1 Then myRs.Close ' Fixed "rs.Close" typo
         Set myRs = Nothing
     End If
-    'Set cError = New ClsError
     Err.Raise Err.Number, Err.Source, Err.Description
 End Function
-Public Function OpenCon(Optional ByVal connectionString As String = "", _
-                               Optional ByVal timeout As Long = 15, _
-                               Optional ByVal Querytimeout As Long = 180) As Boolean
+Public Function OpenCon(Optional ByVal ConnectionString As String = "", _
+                               Optional ByVal TimeOut As Long = 15, _
+                               Optional ByVal QueryTimeOut As Long = 180) As Boolean
     
     
     On Error GoTo ErrorHandler
@@ -76,15 +75,15 @@ Public Function OpenCon(Optional ByVal connectionString As String = "", _
     
     ' ??? ??????? ???????
     cn.CursorLocation = adUseClient
-    cn.ConnectionTimeout = timeout
-    cn.CommandTimeout = Querytimeout
+    cn.ConnectionTimeout = TimeOut
+    cn.CommandTimeout = QueryTimeOut
     
     ' ????? ?? ??????? ????????? ?? ??????
     Dim finalConnectionString As String
-    If connectionString = "" Then
+    If ConnectionString = "" Then
         finalConnectionString = strCon
     Else
-        finalConnectionString = connectionString
+        finalConnectionString = ConnectionString
     End If
     
     ' ?????? ??? ???????
@@ -253,63 +252,64 @@ Public Function clearSql()
 ReDim sqlStatements(0)
 End Function
 Function IncData(sTable As String, sField As String, Optional pWhere As String = "", Optional bNum As Boolean = False) As String
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 Dim cString As String
 cString = "Select Max(" & sField & ") as Maxof " & _
        " FROM " & sTable
 If pWhere <> "" Then cString = cString & " where " & pWhere
-Set loctable = myRs(cString)
-If Not (loctable.EOF) Then
-    If IsNull(loctable!maxOf) Then
+Set locTable = myRs(cString)
+If Not (locTable.EOF) Then
+    If IsNull(locTable!maxOf) Then
         IncData = "1"
     ElseIf bNum Then
-        IncData = Val(loctable!maxOf & "") + 1
+        IncData = Val(locTable!maxOf & "") + 1
     Else
-        IncData = IncrementString(loctable!maxOf & "")
+        IncData = IncrementString(locTable!maxOf & "")
     End If
 End If
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
-Public Function rsField(pString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional pDef As Variant = Null, Optional nTimeout As Integer = 300) As Variant
-Dim loctable As ADODB.Recordset
-Set loctable = Me.myRs(pString, pType, aParam, nTimeout)
-If Not loctable.EOF Then
-    rsField = loctable.Fields(0).Value
+Public Function rsField(pString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional pDef As Variant = Null, Optional nTimeOut As Integer = 300) As Variant
+Dim locTable As ADODB.Recordset
+Set locTable = Me.myRs(pString, pType, aParam, nTimeOut)
+If Not locTable.EOF Then
+    rsField = locTable.Fields(0).value
 ElseIf Not IsEmpty(pDef) Then
     rsField = pDef
 Else
     rsField = Null
 End If
-If loctable.State = adStateOpen Then loctable.Close
+If locTable.State = adStateOpen Then locTable.Close
 Finally:
-Set loctable = Nothing
+Set locTable = Nothing
 End Function
-Public Function rsValues(pString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300) As Variant
-Dim loctable As ADODB.Recordset
-Set loctable = myRs(pString, pType, aParam, nTimeout)
+Public Function rsValues(pString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeOut As Integer = 300) As Variant
+Dim locTable As ADODB.Recordset
+Set locTable = myRs(pString, pType, aParam, nTimeOut)
 Dim i As Long
-If Not (loctable.BOF And loctable.EOF) Then
-    For i = 0 To loctable.Fields.Count - 1
-        rsValues = AddFlag(rsValues, LCase(loctable.Fields(i).Name), loctable.Fields(i).Value)
+If Not (locTable.BOF And locTable.EOF) Then
+    For i = 0 To locTable.Fields.Count - 1
+        rsValues = AddFlag(rsValues, LCase(locTable.Fields(i).Name), locTable.Fields(i).value)
     Next
 Else
     rsValues = Null
 End If
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
-Public Function cmd(pString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 1000) As ADODB.command
+Public Function cmd(pString As String, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeOut As Integer = 1000) As ADODB.command
 Set cmd = New ADODB.command
-cmd.CommandTimeout = nTimeout
+cmd.CommandTimeout = nTimeOut
 cmd.ActiveConnection = cn
 cmd.CommandType = pType
 cmd.CommandText = pString
 If Not IsEmpty(aParam) Then
     Dim i As Long
     For i = 0 To UBound(aParam) Step 2
-        cmd.Parameters("@" & aParam(i)).Value = aParam(i + 1)
+        cmd.Parameters("@" & aParam(i)).value = aParam(i + 1)
     Next
 End If
 End Function
+
 

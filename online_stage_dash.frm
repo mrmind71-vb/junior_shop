@@ -941,14 +941,14 @@ Begin VB.Form online_stage_dash
       WallPaperAlignment=   9
    End
    Begin VSFlex7Ctl.VSFlexGrid grdEdit 
-      Height          =   2670
+      Height          =   2355
       Left            =   10305
       TabIndex        =   4
       TabStop         =   0   'False
       Top             =   7470
       Width           =   9960
       _cx             =   17568
-      _cy             =   4710
+      _cy             =   4154
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -1036,14 +1036,14 @@ Begin VB.Form online_stage_dash
       WallPaperAlignment=   9
    End
    Begin VSFlex7Ctl.VSFlexGrid grdCancel 
-      Height          =   1950
+      Height          =   1635
       Left            =   270
       TabIndex        =   5
       TabStop         =   0   'False
       Top             =   8190
       Width           =   9960
       _cx             =   17568
-      _cy             =   3440
+      _cy             =   2884
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -1387,14 +1387,14 @@ cString = "SELECT  STAGES_CODES.CODE, " & _
     " ORDER BY STAGES_CODES.CODE "
     Set grid1.DataSource = myRs(cString)
 End With
-Fixgrd
+fixGrd
 'grid1.Cell(flexcpAlignment, 0, 0, grid1.Rows - 1, grid1.Cols - 1) = 7
 Exit Sub
 myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Sub Fixgrd()
+Sub fixGrd()
 With grid1
     '.RowHeight(0) = 400
     .RowHeight(1) = 400

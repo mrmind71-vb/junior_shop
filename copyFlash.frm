@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "Comdlg32.ocx"
 Begin VB.Form copyFlashfrm 
    Caption         =   "⁄„· ‰”Œ… «Õ Ì«ÿÌ…"
    ClientHeight    =   2895
@@ -160,10 +160,9 @@ myerror:
 MsgBox Err.Description
 Err.Clear
 End Function
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
 Unload Me
 End Sub
-
 Private Sub cmdRestoreFrom_Click()
 Set fs = CreateObject("Scripting.FileSystemObject")
 Dim cFile As String
@@ -201,9 +200,9 @@ End Function
 Private Function createBackUp(pFileName) As Boolean
 Dim cFile As String
 Dim con As New ADODB.Connection
-openCon con
+OpenCon con
 
-Dim FS1 As New ADODB.Command
+Dim FS1 As New ADODB.command
 FS1.CommandType = adCmdText
 
 Set FS1.ActiveConnection = con
@@ -254,7 +253,7 @@ cString = "provider=SQLOLEDB;data source= " & cServerName & "  ;initial " _
         & "catalog=master;Trusted_Connection=yes"
 conMaster.Open cString
 
-Dim FS1 As New ADODB.Command
+Dim FS1 As New ADODB.command
 FS1.CommandType = adCmdText
 Set FS1.ActiveConnection = conMaster
 cString = "alter database  [" & sCatalog & "] set offline with rollback immediate"

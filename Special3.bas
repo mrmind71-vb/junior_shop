@@ -5,11 +5,11 @@ Public sOnlineStore As String
 Public servername_vpn
 Public sStoreOnline As String
 Public sBranchOnline As String
-Public Function Nz(Value As Variant, Optional ValueIfNull As Variant = 0) As Variant
-    If IsNull(Value) Then
+Public Function Nz(value As Variant, Optional ValueIfNull As Variant = 0) As Variant
+    If IsNull(value) Then
         Nz = ValueIfNull
     Else
-        Nz = Value
+        Nz = value
     End If
 End Function
 Sub SectionLookup(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "")
@@ -113,6 +113,56 @@ searchArray = Array(Generalarray, listarray, GrdArray)
 oSearch.Caption = "≈” ⁄·«„ «·«‰Ê«⁄"
 oSearch.Show 1
 End Sub
+Sub PayTypeLook(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "", Optional sControl As String = "")
+Dim Generalarray(5)
+Dim listarray(0, 5)
+Dim GrdArray(1, 1)
+Dim cWhere As String
+Set Generalarray(0) = oForm
+
+'                       0
+cString = "SELECT Payment_type," & _
+          " Payment_type" & _
+          " FROM  FILE6_90H"
+If cFilter <> "" Then cWhere = cWhere & Tr(cWhere) & cFilter
+If cWhere <> "" Then cString = cString & " WHERE " & cWhere
+
+Generalarray(1) = cString
+
+Generalarray(2) = "Group by Payment_type Order by Payment_type"
+Generalarray(3) = 4000
+Generalarray(5) = True
+
+listarray(0, 0) = "‰Ê⁄ «·”œ«œ"
+listarray(0, 1) = "(%%Payment_type%%)"
+
+
+GrdArray(0, 0) = "‰Ê⁄ «·”œ«œ"
+GrdArray(0, 1) = 0
+
+GrdArray(1, 0) = "‰Ê⁄ «·”œ«œ"
+GrdArray(1, 1) = 5000
+
+searchArray = Array(Generalarray, listarray, GrdArray)
+If bFilter Then
+    Dim aFilter As Variant
+    aFilter = AddFlag(aFilter, "FILTER", True)
+    aFilter = AddFlag(aFilter, "FIELD", "Payment_Type")
+    oSearch.aFilter = aFilter
+End If
+
+Dim aRow As Variant
+If sAddRow <> "" Then
+    aRow = AddFlag(Empty, "text", sAddRow)
+    aRow = AddFlag(aRow, "col", 1)
+End If
+oSearch.aAddRow = aRow
+oSearch.sControl = sControl
+searchArray = Array(Generalarray, listarray, GrdArray)
+'oSearch.nMax_records = 1000
+oSearch.Caption = "≈” ⁄·«„ «‰Ê«⁄ «·”œ«œ"
+oSearch.Show 1
+End Sub
 Sub FactLookup(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "")
 Dim Generalarray(5)
 Dim listarray(0, 5)
@@ -170,14 +220,14 @@ If cBranch = "00" Then
     Exit Function
 End If
 
-Dim Loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 Dim cString As String
-Set Loctable = cmd("SELECT dSales FROM DSALES" & _
+Set locTable = cmd("SELECT dSales FROM DSALES" & _
             " WHERE BRANCH = " & MyParn(cBranch), con).Execute
-If Not Loctable.EOF Then
-    fnDateSales = myFormat(Loctable!dSales)
+If Not locTable.EOF Then
+    fnDateSales = myFormat(locTable!dSales)
 End If
-Loctable.Close
+locTable.Close
 End Function
 Public Function rsDateBranch(Optional pBranch As String, Optional con As ADODB.Connection) As String
 If pBranch = "00" Then
@@ -201,19 +251,19 @@ fnBalance = Val(cmBalance.Parameters("@BALANCE") & "")
 Set cmBalance = Nothing
 End Function
 Public Function rsBalance(pItem As String, Optional pstore As String = "", Optional pDate As String = "", Optional pId As String = "") As Long
-Dim Loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 Dim aPrm As Variant
 aPrm = AddFlag(aPrm, "ITEM", pItem)
 If pstore <> "" Then aPrm = AddFlag(aPrm, "STORE", pstore)
 If IsDate(pDate) Then aPrm = AddFlag(aPrm, "DATE", myFormat_sp(pDate))
 If pId <> "" Then aPrm = AddFlag(aPrm, "ID", pId)
 
-Set Loctable = myRs("dbo.sp_balance_rs", , , adStoredProc, aPrm)
-If Not Loctable.EOF Then
-    rsBalance = Val(Loctable!balance & "")
+Set locTable = myRs("dbo.sp_balance_rs", , , adStoredProc, aPrm)
+If Not locTable.EOF Then
+    rsBalance = Val(locTable!balance & "")
 End If
-Loctable.Close
-Set Loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
 Public Function IsFormOpen(ByVal FormName As String) As Boolean
     Dim frm As Form
@@ -231,7 +281,7 @@ Dim cmdPhone As New ADODB.command
 Set cmdPhone = cmd("dbo.sp_cust_phone", con, adStoredProc, AddFlag(Empty, "phone", pPhone))
 cmdPhone.Execute
 
-fnPhoneName = cmdPhone.Parameters("@DESCA").Value & ""
+fnPhoneName = cmdPhone.Parameters("@DESCA").value & ""
 End Function
 Public Function IsValidMobile(ByVal strNumber As String) As Boolean
     Dim i As Integer
@@ -272,8 +322,8 @@ If Trim(pName) <> "" Then
     If Val(cmdPhone.Parameters("@COUNT") & "") <> 1 Or Trim(pName) <> cmdPhone.Parameters("@DESCA") Then
         aInsert = AddFlag(aInsert, "DESCA", addstring(pName))
     End If
-ElseIf (Not IsNull(cmdPhone.Parameters("@DESCA").Value)) And Val(cmdPhone.Parameters("@COUNT") & "") <> 1 Then
-    aInsert = AddFlag(aInsert, "DESCA", addstring(cmdPhone.Parameters("@DESCA").Value))
+ElseIf (Not IsNull(cmdPhone.Parameters("@DESCA").value)) And Val(cmdPhone.Parameters("@COUNT") & "") <> 1 Then
+    aInsert = AddFlag(aInsert, "DESCA", addstring(cmdPhone.Parameters("@DESCA").value))
 End If
 
 'If IsNull(cmdPhone.Parameters("@F_DATE").Value) Then
@@ -282,11 +332,11 @@ End If
 '    aInsert = AddFlag(aInsert, "F_DATE", addDate(cmdPhone.Parameters("@F_DATE").Value))
 'End If
 
-If Not IsNull(cmdPhone.Parameters("@F_DATE").Value) Then
-    If myFormat(cmdPhone.Parameters("@F_DATE").Value) < myFormat(pDate) Then
+If Not IsNull(cmdPhone.Parameters("@F_DATE").value) Then
+    If myFormat(cmdPhone.Parameters("@F_DATE").value) < myFormat(pDate) Then
         aInsert = AddFlag(aInsert, "F_DATE", addDate(pDate))
     ElseIf Val(cmdPhone.Parameters("@COUNT") & "") <> 1 Then
-        aInsert = AddFlag(aInsert, "F_DATE", addDate(cmdPhone.Parameters("@F_DATE").Value))
+        aInsert = AddFlag(aInsert, "F_DATE", addDate(cmdPhone.Parameters("@F_DATE").value))
     End If
 ElseIf IsDate(pDate) Then
     aInsert = AddFlag(aInsert, "F_DATE", addDate(pDate))
@@ -319,19 +369,19 @@ Public Function UpdateDiscount(pDoc_no As String, con As ADODB.Connection, Optio
 Dim cmDiscount As New ADODB.command
 Set cmDiscount = cmd("dbo.sp_offer_discount", con, adStoredProc, AddFlag(Empty, "DOC_NO", pDoc_no))
 cmDiscount.Execute
-If Not IsNull(cmDiscount.Parameters("@OFFER_NO").Value) Then
+If Not IsNull(cmDiscount.Parameters("@OFFER_NO").value) Then
     If pDiscount_add = 0 Then
         con.Execute "UPDATE FILE6_20H " & _
-                    "SET FILE6_20H.DISCOUNT_OFFER = " & cmDiscount.Parameters("@DISCOUNT").Value & "," & _
-                    "FILE6_20H.DISCOUNT = FILE6_20H.DISCOUNT_ADD + " & cmDiscount.Parameters("@DISCOUNT").Value & "," & _
-                    "FILE6_20H.IS_OFFER = " & IIf(cmDiscount.Parameters("@OFFER_NO").Value > 0, "1", "0") & _
+                    "SET FILE6_20H.DISCOUNT_OFFER = " & cmDiscount.Parameters("@DISCOUNT").value & "," & _
+                    "FILE6_20H.DISCOUNT = FILE6_20H.DISCOUNT_ADD + " & cmDiscount.Parameters("@DISCOUNT").value & "," & _
+                    "FILE6_20H.IS_OFFER = " & IIf(cmDiscount.Parameters("@OFFER_NO").value > 0, "1", "0") & _
                     " WHERE FILE6_20H.DOC_NO = " & MyParn(pDoc_no)
     Else
         con.Execute "UPDATE FILE6_20H " & _
-                    "SET FILE6_20H.DISCOUNT_OFFER = " & cmDiscount.Parameters("@DISCOUNT").Value & "," & _
+                    "SET FILE6_20H.DISCOUNT_OFFER = " & cmDiscount.Parameters("@DISCOUNT").value & "," & _
                     "FILE6_20H.DISCOUNT_ADD = " & pDiscount_add & "," & _
-                    "FILE6_20H.DISCOUNT = " & pDiscount_add + cmDiscount.Parameters("@DISCOUNT").Value & "," & _
-                    "FILE6_20H.IS_OFFER = " & IIf(cmDiscount.Parameters("@OFFER_NO").Value > 0, "1", "0") & _
+                    "FILE6_20H.DISCOUNT = " & pDiscount_add + cmDiscount.Parameters("@DISCOUNT").value & "," & _
+                    "FILE6_20H.IS_OFFER = " & IIf(cmDiscount.Parameters("@OFFER_NO").value > 0, "1", "0") & _
                     " WHERE FILE6_20H.DOC_NO = " & MyParn(pDoc_no)
     End If
 Else
@@ -367,8 +417,8 @@ End If
 '                " WHERE FILE6_20H.DOC_NO = " & MyParn(pDoc_no)
 'End If
 End Function
-Public Function RoundToNearest5(ByVal Value As Double) As Double
-    RoundToNearest5 = Int((Value / 5) + 0.5) * 5
+Public Function RoundToNearest5(ByVal value As Double) As Double
+    RoundToNearest5 = Int((value / 5) + 0.5) * 5
 End Function
 Function addInsertUpdate(aInsert As Variant, pTable As String, pCondition As String, pFieldName As String)
 Dim cInsert As New ChilkatStringBuilder, cUpdate As New ChilkatStringBuilder
@@ -426,8 +476,8 @@ For i = 1 To pGrid.Rows - 1
 Next
 ValidMinus = True
 End Function
-Public Function fn_order_Sates(sOrder_No As String, sType As String) As Variant
-Dim Loctable As New ADODB.Recordset
+Public Function fn_order_Sates(sOrder_no As String, sType As String) As Variant
+Dim locTable As New ADODB.Recordset
 Dim aPrm As Variant
 'aPrm = AddFlag(Empty, "DOC_NO", sOrder_no)
 'aPrm = AddFlag(aPrm, "DOC_NO", sOrder_no)
@@ -507,7 +557,78 @@ Public Sub UnloadForms(ExcludeFormName As String)
         End If
     Next i
 End Sub
+Public Function DetectEncoding(ByVal sFilePath As String) As String
+    On Error GoTo ErrorHandler
+    
+    Dim fileNum As Integer
+    Dim bytes(3) As Byte
+    Dim i As Integer
+    
+    ' › Õ «·„·› ·ﬁ—«¡… «·»«Ì «  «·√Ê·Ï ›ﬁÿ
+    fileNum = FreeFile
+    Open sFilePath For Binary Access Read As #fileNum
+    
+    ' ﬁ—«¡… √Ê· 4 »«Ì 
+    For i = 0 To 3
+        If Not EOF(fileNum) Then
+            Get #fileNum, , bytes(i)
+        End If
+    Next i
+    Close #fileNum
+    
+    ' «·›Õ’ »‰«¡ ⁄·Ï ⁄·«„…  — Ì» «·»«Ì «  (BOM)
+    If bytes(0) = &HEF And bytes(1) = &HBB And bytes(2) = &HBF Then
+        DetectEncoding = "UTF-8"
+ElsePtr:
+    ElseIf bytes(0) = &HFF And bytes(1) = &HFE Then
+        DetectEncoding = "UTF-16LE" ' UTF-16 Little Endian
+    ElseIf bytes(0) = &HFE And bytes(1) = &HFF Then
+        DetectEncoding = "UTF-16BE" ' UTF-16 Big Endian
+    Else
+        ' ≈–« ·„ ÌÃœ ⁄·«„… „„Ì“…° Ì› —÷ √‰Â ANSI (√Ê ﬂÊœ «· ⁄—Ì» «·„Õ·Ì)
+        DetectEncoding = "Windows-1256"
+    End If
+    
+    Exit Function
 
-
-
-
+ErrorHandler:
+    DetectEncoding = "Windows-1256" ' «·«› —«÷Ì ⁄‰œ ÕœÊÀ Œÿ√
+End Function
+Public Function GetTextFileEncoding(ByVal FileName As String) As String
+    Dim fileNum As Integer
+    Dim b1 As Byte, b2 As Byte, b3 As Byte, b4 As Byte
+    
+    ' Check if file exists
+    If Dir(FileName) = "" Then
+        GetTextFileEncoding = "File Not Found"
+        Exit Function
+    End If
+    
+    ' Open the file in binary mode to read raw bytes
+    fileNum = FreeFile()
+    Open FileName For Binary Access Read As #fileNum
+    
+    ' Get the first 4 bytes if the file is large enough
+    If LOF(fileNum) >= 1 Then Get #fileNum, 1, b1
+    If LOF(fileNum) >= 2 Then Get #fileNum, 2, b2
+    If LOF(fileNum) >= 3 Then Get #fileNum, 3, b3
+    If LOF(fileNum) >= 4 Then Get #fileNum, 4, b4
+    
+    Close #fileNum
+    
+    ' Evaluate the Byte Order Mark (BOM)
+    If b1 = &HEF And b2 = &HBB And b3 = &HBF Then
+        GetTextFileEncoding = "UTF-8"
+    ElseIf b1 = &HFF And b2 = &HFE And b3 = &H0 And b4 = &H0 Then
+        GetTextFileEncoding = "UTF-16LE / UTF-32LE"
+    ElseIf b1 = &HFF And b2 = &HFE Then
+        GetTextFileEncoding = "UTF-16LE (Unicode)"
+    ElseIf b1 = &HFE And b2 = &HFF Then
+        GetTextFileEncoding = "UTF-16BE (Big-Endian)"
+    ElseIf b1 = &H0 And b2 = &H0 And b3 = &HFE And b4 = &HFF Then
+        GetTextFileEncoding = "UTF-32BE"
+    Else
+        ' No BOM present: Defaults to system ANSI code page
+        GetTextFileEncoding = "ANSI"
+    End If
+End Function

@@ -3781,13 +3781,13 @@ aInsert = AddFlag(aInsert, "[DISCOUNT]", Val(xDiscount.text))
 aInsert = AddFlag(aInsert, "[DISCOUNT_ADD]", Val(xDiscount_add.text))
 aInsert = AddFlag(aInsert, "[CASH]", Val(xcash.Caption))
 aInsert = AddFlag(aInsert, "[BOX]", addstring(xBox.BoundText))
-aInsert = AddFlag(aInsert, "[PAY]", Val(xPay.Caption))
+aInsert = AddFlag(aInsert, "[PAY]", Val(xpay.Caption))
 aInsert = AddFlag(aInsert, "[LATE]", "0")
 aInsert = AddFlag(aInsert, "[REST]", Val(xRest.Caption))
 aInsert = AddFlag(aInsert, "[BRANCH]", addstring(XBRANCH.Caption))
 aInsert = AddFlag(aInsert, "[MOSM]", addstring(xMosm.BoundText))
 aInsert = AddFlag(aInsert, "[TIME]", addTime(xtime.Caption))
-aInsert = AddFlag(aInsert, "[PHONE]", addstring(xphone.Caption))
+aInsert = AddFlag(aInsert, "[PHONE]", addstring(xPhone.Caption))
 aInsert = AddFlag(aInsert, "[USERNAME_DISC]", addstring(XUSERNAME_DISC.Caption))
 aInsert = AddFlag(aInsert, "[USERNAME_RET]", addstring(xusername_RET.Caption))
 aInsert = AddFlag(aInsert, "[SALES_RET]", addstring(XSALES_RET.Caption))
@@ -3804,9 +3804,9 @@ ElseIf xMan.MatchedWithList Then
 End If
 
 aInsert = AddFlag(aInsert, "[NOTE_DISC]", addstring(xNote_disc.Caption))
-aInsert = AddFlag(aInsert, "[DOC_DISC]", addstring(xdoc_disc.Caption))
+aInsert = AddFlag(aInsert, "[DOC_DISC]", addstring(XDOC_DISC.Caption))
 aInsert = AddFlag(aInsert, "[INV_NO]", addstring(xinv_no.text))
-aInsert = AddFlag(aInsert, "[ISNODEL]", XISNODEL.value)
+aInsert = AddFlag(aInsert, "[ISNODEL]", XISNODEL.Value)
 aInsert = AddFlag(aInsert, "[CARD_DISC]", addstring(xcard_disc.text))
 aInsert = AddFlag(aInsert, "[CARD_DESCA]", addstring(xcard_desca.Caption))
 aInsert = AddFlag(aInsert, "[CARD_VALUE]", addstring(xcard_value.Caption))
@@ -3904,7 +3904,7 @@ aInsert = AddFlag(aInsert, "STORE", addstring(xStore.BoundText))
 aInsert = AddFlag(aInsert, "[DISCOUNT]", -1 * Val(.xdiscount_ret.Caption))
 aInsert = AddFlag(aInsert, "[BOX]", addstring(xBox.BoundText))
 aInsert = AddFlag(aInsert, "[BRANCH]", addstring(XBRANCH.Caption))
-aInsert = AddFlag(aInsert, "[PHONE]", addstring(.xphone.Caption))
+aInsert = AddFlag(aInsert, "[PHONE]", addstring(.xPhone.Caption))
 If oSalesRefund.grid1.Rows > 1 Then
     aInsert = AddFlag(aInsert, "[MAN]", addstring(oSalesRefund.grid1.TextMatrix(1, 16)))
 ElseIf xMan.MatchedWithList Then
@@ -3972,7 +3972,7 @@ Private Sub Check1_Click()
 End Sub
 
 Private Sub chkprint_Click()
-addSetting "print", chkprint.value, App.Path & "\other.txt"
+addSetting "print", chkprint.Value, App.Path & "\other.txt"
 End Sub
 Private Function sendCash() As Boolean
 End Function
@@ -3991,7 +3991,7 @@ End Sub
 
 Private Sub cmdDiscount_rate_add_Click()
 Dim cPassword As String, aUser As Variant
-If xPrinted.value <> 0 Then Exit Sub
+If xPrinted.Value <> 0 Then Exit Sub
 
 Dim oUser As New sub_userfrm
 Set oUser.myForm = Me
@@ -4018,7 +4018,7 @@ If subUserCode = "" Then Exit Sub
 PrintTDay
 End Sub
 Private Sub ISPICT_Click()
-    addSetting "ISPICT", ISPICT.value, App.Path & "\other.txt"
+    addSetting "ISPICT", ISPICT.Value, App.Path & "\other.txt"
 End Sub
 Private Sub CMD_TRANS_Click()
 transfrm.Show
@@ -4328,7 +4328,7 @@ If Not myValid Then Exit Sub
 myDisplay "Total Qty  :" & Format(Val(xTotalQuant.Caption) - Val(xTotalQuant2.Caption), "#0"), "Total Price:" & Format(Val(xTotal.Caption), "#0.00")
 
 Set oCash = New cash_sales_newfrm
-oCash.bEditRecord = xPrinted.value = 0 Or bopt2
+oCash.bEditRecord = xPrinted.Value = 0 Or bopt2
 Set oCash.myForm = Me
 oCash.Show 1
 
@@ -4469,16 +4469,16 @@ xStore.ListField = "Desca"
 xStore.BoundColumn = "Code"
 xStore.BoundText = cBranchStore
 
-Set data2.Recordset = cmd("SELECT * FROM MOSM ", con).Execute
-Set xMosm.RowSource = data2
+Set DATA2.Recordset = cmd("SELECT * FROM MOSM ", con).Execute
+Set xMosm.RowSource = DATA2
 xMosm.ListField = "DESCA"
 xMosm.BoundColumn = "MOSM"
 If nUser = enUser.Admin Then
-    Set data4.Recordset = cmd("SELECT * FROM FILE0_50", con).Execute
+    Set DATA4.Recordset = cmd("SELECT * FROM FILE0_50", con).Execute
 Else
-    Set data4.Recordset = cmd("SELECT * FROM FILE0_50 WHERE BRANCH = " & MyParn(cBranch), con).Execute
+    Set DATA4.Recordset = cmd("SELECT * FROM FILE0_50 WHERE BRANCH = " & MyParn(cBranch), con).Execute
 End If
-Set xBox.RowSource = data4
+Set xBox.RowSource = DATA4
 xBox.ListField = "Desca"
 xBox.BoundColumn = "Code"
 xBox.BoundText = cBranchBox
@@ -4650,7 +4650,6 @@ End Sub
 Private Sub grid1_AfterRowColChange(ByVal OldRow As Long, ByVal OldCol As Long, ByVal NewRow As Long, ByVal NewCol As Long)
 grid1_EnterCell
 End Sub
-
 Private Sub grid1_EnterCell()
 With grid1
     If Not bEditRecord Then
@@ -4845,9 +4844,9 @@ End Sub
 Private Sub xDiscount_add_rate_Change()
 If bIg Then Exit Sub
 bIg = True
-If Val(xtotalitem.Caption) - Val(xDiscount_offer.Caption) <> 0 Then
-    If Round(Val(xDiscount_add_rate.text), 0) <> Round(Val(xDiscount_add.text) / (Val(xtotalitem.Caption) - Val(xDiscount_offer.Caption)) * 100, 0) Then
-        xDiscount_add.text = Round((Val(xDiscount_add_rate.text) * (Val(xtotalitem.Caption) - Val(xDiscount_offer.Caption))) / 100, 2)
+If Val(xTotalItem.Caption) - Val(xDiscount_offer.Caption) <> 0 Then
+    If Round(Val(xDiscount_add_rate.text), 0) <> Round(Val(xDiscount_add.text) / (Val(xTotalItem.Caption) - Val(xDiscount_offer.Caption)) * 100, 0) Then
+        xDiscount_add.text = Round((Val(xDiscount_add_rate.text) * (Val(xTotalItem.Caption) - Val(xDiscount_offer.Caption))) / 100, 2)
     End If
 Else
     xDiscount_add.text = ""
@@ -4924,7 +4923,7 @@ xdoc_ret.text = ""
 xUUID_RC.Caption = CardTable!UUID_RC & ""
 
 bIgClick = True
-xSendRc.value = IIf(CardTable!sendRc, 1, 0)
+xSendRc.Value = IIf(CardTable!sendRc, 1, 0)
 bIgClick = False
 
 XBRANCH.Caption = CardTable!branch & ""
@@ -4933,17 +4932,17 @@ xCode.Enabled = False
 
 'XISONEST.Value = IIf(CardTable!ISONEST, 1, 0)
 
-XISNODEL.value = IIf(CardTable!ISNODEL, 1, 0)
+XISNODEL.Value = IIf(CardTable!ISNODEL, 1, 0)
 'xIpName.Caption = CardTable!user_ip & ""
 xDoc_No.text = CardTable!doc_no
 xinv_no.text = CardTable!INV_NO & ""
 xDoc_no2.text = CardTable!Doc_no2
-xphone.Caption = CardTable!phone & ""
+xPhone.Caption = CardTable!phone & ""
 xDate.text = myFormat_p(CardTable!Date)
 xStore.BoundText = CardTable!STORE & ""
 xMan.BoundText = CardTable!MAN & ""
 bIg = True
-xIsRet.value = IIf(CardTable!ISRET, 1, 0)
+xIsRet.Value = IIf(CardTable!ISRET, 1, 0)
 bIg = False
 
 If Not xMan.MatchedWithList Then
@@ -4953,13 +4952,13 @@ xBox.BoundText = CardTable!BOX & ""
 xNotes.text = CardTable!NOTES & ""
 'XPOINT.Caption = Val(CardTable!Point & "")
 
-xIsOffer.value = IIf(CardTable!isoffer, 1, 0)
+xIsOffer.Value = IIf(CardTable!isoffer, 1, 0)
 
-xUserName.Caption = CardTable!UserName & ""
+xusername.Caption = CardTable!UserName & ""
 XSALES_RET.Caption = CardTable!SALES_RET & ""
 xusername_RET.Caption = CardTable!username_ret & ""
 xNote_disc.Caption = CardTable!NOTE_DISC & ""
-xdoc_disc.Caption = CardTable!DOC_DISC & ""
+XDOC_DISC.Caption = CardTable!DOC_DISC & ""
 
 xCode.text = CardTable!code & ""
 'xCodeDesca.Caption = CardTable!ClientDesca & ""
@@ -4971,9 +4970,9 @@ xcard_doc.Caption = CardTable!card_DOC & ""
 
 panel1(0).Caption = CardTable!UserName & ""
 XUSERNAME_DISC.Caption = CardTable!username_disc & ""
-xphone.Caption = CardTable!phone & ""
+xPhone.Caption = CardTable!phone & ""
 
-chkCash.value = IIf(CardTable!CASH, 1, 0)
+chkCash.Value = IIf(CardTable!CASH, 1, 0)
 
 bIg = True
 xDiscount_add.text = Myvalue(CardTable!discount_add)
@@ -4985,11 +4984,11 @@ xDiscount_offer.Caption = Myvalue(CardTable!DISCOUNT_OFFER)
 xcash.Caption = Myvalue(CardTable!CASH)
 xvisa.Caption = Myvalue(Val(CardTable!visa & "") + Val(CardTable!VISA3 & ""))
 
-xPay.Caption = Myvalue(CardTable!PAY)
+xpay.Caption = Myvalue(CardTable!PAY)
 xRest.Caption = Myvalue(CardTable!rest)
 xlate.Caption = Myvalue(CardTable!late)
 bIg = True
-xPrinted.value = IIf(CardTable!printed, 1, 0)
+xPrinted.Value = IIf(CardTable!printed, 1, 0)
 bIg = False
 xdoc_replace.Caption = CardTable!Doc_REPLACE & ""
 xtime.Caption = Format(CardTable!Time, "hh:nn")
@@ -5008,15 +5007,15 @@ Err.Clear
 End Sub
 Private Sub myDefine()
 bIg = True
-xIsRet.value = 0
+xIsRet.Value = 0
 bIg = True
 xUUID_RC.Caption = ""
-XISNODEL.value = 0
-xIsOffer.value = 0
+XISNODEL.Value = 0
+xIsOffer.Value = 0
 
 bIgClick = True
-xSendRc.value = 0
-xIsRet.value = 0
+xSendRc.Value = 0
+xIsRet.Value = 0
 bIgClick = False
 
 XBRANCH.Caption = cBranch
@@ -5025,20 +5024,20 @@ XBRANCH.Caption = cBranch
 'lDiscModelRet = False
 'xIpName.Caption = GetComputerName
 panel1(1).Caption = GetComputerName
-XISRETS.value = 0
+XISRETS.Value = 0
 sUserDisc = ""
 lIsDocRet = False
 xMan.BoundText = ""
 XUSERNAME_DISC.Caption = ""
-xUserName.Caption = cUserName
+xusername.Caption = cUserName
 
 'xRate.Locked = True
 'xDiscount.Locked = True
 
 xdoc_ret.text = ""
 myDisplay cMsgDisplay, " "
-xClosed.value = 0
-xType.Caption = ""
+xClosed.Value = 0
+xtype.Caption = ""
 xusername_RET = ""
 xcard_disc.text = ""
 xcard_desca.Caption = ""
@@ -5046,7 +5045,7 @@ xcard_value.Caption = ""
 xcard_doc.Caption = ""
 
 XSALES_RET.Caption = ""
-xphone.Caption = ""
+xPhone.Caption = ""
 xDoc_No.text = ""
 
 
@@ -5067,17 +5066,17 @@ xBalance.Caption = ""
 xMosm.BoundText = cPMosm
 
 
-chkCash.value = 1
+chkCash.Value = 1
 xTotalQuant.Caption = ""
 xTotalItemNoDiscount.Caption = ""
-xtotalitem.Caption = ""
+xTotalItem.Caption = ""
 xTotalItemDiscount.Caption = ""
 xTotalItemDiscount_rate.Caption = ""
 xtotalitem_offer.Caption = ""
 
 
 bIg = True
-xPrinted.value = 0
+xPrinted.Value = 0
 
 xDiscount_add.text = ""
 xDiscount.text = ""
@@ -5093,7 +5092,7 @@ xvisa.Caption = ""
 xcash.Caption = ""
 xNotes.text = ""
 xRest.Caption = ""
-xPay.Caption = ""
+xpay.Caption = ""
 
 xtime.Caption = Format(Time, "hh:nn")
 
@@ -5111,23 +5110,23 @@ CalcTotals
 End Sub
 Private Sub Handlecontrols(nMode)
 bEditRecord = bEdit And (cBranchBox <> "" Or nMode = LoadMode)
-bEditRecord = bEditRecord And xPrinted.value = 0
-bEditRecord = bEditRecord And XISNODEL.value = 0
+bEditRecord = bEditRecord And xPrinted.Value = 0
+bEditRecord = bEditRecord And XISNODEL.Value = 0
 
-If (Not optType(0).value) And nUser = enUser.User Then
+If (Not optType(0).Value) And nUser = enUser.User Then
     bEditRecord = False
 End If
-xphone.Enabled = bEditRecord
+xPhone.Enabled = bEditRecord
 cmdSave.Enabled = bEditRecord
 xdoc_ret.Enabled = bEdit And nMode = DefineMode
 
 'fmClose.Enabled = e
-fmClose.Enabled = xPrinted.value = 1 And nMode = LoadMode And nUser = enUser.Admin
+fmClose.Enabled = xPrinted.Value = 1 And nMode = LoadMode And nUser = enUser.Admin
 
 cmd_showdoc.Enabled = bEditRecord
 cmdMan.Enabled = bEditRecord And XSALES_RET.Caption = "" And xdoc_replace.Caption = ""
-cmd_disc.Enabled = bEditRecord And ((XSALES_RET.Caption = "" And xdoc_replace.Caption = "") Or nUser = enUser.Admin) And xIsOffer.value = 0
-cmdDiscount_rate_add.Enabled = bEditRecord And XSALES_RET.Caption = "" And xdoc_replace.Caption = "" And xIsOffer.value = 1
+cmd_disc.Enabled = bEditRecord And ((XSALES_RET.Caption = "" And xdoc_replace.Caption = "") Or nUser = enUser.Admin) And xIsOffer.Value = 0
+cmdDiscount_rate_add.Enabled = bEditRecord And XSALES_RET.Caption = "" And xdoc_replace.Caption = "" And xIsOffer.Value = 1
 
 cmdAddOffer.Enabled = bEditRecord And XSALES_RET.Caption = "" And xdoc_replace.Caption = ""
 
@@ -5137,13 +5136,13 @@ cmddel.Enabled = bEditRecord And nMode = LoadMode
 
 xIsRet.Visible = Val(xTotalItemNoDiscount.Caption) > 0 And nUser > enUser.Super And nMode = LoadMode
 If xIsRet.Visible Then
-    xIsRet.Enabled = xPrinted.value = 1 And nMode = LoadMode
+    xIsRet.Enabled = xPrinted.Value = 1 And nMode = LoadMode
 End If
 
 cmdRefund.Enabled = bEditRecord And IsDgt(xdoc_ret.text) And xDoc_No.Tag = DefineMode
 cmdReplace.Enabled = bEditRecord And IsDgt(xdoc_ret.text) And xDoc_No.Tag = DefineMode
 
-xcash.Enabled = nUser = enUser.Super Or nUser = enUser.Admin And xPrinted.value = 1
+xcash.Enabled = nUser = enUser.Super Or nUser = enUser.Admin And xPrinted.Value = 1
 
 xDiscount.Enabled = False
 xRate.Enabled = False
@@ -5158,7 +5157,7 @@ cmdNext.Enabled = nRecord < nRecords And nRecords <> 0 And nMode = LoadMode
 cmdPrevious.Enabled = nRecord <> 1 And nRecords <> 0 And nMode = LoadMode
 cmdLast.Enabled = nRecord < nRecords And nRecords <> 0 And nMode = LoadMode
 cmdFirst.Enabled = nRecord <> 1 And nRecords <> 0 And nMode = LoadMode
-cmdPrint.Enabled = nMode = LoadMode And xPrinted.value = 1 And nUser > enUser.User
+cmdPrint.Enabled = nMode = LoadMode And xPrinted.Value = 1 And nUser > enUser.User
 
 If nMode = LoadMode Then
     panel1(0).Caption = "”Ã· " & nRecord & " „‰ " & nRecords
@@ -5168,8 +5167,8 @@ End If
 
 xDoc_No.Tag = nMode
 
-cmdGo.Enabled = (xUUID_RC.Caption = "" Or xSendRc.value = 0) And nMode = LoadMode And xPrinted.value = 1
-xSendRc.Enabled = nMode = LoadMode And xUUID_RC.Caption <> "" And xPrinted.value = 1
+cmdGo.Enabled = (xUUID_RC.Caption = "" Or xSendRc.Value = 0) And nMode = LoadMode And xPrinted.Value = 1
+xSendRc.Enabled = nMode = LoadMode And xUUID_RC.Caption <> "" And xPrinted.Value = 1
 End Sub
 Private Sub grid1_KeyUp(KeyCode As Integer, Shift As Integer)
 If Not bEditRecord Then
@@ -5205,46 +5204,46 @@ Dim cm As New ADODB.command
 Set cm = cmd("dbo.sp_item", con, adStoredProc, AddFlag(Empty, "BARCODE_FIND", pItem))
 cm.Execute
 
-If IsNull(cm.Parameters("@ITEM").value) Then
+If IsNull(cm.Parameters("@ITEM").Value) Then
     sMsg = "ﬂÊœ €Ì— ’«·Õ"
     Exit Function
 End If
 
-If Not cm.Parameters("@ISNOITEM").value Then
-    If cm.Parameters("@PRICE").value = 0 Then
+If Not cm.Parameters("@ISNOITEM").Value Then
+    If cm.Parameters("@PRICE").Value = 0 Then
         MsgBox "”⁄— «·»Ì⁄ ’›— "
         Exit Function
     End If
 
-    If fnBalance(cm.Parameters("@ITEM").value, con, xStore.BoundText, xDate.text) <= 0 Then
+    If fnBalance(cm.Parameters("@ITEM").Value, con, xStore.BoundText, xDate.text) <= 0 Then
         Inform "·« ÌÊÃœ —’Ìœ «·’‰›"
     End If
 End If
 
 Dim cmDiscount As New ADODB.command
-aPrm = AddFlag(Empty, "ITEM", cm.Parameters("@ITEM").value)
+aPrm = AddFlag(Empty, "ITEM", cm.Parameters("@ITEM").Value)
 aPrm = AddFlag(aPrm, "DATE", myFormat_sp(xDate.text))
 Set cmDiscount = cmd("dbo.sp_offer_price", con, adStoredProc, aPrm)
 cmDiscount.Execute
 
-grid1.TextMatrix(Row, 1) = cm.Parameters("@ITEM").value
-grid1.TextMatrix(Row, 2) = cm.Parameters("@MOSM").value
-grid1.TextMatrix(Row, 3) = cm.Parameters("@FACT").value
-grid1.TextMatrix(Row, 4) = cm.Parameters("@SUPP").value & ""
-grid1.TextMatrix(Row, 5) = cm.Parameters("@MODELFACT0").value
-grid1.TextMatrix(Row, 6) = cm.Parameters("@DESCA").value
-grid1.TextMatrix(Row, 7) = cm.Parameters("@SCAL").value
-grid1.TextMatrix(Row, 8) = cm.Parameters("@COLOR").value
-grid1.TextMatrix(Row, 9) = cm.Parameters("@PRICE").value
+grid1.TextMatrix(Row, 1) = cm.Parameters("@ITEM").Value
+grid1.TextMatrix(Row, 2) = cm.Parameters("@MOSM").Value
+grid1.TextMatrix(Row, 3) = cm.Parameters("@FACT").Value
+grid1.TextMatrix(Row, 4) = cm.Parameters("@SUPP").Value & ""
+grid1.TextMatrix(Row, 5) = cm.Parameters("@MODELFACT0").Value
+grid1.TextMatrix(Row, 6) = cm.Parameters("@DESCA").Value
+grid1.TextMatrix(Row, 7) = cm.Parameters("@SCAL").Value
+grid1.TextMatrix(Row, 8) = cm.Parameters("@COLOR").Value
+grid1.TextMatrix(Row, 9) = cm.Parameters("@PRICE").Value
 grid1.TextMatrix(Row, 10) = "1"
 
-If IsNull(cmDiscount.Parameters("@ID").value) Then
-    grid1.TextMatrix(Row, 11) = cm.Parameters("@PRICE").value
+If IsNull(cmDiscount.Parameters("@ID").Value) Then
+    grid1.TextMatrix(Row, 11) = cm.Parameters("@PRICE").Value
 End If
-grid1.TextMatrix(Row, 17) = Val(cm.Parameters("@COSTITEM").value & "")
-If Not IsNull(cmDiscount.Parameters("@ID").value) Then
-    grid1.TextMatrix(Row, 11) = cmDiscount.Parameters("@PRICE").value
-    grid1.TextMatrix(Row, 18) = cmDiscount.Parameters("@DOC_NO").value
+grid1.TextMatrix(Row, 17) = Val(cm.Parameters("@COSTITEM").Value & "")
+If Not IsNull(cmDiscount.Parameters("@ID").Value) Then
+    grid1.TextMatrix(Row, 11) = cmDiscount.Parameters("@PRICE").Value
+    grid1.TextMatrix(Row, 18) = cmDiscount.Parameters("@DOC_NO").Value
     grid1.TextMatrix(Row, 19) = 0
     grid1.TextMatrix(Row, 20) = 0
 End If
@@ -5278,7 +5277,7 @@ Next
 xTotalQuant.Caption = Myvalue(nTotalQuant)
 xTotalItemNoDiscount.Caption = Myvalue(nTotalItemNoDiscount)
 xTotalItemDiscount.Caption = Myvalue(nTotalItemDiscount)
-xtotalitem.Caption = Myvalue(nTotalItem)
+xTotalItem.Caption = Myvalue(nTotalItem)
 xtotalitem_offer.Caption = Myvalue(nTotalItem - Val(xDiscount_offer.Caption))
 
 
@@ -5303,16 +5302,16 @@ Else
     xDiscount_add_rate.text = ""
 End If
 
-If xIsOffer.value = 1 Then
+If xIsOffer.Value = 1 Then
     xDiscount.text = Val(xDiscount_offer.Caption) + Val(xDiscount_add.text)
-ElseIf xIsOffer.value = 0 And Val(xDiscount_add.text) <> 0 Then
+ElseIf xIsOffer.Value = 0 And Val(xDiscount_add.text) <> 0 Then
     'xDiscount.text = Myvalue(xDiscount_add.text)
     xDiscount_add.text = 0
 End If
 
-If Val(xtotalitem.Caption) <> 0 Then
-    If Round(Val(xRate.text), nRound) <> Round(Val(xDiscount.text) / Val(xtotalitem.Caption) * 100, nRound) Then
-        xRate.text = Myvalue(Round((Val(xDiscount.text) / Val(xtotalitem.Caption)) * 100, nRound))
+If Val(xTotalItem.Caption) <> 0 Then
+    If Round(Val(xRate.text), nRound) <> Round(Val(xDiscount.text) / Val(xTotalItem.Caption) * 100, nRound) Then
+        xRate.text = Myvalue(Round((Val(xDiscount.text) / Val(xTotalItem.Caption)) * 100, nRound))
     End If
 Else
     xRate.text = ""
@@ -5387,9 +5386,9 @@ End Sub
 Private Sub xdoc_replace_Change()
 xdoc_replace.Visible = xdoc_replace.Caption <> ""
 If xdoc_replace.Caption <> "" Then
-    xType.Caption = "«” »œ«·"
+    xtype.Caption = "«” »œ«·"
 Else
-    xType.Caption = ""
+    xtype.Caption = ""
 End If
 End Sub
 Private Sub xdoc_ret_Change()
@@ -5404,7 +5403,7 @@ End Sub
 Private Sub xIsRet_Click()
 If bIg Then Exit Sub
 If MsgBox("«·”„«Õ »„— Ã⁄ ··›« Ê—…", vbYesNo + vbDefaultButton2) = vbYes Then
-    con.Execute " UPDATE FILE6_20H SET ISRET = " & xIsRet.value & " , ISNEW = 1 WHERE DOC_NO = " & MyParn(xDoc_No.text), nRec
+    con.Execute " UPDATE FILE6_20H SET ISRET = " & xIsRet.Value & " , ISNEW = 1 WHERE DOC_NO = " & MyParn(xDoc_No.text), nRec
     If nRec = 1 Then MsgBox "  „  ⁄œÌ· «·„” ‰œ "
 End If
 End Sub
@@ -5442,7 +5441,7 @@ End Sub
 Private Sub xPrinted_Click()
 If bIg Then Exit Sub
 'If xPrinted.Value = 1 Then Exit Sub
-con.Execute "update file6_20h set printed = " & xPrinted.value & ",closed = " & xPrinted.value & " from file6_20h where doc_no = " & MyParn(xDoc_No.text)
+con.Execute "update file6_20h set printed = " & xPrinted.Value & ",closed = " & xPrinted.Value & " from file6_20h where doc_no = " & MyParn(xDoc_No.text)
 MsgBox " „ › Õ «·›« Ê—… »‰Ã«Õ"
 If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
     If Not openCardTable Then
@@ -5453,9 +5452,9 @@ End Sub
 Private Sub xRate_Change()
 If bIg Then Exit Sub
 bIg = True
-If Val(xtotalitem.Caption) <> 0 Then
-    If Round(Val(xRate.text), 0) <> Round(Val(xDiscount.text) / Val(xtotalitem.Caption) * 100, 0) Then
-        xDiscount.text = Round((Val(xRate.text) * Val(xtotalitem.Caption)) / 100, 2)
+If Val(xTotalItem.Caption) <> 0 Then
+    If Round(Val(xRate.text), 0) <> Round(Val(xDiscount.text) / Val(xTotalItem.Caption) * 100, 0) Then
+        xDiscount.text = Round((Val(xRate.text) * Val(xTotalItem.Caption)) / 100, 2)
     End If
 Else
     xDiscount.text = ""
@@ -5577,7 +5576,7 @@ End If
 End With
 End Sub
 Private Sub xRateDis_Lostfocus()
-xDiscount.text = Fix((Val(xtotalitem.Caption) * Val(xRateDis.text) / 100))
+xDiscount.text = Fix((Val(xTotalItem.Caption) * Val(xRateDis.text) / 100))
 End Sub
 
 Private Sub XSALES_RET_Change()
@@ -5594,7 +5593,7 @@ If xDoc_No.text <> "" Then
             'xSendRc.Value = IIf(xSendRc.Value = 1, 0, 1)
         End If
     End If
-    con.Execute "UPDATE FILE6_20H SET FILE6_20H.sendRc = " & xSendRc.value & " FROM FILE6_20H WHERE FILE6_20H.DOC_NO = " & MyParn(xDoc_No.text)
+    con.Execute "UPDATE FILE6_20H SET FILE6_20H.sendRc = " & xSendRc.Value & " FROM FILE6_20H WHERE FILE6_20H.DOC_NO = " & MyParn(xDoc_No.text)
     Inform " „ «· ⁄œÌ· »‰Ã«Õ"
 End If
 Finaly:
@@ -5604,7 +5603,7 @@ myerror:
 MsgBox Err.Description
 Err.Clear
 bIgClick = True
-xSendRc.value = IIf(xSendRc.value = 1, 0, 1)
+xSendRc.Value = IIf(xSendRc.Value = 1, 0, 1)
 bIgClick = False
 GoTo Finaly
 End Sub
@@ -5791,7 +5790,7 @@ If Not myreplace Then Exit Function
 con.Execute " update file6_20 set item = item where doc_no = " & MyParn(xDoc_No.text)
     
          
-UpdatePhones xphone.Caption, xphone.Tag, xDate.text, con
+UpdatePhones xPhone.Caption, xPhone.Tag, xDate.text, con
          
 Inform_OK " „ Õ›Ÿ «·„” ‰œ »‰Ã«Õ", " «·»«ﬁÏ " & Format(xRest.Caption, "#0.00")
 
@@ -5817,7 +5816,7 @@ On Error GoTo myerror
 con.Execute "update file6_20h set isnew = 1 ,ISRET = 1, FILE6_20H.PRINTED = 1 , ISCLOSED = 1  WHERE DOC_NO = " & MyParn(xDoc_No.text)
 'con.CommitTrans
 bIg = True
-xPrinted.value = 1
+xPrinted.Value = 1
 bIg = False
 Exit Sub
 myerror:
@@ -5920,7 +5919,7 @@ Do Until loctable.EOF
 Loop
 End With
 
-If xGift.value = 0 Then
+If xGift.Value = 0 Then
     Set loctable = Nothing
     Set loctable = New ADODB.Recordset
     Dim sSql As String
@@ -5938,7 +5937,7 @@ If xGift.value = 0 Then
         temptable!str1 = loctable!DESCA
         temptable!str2 = loctable!doc_visa
         temptable!STR20 = xDoc_No.text
-        temptable!VAL1 = loctable!value
+        temptable!VAL1 = loctable!Value
         temptable!VAL2 = IIf(loctable!with_points, 2, 1)
         temptable!str3 = IIf(loctable!with_points, "Points", "Debit/Credit Card")
         temptable!VAL25 = 1
@@ -5974,7 +5973,7 @@ If (iSubreports <> 0) Then
 End If
 REPORT1.Action = 1
 
-If xGift.value = 1 Then
+If xGift.Value = 1 Then
     REPORT1.ReportFileName = App.Path & "\Reports\sales_cash_G.rpt"
     REPORT1.CopiesToPrinter = 1
     'REPORT1.Destination = crptToWindow
@@ -6063,7 +6062,7 @@ End Sub
 Private Sub xTotal_Change()
 If Not bIg Then
     bIg = True
-    xDiscount.text = Round(Val(xtotalitem.Caption) - Val(xTotal.Caption), 2)
+    xDiscount.text = Round(Val(xTotalItem.Caption) - Val(xTotal.Caption), 2)
     CalcTotals
     bIg = False
 End If
@@ -6637,7 +6636,7 @@ Function TestRet() As Boolean
 End Function
 Private Sub cmd_disc_Click()
 Dim cPassword As String, aUser As Variant
-If xPrinted.value <> 0 Then Exit Sub
+If xPrinted.Value <> 0 Then Exit Sub
 
 Dim oUser As New sub_userfrm
 Set oUser.myForm = Me
@@ -6651,7 +6650,7 @@ If subUserCode <> "" Then
     XUSERNAME_DISC.Caption = subUserName
     
     xNote_disc.Caption = ""
-    xdoc_disc.Caption = ""
+    XDOC_DISC.Caption = ""
 End If
 End Sub
 Private Sub myUndo()
@@ -6842,15 +6841,15 @@ End If
 If nUser = enUser.User Then
     retFilter = retFilter & " AND FILE6_20H.BOX = " & MyParn(cBranchBox)
     retFilter = retFilter & " AND FILE6_20H.PRINTED = 0"
-ElseIf optclosed(1).value Then
+ElseIf optclosed(1).Value Then
     retFilter = retFilter & " AND FILE6_20H.PRINTED = 0"
-ElseIf optclosed(2).value Then
+ElseIf optclosed(2).Value Then
     retFilter = retFilter & " AND FILE6_20H.PRINTED = 1"
 End If
 
-If optType(1).value Then
+If optType(1).Value Then
     retFilter = retFilter & " AND FILE6_20H.IS_RETURN = 0"
-ElseIf optType(2).value Then
+ElseIf optType(2).Value Then
     retFilter = retFilter & " AND FILE6_20H.IS_RETURN = 1"
 End If
 End Function
@@ -6861,11 +6860,11 @@ Private Sub xdoc_ret_LostFocus()
 myLostFocus xdoc_ret
 End Sub
 Private Sub xdate1_GotFocus()
-myGotFocus xdate1
+myGotFocus xDate1
 End Sub
 Private Sub xDate1_LostFocus()
-myLostFocus xdate1
-myValidDate xdate1
+myLostFocus xDate1
+myValidDate xDate1
 End Sub
 Private Sub xTotal_GotFocus()
 myGotFocus xTotal
@@ -7036,7 +7035,7 @@ Private Sub xTotal_LostFocus()
 End Sub
 
 Private Sub xTotalItemDiscount_Change()
-xtotalitem.Visible = Val(xTotalItemDiscount) <> 0
+xTotalItem.Visible = Val(xTotalItemDiscount) <> 0
 lblTotalitem.Visible = Val(xTotalItemDiscount) <> 0
 End Sub
 
@@ -7046,7 +7045,7 @@ lblQuant.ForeColor = IIf(Val(xTotalQuant.Caption) < 0, vbRed, vbBlack)
 End Sub
 
 Private Sub xType_Change()
-xType.Visible = xType.Caption <> ""
+xtype.Visible = xtype.Caption <> ""
 End Sub
 Public Function PayInvoice() As Boolean
 Unload oCash

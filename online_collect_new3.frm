@@ -59,6 +59,7 @@ Begin VB.Form online_collect_newfrm
          TabIndex        =   51
          TabStop         =   0   'False
          Top             =   180
+         Visible         =   0   'False
          Width           =   1950
       End
       Begin VB.TextBox xShip_No_search 
@@ -74,13 +75,13 @@ Begin VB.Form online_collect_newfrm
             Strikethrough   =   0   'False
          EndProperty
          Height          =   330
-         Left            =   6570
+         Left            =   5670
          MaxLength       =   12
          RightToLeft     =   -1  'True
          TabIndex        =   49
          TabStop         =   0   'False
          Top             =   180
-         Width           =   1950
+         Width           =   2850
       End
       Begin VB.Label Label7 
          BackColor       =   &H00FFFFFF&
@@ -99,6 +100,7 @@ Begin VB.Form online_collect_newfrm
          TabIndex        =   52
          Tag             =   "Color"
          Top             =   225
+         Visible         =   0   'False
          Width           =   1050
       End
       Begin VB.Label Label6 
@@ -1863,11 +1865,11 @@ con.RollbackTrans
 End Sub
 Private Sub cmdExcel_Click()
 Me.MousePointer = 11
-Dim aRow As Variant
+Dim arow As Variant
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
 aSub = AddFlag(aSub, "word_wrap", True)
-aRow = AddFlag(aRow, aSub)
+arow = AddFlag(arow, aSub)
 
 For i = 1 To grid1.Rows - 2
     If grid1.TextMatrix(i, 2) = "" Then
@@ -1875,10 +1877,10 @@ For i = 1 To grid1.Rows - 2
         aSub = AddFlag(aSub, "bold", True)
         aSub = AddFlag(aSub, "word_wrap", False)
         aSub = AddFlag(aSub, "back_color", 19)
-        aRow = AddFlag(aRow, aSub)
+        arow = AddFlag(arow, aSub)
     End If
 Next
-ToFileExelNew grid2, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption, "„” ‰œ ÿ·»Ì… —ﬁ„ : " & xDoc_No.text, "» «—ÌŒ : " & xDate.text)
+ToFileExelNew grid2, , , arow, Array(1), 0.9, , , , , , Me, Array(Me.Caption, "„” ‰œ ÿ·»Ì… —ﬁ„ : " & xDoc_No.text, "» «—ÌŒ : " & xDate.text)
 Me.MousePointer = 0
 End Sub
 Private Sub cmdExit_Click()
@@ -2406,7 +2408,7 @@ Private Sub myreplaceGrd(Row As Long)
 Dim aInsert As Variant
 With grid1
     For i = IIf(Row = -1, 1, Row) To IIf(Row = -1, grid1.Rows - 2, Row)
-        If Row = -1 Then prog1.value = Round(i / (.Rows - 1), 2) * 100
+        If Row = -1 Then prog1.Value = Round(i / (.Rows - 1), 2) * 100
         aInsert = AddFlag(Empty, "DOC_NO", addstring(xDoc_No.text))
         aInsert = AddFlag(aInsert, "PAYMENT_ID", addstring(grid1.TextMatrix(i, 0)))
         aInsert = AddFlag(aInsert, "ORDER_NO", addstring(grid1.TextMatrix(i, 1)))
@@ -2722,7 +2724,7 @@ Private Sub myreplaceGrd2(Row As Long)
 Dim aInsert As Variant
 With grid2
     For i = IIf(Row = -1, 1, Row) To IIf(Row = -1, .Rows - 2, Row)
-        If Row = -1 Then prog1.value = Round(i / (.Rows - 1), 2) * 100
+        If Row = -1 Then prog1.Value = Round(i / (.Rows - 1), 2) * 100
         aInsert = AddFlag(Empty, "DOC_NO", addstring(xDoc_No.text))
         aInsert = AddFlag(aInsert, "SHIP_NO", addstring(.TextMatrix(i, 0)))
         aInsert = AddFlag(aInsert, "ORDER_NO", addstring(.TextMatrix(i, 1)))
@@ -2986,9 +2988,8 @@ Private Sub xInvoice_Search_Change()
 SearchGrd grid1, LCase(Trim(xInvoice_Search.text)), 2, False
 End Sub
 Private Sub xShip_No_search_Change()
-SearchGrd grid1, LCase(Trim(xShip_No_search.text)), 1, False
+SearchGrd grid2, LCase(Trim(xShip_No_search.text)), 0, False
 End Sub
-
 Private Sub xYear_GotFocus()
 myGotFocus xYear
 End Sub

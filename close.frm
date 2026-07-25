@@ -215,7 +215,7 @@ Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub Form_Load()
-openCon con
+OpenCon con
 If sFieldClose = "" Then sFieldClose = "[CLOSED]"
 If sFieldDate = "" Then sFieldDate = "[DATE]"
 If nMode = 0 Then
@@ -235,7 +235,7 @@ cmdApply(1).Visible = nMode = 1
 
 cmdApply(0).ToolTipText = IIf(nMode = 0, "≈€·«ﬁ «·„·›« ", "› Õ «·„·›« ")
 Me.Caption = IIf(nMode = 0, "≈€·«ﬁ ", "› Õ ") & "„” ‰œ« " & turn(sCaption, " ", "") & sCaption
-openCon con
+OpenCon con
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
 closeCon con
@@ -256,7 +256,7 @@ myLostFocus xdate2
 End Sub
 
 
-Private Sub xdate1_Validate(Cancel As Boolean)
+Private Sub xDate1_Validate(Cancel As Boolean)
 myValidDate xDate1
 End Sub
 Private Sub xdate2_Validate(Cancel As Boolean)

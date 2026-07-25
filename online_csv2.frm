@@ -550,7 +550,7 @@ Attribute VB_Exposed = False
 Public myForm As Form
 Public con As New ADODB.Connection
 Private Sub CMD_SEND_Click()
-If Not MYVALID Then
+If Not myValid Then
     Exit Sub
 End If
 
@@ -577,21 +577,21 @@ End If
 CMD_SEND.Enabled = True
 Me.MousePointer = vbNormal
 End Sub
-Private Function MYVALID() As Boolean
+Private Function myValid() As Boolean
 Dim i As Long
 With grid1
 For i = 1 To .Rows - 1
-    prog1.Value = Round(i / (.Rows - 1), 2) * 100
+    prog1.value = Round(i / (.Rows - 1), 2) * 100
     Caption = sCaption & " - " & i & " „‰ " & .Rows - 1
     If .TextMatrix(i, 19) = "" And .ValueMatrix(i, 21) = 0 Then
-        MYVALID = True
+        myValid = True
         Exit Function
     End If
 Next
 End With
 MsgBox "·«  ÊÃœ ”Ã·«  ’«·Õ… ·· ÕÊÌ·"
 End Function
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
 Unload Me
 End Sub
 
@@ -609,7 +609,7 @@ Me.MousePointer = vbNormal
 cmdScv.Enabled = True
 End Sub
 Private Sub Form_Load()
-If openCon(con) <> "ok" Then Exit Sub
+If OpenCon(con) <> "ok" Then Exit Sub
 Set grid1.DataSource = data1
 Set grid2.DataSource = DATA2
 Fixgrd
@@ -661,19 +661,19 @@ With grid2
             .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &HC0FFC0
         End If
         
-        If Option1(0).Value Then
+        If Option1(0).value Then
             .RowHidden(i) = False
-        ElseIf Option1(1).Value Then
+        ElseIf Option1(1).value Then
             .RowHidden(i) = .ValueMatrix(i, 7) <> 0
-        ElseIf Option1(2).Value Then
+        ElseIf Option1(2).value Then
             .RowHidden(i) = .TextMatrix(i, 2) <> ""
-        ElseIf Option1(3).Value Then
+        ElseIf Option1(3).value Then
             .RowHidden(i) = .ValueMatrix(i, 7) = 0
-        ElseIf Option1(4).Value Then
+        ElseIf Option1(4).value Then
             .RowHidden(i) = .TextMatrix(i, 6) = ""
-        ElseIf Option1(5).Value Then
+        ElseIf Option1(5).value Then
             .RowHidden(i) = Not (.TextMatrix(i, 2) = "" Or .TextMatrix(i, 6) <> "")
-        ElseIf Option1(6).Value Then
+        ElseIf Option1(6).value Then
             .RowHidden(i) = .TextMatrix(i, 2) = "" Or .TextMatrix(i, 6) <> ""
         End If
     Next
@@ -751,19 +751,19 @@ With grid1
         ElseIf .ValueMatrix(i, 21) <> 0 Then
             .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &H8080FF
         End If
-        If Option1(0).Value Then
+        If Option1(0).value Then
             .RowHidden(i) = False
-        ElseIf Option1(1).Value Then
+        ElseIf Option1(1).value Then
             .RowHidden(i) = .ValueMatrix(i, 20) <> 0
-        ElseIf Option1(2).Value Then
+        ElseIf Option1(2).value Then
             .RowHidden(i) = .ValueMatrix(i, 21) = 0
-        ElseIf Option1(3).Value Then
+        ElseIf Option1(3).value Then
             .RowHidden(i) = .ValueMatrix(i, 20) = 0
-        ElseIf Option1(4).Value Then
+        ElseIf Option1(4).value Then
             .RowHidden(i) = .TextMatrix(i, 19) = ""
-        ElseIf Option1(5).Value Then
+        ElseIf Option1(5).value Then
             .RowHidden(i) = Not (.TextMatrix(i, 19) <> "" Or .ValueMatrix(i, 21) <> 0)
-        ElseIf Option1(6).Value Then
+        ElseIf Option1(6).value Then
             .RowHidden(i) = (.TextMatrix(i, 19) <> "" Or .ValueMatrix(i, 21) <> 0)
         End If
     Next
@@ -804,14 +804,14 @@ If cSv.NumRows < 1 Then Exit Function
 
 Dim Tb As New ChilkatStringBuilder
 Dim cString As New ChilkatStringBuilder
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 
 prog1.Visible = True
 Dim sCaption As String
 sCaption = Me.Caption
 For i = 0 To cSv.NumRows - 1
     Me.Caption = sCaption & " - " & "”Ã· " & (i + 1) & " „‰ " & cSv.NumRows
-    prog1.Value = Round(i / (cSv.NumRows), 2) * 100
+    prog1.value = Round(i / (cSv.NumRows), 2) * 100
     If Trim(cSv.GetCellByName(i, "Name")) <> "" Then
         If Trim(Replace(cSv.GetCellByName(i, "Name"), "#", "")) <> sDoc_no Then
             sDoc_no = Trim(Replace(cSv.GetCellByName(i, "Name"), "#", ""))
@@ -834,10 +834,10 @@ For i = 0 To cSv.NumRows - 1
             Tb.Append addstring(cSv.GetCellByName(i, "Notes")) & " AS Notes_Order,"
             Tb.Append addstring(cSv.GetCellByName(i, "Payment ID")) & " AS Payment_ID,"
             
-            Set loctable = mycmd("select sales_doc,doc_no from file6_90h where doc_no = " & MyParn(sDoc_no), con)
+            Set locTable = mycmd("select sales_doc,doc_no from file6_90h where doc_no = " & MyParn(sDoc_no), con)
             
-            If Not loctable.EOF Then
-                Tb.Append addstring(loctable!sales_Doc) & " AS SALES_DOC,"
+            If Not locTable.EOF Then
+                Tb.Append addstring(locTable!sales_Doc) & " AS SALES_DOC,"
                 Tb.Append "1 AS FOUND,"
             Else
                 Tb.Append "NULL AS SALES_DOC,"
@@ -866,7 +866,7 @@ Tb.Clear
 sDoc_no = ""
 For i = 0 To cSv.NumRows - 1
     Me.Caption = sCaption & " - " & "”Ã· " & (i + 1) & " „‰ " & cSv.NumRows
-    prog1.Value = Round(i / (cSv.NumRows), 2) * 100
+    prog1.value = Round(i / (cSv.NumRows), 2) * 100
     SKU = cSv.GetCellByName(i, "Lineitem sku")
     
     If Trim(Replace(cSv.GetCellByName(i, "Name"), "#", "")) <> "" Then
@@ -881,9 +881,9 @@ For i = 0 To cSv.NumRows - 1
         Tb.Append Val(cSv.GetCellByName(i, "Lineitem price")) & " AS PRICE,"
         Tb.Append Val(cSv.GetCellByName(i, "Lineitem quantity")) & " AS QUANT,"
                 
-        Set loctable = mycmd("select sales_doc,doc_no from file6_90h where doc_no = " & MyParn(sDoc_no), con)
-        If Not loctable.EOF Then
-            Tb.Append addstring(loctable!sales_Doc) & " AS SALES_DOC,"
+        Set locTable = mycmd("select sales_doc,doc_no from file6_90h where doc_no = " & MyParn(sDoc_no), con)
+        If Not locTable.EOF Then
+            Tb.Append addstring(locTable!sales_Doc) & " AS SALES_DOC,"
             Tb.Append "1 AS FOUND"
         Else
             Tb.Append "NULL AS SALES_DOC,"
@@ -907,7 +907,7 @@ Err.Clear
 GoTo Finaly
 End Function
 
-Private Sub Option1_Click(Index As Integer)
+Private Sub Option1_Click(index As Integer)
 Fixgrd2
 Fixgrd
 End Sub
@@ -915,21 +915,21 @@ Private Function myreplace(ByRef nAdd As Long, ByRef nEdit As Long) As Boolean
 Dim i As Long, sCaption As String
 Dim aInsert As Variant
 
-prog1.Value = 0
+prog1.value = 0
 prog1.Visible = True
 sCaption = Me.Caption
 
 con.BeginTrans
-'On Error GoTo myerror
+On Error GoTo myerror
 For i = 1 To grid1.Rows - 1
-    prog1.Value = Round(i / (grid1.Rows - 1), 2) * 100
+    prog1.value = Round(i / (grid1.Rows - 1), 2) * 100
     Me.Caption = sCaption & " - " & i & " „‰ " & grid1.Rows - 1
     If grid1.TextMatrix(i, 19) = "" And grid1.ValueMatrix(i, 21) = 0 Then
         aInsert = AddFlag(Empty, "[DOC_NO]", addstring(grid1.TextMatrix(i, 1)))
         aInsert = AddFlag(aInsert, "[DATE]", addDate(grid1.TextMatrix(i, 2)))
         aInsert = AddFlag(aInsert, "[NAME]", addstring(grid1.TextMatrix(i, 3)))
         aInsert = AddFlag(aInsert, "[PHONE]", addstring(grid1.TextMatrix(i, 4)))
-        aInsert = AddFlag(aInsert, "[E_MAIL]", addstring(grid1.TextMatrix(i, 5)))
+        aInsert = AddFlag(aInsert, "[E_MAIL]", addstring(Mid(Trim(grid1.TextMatrix(i, 5)), 1, 50)))
         aInsert = AddFlag(aInsert, "[SUBTOTAL]", grid1.ValueMatrix(i, 6))
         aInsert = AddFlag(aInsert, "[SHIPPING]", grid1.ValueMatrix(i, 7))
         aInsert = AddFlag(aInsert, "[TOTAL]", grid1.ValueMatrix(i, 8))
@@ -961,12 +961,12 @@ For i = 1 To grid1.Rows - 1
 Next
 
 
-prog1.Value = 0
+prog1.value = 0
 prog1.Visible = True
 
 Dim nFound As Long
 For i = 1 To grid2.Rows - 1
-    prog1.Value = Round(i / (grid2.Rows - 1), 2) * 100
+    prog1.value = Round(i / (grid2.Rows - 1), 2) * 100
     Me.Caption = sCaption & " - " & i & " „‰ " & grid2.Rows - 1
     
     nFound = grid1.FindRow(grid2.TextMatrix(i, 0), , 1)
@@ -1029,7 +1029,7 @@ If cSv.NumRows < 1 Then Exit Function
 
 Dim Tb As New ChilkatStringBuilder
 Dim cString As New ChilkatStringBuilder
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 
 prog1.Visible = True
 Dim sCaption As String
@@ -1040,7 +1040,7 @@ grid2.Rows = 1
 For i = 0 To cSv.NumRows - 1
     Me.Caption = sCaption & " - " & "”Ã· " & (i + 1) & " „‰ " & cSv.NumRows
     
-    prog1.Value = Round(i / (cSv.NumRows), 2) * 100
+    prog1.value = Round(i / (cSv.NumRows), 2) * 100
     
     If Trim(cSv.GetCellByName(i, "Name")) <> "" Then
         If Trim(Replace(cSv.GetCellByName(i, "Name"), "#", "")) <> sDoc_no Then
@@ -1066,10 +1066,10 @@ For i = 0 To cSv.NumRows - 1
             grid1.TextMatrix(grid1.Rows - 1, 17) = cSv.GetCellByName(i, "Notes")
             grid1.TextMatrix(grid1.Rows - 1, 18) = cSv.GetCellByName(i, "Payment ID")
             
-            Set loctable = mycmd("select sales_doc,doc_no from file6_90h where doc_no = " & MyParn(sDoc_no), con)
+            Set locTable = mycmd("select sales_doc,doc_no from file6_90h where doc_no = " & MyParn(sDoc_no), con)
             
-            If Not loctable.EOF Then
-                grid1.TextMatrix(grid1.Rows - 1, 19) = loctable!sales_Doc & ""
+            If Not locTable.EOF Then
+                grid1.TextMatrix(grid1.Rows - 1, 19) = locTable!sales_Doc & ""
                 grid1.TextMatrix(grid1.Rows - 1, 20) = "1"
             End If
             grid1.TextMatrix(grid1.Rows - 1, 21) = "0"
@@ -1088,7 +1088,7 @@ Tb.Clear
 sDoc_no = ""
 For i = 0 To cSv.NumRows - 1
     Me.Caption = sCaption & " - " & "”Ã· " & (i + 1) & " „‰ " & cSv.NumRows
-    prog1.Value = Round(i / (cSv.NumRows), 2) * 100
+    prog1.value = Round(i / (cSv.NumRows), 2) * 100
     SKU = cSv.GetCellByName(i, "Lineitem sku")
     
     If Trim(Replace(cSv.GetCellByName(i, "Name"), "#", "")) <> "" Then
@@ -1104,9 +1104,9 @@ For i = 0 To cSv.NumRows - 1
         grid2.TextMatrix(grid2.Rows - 1, 4) = Val(cSv.GetCellByName(i, "Lineitem price"))
         grid2.TextMatrix(grid2.Rows - 1, 5) = cSv.GetCellByName(i, "Lineitem quantity")
                          
-        Set loctable = mycmd("select sales_doc,doc_no from file6_90h where doc_no = " & MyParn(sDoc_no), con)
-        If Not loctable.EOF Then
-            grid2.TextMatrix(grid2.Rows - 1, 6) = loctable!sales_Doc & ""
+        Set locTable = mycmd("select sales_doc,doc_no from file6_90h where doc_no = " & MyParn(sDoc_no), con)
+        If Not locTable.EOF Then
+            grid2.TextMatrix(grid2.Rows - 1, 6) = locTable!sales_Doc & ""
             grid2.TextMatrix(grid2.Rows - 1, 7) = "1"
         End If
         grid2.ShowCell grid2.Rows - 1, 0

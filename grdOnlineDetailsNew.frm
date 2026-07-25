@@ -1145,7 +1145,7 @@ End Sub
 Private Sub CmdUndo_Click()
     Unload Me
 End Sub
-Private Sub CmdGo_Click()
+Private Sub cmdGo_Click()
 Me.MousePointer = vbHourglass
 grid1.ExplorerBar = flexExSortShow
 grid2.ExplorerBar = flexExSortShow
@@ -1153,7 +1153,7 @@ grid2.ExplorerBar = flexExSortShow
 If SSTab1.Tab = 0 Then
     myload
 ElseIf SSTab1.Tab = 1 Then
-    myload2
+    MYLOAD2
 End If
 Me.MousePointer = vbNormal
 End Sub
@@ -1200,28 +1200,28 @@ End If
 
 If IsDate(xDate1.text) Then
     aPrm = AddFlag(aPrm, "DATE1", addDate(xDate1.text))
-    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
+    aHeader(1) = BetweenString(xDate1.text, xDate2.text)
 End If
 
 If IsDate(xDate1.text) Then
-    aPrm = AddFlag(aPrm, "DATE2", addDate(xdate2.text))
-    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
+    aPrm = AddFlag(aPrm, "DATE2", addDate(xDate2.text))
+    aHeader(1) = BetweenString(xDate1.text, xDate2.text)
 End If
 
-If xtype(1).value Then
+If xtype(1).Value Then
     aPrm = AddFlag(aPrm, "CLOSED", "1")
     aHeader(2) = "ÿ·»Ì«  " & xtype(1).Caption
-ElseIf xtype(2).value Then
+ElseIf xtype(2).Value Then
     aPrm = AddFlag(aPrm, "OPENED", "1")
     aHeader(2) = "ÿ·»Ì«  " & xtype(2).Caption
-ElseIf xtype(3).value Then
+ElseIf xtype(3).Value Then
     aPrm = AddFlag(aPrm, "CANCELED", "1")
     aHeader(2) = "ÿ·»Ì«  " & xtype(3).Caption
 End If
 
-If Trim(xDoc_No.text) <> "" Then
-    aPrm = AddFlag(aPrm, "DOC_NO", addstring(xDoc_No.text))
-    aHeader(3) = "›« Ê—… : " & xDoc_No.text
+If Trim(xdoc_no.text) <> "" Then
+    aPrm = AddFlag(aPrm, "DOC_NO", addstring(xdoc_no.text))
+    aHeader(3) = "›« Ê—… : " & xdoc_no.text
 End If
 
 If Trim(xOrder_No.text) <> "" Then
@@ -1229,9 +1229,9 @@ If Trim(xOrder_No.text) <> "" Then
     aHeader(4) = "ÿ·»Ì… : " & xOrder_No.text
 End If
 
-If Trim(xship_no.text) <> "" Then
-    aPrm = AddFlag(aPrm, "SHIP_NO", addstring(xship_no.text))
-    aHeader(5) = "»Ê·Ì’… ‘Õ‰ : " & xship_no.text
+If Trim(xShip_no.text) <> "" Then
+    aPrm = AddFlag(aPrm, "SHIP_NO", addstring(xShip_no.text))
+    aHeader(5) = "»Ê·Ì’… ‘Õ‰ : " & xShip_no.text
 End If
 
 Dim cString As String
@@ -1583,7 +1583,7 @@ ElseIf grid2.col = 11 Then
     ShowOrdersChargesfrm.sCaption = "≈Ã„«·Ì  Õ’Ì· ÿ·»Ì« "
     ShowOrdersChargesfrm.sDesca = grid2.TextMatrix(0, grid2.col)
     ShowOrdersChargesfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
-    ShowOrdersChargesfrm.sWhere = "(FLAG = 1 OR FLAG = 6)"
+    ShowOrdersChargesfrm.sWhere = "(FLAG = 1 OR FLAG = 3 OR FLAG = 6)"
     ShowOrdersChargesfrm.bIncome = True
     ShowOrdersChargesfrm.Show 1
 ElseIf grid2.col = 12 Then
@@ -1618,11 +1618,11 @@ myLostFocus xDate1
 myValidDate xDate1
 End Sub
 Private Sub xdate2_GotFocus()
-myGotFocus xdate2
+myGotFocus xDate2
 End Sub
 Private Sub xDate2_LostFocus()
-myLostFocus xdate2
-myValidDate xdate2
+myLostFocus xDate2
+myValidDate xDate2
 End Sub
 Private Sub XPO_NO_GotFocus()
 myGotFocus XPO_NO
@@ -1638,8 +1638,8 @@ myLostFocus xCode
 If Not xCode.MatchedWithList Then xCode.BoundText = ""
 End Sub
 Public Sub myProc()
-If ActiveControl.Name = xDoc_No.Name Then
-    xDoc_No.text = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
+If ActiveControl.Name = xdoc_no.Name Then
+    xdoc_no.text = oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
     oSearchDoc.Hide
 End If
 End Sub
@@ -1647,16 +1647,16 @@ Private Sub xdoc_no_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 112 Then SalesOnlineLookup Me, oSearchDoc
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xDoc_No
+myGotFocus xdoc_no
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus xDoc_No
+myLostFocus xdoc_no
 End Sub
 Private Sub xship_no_GotFocus()
-myGotFocus xship_no
+myGotFocus xShip_no
 End Sub
 Private Sub xship_no_LostFocus()
-myLostFocus xship_no
+myLostFocus xShip_no
 End Sub
 Private Sub xOrder_no_GotFocus()
 myGotFocus xOrder_No
@@ -1664,7 +1664,7 @@ End Sub
 Private Sub xOrder_no_LostFocus()
 myLostFocus xOrder_No
 End Sub
-Private Sub myload2(Optional bString As Boolean = False)
+Private Sub MYLOAD2(Optional bString As Boolean = False)
 Dim aPrm As Variant
 ReDim aHeader(5)
 
@@ -1675,28 +1675,28 @@ End If
 
 If IsDate(xDate1.text) Then
     aPrm = AddFlag(aPrm, "DATE1", addDate(xDate1.text))
-    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
+    aHeader(1) = BetweenString(xDate1.text, xDate2.text)
 End If
 
 If IsDate(xDate1.text) Then
-    aPrm = AddFlag(aPrm, "DATE2", addDate(xdate2.text))
-    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
+    aPrm = AddFlag(aPrm, "DATE2", addDate(xDate2.text))
+    aHeader(1) = BetweenString(xDate1.text, xDate2.text)
 End If
 
-If xtype(1).value Then
+If xtype(1).Value Then
     aPrm = AddFlag(aPrm, "CLOSED", "1")
     aHeader(2) = "ÿ·»Ì«  " & xtype(1).Caption
-ElseIf xtype(2).value Then
+ElseIf xtype(2).Value Then
     aPrm = AddFlag(aPrm, "OPENED", "1")
     aHeader(2) = "ÿ·»Ì«  " & xtype(2).Caption
-ElseIf xtype(3).value Then
+ElseIf xtype(3).Value Then
     aPrm = AddFlag(aPrm, "CANCELED", "1")
     aHeader(2) = "ÿ·»Ì«  " & xtype(3).Caption
 End If
 
-If Trim(xDoc_No.text) <> "" Then
-    aPrm = AddFlag(aPrm, "DOC_NO", addstring(xDoc_No.text))
-    aHeader(3) = "›« Ê—… : " & xDoc_No.text
+If Trim(xdoc_no.text) <> "" Then
+    aPrm = AddFlag(aPrm, "DOC_NO", addstring(xdoc_no.text))
+    aHeader(3) = "›« Ê—… : " & xdoc_no.text
 End If
 
 If Trim(xOrder_No.text) <> "" Then
@@ -1704,9 +1704,9 @@ If Trim(xOrder_No.text) <> "" Then
     aHeader(4) = "ÿ·»Ì… : " & xOrder_No.text
 End If
 
-If Trim(xship_no.text) <> "" Then
-    aPrm = AddFlag(aPrm, "SHIP_NO", addstring(xship_no.text))
-    aHeader(5) = "»Ê·Ì’… ‘Õ‰ : " & xship_no.text
+If Trim(xShip_no.text) <> "" Then
+    aPrm = AddFlag(aPrm, "SHIP_NO", addstring(xShip_no.text))
+    aHeader(5) = "»Ê·Ì’… ‘Õ‰ : " & xShip_no.text
 End If
 
 Dim cString As String

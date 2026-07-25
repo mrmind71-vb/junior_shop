@@ -34,13 +34,13 @@ Begin VB.Form orders_online_items
       Height          =   735
       Left            =   1710
       RightToLeft     =   -1  'True
-      TabIndex        =   49
+      TabIndex        =   50
       Top             =   135
       Width           =   2985
       Begin Threed.SSCommand cmdOnlineShipCash 
          Height          =   510
          Left            =   45
-         TabIndex        =   50
+         TabIndex        =   51
          Top             =   180
          Width           =   2895
          _ExtentX        =   5106
@@ -74,13 +74,13 @@ Begin VB.Form orders_online_items
       Height          =   780
       Left            =   135
       RightToLeft     =   -1  'True
-      TabIndex        =   42
+      TabIndex        =   45
       Top             =   7920
       Width           =   4290
       Begin Threed.SSCommand cmdEdit 
          Height          =   555
          Left            =   1440
-         TabIndex        =   43
+         TabIndex        =   46
          Top             =   180
          Width           =   1410
          _ExtentX        =   2487
@@ -107,7 +107,7 @@ Begin VB.Form orders_online_items
       Begin Threed.SSCommand cmdMsg 
          Height          =   555
          Left            =   2880
-         TabIndex        =   44
+         TabIndex        =   47
          Top             =   180
          Width           =   1365
          _ExtentX        =   2408
@@ -134,7 +134,7 @@ Begin VB.Form orders_online_items
       Begin Threed.SSCommand cmdError 
          Height          =   555
          Left            =   45
-         TabIndex        =   48
+         TabIndex        =   49
          Top             =   180
          Width           =   1365
          _ExtentX        =   2408
@@ -166,13 +166,13 @@ Begin VB.Form orders_online_items
       Height          =   1230
       Left            =   1665
       RightToLeft     =   -1  'True
-      TabIndex        =   29
+      TabIndex        =   32
       Top             =   810
       Width           =   1635
       Begin Threed.SSCommand cmdExit 
          Height          =   1005
          Left            =   45
-         TabIndex        =   12
+         TabIndex        =   15
          TabStop         =   0   'False
          Top             =   180
          Width           =   1545
@@ -214,13 +214,13 @@ Begin VB.Form orders_online_items
       Index           =   4
       Left            =   3330
       RightToLeft     =   -1  'True
-      TabIndex        =   27
+      TabIndex        =   30
       Top             =   855
       Width           =   1365
       Begin Threed.SSCommand cmdSave 
          Height          =   465
          Left            =   45
-         TabIndex        =   10
+         TabIndex        =   13
          Top             =   135
          Width           =   1275
          _ExtentX        =   2249
@@ -251,7 +251,7 @@ Begin VB.Form orders_online_items
       Begin Threed.SSCommand cmdUndo 
          Height          =   510
          Left            =   45
-         TabIndex        =   11
+         TabIndex        =   14
          TabStop         =   0   'False
          Top             =   630
          Width           =   1275
@@ -282,11 +282,11 @@ Begin VB.Form orders_online_items
    End
    Begin VB.Frame Frame2 
       BackColor       =   &H00FFFFFF&
-      Height          =   1185
+      Height          =   1050
       Left            =   4725
       RightToLeft     =   -1  'True
-      TabIndex        =   23
-      Top             =   855
+      TabIndex        =   26
+      Top             =   990
       Width           =   6585
       Begin VB.TextBox xNotes 
          Alignment       =   1  'Right Justify
@@ -294,8 +294,8 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   135
          RightToLeft     =   -1  'True
-         TabIndex        =   6
-         Top             =   675
+         TabIndex        =   9
+         Top             =   630
          Width           =   5190
       End
       Begin VB.TextBox xDelOrder_Date 
@@ -305,16 +305,16 @@ Begin VB.Form orders_online_items
          Left            =   4005
          MaxLength       =   10
          RightToLeft     =   -1  'True
-         TabIndex        =   4
-         Top             =   270
+         TabIndex        =   7
+         Top             =   225
          Width           =   1320
       End
       Begin Threed.SSCommand cmdDelCancel 
          Height          =   330
          Left            =   2340
-         TabIndex        =   5
+         TabIndex        =   8
          TabStop         =   0   'False
-         Top             =   270
+         Top             =   225
          Width           =   1635
          _ExtentX        =   2884
          _ExtentY        =   582
@@ -344,8 +344,8 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   5445
          RightToLeft     =   -1  'True
-         TabIndex        =   25
-         Top             =   720
+         TabIndex        =   28
+         Top             =   675
          Width           =   960
       End
       Begin VB.Label Label6 
@@ -354,8 +354,8 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   5445
          RightToLeft     =   -1  'True
-         TabIndex        =   24
-         Top             =   315
+         TabIndex        =   27
+         Top             =   270
          Width           =   1005
       End
    End
@@ -373,7 +373,7 @@ Begin VB.Form orders_online_items
       Height          =   2040
       Left            =   11340
       RightToLeft     =   -1  'True
-      TabIndex        =   17
+      TabIndex        =   20
       Top             =   0
       Width           =   8970
       Begin VB.TextBox xphone 
@@ -428,7 +428,7 @@ Begin VB.Form orders_online_items
          ForeColor       =   &H00000000&
          Height          =   330
          Left            =   1395
-         TabIndex        =   41
+         TabIndex        =   44
          Top             =   540
          Width           =   1455
       End
@@ -438,7 +438,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   2925
          RightToLeft     =   -1  'True
-         TabIndex        =   40
+         TabIndex        =   43
          Top             =   585
          Width           =   690
       End
@@ -449,7 +449,7 @@ Begin VB.Form orders_online_items
          ForeColor       =   &H00000000&
          Height          =   330
          Left            =   3690
-         TabIndex        =   33
+         TabIndex        =   36
          Top             =   180
          Width           =   1275
       End
@@ -459,7 +459,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   7830
          RightToLeft     =   -1  'True
-         TabIndex        =   32
+         TabIndex        =   35
          Top             =   225
          Width           =   870
       End
@@ -470,7 +470,7 @@ Begin VB.Form orders_online_items
          ForeColor       =   &H00000000&
          Height          =   330
          Left            =   6300
-         TabIndex        =   31
+         TabIndex        =   34
          Top             =   180
          Width           =   1455
       End
@@ -480,7 +480,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   2925
          RightToLeft     =   -1  'True
-         TabIndex        =   22
+         TabIndex        =   25
          Top             =   900
          Width           =   645
       End
@@ -490,7 +490,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   7875
          RightToLeft     =   -1  'True
-         TabIndex        =   21
+         TabIndex        =   24
          Top             =   945
          Width           =   645
       End
@@ -500,7 +500,7 @@ Begin VB.Form orders_online_items
          Height          =   285
          Left            =   5040
          RightToLeft     =   -1  'True
-         TabIndex        =   20
+         TabIndex        =   23
          Top             =   225
          Width           =   1095
       End
@@ -510,7 +510,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   7830
          RightToLeft     =   -1  'True
-         TabIndex        =   19
+         TabIndex        =   22
          Top             =   1305
          Width           =   645
       End
@@ -520,7 +520,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   7875
          RightToLeft     =   -1  'True
-         TabIndex        =   18
+         TabIndex        =   21
          Top             =   540
          Width           =   645
       End
@@ -576,7 +576,7 @@ Begin VB.Form orders_online_items
       Align           =   2  'Align Bottom
       Height          =   375
       Left            =   0
-      TabIndex        =   13
+      TabIndex        =   16
       Top             =   9840
       Width           =   20400
       _ExtentX        =   35983
@@ -598,7 +598,7 @@ Begin VB.Form orders_online_items
          Height          =   270
          Index           =   0
          Left            =   0
-         TabIndex        =   14
+         TabIndex        =   17
          Top             =   45
          Width           =   3195
          _ExtentX        =   5636
@@ -622,7 +622,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Index           =   1
          Left            =   3240
-         TabIndex        =   15
+         TabIndex        =   18
          Top             =   45
          Width           =   3855
          _ExtentX        =   6800
@@ -646,7 +646,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Index           =   2
          Left            =   7110
-         TabIndex        =   16
+         TabIndex        =   19
          Top             =   45
          Width           =   4365
          _ExtentX        =   7699
@@ -670,7 +670,7 @@ Begin VB.Form orders_online_items
    Begin VSFlex7Ctl.VSFlexGrid grdError 
       Height          =   2805
       Left            =   4500
-      TabIndex        =   8
+      TabIndex        =   11
       TabStop         =   0   'False
       Top             =   6840
       Width           =   15810
@@ -764,31 +764,38 @@ Begin VB.Form orders_online_items
    End
    Begin VB.Frame Frame3 
       BackColor       =   &H00FFFFFF&
-      Height          =   690
+      Height          =   1050
       Left            =   4725
       RightToLeft     =   -1  'True
-      TabIndex        =   26
-      Top             =   90
+      TabIndex        =   29
+      Top             =   -45
       Width           =   6585
+      Begin VB.TextBox xPayment_Method 
+         Appearance      =   0  'Flat
+         Height          =   330
+         Left            =   675
+         TabIndex        =   5
+         Top             =   585
+         Width           =   4605
+      End
       Begin VB.TextBox xPayment_id 
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
          Height          =   330
          Left            =   675
-         RightToLeft     =   -1  'True
-         TabIndex        =   45
+         TabIndex        =   4
          Top             =   225
-         Width           =   4650
+         Width           =   4605
       End
       Begin Threed.SSCommand cmdSavePayment 
-         Height          =   330
+         Height          =   690
          Left            =   90
-         TabIndex        =   46
+         TabIndex        =   6
          TabStop         =   0   'False
          Top             =   225
          Width           =   555
          _ExtentX        =   979
-         _ExtentY        =   582
+         _ExtentY        =   1217
          _Version        =   196610
          CaptionStyle    =   1
          ForeColor       =   0
@@ -809,13 +816,23 @@ Begin VB.Form orders_online_items
          BevelWidth      =   0
          ShapeSize       =   1
       End
+      Begin VB.Label Label8 
+         BackColor       =   &H00FFFFFF&
+         Caption         =   "ÿ—Ìﬁ… «·”œ«œ"
+         Height          =   330
+         Left            =   5400
+         RightToLeft     =   -1  'True
+         TabIndex        =   52
+         Top             =   630
+         Width           =   1050
+      End
       Begin VB.Label Label14 
          BackColor       =   &H00FFFFFF&
          Caption         =   "—ﬁ„ ”œ«œ"
          Height          =   330
          Left            =   5490
          RightToLeft     =   -1  'True
-         TabIndex        =   47
+         TabIndex        =   48
          Top             =   270
          Width           =   825
       End
@@ -823,7 +840,7 @@ Begin VB.Form orders_online_items
    Begin VSFlex7Ctl.VSFlexGrid grid1 
       Height          =   4740
       Left            =   180
-      TabIndex        =   7
+      TabIndex        =   10
       TabStop         =   0   'False
       Top             =   2070
       Width           =   20130
@@ -922,7 +939,7 @@ Begin VB.Form orders_online_items
       Height          =   1095
       Left            =   135
       RightToLeft     =   -1  'True
-      TabIndex        =   34
+      TabIndex        =   37
       Top             =   6795
       Width           =   4335
       Begin VB.CheckBox xClosed 
@@ -934,7 +951,7 @@ Begin VB.Form orders_online_items
          Height          =   285
          Left            =   135
          RightToLeft     =   -1  'True
-         TabIndex        =   39
+         TabIndex        =   42
          Top             =   675
          Width           =   780
       End
@@ -945,7 +962,7 @@ Begin VB.Form orders_online_items
          ForeColor       =   &H00000000&
          Height          =   330
          Left            =   1125
-         TabIndex        =   38
+         TabIndex        =   41
          Top             =   270
          Width           =   1770
       End
@@ -955,7 +972,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   2970
          RightToLeft     =   -1  'True
-         TabIndex        =   37
+         TabIndex        =   40
          Top             =   315
          Width           =   1320
       End
@@ -966,7 +983,7 @@ Begin VB.Form orders_online_items
          ForeColor       =   &H00000000&
          Height          =   330
          Left            =   1125
-         TabIndex        =   36
+         TabIndex        =   39
          Top             =   630
          Width           =   1770
       End
@@ -976,7 +993,7 @@ Begin VB.Form orders_online_items
          Height          =   285
          Left            =   2970
          RightToLeft     =   -1  'True
-         TabIndex        =   35
+         TabIndex        =   38
          Top             =   675
          Width           =   1320
       End
@@ -988,13 +1005,13 @@ Begin VB.Form orders_online_items
       Height          =   870
       Left            =   90
       RightToLeft     =   -1  'True
-      TabIndex        =   30
+      TabIndex        =   33
       Top             =   8775
       Width           =   4335
       Begin Threed.SSCommand cmdAddInvoice 
          Height          =   555
          Left            =   45
-         TabIndex        =   9
+         TabIndex        =   12
          Top             =   225
          Width           =   4200
          _ExtentX        =   7408
@@ -1035,7 +1052,7 @@ Begin VB.Form orders_online_items
       Height          =   285
       Left            =   -495
       RightToLeft     =   -1  'True
-      TabIndex        =   28
+      TabIndex        =   31
       Top             =   180
       Visible         =   0   'False
       Width           =   1185
@@ -1124,7 +1141,7 @@ If MsgBox(" „ «· ⁄œÌ·", vbDefaultButton2 + vbOKCancel) Then
     myload
     myloadGrdError
     myLoadCount
-    cmdEdit.Enabled = xStage.Tag = "6"
+    cmdEdit.Enabled = xstage.Tag = "6"
         
     Inform_OK " „ «· ⁄œÌ·"
 Finally:
@@ -1169,7 +1186,7 @@ End If
 dbm.closeCon
 End Sub
 
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub CmdInform_Click()
@@ -1196,12 +1213,13 @@ End Sub
 Private Function myreplace() As Boolean
 Dim aInsert As Variant
 aInsert = AddFlag(aInsert, "[NAME]", addstring(xName.text))
-aInsert = AddFlag(aInsert, "[PHONE]", addstring(xPhone.text))
+aInsert = AddFlag(aInsert, "[PHONE]", addstring(xphone.text))
 aInsert = AddFlag(aInsert, "[CITY]", addstring(xcity.text))
 aInsert = AddFlag(aInsert, "[street]", addstring(xStreet.text))
 'aInsert = AddFlag(aInsert, "[NOTE_MAIN]", addstring(xNote_main.text))
 aInsert = AddFlag(aInsert, "[DELORDER_DATE]", addDate(xDelOrder_Date.text))
 aInsert = AddFlag(aInsert, "[PAYMENT_ID]", addstring(xPayment_id.text))
+aInsert = AddFlag(aInsert, "[PAYMENT_METHOD]", addstring(xPayment_Method.text))
 aInsert = AddFlag(aInsert, "[NOTES]", addstring(xNotes.text))
 On Error GoTo myerror
 If opencn(con) Then
@@ -1248,7 +1266,7 @@ Dim aInsert As Variant
 aInsert = AddFlag(Empty, "DESCA", addstring(sMsg))
 aInsert = AddFlag(aInsert, "USERNAME", addstring(cUserName))
 aInsert = AddFlag(aInsert, "ORDER_NO", addstring(xdoc_no.Caption))
-aInsert = AddFlag(aInsert, "STAGE", addvalue(xStage.Tag))
+aInsert = AddFlag(aInsert, "STAGE", addvalue(xstage.Tag))
 aInsert = AddFlag(aInsert, "[TIME]", "getdate()")
 On Error GoTo myerror
 nAffrect = rsEx(addInsert(aInsert, "FILE6_90_MSG"))
@@ -1261,15 +1279,14 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Private Sub cmdSavePayment_Click()
-If dbm.OpenCon Then
-    If Trim(xPayment_id.text) <> "" Then
-        If dbm.Execute("update file6_90H SET PAYMENT_ID = " & addstring(xPayment_id.text) & _
-                       " WHERE DOC_NO = " & MyParn(xdoc_no.Caption)) Then
-            Inform " „ Õ›Ÿ —ﬁ„ «·”œ«œ »‰Ã«Õ"
-        End If
-    End If
-    dbm.closeCon
+Dim db As New clsDb
+If db.Execute("update file6_90H " & _
+              "SET PAYMENT_ID  = " & addstring(xPayment_id.text) & "," & _
+              " PAYMENT_METHOD  = " & addstring(xPayment_Method.text) & _
+              " WHERE DOC_NO = " & MyParn(xdoc_no.Caption)) > -1 Then
+    Inform " „ Õ›Ÿ —ﬁ„ «·”œ«œ »‰Ã«Õ"
 End If
+Set db = Nothing
 End Sub
 
 Private Sub Form_KeyPress(KeyAscii As Integer)
@@ -1289,8 +1306,8 @@ Private Sub Form_Load()
 myload
 myloadGrdError
 myLoadCount
-cmdEdit.Enabled = xStage.Tag = "6"
-cmdError.Enabled = xStage.Tag = "6"
+cmdEdit.Enabled = xstage.Tag = "6"
+cmdError.Enabled = xstage.Tag = "6"
 End Sub
 Public Sub myload()
 myLoadHeader
@@ -1307,18 +1324,19 @@ Set locTable = myRs("SELECT f.*," & _
                     " WHERE DOC_NO = " & MyParn(sDoc_no))
 If Not locTable.EOF Then
     xdoc_no.Caption = sDoc_no
-    xDate.Caption = myFormat_p(locTable!Date)
+    xdate.Caption = myFormat_p(locTable!Date)
     xName.text = locTable!Name & ""
     xonline_doc.Caption = locTable!sales_Doc & ""
-    xPhone.text = locTable!phone & ""
+    xphone.text = locTable!Phone & ""
     xcity.text = locTable!city & ""
     xStreet.text = locTable!Street & ""
-    xStage.Caption = locTable!stage_Desca & ""
-    xStage.Tag = locTable!Stage & ""
+    xstage.Caption = locTable!stage_Desca & ""
+    xstage.Tag = locTable!Stage & ""
     xSales_date.Caption = myFormat_p(locTable!sales_date)
     'xship_date.text = myFormat_p(loctable!ship_date)
     xNotes.text = locTable!NOTES & ""
     xPayment_id.text = locTable!PAYMENT_ID & ""
+    xPayment_Method.text = locTable!PAYMENT_Method & ""
 '    xNote_branch.text = loctable!note_branch & ""
     'xNote_main.text = loctable!note_main & ""
     xDelOrder_Date.text = myFormat_p(locTable!delorder_date)
@@ -1452,10 +1470,10 @@ myLostFocus xDelOrder_Date
 myValidDate xDelOrder_Date
 End Sub
 Private Sub xPhone_GotFocus()
-myGotFocus xPhone
+myGotFocus xphone
 End Sub
 Private Sub XPHONE_LostFocus()
-myLostFocus xPhone
+myLostFocus xphone
 End Sub
 Private Sub xcity_GotFocus()
 myGotFocus xcity

@@ -448,7 +448,6 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim Generalarray, listarray, GrdArray
-Dim dbm As New DBManager
 Public nMax_records As Long
 Public aMerge As Variant
 Public sCaption As String, aFormat As Variant, bNoEsc As Boolean, aAddRow As Variant
@@ -458,7 +457,7 @@ Public aFilter As Variant, aPar As Variant, bNoRef As Boolean, bUnload  As Boole
 Dim bAct As Boolean, cString As String
 Dim bEnterwork As Boolean
 Public sControl As String, bGo As Boolean, bEnter As Boolean
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub cmbLookup_Change(index As Integer)
@@ -478,7 +477,7 @@ Private Sub cmdFilter_MouseEnter(ByVal Button As Integer, ByVal Shift As Integer
 cmdFilter.SetFocus
 End Sub
 Private Sub txtlookup_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
-If (KeyCode = 13 Or KeyCode = 40 Or KeyCode = 38) And (bEnterwork Or xEnter.Value = 1 Or KeyCode = 40 Or KeyCode = 38) Then
+If (KeyCode = 13 Or KeyCode = 40 Or KeyCode = 38) And (bEnterwork Or xEnter.value = 1 Or KeyCode = 40 Or KeyCode = 38) Then
     KeyCode = 0
     csource = Ado1.RecordSource
     If bEnter Then myLoadGrd
@@ -604,8 +603,8 @@ LoadControls
 
 SetValue
 xEnter.Visible = Not bEnter
-xEnter.Value = IIf(retFlag(aValue, "enter") Or bEnter, 1, 0)
-xBegin.Value = IIf(retFlag(aValue, "begin"), 1, 0)
+xEnter.value = IIf(retFlag(aValue, "enter") Or bEnter, 1, 0)
+xBegin.value = IIf(retFlag(aValue, "begin"), 1, 0)
 
 If nFontSize <> 0 Then grid1.Font.Size = nFontSize
 If UBound(Generalarray) = 3 Then
@@ -632,12 +631,11 @@ Private Sub Form_Unload(Cancel As Integer)
 '        End If
 '    End If
 'Next
-Set dbm = Nothing
 If sid <> "" Then
     addSetting "left", Me.Left, TempSave(Me, sid)
     addSetting "top", Me.Top, TempSave(Me, sid)
 End If
-Set Search_abd = Nothing
+Set Search_rs = Nothing
 End Sub
 Private Sub grid1_DblClick()
 If grid1.Row > 0 Then
@@ -654,7 +652,7 @@ Private Sub grid1_GotFocus()
 End Sub
 Sub myLoadGrd()
 Dim cString As String, nRow As Long
-On Error GoTo myError
+On Error GoTo myerror
 cString = Generalarray(1)
 
 If Val(xRecords.text) <> 0 Then
@@ -686,10 +684,9 @@ For i = 0 To UBound(listarray)
 Next
 cString = cString & Space(1) & Generalarray(2)
 
-If dbm.OpenCon Then
-    Set grid1.DataSource = dbm.myRs(cString)
-    dbm.closeCon
-End If
+Dim db As New clsDb
+Set grid1.DataSource = db.myRs(cString)
+Set db = Nothing
 
 Fixgrd
 chkRecords
@@ -705,10 +702,9 @@ If grid1.Rows > 1 Then
     grid1.ShowCell grid1.Row, grid1.col
 End If
 Exit Sub
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
-dbm.closeCon
 End Sub
 Private Sub Handlecontrols()
 End Sub
@@ -736,6 +732,7 @@ End Sub
 Private Sub LoadControls()
 nVSpace = 420
 nFrame = Frame2.Height
+Dim db As New clsDb
 For i = 0 To UBound(listarray)
     nRow = nRow + 1
     Frame2.Height = nFrame + (nVSpace * (nRow - 1))
@@ -753,10 +750,8 @@ For i = 0 To UBound(listarray)
         cmbLookup(nRow).Visible = True
         cmbLookup(nRow).Top = cmbLookup(0).Top + (nVSpace * (nRow - 1))
         
-        On Error GoTo myError
-        If dbm.OpenCon Then
-            Set cmbLookup(nRow).RowSource = dbm.myRs(listarray(i, 2) & "")
-        End If
+        On Error GoTo myerror
+        Set cmbLookup(nRow).RowSource = db.myRs(listarray(i, 2) & "")
         cmbLookup(nRow).BoundColumn = listarray(i, 3)
         cmbLookup(nRow).ListField = listarray(i, 4)
         If mySplit(listarray(i, 5), 1, ":") = "last_clicked" Then
@@ -786,11 +781,13 @@ For i = 1 To Label1.Count - 1
     Label1(i).Top = Label1(i).Top
     Label1(i).Visible = True
 Next
+cleanup:
+Set db = Nothing
 Exit Sub
-myError:
-dbm.closeCon
+myerror:
 MsgBox Err.Description
 Err.Clear
+GoTo cleanup
 End Sub
 Private Sub grid1_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 13 And bEnterwork Then
@@ -809,7 +806,7 @@ End If
 End Sub
 
 Private Sub txtlookup_Change(index As Integer)
-If xEnter.Value = 0 Then myLoadGrd
+If xEnter.value = 0 Then myLoadGrd
 txtlookup(index).Tag = txtlookup(index).text
 End Sub
 Private Sub txtlookup_GotFocus(index As Integer)
@@ -829,7 +826,7 @@ Private Function FixMulti(ByVal cString, cSearch) As String
 Dim nFound As Long, nFound2 As Long, aString As Variant, cField As String
 FixMulti = cString
 For i = 1 To Len(FixMulti)
-    If xBegin.Value = 0 Then
+    If xBegin.value = 0 Then
         nFound = InStr(1, FixMulti, "%%")
         If nFound = 0 Then Exit Function
         nFound2 = InStr(nFound + 3, FixMulti, "%%")
@@ -934,16 +931,16 @@ Private Sub xEnd_Click()
 End Sub
 
 Private Sub xEnter_Click()
-bEnter = xEnter.Value = 1
+bEnter = xEnter.value = 1
 End Sub
 
 Private Sub xEnter_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
 cField = "search_enter:" & Generalarray(0).Name
-addSetting cField, IIf(xEnter.Value = 1, "TRUE", "FALSE"), TempSave(Generalarray(0), sid)
+addSetting cField, IIf(xEnter.value = 1, "TRUE", "FALSE"), TempSave(Generalarray(0), sid)
 End Sub
 Private Sub xBegin_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
 cField = "search_begin:" & Generalarray(0).Name
-addSetting cField, IIf(xBegin.Value = 1, "TRUE", "FALSE"), TempSave(Generalarray(0), sid)
+addSetting cField, IIf(xBegin.value = 1, "TRUE", "FALSE"), TempSave(Generalarray(0), sid)
 End Sub
 Private Sub LoadArrays()
 Generalarray = searchArray(0)

@@ -1245,10 +1245,8 @@ Private Sub Check1_Click()
 End Sub
 
 Private Sub cmd_excel_Click()
-    ToFileExel2 grid1, , , , , 1.1, , , , , , Me
-
+ToFileExel2 grid1, , , , , 1.1, , , , , , Me
 End Sub
-
 Private Sub CMD_PRINT_Click()
     Dim cHead1 As String
     Dim cHead2 As String

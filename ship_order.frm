@@ -2,6 +2,7 @@ VERSION 5.00
 Object = "{D76D7128-4A96-11D3-BD95-D296DC2DD072}#1.0#0"; "Vsflex7.ocx"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
+Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "COMCTL32.OCX"
 Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
 Begin VB.Form online_ship_order 
    BackColor       =   &H00FFFFFF&
@@ -29,13 +30,50 @@ Begin VB.Form online_ship_order
    WhatsThisButton =   -1  'True
    WhatsThisHelp   =   -1  'True
    WindowState     =   2  'Maximized
+   Begin VB.Frame Frame4 
+      BackColor       =   &H00FFFFFF&
+      Height          =   780
+      Left            =   7245
+      RightToLeft     =   -1  'True
+      TabIndex        =   33
+      Top             =   855
+      Width           =   2445
+      Begin Threed.SSCommand cmdCSV 
+         Height          =   555
+         Left            =   90
+         TabIndex        =   34
+         Top             =   180
+         Width           =   2310
+         _ExtentX        =   4075
+         _ExtentY        =   979
+         _Version        =   196610
+         CaptionStyle    =   1
+         BackColor       =   16777215
+         PictureFrames   =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Picture         =   "ship_order.frx":0000
+         Caption         =   "„—«Ã⁄… »Ê«·’ «·‘Õ‰"
+         TagVariant      =   "«Œ «— «·„ﬁ«Ê·"
+         Alignment       =   1
+         ButtonStyle     =   3
+         PictureAlignment=   9
+      End
+   End
    Begin VSFlex7Ctl.VSFlexGrid grid1 
       Height          =   6630
-      Left            =   180
-      TabIndex        =   4
+      Left            =   45
+      TabIndex        =   6
       Top             =   1665
-      Width           =   20130
-      _cx             =   35507
+      Width           =   20265
+      _cx             =   35745
       _cy             =   11695
       _ConvInfo       =   1
       Appearance      =   0
@@ -74,7 +112,7 @@ Begin VB.Form online_ship_order
       GridLinesFixed  =   1
       GridLineWidth   =   1
       Rows            =   1
-      Cols            =   8
+      Cols            =   14
       FixedRows       =   1
       FixedCols       =   1
       RowHeightMin    =   0
@@ -125,11 +163,11 @@ Begin VB.Form online_ship_order
    End
    Begin VB.Frame fmClose 
       BackColor       =   &H00FFFFFF&
-      Height          =   735
-      Left            =   6795
+      Height          =   780
+      Left            =   4320
       RightToLeft     =   -1  'True
-      TabIndex        =   25
-      Top             =   900
+      TabIndex        =   27
+      Top             =   855
       Width           =   2895
       Begin VB.CheckBox xClosed 
          Alignment       =   1  'Right Justify
@@ -140,18 +178,18 @@ Begin VB.Form online_ship_order
          Height          =   375
          Left            =   1485
          RightToLeft     =   -1  'True
-         TabIndex        =   26
+         TabIndex        =   28
          Top             =   270
          Width           =   1230
       End
       Begin Threed.SSCommand cmdClosePeriod 
-         Height          =   420
+         Height          =   465
          Left            =   90
-         TabIndex        =   27
+         TabIndex        =   29
          Top             =   225
          Width           =   1095
          _ExtentX        =   1931
-         _ExtentY        =   741
+         _ExtentY        =   820
          _Version        =   196610
          ForeColor       =   0
          BackColor       =   16777215
@@ -185,70 +223,12 @@ Begin VB.Form online_ship_order
       Height          =   600
       Left            =   180
       RightToLeft     =   -1  'True
-      TabIndex        =   20
+      TabIndex        =   22
       Top             =   8280
       Width           =   3570
       Begin Threed.SSCommand cmdFirst 
          Height          =   420
          Left            =   2700
-         TabIndex        =   21
-         TabStop         =   0   'False
-         Top             =   135
-         Width           =   825
-         _ExtentX        =   1455
-         _ExtentY        =   741
-         _Version        =   196610
-         BackColor       =   16777215
-         PictureFrames   =   1
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Picture         =   "ship_order.frx":0000
-         Caption         =   "√Ê·"
-         ButtonStyle     =   3
-         PictureAlignment=   10
-         BevelWidth      =   0
-         PictureDisabledFrames=   1
-         PictureDisabled =   "ship_order.frx":21A7
-      End
-      Begin Threed.SSCommand cmdPrevious 
-         Height          =   420
-         Left            =   1800
-         TabIndex        =   22
-         TabStop         =   0   'False
-         Top             =   135
-         Width           =   870
-         _ExtentX        =   1535
-         _ExtentY        =   741
-         _Version        =   196610
-         BackColor       =   16777215
-         PictureFrames   =   1
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Picture         =   "ship_order.frx":41EE
-         Caption         =   "”«»ﬁ"
-         ButtonStyle     =   3
-         PictureAlignment=   10
-         BevelWidth      =   0
-         PictureDisabledFrames=   1
-         PictureDisabled =   "ship_order.frx":62D9
-      End
-      Begin Threed.SSCommand cmdNext 
-         Height          =   420
-         Left            =   945
          TabIndex        =   23
          TabStop         =   0   'False
          Top             =   135
@@ -267,17 +247,17 @@ Begin VB.Form online_ship_order
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "ship_order.frx":82D3
-         Caption         =   "·«Õﬁ"
+         Picture         =   "ship_order.frx":25D3
+         Caption         =   "√Ê·"
          ButtonStyle     =   3
-         PictureAlignment=   9
+         PictureAlignment=   10
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "ship_order.frx":A3E4
+         PictureDisabled =   "ship_order.frx":477A
       End
-      Begin Threed.SSCommand cmdLast 
+      Begin Threed.SSCommand cmdPrevious 
          Height          =   420
-         Left            =   45
+         Left            =   1800
          TabIndex        =   24
          TabStop         =   0   'False
          Top             =   135
@@ -296,13 +276,71 @@ Begin VB.Form online_ship_order
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "ship_order.frx":C3DE
+         Picture         =   "ship_order.frx":67C1
+         Caption         =   "”«»ﬁ"
+         ButtonStyle     =   3
+         PictureAlignment=   10
+         BevelWidth      =   0
+         PictureDisabledFrames=   1
+         PictureDisabled =   "ship_order.frx":88AC
+      End
+      Begin Threed.SSCommand cmdNext 
+         Height          =   420
+         Left            =   945
+         TabIndex        =   25
+         TabStop         =   0   'False
+         Top             =   135
+         Width           =   825
+         _ExtentX        =   1455
+         _ExtentY        =   741
+         _Version        =   196610
+         BackColor       =   16777215
+         PictureFrames   =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Picture         =   "ship_order.frx":A8A6
+         Caption         =   "·«Õﬁ"
+         ButtonStyle     =   3
+         PictureAlignment=   9
+         BevelWidth      =   0
+         PictureDisabledFrames=   1
+         PictureDisabled =   "ship_order.frx":C9B7
+      End
+      Begin Threed.SSCommand cmdLast 
+         Height          =   420
+         Left            =   45
+         TabIndex        =   26
+         TabStop         =   0   'False
+         Top             =   135
+         Width           =   870
+         _ExtentX        =   1535
+         _ExtentY        =   741
+         _Version        =   196610
+         BackColor       =   16777215
+         PictureFrames   =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Picture         =   "ship_order.frx":E9B1
          Caption         =   "√ŒÌ—"
          ButtonStyle     =   3
          PictureAlignment=   9
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "ship_order.frx":E602
+         PictureDisabled =   "ship_order.frx":10BD5
       End
    End
    Begin VB.Frame Frame1 
@@ -319,13 +357,13 @@ Begin VB.Form online_ship_order
       Height          =   690
       Left            =   14985
       RightToLeft     =   -1  'True
-      TabIndex        =   15
+      TabIndex        =   17
       Top             =   -45
       Width           =   5325
       Begin Threed.SSCommand cmdInform 
          Height          =   510
          Left            =   4005
-         TabIndex        =   16
+         TabIndex        =   18
          TabStop         =   0   'False
          Top             =   135
          Width           =   1275
@@ -344,79 +382,18 @@ Begin VB.Form online_ship_order
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "ship_order.frx":106D3
+         Picture         =   "ship_order.frx":12CA6
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "ship_order.frx":12A9E
+         PictureDisabled =   "ship_order.frx":15071
       End
       Begin Threed.SSCommand cmdNewInv 
          Height          =   510
          Left            =   2700
-         TabIndex        =   17
-         TabStop         =   0   'False
-         Top             =   135
-         Width           =   1275
-         _ExtentX        =   2249
-         _ExtentY        =   900
-         _Version        =   196610
-         ForeColor       =   0
-         BackColor       =   16777215
-         PictureFrames   =   1
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Picture         =   "ship_order.frx":14B47
-         ButtonStyle     =   3
-         PictureAlignment=   11
-         BevelWidth      =   0
-         PictureDisabledFrames=   1
-         ShapeSize       =   1
-         PictureDisabled =   "ship_order.frx":16B4F
-      End
-      Begin Threed.SSCommand cmddel 
-         Height          =   510
-         Left            =   1350
-         TabIndex        =   18
-         TabStop         =   0   'False
-         Top             =   135
-         Width           =   1320
-         _ExtentX        =   2328
-         _ExtentY        =   900
-         _Version        =   196610
-         ForeColor       =   0
-         BackColor       =   16777215
-         PictureFrames   =   1
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Picture         =   "ship_order.frx":18B06
-         Alignment       =   8
-         ButtonStyle     =   3
-         PictureAlignment=   11
-         BevelWidth      =   0
-         PictureDisabledFrames=   1
-         ShapeSize       =   1
-         PictureDisabled =   "ship_order.frx":1B2A2
-      End
-      Begin Threed.SSCommand cmdExit 
-         Height          =   510
-         Left            =   45
          TabIndex        =   19
          TabStop         =   0   'False
          Top             =   135
@@ -436,7 +413,68 @@ Begin VB.Form online_ship_order
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "ship_order.frx":1D736
+         Picture         =   "ship_order.frx":1711A
+         ButtonStyle     =   3
+         PictureAlignment=   11
+         BevelWidth      =   0
+         PictureDisabledFrames=   1
+         ShapeSize       =   1
+         PictureDisabled =   "ship_order.frx":19122
+      End
+      Begin Threed.SSCommand cmddel 
+         Height          =   510
+         Left            =   1350
+         TabIndex        =   20
+         TabStop         =   0   'False
+         Top             =   135
+         Width           =   1320
+         _ExtentX        =   2328
+         _ExtentY        =   900
+         _Version        =   196610
+         ForeColor       =   0
+         BackColor       =   16777215
+         PictureFrames   =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Picture         =   "ship_order.frx":1B0D9
+         Alignment       =   8
+         ButtonStyle     =   3
+         PictureAlignment=   11
+         BevelWidth      =   0
+         PictureDisabledFrames=   1
+         ShapeSize       =   1
+         PictureDisabled =   "ship_order.frx":1D875
+      End
+      Begin Threed.SSCommand cmdExit 
+         Height          =   510
+         Left            =   45
+         TabIndex        =   21
+         TabStop         =   0   'False
+         Top             =   135
+         Width           =   1275
+         _ExtentX        =   2249
+         _ExtentY        =   900
+         _Version        =   196610
+         ForeColor       =   0
+         BackColor       =   16777215
+         PictureFrames   =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Picture         =   "ship_order.frx":1FD09
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
@@ -459,13 +497,13 @@ Begin VB.Form online_ship_order
       Index           =   4
       Left            =   9720
       RightToLeft     =   -1  'True
-      TabIndex        =   12
+      TabIndex        =   14
       Top             =   495
       Width           =   1545
       Begin Threed.SSCommand cmdSave 
          Height          =   465
          Left            =   45
-         TabIndex        =   13
+         TabIndex        =   15
          Top             =   135
          Width           =   1455
          _ExtentX        =   2566
@@ -483,19 +521,19 @@ Begin VB.Form online_ship_order
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "ship_order.frx":1FA59
+         Picture         =   "ship_order.frx":2202C
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "ship_order.frx":2237E
+         PictureDisabled =   "ship_order.frx":24951
       End
       Begin Threed.SSCommand cmdUndo 
          Height          =   465
          Left            =   45
-         TabIndex        =   14
+         TabIndex        =   16
          TabStop         =   0   'False
          Top             =   630
          Width           =   1455
@@ -514,14 +552,14 @@ Begin VB.Form online_ship_order
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "ship_order.frx":24BD2
+         Picture         =   "ship_order.frx":271A5
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "ship_order.frx":26D32
+         PictureDisabled =   "ship_order.frx":29305
       End
    End
    Begin VB.Frame Frame2 
@@ -538,7 +576,7 @@ Begin VB.Form online_ship_order
       Height          =   1005
       Left            =   11295
       RightToLeft     =   -1  'True
-      TabIndex        =   5
+      TabIndex        =   7
       Top             =   630
       Width           =   9015
       Begin VB.TextBox xNotes 
@@ -548,7 +586,7 @@ Begin VB.Form online_ship_order
          Left            =   90
          MaxLength       =   10
          RightToLeft     =   -1  'True
-         TabIndex        =   3
+         TabIndex        =   5
          Tag             =   "D"
          Top             =   585
          Width           =   3750
@@ -560,7 +598,7 @@ Begin VB.Form online_ship_order
          Left            =   6570
          MaxLength       =   12
          RightToLeft     =   -1  'True
-         TabIndex        =   0
+         TabIndex        =   2
          TabStop         =   0   'False
          Top             =   180
          Width           =   1185
@@ -572,7 +610,7 @@ Begin VB.Form online_ship_order
          Left            =   90
          MaxLength       =   10
          RightToLeft     =   -1  'True
-         TabIndex        =   1
+         TabIndex        =   3
          Tag             =   "D"
          Top             =   225
          Width           =   1455
@@ -580,7 +618,7 @@ Begin VB.Form online_ship_order
       Begin MSDataListLib.DataCombo xship 
          Height          =   360
          Left            =   5580
-         TabIndex        =   2
+         TabIndex        =   4
          Top             =   540
          Width           =   2175
          _ExtentX        =   3836
@@ -606,7 +644,7 @@ Begin VB.Form online_ship_order
          Height          =   270
          Left            =   3915
          RightToLeft     =   -1  'True
-         TabIndex        =   30
+         TabIndex        =   32
          Top             =   585
          Width           =   585
       End
@@ -617,7 +655,7 @@ Begin VB.Form online_ship_order
          Height          =   270
          Left            =   7875
          RightToLeft     =   -1  'True
-         TabIndex        =   28
+         TabIndex        =   30
          Top             =   630
          Width           =   945
       End
@@ -629,7 +667,7 @@ Begin VB.Form online_ship_order
          Height          =   270
          Left            =   1710
          RightToLeft     =   -1  'True
-         TabIndex        =   7
+         TabIndex        =   9
          Top             =   225
          Width           =   510
       End
@@ -639,7 +677,7 @@ Begin VB.Form online_ship_order
          Height          =   240
          Left            =   7830
          RightToLeft     =   -1  'True
-         TabIndex        =   6
+         TabIndex        =   8
          Top             =   225
          Width           =   795
       End
@@ -693,13 +731,13 @@ Begin VB.Form online_ship_order
    End
    Begin Threed.SSPanel SSPanel1 
       Align           =   2  'Align Bottom
-      Height          =   375
+      Height          =   420
       Left            =   0
-      TabIndex        =   8
-      Top             =   9720
+      TabIndex        =   10
+      Top             =   9675
       Width           =   20400
       _ExtentX        =   35983
-      _ExtentY        =   661
+      _ExtentY        =   741
       _Version        =   196610
       BackColor       =   16777215
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -717,7 +755,7 @@ Begin VB.Form online_ship_order
          Height          =   270
          Index           =   0
          Left            =   0
-         TabIndex        =   9
+         TabIndex        =   11
          Top             =   45
          Width           =   3195
          _ExtentX        =   5636
@@ -741,7 +779,7 @@ Begin VB.Form online_ship_order
          Height          =   330
          Index           =   1
          Left            =   3240
-         TabIndex        =   10
+         TabIndex        =   12
          Top             =   45
          Width           =   3855
          _ExtentX        =   6800
@@ -765,7 +803,7 @@ Begin VB.Form online_ship_order
          Height          =   330
          Index           =   2
          Left            =   7110
-         TabIndex        =   11
+         TabIndex        =   13
          Top             =   45
          Width           =   4365
          _ExtentX        =   7699
@@ -787,13 +825,13 @@ Begin VB.Form online_ship_order
       End
    End
    Begin Threed.SSCommand cmdFilter 
-      Height          =   555
-      Left            =   4950
-      TabIndex        =   29
+      Height          =   600
+      Left            =   45
+      TabIndex        =   31
       Top             =   1035
-      Width           =   1815
-      _ExtentX        =   3201
-      _ExtentY        =   979
+      Width           =   1860
+      _ExtentX        =   3281
+      _ExtentY        =   1058
       _Version        =   196610
       BackColor       =   16777215
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -808,6 +846,152 @@ Begin VB.Form online_ship_order
       Caption         =   "Undo Filter"
       ButtonStyle     =   3
    End
+   Begin VB.Frame Frame5 
+      BackColor       =   &H00FFFFFF&
+      Height          =   690
+      Left            =   16425
+      RightToLeft     =   -1  'True
+      TabIndex        =   35
+      Top             =   8280
+      Width           =   3885
+      Begin VB.CheckBox chkNoPickDate 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         Caption         =   "ÿ·»Ì«  «·„” ‰œ «·Õ«·Ì »œÊ‰  «—ÌŒ ‘Õ‰"
+         ForeColor       =   &H80000008&
+         Height          =   330
+         Left            =   315
+         RightToLeft     =   -1  'True
+         TabIndex        =   36
+         Top             =   225
+         Width           =   3390
+      End
+   End
+   Begin VB.Frame frClose 
+      BackColor       =   &H00FFFFFF&
+      Height          =   690
+      Left            =   8055
+      TabIndex        =   37
+      Top             =   8280
+      Width           =   2985
+      Begin VB.OptionButton optclosed 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         Caption         =   "«·ﬂ·"
+         ForeColor       =   &H80000008&
+         Height          =   270
+         Index           =   0
+         Left            =   2115
+         TabIndex        =   40
+         TabStop         =   0   'False
+         Top             =   270
+         Value           =   -1  'True
+         Width           =   690
+      End
+      Begin VB.OptionButton optclosed 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         Caption         =   "„€·ﬁ…"
+         ForeColor       =   &H80000008&
+         Height          =   270
+         Index           =   2
+         Left            =   135
+         TabIndex        =   39
+         TabStop         =   0   'False
+         Top             =   270
+         Width           =   735
+      End
+      Begin VB.OptionButton optclosed 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         Caption         =   "„› ÊÕ…"
+         ForeColor       =   &H80000008&
+         Height          =   270
+         Index           =   1
+         Left            =   990
+         TabIndex        =   38
+         TabStop         =   0   'False
+         Top             =   270
+         Width           =   915
+      End
+   End
+   Begin VB.Frame Frame6 
+      BackColor       =   &H00FFFFFF&
+      Height          =   690
+      Left            =   11070
+      TabIndex        =   41
+      Top             =   8280
+      Width           =   5325
+      Begin VB.OptionButton optdate 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         Caption         =   "„” ‰œ«  ‘Õ‰ »Â« ÿ·»Ì«  »œÊ‰  «—ÌŒ ‘Õ‰"
+         ForeColor       =   &H80000008&
+         Height          =   270
+         Index           =   1
+         Left            =   225
+         TabIndex        =   1
+         TabStop         =   0   'False
+         Top             =   270
+         Width           =   3570
+      End
+      Begin VB.OptionButton optdate 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         Caption         =   "«·ﬂ·"
+         ForeColor       =   &H80000008&
+         Height          =   270
+         Index           =   0
+         Left            =   4500
+         TabIndex        =   0
+         TabStop         =   0   'False
+         Top             =   270
+         Value           =   -1  'True
+         Width           =   690
+      End
+   End
+   Begin ComctlLib.ProgressBar prog1 
+      Align           =   2  'Align Bottom
+      Height          =   195
+      Left            =   0
+      TabIndex        =   42
+      Top             =   9480
+      Visible         =   0   'False
+      Width           =   20400
+      _ExtentX        =   35983
+      _ExtentY        =   344
+      _Version        =   327682
+      Appearance      =   1
+   End
+   Begin Threed.SSCommand cmdPayment 
+      Height          =   510
+      Left            =   5265
+      TabIndex        =   43
+      Top             =   8370
+      Width           =   2715
+      _ExtentX        =   4789
+      _ExtentY        =   900
+      _Version        =   196610
+      BackColor       =   16777215
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Arial"
+         Size            =   11.25
+         Charset         =   178
+         Weight          =   700
+         Underline       =   -1  'True
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Caption         =   "«Œ «— ‰Ê⁄ «·”œ«œ"
+      TagVariant      =   "«Œ «— ‰Ê⁄ «·”œ«œ"
+      ButtonStyle     =   3
+   End
 End
 Attribute VB_Name = "online_ship_order"
 Attribute VB_GlobalNameSpace = False
@@ -818,8 +1002,10 @@ Public nType As Byte, bEdit As Boolean, sDoc_no As String
 Dim bIg As Boolean
 Public bCheck As Boolean
 Dim dbm As New DBManager
+Dim oSearchPay As Search_rs
+Dim bAdmin As Boolean
 Dim bEditRecord As Boolean, bAct As Boolean
-Dim oSeachCode As New Search, oSearchDoc As New Search_rs, oSearchship As New Search_rs, oSearchSup As New Search
+Dim oSeachCode As New Search_rs, oSearchDoc As New Search_rs, oSearchship As New Search_rs, oSearchSup As New Search
 Dim cFilter As String, cSelect As String
 Dim CardTable As ADODB.Recordset
 Dim clist1 As String, cList2 As String, cList3 As String, sDef As String
@@ -832,21 +1018,20 @@ aInsert = AddFlag(aInsert, "[SHIP]", addstring(xship.BoundText))
 aInsert = AddFlag(aInsert, "[NOTES]", addstring(xNotes.text))
 aInsert = AddFlag(aInsert, IIf(xDoc_No.Tag = DefineMode, "[USERNAME]", "[USERNAME2]"), addstring(cUserName))
 aInsert = AddFlag(aInsert, IIf(xDoc_No.Tag = DefineMode, "[TIME]", "[TIME2]"), "getdate()")
-If dbm.OpenCon Then
-    If xDoc_No.Tag = DefineMode Then
-        xDoc_No.text = dbm.IncData("file6_90SH", "doc_NO", , True)
-        aInsert = AddFlag(aInsert, "DOC_NO", addvalue(xDoc_No.text))
-        dbm.addSql addInsert(aInsert, "FILE6_90SH")
-    Else
-        dbm.addSql addUpdate(aInsert, "FILE6_90SH", "doc_no = " & addvalue(xDoc_No.text))
-    End If
-    
-    myreplaceGrd Row
-        
-    myreplace = dbm.ExecuteTransaction
-    
-    dbm.closeCon
+Dim db As New clsDb
+If xDoc_No.Tag = DefineMode Then
+    xDoc_No.text = db.IncData("file6_90SH", "doc_NO", , True)
+    aInsert = AddFlag(aInsert, "DOC_NO", addvalue(xDoc_No.text))
+    db.Sql = addInsert(aInsert, "FILE6_90SH")
+Else
+    db.Sql = addUpdate(aInsert, "FILE6_90SH", "doc_no = " & addvalue(xDoc_No.text))
 End If
+
+db.myForm = Me
+myreplaceGrd Row, db
+
+myreplace = db.ExecuteTransaction
+Set db = Nothing
 End Function
 Sub myProc(Optional sControl As String = "")
 If ActiveControl.Name = grid1.Name Then
@@ -872,30 +1057,46 @@ ElseIf ActiveControl.Name = cmdProject.Name Then
 '    oSearchProject.Hide
 End If
 End Sub
+
+Private Sub chkNoPickDate_Click()
+'If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
+'    If Not openCardTable Then
+'        myDefine
+'    End If
+'End If
+myLoadGrd
+End Sub
+
+Private Sub cmdCSV_Click()
+online_ship_checkfrm.Show 1
+End Sub
+
 Private Sub CmdDel_Click()
 If MsgBox("Õ–› ?", vbOKCancel + vbDefaultButton2 + vbCritical) <> vbOK Then Exit Sub
+Dim db As New clsDb
+db.Sql = "Delete  From FILE6_90S where Doc_No = " & addvalue(xDoc_No.text)
+db.Sql = "Delete  From FILE6_90SH where Doc_No = " & addvalue(xDoc_No.text)
 
-If dbm.OpenCon Then
-    dbm.addSql "Delete  From FILE6_90S where Doc_No = " & addvalue(xDoc_No.text)
-    dbm.addSql "Delete  From FILE6_90SH where Doc_No = " & addvalue(xDoc_No.text)
-    If Not dbm.ExecuteTransaction Then Exit Sub
-End If
+Dim bDone As Boolean
+bDone = db.ExecuteTransaction
+Set db = Nothing
+
+If Not bDone Then Exit Sub
 
 Inform " „ «·Õ–› »‰Ã«Õ"
 
-If sDoc_no <> "" Then Exit Sub
+If sDoc_no <> "" Then
+    Unload Me
+    Exit Sub
+End If
 
 If Not openCardTable(tbMode.tbPrevious, xDoc_No.text) Then
     If Not openCardTable(tbMode.tbFirst) Then
         myDefine
     End If
 End If
-Exit Sub
-myerror:
-MsgBox Err.Description
-Err.Clear
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub CardLookup(Optional pFilter As String = "")
@@ -1033,6 +1234,11 @@ If Not openCardTable(tbMode.tbNext, xDoc_No.text) Then
     End If
 End If
 End Sub
+
+Private Sub cmdPayment_Click()
+ 
+End Sub
+
 Private Sub CmdPrevious_Click()
 If Not openCardTable(tbMode.tbPrevious, xDoc_No.text) Then
     If Not openCardTable(tbMode.tbFirst) Then
@@ -1093,15 +1299,14 @@ End If
 End Sub
 Private Sub Form_Load()
 bEdit = True
-If dbm.OpenCon Then
-    Set xship.RowSource = dbm.myRs("Select Code,DescA From ship ORDER BY CODE")
-    xship.ListField = "Desca"
-    xship.BoundColumn = "Code"
-    
-    xship.Tag = dbm.rsField("select min(code) as code from ship where stoped = 0 having count(*) = 1") & ""
-    dbm.closeCon
-End If
+bAdmin = bopt2 And cBranch = "00"
+Dim db As New clsDb
+Set xship.RowSource = db.myRs("Select Code,DescA From ship ORDER BY CODE")
+xship.ListField = "Desca"
+xship.BoundColumn = "Code"
 
+xship.Tag = db.rsField("select min(code) as code from ship where stoped = 0 having count(*) = 1") & ""
+Set db = Nothing
 
 If Not openCardTable Then myDefine
 End Sub
@@ -1132,13 +1337,15 @@ xDate.text = myFormat_p(CardTable!Date)
 xship.BoundText = CardTable!SHIP & ""
 xNotes.text = CardTable!NOTES & ""
 bIg = True
-xClosed.Value = IIf(CardTable!CLOSED, 1, 0)
+xClosed.value = IIf(CardTable!CLOSED, 1, 0)
 bIg = False
 
 panel1(0).Caption = CardTable!UserName & " " & myFormat_p(CardTable!Time, True)
 panel1(1).Caption = CardTable!USERNAME2 & " " & myFormat_p(CardTable!TIME2, True)
 Handlecontrols LoadMode
+
 myLoadGrd
+
 CellPos 13, grid1.Rows - 2, grid1.Cols - 1
 On Error Resume Next
 grid1.SetFocus
@@ -1150,7 +1357,7 @@ xDate.text = myFormat_p(Date)
 xship.BoundText = xship.Tag
 xNotes.text = ""
 bIg = True
-xClosed.Value = 0
+xClosed.value = 0
 bIg = False
 
 Fixgrd
@@ -1167,9 +1374,9 @@ grid1.SetFocus
 Err.Clear
 End Sub
 Private Sub Handlecontrols(nMode)
-bEditRecord = bEdit And xClosed.Value = 0
-xClosed.Enabled = bopt1 And nMode = LoadMode
-cmdClosePeriod.Enabled = bopt1
+bEditRecord = bEdit And xClosed.value = 0
+xClosed.Enabled = bAdmin And nMode = LoadMode
+cmdClosePeriod.Enabled = bAdmin
 
 cmdFilter.Visible = cmdFilter.Tag <> ""
 cmdNewInv.Enabled = nMode = LoadMode And bEdit
@@ -1195,6 +1402,17 @@ cmdFirst.Enabled = (nMode = LoadMode) And nRecord > 1 And nRecords > 2 And sDoc_
 xDoc_No.Enabled = (nMode = DefineMode)
 xship.Enabled = (nMode = DefineMode And bEditRecord)
 xDoc_No.Tag = nMode
+End Sub
+
+Private Sub optclosed_Click(Index As Integer)
+If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable Then myDefine
+End If
+End Sub
+Private Sub optdate_Click(Index As Integer)
+If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable Then myDefine
+End If
 End Sub
 Private Sub xDoc_No_LostFocus()
 myLostFocus xDoc_No
@@ -1249,10 +1467,15 @@ Me.MousePointer = vbHourglass
 
 On Error GoTo myerror
 cFilter = ""
-If cmdFilter.Tag <> "" Then cFilter = cFilter & Tr(cFilter) & "DOC_NO IN (" & cmdFilter.Tag & ")"
+If cmdFilter.Tag <> "" Then cFilter = "DOC_NO IN (" & cmdFilter.Tag & ")"
+
+If optdate(1).value Then
+    cFilter = cFilter & Tr(cFilter) & "FILE6_90SH.DOC_NO IN(SELECT FILE6_90S.DOC_NO FROM FILE6_90S WHERE FILE6_90S.DATE_PICK IS NULL)"
+End If
+
 If sDoc_no <> "" Then cFilter = "DOC_NO = " & sDoc_no
-cString = "SELECT TOP 1 * " & _
-          " FROM file6_90SH"
+cString = "SELECT TOP 1 FILE6_90SH.* " & _
+          " FROM FILE6_90SH"
 
 If pMode = tbMode.tbFirst Then
     cOrder = "Order by Doc_no"
@@ -1277,19 +1500,21 @@ If cFilter <> "" Then
 End If
 
 cString = cString & " " & cOrder
-If dbm.OpenCon Then
-    Set CardTable = dbm.myRs(cString)
-    If (Not CardTable.EOF) Then
-        myload
-        openCardTable = True
-    End If
-    Me.MousePointer = 0
+Dim db As New clsDb
+Set CardTable = db.myRs(cString)
+If (Not CardTable.EOF) Then
+    myload
+    openCardTable = True
 End If
+CleanUp:
+Set db = Nothing
+Me.MousePointer = 0
 Exit Function
 myerror:
 Me.MousePointer = vbNormal
 MsgBox Err.Description
 Err.Clear
+Resume CleanUp
 End Function
 Private Sub myUndo()
 If xDoc_No.Tag = DefineMode Then
@@ -1345,7 +1570,7 @@ If Not bCheck Then
 End If
 End Sub
 Private Function retRecords(pDoc_no, ByRef nRecords As Long, ByRef nRecord As Long) As Variant
-Dim cString As String, loctable As New ADODB.Recordset
+Dim cString As String, locTable As New ADODB.Recordset
 If pDoc_no <> "" Then
     cString = "SELECT Count(*) AS records,COUNT(CASE WHEN DOC_NO <= " & pDoc_no & " THEN 1 END) AS record"
 Else
@@ -1355,11 +1580,13 @@ End If
 cString = cString & " FROM FILE6_90SH"
 If cFilter <> "" Then cString = cString & " WHERE " & cFilter
 
-Set loctable = myRs(cString)
-If Not loctable.EOF Then
-    nRecords = loctable!RECORDS
-    nRecord = Val(loctable!Record & "")
+Dim db As New clsDb
+Set locTable = db.myRs(cString)
+If Not locTable.EOF Then
+    nRecords = locTable!RECORDS
+    nRecord = Val(locTable!Record & "")
 End If
+Set db = Nothing
 End Function
 Private Sub cmdFilter_Click()
 cmdFilter.Tag = ""
@@ -1374,7 +1601,7 @@ If Not openCardTable(tbMode.tbFirst, xDoc_No.text) Then
     If Not openCardTable Then myDefine
 End If
 End Sub
-Private Sub myreplaceGrd(Row As Long)
+Private Sub myreplaceGrd(Row As Long, db As clsDb)
 Dim aInsert As Variant
 With grid1
     For i = IIf(Row = -1, 1, Row) To IIf(Row = -1, grid1.Rows - 2, Row)
@@ -1385,9 +1612,9 @@ With grid1
         aInsert = AddFlag(aInsert, "ORDER_NO_SUP", Val(grid1.TextMatrix(i, 3)))
         aInsert = AddFlag(aInsert, "INV_NO", addstring(grid1.TextMatrix(i, 5)))
         If grid1.TextMatrix(i, grid1.Cols - 1) = "" Then
-            dbm.addSql addInsert(aInsert, "FILE6_90S")
+            db.Sql = addInsert(aInsert, "FILE6_90S")
         Else
-            dbm.addSql addUpdate(aInsert, "FILE6_90S", "ID = " & grid1.TextMatrix(i, .Cols - 1))
+            db.Sql = addUpdate(aInsert, "FILE6_90S", "ID = " & grid1.TextMatrix(i, .Cols - 1))
         End If
     Next
 End With
@@ -1430,6 +1657,8 @@ If myreplace(Row) Then
         grid1.Select grid1.Rows - 1, 1
         grid1.ShowCell grid1.Rows - 1, 1
     End If
+Else
+    myLoadGrd
 End If
 Exit Sub
 myerror:
@@ -1446,8 +1675,7 @@ Else
 End If
 End Sub
 Private Sub myLoadGrd()
-Dim cString As String
-Dim aFields(11)
+Dim aFields(14)
 aFields(0) = "s.SHIP_NO"
 aFields(1) = "s.ORDER_NO"
 aFields(2) = "s.ORDER_NO_SUP"
@@ -1459,15 +1687,22 @@ aFields(7) = "v.PHONE"
 aFields(8) = "v.ADDRESS"
 aFields(9) = "v.TOTAL_QUANT"
 aFields(10) = "(v.TOTAL_ITEM - v.DISCOUNT) + v.charge2"
-aFields(11) = "s.ID"
+aFields(11) = "DATE_PICK"
+aFields(12) = "COD"
+aFields(13) = "v.Payment_type"
+aFields(14) = "s.ID"
 
+Dim cString As String
 cString = "SELECT " & arString(aFields, ",") & _
          " FROM FILE6_90S s " & _
          " INNER JOIN vw_online_orders v ON s.order_no = v.order_no AND s.ORDER_NO_SUP = v.ORDER_NO_SUP"
 cString = cString & " WHERE  s.DOC_NO = " & addvalue(xDoc_No.text)
-If dbm.OpenCon Then
-    Set grid1.DataSource = dbm.myRs(cString)
+If chkNoPickDate.value = 1 Or optdate(1).value Then
+    cString = cString & " AND DATE_PICK IS NULL"
 End If
+Dim db As New clsDb
+Set grid1.DataSource = db.myRs(cString)
+Set db = Nothing
 myAddItem
 Fixgrd
 End Sub
@@ -1483,25 +1718,14 @@ ElseIf KeyCode = 112 And grid1.col = 1 And grid1.Editable = flexEDKbdMouse Then
     ShipLookup
 ElseIf KeyCode = 46 And grid1.Row <> grid1.Rows - 1 Then
     If MsgBox("Õ–› „‰ «·„” ‰œ ?, Â· «‰  „Ê«›ﬁ ø", vbOKCancel) = vbOK Then
-        On Error GoTo myerror
-        
         If grid1.TextMatrix(grid1.Row, grid1.Cols - 1) <> "" Then
-            If dbm.OpenCon Then
-                If Not dbm.Execute("Delete from FILE6_90S where ID = " & grid1.TextMatrix(grid1.Row, grid1.Cols - 1)) Then
-                   dbm.closeCon
-                   Exit Sub
-                End If
-                dbm.closeCon
-            End If
+            Dim db As New clsDb
+            db.Execute ("Delete from FILE6_90S where ID = " & grid1.TextMatrix(grid1.Row, grid1.Cols - 1))
+            myLoadGrd
+            Set db = Nothing
         End If
-        myRemove grid1.Row
     End If
 End If
-Exit Sub
-myerror:
-MsgBox Err.Description
-con.RollbackTrans
-Err.Clear
 End Sub
 Private Sub grid1_ValidateEdit(ByVal Row As Long, ByVal col As Long, Cancel As Boolean)
 If col = 1 Then
@@ -1519,7 +1743,7 @@ End Sub
 Private Sub Fixgrd()
 With grid1
 .RowHeight(0) = 600
-.FormatString = "„|" & "»Ê·Ì’… «·‘Õ‰|" & "—ﬁ„ «·ÿ·»Ì…|" & "ÿ·»Ì… «÷«›Ì…|" & "‰Ê⁄ «·»Ê·Ì’…|" & "—ﬁ„ «·›« Ê—…|" & "«· «—ÌŒ|" & "«·«”„|" & "«· ·Ì›Ê‰|" & "«·⁄‰Ê«‰|" & "«·ﬂ„Ì…|" & "«·ﬁÌ„…|"
+.FormatString = "„|" & "»Ê·Ì’… «·‘Õ‰|" & "—ﬁ„ «·ÿ·»Ì…|" & "ÿ·»Ì… «÷«›Ì…|" & "‰Ê⁄ «·»Ê·Ì’…|" & "—ﬁ„ «·›« Ê—…|" & "«· «—ÌŒ|" & "«·«”„|" & "«· ·Ì›Ê‰|" & "«·⁄‰Ê«‰|" & "«·ﬂ„Ì…|" & "«·ﬁÌ„…|" & " «—ÌŒ «·‘Õ‰|" & "COD|" & "ÿ—Ìﬁ… «·”œ«œ|"
 .ColWidth(0) = 800
 .ColWidth(1) = 2000
 .ColWidth(2) = 1000
@@ -1532,6 +1756,18 @@ With grid1
 .ColWidth(9) = 4000
 .ColWidth(10) = 800
 .ColWidth(11) = 1100
+.ColWidth(12) = 1250
+.ColWidth(13) = 1100
+.ColWidth(14) = 2500
+
+.ColHidden(9) = True
+
+.ColDataType(12) = flexDTDate
+.ColFormat(12) = "yyyy/M/d"
+
+.ColDataType(13) = flexDTDouble
+.ColDataType(14) = True
+
 .ColHidden(.Cols - 1) = True
 For i = 1 To grid1.Cols - 1
     .ColAlignment(i) = flexAlignRightCenter
@@ -1592,19 +1828,21 @@ End Sub
 Private Sub xClosed_Click()
 If bIg Then Exit Sub
 On Error GoTo myerror
-con.Execute "UPDATE FILE6_90SH" & _
-            " SET CLOSED = " & xClosed.Value & _
-            " WHERE DOC_NO = " & MyParn(xDoc_No.text)
-Inform " „ " & IIf(xClosed.Value = 0, "› Õ «·„” ‰œ", "«€·«ﬁ «·„” ‰œ") & " »‰Ã«Õ"
-myUndo
+If dbm.OpenCon Then
+    dbm.Execute "UPDATE FILE6_90SH" & _
+                " SET CLOSED = " & xClosed.value & _
+                " WHERE DOC_NO = " & MyParn(xDoc_No.text)
+    Inform " „ " & IIf(xClosed.value = 0, "› Õ «·„” ‰œ", "«€·«ﬁ «·„” ‰œ") & " »‰Ã«Õ"
+    myUndo
+End If
 Exit Sub
 myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
 Private Sub cmdClosePeriod_Click()
-closefrm.sFile = "FILE6_90SH"
-closefrm.Show 1
+close_dbm.sFile = "FILE6_90SH"
+close_dbm.Show 1
 myUndo
 End Sub
 Private Function GrdDesc(pShip_no As String, ByRef Row As Long, Optional ByRef sMsg As String) As Boolean
@@ -1613,34 +1851,31 @@ If Trim(pShip_no) = "" Or Len(pShip_no) < 3 Or Len(pShip_no) > 30 Then
     sMsg = "—ﬁ„ »Ê·Ì’… €Ì— ’«·Õ"
     Exit Function
 End If
-
-If dbm.OpenCon Then
-    Dim loctable As New ADODB.Recordset
-    Set loctable = dbm.myRs("dbo.sp_online_order_ship", adStoredProc, AddFlag(Empty, "SHIP_NO", pShip_no))
-    If loctable.EOF Then
-        MsgBox "—ﬁ„ »Ê·Ì’… €Ì— ’ÕÌÕ"
-        dbm.closeCon
-        Exit Function
-    End If
-Else
-    Exit Function
+Dim db As New clsDb
+Dim locTable As New ADODB.Recordset
+Set locTable = db.myRs("dbo.sp_online_order_ship", adStoredProc, AddFlag(Empty, "SHIP_NO", pShip_no))
+If locTable.EOF Then
+    MsgBox "—ﬁ„ »Ê·Ì’… €Ì— ’ÕÌÕ"
+    GoTo CleanUp
 End If
 
-grid1.TextMatrix(Row, 1) = loctable!ship_no & ""
-grid1.TextMatrix(Row, 2) = loctable!ORDER_NO & ""
-grid1.TextMatrix(Row, 3) = loctable!order_no_sup & ""
-grid1.TextMatrix(Row, 4) = loctable!TYPE_dESCA & ""
-grid1.TextMatrix(Row, 5) = loctable!INV_NO & ""
-grid1.TextMatrix(Row, 6) = myFormat_p(loctable!Date)
-grid1.TextMatrix(Row, 7) = loctable!Name & ""
-grid1.TextMatrix(Row, 8) = loctable!phone & ""
-grid1.TextMatrix(Row, 9) = loctable!Address & ""
-grid1.TextMatrix(Row, 10) = loctable!total_Quant & ""
-grid1.TextMatrix(Row, 10) = loctable!TOTAL_ITEM - loctable!discount
+grid1.TextMatrix(Row, 1) = locTable!ship_no & ""
+grid1.TextMatrix(Row, 2) = locTable!ORDER_NO & ""
+grid1.TextMatrix(Row, 3) = locTable!order_no_sup & ""
+grid1.TextMatrix(Row, 4) = locTable!TYPE_dESCA & ""
+grid1.TextMatrix(Row, 5) = locTable!INV_NO & ""
+grid1.TextMatrix(Row, 6) = myFormat_p(locTable!Date)
+grid1.TextMatrix(Row, 7) = locTable!Name & ""
+grid1.TextMatrix(Row, 8) = locTable!Phone & ""
+grid1.TextMatrix(Row, 9) = locTable!Address & ""
+grid1.TextMatrix(Row, 10) = locTable!total_Quant & ""
+grid1.TextMatrix(Row, 11) = locTable!TOTAL_ITEM - locTable!discount
+grid1.TextMatrix(Row, 14) = locTable!PAYMENT_Method & ""
 
 GrdDesc = True
-dbm.closeCon
-Set loctable = Nothing
+CleanUp:
+Set db = Nothing
+Set locTable = Nothing
 End With
 End Function
 Private Sub xNotes_GotFocus()

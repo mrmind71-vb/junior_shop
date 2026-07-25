@@ -618,12 +618,12 @@ Begin VB.Form online_stage_manager
    End
    Begin VSFlex7Ctl.VSFlexGrid grdRefund2 
       Height          =   2625
-      Left            =   135
+      Left            =   90
       TabIndex        =   1
       TabStop         =   0   'False
       Top             =   2970
-      Width           =   8790
-      _cx             =   15505
+      Width           =   8835
+      _cx             =   15584
       _cy             =   4630
       _ConvInfo       =   1
       Appearance      =   0
@@ -662,7 +662,7 @@ Begin VB.Form online_stage_manager
       GridLinesFixed  =   1
       GridLineWidth   =   1
       Rows            =   2
-      Cols            =   9
+      Cols            =   10
       FixedRows       =   2
       FixedCols       =   0
       RowHeightMin    =   0
@@ -903,12 +903,12 @@ Begin VB.Form online_stage_manager
    End
    Begin VSFlex7Ctl.VSFlexGrid grdInvoices 
       Height          =   4200
-      Left            =   135
+      Left            =   90
       TabIndex        =   7
       TabStop         =   0   'False
       Top             =   5625
-      Width           =   8790
-      _cx             =   15505
+      Width           =   8835
+      _cx             =   15584
       _cy             =   7408
       _ConvInfo       =   1
       Appearance      =   0
@@ -1206,7 +1206,7 @@ End Sub
 Private Sub cmdExit_Click()
     Unload Me
 End Sub
-Private Sub CmdGo_Click()
+Private Sub cmdGo_Click()
 myload
 End Sub
 Private Sub Form_Load()
@@ -1659,6 +1659,7 @@ strSql = "SELECT v.ORDER_NO, " & _
          "V.DOC_NO," & _
          "t.DESCA," & _
          "FORMAT(v.[DATE],'yyyy/M/d'), " & _
+         "FORMAT(v.[DATE_MAIL],'yyyy/M/d'), " & _
          "v.[SALES_REPLACE], " & _
          "FILE6_25.DESCA, " & _
          "FORMAT(v.TIME,'yyyy/M/d HH:mm'), " & _
@@ -1693,14 +1694,15 @@ Next
 .TextMatrix(1, 1) = "›—⁄Ì"
 .TextMatrix(1, 2) = "‰Ê⁄ «·ÿ·»Ì…"
 .TextMatrix(1, 3) = " «—ÌŒ «·ÿ·»Ì…"
-.TextMatrix(1, 4) = "«·›« Ê—… «·„” »œ·…"
-.TextMatrix(1, 5) = "«·„‰œÊ»"
-.TextMatrix(1, 6) = "Êﬁ  «·ÿ·»»…"
-.TextMatrix(1, 7) = "«·„œ…"
-.TextMatrix(1, 8) = "«·ﬂ„Ì…"
-.TextMatrix(1, 9) = "≈Ã„«·Ì"
-.TextMatrix(1, 10) = "Œ’„"
-.TextMatrix(1, 11) = "’«›Ì"
+.TextMatrix(1, 3 + 1) = " «—ÌŒ «·„Ì·"
+.TextMatrix(1, 4 + 1) = "«·›« Ê—… «·„” »œ·…"
+.TextMatrix(1, 5 + 1) = "«·„‰œÊ»"
+.TextMatrix(1, 6 + 1) = "Êﬁ  «·ÿ·»»…"
+.TextMatrix(1, 7 + 1) = "«·„œ…"
+.TextMatrix(1, 8 + 1) = "«·ﬂ„Ì…"
+.TextMatrix(1, 9 + 1) = "≈Ã„«·Ì"
+.TextMatrix(1, 10 + 1) = "Œ’„"
+.TextMatrix(1, 11 + 1) = "’«›Ì"
 
 .MergeCells = flexMergeFixedOnly
 .MergeRow(0) = True
@@ -1708,23 +1710,24 @@ Next
 .ColHidden(1) = True
 .ColHidden(2) = True
 
-.ColHidden(4) = True
-.ColHidden(9) = True
-.ColHidden(10) = True
-.ColHidden(11) = True
+.ColHidden(4 + 1) = True
+.ColHidden(9 + 1) = True
+.ColHidden(10 + 1) = True
+.ColHidden(11 + 1) = True
 
 .ColWidth(0) = 1000
 .ColWidth(1) = 1000
 .ColWidth(2) = 1500
 .ColWidth(3) = 1250
-.ColWidth(4) = 1700
-.ColWidth(5) = 1800
-.ColWidth(6) = 1700
-.ColWidth(7) = 1000
-.ColWidth(8) = 700
-.ColWidth(9) = 1100
-.ColWidth(10) = 1000
-.ColWidth(11) = 1100
+.ColWidth(3 + 1) = 1250
+.ColWidth(4 + 1) = 1700
+.ColWidth(5 + 1) = 1500
+.ColWidth(6 + 1) = 1800
+.ColWidth(7 + 1) = 1000
+.ColWidth(8 + 1) = 700
+.ColWidth(9 + 1) = 1100
+.ColWidth(10 + 1) = 1000
+.ColWidth(11 + 1) = 1100
 
  .Cell(flexcpAlignment, 0, 0, 1, .Cols - 1) = flexAlignCenterCenter
 End With

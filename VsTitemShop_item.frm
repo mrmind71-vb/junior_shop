@@ -2257,11 +2257,11 @@ Private Sub CMD_EX2_Click()
     
     Me.MousePointer = 11
     
-    Dim aRow As Variant
+    Dim arow As Variant
     aSub = AddFlag(Empty, "row", 0)
     aSub = AddFlag(aSub, "bold", True)
     aSub = AddFlag(aSub, "word_wrap", True)
-    aRow = AddFlag(aRow, aSub)
+    arow = AddFlag(arow, aSub)
     
     
     If grid1.Rows > 1 Then
@@ -2269,10 +2269,10 @@ Private Sub CMD_EX2_Click()
         aSub = AddFlag(aSub, "bold", True)
         aSub = AddFlag(aSub, "word_wrap", False)
         aSub = AddFlag(aSub, "back_color", 40)
-        aRow = AddFlag(aRow, aSub)
+        arow = AddFlag(arow, aSub)
     End If
     
-    ToFileExelNew grid1, , , aRow, , 0.9, , , , , , Me, Array(Me.Caption)
+    ToFileExelNew grid1, , , arow, , 0.9, , , , , , Me, Array(Me.Caption)
     
     Me.MousePointer = 0
     fixGrd
@@ -2317,11 +2317,11 @@ End Sub
 Private Sub cmd_excel_Click()
     Me.MousePointer = 11
     
-    Dim aRow As Variant
+    Dim arow As Variant
     aSub = AddFlag(Empty, "row", 0)
     aSub = AddFlag(aSub, "bold", True)
     aSub = AddFlag(aSub, "word_wrap", True)
-    aRow = AddFlag(aRow, aSub)
+    arow = AddFlag(arow, aSub)
     
     
     If grid1.Rows > 1 Then
@@ -2329,10 +2329,10 @@ Private Sub cmd_excel_Click()
         aSub = AddFlag(aSub, "bold", True)
         aSub = AddFlag(aSub, "word_wrap", False)
         aSub = AddFlag(aSub, "back_color", 40)
-        aRow = AddFlag(aRow, aSub)
+        arow = AddFlag(arow, aSub)
     End If
     
-    ToFileExelNew grid1, , , aRow, , 0.9, , , , , , Me
+    ToFileExelNew grid1, , , arow, , 0.9, , , , , , Me
     Me.MousePointer = 0
     fixGrd
 
@@ -2347,7 +2347,7 @@ Private Sub CMD_PRINT_Click()
     grid1.ColHidden(21) = True
     grid1.ColHidden(22) = True
     cHead1 = "«—’œ… Ê ÿ·»Ì…  ﬂ—«— «·„ÊœÌ·«  „‰ «·„’‰⁄ "
-    cHead2 = " Õ Ï   «—ÌŒ " & Format(xdate1.text, "DD-MM-YYYY")
+    cHead2 = " Õ Ï   «—ÌŒ " & Format(xDate1.text, "DD-MM-YYYY")
     Load PrintGrd
     PrintGrd.doprint Me.grid1, 0.85, -2, cHead1, cHead2, , False, True, 9
     PrintGrd.Show 1
@@ -2445,8 +2445,8 @@ Private Sub cmdGo_Click()
         MsgBox "·« ÌÊÃœ „Œ“‰ „”Ã·"
         Exit Sub
     End If
-    If Not IsDate(xdate1.text) Then
-        xdate1.text = Format(GetDesca("select min(date) from FILE1_11_ALL", con))
+    If Not IsDate(xDate1.text) Then
+        xDate1.text = Format(GetDesca("select min(date) from FILE1_11_ALL", con))
     End If
     Me.MousePointer = vbHourglass
     myload
@@ -2467,8 +2467,8 @@ Inform "  „ Õ–› ··›—Ê⁄ ⁄œœ " & nRec
 End Sub
 
 Private Sub Form_Load()
-    openCon con
-    xdate1.text = Format(GetDesca("select min(date) from FILE1_11_ALL", con))
+    OpenCon con
+    xDate1.text = Format(GetDesca("select min(date) from FILE1_11_ALL", con))
     xdate2.text = Format(Date, "dd-mm-yyyy")
 '   CMD_PRINTORDER.Visible = (cBranch <> "00")
     
@@ -2498,9 +2498,9 @@ Private Sub Form_Load()
     
     
     Set data1.Recordset = myRecordSet("Select Code,DescA From File1_10SC order by Desca", con)
-    Set xSection.RowSource = data1
-    xSection.ListField = "Desca"
-    xSection.BoundColumn = "Code"
+    Set XSECTION.RowSource = data1
+    XSECTION.ListField = "Desca"
+    XSECTION.BoundColumn = "Code"
     
     Set DATA11.Recordset = myRecordSet("Select DATE   AS DATE From MODEL_DEM GROUP BY DATE  order by DATE  DESC ", con)
     Set XDATEDEM1.RowSource = DATA11
@@ -2531,18 +2531,18 @@ Private Sub Form_Load()
     
     XALLNEW.Visible = bopt2
     
-    Set data2.Recordset = myRecordSet("Select Code,DescA From File4_10 order by Desca", con)
-    Set xSupp.RowSource = data2
+    Set DATA2.Recordset = myRecordSet("Select Code,DescA From File4_10 order by Desca", con)
+    Set xSupp.RowSource = DATA2
     xSupp.ListField = "Desca"
     xSupp.BoundColumn = "Code"
     
     Set DATA3.Recordset = myRecordSet("Select Code,DescA From File1_50 ORDER BY DESCA", con)
-    Set xgroup.RowSource = DATA3
-    xgroup.ListField = "Desca"
-    xgroup.BoundColumn = "Code"
+    Set xGroup.RowSource = DATA3
+    xGroup.ListField = "Desca"
+    xGroup.BoundColumn = "Code"
     
-    Set data4.Recordset = myRecordSet("Select mosm ,descA From mosm ORDER BY date DESC ", con)
-    Set xMosm.RowSource = data4
+    Set DATA4.Recordset = myRecordSet("Select mosm ,descA From mosm ORDER BY date DESC ", con)
+    Set xMosm.RowSource = DATA4
     xMosm.ListField = "Desca"
     xMosm.BoundColumn = "MOSM"
     xMosm.BoundText = cPMosm
@@ -2582,11 +2582,11 @@ Private Sub myload()
                    "file1_10.color," & _
                    "file1_10.item,"
         
-    cString.Append myiif("FILE1_11_ALL.date < " & DateSq(xdate1) & " AND FILE1_11_ALL.STORE = " & MyParn(xStore.BoundText), "([IN] - [OUT]) ") & " AS f_sal, "
-    cString.Append myiif("type = 'z' and FILE1_11_ALL.date >= " & DateSq(xdate1.text) & " AND FILE1_11_ALL.STORE = " & MyParn(xStore.BoundText), "([in] + [out]) ") & " AS t_comp , "
-    cString.Append myiif("(type = '2' OR type = 'F' OR type = 'T'  ) and FILE1_11_ALL.date >= " & DateSq(xdate1.text) & " AND FILE1_11_ALL.STORE = " & MyParn(xStore.BoundText), "([IN] ) ") & " AS t_purch, "
-    cString.Append myiif("(type = '7' OR type = 'F' OR type = 'T'  ) and FILE1_11_ALL.date >= " & DateSq(xdate1.text) & " AND FILE1_11_ALL.STORE = " & MyParn(xStore.BoundText), "(OUT  ) ") & " AS tR_purch, "
-    cString.Append myiif("type = '6' and FILE1_11_ALL.date >= " & DateSq(xdate1.text) & " AND FILE1_11_ALL.STORE = " & MyParn(xStore.BoundText), "([out] - [in]) ") & " AS t_sal  , "
+    cString.Append myiif("FILE1_11_ALL.date < " & DateSq(xDate1) & " AND FILE1_11_ALL.STORE = " & MyParn(xStore.BoundText), "([IN] - [OUT]) ") & " AS f_sal, "
+    cString.Append myiif("type = 'z' and FILE1_11_ALL.date >= " & DateSq(xDate1.text) & " AND FILE1_11_ALL.STORE = " & MyParn(xStore.BoundText), "([in] + [out]) ") & " AS t_comp , "
+    cString.Append myiif("(type = '2' OR type = 'F' OR type = 'T'  ) and FILE1_11_ALL.date >= " & DateSq(xDate1.text) & " AND FILE1_11_ALL.STORE = " & MyParn(xStore.BoundText), "([IN] ) ") & " AS t_purch, "
+    cString.Append myiif("(type = '7' OR type = 'F' OR type = 'T'  ) and FILE1_11_ALL.date >= " & DateSq(xDate1.text) & " AND FILE1_11_ALL.STORE = " & MyParn(xStore.BoundText), "(OUT  ) ") & " AS tR_purch, "
+    cString.Append myiif("type = '6' and FILE1_11_ALL.date >= " & DateSq(xDate1.text) & " AND FILE1_11_ALL.STORE = " & MyParn(xStore.BoundText), "([out] - [in]) ") & " AS t_sal  , "
     
     sBalance = myiif("FILE1_11_ALL.STORE = " & MyParn(xStore.BoundText), "( [IN]-[out] ) ")
     cString.Append sBalance & " AS BAL,"
@@ -2624,17 +2624,22 @@ Private Sub myload()
     cString.Append "(SELECT max(branch)   FROM MODEL_DEM WHERE STORE = " & MyParn(xStore.BoundText) & " AND item = FILE1_10.item),"
     cString.Append "Coalesce( ( SELECT TOP 1 ISSTOP FROM MODEL_STOP WHERE BRANCH = " & MyParn(xStore.BoundText) & " AND MODEL = FILE1_10.MODELNO ),0),"
     cString.Append "max(case when type = '6'  then date else null end ),"
-fixGrd
-cString.Append "CASE WHEN BARCODE13 IS NULL THEN BARCODE ELSE BARCODE13 END,"
-    cString.Append "FILE1_10.BALANCE_FACT"
+    cString.Append "CASE WHEN BARCODE13 IS NULL THEN BARCODE ELSE BARCODE13 END,"
+    cString.Append "FILE1_10.BALANCE_FACT + COALESCE(ob.BALANCE,0)"
     
     cString.Append " FROM FILE1_10 " & _
                    " LEFT JOIN FILE1_11_ALL ON FILE1_10.ITEM = FILE1_11_ALL.ITEM" & _
                    " INNER JOIN FACT ON FILE1_10.FACT = FACT.CODE" & _
                    " INNER JOIN FILE4_10 ON FILE1_10.code = FILE4_10.CODE " & _
                    " LEFT JOIN tb ON FILE1_10.ITEM = tb.ITEM"
-                   
     
+    cString.Append " LEFT JOIN("
+    cString.Append "SELECT ITEM," & _
+                    " SUM([In] - [OUT]) BALANCE" & _
+                    " From FILE1_11_ALL F  WHERE STORE = '020'" & _
+                    " GROUP BY ITEM) AS ob"
+    cString.Append " ON FILE1_11_ALL.ITEM = ob.ITEM"
+                           
     
     cWhere.Append retWhere
     
@@ -2646,10 +2651,10 @@ cString.Append "CASE WHEN BARCODE13 IS NULL THEN BARCODE ELSE BARCODE13 END,"
     If xItemBranch.Value <> 0 Then
         If xStore.MatchedWithList Then cWhere.Append " AND FILE1_11_ALL.STORE = " & MyParn(xStore.BoundText)
         If IsDate(xdate2.text) Then cWhere.Append " AND FILE1_11_ALL.[DATE] <= " & DateSq(xdate2.text)
-        If XBAL.Value = -1 Then cStrH = cStrH & " HAVING      (SUM(FILE1_11_ALL.[IN] - FILE1_11_ALL.OUT) <> 0)"
+        If XBAL.Value = -1 Then cStrH = cStrH & " HAVING (SUM(FILE1_11_ALL.[IN] - FILE1_11_ALL.OUT) <> 0)"
     End If
         
-    If cWhere.length <> 0 Then
+    If cWhere.Length <> 0 Then
         cString.Append " WHERE " & Mid(cWhere.GetAsString, 6)
     End If
     
@@ -2670,7 +2675,8 @@ cString.Append "CASE WHEN BARCODE13 IS NULL THEN BARCODE ELSE BARCODE13 END,"
                    "BARCODE," & _
                    "BARCODE13," & _
                    "FILE1_10.BALANCE_FACT," & _
-                   "TB.QUANT"
+                   "TB.QUANT," & _
+                   "ob.BALANCE"
     cWhere.Clear
     
     If XNOSAL.Value = -1 Then
@@ -2688,7 +2694,7 @@ cString.Append "CASE WHEN BARCODE13 IS NULL THEN BARCODE ELSE BARCODE13 END,"
     End If
     
     
-    If cWhere.length <> 0 Then
+    If cWhere.Length <> 0 Then
         cString.Append " HAVING " & Mid(cWhere.GetAsString, 6)
     End If
         
@@ -2728,11 +2734,11 @@ Private Sub myloadOrg()
         cFDem4 = " , ( SELECT TOP 1 DATE    FROM FILE1_11_ALL AS FILE1_11_ALL_2 WHERE FILE1_11_ALL_2.item = FILE1_10.item AND FILE1_11_ALL_2.STORE = " & MyParn(xStore.BoundText) & " AND ( TYPE = '2' OR TYPE = 'T' ) ORDER BY DATE DESC ) "
         CFDEM5 = " , ( SELECT max(branch)   FROM MODEL_DEM WHERE STORE = " & MyParn(xStore.BoundText) & " AND item = FILE1_10.item ) "
     End If
-    cField4 = myiif("FILE1_11_ALL.date < " & DateSq(xdate1) & cStore, "([IN] - [OUT]) ") & " AS f_sal  , "
-    cField5 = myiif("type = 'z' and FILE1_11_ALL.date >= " & DateSq(xdate1.text) & cStore, "([in] + [out]) ") & " AS t_comp , "
-    cField6 = myiif("(type = '2' OR type = 'F' OR type = 'T'  ) and FILE1_11_ALL.date >= " & DateSq(xdate1.text) & cStore, "([IN] ) ") & " AS t_purch, "
-    cField7 = myiif("(type = '7' OR type = 'F' OR type = 'T'  ) and FILE1_11_ALL.date >= " & DateSq(xdate1.text) & cStore, "(OUT  ) ") & " AS tR_purch, "
-    cField8 = myiif("type = '6' and FILE1_11_ALL.date >= " & DateSq(xdate1.text) & cStore, "([out] - [in]) ") & " AS t_sal  , "
+    cField4 = myiif("FILE1_11_ALL.date < " & DateSq(xDate1) & cStore, "([IN] - [OUT]) ") & " AS f_sal  , "
+    cField5 = myiif("type = 'z' and FILE1_11_ALL.date >= " & DateSq(xDate1.text) & cStore, "([in] + [out]) ") & " AS t_comp , "
+    cField6 = myiif("(type = '2' OR type = 'F' OR type = 'T'  ) and FILE1_11_ALL.date >= " & DateSq(xDate1.text) & cStore, "([IN] ) ") & " AS t_purch, "
+    cField7 = myiif("(type = '7' OR type = 'F' OR type = 'T'  ) and FILE1_11_ALL.date >= " & DateSq(xDate1.text) & cStore, "(OUT  ) ") & " AS tR_purch, "
+    cField8 = myiif("type = '6' and FILE1_11_ALL.date >= " & DateSq(xDate1.text) & cStore, "([out] - [in]) ") & " AS t_sal  , "
     cField10 = myiif("FILE1_11_ALL.STORE = " & MyParn(xStore.BoundText), "( [IN]-[out] ) ") & " AS BAL , "
     cField11 = myiif("FILE1_11_ALL.STORE = " & MyParn(xStore.BoundText), " (([IN]-[out] ) * file1_10.costITEM  )") & " AS VALBAL  "
     cField25 = " , Coalesce( ( SELECT TOP 1 ISSTOP FROM MODEL_STOP WHERE BRANCH = " & MyParn(xStore.BoundText) & " AND MODEL = FILE1_10.MODELNO ),0) "
@@ -2756,10 +2762,10 @@ Private Sub myloadOrg()
     If xbarcode.text <> "" Then cStr2 = cStr2 & " AND FILE1_10.item = " & xbarcode.text
     If xSupp.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.CODE = " & MyParn(xSupp.BoundText)
     If xcust.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_11_ALL.CUST = " & MyParn(xcust.BoundText)
-    If xgroup.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+    If xGroup.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.FACT = " & MyParn(xFact.BoundText)
-    If xSection.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[Section] = " & xSection.BoundText
-    If xdesca.text <> "" Then cStr2 = cStr2 & " AND file1_10.DESCA LIKE ('%" & xdesca.text & "%')   "
+    If XSECTION.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[Section] = " & XSECTION.BoundText
+    If xDesca.text <> "" Then cStr2 = cStr2 & " AND file1_10.DESCA LIKE ('%" & xDesca.text & "%')   "
     If xage.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
     If xsex.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
     
@@ -3024,7 +3030,7 @@ Private Sub grid1_DblClick()
     If grid1.col = 2 Then
         aRet = aGetDesca("SELECT MODELNO , SCAL , COLOR FROM FILE1_10 WHERE ITEM = " & Val(grid1.TextMatrix(grid1.Row, 6)), con)
         Load ModelMove
-        ModelMove.xDate.text = xdate1.text
+        ModelMove.xDate.text = xDate1.text
         ModelMove.xModel.text = aRet(1)
         ModelMove.xScal.text = aRet(2)
         ModelMove.xColor.text = aRet(3)
@@ -3087,22 +3093,22 @@ With grid1
 End With
 End Sub
 Private Sub xSection_LostFocus()
-    DATA3.ConnectionString = strCon
-    If xSection.BoundText = "" Then
+    DATA3.connectionString = strCon
+    If XSECTION.BoundText = "" Then
         DATA3.RecordSource = "Select Code,DescA From File1_50 ORDER BY DESCA"
     Else
-        DATA3.RecordSource = "Select Code,DescA From File1_50 where [group] = " & Val(xSection.BoundText) & " ORDER BY DESCA"
+        DATA3.RecordSource = "Select Code,DescA From File1_50 where [group] = " & Val(XSECTION.BoundText) & " ORDER BY DESCA"
     End If
-    Set xgroup.RowSource = DATA3
-    xgroup.ListField = "Desca"
-    xgroup.BoundColumn = "Code"
+    Set xGroup.RowSource = DATA3
+    xGroup.ListField = "Desca"
+    xGroup.BoundColumn = "Code"
     DATA3.Refresh
 
 End Sub
 
 Private Sub XSTORE_LostFocus()
     If xStore.BoundText <> "" Then
-        DATA11.ConnectionString = strCon
+        DATA11.connectionString = strCon
         DATA11.RecordSource = "Select DATE From MODEL_DEM WHERE STORE = " & MyParn(xStore.BoundText) & " GROUP BY DATE   order by DATE  DESC "
         Set XDATEDEM1.RowSource = DATA11
         XDATEDEM1.ListField = "DATE"
@@ -3214,9 +3220,9 @@ temptable.Open "temp", contemp, adOpenStatic, adLockOptimistic, adCmdTable
     If xModelFact.text <> "" Then cStr2 = cStr2 & " AND FILE1_10.MODELFACT0 = " & MyParn(xModelFact.text)
     If xbarcode.text <> "" Then cStr2 = cStr2 & " AND FILE1_10.item = " & xbarcode.text
     If xSupp.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.CODE = " & MyParn(xSupp.BoundText)
-    If xgroup.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+    If xGroup.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.FACT = " & MyParn(xFact.BoundText)
-    If xSection.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[Section] = " & xSection.BoundText
+    If XSECTION.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[Section] = " & XSECTION.BoundText
     If Check2.Value <> 0 Then cStr2 = cStr2 & " AND [ISPRINTED] = 0  "
     
     If XISNOMOSM2.Value = 0 Then
@@ -3227,7 +3233,7 @@ temptable.Open "temp", contemp, adOpenStatic, adLockOptimistic, adCmdTable
     If IsDate(XDATEDEM1.text) Then cStr2 = cStr2 & " AND DATE  >= " & DateSq(XDATEDEM1.text)
     If IsDate(XDATEDEM2.text) Then cStr2 = cStr2 & " AND DATE  <= " & DateSq(XDATEDEM2.text)
     
-    If xdesca.text <> "" Then cStr2 = cStr2 & " AND file1_10.DESCA LIKE ('%" & xdesca.text & "%')   "
+    If xDesca.text <> "" Then cStr2 = cStr2 & " AND file1_10.DESCA LIKE ('%" & xDesca.text & "%')   "
     cStr1 = cStr1 & cStr2
     sourcetable.Open cStr1, con, adOpenStatic, adLockReadOnly, adCmdText
 
@@ -3276,14 +3282,14 @@ If Check3.Value <> 0 And xStore.BoundText = "" Then
     If xModelFact.text <> "" Then cStr2 = cStr2 & " AND FILE1_10.MODELFACT0 = " & MyParn(xModelFact.text)
     If xbarcode.text <> "" Then cStr2 = cStr2 & " AND FILE1_10.item = " & xbarcode.text
     If xSupp.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.CODE = " & MyParn(xSupp.BoundText)
-    If xgroup.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+    If xGroup.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.FACT = " & MyParn(xFact.BoundText)
-    If xSection.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[Section] = " & xSection.BoundText
+    If XSECTION.BoundText <> "" Then cStr2 = cStr2 & " AND FILE1_10.[Section] = " & XSECTION.BoundText
     If Check2.Value <> 0 Then cStr2 = cStr2 & " AND [ISPRINTED] = 0  "
     If IsDate(XDATEDEM1.text) Then cStr2 = cStr2 & " AND DATE  >= " & DateSq(XDATEDEM1.text)
     If IsDate(XDATEDEM2.text) Then cStr2 = cStr2 & " AND DATE  <= " & DateSq(XDATEDEM2.text)
     
-    If xdesca.text <> "" Then cStr2 = cStr2 & " AND file1_10.DESCA LIKE ('%" & xdesca.text & "%')   "
+    If xDesca.text <> "" Then cStr2 = cStr2 & " AND file1_10.DESCA LIKE ('%" & xDesca.text & "%')   "
     cStr1 = cStr1 & cStr2
     sourcetable.Close
     
@@ -3523,13 +3529,13 @@ temptable.Open "temp", contemp, adOpenKeyset, adLockOptimistic, adCmdTable
     If xModelFact.text <> "" Then cStr1 = cStr1 & " AND FILE1_10.MODELFACT0 = " & MyParn(xModelFact.text)
     If xbarcode.text <> "" Then cStr1 = cStr1 & " AND FILE1_10.item = " & xbarcode.text
     If xSupp.BoundText <> "" Then cStr1 = cStr1 & " AND FILE1_10.CODE = " & MyParn(xSupp.BoundText)
-    If xgroup.BoundText <> "" Then cStr1 = cStr1 & " AND FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+    If xGroup.BoundText <> "" Then cStr1 = cStr1 & " AND FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.BoundText <> "" Then cStr1 = cStr1 & " AND FILE1_10.FACT = " & MyParn(xFact.BoundText)
-    If xSection.BoundText <> "" Then cStr1 = cStr1 & " AND FILE1_10.[Section] = " & xSection.BoundText
+    If XSECTION.BoundText <> "" Then cStr1 = cStr1 & " AND FILE1_10.[Section] = " & XSECTION.BoundText
     If Check2.Value <> 0 Then cStr1 = cStr1 & " AND [ISPRINTED] = 0  "
     If IsDate(XDATEDEM1.text) Then cStr1 = cStr1 & " AND DATE  >= " & DateSq(XDATEDEM1.text)
     If IsDate(XDATEDEM2.text) Then cStr1 = cStr1 & " AND DATE  <= " & DateSq(XDATEDEM2.text)
-    If xdesca.text <> "" Then cStr1 = cStr1 & " AND file1_10.DESCA LIKE ('%" & xdesca.text & "%')   "
+    If xDesca.text <> "" Then cStr1 = cStr1 & " AND file1_10.DESCA LIKE ('%" & xDesca.text & "%')   "
     cStr1 = cStr1 & " GROUP BY FILE1_10.MODEL, FILE1_10.desca  , FILE1_10.COLOR , FILE1_10.MODELFACT0  "
     ModelsTable.Open cStr1, con, adOpenStatic, adLockReadOnly, adCmdText
     Dim cModel As String, cColor As String, cModelFact As String
@@ -3673,10 +3679,10 @@ Private Function retWhere() As String
         cWhere.Append " AND FILE1_10.CODE = " & MyParn(xSupp.BoundText)
     End If
         
-    If xgroup.MatchedWithList Then cWhere.Append " AND FILE1_10.[GROUP] = " & MyParn(xgroup.BoundText)
+    If xGroup.MatchedWithList Then cWhere.Append " AND FILE1_10.[GROUP] = " & MyParn(xGroup.BoundText)
     If xFact.MatchedWithList Then cWhere.Append " AND FILE1_10.FACT = " & MyParn(xFact.BoundText)
-    If xSection.MatchedWithList Then cWhere.Append " AND FILE1_10.[Section] = " & xSection.BoundText
-    If xdesca.text <> "" Then cWhere.Append " AND file1_10.DESCA LIKE ('%" & xdesca.text & "%')   "
+    If XSECTION.MatchedWithList Then cWhere.Append " AND FILE1_10.[Section] = " & XSECTION.BoundText
+    If xDesca.text <> "" Then cWhere.Append " AND file1_10.DESCA LIKE ('%" & xDesca.text & "%')   "
     If xage.MatchedWithList Then cWhere.Append " AND FILE1_10.MODELAGE = " & MyParn(xage.BoundText)
     If xsex.MatchedWithList Then cWhere.Append " AND FILE1_10.MODELSEX = " & MyParn(xsex.BoundText)
     

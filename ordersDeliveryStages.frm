@@ -295,7 +295,7 @@ Begin VB.Form online_Stage_main
             Name            =   "Tahoma"
             Size            =   9
             Charset         =   178
-            Weight          =   400
+            Weight          =   700
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
@@ -1303,13 +1303,13 @@ End Sub
 Private Sub cmdExcel_Click()
 ToFileExelNew grid1, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption)
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
     Unload Me
 End Sub
 Private Sub CmdUndo_Click()
     Unload Me
 End Sub
-Private Sub CmdGo_Click()
+Private Sub cmdGo_Click()
 myload
 End Sub
 
@@ -1327,26 +1327,28 @@ Private Sub Form_Load()
 '    Check1.Visible = (cBranch = "00")
 '    cmdCSV.Enabled = (cBranch = "00")
     
-    Dim con As New ADODB.Connection
-    If openCn(con) Then
-        Set xpay.RowSource = myRs("SELECT Payment_Method FROM file6_90h GROUP BY Payment_Method ", con)
-        xpay.ListField = "Payment_Method"
-        xpay.BoundColumn = "Payment_Method"
-        
-            
-        Set xMan.RowSource = myRs("SELECT CODE,DESCA FROM FILE6_25 WHERE FILE6_25.BRANCH IN (SELECT FILE0_40.BRANCH FROM FILE0_40 WHERE FILE0_40.online =  1) AND FILE6_25.ISSTOP = 0 ORDER BY CODE", con)
-        xMan.ListField = "Desca"
-        xMan.BoundColumn = "Code"
-        closeCon con
-    End If
-    Fixgrd
+Dim db As New clsDb
+Set xpay.RowSource = db.myRs("SELECT Payment_type " & _
+                             "FROM file6_90h " & _
+                             "where payment_type is not null  " & _
+                             " GROUP BY Payment_type")
+
+xpay.ListField = "Payment_type"
+xpay.BoundColumn = "Payment_type"
+
+    
+Set xMan.RowSource = db.myRs("SELECT CODE,DESCA FROM FILE6_25 WHERE FILE6_25.BRANCH IN (SELECT FILE0_40.BRANCH FROM FILE0_40 WHERE FILE0_40.online =  1) AND FILE6_25.ISSTOP = 0 ORDER BY CODE")
+xMan.ListField = "Desca"
+xMan.BoundColumn = "Code"
+Set db = Nothing
+
+Fixgrd
 End Sub
 Public Sub myload()
 Dim i As Double
 Dim cString  As String, cStr2 As String
 Dim cWhere As String
 Dim cSubTotal As String
-
 With grid1
     cString = " SELECT DOC_NO," & _
               " FORMAT(DATE,'yyyy/M/d')," & _
@@ -1360,7 +1362,7 @@ With grid1
               "DISCOUNT_CODE," & _
               "SHIPPING, " & _
               "FILE6_90H.TOTAL_ITEM + SHIPPING - FILE6_90H.DISCOUNT ," & _
-              "Payment_Method," & _
+              "Payment_type," & _
               "STORE," & _
               "STAGES_CODES.DESCA ," & _
               "FILE6_25.DESCA," & _
@@ -1381,13 +1383,13 @@ cString = cString & _
               " LEFT JOIN FILE6_25 ON FILE6_90H.MAN = FILE6_25.CODE" & _
               " INNER JOIN STAGES_CODES ON FILE6_90H.STAGE = STAGES_CODES.CODE"
               
-    If optType(1).Value Then
+    If optType(1).value Then
         cWhere = cWhere & Tr(cWhere) & "FILE6_90H.DOC_NO IN (SELECT ORDER_NO FROM vw_online_orders_open)"
-    ElseIf optType(2).Value Then
+    ElseIf optType(2).value Then
         cWhere = cWhere & Tr(cWhere) & "(FILE6_90H.DOC_NO IN (SELECT ORDER_NO FROM vw_online_orders_closed) OR FILE6_90H.CANCELED = 1)"
-    ElseIf optType(3).Value Then
+    ElseIf optType(3).value Then
         cWhere = cWhere & Tr(cWhere) & "FILE6_90H.DOC_NO IN (SELECT ORDER_NO FROM vw_online_orders_closed)"
-    ElseIf optType(4).Value Then
+    ElseIf optType(4).value Then
         cWhere = cWhere & Tr(cWhere) & "FILE6_90H.CANCELED = 1"
     End If
     
@@ -1412,8 +1414,8 @@ cString = cString & _
 '                 " INNER JOIN vw_online_invoices_closed as v on FILE6_90H.DOC_NO = v.ORDER_NO"
 '    End If
     
-    If xdoc_no.text <> "" Then
-        cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xdoc_no.text)
+    If xDoc_No.text <> "" Then
+        cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xDoc_No.text)
     End If
     
     If xPhone.text <> "" Then
@@ -1421,7 +1423,7 @@ cString = cString & _
     End If
     
     If xpay.BoundText <> "" Then
-        cWhere = cWhere & Tr(cWhere) & " [Payment_Method] = " & MyParn(xpay.text)
+        cWhere = cWhere & Tr(cWhere) & " [Payment_type] = " & MyParn(xpay.text)
     End If
     
     
@@ -1477,7 +1479,6 @@ With grid1
     .TextMatrix(0, 11) = "«·≈Ã„«·Ì"
     
     .TextMatrix(0, 11 + 1) = "ÿ—Ìﬁ… «·œ›⁄"
-    .TextMatrix(0, 11 + 1) = "ÿ—Ìﬁ… «·œ›⁄"
     .TextMatrix(0, 12 + 1) = "«·›—⁄"
     .TextMatrix(0, 13 + 1) = "«·„—Õ·…"
     .TextMatrix(0, 14 + 1) = "«·„‰œÊ»"
@@ -1492,7 +1493,7 @@ With grid1
         
     .ColHidden(9) = True
     '.ColHidden(10) = True
-    .ColHidden(12) = True
+    '.ColHidden(12) = True
     .ColHidden(15) = True
     .ColHidden(21) = True
     .ColHidden(16) = True
@@ -1568,7 +1569,7 @@ Private Sub grid1_DblClick()
 If grid1.Row < 1 Or grid1.Row = grid1.Rows - 1 Then Exit Sub
 If cmdStage.Tag <> grid1.TextMatrix(grid1.Row, grid1.Cols - 1) And cmdStage.Tag <> "" Then
     orders_online_invoices.bEdit = False
-    orders_online_invoices.sOrder_No = grid1.TextMatrix(grid1.Row, 0)
+    orders_online_invoices.sOrder_no = grid1.TextMatrix(grid1.Row, 0)
     orders_online_invoices.sStore = sStoreOnline
     orders_online_invoices.sStage = cmdStage.Tag
     Set orders_online_invoices.myForm = Me
@@ -1606,19 +1607,19 @@ Private Sub XPHONE_LostFocus()
 myLostFocus xPhone
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xdoc_no
+myGotFocus xDoc_No
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus xdoc_no
+myLostFocus xDoc_No
 End Sub
-Private Sub xdate2_GotFocus()
+Private Sub xDate2_GotFocus()
 myGotFocus xdate2
 End Sub
 Private Sub xDate2_LostFocus()
 myLostFocus xdate2
 myValidDate xdate2
 End Sub
-Private Sub xdate1_GotFocus()
+Private Sub xDate1_GotFocus()
 myGotFocus xDate1
 End Sub
 Private Sub xDate1_LostFocus()

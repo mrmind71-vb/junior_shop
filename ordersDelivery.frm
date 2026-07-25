@@ -1486,7 +1486,7 @@ onlineCSVfrm.Show 1
 End Sub
 
 Private Sub cmdExcel_Click()
-ToFileExelNew grid1, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption)
+ToFileExelNew grid1, , , arow, Array(1), 0.9, , , , , , Me, Array(Me.Caption)
 End Sub
 
 Private Sub cmdExit_Click()
@@ -1507,15 +1507,15 @@ Private Sub Form_Load()
     'If cBranch <> "00" Then openCon con_MyShop
     
     Set grid1.DataSource = DATA1
-    Set grid2.DataSource = data2
+    Set grid2.DataSource = DATA2
     
     Frame2.Visible = (cBranch = "00")
     Check1.Visible = (cBranch = "00")
     'cmd_addexel.Visible = (cBranch = "00")
     cmdCSV.Enabled = (cBranch = "00")
     
-    Set data3.Recordset = myRecordSet("SELECT Payment_Method FROM file6_90h GROUP BY Payment_Method ", con)
-    Set xpay.RowSource = data3
+    Set DATA3.Recordset = myRecordSet("SELECT Payment_Method FROM file6_90h GROUP BY Payment_Method ", con)
+    Set xpay.RowSource = DATA3
     xpay.ListField = "Payment_Method"
     xpay.BoundColumn = "Payment_Method"
     
@@ -1539,7 +1539,7 @@ Private Sub Form_Load()
     'CMD_SEND.Visible = (cBranch <> "00") And lIsBoxOnline And cManBox <> "" And Not lSupperVisor
     CMD_SEND.Enabled = (cBranch <> "00") And lIsBoxOnline And cManBox <> "" And Not lSupperVisor
     'If cBranch <> "00" Then grid2.Width = grid2.Width - 3000
-    Fixgrd
+    fixGrd
     XBRANCH.Caption = GetDesca("SELECT DESCA FROM BRANCH WHERE CODE = " & MyParn(cBranch), con)
     CLIST = StrListA("SELECT CODE , DESCA FROM FILE0_40 WHERE ONLINE = 1 ORDER BY CODE ", con)
     LoadText Me
@@ -1612,14 +1612,14 @@ With grid1
     Set DATA1.Recordset = mycmd(cString, con)
 
 End With
-Fixgrd
+fixGrd
 grid1.Cell(flexcpAlignment, 0, 0, grid1.Rows - 1, grid1.Cols - 1) = 7
 Exit Sub
 myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Sub Fixgrd()
+Sub fixGrd()
 With grid1
     .RowHeight(0) = 1000
     .WordWrap = True
@@ -1930,7 +1930,7 @@ cBalNotShip = " ,(SELECT SUM(QUANT ) FROM Q_BAL_NOTSHIP WHERE Q_BAL_NOTSHIP.ITEM
 With grid1
 '                               0           1               2           3                                                                                   4               5               6            7                  8                   9           10          11
     cString = " SELECT    FILE6_90.ITEM, FILE6_90.SKU, FACT.DESCA , CASE WHEN FILE1_10.desca IS NULL THEN FILE6_90.ITEM_NAME ELSE FILE1_10.desca END , FILE1_10.COLOR, FILE1_10.SCAL, FILE6_90.QUANT, FILE6_90.PRICE, file6_90.ITEM_NAME, FILE6_90.ID " & cStrStore & cBalNotShip & " FROM            FILE6_90 LEFT  JOIN FILE1_10 ON FILE6_90.ITEM = FILE1_10.ITEM left  JOIN  FACT ON FILE1_10.code = FACT.CODE WHERE DOC_NO =  " & MyParn(pDoc_no)
-    Set data2.Recordset = myRecordSet(cString, con)
+    Set DATA2.Recordset = myRecordSet(cString, con)
 End With
 Fixgrd2
 grid2.Cell(flexcpAlignment, 0, 0, grid2.Rows - 1, grid2.Cols - 1) = 7
@@ -2374,7 +2374,7 @@ End Sub
 Private Sub xDoc_No_LostFocus()
 myLostFocus xDoc_No
 End Sub
-Private Sub xDate2_GotFocus()
+Private Sub xdate2_GotFocus()
 myGotFocus xdate2
 End Sub
 Private Sub xDate2_LostFocus()
@@ -2384,7 +2384,7 @@ End Sub
 Private Sub xdate1_GotFocus()
 myGotFocus xDate1
 End Sub
-Private Sub xdate1_LostFocus()
+Private Sub xDate1_LostFocus()
 myLostFocus xDate1
 myValidDate xDate1
 End Sub
