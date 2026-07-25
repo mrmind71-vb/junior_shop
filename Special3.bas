@@ -122,14 +122,16 @@ Set Generalarray(0) = oForm
 
 '                       0
 cString = "SELECT Payment_type," & _
-          " Payment_type" & _
-          " FROM  FILE6_90H"
+          " Payment_type as p" & _
+          " FROM  FILE6_90H" & _
+          " WHERE PAYMENT_TYPE IS NOT NULL"
+
 If cFilter <> "" Then cWhere = cWhere & Tr(cWhere) & cFilter
-If cWhere <> "" Then cString = cString & " WHERE " & cWhere
+If cWhere <> "" Then cString = cString & " AND " & cWhere
 
 Generalarray(1) = cString
 
-Generalarray(2) = "Group by Payment_type Order by Payment_type"
+Generalarray(2) = " Group by Payment_type Order by Payment_type"
 Generalarray(3) = 4000
 Generalarray(5) = True
 

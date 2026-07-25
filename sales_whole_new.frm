@@ -3082,7 +3082,7 @@ Dim rsInv_Type As ADODB.Recordset
 Dim CardTable As ADODB.Recordset
 Dim oSearchItem As New Search_abd, oSearchDoc  As New Search_rs
 Dim oSearchStore As New Search_abd, oSearchStoreLook As New Search_abd
-Dim oSearchClient As New Search_abd, oSearchClientLook As New Search_abd
+Dim osearchClient As New Search_abd, oSearchClientLook As New Search_abd
 Dim oSearchOrder As New Search_abd
 Dim bEdit As Boolean
 Dim bEditRecord As Boolean
@@ -3097,7 +3097,7 @@ Dim aInsert As Variant
 aInsert = AddFlag(aInsert, "CODE", addstring(xCode.text))
 aInsert = AddFlag(aInsert, "[DATE]", addDate(xDate.text))
 aInsert = AddFlag(aInsert, "STORE", addstring(xStore.BoundText))
-aInsert = AddFlag(aInsert, "[PO_NO]", addstring(XPO_NO.text))
+aInsert = AddFlag(aInsert, "[PO_NO]", addstring(xpo_no.text))
 aInsert = AddFlag(aInsert, "[NOTES]", addstring(xNotes.text))
 aInsert = AddFlag(aInsert, "[RATE]", Val(xRate.text))
 aInsert = AddFlag(aInsert, "[DISCOUNT]", Val(xDiscount.text))
@@ -3164,17 +3164,17 @@ ElseIf ActiveControl.Name = cmdStore.Name Then
     End If
     oSearchStore.Hide
 ElseIf ActiveControl.Name = cmdClient.Name Then
-    If oSearchClient.grid1.TextMatrix(oSearchClient.grid1.Row, 0) = "" Then
+    If osearchClient.grid1.TextMatrix(osearchClient.grid1.Row, 0) = "" Then
         cmdClient.Tag = ""
         cmdClient.Caption = cmdClient.TagVariant
     Else
-        cmdClient.Tag = oSearchClient.grid1.TextMatrix(oSearchClient.grid1.Row, 0)
-        cmdClient.Caption = oSearchClient.grid1.TextMatrix(oSearchClient.grid1.Row, 1)
+        cmdClient.Tag = osearchClient.grid1.TextMatrix(osearchClient.grid1.Row, 0)
+        cmdClient.Caption = osearchClient.grid1.TextMatrix(osearchClient.grid1.Row, 1)
     End If
     If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
         If Not openCardTable Then myDefine
     End If
-    oSearchClient.Hide
+    osearchClient.Hide
 ElseIf ActiveControl.Name = CMD_ADD_RECEVD.Name Then
     orders_soldfrm.sDoc_no_order = oSearchOrder.grid1.TextMatrix(oSearchOrder.grid1.Row, 0)
     orders_soldfrm.sinv_type = xinv_type.Caption
@@ -3232,7 +3232,7 @@ ClientOrderLookup Me, oSearchOrder, "isPosted = 0"
 End Sub
 
 Private Sub cmdClient_Click()
-PayTypeLook Me, oSearchClient, , , IIf(cmdClient.Tag = "", "", "ﬂ· «·⁄„·«¡")
+CLIENTLOOKUP Me, osearchClient, , , IIf(cmdClient.Tag = "", "", "ﬂ· «·⁄„·«¡")
 End Sub
 
 Private Sub cmdCSV_Click()
@@ -3422,14 +3422,14 @@ nRound = 0
 
 HandleInit
 
-Set DATA1.Recordset = myRs("SELECT * FROM FILE0_40 WHERE ISSTOP = 0", con)
-Set xStore.RowSource = DATA1
+Set data1.Recordset = myRs("SELECT * FROM FILE0_40 WHERE ISSTOP = 0", con)
+Set xStore.RowSource = data1
 xStore.ListField = "Desca"
 xStore.BoundColumn = "Code"
 xStore.BoundText = cBranchStore
 
-Set DATA2.Recordset = mycmd(YearsString(2023), con)
-Set xYear.RowSource = DATA2
+Set data2.Recordset = mycmd(YearsString(2023), con)
+Set xYear.RowSource = data2
 xYear.ListField = "CODE"
 xYear.BoundColumn = "CODE"
 
@@ -3594,7 +3594,7 @@ Else
     doprint
 End If
 End Sub
-Private Sub optclosed_Click(Index As Integer)
+Private Sub optclosed_Click(index As Integer)
 If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
     If Not openCardTable Then
         myDefine
@@ -3606,13 +3606,13 @@ Private Sub lblAlert_Click()
 
 End Sub
 
-Private Sub optPrice_Click(Index As Integer)
+Private Sub optPrice_Click(index As Integer)
 If bIg Then Exit Sub
-If MsgBox(" ÕÊÌ· «·Ì " & IIf(Index = 0, "”⁄— Ã„·…", "”⁄— „” Â·ﬂ"), vbOKCancel + vbDefaultButton2) <> vbOK Then
+If MsgBox(" ÕÊÌ· «·Ì " & IIf(index = 0, "”⁄— Ã„·…", "”⁄— „” Â·ﬂ"), vbOKCancel + vbDefaultButton2) <> vbOK Then
     bIg = True
-    optPrice(Index).value = False
-    optPrice(IIf(Index = 1, 0, 1)) = True
-    optPrice(IIf(Index = 1, 0, 1)).SetFocus
+    optPrice(index).value = False
+    optPrice(IIf(index = 1, 0, 1)) = True
+    optPrice(IIf(index = 1, 0, 1)).SetFocus
     bIg = False
 Else
     Me.MousePointer = vbHourglass
@@ -3635,7 +3635,7 @@ Err.Clear
 Me.MousePointer = vbNormal
 End Sub
 
-Private Sub optType_Click(Index As Integer)
+Private Sub optType_Click(index As Integer)
 If bIg Then Exit Sub
 If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
     If Not openCardTable Then
@@ -3717,13 +3717,13 @@ xIs_collect.value = IIf(CardTable!IS_COLLECT, 1, 0)
 
 XDATESALES1.text = myFormat_p(CardTable!Datesales1)
 XDATESALES2.text = myFormat_p(CardTable!datesales2)
-XPO_NO.text = CardTable!PO_NO & ""
+xpo_no.text = CardTable!PO_NO & ""
 xinv_no.text = CardTable!INV_NO & ""
 xinv_type.Caption = CardTable!INV_TYPE & ""
 xDate.text = myFormat_p(CardTable!Date)
 xStore.BoundText = CardTable!STORE & ""
 xNotes.text = CardTable!NOTES & ""
-xUserName.Caption = CardTable!UserName & ""
+xusername.Caption = CardTable!UserName & ""
 xCode.text = CardTable!code & ""
 xCodeDesca.Caption = CardTable!ClientDesca & ""
 panel1(0).Caption = CardTable!UserName & ""
@@ -3763,7 +3763,7 @@ xdoc_no_flag.Caption = ""
 XDATESALES1.text = ""
 XDATESALES2.text = ""
 xIs_collect.value = 0
-XPO_NO.text = ""
+xpo_no.text = ""
 
 If optType(4).value Or optType(5).value Or optType(6).value Then
     XISINVOICE.value = 1
@@ -3806,7 +3806,7 @@ xTotal.Caption = ""
 xNotes.text = ""
 
 panel1(1).Caption = GetComputerName
-xUserName.Caption = cUserName
+xusername.Caption = cUserName
 
 grid1.Rows = 1
 myAddItem
@@ -3857,7 +3857,7 @@ xRate.Enabled = bEditRecord And Val(xinv_type.Caption) = 2 And xIs_collect.value
 xRate_Tax.Enabled = bEditRecord And Val(xinv_type.Caption) > 2 And xIs_collect.value = 0
 cmdPurchase.Enabled = Val(xinv_type.Caption) = 2 And xIs_collect.value = 0
 
-cmdCSV.Enabled = bEditRecord And nMode = LoadMode
+cmdCsv.Enabled = bEditRecord And nMode = LoadMode
 
 fmTransTax.Visible = Val(xinv_type.Caption) = 2 And nMode = LoadMode
 fmShowTotal.Visible = Val(xinv_type.Caption) > 2 And nMode = LoadMode

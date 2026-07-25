@@ -934,7 +934,7 @@ Begin VB.Form online_ship_order
          ForeColor       =   &H80000008&
          Height          =   270
          Index           =   1
-         Left            =   225
+         Left            =   270
          TabIndex        =   1
          TabStop         =   0   'False
          Top             =   270
@@ -1002,7 +1002,7 @@ Public nType As Byte, bEdit As Boolean, sDoc_no As String
 Dim bIg As Boolean
 Public bCheck As Boolean
 Dim dbm As New DBManager
-Dim oSearchPay As Search_rs
+Dim oSearchPay As New Search_rs
 Dim bAdmin As Boolean
 Dim bEditRecord As Boolean, bAct As Boolean
 Dim oSeachCode As New Search_rs, oSearchDoc As New Search_rs, oSearchship As New Search_rs, oSearchSup As New Search
@@ -1043,14 +1043,17 @@ If ActiveControl.Name = grid1.Name Then
 ElseIf ActiveControl.Name = cmdInform.Name Then
     openCardTable tbMode.tbFind, oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
     Unload oSearchDoc
-ElseIf ActiveControl.Name = cmdProject.Name Then
-'    If oSearchProject.grid1.TextMatrix(oSearchProject.grid1.Row, 0) = "" Then
-'        cmdProject.Tag = ""
-'        cmdProject.Caption = cmdProject.TagVariant
-'    Else
-'        cmdProject.Tag = oSearchProject.grid1.TextMatrix(oSearchProject.grid1.Row, 0)
-'        cmdProject.Caption = oSearchProject.grid1.TextMatrix(oSearchProject.grid1.Row, 1)
-'    End If
+ElseIf ActiveControl.Name = cmdPayment.Name Then
+    If oSearchPay.grid1.TextMatrix(oSearchPay.grid1.Row, 0) = "" Then
+        cmdPayment.Tag = ""
+        cmdPayment.Caption = cmdPayment.TagVariant
+    Else
+        cmdPayment.Tag = oSearchPay.grid1.TextMatrix(oSearchPay.grid1.Row, 0)
+        cmdPayment.Caption = oSearchPay.grid1.TextMatrix(oSearchPay.grid1.Row, 1)
+    End If
+    myLoadGrd
+    Unload oSearchPay
+    
 '    If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
 '        If Not openCardTable Then myDefine
 '    End If
@@ -1236,7 +1239,7 @@ End If
 End Sub
 
 Private Sub cmdPayment_Click()
- 
+PayTypeLook Me, oSearchPay, , , IIf(cmdPayment.Tag = "", "", "ﬂ· «‰Ê«⁄ «·”œ«œ")
 End Sub
 
 Private Sub CmdPrevious_Click()
@@ -1404,12 +1407,12 @@ xship.Enabled = (nMode = DefineMode And bEditRecord)
 xDoc_No.Tag = nMode
 End Sub
 
-Private Sub optclosed_Click(Index As Integer)
+Private Sub optclosed_Click(index As Integer)
 If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
     If Not openCardTable Then myDefine
 End If
 End Sub
-Private Sub optdate_Click(Index As Integer)
+Private Sub optdate_Click(index As Integer)
 If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
     If Not openCardTable Then myDefine
 End If
@@ -1472,6 +1475,13 @@ If cmdFilter.Tag <> "" Then cFilter = "DOC_NO IN (" & cmdFilter.Tag & ")"
 If optdate(1).value Then
     cFilter = cFilter & Tr(cFilter) & "FILE6_90SH.DOC_NO IN(SELECT FILE6_90S.DOC_NO FROM FILE6_90S WHERE FILE6_90S.DATE_PICK IS NULL)"
 End If
+
+If optclosed(1).value Then
+    cFilter = cFilter & Tr(cFilter) & "FILE6_90SH.CLOSED = 0"
+ElseIf optclosed(2).value Then
+    cFilter = cFilter & Tr(cFilter) & "FILE6_90SH.CLOSED = 1"
+End If
+
 
 If sDoc_no <> "" Then cFilter = "DOC_NO = " & sDoc_no
 cString = "SELECT TOP 1 FILE6_90SH.* " & _
@@ -1700,6 +1710,10 @@ cString = cString & " WHERE  s.DOC_NO = " & addvalue(xDoc_No.text)
 If chkNoPickDate.value = 1 Or optdate(1).value Then
     cString = cString & " AND DATE_PICK IS NULL"
 End If
+If cmdPayment.Tag <> "" Then
+    cString = cString & " AND PAYMENT_TYPE = " & MyParn(cmdPayment.Tag)
+End If
+
 Dim db As New clsDb
 Set grid1.DataSource = db.myRs(cString)
 Set db = Nothing
@@ -1870,7 +1884,7 @@ grid1.TextMatrix(Row, 8) = locTable!Phone & ""
 grid1.TextMatrix(Row, 9) = locTable!Address & ""
 grid1.TextMatrix(Row, 10) = locTable!total_Quant & ""
 grid1.TextMatrix(Row, 11) = locTable!TOTAL_ITEM - locTable!discount
-grid1.TextMatrix(Row, 14) = locTable!PAYMENT_Method & ""
+grid1.TextMatrix(Row, 14) = locTable!Payment_Method & ""
 
 GrdDesc = True
 CleanUp:
