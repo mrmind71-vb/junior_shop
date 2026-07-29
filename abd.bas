@@ -6,57 +6,57 @@ Public bSupermode As Boolean
 Public aBranch As Variant
 Public searchArray
 Function Newflag(sTable, cField, pCon As ADODB.Connection, Optional pWhere As String = "") As Long
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 Dim cSql As String
 cSql = "Select Max(" & cField & ") as Maxof From " & sTable
 If pWhere <> "" Then cSql = cSql & " where " & pWhere
-loctable.Open cSql, pCon, adOpenStatic, adLockReadOnly, adCmdText
-If Not (loctable.EOF And loctable.BOF) Then
-    Newflag = Val(loctable!maxOf & "") + 1
+locTable.Open cSql, pCon, adOpenStatic, adLockReadOnly, adCmdText
+If Not (locTable.EOF And locTable.BOF) Then
+    Newflag = Val(locTable!maxOf & "") + 1
 End If
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
 Function IncData(sTable As String, sField As String, con As ADODB.Connection, Optional pWhere As String = "", Optional bNum As Boolean = False) As String
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 Dim cString As String
 cString = "Select Max(" & sField & ") as Maxof " & _
        " FROM " & sTable
 If pWhere <> "" Then cString = cString & " where " & pWhere
-Set loctable = cmd(cString, con).Execute
-If Not (loctable.EOF) Then
-    If IsNull(loctable!maxOf) Then
+Set locTable = cmd(cString, con).Execute
+If Not (locTable.EOF) Then
+    If IsNull(locTable!maxOf) Then
         IncData = ""
     ElseIf bNum Then
-        IncData = Val(loctable!maxOf & "") + 1
+        IncData = Val(locTable!maxOf & "") + 1
     Else
-        IncData = IncrementString(loctable!maxOf & "")
+        IncData = IncrementString(locTable!maxOf & "")
     End If
 End If
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
 Function IncDataRs(sTable As String, sField As String, Optional pWhere As String = "", Optional bNum As Boolean = False) As String
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 Dim cString As String
 cString = "Select Max(" & sField & ") as Maxof " & _
        " FROM " & sTable
 If pWhere <> "" Then cString = cString & " where " & pWhere
-Set loctable = myRs(cString)
-If Not (loctable.EOF) Then
-    If IsNull(loctable!maxOf) Then
+Set locTable = myRs(cString)
+If Not (locTable.EOF) Then
+    If IsNull(locTable!maxOf) Then
         IncDataRs = ""
     ElseIf bNum Then
-        IncDataRs = Val(loctable!maxOf & "") + 1
+        IncDataRs = Val(locTable!maxOf & "") + 1
     Else
-        IncDataRs = IncrementString(loctable!maxOf & "")
+        IncDataRs = IncrementString(locTable!maxOf & "")
     End If
 End If
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
 Function NewflagDoc(sDate As String, sStore As String, pCon As ADODB.Connection) As String
-Dim loctable As New ADODB.Recordset, cString As String
+Dim locTable As New ADODB.Recordset, cString As String
 If cBranch <> "00" Then
     If Len(sStore) = 2 Then
         cString = "Select MAX(SUBSTRING(DOC_NO2,3,3)) as MaxofDocNo FROM FILE6_20H "
@@ -65,13 +65,13 @@ If cBranch <> "00" Then
     End If
     cString = cString & turn(cString) & "[DATE] = " & DateSq(sDate)
     cString = cString & turn(cString) & "[BOX] = " & MyParn(cBranchBox)
-    loctable.Open cString, pCon, adOpenStatic, adLockReadOnly, adCmdText
+    locTable.Open cString, pCon, adOpenStatic, adLockReadOnly, adCmdText
     If Len(sStore) = 2 Then sStore = Val(sStore)
     If Len(sStore) = 3 Then sStore = Val(sStore)
-    If Not loctable.EOF Then cString = sStore & RetZero(Val(loctable!maxOfDocNo & "") + 1, 3) Else cString = sStore & RetZero(1, 3)
+    If Not locTable.EOF Then cString = sStore & RetZero(Val(locTable!maxOfDocNo & "") + 1, 3) Else cString = sStore & RetZero(1, 3)
     NewflagDoc = RetZero(Day(sDate), 2) & RetZero(Month(sDate), 2) & RetZero(Format(sDate, "YY"), 2) & cString
-    loctable.Close
-    Set loctable = Nothing
+    locTable.Close
+    Set locTable = Nothing
 Else
     NewflagDoc = IncRec(GetDesca("select max(doc_no) from file6_20h where ISINVOICE = 0 AND  branch = '00' ", pCon))
     If NewflagDoc = "" Then
@@ -80,7 +80,7 @@ Else
 End If
 End Function
 Function NewflagDocRs(sDate As String, sStore As String, Optional con As ADODB.Connection) As String
-Dim loctable As New ADODB.Recordset, cString As String
+Dim locTable As New ADODB.Recordset, cString As String
 If cBranch <> "00" Then
     If Len(sStore) = 2 Then
         cString = "Select MAX(SUBSTRING(DOC_NO2,3,3)) as MaxofDocNo FROM FILE6_20H "
@@ -89,14 +89,14 @@ If cBranch <> "00" Then
     End If
     cString = cString & turn(cString) & "[DATE] = " & DateSq(sDate)
     cString = cString & turn(cString) & "[BOX] = " & MyParn(cBranchBox)
-    Set loctable = myRs(cString, con)
+    Set locTable = myRs(cString, con)
     If Len(sStore) = 2 Then sStore = Val(sStore)
     If Len(sStore) = 3 Then sStore = Val(sStore)
     
-    If Not loctable.EOF Then cString = sStore & RetZero(Val(loctable!maxOfDocNo & "") + 1, 3) Else cString = sStore & RetZero(1, 3)
+    If Not locTable.EOF Then cString = sStore & RetZero(Val(locTable!maxOfDocNo & "") + 1, 3) Else cString = sStore & RetZero(1, 3)
     NewflagDocRs = RetZero(Day(sDate), 2) & RetZero(Month(sDate), 2) & RetZero(Format(sDate, "YY"), 2) & cString
-    loctable.Close
-    Set loctable = Nothing
+    locTable.Close
+    Set locTable = Nothing
 Else
     NewflagDocRs = IncRec(rsValue("select max(doc_no) from file6_20h where ISINVOICE = 0 AND  branch = '00' "))
 
@@ -145,51 +145,51 @@ Next
 MyParnAnd = cString2
 End Function
 Function aGetDesca(pString, pCon As ADODB.Connection) As Variant
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 'If pcon Is Nothing Then
 '    loctable.Open pString, GetCon, adOpenStatic, adLockReadOnly, adCmdText
 'Else
-    loctable.Open pString, pCon, adOpenStatic, adLockReadOnly, adCmdText
+    locTable.Open pString, pCon, adOpenStatic, adLockReadOnly, adCmdText
 'End If
 ReDim aRet(0)
-If Not (loctable.BOF And loctable.EOF) Then
-    ReDim aRet(loctable.Fields.Count)
-    For i = 0 To loctable.Fields.Count - 1
-        aRet(i + 1) = loctable.Fields(i).value
+If Not (locTable.BOF And locTable.EOF) Then
+    ReDim aRet(locTable.Fields.Count)
+    For i = 0 To locTable.Fields.Count - 1
+        aRet(i + 1) = locTable.Fields(i).Value
     Next
 End If
 aGetDesca = aRet
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
 Function GetDesca(pString, pCon As ADODB.Connection) As String
-Dim loctable As New ADODB.Recordset
-loctable.CursorLocation = adUseClient
+Dim locTable As New ADODB.Recordset
+locTable.CursorLocation = adUseClient
 'If pcon Is Nothing Then
 '     loctable.Open pString, GetCon, adOpenStatic, adLockReadOnly, adCmdText
 'Else
-    loctable.Open pString, pCon, adOpenStatic, adLockReadOnly, adCmdText
+    locTable.Open pString, pCon, adOpenStatic, adLockReadOnly, adCmdText
 'End If
-If Not (loctable.BOF And loctable.EOF) Then GetDesca = loctable(0) & ""
-loctable.Close
-Set loctable = Nothing
+If Not (locTable.BOF And locTable.EOF) Then GetDesca = locTable(0) & ""
+locTable.Close
+Set locTable = Nothing
 End Function
 Function GetBoolean(pString, pCon As ADODB.Connection) As Integer
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 'loctable.CursorLocation = adUseClient
 'If pcon Is Nothing Then
 '    loctable.Open pString, GetCon, adOpenStatic, adLockReadOnly, adCmdTextElse
 'Else
-    loctable.Open pString, pCon, adOpenStatic, adLockReadOnly, adCmdText
+    locTable.Open pString, pCon, adOpenStatic, adLockReadOnly, adCmdText
 'End If
 
-If Not (loctable.BOF And loctable.EOF) Then
-    GetBoolean = IIf(loctable(0), 1, 0)
+If Not (locTable.BOF And locTable.EOF) Then
+    GetBoolean = IIf(locTable(0), 1, 0)
 Else
     GetBoolean = -1
 End If
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
 Function addDate(pValue) As String
 If Not IsDate(pValue) Then
@@ -266,7 +266,7 @@ ReDim aFilter(pTable.Fields.Count - 1)
 pTable.Filter = pFilter
 If Not (pTable.EOF And pTable.BOF) Then
     For i = 0 To pTable.Fields.Count - 1
-        aFilter(i) = pTable.Fields(i).value
+        aFilter(i) = pTable.Fields(i).Value
     Next
 Else
     For i = 0 To pTable.Fields.Count - 1
@@ -352,20 +352,20 @@ End If
 Err.Clear
 End Function
 Function DefGet(sFlag, sFlagDesca) As String
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 cString = "Select * From defTable " & _
           " where Flag = " & MyParn(sFlag) & _
           " and FlagDesca = " & MyParn(sFlagDesca)
-loctable.Open cString, condef, adOpenStatic, adLockReadOnly, adCmdText
-If Not (loctable.BOF And loctable.EOF) Then DefGet = loctable!FlagVAlue & ""
-loctable.Close
-Set loctable = Nothing
+locTable.Open cString, condef, adOpenStatic, adLockReadOnly, adCmdText
+If Not (locTable.BOF And locTable.EOF) Then DefGet = locTable!FlagVAlue & ""
+locTable.Close
+Set locTable = Nothing
 End Function
-Function strList(cString, pCon As ADODB.Connection)
+Function StrList(cString, pCon As ADODB.Connection)
 Dim listTable As New ADODB.Recordset
 listTable.Open cString, pCon, adOpenStatic, adLockReadOnly, adCmdText
 Do Until listTable.EOF
-    strList = strList & "|#" & listTable.Fields(0) & ";" & listTable.Fields(1)
+    StrList = StrList & "|#" & listTable.Fields(0) & ";" & listTable.Fields(1)
     listTable.MoveNext
 Loop
 End Function
@@ -604,7 +604,7 @@ InformOkfrm.Show 1
 Err.Clear
 End Sub
 Function myRecordSet(pString As String, pCon As ADODB.Connection, Optional pType As Integer = adCmdText) As ADODB.Recordset
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 Dim cmd As New ADODB.command
 cmd.CommandType = pType
 cmd.CommandTimeout = 600
@@ -614,8 +614,8 @@ Else
     cmd.ActiveConnection = pCon
 End If
 cmd.CommandText = pString
-Set loctable = cmd.Execute
-Set myRecordSet = loctable
+Set locTable = cmd.Execute
+Set myRecordSet = locTable
 Set rdTable = Nothing
 End Function
 Sub myGotFocus(ByRef pControl As Variant, Optional bStart As Boolean = True)
@@ -863,56 +863,56 @@ aRet = RetPrinter(sPrinter)
 If Not IsEmpty(aRet) Then RetPrinterByType = sPrinter
 End Function
 Function GetFields(pString, pCon As ADODB.Connection) As Variant
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 'If pcon Is Nothing Then
 '    loctable.Open pString, GetCon, adOpenStatic, adLockReadOnly, adCmdText
 'Else
-    loctable.Open pString, pCon, adOpenStatic, adLockReadOnly, adCmdText
+    locTable.Open pString, pCon, adOpenStatic, adLockReadOnly, adCmdText
 'End If
-If Not (loctable.BOF And loctable.EOF) Then
-    For i = 0 To loctable.Fields.Count - 1
-        GetFields = AddFlag(GetFields, LCase(loctable.Fields(i).Name), loctable.Fields(i).value)
+If Not (locTable.BOF And locTable.EOF) Then
+    For i = 0 To locTable.Fields.Count - 1
+        GetFields = AddFlag(GetFields, LCase(locTable.Fields(i).Name), locTable.Fields(i).Value)
     Next
 End If
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
 Function GetField(pString, pCon As ADODB.Connection) As Variant
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 'If pcon Is Nothing Then
 '    loctable.Open pString, GetCon, adOpenStatic, adLockReadOnly, adCmdText
 'Else
-    loctable.Open pString, pCon, adOpenStatic, adLockReadOnly, adCmdText
+    locTable.Open pString, pCon, adOpenStatic, adLockReadOnly, adCmdText
 'End If
-If Not (loctable.BOF And loctable.EOF) Then
-    GetField = loctable(0).value
+If Not (locTable.BOF And locTable.EOF) Then
+    GetField = locTable(0).Value
 End If
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
 Function GetRows(pString, pCon As ADODB.Connection) As Variant
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 'If pcon Is Nothing Then
 '    loctable.Open pString, GetCon, adOpenStatic, adLockReadOnly, adCmdText
 'Else
-    loctable.Open pString, pCon, adOpenStatic, adLockReadOnly, adCmdText
+    locTable.Open pString, pCon, adOpenStatic, adLockReadOnly, adCmdText
 'End If
 
-If Not (loctable.BOF And loctable.EOF) Then
+If Not (locTable.BOF And locTable.EOF) Then
     Dim aRet
     aRet = Array()
-    Do Until loctable.EOF
+    Do Until locTable.EOF
         ReDim Preserve aRet(UBound(aRet) + 1)
     
-        For i = 0 To loctable.Fields.Count - 1
-            aRet(UBound(aRet)) = AddFlag(aRet(UBound(aRet)), LCase(loctable.Fields(i).Name), loctable.Fields(i).value)
+        For i = 0 To locTable.Fields.Count - 1
+            aRet(UBound(aRet)) = AddFlag(aRet(UBound(aRet)), LCase(locTable.Fields(i).Name), locTable.Fields(i).Value)
         Next
-        loctable.MoveNext
+        locTable.MoveNext
     Loop
     GetRows = aRet
 End If
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
 
 
@@ -925,7 +925,7 @@ For i = 0 To myForm.Count - 1
     ElseIf TypeOf myForm(i) Is DataCombo Then
         myForm(i).BoundText = RetSetting(myForm(i).Name, cFilesave)
     ElseIf TypeOf myForm(i) Is CheckBox Then
-        If RetSetting(myForm(i).Name, cFilesave) <> "" Then myForm(i).value = RetSetting(myForm(i).Name, cFilesave)
+        If RetSetting(myForm(i).Name, cFilesave) <> "" Then myForm(i).Value = RetSetting(myForm(i).Name, cFilesave)
     End If
 Next
 End Sub
@@ -945,7 +945,7 @@ For i = 0 To myForm.Count - 1
         ElseIf TypeOf myForm(i) Is DataCombo Then
             addSetting myForm(i).Name, myForm(i).BoundText, cFilesave
         ElseIf TypeOf myForm(i) Is CheckBox Then
-            addSetting myForm(i).Name, myForm(i).value, cFilesave
+            addSetting myForm(i).Name, myForm(i).Value, cFilesave
         End If
     End If
 Next
@@ -1045,14 +1045,14 @@ For i = pMonth To 1 Step -1
 Next
 End Function
 Public Function get_Id(con As ADODB.Connection) As String
-Dim loctable As New ADODB.Recordset
-Set loctable = cmd("select SCOPE_IDENTITY() AS ID", con).Execute
-If Not loctable.EOF Then
-    get_Id = loctable!ID & ""
+Dim locTable As New ADODB.Recordset
+Set locTable = cmd("select SCOPE_IDENTITY() AS ID", con).Execute
+If Not locTable.EOF Then
+    get_Id = locTable!ID & ""
 End If
 
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
 Public Function IncrementSuffix(ByVal strInput As String) As String
     Dim i As Integer

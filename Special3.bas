@@ -5,11 +5,11 @@ Public sOnlineStore As String
 Public servername_vpn
 Public sStoreOnline As String
 Public sBranchOnline As String
-Public Function Nz(value As Variant, Optional ValueIfNull As Variant = 0) As Variant
-    If IsNull(value) Then
+Public Function Nz(Value As Variant, Optional ValueIfNull As Variant = 0) As Variant
+    If IsNull(Value) Then
         Nz = ValueIfNull
     Else
-        Nz = value
+        Nz = Value
     End If
 End Function
 Sub SectionLookup(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "")
@@ -122,7 +122,7 @@ Set Generalarray(0) = oForm
 
 '                       0
 cString = "SELECT Payment_type," & _
-          " Payment_type as p" & _
+          " Payment_type p" & _
           " FROM  FILE6_90H" & _
           " WHERE PAYMENT_TYPE IS NOT NULL"
 
@@ -163,6 +163,58 @@ oSearch.sControl = sControl
 searchArray = Array(Generalarray, listarray, GrdArray)
 'oSearch.nMax_records = 1000
 oSearch.Caption = "≈” ⁄·«„ «‰Ê«⁄ «·”œ«œ"
+oSearch.Show 1
+End Sub
+Sub TypeLook(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "", Optional sControl As String = "")
+Dim Generalarray(5)
+Dim listarray(0, 5)
+Dim GrdArray(1, 1)
+Dim cWhere As String
+Set Generalarray(0) = oForm
+
+'                       0
+cString = "SELECT [type]," & _
+          " [type] t " & _
+          " FROM  FILE6_90S" & _
+          " WHERE [TYPE] IS NOT NULL"
+
+If cFilter <> "" Then cWhere = cWhere & Tr(cWhere) & cFilter
+If cWhere <> "" Then cString = cString & " AND " & cWhere
+
+Generalarray(1) = cString
+
+Generalarray(2) = " Group by [type] Order by  [type]"
+Generalarray(3) = 4000
+Generalarray(5) = True
+
+listarray(0, 0) = "‰Ê⁄ «·‘Õ‰"
+listarray(0, 1) = "(%%type%%)"
+
+
+GrdArray(0, 0) = "‰Ê⁄ «·‘Õ‰"
+GrdArray(0, 1) = 0
+
+GrdArray(1, 0) = "‰Ê⁄ «·‘Õ‰"
+GrdArray(1, 1) = 5000
+
+searchArray = Array(Generalarray, listarray, GrdArray)
+If bFilter Then
+    Dim aFilter As Variant
+    aFilter = AddFlag(aFilter, "FILTER", True)
+    aFilter = AddFlag(aFilter, "FIELD", "Type")
+    oSearch.aFilter = aFilter
+End If
+
+Dim aRow As Variant
+If sAddRow <> "" Then
+    aRow = AddFlag(Empty, "text", sAddRow)
+    aRow = AddFlag(aRow, "col", 1)
+End If
+oSearch.aAddRow = aRow
+oSearch.sControl = sControl
+searchArray = Array(Generalarray, listarray, GrdArray)
+'oSearch.nMax_records = 1000
+oSearch.Caption = "≈” ⁄·«„ «‰Ê«⁄ «·‘Õ‰"
 oSearch.Show 1
 End Sub
 Sub FactLookup(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "")
@@ -283,7 +335,7 @@ Dim cmdPhone As New ADODB.command
 Set cmdPhone = cmd("dbo.sp_cust_phone", con, adStoredProc, AddFlag(Empty, "phone", pPhone))
 cmdPhone.Execute
 
-fnPhoneName = cmdPhone.Parameters("@DESCA").value & ""
+fnPhoneName = cmdPhone.Parameters("@DESCA").Value & ""
 End Function
 Public Function IsValidMobile(ByVal strNumber As String) As Boolean
     Dim i As Integer
@@ -324,8 +376,8 @@ If Trim(pName) <> "" Then
     If Val(cmdPhone.Parameters("@COUNT") & "") <> 1 Or Trim(pName) <> cmdPhone.Parameters("@DESCA") Then
         aInsert = AddFlag(aInsert, "DESCA", addstring(pName))
     End If
-ElseIf (Not IsNull(cmdPhone.Parameters("@DESCA").value)) And Val(cmdPhone.Parameters("@COUNT") & "") <> 1 Then
-    aInsert = AddFlag(aInsert, "DESCA", addstring(cmdPhone.Parameters("@DESCA").value))
+ElseIf (Not IsNull(cmdPhone.Parameters("@DESCA").Value)) And Val(cmdPhone.Parameters("@COUNT") & "") <> 1 Then
+    aInsert = AddFlag(aInsert, "DESCA", addstring(cmdPhone.Parameters("@DESCA").Value))
 End If
 
 'If IsNull(cmdPhone.Parameters("@F_DATE").Value) Then
@@ -334,11 +386,11 @@ End If
 '    aInsert = AddFlag(aInsert, "F_DATE", addDate(cmdPhone.Parameters("@F_DATE").Value))
 'End If
 
-If Not IsNull(cmdPhone.Parameters("@F_DATE").value) Then
-    If myFormat(cmdPhone.Parameters("@F_DATE").value) < myFormat(pDate) Then
+If Not IsNull(cmdPhone.Parameters("@F_DATE").Value) Then
+    If myFormat(cmdPhone.Parameters("@F_DATE").Value) < myFormat(pDate) Then
         aInsert = AddFlag(aInsert, "F_DATE", addDate(pDate))
     ElseIf Val(cmdPhone.Parameters("@COUNT") & "") <> 1 Then
-        aInsert = AddFlag(aInsert, "F_DATE", addDate(cmdPhone.Parameters("@F_DATE").value))
+        aInsert = AddFlag(aInsert, "F_DATE", addDate(cmdPhone.Parameters("@F_DATE").Value))
     End If
 ElseIf IsDate(pDate) Then
     aInsert = AddFlag(aInsert, "F_DATE", addDate(pDate))
@@ -371,19 +423,19 @@ Public Function UpdateDiscount(pDoc_no As String, con As ADODB.Connection, Optio
 Dim cmDiscount As New ADODB.command
 Set cmDiscount = cmd("dbo.sp_offer_discount", con, adStoredProc, AddFlag(Empty, "DOC_NO", pDoc_no))
 cmDiscount.Execute
-If Not IsNull(cmDiscount.Parameters("@OFFER_NO").value) Then
+If Not IsNull(cmDiscount.Parameters("@OFFER_NO").Value) Then
     If pDiscount_add = 0 Then
         con.Execute "UPDATE FILE6_20H " & _
-                    "SET FILE6_20H.DISCOUNT_OFFER = " & cmDiscount.Parameters("@DISCOUNT").value & "," & _
-                    "FILE6_20H.DISCOUNT = FILE6_20H.DISCOUNT_ADD + " & cmDiscount.Parameters("@DISCOUNT").value & "," & _
-                    "FILE6_20H.IS_OFFER = " & IIf(cmDiscount.Parameters("@OFFER_NO").value > 0, "1", "0") & _
+                    "SET FILE6_20H.DISCOUNT_OFFER = " & cmDiscount.Parameters("@DISCOUNT").Value & "," & _
+                    "FILE6_20H.DISCOUNT = FILE6_20H.DISCOUNT_ADD + " & cmDiscount.Parameters("@DISCOUNT").Value & "," & _
+                    "FILE6_20H.IS_OFFER = " & IIf(cmDiscount.Parameters("@OFFER_NO").Value > 0, "1", "0") & _
                     " WHERE FILE6_20H.DOC_NO = " & MyParn(pDoc_no)
     Else
         con.Execute "UPDATE FILE6_20H " & _
-                    "SET FILE6_20H.DISCOUNT_OFFER = " & cmDiscount.Parameters("@DISCOUNT").value & "," & _
+                    "SET FILE6_20H.DISCOUNT_OFFER = " & cmDiscount.Parameters("@DISCOUNT").Value & "," & _
                     "FILE6_20H.DISCOUNT_ADD = " & pDiscount_add & "," & _
-                    "FILE6_20H.DISCOUNT = " & pDiscount_add + cmDiscount.Parameters("@DISCOUNT").value & "," & _
-                    "FILE6_20H.IS_OFFER = " & IIf(cmDiscount.Parameters("@OFFER_NO").value > 0, "1", "0") & _
+                    "FILE6_20H.DISCOUNT = " & pDiscount_add + cmDiscount.Parameters("@DISCOUNT").Value & "," & _
+                    "FILE6_20H.IS_OFFER = " & IIf(cmDiscount.Parameters("@OFFER_NO").Value > 0, "1", "0") & _
                     " WHERE FILE6_20H.DOC_NO = " & MyParn(pDoc_no)
     End If
 Else
@@ -419,8 +471,8 @@ End If
 '                " WHERE FILE6_20H.DOC_NO = " & MyParn(pDoc_no)
 'End If
 End Function
-Public Function RoundToNearest5(ByVal value As Double) As Double
-    RoundToNearest5 = Int((value / 5) + 0.5) * 5
+Public Function RoundToNearest5(ByVal Value As Double) As Double
+    RoundToNearest5 = Int((Value / 5) + 0.5) * 5
 End Function
 Function addInsertUpdate(aInsert As Variant, pTable As String, pCondition As String, pFieldName As String)
 Dim cInsert As New ChilkatStringBuilder, cUpdate As New ChilkatStringBuilder
@@ -634,3 +686,47 @@ Public Function GetTextFileEncoding(ByVal FileName As String) As String
         GetTextFileEncoding = "ANSI"
     End If
 End Function
+Public Sub SaveImageToRs(pPic As Picture, rs As ADODB.Recordset, pColName As String)
+Dim pb As PropertyBag
+Set pb = New PropertyBag
+pb.WriteProperty "MyImage", pPic, 100
+rs.Fields(pColName).AppendChunk pb.Contents
+rs.Update
+Set pb = Nothing
+End Sub
+Public Function retDimImg(pWidthImg As Long, pHeightImg As Long, pMaxWidth As Long, pMaxHeight As Long) As Variant
+    Dim nRate As Double
+    Dim finalWidth As Long
+    Dim finalHeight As Long
+    
+    On Error GoTo myerror
+
+    ' Õ”«» «·‰”»… ·ﬂ· „‰ «·⁄—÷ Ê«·ÿÊ· „ﬁ«—‰… »«·ÕÃ„ «·√ﬁ’Ï «·„ «Õ
+    Dim ratioW As Double: ratioW = pMaxWidth / pWidthImg
+    Dim ratioH As Double: ratioH = pMaxHeight / pHeightImg
+    
+    ' «Œ Ì«— «·‰”»… «·√’€— ·÷„«‰ «Õ Ê«¡ «·’Ê—… œ«Œ· «·≈ÿ«— œÊ‰  ‘ÊÌÂ
+    If ratioW < ratioH Then
+        nRate = ratioW
+    Else
+        nRate = ratioH
+    End If
+    
+    finalWidth = Int(pWidthImg * nRate)
+    finalHeight = Int(pHeightImg * nRate)
+
+    ' «” Œœ«„ «·œ«·… «·Œ«’… »ﬂ · Œ“Ì‰ «·ﬁÌ„
+    Dim result As Variant
+    result = AddFlag(Empty, "width", finalWidth)
+    retDimImg = AddFlag(result, "height", finalHeight)
+
+    Exit Function
+
+myerror:
+    MsgBox "Error: " & Err.Description
+    retDimImg = Empty
+End Function
+
+
+
+

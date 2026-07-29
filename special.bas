@@ -7,7 +7,7 @@ Public aPrinterBar As Variant
 Function itemCost(cItem, Optional pDate As String = "") As Single
 Dim con As New ADODB.Connection
 If con.State = adStateOpen Then con.Close
-openCon con
+OpenCon con
 
 Dim cString As String
 cString = "Select FILE7_20.PRICE FROM  " & _
@@ -245,6 +245,7 @@ Generalarray(1) = "SELECT  Top 1000 item," & _
                   "from file1_10 " & _
                   "inner join fact on fact.code = file1_10.fact" & _
                   " WHERE ISSTOP = 0 "
+
 If pOrderNo <> "" Then
     Generalarray(1) = Generalarray(1) & " AND ITEM IN (SELECT ITEM FROM FILE6_50 WHERE DOC_NO = " & MyParn(pOrderNo) & ")"
 End If
@@ -725,7 +726,7 @@ Set rdTable = Nothing
 End Function
 
 Function validItem(pItem As String, pCon As ADODB.Connection) As Boolean
-On Error GoTo myError
+On Error GoTo myerror
 If Not ValidInt(pItem) Then Exit Function
 Dim rdTable As New ADODB.Recordset
 Dim cmdTable As New ADODB.command
@@ -738,7 +739,7 @@ Set rdTable = cmdTable.Execute
 validItem = cmdTable.Parameters(1).Value
 Set rdTable = Nothing
 Exit Function
-myError:
+myerror:
 MsgBox Err.Description
 Err.Clear
 End Function
@@ -2036,14 +2037,14 @@ oSearch.aFilter = aFilter
 oSearch.Show 1
 End Sub
 Public Function retSalesDate(con As ADODB.Connection, Optional pBranch As String = "") As String
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 Dim cString As String
 cString = "SELECT DSALES FROM DSALES"
 If pBranch <> "" Then
     cString = cString & " WHERE BRANCH = " & MyParn(pBranch)
 End If
-Set loctable = cmd(cString, con).Execute
-If Not loctable.EOF Then
-    retSalesDate = myFormat(loctable!dSales)
+Set locTable = cmd(cString, con).Execute
+If Not locTable.EOF Then
+    retSalesDate = myFormat(locTable!dSales)
 End If
 End Function

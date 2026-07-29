@@ -19,10 +19,10 @@ NotFound = 2
 NoRecords = 3
 NotMatch = 3
 End Enum
-Public Function mycmd(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300) As ADODB.Recordset
-Dim loctable As New ADODB.Recordset
+Public Function mycmd(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeOut As Integer = 300) As ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 Dim cmd As New ADODB.command
-cmd.CommandTimeout = nTimeout
+cmd.CommandTimeout = nTimeOut
 cmd.ActiveConnection = con
 cmd.CommandType = pType
 cmd.CommandText = pString
@@ -34,10 +34,10 @@ If Not IsEmpty(aParam) Then
 End If
 Set mycmd = cmd.Execute
 End Function
-Public Function myCmdRecord(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300) As ADODB.Record
-Dim loctable As New ADODB.Recordset
+Public Function myCmdRecord(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeOut As Integer = 300) As ADODB.Record
+Dim locTable As New ADODB.Recordset
 Dim cmd As New ADODB.command
-cmd.CommandTimeout = nTimeout
+cmd.CommandTimeout = nTimeOut
 cmd.ActiveConnection = con
 cmd.CommandType = pType
 cmd.CommandText = pString
@@ -61,10 +61,10 @@ If Not IsEmpty(aParam) Then
 End If
 myPrcString = "EXEC " & pProc & myPrcString
 End Function
-Public Function mycmdEx(pString As String, Optional con As ADODB.Connection, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 600) As ADODB.command
-Dim loctable As New ADODB.Recordset
+Public Function mycmdEx(pString As String, Optional con As ADODB.Connection, Optional aParam As Variant = Empty, Optional nTimeOut As Integer = 600) As ADODB.command
+Dim locTable As New ADODB.Recordset
 Dim cmd As New ADODB.command
-cmd.CommandTimeout = nTimeout
+cmd.CommandTimeout = nTimeOut
 cmd.ActiveConnection = con
 cmd.CommandType = adCmdStoredProc
 cmd.CommandText = pString
@@ -77,10 +77,10 @@ End If
 cmd.Execute
 Set mycmdEx = cmd
 End Function
-Public Function myCommand(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 300) As ADODB.command
-Dim loctable As New ADODB.Recordset
+Public Function myCommand(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeOut As Integer = 300) As ADODB.command
+Dim locTable As New ADODB.Recordset
 Dim cmd As New ADODB.command
-cmd.CommandTimeout = nTimeout
+cmd.CommandTimeout = nTimeOut
 cmd.ActiveConnection = con
 cmd.CommandType = pType
 cmd.CommandText = pString
@@ -93,9 +93,9 @@ End If
 cmd.Execute
 Set myCommand = cmd
 End Function
-Public Function cmd(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 1000) As ADODB.command
+Public Function cmd(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeOut As Integer = 1000) As ADODB.command
 Set cmd = New ADODB.command
-cmd.CommandTimeout = nTimeout
+cmd.CommandTimeout = nTimeOut
 cmd.ActiveConnection = con
 cmd.CommandType = pType
 cmd.CommandText = pString
@@ -106,18 +106,18 @@ If Not IsEmpty(aParam) Then
     Next
 End If
 End Function
-Public Function myField(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional pDef As Variant = Empty, Optional nTimeout As Integer = 100) As Variant
+Public Function myField(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional pDef As Variant = Empty, Optional nTimeOut As Integer = 100) As Variant
 On Error GoTo myerror:
-Dim loctable As ADODB.Recordset
-Set loctable = cmd(pString, con, pType).Execute
-If Not loctable.EOF Then
-    myField = loctable.Fields(0).Value
+Dim locTable As ADODB.Recordset
+Set locTable = cmd(pString, con, pType).Execute
+If Not locTable.EOF Then
+    myField = locTable.Fields(0).Value
 ElseIf Not IsEmpty(pDef) Then
     myField = pDef
 End If
-loctable.Close
+locTable.Close
 Finally:
-Set loctable = Nothing
+Set locTable = Nothing
 Exit Function
 myerror:
 MsgBox Err.Description
@@ -125,10 +125,10 @@ MsgBox Err.Description
 myField = pDef
 GoTo Finally
 End Function
-Public Function myFields(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeout As Integer = 100) As Variant
+Public Function myFields(pString As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional nTimeOut As Integer = 100) As Variant
 Dim cmd As New ADODB.command
-Dim loctable As ADODB.Recordset
-cmd.CommandTimeout = nTimeout
+Dim locTable As ADODB.Recordset
+cmd.CommandTimeout = nTimeOut
 cmd.ActiveConnection = con
 cmd.CommandType = pType
 cmd.CommandText = pString
@@ -138,14 +138,14 @@ If Not IsEmpty(aParam) Then
         cmd.Parameters("@" & aParam(i)).Value = aParam(i + 1)
     Next
 End If
-Set loctable = cmd.Execute
-If Not (loctable.BOF And loctable.EOF) Then
-    For i = 0 To loctable.Fields.Count - 1
-        myFields = AddFlag(myFields, LCase(loctable.Fields(i).Name), loctable.Fields(i).Value)
+Set locTable = cmd.Execute
+If Not (locTable.BOF And locTable.EOF) Then
+    For i = 0 To locTable.Fields.Count - 1
+        myFields = AddFlag(myFields, LCase(locTable.Fields(i).Name), locTable.Fields(i).Value)
     Next
 End If
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
 Public Function openConHr(ByRef pCon As ADODB.Connection, Optional ByVal pString As String = "", Optional ByVal lMsg As Boolean = True) As String
 On Error GoTo myerror
@@ -194,15 +194,15 @@ End If
 End Function
 Function TransCount(con As ADODB.Connection) As Integer
 If con.State <> adStateOpen Then Exit Function
-Dim loctable As New ADODB.Recordset
-Set loctable = mycmd("select @@TRANCOUNT as myCount", con)
+Dim locTable As New ADODB.Recordset
+Set locTable = mycmd("select @@TRANCOUNT as myCount", con)
 On Error GoTo myerror
-If Not loctable.EOF Then
-    TransCount = loctable!myCount
+If Not locTable.EOF Then
+    TransCount = locTable!myCount
 End If
 Finally:
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 Exit Function
 On Error GoTo myerror:
 myerror:
@@ -254,11 +254,11 @@ If Not rsTable.EOF Then
      rsField = rsTable(pReturn)
 End If
 End Function
-Public Function myFieldValue(pString As String, pField As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional pDef As Variant = Empty, Optional nTimeout As Integer = 100) As Variant
+Public Function myFieldValue(pString As String, pField As String, Optional con As ADODB.Connection, Optional pType As cmType = adText, Optional aParam As Variant = Empty, Optional pDef As Variant = Empty, Optional nTimeOut As Integer = 100) As Variant
 On Error GoTo myerror:
 Dim cmd As New ADODB.command
-Dim loctable As ADODB.Recordset
-cmd.CommandTimeout = nTimeout
+Dim locTable As ADODB.Recordset
+cmd.CommandTimeout = nTimeOut
 cmd.ActiveConnection = con
 cmd.CommandType = pType
 cmd.CommandText = pString
@@ -268,9 +268,9 @@ If Not IsEmpty(aParam) Then
         cmd.Parameters("@" & aParam(i)).Value = aParam(i + 1)
     Next
 End If
-Set loctable = cmd.Execute
-If Not loctable.EOF Then
-    myFieldValue = loctable.Fields(pField).Value
+Set locTable = cmd.Execute
+If Not locTable.EOF Then
+    myFieldValue = locTable.Fields(pField).Value
 ElseIf Not IsEmpty(pDef) Then
     myFieldValue = pDef
 End If

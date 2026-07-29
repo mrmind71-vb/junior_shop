@@ -28,6 +28,43 @@ Begin VB.Form online_Stage_main
    ScaleHeight     =   11055
    ScaleWidth      =   20370
    WindowState     =   2  'Maximized
+   Begin VB.Frame Frame3 
+      BackColor       =   &H00FFFFFF&
+      Height          =   690
+      Left            =   4950
+      RightToLeft     =   -1  'True
+      TabIndex        =   35
+      Top             =   45
+      Width           =   2670
+      Begin Threed.SSCommand cmdUpdateStage 
+         Height          =   510
+         Left            =   45
+         TabIndex        =   36
+         Top             =   135
+         Width           =   2580
+         _ExtentX        =   4551
+         _ExtentY        =   900
+         _Version        =   196610
+         CaptionStyle    =   1
+         BackColor       =   16777215
+         PictureFrames   =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Picture         =   "ordersDeliveryStages.frx":0000
+         Caption         =   " ⁄œÌ· Õ«·… «·ÿ·»Ì« "
+         TagVariant      =   "«Œ «— «·„ﬁ«Ê·"
+         Alignment       =   1
+         ButtonStyle     =   3
+         PictureAlignment=   9
+      End
+   End
    Begin VB.Frame Frame7 
       BackColor       =   &H00FFFFFF&
       Height          =   645
@@ -215,7 +252,6 @@ Begin VB.Form online_Stage_main
          Left            =   5175
          RightToLeft     =   -1  'True
          TabIndex        =   0
-         Text            =   "2026-05-01"
          Top             =   225
          Width           =   1410
       End
@@ -492,7 +528,7 @@ Begin VB.Form online_Stage_main
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "ordersDeliveryStages.frx":0000
+         Picture         =   "ordersDeliveryStages.frx":25D3
          Caption         =   "CSV ”Õ»"
          TagVariant      =   "«Œ «— «·„ﬁ«Ê·"
          Alignment       =   1
@@ -521,7 +557,7 @@ Begin VB.Form online_Stage_main
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "ordersDeliveryStages.frx":25D3
+         Picture         =   "ordersDeliveryStages.frx":4BA6
          Caption         =   " ’œÌ— Excel"
          ButtonStyle     =   3
          PictureAlignment=   9
@@ -549,14 +585,14 @@ Begin VB.Form online_Stage_main
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "ordersDeliveryStages.frx":4A3D
+         Picture         =   "ordersDeliveryStages.frx":7010
          Caption         =   " ÿ»«⁄…"
          Alignment       =   1
          ButtonStyle     =   3
          PictureAlignment=   9
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "ordersDeliveryStages.frx":6DB3
+         PictureDisabled =   "ordersDeliveryStages.frx":9386
       End
       Begin Threed.SSCommand cmdGo 
          Height          =   510
@@ -579,7 +615,7 @@ Begin VB.Form online_Stage_main
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "ordersDeliveryStages.frx":8F36
+         Picture         =   "ordersDeliveryStages.frx":B509
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
@@ -607,7 +643,7 @@ Begin VB.Form online_Stage_main
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "ordersDeliveryStages.frx":BDE9
+         Picture         =   "ordersDeliveryStages.frx":E3BC
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
@@ -1317,6 +1353,12 @@ Private Sub cmdStage_Click()
 StagesOnlineLook Me, oSearchStage, , , IIf(cmdStage.Tag = "", "", "ﬂ· «·„—«Õ·")
 End Sub
 
+Private Sub cmdUpdateStage_Click()
+Set onlineCSVfrm.myForm = Me
+onlineCSVfrm.bNoItems = True
+onlineCSVfrm.Show 1
+End Sub
+
 Private Sub Form_Load()
     
 '    opt(0).Visible = cBranch = "00"
@@ -1373,23 +1415,24 @@ With grid1
               "FORMAT(SALES_DATE,'yyyy/M/d')," & _
               "SHIP_NO," & _
               "FORMAT(SHIP_DATE,'yyyy/M/d'),"
-
 cString = cString & _
               " NOTES," & _
               " FORMAT(DelOrder_Date,'yyyy/M/d')," & _
               " FILE6_90H.MAN," & _
-              " FILE6_90H.STAGE" & _
+              " FILE6_90H.STAGE," & _
+              " FILE6_90H.TAGS," & _
+              " FILE6_90H.CLOSED" & _
               " FROM FILE6_90H " & _
               " LEFT JOIN FILE6_25 ON FILE6_90H.MAN = FILE6_25.CODE" & _
               " INNER JOIN STAGES_CODES ON FILE6_90H.STAGE = STAGES_CODES.CODE"
               
-    If optType(1).value Then
+    If optType(1).Value Then
         cWhere = cWhere & Tr(cWhere) & "FILE6_90H.DOC_NO IN (SELECT ORDER_NO FROM vw_online_orders_open)"
-    ElseIf optType(2).value Then
+    ElseIf optType(2).Value Then
         cWhere = cWhere & Tr(cWhere) & "(FILE6_90H.DOC_NO IN (SELECT ORDER_NO FROM vw_online_orders_closed) OR FILE6_90H.CANCELED = 1)"
-    ElseIf optType(3).value Then
+    ElseIf optType(3).Value Then
         cWhere = cWhere & Tr(cWhere) & "FILE6_90H.DOC_NO IN (SELECT ORDER_NO FROM vw_online_orders_closed)"
-    ElseIf optType(4).value Then
+    ElseIf optType(4).Value Then
         cWhere = cWhere & Tr(cWhere) & "FILE6_90H.CANCELED = 1"
     End If
     
@@ -1414,12 +1457,12 @@ cString = cString & _
 '                 " INNER JOIN vw_online_invoices_closed as v on FILE6_90H.DOC_NO = v.ORDER_NO"
 '    End If
     
-    If xDoc_No.text <> "" Then
-        cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xDoc_No.text)
+    If XDOC_NO.text <> "" Then
+        cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(XDOC_NO.text)
     End If
     
-    If xPhone.text <> "" Then
-        cWhere = cWhere & Tr(cWhere) & " [phone] = " & MyParn(xPhone.text)
+    If xphone.text <> "" Then
+        cWhere = cWhere & Tr(cWhere) & " [phone] = " & MyParn(xphone.text)
     End If
     
     If xpay.BoundText <> "" Then
@@ -1438,8 +1481,6 @@ cString = cString & _
     If IsDate(xdate2.text) Then
         cWhere = cWhere & Tr(cWhere) & " [DATE] <= " & DateSq(xdate2.text)
     End If
-            
-        
     
     'If xSales(0).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " SALES_DOC IS NULL"
     'If xSales(1).Value <> 0 Then cWhere = cWhere & Tr(cWhere) & " SALES_DOC IS NOT NULL "
@@ -1478,29 +1519,37 @@ With grid1
     .TextMatrix(0, 10) = "«·‘Õ‰"
     .TextMatrix(0, 11) = "«·≈Ã„«·Ì"
     
-    .TextMatrix(0, 11 + 1) = "ÿ—Ìﬁ… «·œ›⁄"
-    .TextMatrix(0, 12 + 1) = "«·›—⁄"
-    .TextMatrix(0, 13 + 1) = "«·„—Õ·…"
-    .TextMatrix(0, 14 + 1) = "«·„‰œÊ»"
-    .TextMatrix(0, 15 + 1) = "«·„—”·"
-    .TextMatrix(0, 16 + 1) = "SEND TIME "
-    .TextMatrix(0, 17 + 1) = "„·«ÕŸ«  ÿ·»Ì…"
-    .TextMatrix(0, 18 + 1) = "»Ê‰ „»Ì⁄« "
-    .TextMatrix(0, 19 + 1) = " «—ÌŒ"
+    .TextMatrix(0, 12) = "ÿ—Ìﬁ… «·œ›⁄"
+    .TextMatrix(0, 13) = "«·›—⁄"
+    .TextMatrix(0, 14) = "«·„—Õ·…"
+    .TextMatrix(0, 15) = "«·„‰œÊ»"
+    .TextMatrix(0, 16) = "«·„—”·"
+    .TextMatrix(0, 17) = "SEND TIME "
+    .TextMatrix(0, 18) = "„·«ÕŸ«  ÿ·»Ì…"
+    .TextMatrix(0, 19) = "»Ê‰ „»Ì⁄« "
+    .TextMatrix(0, 20) = " «—ÌŒ «·»Ì⁄"
     
-    .TextMatrix(0, 20 + 1) = "»Ê·Ì’… ‘Õ‰"
-    .TextMatrix(0, 21 + 1) = " «—ÌŒ «·‘Õ‰"
+    .TextMatrix(0, 21) = "»Ê·Ì’… ‘Õ‰"
+    .TextMatrix(0, 22) = " «—ÌŒ «·‘Õ‰"
+    .TextMatrix(0, 23) = "„·ÕÊŸ… «·«·€«¡"
+    .TextMatrix(0, 24) = " «—ÌŒ «·«·€«¡"
+    .TextMatrix(0, 25) = "«·„‰œÊ»"
+    .TextMatrix(0, 26) = "«·„—Õ·…"
+    .TextMatrix(0, 27) = "«· √ﬂÌœ"
+    .TextMatrix(0, 28) = "„€·ﬁ…"
         
     .ColHidden(9) = True
-    '.ColHidden(10) = True
+    .ColHidden(13) = True
     '.ColHidden(12) = True
     .ColHidden(15) = True
-    .ColHidden(21) = True
     .ColHidden(16) = True
-    .ColHidden(24) = True
+    .ColHidden(21) = True
+    .ColHidden(25) = True
+    .ColHidden(26) = True
+    .ColHidden(28) = True
     
-    .TextMatrix(0, 22) = "”»» «·≈·€«¡"
-    .TextMatrix(0, 23) = "«·€«¡ «·ÿ·»"
+    '.TextMatrix(0, 22) = "”»» «·≈·€«¡"
+    '.TextMatrix(0, 23) = "«·€«¡ «·ÿ·»"
     
     '.TextMatrix(0, 24) = " «—ÌŒ «” ·«„ «·„— Ã⁄"
     '.TextMatrix(0, 25) = "„·«ÕŸ«  «·—∆Ì”Ì"
@@ -1535,7 +1584,7 @@ With grid1
     .ColWidth(18) = 1000
     .ColWidth(17) = 2000
     .ColWidth(19) = 1300
-    .ColWidth(20) = 2000
+    .ColWidth(20) = 1250
     .ColWidth(22) = 1300
     .ColWidth(23) = 1300
     .ColWidth(24) = 1300
@@ -1567,16 +1616,31 @@ Private Sub Form_Unload(Cancel As Integer)
 End Sub
 Private Sub grid1_DblClick()
 If grid1.Row < 1 Or grid1.Row = grid1.Rows - 1 Then Exit Sub
-If cmdStage.Tag <> grid1.TextMatrix(grid1.Row, grid1.Cols - 1) And cmdStage.Tag <> "" Then
+
+Dim db As New clsDb
+Dim nCount As Integer
+If Not db.rsValue("select count(*) " & _
+              " from file6_90Bh" & _
+              " Where order_no = " & MyParn(grid1.TextMatrix(grid1.Row, 0)) & _
+              " and closed = 0", nCount) Then
+    Set db = Nothing
+    Exit Sub
+End If
+
+Set db = Nothing
+
+If grid1.ValueMatrix(grid1.Row, 28) = 0 Or nCount = 0 Then
+    orders_online_items.sDoc_no = grid1.TextMatrix(grid1.Row, 0)
+    orders_online_items.Show 1
+Else
     orders_online_invoices.bEdit = False
     orders_online_invoices.sOrder_no = grid1.TextMatrix(grid1.Row, 0)
     orders_online_invoices.sStore = sStoreOnline
     orders_online_invoices.sStage = cmdStage.Tag
+    orders_online_invoices.bOpenOnly = True
+
     Set orders_online_invoices.myForm = Me
     orders_online_invoices.Show 1
-Else
-    orders_online_items.sDoc_no = grid1.TextMatrix(grid1.Row, 0)
-    orders_online_items.Show 1
 End If
 End Sub
 Private Sub grid1_GotFocus()
@@ -1600,17 +1664,21 @@ myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
+
+Private Sub SSCommand1_Click()
+End Sub
+
 Private Sub xPhone_GotFocus()
-myGotFocus xPhone
+myGotFocus xphone
 End Sub
 Private Sub XPHONE_LostFocus()
-myLostFocus xPhone
+myLostFocus xphone
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xDoc_No
+myGotFocus XDOC_NO
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus xDoc_No
+myLostFocus XDOC_NO
 End Sub
 Private Sub xDate2_GotFocus()
 myGotFocus xdate2

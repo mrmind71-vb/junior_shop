@@ -262,7 +262,7 @@ Begin VB.Form online_ship_checkfrm
       GridLinesFixed  =   1
       GridLineWidth   =   1
       Rows            =   1
-      Cols            =   14
+      Cols            =   15
       FixedRows       =   1
       FixedCols       =   1
       RowHeightMin    =   0
@@ -356,7 +356,7 @@ Begin VB.Form online_ship_checkfrm
       GridLinesFixed  =   1
       GridLineWidth   =   1
       Rows            =   1
-      Cols            =   14
+      Cols            =   15
       FixedRows       =   1
       FixedCols       =   1
       RowHeightMin    =   0
@@ -580,11 +580,11 @@ prog1.Visible = True
 Dim db As New clsDb
 For i = 1 To .Rows - 1
     Me.Caption = sCaption & " - " & "”Ã· " & (i + 1) & " „‰ " & grid1.Rows - 1
-    prog1.value = Round(i / (.Rows - 1), 2) * 100
+    prog1.Value = Round(i / (.Rows - 1), 2) * 100
     If db.Execute("UPDATE FILE6_90S " & _
                  " SET DATE_PICK = " & addDate(.TextMatrix(i, 10)) & "," & _
                  " COD = " & .ValueMatrix(i, 11) & "," & _
-                 " CSV_NAME = " & addstring(.TextMatrix(i, 12)) & _
+                 " TYPE = " & addstring(.TextMatrix(i, 13)) & _
                  " FROM FILE6_90s " & _
                  " WHERE ID = " & .TextMatrix(i, .Cols - 1)) = -1 Then Exit Function
 Next
@@ -600,11 +600,11 @@ With grid2
 prog1.Visible = True
 Dim db As New clsDb
 For i = 1 To .Rows - 1
-    prog1.value = Round(i / (.Rows - 1), 2) * 100
+    prog1.Value = Round(i / (.Rows - 1), 2) * 100
     If db.Execute("UPDATE FILE6_90S " & _
                  " SET DATE_PICK = " & addDate(.TextMatrix(i, 10)) & "," & _
                  " COD = " & .ValueMatrix(i, 11) & "," & _
-                 " CSV_NAME = " & addstring(.TextMatrix(i, 12)) & _
+                 " TYPE = " & addstring(.TextMatrix(i, 13)) & _
                  " FROM FILE6_90s " & _
                  " WHERE ID = " & .TextMatrix(i, .Cols - 1)) = -1 Then Exit Function
 Next
@@ -654,8 +654,15 @@ Private Sub Form_Unload(Cancel As Integer)
 Set dbm = Nothing
 Set online_ship_checkfrm = Nothing
 End Sub
+Private Sub grid3_DblClick()
+If grid3.col = 1 And grid3.Row > 0 Then
+    Clipboard.Clear
+    Clipboard.SetText grid3.TextMatrix(grid3.Row, grid3.col)
+    Inform " „ «·‰”Œ"
+End If
+End Sub
+
 Private Sub TabStrip1_Click()
-    ' ????? ?????? ??????? ?????? ????? ????? ??? ??????? ?????
     If TabStrip1.SelectedItem.index = 1 Then
         grid1.Visible = True
         grid2.Visible = False
@@ -723,7 +730,7 @@ grid2.Redraw = flexRDNone
 
     For i = 0 To cSv.NumRows - 1
         Me.Caption = sCaption & " - " & "”Ã· " & (i + 1) & " „‰ " & cSv.NumRows
-        prog1.value = Round(i / (cSv.NumRows), 2) * 100
+        prog1.Value = Round(i / (cSv.NumRows), 2) * 100
             
         ship_no = Trim(cSv.GetCellByName(i, "Tracking Number"))
         
@@ -761,7 +768,7 @@ grid2.Redraw = flexRDNone
              
              Set locTable = db.myRs(strSql)
                       
-             If locTable Is Nothing Then GoTo CleanUp
+             If locTable Is Nothing Then GoTo cleanUp
                       
              If Not locTable.EOF Then
                 If IsNull(locTable!date_Pick) Then
@@ -800,7 +807,7 @@ grid2.Redraw = flexRDNone
              End If
         End If
     Next
-CleanUp:
+cleanUp:
 grid1.Redraw = flexRDBuffered
 grid2.Redraw = flexRDBuffered
 prog1.Visible = False
@@ -830,7 +837,7 @@ grid3.Redraw = flexRDNone
 
 Dim sb As New ChilkatStringBuilder
 For i = 0 To cSv.NumRows - 1
-    If Trim(cSv.GetCellByName(i, "Tracking Number")) Then
+    If Trim(cSv.GetCellByName(i, "Tracking Number")) <> "" Then
         sb.Append MyParn(cSv.GetCellByName(i, "Tracking Number")) & ","
     End If
 Next
@@ -861,11 +868,11 @@ strSql = "SELECT " & _
 Dim db As New clsDb
 Dim locTable As ADODB.Recordset
 Set locTable = db.myRs(strSql)
-If locTable Is Nothing Then GoTo CleanUp
+If locTable Is Nothing Then GoTo cleanUp
 
 For i = 0 To cSv.NumRows - 1
     Me.Caption = sCaption & " - " & "”Ã· " & (i + 1) & " „‰ " & cSv.NumRows
-    prog1.value = Round(i / (cSv.NumRows), 2) * 100
+    prog1.Value = Round(i / (cSv.NumRows), 2) * 100
         
     ship_no = Trim(cSv.GetCellByName(i, "Tracking Number"))
     
@@ -904,7 +911,8 @@ For i = 0 To cSv.NumRows - 1
                 grid1.TextMatrix(grid1.Rows - 1, 10) = date_Pick
                 grid1.TextMatrix(grid1.Rows - 1, 11) = cod
                 grid1.TextMatrix(grid1.Rows - 1, 12) = locTable!Payment_Method & ""
-                grid1.TextMatrix(grid1.Rows - 1, 13) = locTable!ID
+                grid1.TextMatrix(grid1.Rows - 1, 13) = LCase(sType)
+                grid1.TextMatrix(grid1.Rows - 1, 14) = locTable!ID
             Else
                 grid2.AddItem ""
                 grid2.TextMatrix(grid2.Rows - 1, 0) = grid2.Rows - 1
@@ -920,7 +928,8 @@ For i = 0 To cSv.NumRows - 1
                 grid2.TextMatrix(grid2.Rows - 1, 10) = date_Pick
                 grid2.TextMatrix(grid2.Rows - 1, 11) = cod
                 grid2.TextMatrix(grid2.Rows - 1, 12) = locTable!Payment_Method & ""
-                grid2.TextMatrix(grid2.Rows - 1, 13) = locTable!ID
+                grid2.TextMatrix(grid2.Rows - 1, 13) = LCase(sType)
+                grid2.TextMatrix(grid2.Rows - 1, 14) = locTable!ID
             End If
         Else
             grid3.AddItem ""
@@ -928,14 +937,14 @@ For i = 0 To cSv.NumRows - 1
             grid3.TextMatrix(grid3.Rows - 1, 1) = ship_no
             grid3.TextMatrix(grid3.Rows - 1, 2) = date_Pick
             grid3.TextMatrix(grid3.Rows - 1, 3) = ref
-            grid3.TextMatrix(grid3.Rows - 1, 4) = sType
+            grid3.TextMatrix(grid3.Rows - 1, 4) = LCase(sType)
             grid3.TextMatrix(grid3.Rows - 1, 5) = sName
             grid3.TextMatrix(grid3.Rows - 1, 6) = Phone
             grid3.TextMatrix(grid3.Rows - 1, 7) = cod
          End If
     End If
 Next
-CleanUp:
+cleanUp:
 grid1.Redraw = flexRDBuffered
 grid2.Redraw = flexRDBuffered
 grid3.Redraw = flexRDBuffered
@@ -959,11 +968,18 @@ With grid1
 .TextMatrix(0, 10) = " «—ÌŒ «·‘Õ‰"
 .TextMatrix(0, 11) = "COD"
 .TextMatrix(0, 12) = "‰Ê⁄ «·”œ«œ"
+.TextMatrix(0, 13) = "«·‰Ê⁄"
 
 Dim i As Long
 For i = 0 To .Cols - 1
     .ColAlignment(i) = flexAlignRightCenter
 Next
+.ColAlignment(3) = flexAlignLeftCenter
+
+If .Rows > 1 Then
+    .Cell(flexcpFontSize, 1, 13, 1, .Rows - 1) = 10
+End If
+
 For i = 1 To grid1.Rows - 1
     .TextMatrix(i, 0) = i
 Next
@@ -980,7 +996,8 @@ Next
 .ColWidth(9) = 1250
 .ColWidth(10) = 1250
 .ColWidth(11) = 1200
-.ColWidth(12) = 2000
+.ColWidth(12) = 1500
+.ColWidth(13) = 1500
 
 .ColHidden(3) = True
 .ColHidden(.Cols - 1) = True
@@ -1010,14 +1027,20 @@ With grid2
 .TextMatrix(0, 10) = " «—ÌŒ «·‘Õ‰"
 .TextMatrix(0, 11) = "COD"
 .TextMatrix(0, 12) = "‰Ê⁄ «·”œ«œ"
+.TextMatrix(0, 13) = "«·‰Ê⁄"
 
 Dim i As Long
 For i = 0 To .Cols - 1
     .ColAlignment(i) = flexAlignRightCenter
 Next
+
 For i = 1 To grid1.Rows - 1
     .TextMatrix(i, 0) = i
 Next
+
+If .Rows > 1 Then
+    .Cell(flexcpFontSize, 1, 13, 1, .Rows - 1) = 10
+End If
 
 .ColWidth(0) = 800
 .ColWidth(1) = 1800
@@ -1031,7 +1054,8 @@ Next
 .ColWidth(9) = 1250
 .ColWidth(10) = 1250
 .ColWidth(11) = 1200
-.ColWidth(12) = 2000
+.ColWidth(12) = 1500
+.ColWidth(13) = 1500
 
 .ColHidden(3) = True
 .ColHidden(.Cols - 1) = True
@@ -1058,7 +1082,7 @@ grid3.Rows = 1
 
 For i = 0 To cSv.NumRows - 1
     Me.Caption = sCaption & " - " & "”Ã· " & (i + 1) & " „‰ " & cSv.NumRows
-    prog1.value = Round(i / (cSv.NumRows), 2) * 100
+    prog1.Value = Round(i / (cSv.NumRows), 2) * 100
         
     ship_no = addstring(Trim(cSv.GetCellByName(i, "Tracking Number")))
     

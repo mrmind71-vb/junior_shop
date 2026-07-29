@@ -931,7 +931,7 @@ Private Sub CmdDel_Click()
 grid1.Rows = 1
 myload 1
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub cmdSave_Click()
@@ -944,12 +944,12 @@ End Sub
 Private Sub Form_Load()
 bEdit = True
 
-openCon con
+OpenCon con
 Set grdOffer.DataSource = data1
 
 myLoadGrdOffer
 
-fixGrd
+Fixgrd
 Fixgrd2
 End Sub
 Private Sub myLoadGrdOffer()
@@ -1063,19 +1063,19 @@ Private Sub myload(Row As Long)
 With grdOffer
 grid1.Rows = 1
 If .ValueMatrix(Row, 2) = 0 Then
-    xDoc_no.Caption = ""
+    xdoc_no.Caption = ""
     xQty1.Caption = ""
     xQty2.Caption = ""
     xTotal.Caption = ""
 Else
-    xDoc_no.Caption = .TextMatrix(Row, 0)
+    xdoc_no.Caption = .TextMatrix(Row, 0)
     xQty1.Caption = .TextMatrix(Row, 3)
     xQty2.Caption = .TextMatrix(Row, 4)
     xTotal.Caption = Myvalue(.ValueMatrix(Row, 3) + .ValueMatrix(Row, 4))
     grid1.AddItem ""
 End If
 CalcTotals
-cmddel.Enabled = False
+cmdDel.Enabled = False
 End With
 End Sub
 Private Sub myDefine()
@@ -1120,7 +1120,7 @@ With grid1
 If Not bEdit Then
     .Editable = flexEDNone
 ElseIf .col = 1 Or .col = 10 Then
-    If xDoc_no.Caption <> "" Then
+    If xdoc_no.Caption <> "" Then
         .Editable = flexEDKbdMouse
     Else
         .Editable = flexEDNone
@@ -1138,10 +1138,10 @@ End With
 validRow = True
 End Function
 Private Sub grid1_KeyUp(KeyCode As Integer, Shift As Integer)
-If xDoc_no.Caption = "" Then
+If xdoc_no.Caption = "" Then
     Exit Sub
 ElseIf KeyCode = 112 Then
-    ItemsLook Me, oSearchItem, , xDoc_no.Caption, True
+    ItemsLook Me, oSearchItem, , xdoc_no.Caption, , True
 ElseIf KeyCode = 46 And grid1.Row <> grid1.Rows - 1 Then
     If MsgBox("ÍÐÝ ãä ÇáãÓÊäÏ ?, åá ÇäÊ ãæÇÝÞ ¿", vbOKCancel) = vbOK Then
         myRemove grid1.Row
@@ -1262,14 +1262,14 @@ If cm.Parameters("@PRICE").Value = 0 Then
 End If
 
 
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 Dim cString As String
 cString = "Select doc_no,disc2 " & _
           " from file0_90 " & _
           " where file0_90.modelNo = " & MyParn(cm.Parameters("@MODELNO").Value) & _
-          " and file0_90.doc_no = " & MyParn(xDoc_no.Caption)
-Set loctable = cmd(cString, con).Execute
-If loctable.EOF Then
+          " and file0_90.doc_no = " & MyParn(xdoc_no.Caption)
+Set locTable = cmd(cString, con).Execute
+If locTable.EOF Then
     MsgBox "ÕäÝ ÛíÑ ãæÌæÏ Ýì ÇáÚÑÖ"
     Exit Function
 End If
@@ -1289,7 +1289,7 @@ grid1.TextMatrix(Row, 8) = cm.Parameters("@COLOR").Value
 grid1.TextMatrix(Row, 9) = cm.Parameters("@PRICE").Value
 grid1.TextMatrix(Row, 10) = "1"
 grid1.TextMatrix(Row, 11) = cm.Parameters("@PRICE").Value
-grid1.TextMatrix(Row, 12) = Val(loctable!disc2 & "")
+grid1.TextMatrix(Row, 12) = Val(locTable!disc2 & "")
 grid1.TextMatrix(Row, 13) = Val(cm.Parameters("@COSTITEM").Value & "")
 GrdDesc = True
 End With
@@ -1306,7 +1306,7 @@ If KeyCode = 13 Then
     CellPos KeyCode, Row, col
 End If
 End Sub
-Private Sub fixGrd()
+Private Sub Fixgrd()
 With grid1
 '                 0          1          2         3        4          5              6          7          8            9           10          11          12              13
 .FormatString = "ã.|" & "ÈÇÑßæÏ|" & "ãæÓã|" & "ãÕäÚ|" & "ãßÊÈ|" & "ÑÞã ãæÏíá|" & "ÇáÕäÝ|" & "ãÞÇÓ|" & "Çááæä|" & "ÓÚÑ ãÓÊåáß|" & "ÚÏÏ|" & "ÇáÅÌãÇáì|" & "äÓÈÉ ÇáÎÕã|" & "ÇáÊßáÝÉ"
@@ -1433,7 +1433,7 @@ grid2.Rows = 1
 xRate.Caption = ""
 xDiscount.Caption = ""
 
-cmddel.Enabled = grid1.Rows > 2
+cmdDel.Enabled = grid1.Rows > 2
 
 For i = 1 To grid1.Rows - 1
     nSales = nSales + grid1.ValueMatrix(i, 10)

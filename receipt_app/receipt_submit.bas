@@ -37,13 +37,13 @@ If sStatusCode >= 400 Then
     Exit Function
 End If
     
-Dim Json As New ChilkatJsonObject
-success = Json.Load(sResponse)
+Dim json As New ChilkatJsonObject
+success = json.Load(sResponse)
 
 Dim aDocs As New ChilkatJsonArray
 
 Dim aInsert As Variant
-If Not validJsonArray(Json, "acceptedDocuments") Then
+If Not validJsonArray(json, "acceptedDocuments") Then
     con.BeginTrans
     aInsert = AddFlag(Empty, "doc_no", addstring(pDoc_no))
     aInsert = AddFlag(aInsert, "document_body", addstring(sDocument))
@@ -53,12 +53,12 @@ If Not validJsonArray(Json, "acceptedDocuments") Then
     aInsert = AddFlag(aInsert, "ERROR", addstring(pError))
     con.Execute addInsert(aInsert, "FILE6_20R")
     con.CommitTrans
-    pError = Json.Emit()
+    pError = json.Emit()
     Exit Function
 End If
 
 con.BeginTrans
-sUuid = Json.ArrayOf("acceptedDocuments").ObjectAt(0).StringOf("uuid")
+sUuid = json.ArrayOf("acceptedDocuments").ObjectAt(0).StringOf("uuid")
 aInsert = AddFlag(aInsert, "UUID_RC", addstring(sUuid))
 aInsert = AddFlag(aInsert, "sendRc", "1")
 aInsert = AddFlag(aInsert, "PREVIOUS_UUID", addstring(pPreviousUUID))
@@ -87,7 +87,7 @@ Private Function SubmitDocumentString(pDocument As String, pToken As String, ByR
 Dim rest As New ChilkatRest
 Dim url As New ChilkatUrl
 Dim Succees As Integer
-Dim Json As ChilkatJsonObject
+Dim json As ChilkatJsonObject
 
 success = url.ParseUrl(GetContRc("setting|apiBaseUrl"))
 success = rest.AddHeader("Authorization", "Bearer " & pToken)
@@ -107,11 +107,11 @@ End If
 SubmitDocumentString = jsonResponseStr
 End Function
 Private Function validSend(pDoc_no As String, con As ADODB.Connection, pType As String) As Boolean
-Dim loctable As ADODB.Recordset
+Dim locTable As ADODB.Recordset
 aPrm = AddFlag(aPrm, "DOC_NO", TurnValue(pDoc_no))
-Set loctable = myCmd("einv.sp_valid_receipt", con, adStoredProc, aPrm)
+Set locTable = mycmd("einv.sp_valid_receipt", con, adStoredProc, aPrm)
 
-If loctable.EOF Then
+If locTable.EOF Then
     MsgBox "„” ‰œ €Ì— „ÊÃÊœ «Ê ·Ì” »Â «’‰«›"
     Exit Function
 End If
@@ -123,11 +123,11 @@ Dim sLang As String
 sLang = RetZero(LCase(GetKeyBoard(kbMode.ILANGUAGE)), 10)
 If sLang <> Lang_AR Then SetKbLayout Lang_AR
 
-Dim Json As New ChilkatJsonObject
+Dim json As New ChilkatJsonObject
 Dim aReceipt As New ChilkatJsonArray
 
-success = Json.AddArrayAt(-1, "receipts")
-Set aReceipt = Json.ArrayOf("receipts")
+success = json.AddArrayAt(-1, "receipts")
+Set aReceipt = json.ArrayOf("receipts")
 success = aReceipt.AddObjectAt(-1)
 Dim receiptObj As New ChilkatJsonObject
 Set receiptObj = aReceipt.ObjectAt(aReceipt.Size - 1)
@@ -156,45 +156,45 @@ sDocument = Serialize(receiptObj.Emit())
 pUUID = cryptUUID(sDocument)
 success = headerObj.SetStringOf("uuid", pUUID)
 
-getReceiptString = Json.Emit()
+getReceiptString = json.Emit()
 Exit Function
 myerror:
 pError = Err.Description
 Err.Clear
 End Function
-Private Function setHeaderObj(ByRef Json As ChilkatJsonObject, pDoc_no As String, pType As String, ByRef pPreviousUUID As String, pDate As String, con As ADODB.Connection, ByRef pError As String) As Boolean
-Dim loctable As ADODB.Recordset
-Set loctable = myCmd("select [time],[DATE],file6_20h.sales_ret,[dbo].[GetRefUUID](FILE6_20H.DOC_NO) as referenceUUID from file6_20h where doc_no = " & MyParn(pDoc_no), con)
+Private Function setHeaderObj(ByRef json As ChilkatJsonObject, pDoc_no As String, pType As String, ByRef pPreviousUUID As String, pDate As String, con As ADODB.Connection, ByRef pError As String) As Boolean
+Dim locTable As ADODB.Recordset
+Set locTable = mycmd("select [time],[DATE],file6_20h.sales_ret,[dbo].[GetRefUUID](FILE6_20H.DOC_NO) as referenceUUID from file6_20h where doc_no = " & MyParn(pDoc_no), con)
 On Error GoTo myerror
 
-If Not loctable.EOF Then
+If Not locTable.EOF Then
     pPreviousUUID = MyFuncValue("dbo.GetPreviousUUID", con, MyParn(pDoc_no)) & ""
         
 '    pDate = Format(Format(loctable!Date, "YYYY-MM-DD") & " " & Format(loctable!Time, "hh:nn:ss"), "YYYY-MM-DD hh:nn:ss")
 '    pDate = Format(DateAdd("n", -180, pDate), "YYYY-MM-DD hh:nn:ss")
     
-    pDate = myDateRc(loctable!Date & "", loctable!Time & "")
-    success = Json.AddStringAt(-1, "dateTimeIssued", myFormat_z(pDate))
-    success = Json.AddStringAt(-1, "receiptNumber", pDoc_no)
-    success = Json.AddStringAt(-1, "uuid", "")
-    success = Json.AddStringAt(-1, "previousUUID", pPreviousUUID)
+    pDate = myDateRc(locTable!Date & "", locTable!Time & "")
+    success = json.AddStringAt(-1, "dateTimeIssued", myFormat_z(pDate))
+    success = json.AddStringAt(-1, "receiptNumber", pDoc_no)
+    success = json.AddStringAt(-1, "uuid", "")
+    success = json.AddStringAt(-1, "previousUUID", pPreviousUUID)
     If pType = "r" Then
-        success = Json.AddStringAt(-1, "referenceUUID", loctable!referenceUUID & "")
+        success = json.AddStringAt(-1, "referenceUUID", locTable!referenceUUID & "")
     End If
-    success = Json.AddStringAt(-1, "currency", "EGP")
-    success = Json.AddNumberAt(-1, "exchangeRate", 0)
+    success = json.AddStringAt(-1, "currency", "EGP")
+    success = json.AddNumberAt(-1, "exchangeRate", 0)
     
     
     If pType = "RWR" Then
         Dim sDateSales As String
-        success = Json.AddStringAt(-1, "documentUseReason", "B")
+        success = json.AddStringAt(-1, "documentUseReason", "B")
         
         Dim retTable As New ADODB.Recordset
-        Set retTable = invFields(loctable!SALES_RET, con)
+        Set retTable = invFields(locTable!SALES_RET, con)
         sDateSales = myDateRc(retTable!Date, retTable!Time)
 
         If IsDate(sDateSales) Then
-            success = Json.AddStringAt(-1, "salesIssuedDateTime", myFormat_z(sDateSales))
+            success = json.AddStringAt(-1, "salesIssuedDateTime", myFormat_z(sDateSales))
         End If
     End If
     setHeaderObj = True
@@ -208,67 +208,67 @@ Private Function myDateRc(pDate As String, pTime As String, Optional nMinus As I
 myDateRc = Format(Format(pDate, "YYYY-MM-DD") & " " & Format(pTime, "hh:nn:ss"), "YYYY-MM-DD hh:nn:ss")
 myDateRc = Format(DateAdd("n", nMinus, myDateRc), "YYYY-MM-DD hh:nn:ss")
 End Function
-Private Function setTypeObj(ByRef Json As ChilkatJsonObject, pType As String, ByRef pError As String) As Boolean
-success = Json.AddStringAt(-1, "receiptType", pType)
-success = Json.AddStringAt(-1, "typeVersion", GetContRc("setting|version"))
+Private Function setTypeObj(ByRef json As ChilkatJsonObject, pType As String, ByRef pError As String) As Boolean
+success = json.AddStringAt(-1, "receiptType", pType)
+success = json.AddStringAt(-1, "typeVersion", GetContRc("setting|version"))
 setTypeObj = True
 End Function
-Private Function setSellerObj(ByRef Json As ChilkatJsonObject, ByRef pError As String) As Boolean
-success = Json.AddStringAt(-1, "rin", GetContRc("company|rin"))
-success = Json.AddStringAt(-1, "companyTradeName", GetContRc("company|companyTradeName"))
-success = Json.AddStringAt(-1, "branchCode", GetContRc("company|branchCode"))
+Private Function setSellerObj(ByRef json As ChilkatJsonObject, ByRef pError As String) As Boolean
+success = json.AddStringAt(-1, "rin", GetContRc("company|rin"))
+success = json.AddStringAt(-1, "companyTradeName", GetContRc("company|companyTradeName"))
+success = json.AddStringAt(-1, "branchCode", GetContRc("company|branchCode"))
 
-success = Json.AddObjectAt(-1, "branchAddress")
+success = json.AddObjectAt(-1, "branchAddress")
 Dim addressObj As New ChilkatJsonObject
-Set addressObj = Json.ObjectAt(Json.Size - 1)
+Set addressObj = json.ObjectAt(json.Size - 1)
 success = addressObj.AddStringAt(-1, "country", GetContRc("company|country"))
 success = addressObj.AddStringAt(-1, "governate", GetContRc("company|governate"))
 success = addressObj.AddStringAt(-1, "regionCity", GetContRc("company|regionCity"))
 success = addressObj.AddStringAt(-1, "street", GetContRc("company|street"))
 success = addressObj.AddStringAt(-1, "buildingNumber", GetContRc("company|buildingNumber"))
 
-success = Json.AddStringAt(-1, "deviceSerialNumber", GetContRc("setting|posSerial"))
-success = Json.AddStringAt(-1, "activityCode", GetContRc("company|activityCode"))
+success = json.AddStringAt(-1, "deviceSerialNumber", GetContRc("setting|posSerial"))
+success = json.AddStringAt(-1, "activityCode", GetContRc("company|activityCode"))
 setSellerObj = True
 End Function
-Private Function setBuyerObj(Json As ChilkatJsonObject, ByRef pError As String) As Boolean
-success = Json.AddStringAt(-1, "type", "P")
-success = Json.AddStringAt(-1, "id", "")
-success = Json.AddStringAt(-1, "name", "")
-success = Json.AddStringAt(-1, "mobileNumber", "")
-success = Json.AddStringAt(-1, "paymentNumber", "")
+Private Function setBuyerObj(json As ChilkatJsonObject, ByRef pError As String) As Boolean
+success = json.AddStringAt(-1, "type", "P")
+success = json.AddStringAt(-1, "id", "")
+success = json.AddStringAt(-1, "name", "")
+success = json.AddStringAt(-1, "mobileNumber", "")
+success = json.AddStringAt(-1, "paymentNumber", "")
 setBuyerObj = True
 End Function
 Private Function setItemDataArray(aJson As ChilkatJsonArray, pDoc_no As String, pType As String, con As ADODB.Connection, ByRef pError As String) As Boolean
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 Dim aPrm As Variant
 Dim nTaxRate As Double
 nTaxRate = Val(GetContRc("setting|taxRate"))
 aPrm = AddFlag(aPrm, "DOC_NO", TurnValue(pDoc_no))
 aPrm = AddFlag(aPrm, "TAX", mRound(nTaxRate / 100, 2))
 
-Set loctable = myCmd("einv.sp_receipt_line", con, adStoredProc, aPrm)
-If loctable.EOF Then
+Set locTable = mycmd("einv.sp_receipt_line", con, adStoredProc, aPrm)
+If locTable.EOF Then
     pError = "»Ì«‰«  «·„” ‰œ €Ì— „”Ã·…"
     Exit Function
 End If
 
 Dim itemObj As ChilkatJsonObject
-Do Until loctable.EOF
+Do Until locTable.EOF
     success = aJson.AddObjectAt(-1)
     Set itemObj = aJson.ObjectAt(aJson.Size - 1)
     
-    success = itemObj.AddStringAt(-1, "internalCode", loctable!internalCode)
-    success = itemObj.AddStringAt(-1, "description", myEsc(loctable!Description))
-    success = itemObj.AddStringAt(-1, "itemType", loctable!itemType)
-    success = itemObj.AddStringAt(-1, "itemCode", loctable!itemCode & "")
-    success = itemObj.AddStringAt(-1, "unitType", loctable!unitType)
-    success = itemObj.AddNumberAt(-1, "quantity", loctable!quantity * IIf(pType = "r" Or pType = "RWR", -1, 1))
-    success = itemObj.AddNumberAt(-1, "unitPrice", loctable!unitPrice)
+    success = itemObj.AddStringAt(-1, "internalCode", locTable!internalCode)
+    success = itemObj.AddStringAt(-1, "description", myEsc(locTable!Description))
+    success = itemObj.AddStringAt(-1, "itemType", locTable!itemType)
+    success = itemObj.AddStringAt(-1, "itemCode", locTable!itemCode & "")
+    success = itemObj.AddStringAt(-1, "unitType", locTable!unitType)
+    success = itemObj.AddNumberAt(-1, "quantity", locTable!quantity * IIf(pType = "r" Or pType = "RWR", -1, 1))
+    success = itemObj.AddNumberAt(-1, "unitPrice", locTable!unitPrice)
     
-    success = itemObj.AddNumberAt(-1, "netSale", loctable!netSale * IIf(pType = "r" Or pType = "RWR", -1, 1))
-    success = itemObj.AddNumberAt(-1, "totalSale", loctable!totalSale * IIf(pType = "r" Or pType = "RWR", -1, 1))
-    success = itemObj.AddNumberAt(-1, "total", loctable!TOTAL * IIf(pType = "r" Or pType = "RWR", -1, 1))
+    success = itemObj.AddNumberAt(-1, "netSale", locTable!netSale * IIf(pType = "r" Or pType = "RWR", -1, 1))
+    success = itemObj.AddNumberAt(-1, "totalSale", locTable!totalSale * IIf(pType = "r" Or pType = "RWR", -1, 1))
+    success = itemObj.AddNumberAt(-1, "total", locTable!TOTAL * IIf(pType = "r" Or pType = "RWR", -1, 1))
     
     ' Discount Array
     success = itemObj.AddArrayAt(-1, "commercialDiscountData")
@@ -279,7 +279,7 @@ Do Until loctable.EOF
     Dim discountObj As ChilkatJsonObject
     Set discountObj = aDiscount.ObjectAt(aDiscount.Size - 1)
            
-    success = discountObj.AddNumberAt(-1, "amount", loctable!discount * IIf(pType = "r" Or pType = "RWR", -1, 1))
+    success = discountObj.AddNumberAt(-1, "amount", locTable!discount * IIf(pType = "r" Or pType = "RWR", -1, 1))
     success = discountObj.AddStringAt(-1, "description", "XYZ")
     success = discountObj.AddNumberAt(-1, "rate", 0)
     ' Tax Items
@@ -293,11 +293,11 @@ Do Until loctable.EOF
     Set taxObj = aTax.ObjectAt(aTax.Size - 1)
     
     success = taxObj.AddStringAt(-1, "taxType", "T1")
-    success = taxObj.AddNumberAt(-1, "amount", loctable!tax * IIf(pType = "r" Or pType = "RWR", -1, 1))
+    success = taxObj.AddNumberAt(-1, "amount", locTable!tax * IIf(pType = "r" Or pType = "RWR", -1, 1))
     success = taxObj.AddStringAt(-1, "subType", GetContRc("setting|subType"))
     success = taxObj.AddNumberAt(-1, "rate", nTaxRate)
                                         
-    loctable.MoveNext
+    locTable.MoveNext
 Loop
 setItemDataArray = True
 Exit Function
@@ -305,8 +305,8 @@ myerror:
 pError = Err.Description
 Err.Clear
 End Function
-Private Function setReceiptObjTotal(Json As ChilkatJsonObject, pDoc_no As String, pType As String, con As ADODB.Connection, ByRef pError As String) As Boolean
-Dim loctable As New ADODB.Recordset
+Private Function setReceiptObjTotal(json As ChilkatJsonObject, pDoc_no As String, pType As String, con As ADODB.Connection, ByRef pError As String) As Boolean
+Dim locTable As New ADODB.Recordset
 Dim aPrm As Variant
 Dim nTaxRate As Double
 nTaxRate = Val(GetContRc("setting|taxRate"))
@@ -315,29 +315,29 @@ aPrm = AddFlag(aPrm, "TAX", mRound(nTaxRate / 100, 2))
 
 On Error GoTo myerror
 
-Set loctable = myCmd("einv.sp_receipt_total", con, adStoredProc, aPrm)
-If loctable.EOF Then
+Set locTable = mycmd("einv.sp_receipt_total", con, adStoredProc, aPrm)
+If locTable.EOF Then
     pError = "»Ì«‰«  «·„” ‰œ €Ì— „”Ã·…"
     Exit Function
 End If
-If Not loctable.EOF Then
-    success = Json.AddNumberAt(-1, "totalSales", loctable!totalSales * IIf(pType = "r" Or pType = "RWR", -1, 1))
-    success = Json.AddNumberAt(-1, "totalCommercialDiscount", loctable!totalCommercialDiscount * IIf(pType = "r" Or pType = "RWR", -1, 1))
-    success = Json.AddNumberAt(-1, "netAmount", loctable!netAmount * IIf(pType = "r" Or pType = "RWR", -1, 1))
-    success = Json.AddNumberAt(-1, "totalAmount", loctable!totalAmount * IIf(pType = "r" Or pType = "RWR", -1, 1))
+If Not locTable.EOF Then
+    success = json.AddNumberAt(-1, "totalSales", locTable!totalSales * IIf(pType = "r" Or pType = "RWR", -1, 1))
+    success = json.AddNumberAt(-1, "totalCommercialDiscount", locTable!totalCommercialDiscount * IIf(pType = "r" Or pType = "RWR", -1, 1))
+    success = json.AddNumberAt(-1, "netAmount", locTable!netAmount * IIf(pType = "r" Or pType = "RWR", -1, 1))
+    success = json.AddNumberAt(-1, "totalAmount", locTable!totalAmount * IIf(pType = "r" Or pType = "RWR", -1, 1))
 
     
-    success = Json.AddArrayAt(-1, "taxTotals")
+    success = json.AddArrayAt(-1, "taxTotals")
     Dim aTax As ChilkatJsonArray
-    Set aTax = Json.ArrayAt(Json.Size - 1)
+    Set aTax = json.ArrayAt(json.Size - 1)
     
     success = aTax.AddObjectAt(aTax.Size - 1)
     Dim taxObj As New ChilkatJsonObject
     Set taxObj = aTax.ObjectAt(aTax.Size - 1)
     success = taxObj.AddStringAt(-1, "taxType", "T1")
-    success = taxObj.AddNumberAt(-1, "amount", loctable!tax * IIf(pType = "r" Or pType = "RWR", -1, 1))
+    success = taxObj.AddNumberAt(-1, "amount", locTable!tax * IIf(pType = "r" Or pType = "RWR", -1, 1))
 End If
-success = Json.AddStringAt(-1, "paymentMethod", "C")
+success = json.AddStringAt(-1, "paymentMethod", "C")
 setReceiptObjTotal = True
 Exit Function
 myerror:
@@ -373,13 +373,13 @@ If (httpB.LastMethodSuccess = 0) Then
     Exit Function
 End If
 
-Dim Json As New ChilkatJsonObject
-success = Json.Load(respB.BodyStr)
+Dim json As New ChilkatJsonObject
+success = json.Load(respB.BodyStr)
 If (success <> 1) Then
-    pError = Json.LastErrorText
+    pError = json.LastErrorText
     Exit Function
 End If
-getToken_rc = Json.StringOf("access_token")
+getToken_rc = json.StringOf("access_token")
 If getToken_rc = "" Then pError = "Empty Token"
 End Function
 Public Function GetContX(pFile As String, pPath As String, Optional ByRef pError As String)
@@ -442,9 +442,9 @@ Private Function myEsc(pString As String) As String
 myEsc = Replace(pString, Chr(13), "")
 myEsc = Replace(myEsc, Chr(10), "")
 End Function
-Public Function validJsonArray(Json As ChilkatJsonObject, sName As String) As Boolean
-If Json.ArrayOf(sName) Is Nothing Then Exit Function
-If Json.ArrayOf(sName).Size = 0 Then Exit Function
+Public Function validJsonArray(json As ChilkatJsonObject, sName As String) As Boolean
+If json.ArrayOf(sName) Is Nothing Then Exit Function
+If json.ArrayOf(sName).Size = 0 Then Exit Function
 validJsonArray = True
 End Function
 Private Function validReceipt(pDoc_no As String, pType As String, con As ADODB.Connection, ByRef pError As String) As Boolean
@@ -458,9 +458,9 @@ If pDoc_no = "" Then
     Exit Function
 End If
 
-Dim loctable As New ADODB.Recordset
-Set loctable = myCmd("[dbo].[sp_invoice_data]", con, adStoredProc, AddFlag(Empty, "doc_no", pDoc_no))
-If loctable.EOF And loctable.BOF Then
+Dim locTable As New ADODB.Recordset
+Set locTable = mycmd("[dbo].[sp_invoice_data]", con, adStoredProc, AddFlag(Empty, "doc_no", pDoc_no))
+If locTable.EOF And locTable.BOF Then
     pError = "›« Ê—… €Ì— „”Ã·…"
     Exit Function
 End If
@@ -474,8 +474,8 @@ End If
 
 validReceipt = True
 
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
 Public Function SendReceipt(pDoc_no As String, con As ADODB.Connection, Optional pError As String = "") As Boolean
 Dim pType As String
@@ -484,27 +484,27 @@ If Not submitReceipt(pDoc_no, con, pType, pError) Then Exit Function
 SendReceipt = True
 End Function
 Private Function receiptType(pDoc_no As String, ByRef pType As String, con As ADODB.Connection, pError As String) As Boolean
-Dim loctable As New ADODB.Recordset
-Set loctable = myCmd("select file6_20h.date,FILE6_20H.sales_ret," & _
+Dim locTable As New ADODB.Recordset
+Set locTable = mycmd("select file6_20h.date,FILE6_20H.sales_ret," & _
               "max(file6_20.quant) as maxQuant, " & _
               " min(file6_20.quant) as minQuant" & _
               " from file6_20 inner join file6_20h on file6_20.doc_no = file6_20h.doc_no " & _
               " where file6_20.doc_no = " & MyParn(pDoc_no) & _
               " group by file6_20h.date,FILE6_20H.sales_ret", con)
               
-If Not (loctable.EOF And loctable.BOF) Then
-    If IsNull(loctable!maxQuant) And IsNull(loctable!minQuant) Then
+If Not (locTable.EOF And locTable.BOF) Then
+    If IsNull(locTable!maxQuant) And IsNull(locTable!minQuant) Then
         pError = "«·„” ‰œ ·« ÌÕ ÊÌ ⁄·Ì «’‰«›"
         Exit Function
-    ElseIf loctable!maxQuant > 0 And loctable!minQuant < 0 Then
+    ElseIf locTable!maxQuant > 0 And locTable!minQuant < 0 Then
         pError = "«·„” ‰œ ÌÕ ÊÌ ⁄·Ì ﬂ„Ì«  „ÊÃ»… Êﬂ„Ì«  ”«·»…"
         Exit Function
-    ElseIf loctable!maxQuant = 0 And loctable!minQuant = 0 Then
+    ElseIf locTable!maxQuant = 0 And locTable!minQuant = 0 Then
         pError = "«·„” ‰œ ·« ÌÕ ÊÌ ⁄·Ì ﬂ„Ì« "
         Exit Function
-    ElseIf loctable!maxQuant > 0 Then
+    ElseIf locTable!maxQuant > 0 Then
         pType = "s"
-    ElseIf loctable!minQuant < 0 Then
+    ElseIf locTable!minQuant < 0 Then
         pType = "r"
     End If
 Else
@@ -513,16 +513,16 @@ Else
 End If
 
 If pType = "r" Then
-    If IsNull(loctable!SALES_RET) Then
+    If IsNull(locTable!SALES_RET) Then
         pError = "„” ‰œ „— Ã⁄ »œÊ‰ „” ‰œ »Ì⁄ ··—ÃÊ⁄ «·ÌÂ"
         Exit Function
-    ElseIf IsEmpty(invField(loctable!SALES_RET, "doc_no", con)) Then
+    ElseIf IsEmpty(invField(locTable!SALES_RET, "doc_no", con)) Then
         pError = "„” ‰œ „— Ã€ „”Ã· €Ì— „ÊÃÊœ"
         Exit Function
-    ElseIf IsNull(invField(loctable!SALES_RET, "UUID_RC", con)) Then
+    ElseIf IsNull(invField(locTable!SALES_RET, "UUID_RC", con)) Then
         If IsDate(GetContRc("setting|date_ref")) Then
             Dim sDate As String
-            sDate = myFormat(invField(loctable!SALES_RET, "DATE", con))
+            sDate = myFormat(invField(locTable!SALES_RET, "DATE", con))
             If sDate <= myFormat(GetContRc("setting|date_ref")) Then
                 pType = "RWR"
             Else
@@ -548,55 +548,55 @@ success = dateTime.SetFromTimestamp(Format(pDate, "YYYY-MM-DDThh:mm:ssTZD"))
 GreenToLocal = dateTime.GetAsIso8601("YYYY-MM-DDThh:mm:ssTZD", 1)
 End Function
 Public Function retQrCode(ByVal pDoc_no As String, con As ADODB.Connection, Optional pFormat As String = "YYYY-MM-DDThh:mmZ") As String
-Dim loctable As New ADODB.Recordset
-Set loctable = myCmd("select date_Qr,uuid_rc from file6_20h where doc_no = " & MyParn(pDoc_no), con)
+Dim locTable As New ADODB.Recordset
+Set locTable = mycmd("select date_Qr,uuid_rc from file6_20h where doc_no = " & MyParn(pDoc_no), con)
 Dim xml As New ChilkatXml
 success = xml.LoadXmlFile(tempPath & "\receipt.xml")
 If success = 0 Then Exit Function
 
-If IsNull(loctable!UUID_RC) Then Exit Function
-If Trim(loctable!UUID_RC) = "" Then Exit Function
-If Not loctable.EOF Then
-    retQrCode = xml.GetChildContent("setting|QRUrl") & "/" & loctable!UUID_RC & "/share/" & Format(loctable!date_qr, pFormat)
+If IsNull(locTable!UUID_RC) Then Exit Function
+If Trim(locTable!UUID_RC) = "" Then Exit Function
+If Not locTable.EOF Then
+    retQrCode = xml.GetChildContent("setting|QRUrl") & "/" & locTable!UUID_RC & "/share/" & Format(locTable!date_qr, pFormat)
 End If
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
 Public Function invField(pDoc_no As String, pField As String, con As ADODB.Connection) As Variant
-Dim loctable As New ADODB.Recordset
-Set loctable = myCmd("[dbo].[sp_invoice_data]", con, adStoredProc, AddFlag(aPrm, "doc_no", pDoc_no))
-If loctable.EOF Then
+Dim locTable As New ADODB.Recordset
+Set locTable = mycmd("[dbo].[sp_invoice_data]", con, adStoredProc, AddFlag(aPrm, "doc_no", pDoc_no))
+If locTable.EOF Then
     invField = Empty
 Else
-    invField = loctable(pField).Value
+    invField = locTable(pField).value
 End If
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
 Public Function invFields(pDoc_no As String, con As ADODB.Connection) As ADODB.Recordset
-Set invFields = myCmd("[dbo].[sp_invoice_data]", con, adStoredProc, AddFlag(aPrm, "doc_no", pDoc_no))
+Set invFields = mycmd("[dbo].[sp_invoice_data]", con, adStoredProc, AddFlag(aPrm, "doc_no", pDoc_no))
 End Function
 Public Function invJson(pDoc_no As String, con As ADODB.Connection) As ChilkatJsonObject
-Dim Json As New ChilkatJsonObject
-Dim loctable As New ADODB.Recordset
-Set loctable = myCmd("[dbo].[sp_invoice_data]", con, adStoredProc, AddFlag(aPrm, "doc_no", pDoc_no))
-Set invJson = JsonFromRecord(loctable)
+Dim json As New ChilkatJsonObject
+Dim locTable As New ADODB.Recordset
+Set locTable = mycmd("[dbo].[sp_invoice_data]", con, adStoredProc, AddFlag(aPrm, "doc_no", pDoc_no))
+Set invJson = JsonFromRecord(locTable)
 End Function
-Private Function JsonFromRecord(loctable As ADODB.Recordset) As ChilkatJsonObject
-Dim Json As New ChilkatJsonObject
-Dim I As Long
-If Not loctable.EOF Then
-    For I = 0 To loctable.Fields.Count - 1
-        If loctable.Fields(I).Type = adInteger Or loctable.Fields(I).Type = adDecimal Or loctable.Fields(I).Type = adDouble Or loctable.Fields(I).Type = 131 Then
-            Json.AddNumberAt I, LCase(loctable.Fields(I).Name), IIf(IsNull(loctable.Fields(I).Value), "null", loctable.Fields(I).Value)
-        ElseIf loctable.Fields(I).Type = adBoolean Then
-            Json.AddBoolAt I, LCase(loctable.Fields(I).Name), IIf(IsNull(loctable.Fields(I).Value), False, loctable.Fields(I).Value)
+Private Function JsonFromRecord(locTable As ADODB.Recordset) As ChilkatJsonObject
+Dim json As New ChilkatJsonObject
+Dim i As Long
+If Not locTable.EOF Then
+    For i = 0 To locTable.Fields.Count - 1
+        If locTable.Fields(i).Type = adInteger Or locTable.Fields(i).Type = adDecimal Or locTable.Fields(i).Type = adDouble Or locTable.Fields(i).Type = 131 Then
+            json.AddNumberAt i, LCase(locTable.Fields(i).Name), IIf(IsNull(locTable.Fields(i).value), "null", locTable.Fields(i).value)
+        ElseIf locTable.Fields(i).Type = adBoolean Then
+            json.AddBoolAt i, LCase(locTable.Fields(i).Name), IIf(IsNull(locTable.Fields(i).value), False, locTable.Fields(i).value)
         Else
-            Json.AddStringAt I, LCase(loctable.Fields(I).Name), IIf(IsNull(loctable.Fields(I).Value), "null", loctable.Fields(I).Value)
+            json.AddStringAt i, LCase(locTable.Fields(i).Name), IIf(IsNull(locTable.Fields(i).value), "null", locTable.Fields(i).value)
         End If
     Next
 End If
-Set JsonFromRecord = Json
+Set JsonFromRecord = json
 End Function
 Public Function BranchReceipt() As Boolean
 If GetContRc("setting|send") <> "true" Then Exit Function

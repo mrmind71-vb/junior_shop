@@ -166,7 +166,7 @@ Begin VB.Form onlineCSVfrm
       GridLinesFixed  =   1
       GridLineWidth   =   1
       Rows            =   1
-      Cols            =   22
+      Cols            =   27
       FixedRows       =   1
       FixedCols       =   1
       RowHeightMin    =   0
@@ -460,14 +460,14 @@ Begin VB.Form onlineCSVfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_csv2.frx":0000
+         Picture         =   "online_csv3.frx":0000
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "online_csv2.frx":2925
+         PictureDisabled =   "online_csv3.frx":2925
       End
       Begin Threed.SSCommand cmdScv 
          Height          =   510
@@ -490,14 +490,14 @@ Begin VB.Form onlineCSVfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_csv2.frx":5179
+         Picture         =   "online_csv3.frx":5179
          Caption         =   "› Õ „” ‰œ CSV"
          ButtonStyle     =   3
          PictureAlignment=   10
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "online_csv2.frx":774C
+         PictureDisabled =   "online_csv3.frx":774C
       End
       Begin Threed.SSCommand cmdExit 
          Height          =   510
@@ -521,7 +521,7 @@ Begin VB.Form onlineCSVfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_csv2.frx":9A42
+         Picture         =   "online_csv3.frx":9A42
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
@@ -549,6 +549,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public myForm As Form
 Public con As New ADODB.Connection
+Public bNoItems As Boolean
 Private Sub CMD_SEND_Click()
 If Not myValid Then
     Exit Sub
@@ -583,7 +584,7 @@ With grid1
 For i = 1 To .Rows - 1
     prog1.Value = Round(i / (.Rows - 1), 2) * 100
     Caption = sCaption & " - " & i & " „‰ " & .Rows - 1
-    If .TextMatrix(i, 19) = "" And .ValueMatrix(i, 21) = 0 Then
+    If .TextMatrix(i, 19) = "" And .ValueMatrix(i, .Cols - 1) = 0 Then
         myValid = True
         Exit Function
     End If
@@ -704,10 +705,17 @@ With grid1
     
     .TextMatrix(0, 19) = "„” ‰œ «·»Ì⁄"
     .TextMatrix(0, 20) = "„ÊÃÊœ"
-    .TextMatrix(0, 21) = "ﬂÊœ Œÿ√"
+    .TextMatrix(0, 21) = "Tags"
+    
+    .TextMatrix(0, 22) = "«·„—Õ·…"
+    .TextMatrix(0, 23) = "«·„—Õ·…"
+    .TextMatrix(0, 24) = "«·„—Õ·… «·Õ«·Ì…"
+    .TextMatrix(0, 25) = "«·„—Õ·… «·Õ«·Ì…"
+    .TextMatrix(0, .Cols - 1) = "ﬂÊœ Œÿ√"
+        
     
     .ColDataType(20) = flexDTBoolean
-    .ColDataType(21) = flexDTBoolean
+    .ColDataType(.Cols - 1) = flexDTBoolean
     
     .ColFormat(2) = "YYYY/M/D"
     .ColWidth(0) = 500
@@ -725,30 +733,42 @@ With grid1
     .ColWidth(12) = 0
     .ColWidth(13) = 0
     .ColWidth(14) = 2000
-    .ColWidth(15) = 3600
+    .ColWidth(15) = 1000
     .ColWidth(19) = 1000
     .ColWidth(20) = 800
-    .ColWidth(21) = 800
+    .ColWidth(21) = 2500
+    .ColWidth(.Cols - 1) = 800
     
+    .ColHidden(4) = True
     .ColHidden(5) = True
     .ColHidden(10) = True
+    .ColHidden(11) = True
     .ColHidden(14) = True
-    .ColHidden(15) = True
+    '.ColHidden(15) = True
     .ColHidden(16) = True
     .ColHidden(17) = True
     .ColHidden(18) = True
+    .ColHidden(22) = True
+    .ColHidden(24) = True
     
     Dim i As Long
     For i = 0 To .Cols - 1
         .ColAlignment(i) = flexAlignRightCenter
     Next
+    
+    .ColAlignment(15) = flexAlignLeftCenter
+    .ColAlignment(21) = flexAlignLeftCenter
+    If .Rows > 1 Then
+        .Cell(flexcpFontSize, 1, 15, .Rows - 1, 15) = 10
+        .Cell(flexcpFontSize, 1, 21, .Rows - 1, 21) = 10
+    End If
     For i = 1 To grid1.Rows - 1
         .TextMatrix(i, 0) = i
         If .TextMatrix(i, 19) <> "" Then
             .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &HC0C0FF
         ElseIf .ValueMatrix(i, 20) <> 0 Then
             .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &HC0FFC0
-        ElseIf .ValueMatrix(i, 21) <> 0 Then
+        ElseIf .ValueMatrix(i, .Cols - 1) <> 0 Then
             .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &H8080FF
         End If
         If Option1(0).Value Then
@@ -756,21 +776,21 @@ With grid1
         ElseIf Option1(1).Value Then
             .RowHidden(i) = .ValueMatrix(i, 20) <> 0
         ElseIf Option1(2).Value Then
-            .RowHidden(i) = .ValueMatrix(i, 21) = 0
+            .RowHidden(i) = .ValueMatrix(i, .Cols - 1) = 0
         ElseIf Option1(3).Value Then
             .RowHidden(i) = .ValueMatrix(i, 20) = 0
         ElseIf Option1(4).Value Then
             .RowHidden(i) = .TextMatrix(i, 19) = ""
         ElseIf Option1(5).Value Then
-            .RowHidden(i) = Not (.TextMatrix(i, 19) <> "" Or .ValueMatrix(i, 21) <> 0)
+            .RowHidden(i) = Not (.TextMatrix(i, 19) <> "" Or .ValueMatrix(i, .Cols - 1) <> 0)
         ElseIf Option1(6).Value Then
-            .RowHidden(i) = (.TextMatrix(i, 19) <> "" Or .ValueMatrix(i, 21) <> 0)
+            .RowHidden(i) = (.TextMatrix(i, 19) <> "" Or .ValueMatrix(i, .Cols - 1) <> 0)
         End If
     Next
 End With
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
-Set online_csvfrm = Nothing
+Set onlineCSVfrm = Nothing
 End Sub
 Private Function getData()
 Dim cFileName As String
@@ -924,7 +944,7 @@ On Error GoTo myerror
 For i = 1 To grid1.Rows - 1
     prog1.Value = Round(i / (grid1.Rows - 1), 2) * 100
     Me.Caption = sCaption & " - " & i & " „‰ " & grid1.Rows - 1
-    If grid1.TextMatrix(i, 19) = "" And grid1.ValueMatrix(i, 21) = 0 Then
+    If grid1.TextMatrix(i, 19) = "" And grid1.ValueMatrix(i, grid1.Cols - 1) = 0 Then
         aInsert = AddFlag(Empty, "[DOC_NO]", addstring(grid1.TextMatrix(i, 1)))
         aInsert = AddFlag(aInsert, "[DATE]", addDate(grid1.TextMatrix(i, 2)))
         aInsert = AddFlag(aInsert, "[NAME]", addstring(grid1.TextMatrix(i, 3)))
@@ -943,7 +963,10 @@ For i = 1 To grid1.Rows - 1
         aInsert = AddFlag(aInsert, "[Shipping_City]", addstring(grid1.TextMatrix(i, 16)))
         aInsert = AddFlag(aInsert, "[Notes_Order]", addstring(grid1.TextMatrix(i, 17)))
         aInsert = AddFlag(aInsert, "[Payment_ID]", addstring(grid1.TextMatrix(i, 18)))
-        
+        aInsert = AddFlag(aInsert, "[tags]", addstring(grid1.TextMatrix(i, 21)))
+        If grid1.ValueMatrix(i, 24) = 0 Then
+            aInsert = AddFlag(aInsert, "[stage]", grid1.ValueMatrix(i, 22))
+        End If
         aInsert = AddFlag(aInsert, "[STORE]", addstring(sStoreOnline))
         aInsert = AddFlag(aInsert, "[SEND_USER]", addstring(cUserName))
         aInsert = AddFlag(aInsert, "[SEND_TIME]", "GETDATE()")
@@ -956,7 +979,9 @@ For i = 1 To grid1.Rows - 1
         Else
             nEdit = nEdit + 1
         End If
-        con.Execute "Delete from file6_90 where doc_no = " & MyParn(grid1.TextMatrix(i, 1))
+        If Not bNoItems Then
+            con.Execute "Delete from file6_90 where doc_no = " & MyParn(grid1.TextMatrix(i, 1))
+        End If
     End If
 Next
 
@@ -971,8 +996,8 @@ For i = 1 To grid2.Rows - 1
     
     nFound = grid1.FindRow(grid2.TextMatrix(i, 0), , 1)
     
-    If grid1.TextMatrix(nFound, 19) = "" And grid1.ValueMatrix(nFound, 21) = 0 Then
-        If grid2.TextMatrix(i, 2) <> "" And grid2.TextMatrix(i, 6) = "" Then
+    If grid1.TextMatrix(nFound, 19) = "" And grid1.ValueMatrix(nFound, grid1.Cols - 1) = 0 Then
+        If grid2.TextMatrix(i, 2) <> "" And grid2.TextMatrix(i, 6) = "" And ((Not bNoItems) Or grid1.ValueMatrix(nFound, 20) = 0) Then
             aInsert = AddFlag(Empty, "[DOC_NO]", addstring(grid2.TextMatrix(i, 0)))
             aInsert = AddFlag(aInsert, "[SKU]", addstring(grid2.TextMatrix(i, 1)))
             aInsert = AddFlag(aInsert, "[ITEM]", addvalue(grid2.TextMatrix(i, 2)))
@@ -1029,11 +1054,18 @@ If cSv.NumRows < 1 Then Exit Function
 
 Dim Tb As New ChilkatStringBuilder
 Dim cString As New ChilkatStringBuilder
-Dim locTable As New ADODB.Recordset
+Dim locTable As ADODB.Recordset
 
 prog1.Visible = True
 Dim sCaption As String
 sCaption = Me.Caption
+
+Dim db As New clsDb
+
+Dim stageTable As ADODB.Recordset
+Set stageTable = db.myRs("select * from STAGES_CODES")
+Dim nStage As Variant
+
 
 grid1.Rows = 1
 grid2.Rows = 1
@@ -1065,20 +1097,42 @@ For i = 0 To cSv.NumRows - 1
             grid1.TextMatrix(grid1.Rows - 1, 16) = cSv.GetCellByName(i, "Shipping Province Name")
             grid1.TextMatrix(grid1.Rows - 1, 17) = cSv.GetCellByName(i, "Notes")
             grid1.TextMatrix(grid1.Rows - 1, 18) = cSv.GetCellByName(i, "Payment ID")
-            grid1.TextMatrix(grid1.Rows - 1, 19) = cSv.GetCellByName(i, "Tags")
             
-            Set locTable = mycmd("select sales_doc,doc_no from file6_90h where doc_no = " & MyParn(sDoc_no), con)
-            
+            Set locTable = db.myRs("select sales_doc,doc_no,stage from file6_90h where doc_no = " & MyParn(sDoc_no))
+            If locTable Is Nothing Then GoTo CleanUp
             If Not locTable.EOF Then
                 grid1.TextMatrix(grid1.Rows - 1, 19) = locTable!sales_Doc & ""
                 grid1.TextMatrix(grid1.Rows - 1, 20) = "1"
+                grid1.TextMatrix(grid1.Rows - 1, 24) = locTable!Stage
+                If grid1.TextMatrix(grid1.Rows - 1, 24) <> "" Then
+                    stageTable.Find "CODE = " & grid1.TextMatrix(grid1.Rows - 1, 24), , adSearchForward, adBookmarkFirst
+                    If Not stageTable.EOF Then
+                        grid1.TextMatrix(grid1.Rows - 1, 25) = stageTable!desca & ""
+                    End If
+                End If
             End If
-            grid1.TextMatrix(grid1.Rows - 1, 21) = "0"
+            
+            grid1.TextMatrix(grid1.Rows - 1, 21) = cSv.GetCellByName(i, "Tags")
+            If Not db.rsValue("select  [dbo].[fn_stage](" & _
+                                    addstring(grid1.TextMatrix(grid1.Rows - 1, 15)) & "," & _
+                                    addstring(grid1.TextMatrix(grid1.Rows - 1, 21)) & ")", _
+                                    nStage) Then
+                GoTo CleanUp
+            End If
+            
+            grid1.TextMatrix(grid1.Rows - 1, 22) = nStage
+            stageTable.Find "CODE = " & Val(nStage), , adSearchForward, adBookmarkFirst
+            If Not stageTable.EOF Then
+                grid1.TextMatrix(grid1.Rows - 1, 23) = stageTable!desca & ""
+            End If
+            
+            grid1.TextMatrix(grid1.Rows - 1, grid1.Cols - 1) = "0"
             grid1.ShowCell grid1.Rows - 1, 0
             DoEvents
         End If
     End If
 Next
+
 
 Me.Caption = sCaption
 
@@ -1105,7 +1159,10 @@ For i = 0 To cSv.NumRows - 1
         grid2.TextMatrix(grid2.Rows - 1, 4) = Val(cSv.GetCellByName(i, "Lineitem price"))
         grid2.TextMatrix(grid2.Rows - 1, 5) = cSv.GetCellByName(i, "Lineitem quantity")
                          
-        Set locTable = mycmd("select sales_doc,doc_no from file6_90h where doc_no = " & MyParn(sDoc_no), con)
+        Set locTable = db.myRs("select sales_doc,doc_no from file6_90h where doc_no = " & MyParn(sDoc_no))
+        
+        If locTable Is Nothing Then GoTo CleanUp
+        
         If Not locTable.EOF Then
             grid2.TextMatrix(grid2.Rows - 1, 6) = locTable!sales_Doc & ""
             grid2.TextMatrix(grid2.Rows - 1, 7) = "1"
@@ -1114,13 +1171,15 @@ For i = 0 To cSv.NumRows - 1
         DoEvents
     End If
 Next
+CleanUp:
+Set db = Nothing
 Me.Caption = sCaption
 prog1.Visible = False
 getData2 = True
-Finaly:
+Set db = Nothing
 Exit Function
 myerror:
 MsgBox Err.Description
 Err.Clear
-GoTo Finaly
+Resume CleanUp
 End Function

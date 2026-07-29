@@ -607,7 +607,7 @@ MainUser = 2
 Super = 1
 User = 0
 End Enum
-Private Sub CmdApply_Click()
+Private Sub cmdApply_Click()
 'On Error GoTo LOCALERROR
 If Not xUser.MatchedWithList Then Exit Sub
 cComputerName = GetComputerName
@@ -734,7 +734,7 @@ If lShowBranch Then
     GRBRANCH.Visible = True
 Else
     SaveSetting
-    If xEditLogin.Value = 1 And bopt2 Then
+    If xEditLogin.value = 1 And bopt2 Then
         confFrm.Show 1
     Else
         If sBranchCode = "00" Or lSupperVisor Or (cBranch > "60" And bopt2) Then
@@ -757,7 +757,7 @@ LocalError:
     MsgBox Err.Description
     Err.Clear
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub Form_Activate()
@@ -831,7 +831,7 @@ If cError <> "ok" Then
     End
 End If
 
-opencon con
+OpenCon con
 myLoadVar
 MakeLocal
 HandleOnline
@@ -873,14 +873,14 @@ Set grid1.DataSource = DATA2
 cString = "SELECT MOSM , DESCA FROM MOSM WHERE CLOSED = 0 ORDER BY DATE DESC "
 Set DATA2.Recordset = myRecordSet(cString, con)
 
-Set GRBRANCH.DataSource = data3
+Set GRBRANCH.DataSource = DATA3
 If cBranch = "00" Then
     cString = "SELECT CODE , DESCA FROM  QBRANCH_ALL WHERE CODE <> '00' AND DATA IS NOT NULL ORDER BY CODE"
 Else
     cString = "SELECT CODE , DESCA FROM  QBRANCH_ALL WHERE CODE = " & MyParn(cBranch)
 End If
 
-Set data3.Recordset = myRecordSet(cString, con)
+Set DATA3.Recordset = myRecordSet(cString, con)
 
 With grid1
     .Cols = 2
@@ -897,11 +897,11 @@ With GRBRANCH
 End With
 
 If lIsBranchStore Then
-    Set data1.Recordset = myRecordSet("SELECT * FROM USERS WHERE BRANCH = " & MyParn(cBranch) & " order by desca", con)
+    Set DATA1.Recordset = myRecordSet("SELECT * FROM USERS WHERE BRANCH = " & MyParn(cBranch) & " order by desca", con)
 Else
-    Set data1.Recordset = myRecordSet("SELECT * FROM USERS WHERE BRANCH IS NULL ORDER BY DESCA ", con)
+    Set DATA1.Recordset = myRecordSet("SELECT * FROM USERS WHERE BRANCH IS NULL ORDER BY DESCA ", con)
 End If
-Set xUser.RowSource = data1
+Set xUser.RowSource = DATA1
 xUser.ListField = "Desca"
 xUser.BoundColumn = "Code"
 xUser.BoundText = RetSetting("user", tempPath & "\password.txt")
@@ -946,7 +946,7 @@ Private Sub GRBRANCH_DBLClick()
     sCatalog = GetDesca("SELECT DATA FROM QBRANCH_ALL WHERE CODE = " & MyParn(GRBRANCH.TextMatrix(GRBRANCH.Row, 0)), GetCon)
     strCon = LoadConString_B(GRBRANCH.TextMatrix(GRBRANCH.Row, 0))
     
-    opencon con, strCon
+    OpenCon con, strCon
     
     'fixSql
 
@@ -954,7 +954,7 @@ Private Sub GRBRANCH_DBLClick()
     cBranch = sBranchCode
     cBranchStore = GetDesca("SELECT STORE FROM BRANCH ", GetCon)
     closeCon con
-    opencon con
+    OpenCon con
     
     lMainShow = True
     cComp_Name = GetDesca("SELECT DESCA FROM ADDRESS ", con)
@@ -982,7 +982,7 @@ Private Sub SSTab1_DblClick()
 End Sub
 
 Private Sub xEditLogin_Click()
-    If xEditLogin.Value = 1 And xPass.text = "20122012" Then
+    If xEditLogin.value = 1 And xPass.text = "20122012" Then
         confFrm.Show 1
     End If
 End Sub
@@ -995,7 +995,7 @@ End Sub
 Private Sub xPass_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 13 Then
     KeyCode = 0
-    CmdApply_Click
+    cmdApply_Click
 End If
 End Sub
 Private Sub xPass_LostFocus()
@@ -1049,7 +1049,7 @@ myerror:
 End Sub
 Private Function TestData() As String
 Dim cString As String, cError As String
-cError = opencon(GetCon)
+cError = OpenCon(GetCon)
 If cError = "ok" Then
     TestData = "ok"
     Exit Function
@@ -1072,7 +1072,7 @@ If LCase(Mid(cError, 1, 21)) = LCase(cString) Then
     cError = createLogin
     If cError = "ok" Then
         Inform " „ «÷«›… „” Œœ„ »‰Ã«Õ"
-        cError = opencon(GetCon)
+        cError = OpenCon(GetCon)
     End If
 End If
 
@@ -1081,7 +1081,7 @@ If cError <> "ok" Then
     If Left(LCase(cError), 20) = LCase(cString) Then
         cError = AttachData
         If cError = "ok" Then Inform " „ —»ÿ «·»Ì«‰«  »‰Ã«Õ"
-        cError = opencon(GetCon)
+        cError = OpenCon(GetCon)
     End If
 End If
 
@@ -1091,7 +1091,7 @@ If cError <> "ok" Then
         cError = bringOnLine
         If cError = "ok" Then
             Inform " „ › Õ «·„·› »‰Ã«Õ"
-            cError = opencon(GetCon)
+            cError = OpenCon(GetCon)
          End If
     End If
 End If
@@ -1363,19 +1363,19 @@ End Function
 
 
 Sub FixAddress()
-Dim loctable As New ADODB.Recordset
-loctable.Open "select * From Address", con, adOpenStatic, adLockReadOnly
-If Not (loctable.EOF And loctable.BOF) Then
-    cComp_Name = loctable!DESCA & ""
-    cComp_address = loctable!Address & ""
-    cComp_Phone = loctable!phone & ""
-    cComp_Head1 = loctable!HEAD1 & ""
-    cComp_Head2 = loctable!HEAD2 & ""
-    nCountPrint = Val(loctable!COUNTPRINT & "")
-    nLang_Boon = Val(loctable!lang & "")
+Dim locTable As New ADODB.Recordset
+locTable.Open "select * From Address", con, adOpenStatic, adLockReadOnly
+If Not (locTable.EOF And locTable.BOF) Then
+    cComp_Name = locTable!DESCA & ""
+    cComp_address = locTable!Address & ""
+    cComp_Phone = locTable!Phone & ""
+    cComp_Head1 = locTable!HEAD1 & ""
+    cComp_Head2 = locTable!HEAD2 & ""
+    nCountPrint = Val(locTable!COUNTPRINT & "")
+    nLang_Boon = Val(locTable!lang & "")
 End If
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Sub
 Private Sub fixSql()
 'Dim sb As New ChilkatStringBuilder
@@ -1445,17 +1445,17 @@ End If
 'End If
 End Sub
 Private Sub HandleOnline()
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 On Error GoTo myerror
-Set loctable = myRs("SELECT TOP 1 CODE,BRANCH FROM FILE0_40 WHERE ONLINE = 1")
-If Not loctable.EOF Then
-    sStoreOnline = loctable!code
-    sBranchOnline = loctable!branch
+Set locTable = myRs("SELECT TOP 1 CODE,BRANCH FROM FILE0_40 WHERE ONLINE = 1")
+If Not locTable.EOF Then
+    sStoreOnline = locTable!code
+    sBranchOnline = locTable!branch
 End If
 Finally:
-Set loctable = Nothing
+Set locTable = Nothing
 Exit Sub
 myerror:
-CloseRs loctable
+CloseRs locTable
 End Sub
 
