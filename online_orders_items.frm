@@ -27,46 +27,6 @@ Begin VB.Form orders_online_items
    WhatsThisButton =   -1  'True
    WhatsThisHelp   =   -1  'True
    WindowState     =   2  'Maximized
-   Begin VB.Frame Frame7 
-      Appearance      =   0  'Flat
-      BackColor       =   &H80000005&
-      ForeColor       =   &H80000008&
-      Height          =   735
-      Left            =   1710
-      RightToLeft     =   -1  'True
-      TabIndex        =   50
-      Top             =   135
-      Width           =   2985
-      Begin Threed.SSCommand cmdOnlineShipCash 
-         Height          =   510
-         Left            =   45
-         TabIndex        =   51
-         Top             =   180
-         Width           =   2895
-         _ExtentX        =   5106
-         _ExtentY        =   900
-         _Version        =   196610
-         CaptionStyle    =   1
-         ForeColor       =   0
-         BackColor       =   16777215
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   11.25
-            Charset         =   178
-            Weight          =   700
-            Underline       =   -1  'True
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Caption         =   "»Ê«·’ ‘Õ‰ «÷«›Ì…"
-         ButtonStyle     =   2
-         PictureAlignment=   10
-         BevelWidth      =   0
-         PictureDisabledFrames=   1
-         ShapeSize       =   1
-         PictureDisabled =   "online_orders_items.frx":0000
-      End
-   End
    Begin VB.Frame Frame6 
       Appearance      =   0  'Flat
       BackColor       =   &H80000005&
@@ -191,7 +151,7 @@ Begin VB.Form orders_online_items
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_orders_items.frx":22F6
+         Picture         =   "online_orders_items.frx":0000
          Alignment       =   8
          ButtonStyle     =   2
          PictureAlignment=   11
@@ -239,14 +199,14 @@ Begin VB.Form orders_online_items
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_orders_items.frx":4619
+         Picture         =   "online_orders_items.frx":2323
          Alignment       =   8
          ButtonStyle     =   2
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "online_orders_items.frx":6F3E
+         PictureDisabled =   "online_orders_items.frx":4C48
       End
       Begin Threed.SSCommand cmdUndo 
          Height          =   510
@@ -270,14 +230,14 @@ Begin VB.Form orders_online_items
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "online_orders_items.frx":9792
+         Picture         =   "online_orders_items.frx":749C
          Alignment       =   8
          ButtonStyle     =   2
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "online_orders_items.frx":B8F2
+         PictureDisabled =   "online_orders_items.frx":95FC
       End
    End
    Begin VB.Frame Frame2 
@@ -822,7 +782,7 @@ Begin VB.Form orders_online_items
          Height          =   330
          Left            =   5400
          RightToLeft     =   -1  'True
-         TabIndex        =   52
+         TabIndex        =   50
          Top             =   630
          Width           =   1050
       End
@@ -1035,7 +995,7 @@ Begin VB.Form orders_online_items
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "online_orders_items.frx":DBDF
+         PictureDisabled =   "online_orders_items.frx":B8E9
       End
    End
    Begin VB.Label xSales_doc 
@@ -1197,10 +1157,9 @@ Private Sub cmdMsg_Click()
 SendMsg
 End Sub
 
+
 Private Sub cmdOnlineShipCash_Click()
-online_orders_cash.bEdit = True
-online_orders_cash.sOrder_no = xdoc_no.Caption
-online_orders_cash.Show 1
+
 End Sub
 
 Private Sub cmdSave_Click()
@@ -1236,12 +1195,12 @@ GoTo Finally
 End Function
 Private Sub Handlecontrols()
 'xNote_main.Enabled = cBranch = "00"
-cmdSave.Enabled = xClosed.value = 0
+cmdSave.Enabled = xClosed.Value = 0
 fmAddInvoice.Visible = xSales_doc.Caption <> "" And Trim(xDelOrder_Date.text) = "" And cBranch = "00"
-xDelOrder_Date.Enabled = xClosed.value = 0
+xDelOrder_Date.Enabled = xClosed.Value = 0
 cmdDelCancel.Visible = IsDate(xDelOrder_Date.text)
 cmdSavePayment.ActiveColors = Not cmdSave.Enabled
-If cmdDelCancel.Visible Then cmdDelCancel.Enabled = xClosed.value = 1
+If cmdDelCancel.Visible Then cmdDelCancel.Enabled = xClosed.Value = 1
 xNotes.Enabled = xSales_doc.Caption = ""
 End Sub
 
@@ -1303,6 +1262,7 @@ If KeyCode = 13 Then
 End If
 End Sub
 Private Sub Form_Load()
+cmdAddInvoice.TagVariant = cmdAddInvoice.Caption
 myload
 myloadGrdError
 myLoadCount
@@ -1336,12 +1296,12 @@ If Not locTable.EOF Then
     'xship_date.text = myFormat_p(loctable!ship_date)
     xNotes.text = locTable!NOTES & ""
     xPayment_id.text = locTable!PAYMENT_ID & ""
-    xPayment_Method.text = locTable!PAYMENT_Method & ""
+    xPayment_Method.text = locTable!Payment_Method & ""
 '    xNote_branch.text = loctable!note_branch & ""
     'xNote_main.text = loctable!note_main & ""
     xDelOrder_Date.text = myFormat_p(locTable!delorder_date)
     xSales_doc.Caption = locTable!sales_Doc & ""
-    xClosed.value = IIf(locTable!CLOSED, 1, 0)
+    xClosed.Value = IIf(locTable!CLOSED, 1, 0)
 End If
 locTable.Close
 Set locTable = Nothing
@@ -1423,9 +1383,9 @@ Public Sub myLoadCount()
 Dim nCount As Long
 nCount = Val(rsValue("SELECT COUNT(*) FROM FILE6_90BH WHERE ORDER_NO = " & MyParn(sDoc_no)) & "")
 If nCount > 0 Then
-    cmdAddInvoice.Caption = ArbString("«÷«›… ÿ·»Ì…" & " (" & nCount & ")")
+    cmdAddInvoice.Caption = ArbString(cmdAddInvoice.TagVariant & " (" & nCount & ")")
 Else
-    cmdAddInvoice.Caption = "«÷«›… ÿ·»Ì…"
+    cmdAddInvoice.Caption = cmdAddInvoice.TagVariant
 End If
 End Sub
 

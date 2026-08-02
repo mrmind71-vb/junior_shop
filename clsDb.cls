@@ -82,7 +82,7 @@ Public Function myRs(strSql, Optional pType As Long = 1, Optional aParam As Vari
     If Not IsEmpty(aParam) Then
         Dim i As Long
         For i = 0 To UBound(aParam) Step 2
-            cmd.Parameters("@" & aParam(i)).value = aParam(i + 1)
+            cmd.Parameters("@" & aParam(i)).Value = aParam(i + 1)
         Next
     End If
 
@@ -97,7 +97,7 @@ CleanUp:
     Exit Function
 ErrHandler:
     Set myRs = Nothing
-    MsgBox "Œÿ« ›Ï «· ⁄œÌ· : " & Err.Description, vbCritical, "SQL Error"
+    MsgBox "Œÿ«  : " & Err.Description, vbCritical, "SQL Error"
     Resume CleanUp
 End Function
 ' Best Practice Method: Executes INSERTS, UPDATES, or DELETES safely
@@ -170,15 +170,15 @@ End Sub
 Public Sub RollbackTran()
     If Not conn Is Nothing Then conn.RollbackTrans
 End Sub
-Public Function rsValue(strSql As String, ByRef value As Variant, Optional pType As cmType = adText, Optional aParam As Variant = Empty) As Boolean
+Public Function rsValue(strSql As String, ByRef Value As Variant, Optional pType As cmType = adText, Optional aParam As Variant = Empty) As Boolean
 Dim locTable As ADODB.Recordset
 Set locTable = myRs(strSql, pType, aParam)
 If locTable Is Nothing Then Exit Function
 
 If Not locTable.EOF Then
-    value = locTable.Fields(0).value
+    Value = locTable.Fields(0).Value
 Else
-    value = Empty
+    Value = Empty
 End If
 Set locTable = Nothing
 rsValue = True
@@ -189,7 +189,7 @@ Set locTable = myRs(strSql, pType, aParam)
 If locTable Is Nothing Then Exit Function
 
 If Not locTable.EOF Then
-    rsField = locTable.Fields(0).value
+    rsField = locTable.Fields(0).Value
 Else
     rsField = Empty
 End If
@@ -203,7 +203,7 @@ If locTable Is Nothing Then Exit Function
 Dim i As Long
 If Not (locTable.BOF And locTable.EOF) Then
     For i = 0 To locTable.Fields.Count - 1
-        aValues = AddFlag(aValues, LCase(locTable.Fields(i).Name), locTable.Fields(i).value)
+        aValues = AddFlag(aValues, LCase(locTable.Fields(i).Name), locTable.Fields(i).Value)
     Next
 Else
     aValues = Empty
@@ -224,7 +224,7 @@ cmd.CommandText = strSql
 If Not IsEmpty(aParam) Then
     Dim i As Long
     For i = 0 To UBound(aParam) Step 2
-        cmd.Parameters("@" & aParam(i)).value = aParam(i + 1)
+        cmd.Parameters("@" & aParam(i)).Value = aParam(i + 1)
     Next
 End If
 End Function
@@ -242,7 +242,7 @@ Public Function ExecuteTransaction() As Boolean
     Dim sCaption As String
     If Not mForm Is Nothing Then
         mForm.prog1.Visible = True
-        mForm.prog1.value = 0
+        mForm.prog1.Value = 0
         sCaption = mForm.Caption
     End If
         
@@ -251,7 +251,7 @@ Public Function ExecuteTransaction() As Boolean
         If Trim$(sqlStatements(i)) <> "" Then
             If Not mForm Is Nothing Then
                 mForm.Caption = sCaption & " ”Ã· " & i + 1 & " „‰ " & UBound(sqlStatements) + 1
-                mForm.prog1.value = Round(i / (UBound(sqlStatements)), 2) * 100
+                mForm.prog1.Value = Round(i / (UBound(sqlStatements)), 2) * 100
             End If
             DoEvents
             conn.Execute sqlStatements(i), , adCmdText + adExecuteNoRecords
@@ -271,7 +271,7 @@ CleanUp:
     
     If Not mForm Is Nothing Then
         mForm.prog1.Visible = False
-        mForm.prog1.value = 0
+        mForm.prog1.Value = 0
         mForm.Caption = sCaption
     End If
     

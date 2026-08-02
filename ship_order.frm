@@ -1107,15 +1107,15 @@ Dim aInsert As Variant
 aInsert = AddFlag(Empty, "[DATE]", addDate(xDate.text))
 aInsert = AddFlag(aInsert, "[SHIP]", addstring(xship.BoundText))
 aInsert = AddFlag(aInsert, "[NOTES]", addstring(xNotes.text))
-aInsert = AddFlag(aInsert, IIf(xDoc_No.Tag = DefineMode, "[USERNAME]", "[USERNAME2]"), addstring(cUserName))
-aInsert = AddFlag(aInsert, IIf(xDoc_No.Tag = DefineMode, "[TIME]", "[TIME2]"), "getdate()")
+aInsert = AddFlag(aInsert, IIf(xdoc_no.Tag = DefineMode, "[USERNAME]", "[USERNAME2]"), addstring(cUserName))
+aInsert = AddFlag(aInsert, IIf(xdoc_no.Tag = DefineMode, "[TIME]", "[TIME2]"), "getdate()")
 Dim db As New clsDb
-If xDoc_No.Tag = DefineMode Then
-    xDoc_No.text = db.IncData("file6_90SH", "doc_NO", , True)
-    aInsert = AddFlag(aInsert, "DOC_NO", addvalue(xDoc_No.text))
+If xdoc_no.Tag = DefineMode Then
+    xdoc_no.text = db.IncData("file6_90SH", "doc_NO", , True)
+    aInsert = AddFlag(aInsert, "DOC_NO", addvalue(xdoc_no.text))
     db.Sql = addInsert(aInsert, "FILE6_90SH")
 Else
-    db.Sql = addUpdate(aInsert, "FILE6_90SH", "doc_no = " & addvalue(xDoc_No.text))
+    db.Sql = addUpdate(aInsert, "FILE6_90SH", "doc_no = " & addvalue(xdoc_no.text))
 End If
 
 db.myForm = Me
@@ -1173,8 +1173,8 @@ End Sub
 Private Sub CmdDel_Click()
 If MsgBox("Õ–› ?", vbOKCancel + vbDefaultButton2 + vbCritical) <> vbOK Then Exit Sub
 Dim db As New clsDb
-db.Sql = "Delete  From FILE6_90S where Doc_No = " & addvalue(xDoc_No.text)
-db.Sql = "Delete  From FILE6_90SH where Doc_No = " & addvalue(xDoc_No.text)
+db.Sql = "Delete  From FILE6_90S where Doc_No = " & addvalue(xdoc_no.text)
+db.Sql = "Delete  From FILE6_90SH where Doc_No = " & addvalue(xdoc_no.text)
 
 Dim bDone As Boolean
 bDone = db.ExecuteTransaction
@@ -1189,7 +1189,7 @@ If sDoc_no <> "" Then
     Exit Sub
 End If
 
-If Not openCardTable(tbMode.tbPrevious, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbPrevious, xdoc_no.text) Then
     If Not openCardTable(tbMode.tbFirst) Then
         myDefine
     End If
@@ -1327,7 +1327,7 @@ If Not openCardTable Then
 End If
 End Sub
 Private Sub CmdNext_Click()
-If Not openCardTable(tbMode.tbNext, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbNext, xdoc_no.text) Then
     If Not openCardTable(tbMode.tblast) Then
         myDefine
     End If
@@ -1339,7 +1339,7 @@ PayTypeLook Me, oSearchPay, , , IIf(cmdPayment.Tag = "", "", "ﬂ· «‰Ê«⁄ «·”œ«œ")
 End Sub
 
 Private Sub CmdPrevious_Click()
-If Not openCardTable(tbMode.tbPrevious, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbPrevious, xdoc_no.text) Then
     If Not openCardTable(tbMode.tbFirst) Then
         myDefine
     End If
@@ -1356,7 +1356,7 @@ If sDoc_no <> "" Then
     Unload Me
     Exit Sub
 End If
-If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
     If Not openCardTable Then myDefine
 End If
 End Sub
@@ -1378,7 +1378,7 @@ Private Sub Form_Activate()
 If Not bAct Then
     bAct = True
     On Error Resume Next
-    If xDoc_No.Tag = LoadMode Then
+    If xdoc_no.Tag = LoadMode Then
         grid1.SetFocus
     Else
         xDate.SetFocus
@@ -1434,12 +1434,12 @@ End If
 myValid = True
 End Function
 Private Sub myload()
-xDoc_No.text = CardTable!doc_no
+xdoc_no.text = CardTable!doc_no
 xDate.text = myFormat_p(CardTable!Date)
 xship.BoundText = CardTable!SHIP & ""
 xNotes.text = CardTable!NOTES & ""
 bIg = True
-xClosed.value = IIf(CardTable!CLOSED, 1, 0)
+xClosed.Value = IIf(CardTable!CLOSED, 1, 0)
 bIg = False
 
 panel1(0).Caption = CardTable!UserName & " " & myFormat_p(CardTable!Time, True)
@@ -1454,12 +1454,12 @@ grid1.SetFocus
 Err.Clear
 End Sub
 Private Sub myDefine()
-xDoc_No.text = ""
+xdoc_no.text = ""
 xDate.text = myFormat_p(Date)
 xship.BoundText = xship.Tag
 xNotes.text = ""
 bIg = True
-xClosed.value = 0
+xClosed.Value = 0
 bIg = False
 
 Fixgrd
@@ -1476,7 +1476,7 @@ grid1.SetFocus
 Err.Clear
 End Sub
 Private Sub Handlecontrols(nMode)
-bEditRecord = bEdit And xClosed.value = 0
+bEditRecord = bEdit And xClosed.Value = 0
 xClosed.Enabled = bAdmin And nMode = LoadMode
 cmdClosePeriod.Enabled = bAdmin
 
@@ -1488,7 +1488,7 @@ cmdSave.Enabled = bEditRecord
 cmddel.Enabled = nMode = LoadMode And bEditRecord
 
 Dim nRecord As Long, nRecords As Long
-retRecords xDoc_No.text, nRecords, nRecord
+retRecords xdoc_no.text, nRecords, nRecord
 
 If nMode = LoadMode Then
     panel1(0).Caption = "”Ã· " & nRecord & " „‰ " & nRecords
@@ -1501,9 +1501,9 @@ cmdNext.Enabled = (nMode = LoadMode) And nRecord < nRecords And sDoc_no = ""
 cmdLast.Enabled = (nMode = LoadMode) And nRecord < nRecords And nRecords > 2 And sDoc_no = ""
 cmdFirst.Enabled = (nMode = LoadMode) And nRecord > 1 And nRecords > 2 And sDoc_no = ""
 
-xDoc_No.Enabled = (nMode = DefineMode)
+xdoc_no.Enabled = (nMode = DefineMode)
 xship.Enabled = (nMode = DefineMode And bEditRecord)
-xDoc_No.Tag = nMode
+xdoc_no.Tag = nMode
 End Sub
 Private Sub grid1_DblClick()
 If grid1.col = 1 Or grid1.col = 2 And grid1.Row > 0 And grid1.Row < grid1.Rows - 1 Then
@@ -1514,31 +1514,31 @@ End If
 End Sub
 
 Private Sub optclosed_Click(index As Integer)
-If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
     If Not openCardTable Then myDefine
 End If
 End Sub
 Private Sub optdate_Click(index As Integer)
-If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
     If Not openCardTable Then myDefine
 End If
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus xDoc_No
-If Not IsDgt(xDoc_No.text) Then
-     If xDoc_No.Tag = LoadMode Then
+myLostFocus xdoc_no
+If Not IsDgt(xdoc_no.text) Then
+     If xdoc_no.Tag = LoadMode Then
         myDefine
     Else
-        xDoc_No.text = ""
+        xdoc_no.text = ""
     End If
 Else
-    If (Not (CardTable.EOF)) And xDoc_No.Tag = LoadMode Then
-        If CardTable!doc_no = xDoc_No.text Then
+    If (Not (CardTable.EOF)) And xdoc_no.Tag = LoadMode Then
+        If CardTable!doc_no = xdoc_no.text Then
             Exit Sub
         End If
     End If
     
-    If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
         If Not openCardTable Then myDefine
     End If
 
@@ -1578,13 +1578,13 @@ On Error GoTo myerror
 cFilter = ""
 If cmdFilter.Tag <> "" Then cFilter = "DOC_NO IN (" & cmdFilter.Tag & ")"
 
-If optdate(1).value Then
+If optdate(1).Value Then
     cFilter = cFilter & Tr(cFilter) & "FILE6_90SH.DOC_NO IN(SELECT FILE6_90S.DOC_NO FROM FILE6_90S WHERE FILE6_90S.DATE_PICK IS NULL)"
 End If
 
-If optclosed(1).value Then
+If optclosed(1).Value Then
     cFilter = cFilter & Tr(cFilter) & "FILE6_90SH.CLOSED = 0"
-ElseIf optclosed(2).value Then
+ElseIf optclosed(2).Value Then
     cFilter = cFilter & Tr(cFilter) & "FILE6_90SH.CLOSED = 1"
 End If
 
@@ -1633,12 +1633,12 @@ Err.Clear
 Resume CleanUp
 End Function
 Private Sub myUndo()
-If xDoc_No.Tag = DefineMode Then
+If xdoc_no.Tag = DefineMode Then
     If Not openCardTable Then
         CmdNewInv_Click
     End If
 Else
-    If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
         If Not openCardTable Then
             myDefine
         End If
@@ -1646,7 +1646,7 @@ Else
 End If
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xDoc_No
+myGotFocus xdoc_no
 End Sub
 Private Sub xdate_GotFocus()
 myGotFocus xDate
@@ -1660,27 +1660,27 @@ Set datefrm.oDate = xDate
 datefrm.Show 1
 End Sub
 Private Sub chkDay_Click()
-If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
     If Not openCardTable Then myDefine
 End If
 End Sub
 Private Sub chkMonth_Click()
 If Not bCheck Then
-    If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
         If Not openCardTable Then myDefine
     End If
 End If
 End Sub
 Private Sub chkOpen_Click()
 If Not bCheck Then
-    If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
         If Not openCardTable Then myDefine
     End If
 End If
 End Sub
 Private Sub chkYear_Click()
 If Not bCheck Then
-    If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
         If Not openCardTable Then myDefine
     End If
 End If
@@ -1706,14 +1706,14 @@ Set db = Nothing
 End Function
 Private Sub cmdFilter_Click()
 cmdFilter.Tag = ""
-If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
     If Not openCardTable Then myDefine
 End If
 End Sub
 Sub myproc2(pFilter As String)
 oSearchDoc.Hide
 cmdFilter.Tag = pFilter
-If Not openCardTable(tbMode.tbFirst, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbFirst, xdoc_no.text) Then
     If Not openCardTable Then myDefine
 End If
 End Sub
@@ -1721,7 +1721,7 @@ Private Sub myreplaceGrd(Row As Long, db As clsDb)
 Dim aInsert As Variant
 With grid1
     For i = IIf(Row = -1, 1, Row) To IIf(Row = -1, grid1.Rows - 2, Row)
-        aInsert = AddFlag(Empty, "DOC_NO", addvalue(xDoc_No.text))
+        aInsert = AddFlag(Empty, "DOC_NO", addvalue(xdoc_no.text))
         aInsert = AddFlag(aInsert, "SHIP_NO", addstring(grid1.TextMatrix(i, 1)))
         aInsert = AddFlag(aInsert, "SHIP", addstring(xship.BoundText))
         aInsert = AddFlag(aInsert, "ORDER_NO", addstring(grid1.TextMatrix(i, 2)))
@@ -1732,6 +1732,13 @@ With grid1
             db.Sql = addInsert(aInsert, "FILE6_90S")
         Else
             db.Sql = addUpdate(aInsert, "FILE6_90S", "ID = " & grid1.TextMatrix(i, .Cols - 1))
+        End If
+        
+        If grid1.TextMatrix(i, 15) = "11" Then
+            db.Sql = "UPDATE FILE6_90BH SET " & _
+                     "FILE6_90BH.DATE1 = " & addDate(xDate.text) & _
+                     " WHERE ORDER_NO = " & MyParn(grid1.TextMatrix(i, 2)) & _
+                     " AND DOC_NO = " & grid1.TextMatrix(i, 3)
         End If
     Next
 End With
@@ -1764,8 +1771,8 @@ End If
 CalcTotals
 
 If myreplace(Row) Then
-    If xDoc_No.Tag = DefineMode Then
-        openCardTable tbMode.tbFind, xDoc_No.text
+    If xdoc_no.Tag = DefineMode Then
+        openCardTable tbMode.tbFind, xdoc_no.text
     ElseIf grid1.TextMatrix(Row, grid1.Cols - 1) = "" Then
         myLoadGrd
     End If
@@ -1814,8 +1821,8 @@ Dim cString As String
 cString = "SELECT " & arString(aFields, ",") & _
          " FROM FILE6_90S s " & _
          " INNER JOIN vw_online_orders v ON s.order_no = v.order_no AND s.ORDER_NO_SUP = v.ORDER_NO_SUP"
-cString = cString & " WHERE  s.DOC_NO = " & addvalue(xDoc_No.text)
-If chkNoPickDate.value = 1 Or optdate(1).value Then
+cString = cString & " WHERE  s.DOC_NO = " & addvalue(xdoc_no.text)
+If chkNoPickDate.Value = 1 Or optdate(1).Value Then
     cString = cString & " AND DATE_PICK IS NULL"
 End If
 If cmdPayment.Tag <> "" Then
@@ -1957,9 +1964,9 @@ If bIg Then Exit Sub
 On Error GoTo myerror
 If dbm.OpenCon Then
     dbm.Execute "UPDATE FILE6_90SH" & _
-                " SET CLOSED = " & xClosed.value & _
-                " WHERE DOC_NO = " & MyParn(xDoc_No.text)
-    Inform " „ " & IIf(xClosed.value = 0, "› Õ «·„” ‰œ", "«€·«ﬁ «·„” ‰œ") & " »‰Ã«Õ"
+                " SET CLOSED = " & xClosed.Value & _
+                " WHERE DOC_NO = " & MyParn(xdoc_no.text)
+    Inform " „ " & IIf(xClosed.Value = 0, "› Õ «·„” ‰œ", "«€·«ﬁ «·„” ‰œ") & " »‰Ã«Õ"
     myUndo
 End If
 Exit Sub
@@ -1990,7 +1997,7 @@ grid1.TextMatrix(Row, 1) = locTable!ship_no & ""
 grid1.TextMatrix(Row, 2) = locTable!ORDER_NO & ""
 grid1.TextMatrix(Row, 3) = locTable!order_no_sup & ""
 grid1.TextMatrix(Row, 4) = locTable!TYPE_dESCA & ""
-grid1.TextMatrix(Row, 5) = locTable!INV_NO & ""
+grid1.TextMatrix(Row, 5) = locTable!inv_no & ""
 grid1.TextMatrix(Row, 6) = myFormat_p(locTable!Date)
 grid1.TextMatrix(Row, 7) = locTable!Name & ""
 grid1.TextMatrix(Row, 8) = locTable!Phone & ""
@@ -2029,13 +2036,13 @@ Private Sub xYear_Click(Area As Integer)
 
 End Sub
 Private Sub xShip_No_Change()
-FilterGrd grid1, xShip_No.text, 1
+FilterGrd grid1, xShip_no.text, 1
 End Sub
 Private Sub xship_no_GotFocus()
-myGotFocus xShip_No
+myGotFocus xShip_no
 End Sub
 Private Sub xship_no_LostFocus()
-myLostFocus xShip_No
+myLostFocus xShip_no
 End Sub
 Private Sub xOrder_GotFocus()
 myGotFocus xOrder

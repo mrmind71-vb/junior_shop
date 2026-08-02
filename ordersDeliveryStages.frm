@@ -1457,12 +1457,12 @@ cString = cString & _
 '                 " INNER JOIN vw_online_invoices_closed as v on FILE6_90H.DOC_NO = v.ORDER_NO"
 '    End If
     
-    If XDOC_NO.text <> "" Then
-        cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(XDOC_NO.text)
+    If xdoc_no.text <> "" Then
+        cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xdoc_no.text)
     End If
     
-    If xphone.text <> "" Then
-        cWhere = cWhere & Tr(cWhere) & " [phone] = " & MyParn(xphone.text)
+    If xPhone.text <> "" Then
+        cWhere = cWhere & Tr(cWhere) & " [phone] = " & MyParn(xPhone.text)
     End If
     
     If xpay.BoundText <> "" Then
@@ -1474,8 +1474,8 @@ cString = cString & _
         cWhere = cWhere & Tr(cWhere) & "MAN = " & MyParn(xMan.BoundText)
     End If
     
-    If IsDate(xDate1.text) Then
-        cWhere = cWhere & Tr(cWhere) & " [DATE] >= " & DateSq(xDate1.text)
+    If IsDate(xdate1.text) Then
+        cWhere = cWhere & Tr(cWhere) & " [DATE] >= " & DateSq(xdate1.text)
     End If
     
     If IsDate(xdate2.text) Then
@@ -1612,7 +1612,7 @@ Private Sub Form_Unload(Cancel As Integer)
     On Error Resume Next
     'closeCon con
     'If cBranch <> "00" Then closeCon con_MyShop
-    SaveText Me, , Array(xDate1.Name, xdate2.Name)
+    SaveText Me, , Array(xdate1.Name, xdate2.Name)
 End Sub
 Private Sub grid1_DblClick()
 If grid1.Row < 1 Or grid1.Row = grid1.Rows - 1 Then Exit Sub
@@ -1629,11 +1629,11 @@ End If
 
 Set db = Nothing
 
-If grid1.ValueMatrix(grid1.Row, 28) = 0 Or nCount = 0 Then
+If grid1.ValueMatrix(grid1.Row, 28) = 0 Or nCount = 0 Or cBranch = "00" Then
     orders_online_items.sDoc_no = grid1.TextMatrix(grid1.Row, 0)
     orders_online_items.Show 1
 Else
-    orders_online_invoices.bEdit = False
+    orders_online_invoices.bEdit = True
     orders_online_invoices.sOrder_no = grid1.TextMatrix(grid1.Row, 0)
     orders_online_invoices.sStore = sStoreOnline
     orders_online_invoices.sStage = cmdStage.Tag
@@ -1669,16 +1669,16 @@ Private Sub SSCommand1_Click()
 End Sub
 
 Private Sub xPhone_GotFocus()
-myGotFocus xphone
+myGotFocus xPhone
 End Sub
 Private Sub XPHONE_LostFocus()
-myLostFocus xphone
+myLostFocus xPhone
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus XDOC_NO
+myGotFocus xdoc_no
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus XDOC_NO
+myLostFocus xdoc_no
 End Sub
 Private Sub xDate2_GotFocus()
 myGotFocus xdate2
@@ -1688,11 +1688,11 @@ myLostFocus xdate2
 myValidDate xdate2
 End Sub
 Private Sub xDate1_GotFocus()
-myGotFocus xDate1
+myGotFocus xdate1
 End Sub
 Private Sub xDate1_LostFocus()
-myLostFocus xDate1
-myValidDate xDate1
+myLostFocus xdate1
+myValidDate xdate1
 End Sub
 Private Sub xPay_GotFocus()
 myGotFocus xpay
@@ -1768,10 +1768,10 @@ If col = 4 Then
         Exit Sub
     End If
     
-    If Val(xTotal.Caption) > 0 And Val(grid1.EditText) <= 0 Then
+    If Val(xtotal.Caption) > 0 And Val(grid1.EditText) <= 0 Then
         Cancel = True
         Exit Sub
-    ElseIf Val(xTotal.Caption) < 0 And Val(grid1.EditText) >= 0 Then
+    ElseIf Val(xtotal.Caption) < 0 And Val(grid1.EditText) >= 0 Then
         Cancel = True
         Exit Sub
     End If

@@ -819,14 +819,14 @@ Private Sub CMD_PRINT_Click()
     PrintGrd.doprint Me.grid1, 0.75, -2, cHead1, cHead2, , False, True, 6
     PrintGrd.Show 1
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
     Unload Me
 End Sub
 Private Sub cmdGo_Click()
     myload
 End Sub
 Private Sub Form_Load()
-    openCon con
+    OpenCon con
     StoreTable.Open "STORE_BR", con, adOpenStatic, adLockReadOnly, adCmdTable
     xdate1.text = Format(Date, "dd-mm-yyyy")
     
@@ -842,9 +842,9 @@ Private Sub Form_Load()
         Frame2.Visible = False
     End If
     
-    data2.ConnectionString = strCon
-    data2.RecordSource = "Select Code,DescA From File4_10 order by Desca"
-    Set xSupp.RowSource = data2
+    DATA2.ConnectionString = strCon
+    DATA2.RecordSource = "Select Code,DescA From File4_10 order by Desca"
+    Set xSupp.RowSource = DATA2
     xSupp.ListField = "Desca"
     xSupp.BoundColumn = "Code"
     
@@ -1040,14 +1040,14 @@ End Sub
 Private Sub grid1_DblClick()
 With grid1
     If cBranch = "00" Then
-        VsTItem.xgroup.BoundText = .TextMatrix(.Row, 0)
+        VsTItem.xGroup.BoundText = .TextMatrix(.Row, 0)
         VsTItem.xMosm.BoundText = xMosm.BoundText
         VsTItem.xdate1.text = xdate1.text
         'VsTItem.XSEC.Text = XSEC.Text
         VsTItem.xSupp.BoundText = xSupp.BoundText
         VsTItem.Show
     Else
-        VsTitemShop.xgroup.BoundText = .TextMatrix(.Row, 0)
+        VsTitemShop.xGroup.BoundText = .TextMatrix(.Row, 0)
         VsTitemShop.xMosm.BoundText = xMosm.BoundText
         VsTitemShop.xdate1.text = xdate1.text
         VsTitemShop.xSupp.BoundText = xSupp.BoundText

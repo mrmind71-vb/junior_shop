@@ -30,6 +30,14 @@ Begin VB.Form items
    ScaleHeight     =   12600
    ScaleWidth      =   17190
    WindowState     =   2  'Maximized
+   Begin VB.CommandButton FIXGRMODEL 
+      Caption         =   "FIX GRMODEL"
+      Height          =   420
+      Left            =   3060
+      TabIndex        =   97
+      Top             =   4815
+      Width           =   1185
+   End
    Begin VB.CommandButton CMD_COPYPICT 
       Caption         =   "‰ﬁ· «·’Ê— ··”Ì—›— «·ÃœÌœ"
       BeginProperty Font 
@@ -43,7 +51,7 @@ Begin VB.Form items
       EndProperty
       Height          =   510
       Left            =   11025
-      TabIndex        =   97
+      TabIndex        =   96
       Top             =   11970
       Visible         =   0   'False
       Width           =   3795
@@ -51,11 +59,11 @@ Begin VB.Form items
    Begin VB.CommandButton FIXBAR13 
       Caption         =   "FIX BARCODE13"
       Height          =   420
-      Left            =   2115
-      TabIndex        =   95
+      Left            =   1665
+      TabIndex        =   94
       Top             =   4815
       Visible         =   0   'False
-      Width           =   1905
+      Width           =   1365
    End
    Begin VB.CommandButton FIXBARCODE2 
       Caption         =   "FIX BARCODE"
@@ -70,21 +78,21 @@ Begin VB.Form items
       EndProperty
       Height          =   420
       Left            =   90
-      TabIndex        =   94
+      TabIndex        =   93
       Top             =   4815
-      Width           =   1905
+      Width           =   1545
    End
    Begin VB.Frame Frame12 
       Height          =   1320
       Left            =   14940
-      TabIndex        =   89
+      TabIndex        =   88
       Top             =   45
       Width           =   1500
       Begin VB.CommandButton CMD_LOOK2 
          Caption         =   "≈” ⁄·«„ «’‰«› «’Ê·"
          Height          =   510
          Left            =   90
-         TabIndex        =   91
+         TabIndex        =   90
          Top             =   720
          Width           =   1320
       End
@@ -92,7 +100,7 @@ Begin VB.Form items
          Caption         =   "≈” ⁄·«„ «’‰«› Œœ„…"
          Height          =   510
          Left            =   90
-         TabIndex        =   90
+         TabIndex        =   89
          Top             =   180
          Width           =   1320
       End
@@ -110,7 +118,7 @@ Begin VB.Form items
       EndProperty
       Height          =   510
       Left            =   270
-      TabIndex        =   84
+      TabIndex        =   83
       Top             =   11880
       Width           =   2490
    End
@@ -603,6 +611,7 @@ Begin VB.Form items
          ForeColor       =   &H00000000&
          Height          =   270
          Left            =   3330
+         RightToLeft     =   -1  'True
          TabIndex        =   78
          Top             =   360
          Width           =   615
@@ -1189,7 +1198,7 @@ Begin VB.Form items
       Left            =   4365
       TabIndex        =   21
       Top             =   1890
-      Width           =   10545
+      Width           =   10635
       Begin VB.CheckBox XISONLINE 
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
@@ -1207,13 +1216,13 @@ Begin VB.Form items
          Height          =   285
          Left            =   3870
          RightToLeft     =   -1  'True
-         TabIndex        =   96
+         TabIndex        =   95
          Top             =   1395
          Width           =   1725
       End
       Begin VB.TextBox xdesce 
          Appearance      =   0  'Flat
-         BackColor       =   &H00C0FFFF&
+         BackColor       =   &H00FFFFFF&
          BeginProperty Font 
             Name            =   "Tahoma"
             Size            =   8.25
@@ -1227,7 +1236,7 @@ Begin VB.Form items
          Height          =   330
          Left            =   135
          MaxLength       =   40
-         TabIndex        =   88
+         TabIndex        =   87
          Top             =   540
          Width           =   4245
       End
@@ -1248,7 +1257,7 @@ Begin VB.Form items
          Height          =   285
          Left            =   6705
          RightToLeft     =   -1  'True
-         TabIndex        =   87
+         TabIndex        =   86
          Top             =   2295
          Width           =   1230
       End
@@ -1269,8 +1278,8 @@ Begin VB.Form items
          Height          =   285
          Left            =   2070
          RightToLeft     =   -1  'True
-         TabIndex        =   86
-         Top             =   2295
+         TabIndex        =   85
+         Top             =   2250
          Width           =   1050
       End
       Begin VB.CheckBox XISONEST 
@@ -1290,22 +1299,14 @@ Begin VB.Form items
          Height          =   285
          Left            =   9540
          RightToLeft     =   -1  'True
-         TabIndex        =   85
+         TabIndex        =   84
          Top             =   2295
          Width           =   870
-      End
-      Begin VB.CommandButton FIXGRMODEL 
-         Caption         =   "FIX GRMODEL"
-         Height          =   420
-         Left            =   90
-         TabIndex        =   83
-         Top             =   2700
-         Width           =   1185
       End
       Begin VB.TextBox xGrModel 
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
-         BackColor       =   &H0080FFFF&
+         BackColor       =   &H00FFFFFF&
          BeginProperty Font 
             Name            =   "Tahoma"
             Size            =   9
@@ -1317,17 +1318,17 @@ Begin VB.Form items
          EndProperty
          ForeColor       =   &H00800000&
          Height          =   330
-         Left            =   4725
-         MaxLength       =   11
+         Left            =   180
+         MaxLength       =   50
          TabIndex        =   80
          TabStop         =   0   'False
-         Top             =   2745
-         Width           =   1545
+         Top             =   2970
+         Width           =   5685
       End
       Begin VB.TextBox xGrDesca 
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
-         BackColor       =   &H0080FFFF&
+         BackColor       =   &H00FFFFFF&
          BeginProperty Font 
             Name            =   "Tahoma"
             Size            =   9
@@ -1339,12 +1340,12 @@ Begin VB.Form items
          EndProperty
          ForeColor       =   &H00800000&
          Height          =   330
-         Left            =   1350
-         MaxLength       =   11
+         Left            =   180
+         MaxLength       =   50
          TabIndex        =   79
          TabStop         =   0   'False
-         Top             =   2745
-         Width           =   2130
+         Top             =   2610
+         Width           =   5685
       End
       Begin VB.TextBox xSupp 
          Alignment       =   1  'Right Justify
@@ -1428,7 +1429,7 @@ Begin VB.Form items
          Left            =   3195
          RightToLeft     =   -1  'True
          TabIndex        =   70
-         Top             =   2295
+         Top             =   2250
          Width           =   1410
       End
       Begin VB.CheckBox xIsOkazItem 
@@ -1653,7 +1654,7 @@ Begin VB.Form items
       Begin MSDataListLib.DataCombo XSECTION 
          Height          =   315
          Left            =   135
-         TabIndex        =   92
+         TabIndex        =   91
          Top             =   180
          Width           =   2670
          _ExtentX        =   4710
@@ -1688,7 +1689,7 @@ Begin VB.Form items
          Height          =   270
          Left            =   9900
          RightToLeft     =   -1  'True
-         TabIndex        =   93
+         TabIndex        =   92
          Top             =   2745
          Width           =   630
       End
@@ -1697,40 +1698,40 @@ Begin VB.Form items
          BackStyle       =   0  'Transparent
          Caption         =   "„Ã„Ê⁄… „ÊœÌ·"
          BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   8.25
+            Name            =   "Arial"
+            Size            =   11.25
             Charset         =   178
             Weight          =   700
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   195
-         Left            =   6300
+         Height          =   270
+         Left            =   5985
          RightToLeft     =   -1  'True
          TabIndex        =   82
-         Top             =   2790
-         Width           =   1155
+         Top             =   3015
+         Width           =   1110
       End
       Begin VB.Label Label23 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
-         Caption         =   "»Ì«‰ «·„Ã„Ê⁄… :"
+         Caption         =   "»Ì«‰ «·„Ã„Ê⁄…"
          BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   8.25
+            Name            =   "Arial"
+            Size            =   11.25
             Charset         =   178
             Weight          =   700
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   195
-         Left            =   3465
+         Height          =   270
+         Left            =   5940
          RightToLeft     =   -1  'True
          TabIndex        =   81
-         Top             =   2790
-         Width           =   1200
+         Top             =   2655
+         Width           =   1095
       End
       Begin VB.Label Label12 
          AutoSize        =   -1  'True
@@ -1792,7 +1793,7 @@ Begin VB.Form items
          Left            =   2025
          RightToLeft     =   -1  'True
          TabIndex        =   71
-         Top             =   1890
+         Top             =   1845
          Width           =   1845
       End
       Begin VB.Label Label3 
@@ -2286,13 +2287,13 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim WithEvents twain As ImgXTwain
 Attribute twain.VB_VarHelpID = -1
-Dim con As New adodb.Connection
-Dim conFact As New adodb.Connection
-Dim confact2 As New adodb.Connection
-Dim confact3 As New adodb.Connection
+Dim con As New ADODB.Connection
+Dim conFact As New ADODB.Connection
+Dim confact2 As New ADODB.Connection
+Dim confact3 As New ADODB.Connection
 Dim ISNEWMODEL As Boolean
 Dim bAdded As Boolean
-Public CardTable As adodb.Recordset
+Public CardTable As ADODB.Recordset
 Public bEdit As Boolean
 Public nFlag As Integer
 Public nSection As Integer
@@ -2301,7 +2302,7 @@ Public SFact As String, SMosm As String, sSupp As String, SModelFact As String, 
 Public bAddModel As Boolean
 Dim oSearchItem As New Search3, sControl As String
 Dim sOkaz As String, sRate As String, sBig As String, sRedem As String
-Dim ColorTable As New adodb.Recordset
+Dim ColorTable As New ADODB.Recordset
 Dim cFilter As String
 Dim nColWidth As Long
 Dim nRecordNumber As Integer
@@ -2336,7 +2337,7 @@ XISONLINE.Value = 0
 XOKAZ.text = sOkaz
 xOkaz_2.text = ""
 
-xdesca.text = ""
+xDesca.text = ""
 xdesce.text = ""
 
 vsScal.Rows = 1
@@ -2387,9 +2388,9 @@ xmodelage.BoundText = CardTable!MODELAGE & ""
 
 xCode.text = CardTable!code & ""
 xCodeDesc.Caption = CardTable!SUPPNAME & ""
-xdesca.text = CardTable!DESCA & ""
+xDesca.text = CardTable!DESCA & ""
 xdesce.text = CardTable!DESCe & ""
-xisstop.Value = IIf(CardTable!ISSTOP & "", 1, 0)
+xisstop.Value = IIf(CardTable!ISStop & "", 1, 0)
 
 If cBranch = "00" Then
     xGrDesca.text = CardTable!GrDesca & ""
@@ -2443,10 +2444,10 @@ Private Sub Cmd_Undo_Click()
 myUndo
 End Sub
 
-Private Sub calc_Click(Index As Integer)
+Private Sub calc_Click(index As Integer)
 With vsScal
 Dim nValue As Double
-Select Case Index
+Select Case index
 Case 0
     nValue = (1 / 12)
 Case 1
@@ -2457,7 +2458,7 @@ Case 3
     nValue = 12
 End Select
 For i = 1 To vsScal.Rows - 2
-  .TextMatrix(i, .col) = Myvalue(Round(nValue * Val(.TextMatrix(i, .col)), 2))
+  .TextMatrix(i, .Col) = Myvalue(Round(nValue * Val(.TextMatrix(i, .Col)), 2))
 Next
 'If Val(.TextMatrix(.Row, .Col)) > 0 Then .TextMatrix(.Row, .Col) = Myvalue(Val(.TextMatrix(.Row, .Col)) / 12, "#0.00")
 End With
@@ -2465,7 +2466,7 @@ End Sub
 Private Sub cmd_add_all_Click()
     Dim sFactMosm  As String, i As Double
     Dim sShopMosm  As String
-    Dim ItemMosmTable As New adodb.Recordset
+    Dim ItemMosmTable As New ADODB.Recordset
     Dim sSecModel  As String
     
     sFactMosm = InputBox("", " „Ê”„ «·„’‰⁄ ", "")
@@ -2488,7 +2489,7 @@ Private Sub cmd_add_all_Click()
     End With
 End Sub
 Private Sub CMD_COPYPICT_Click()
-Dim MyPictTable As New adodb.Recordset
+Dim MyPictTable As New ADODB.Recordset
     MyPictTable.Open "select top 500 * from  PICT", conPict, adOpenStatic, adLockReadOnly, adCmdText
     nRecordCount = MyPictTable.RecordCount
     MsgBox " Record : " & nRecordCount
@@ -2521,16 +2522,16 @@ End Sub
 Private Sub cmdcopy_Click()
     Dim cModel As String
     cModel = DelZero(xModelFact.text)
-    If xFact.BoundText = "001" And cModel <> "" And Trim(xdesca.text) = "" Then
+    If xFact.BoundText = "001" And cModel <> "" And Trim(xDesca.text) = "" Then
         FillItemFact (cModel)
     End If
-    If xCode.text = "049" And cModel <> "" And Trim(xdesca.text) = "" Then
+    If xCode.text = "049" And cModel <> "" And Trim(xDesca.text) = "" Then
         FillItemFact2 (cModel)
     End If
-    If xCode.text = "049" And cModel <> "" And Trim(xdesca.text) = "" Then
+    If xCode.text = "049" And cModel <> "" And Trim(xDesca.text) = "" Then
         FillItemFact2 (cModel)
     End If
-    If xCode.text = "095" And cModel <> "" And Trim(xdesca.text) = "" Then
+    If xCode.text = "095" And cModel <> "" And Trim(xDesca.text) = "" Then
         FillItemFact3 (cModel)
     End If
 End Sub
@@ -2552,7 +2553,7 @@ If MsgBox("”Ì „ «·€«¡ «·„ÊœÌ· »«·ﬂ«„· ", vbYesNo + vbCritical + vbDefaultButton2
 
 '    con.CommitTrans
 End If
-AddLod_Data cUserName, 2, " Õ–› «·„ÊœÌ·«  ", con, xModel.text, , , xdesca.text
+AddLod_Data cUserName, 2, " Õ–› «·„ÊœÌ·«  ", con, xModel.text, , , xDesca.text
 
 myDefine
 openCardTable
@@ -2647,7 +2648,7 @@ myerror:
 End Sub
 Private Sub cmdSave_Click()
 If cBranch <> "00" Then Exit Sub
-If Not MYVALID Then Exit Sub
+If Not myValid Then Exit Sub
 If myreplace Then
     If xFact.BoundText = "001" Then FixBarCode2_Fact xModel.text
     If xFact.BoundText = "095" Then FixBarCode2_Fact3 xModel.text
@@ -2657,7 +2658,7 @@ If myreplace Then
     End If
 
     Inform " „ Õ›Ÿ «·»Ì«‰«  »‰Ã«Õ"
-    AddLod_Data cUserName, 1, " Õ÷Ÿ «·„ÊœÌ·«  ", con, xModel.text, , , xdesca.text
+    AddLod_Data cUserName, 1, " Õ÷Ÿ «·„ÊœÌ·«  ", con, xModel.text, , , xDesca.text
 End If
 End Sub
 Private Sub cmdScan_Click()
@@ -2680,16 +2681,16 @@ End If
 End Sub
 Private Sub cmdFixModel_click()
 Dim cMod As String, cMod0 As String, cModel As String, cModelNo  As String, cString As String, cCaption As String
-Dim loctable As New adodb.Recordset
+Dim locTable As New ADODB.Recordset
 cString = "Select * from file1_10 "
-loctable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
+locTable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
 con.BeginTrans
 'On Error GoTo myerror
 Me.FramProg.Visible = True
 Dim aInsert(3, 1)
-With loctable
+With locTable
     Dim nRecord As Long, nRecordCount As Long
-    nRecordCount = loctable.RecordCount
+    nRecordCount = locTable.RecordCount
     cCaption = Me.Caption
     Do Until .EOF
         nRecord = nRecord + 1
@@ -2727,7 +2728,7 @@ With loctable
     Loop
 End With
 con.CommitTrans
-Set loctable = Nothing
+Set locTable = Nothing
 Inform " „ ÷»ÿ »Ì«‰ «·„ÊœÌ·«  »‰Ã«Õ"
 Me.FramProg.Visible = False
 Me.Caption = cCaption
@@ -2740,20 +2741,20 @@ Me.Caption = cCaption
 End Sub
 Private Sub cmdFixModel2_click()
 Dim cString As String, sModel As String, nCode_Scal As Long
-Dim loctable As New adodb.Recordset
-loctable.Open "SELECT FILE1_10.* FROM FILE1_10 ORDER BY FILE1_10.MODEL,FILE1_10.C_SCAL", con, adOpenStatic, adLockReadOnly, adCmdText
+Dim locTable As New ADODB.Recordset
+locTable.Open "SELECT FILE1_10.* FROM FILE1_10 ORDER BY FILE1_10.MODEL,FILE1_10.C_SCAL", con, adOpenStatic, adLockReadOnly, adCmdText
 On Error GoTo myerror
 Me.FramProg.Visible = True
 sModel = "Dummy123"
 con.BeginTrans
 On Error GoTo myerror
-With loctable
+With locTable
     Dim nRecord As Long, nRecordCount As Long
-    nRecordCount = loctable.RecordCount
+    nRecordCount = locTable.RecordCount
     Do Until .EOF
-        If sModel <> loctable!MODEL Then
+        If sModel <> locTable!MODEL Then
             nCode_Scal = 1
-            sModel = loctable!MODEL
+            sModel = locTable!MODEL
         End If
         nRecord = nRecord + 1
         prog1.Value = Round(nRecord / nRecordCount, 2) * 100
@@ -2766,7 +2767,7 @@ End With
 con.CommitTrans
 lastsub:
 Me.FramProg.Visible = False
-Set loctable = Nothing
+Set locTable = Nothing
 Inform " „ ÷»ÿ »Ì«‰ «·„ÊœÌ·«  »‰Ã«Õ"
 Exit Sub
 myerror:
@@ -2776,22 +2777,22 @@ GoTo lastsub
 End Sub
 
 Private Sub Command1_Click()
-Dim cString As String, loctable As New adodb.Recordset
+Dim cString As String, locTable As New ADODB.Recordset
 cString = "SELECT * FROM FILE1_10"
 cString = cString & turn(cString) & "FILE1_10.MODEL = " & MyParn(xModel.text)
 'cString = cString & turn(cString) & "FILE1_10.CODE_SCAL IS NULL"
-loctable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
+locTable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
 'con.BeginTrans
 On Error Resume Next
-Do Until loctable.EOF
+Do Until locTable.EOF
     cString = "DELETE FROM FILE1_10"
-    cString = cString & turn(cString) & " FILE1_10.item = " & loctable!Item
+    cString = cString & turn(cString) & " FILE1_10.item = " & locTable!Item
     con.Execute cString, nRecord
-    loctable.MoveNext
+    locTable.MoveNext
 Loop
 'con.CommitTrans
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 Exit Sub
 myerror:
 MsgBox Err.Description
@@ -2848,7 +2849,7 @@ End Sub
 
 Private Sub OLDFIXBARCODE2_Click()
 Dim cBarCodE2 As String
-Dim ItemFactTable As New adodb.Recordset
+Dim ItemFactTable As New ADODB.Recordset
 
 ItemFactTable.Open "SELECT * FROM FILE1_10 WHERE CODE = '001' ORDER BY ITEM ", con, adOpenStatic, adLockReadOnly, adCmdText
 With ItemFactTable
@@ -2895,7 +2896,7 @@ Private Sub FIXBAR13_Click()
     Dim i As Double
     con.Execute " update file1_10 set barcode13 = null where barcode13 ='' "
     con.Execute " UPDATE FILE1_10 SET BARCODE2 = NULL WHERE BARCODE2 ='' "
-    Dim MyItem13 As New adodb.Recordset
+    Dim MyItem13 As New ADODB.Recordset
     MyItem13.Open " SELECT * FROM FILE1_10 WHERE CODE = '001' AND MOSM = " & MyParn(cPMosm) & " ORDER BY MODEL ", con, adOpenStatic, adCmdText
     
     If MyItem13.RecordCount = 0 Then Exit Sub
@@ -2917,7 +2918,7 @@ Private Sub FIXBAR13_S_Click()
     Dim i As Double
     con.Execute " update file1_10 set barcode13 = null where barcode13 ='' "
     con.Execute " UPDATE FILE1_10 SET BARCODE2 = NULL WHERE BARCODE2 ='' "
-    Dim MyItem13 As New adodb.Recordset
+    Dim MyItem13 As New ADODB.Recordset
     MyItem13.Open " SELECT * FROM FILE1_10 WHERE CODE = '095' AND MOSM = " & MyParn(cPMosm) & " ORDER BY MODEL ", con, adOpenStatic, adCmdText
     
     If MyItem13.RecordCount = 0 Then Exit Sub
@@ -2941,7 +2942,7 @@ Private Sub old_FIXBARCODE2_Click()
         
         
         con.Execute " update file1_10 set barcode13 = null where barcode13 ='' "
-        Dim TableFact As New adodb.Recordset
+        Dim TableFact As New ADODB.Recordset
         Dim cScal As String, cModelFact As String
         TableFact.Open " SELECT * FROM FILE1_10 WHERE CODE = '001' AND ( BARCODE2 IS NULL OR BARCODE13 IS NULL ) ", con, adOpenStatic, adCmdText
         If TableFact.RecordCount = 0 Then Exit Sub
@@ -3065,7 +3066,7 @@ bEdit = True
 ImgX1.AutoZoom = True
 ImgX1.AutoZoomType = 1
 nColWidth = vsScal.Width / 16
-openCon con
+OpenCon con
 XMOSM2.AddItem "S"
 XMOSM2.AddItem "W"
 XMOSM2.AddItem "M"
@@ -3075,7 +3076,7 @@ If cBranch = "00" Then
     openConFACT3 confact3
 Else
     cmdSave.Visible = False
-    cmdDel.Visible = False
+    cmddel.Visible = False
     cmdcopy.Visible = False
     Frame7.Visible = False
 End If
@@ -3095,13 +3096,13 @@ Set XSECTION.RowSource = DATA3
 XSECTION.ListField = "DESCA"
 XSECTION.BoundColumn = "CODE"
 
-Set DATA4.Recordset = myRecordSet("SELECT * FROM MOSM ORDER BY DATE DESC ", con)
-Set xMosm.RowSource = DATA4
+Set data4.Recordset = myRecordSet("SELECT * FROM MOSM ORDER BY DATE DESC ", con)
+Set xMosm.RowSource = data4
 xMosm.ListField = "DESCA"
 xMosm.BoundColumn = "MOSM"
 
-Set DATA11.Recordset = myRecordSet("SELECT * FROM FILE0_82 ORDER BY DESCA", con)
-Set xmodelage.RowSource = DATA11
+Set data11.Recordset = myRecordSet("SELECT * FROM FILE0_82 ORDER BY DESCA", con)
+Set xmodelage.RowSource = data11
 xmodelage.ListField = "DESCA"
 xmodelage.BoundColumn = "CODE"
 
@@ -3136,18 +3137,18 @@ End Sub
 
 Private Sub vsColor_GotFocus()
 If vsColor.Row < 1 Then vsColor.Row = 1
-vsColor.col = vsColor.Cols - 1
+vsColor.Col = vsColor.Cols - 1
 End Sub
 
 Private Sub vsColor_KeyPress(KeyAscii As Integer)
-If KeyAscii = 13 Then CellPos2 KeyAscii, vsColor.Row, vsColor.col
+If KeyAscii = 13 Then CellPos2 KeyAscii, vsColor.Row, vsColor.Col
 End Sub
 
-Private Sub vsColor_KeyPressEdit(ByVal Row As Long, ByVal col As Long, KeyAscii As Integer)
-If KeyAscii = 13 Then CellPos2 KeyAscii, Row, col
+Private Sub vsColor_KeyPressEdit(ByVal Row As Long, ByVal Col As Long, KeyAscii As Integer)
+If KeyAscii = 13 Then CellPos2 KeyAscii, Row, Col
 End Sub
 
-Private Sub vsColor_KeyupEdit(ByVal Row As Long, ByVal col As Long, KeyCode As Integer, ByVal Shift As Integer)
+Private Sub vsColor_KeyupEdit(ByVal Row As Long, ByVal Col As Long, KeyCode As Integer, ByVal Shift As Integer)
 'If KeyCode = 13 Then CellPos2 KeyCode, vsColor.Row, vsColor.Col
 End Sub
 Private Sub vsColor_KeyUp(KeyCode As Integer, Shift As Integer)
@@ -3159,19 +3160,19 @@ If cmdSave.Enabled = False Then Exit Sub
 '    FixCol2 .Col
 'End If
 
-If KeyCode = 46 And .col <> .Cols - 1 And .col <> 0 And .Row = 1 Then
+If KeyCode = 46 And .Col <> .Cols - 1 And .Col <> 0 And .Row = 1 Then
     If MsgBox("Õ–› «··Ê‰ ø", vbYesNo + vbDefaultButton2) <> vbYes Then Exit Sub
-    If Trim(.TextMatrix(.Rows - 1, .col)) = "" Then
-        DelCol vsColor, .col
-        FixCol2 .col
+    If Trim(.TextMatrix(.Rows - 1, .Col)) = "" Then
+        DelCol vsColor, .Col
+        FixCol2 .Col
     Else
         On Error GoTo myerror
-        cString = "DELETE  FROM FILE1_10 WHERE MODEL = " & MyParn(xModel.text) & " AND c_color = " & MyParn(.TextMatrix(.Rows - 1, .col))
+        cString = "DELETE  FROM FILE1_10 WHERE MODEL = " & MyParn(xModel.text) & " AND c_color = " & MyParn(.TextMatrix(.Rows - 1, .Col))
         con.Execute cString, nAffect
         con.Execute " update file1_10 set item = item where model = " & MyParn(xModel.text)
-        nCol = .col
+        nCol = .Col
         myloadgrd2
-        .col = nCol
+        .Col = nCol
     End If
 ElseIf KeyCode = 13 Then
 '    CellPos2 KeyCode, Row, Col
@@ -3183,42 +3184,42 @@ myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Private Sub vsScal_AfterEdit(ByVal Row As Long, ByVal col As Long)
+Private Sub vsScal_AfterEdit(ByVal Row As Long, ByVal Col As Long)
 With vsScal
 If Row = 0 Then
-    If col = .Cols - 1 Then
-        If validCol(col) Then
+    If Col = .Cols - 1 Then
+        If validCol(Col) Then
             .Cols = .Cols + 1
-            CalcCol col, 1
-            FixCol col
+            CalcCol Col, 1
+            FixCol Col
             FixBackColor
         End If
-    ElseIf Row = 0 And .Cols = 3 And col = 1 And Trim(.TextMatrix(0, .Cols - 1)) = "" And Trim(.TextMatrix(0, col)) <> "---" Then
-        .col = .Cols - 1
+    ElseIf Row = 0 And .Cols = 3 And Col = 1 And Trim(.TextMatrix(0, .Cols - 1)) = "" And Trim(.TextMatrix(0, Col)) <> "---" Then
+        .Col = .Cols - 1
     End If
 Else
 '    CalcRate Col, Row
 End If
 If Row = 2 Then ISNEWPRICE.Value = 1
 CalcTotals
-If Val(.TextMatrix(4, col)) = 0 Then .TextMatrix(4, col) = Val(.TextMatrix(1, col))
+If Val(.TextMatrix(4, Col)) = 0 Then .TextMatrix(4, Col) = Val(.TextMatrix(1, Col))
 End With
 End Sub
-Private Sub VsColor_AfterEdit(ByVal Row As Long, ByVal col As Long)
+Private Sub VsColor_AfterEdit(ByVal Row As Long, ByVal Col As Long)
 With vsColor
-If col = .Cols - 1 Then
-    If validCol2(col) Then
+If Col = .Cols - 1 Then
+    If validCol2(Col) Then
         .Cols = .Cols + 1
         .TextMatrix(0, .Cols - 2) = Val(.TextMatrix(0, .Cols - 3)) + 1
-        FixCol2 col
-        .col = col + 1
+        FixCol2 Col
+        .Col = Col + 1
         FixBackColor2
     End If
 End If
 End With
 End Sub
 Private Sub VsColor_Validate(Cancel As Boolean)
-If (Not validCol2(vsColor.col)) And vsColor.col <> vsColor.Cols - 1 And vsColor.col <> 0 Then DelCol vsColor, vsColor.col
+If (Not validCol2(vsColor.Col)) And vsColor.Col <> vsColor.Cols - 1 And vsColor.Col <> 0 Then DelCol vsColor, vsColor.Col
 End Sub
 Private Sub vsScal_AfterRowColChange(ByVal OldRow As Long, ByVal OldCol As Long, ByVal NewRow As Long, ByVal NewCol As Long)
 With vsScal
@@ -3248,55 +3249,55 @@ Else
     vsScal.Editable = flexEDKbdMouse
 End If
 If vsScal.Row = 1 And vsScal.Editable = flexEDKbdMouse Then
-    CalcCol vsScal.col, vsScal.Row
+    CalcCol vsScal.Col, vsScal.Row
 End If
 
 End Sub
 
 Private Sub vsScal_GotFocus()
 If vsScal.Row < 1 Then vsScal.Row = 1
-vsScal.col = vsScal.Cols - 2
+vsScal.Col = vsScal.Cols - 2
 End Sub
 Private Sub vsScal_KeyPress(KeyAscii As Integer)
-If KeyAscii = 13 And vsScal.col = vsScal.Cols - 1 And vsScal.TextMatrix(vsScal.Row, vsScal.col) = "" And vsScal.Row = 5 Then
+If KeyAscii = 13 And vsScal.Col = vsScal.Cols - 1 And vsScal.TextMatrix(vsScal.Row, vsScal.Col) = "" And vsScal.Row = 5 Then
 '    On Error Resume Next
     KeyAscii = 0
    ' cmdScan_Click
     Exit Sub
 End If
 If KeyAscii = 13 Then
-    CellPos KeyAscii, vsScal.Row, vsScal.col
+    CellPos KeyAscii, vsScal.Row, vsScal.Col
 End If
 End Sub
-Private Sub vsScal_KeyPressEdit(ByVal Row As Long, ByVal col As Long, KeyAscii As Integer)
+Private Sub vsScal_KeyPressEdit(ByVal Row As Long, ByVal Col As Long, KeyAscii As Integer)
 If KeyAscii = 13 Then
-    CellPos KeyAscii, Row, col
+    CellPos KeyAscii, Row, Col
 End If
 End Sub
 Private Sub vsScal_KeyUp(KeyCode As Integer, Shift As Integer)
 With vsScal
     If cmdSave.Enabled = False Then Exit Sub
-    If KeyCode = 45 And .col <> .Cols - 1 And validCol(.col) Then
-        InsertCol vsScal, .col
+    If KeyCode = 45 And .Col <> .Cols - 1 And validCol(.Col) Then
+        InsertCol vsScal, .Col
         CalcTotals
-        FixCol .col
-   ElseIf KeyCode = 46 And .col <> .Cols - 1 And .col <> 0 And .Row = 0 Then
-        If Not IsNumeric(.TextMatrix(.Rows - 1, .col)) Then
-            DelCol vsScal, .col
+        FixCol .Col
+   ElseIf KeyCode = 46 And .Col <> .Cols - 1 And .Col <> 0 And .Row = 0 Then
+        If Not IsNumeric(.TextMatrix(.Rows - 1, .Col)) Then
+            DelCol vsScal, .Col
             CalcTotals
-            FixCol .col
+            FixCol .Col
         Else
             If MsgBox("Õ–› «·„ﬁ«” ø", vbYesNo + vbDefaultButton2) <> vbYes Then
                 bAdd = False
                 Exit Sub
             End If
             On Error GoTo myerror
-            cString = "DELETE  FROM FILE1_10 WHERE MODEL = " & MyParn(xModel.text) & " AND CODE_SCAL = " & .TextMatrix(.Rows - 1, .col)
+            cString = "DELETE  FROM FILE1_10 WHERE MODEL = " & MyParn(xModel.text) & " AND CODE_SCAL = " & .TextMatrix(.Rows - 1, .Col)
             con.Execute cString
             con.Execute " update file1_10 set item = item where model = " & MyParn(xModel.text)
-            nCol = .col
+            nCol = .Col
             myLoadGrd
-            .col = nCol
+            .Col = nCol
         End If
     End If
 End With
@@ -3306,30 +3307,30 @@ con.RollbackTrans
 MsgBox Err.Description
 Err.Clear
 End Sub
-Private Sub CellPos(ByRef KeyCode, ByVal Row As Long, ByVal col As Long, Optional bCalc As Boolean = True)
+Private Sub CellPos(ByRef KeyCode, ByVal Row As Long, ByVal Col As Long, Optional bCalc As Boolean = True)
 With vsScal
 If cmdSave.Enabled = False Then Exit Sub
-If (Not validCol(col)) Then Exit Sub
+If (Not validCol(Col)) Then Exit Sub
 '--- Õ«·… «Ê· ’› Ê«·„ﬁ«”
-If Row = 0 And .Cols = 3 And col = 1 And Trim(.TextMatrix(0, .Cols - 1)) = "" And Trim(.TextMatrix(0, col)) = "---" Then
+If Row = 0 And .Cols = 3 And Col = 1 And Trim(.TextMatrix(0, .Cols - 1)) = "" And Trim(.TextMatrix(0, Col)) = "---" Then
     Exit Sub
 End If
 KeyCode = 0
-If col < vsScal.Cols - 1 Then vsScal.col = col + 1
-If vsScal.col = vsScal.Cols - 1 Then
-    If Row = 0 Then CalcCol vsScal.col, 0
+If Col < vsScal.Cols - 1 Then vsScal.Col = Col + 1
+If vsScal.Col = vsScal.Cols - 1 Then
+    If Row = 0 Then CalcCol vsScal.Col, 0
     If validCol(.Cols - 1) Then
         .Cols = .Cols + 1
-        CalcCol vsScal.col, 1
+        CalcCol vsScal.Col, 1
         FixCol .Cols - 1
     Else
         If Row = 1 Or Row = 2 Then
             .Row = Row + 1
-            .col = 1
+            .Col = 1
             If CanSave Then cmdSave_Click
-        ElseIf Row = 0 And col > 1 Then
+        ElseIf Row = 0 And Col > 1 Then
             .Row = .Row + IIf(Row < 3, 1, 2)
-            .col = 1
+            .Col = 1
         End If
     End If
 Else
@@ -3339,14 +3340,14 @@ Else
 '            CalcCol i, Row
 '        Next
 '    Else
-    CalcCol vsScal.col, Row
+    CalcCol vsScal.Col, Row
 '    End If
 End If
 End With
 End Sub
-Private Sub CellPos2(ByRef KeyCode, ByVal Row As Long, ByVal col As Long)
-If Not validCol2(col) Then Exit Sub
-If col < vsColor.Cols - 1 Then vsColor.col = col + 1
+Private Sub CellPos2(ByRef KeyCode, ByVal Row As Long, ByVal Col As Long)
+If Not validCol2(Col) Then Exit Sub
+If Col < vsColor.Cols - 1 Then vsColor.Col = Col + 1
 KeyCode = 0
 'VsColor_AfterEdit Row, Col
 End Sub
@@ -3370,7 +3371,7 @@ With vsColor
     If (.Row = 1 Or .Row = 2) And cmdSave.Enabled Then .Editable = flexEDKbdMouse Else .Editable = flexEDNone
 End With
 End Sub
-Private Sub VsColor_StartEdit(ByVal Row As Long, ByVal col As Long, Cancel As Boolean)
+Private Sub VsColor_StartEdit(ByVal Row As Long, ByVal Col As Long, Cancel As Boolean)
 'With vsColor
 'If Col = .Cols - 1 Then
 '    .Cols = .Cols + 1
@@ -3378,7 +3379,7 @@ Private Sub VsColor_StartEdit(ByVal Row As Long, ByVal col As Long, Cancel As Bo
 'End If
 'End With
 End Sub
-Private Sub VsColor_ValidateEdit(ByVal Row As Long, ByVal col As Long, Cancel As Boolean)
+Private Sub VsColor_ValidateEdit(ByVal Row As Long, ByVal Col As Long, Cancel As Boolean)
 With vsColor
 If Trim(.EditText) = "" Then
     MsgBox "·Ê‰ €Ì— „”Ã·"
@@ -3386,7 +3387,7 @@ If Trim(.EditText) = "" Then
 Else
     .EditText = Trim(.EditText)
     For i = 1 To .Cols - 2
-        If i <> col Then
+        If i <> Col Then
             If Trim(LCase(.EditText)) = LCase(.TextMatrix(1, i)) Then
                 MsgBox " „ «œŒ«· ‰›” «··Ê‰ „‰ ﬁ»·"
                 Cancel = True
@@ -3415,7 +3416,7 @@ Private Function validCol2(nCol) As Boolean
 If Trim(vsColor.TextMatrix(1, nCol)) = "" Then Exit Function
 validCol2 = True
 End Function
-Private Sub vsScal_StartEdit(ByVal Row As Long, ByVal col As Long, Cancel As Boolean)
+Private Sub vsScal_StartEdit(ByVal Row As Long, ByVal Col As Long, Cancel As Boolean)
 'With vsScal
 'If Col = .Cols - 1 Then
 '    .Cols = .Cols + 1
@@ -3424,9 +3425,9 @@ Private Sub vsScal_StartEdit(ByVal Row As Long, ByVal col As Long, Cancel As Boo
 'End With
 End Sub
 Private Sub vsScal_Validate(Cancel As Boolean)
-If (Not validCol(vsScal.col)) And vsScal.col <> vsScal.Cols - 1 And vsScal.col <> 0 And vsScal.TextMatrix(vsScal.Rows - 1, vsScal.col) = "" Then DelCol vsScal, vsScal.col
+If (Not validCol(vsScal.Col)) And vsScal.Col <> vsScal.Cols - 1 And vsScal.Col <> 0 And vsScal.TextMatrix(vsScal.Rows - 1, vsScal.Col) = "" Then DelCol vsScal, vsScal.Col
 End Sub
-Private Sub VsScal_ValidateEdit(ByVal Row As Long, ByVal col As Long, Cancel As Boolean)
+Private Sub VsScal_ValidateEdit(ByVal Row As Long, ByVal Col As Long, Cancel As Boolean)
 With vsScal
 If Row = 0 Then
     If Trim(.EditText) = "" Then
@@ -3435,7 +3436,7 @@ If Row = 0 Then
     Else
         .EditText = UCase(.EditText)
         For i = 1 To .Cols - 2
-            If i <> col Then
+            If i <> Col Then
                 If Trim(.EditText) = .TextMatrix(0, i) Then
                     MsgBox " „ «œŒ«· ‰›” «·„ﬁ«” „‰ ﬁ»·"
                     Cancel = True
@@ -3446,8 +3447,8 @@ If Row = 0 Then
 
 End If
 If Row = 1 Then
-    If Val(.TextMatrix(1, col)) = Val(.TextMatrix(4, col)) Then
-        .TextMatrix(4, col) = Val(.EditText)
+    If Val(.TextMatrix(1, Col)) = Val(.TextMatrix(4, Col)) Then
+        .TextMatrix(4, Col) = Val(.EditText)
     End If
 End If
 End With
@@ -3470,47 +3471,47 @@ Else
 End If
 End Sub
 Private Sub myLoadGrd()
-Dim loctable As New adodb.Recordset, i As Integer
-loctable.CursorLocation = adUseClient
+Dim locTable As New ADODB.Recordset, i As Integer
+locTable.CursorLocation = adUseClient
 
 '                      0    1                   2                           3                       4                   5                           6                               7                               8                   9           10
-loctable.Open "select scal,max(Cost)  as cost ,max(Price ) as price ,max(PRICE2) as price2 ,max(Cost2) as cost2 , MAX(PRICE_2) as price_2 , MAX(COSTITEM) as COSTITEM , MAX(COSTITEM_FR) as COSTITEM_FR , MAX(PRICE_P) AS PRICE_P, code_scal ,min(Price ) as maxprice  from file1_10 where model = " & MyParn(xModel.text) & " group by file1_10.c_scal,scal,file1_10.code_Scal order by file1_10.c_scal ", con, adOpenForwardOnly, adLockReadOnly, adCmdText
+locTable.Open "select scal,max(Cost)  as cost ,max(Price ) as price ,max(PRICE2) as price2 ,max(Cost2) as cost2 , MAX(PRICE_2) as price_2 , MAX(COSTITEM) as COSTITEM , MAX(COSTITEM_FR) as COSTITEM_FR , MAX(PRICE_P) AS PRICE_P, code_scal ,min(Price ) as maxprice  from file1_10 where model = " & MyParn(xModel.text) & " group by file1_10.c_scal,scal,file1_10.code_Scal order by file1_10.c_scal ", con, adOpenForwardOnly, adLockReadOnly, adCmdText
 With vsScal
 .Cols = 1
-Do Until loctable.EOF
+Do Until locTable.EOF
     .Cols = .Cols + 1
     For i = 0 To 9
-        .TextMatrix(i, .Cols - 1) = loctable.Fields(i) & ""
-        If i = 2 Then .TextMatrix(i, .Cols - 1) = loctable!maxprice
+        .TextMatrix(i, .Cols - 1) = locTable.Fields(i) & ""
+        If i = 2 Then .TextMatrix(i, .Cols - 1) = locTable!maxprice
     Next
-    loctable.MoveNext
+    locTable.MoveNext
 Loop
 If cmdSave.Enabled Then .Cols = .Cols + 1
 Fixgrd
 CalcTotals
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End With
 End Sub
 Private Sub myloadgrd2()
-Dim loctable As New adodb.Recordset
-loctable.CursorLocation = adUseServer
-loctable.Open "select file1_10.C_Color,Color,Color_E,FILE1_10.CODE_COLOR from file1_10 where model = " & MyParn(xModel.text) & " group by file1_10.C_color,COLOR,COLOR_E,CODE_COLOR order by file1_10.C_color", con, adOpenStatic, adLockReadOnly, adCmdText
+Dim locTable As New ADODB.Recordset
+locTable.CursorLocation = adUseServer
+locTable.Open "select file1_10.C_Color,Color,Color_E,FILE1_10.CODE_COLOR from file1_10 where model = " & MyParn(xModel.text) & " group by file1_10.C_color,COLOR,COLOR_E,CODE_COLOR order by file1_10.C_color", con, adOpenStatic, adLockReadOnly, adCmdText
 With vsColor
 .Cols = 1
-Do Until loctable.EOF
+Do Until locTable.EOF
     .Cols = .Cols + 1
-    .TextMatrix(0, .Cols - 1) = loctable!c_Color & ""
-    .TextMatrix(1, .Cols - 1) = loctable!color & ""
-    .TextMatrix(2, .Cols - 1) = loctable!Color_E & ""
-    .TextMatrix(.Rows - 1, .Cols - 1) = loctable!CODE_COLOR & ""
-    loctable.MoveNext
+    .TextMatrix(0, .Cols - 1) = locTable!c_Color & ""
+    .TextMatrix(1, .Cols - 1) = locTable!color & ""
+    .TextMatrix(2, .Cols - 1) = locTable!Color_E & ""
+    .TextMatrix(.Rows - 1, .Cols - 1) = locTable!CODE_COLOR & ""
+    locTable.MoveNext
 Loop
 If cmdSave.Enabled Then .Cols = .Cols + 1
 Fixgrd2
 End With
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Sub
 Private Sub Fixgrd()
 With vsScal
@@ -3557,7 +3558,7 @@ myerror:
     MsgBox Err.Description
     Err.Clear
 End Function
-Private Function MYVALID() As Boolean
+Private Function myValid() As Boolean
 If XCHARGE.BoundText <> "" And XISNOITEM.Value = 0 And XISNOITEM2.Value = 0 Then
     MsgBox "„’—Ê› ·’‰› €Ì— Œœ„… «Ê «’· "
     Exit Function
@@ -3593,7 +3594,7 @@ If GetDesca("select [group] from file1_50 where code = " & MyParn(xGroup.BoundTe
     MsgBox "«·„Ã„Ê⁄… „Õ ·›… ⁄‰ «·ﬁ”„ "
     Exit Function
 End If
-If xdesca.text = "" Then
+If xDesca.text = "" Then
     MsgBox "≈”„ «·’‰› €Ì— „”Ã·"
     Exit Function
 End If
@@ -3640,10 +3641,10 @@ With vsColor
         Next
     Next
 End With
-MYVALID = True
+myValid = True
 End Function
 Private Sub Handlecontrols(nMode)
-cmdDel.Enabled = (nMode = LoadMode) And bEdit
+cmddel.Enabled = (nMode = LoadMode) And bEdit
 cmdSave.Enabled = bEdit
 cmdUndo.Enabled = bEdit
 'CmdInform.Enabled = (nMode = LoadMode)
@@ -3699,6 +3700,7 @@ End Sub
 Private Sub xCHARGE_KeyUp(KeyCode As Integer, Shift As Integer)
     If KeyCode = 112 Then ChargeLook
 End Sub
+
 Private Sub xGroup_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 13 Then
     KeyCode = 0
@@ -3718,9 +3720,9 @@ If KeyCode = 13 Then
         xGroup.BoundText = sCode
         If Not xGroup.MatchedWithList Then xGroup.BoundText = ""
     Else
-        xdesca.SetFocus
+        xDesca.SetFocus
     End If
-    If Trim(xdesca.text) = "" Then xdesca.text = xGroup.text
+    If Trim(xDesca.text) = "" Then xDesca.text = xGroup.text
 End If
 Exit Sub
 myerror:
@@ -3745,7 +3747,7 @@ Dim cGr As String
 '        xGroup.BoundText = sGroup
 '    End If
 'End If
-If Trim(xdesca.text) = "" Then xdesca.text = xGroup.text
+If Trim(xDesca.text) = "" Then xDesca.text = xGroup.text
 Exit Sub
 myerror:
 con.RollbackTrans
@@ -3931,15 +3933,15 @@ xRedem.SelStart = 0
 xRedem.SelLength = Len(xRedem.text)
 xRedem.BackColor = &H80FFFF
 End Sub
-Private Sub xdesca_GotFocus()
-If Trim(xdesca.text) = Trim(xGroup.text) Then
-    xdesca.text = xGroup.text & " "
-    xdesca.SelStart = Len(xdesca.text)
-    xdesca.SelLength = 1
+Private Sub xDescA_GotFocus()
+If Trim(xDesca.text) = Trim(xGroup.text) Then
+    xDesca.text = xGroup.text & " "
+    xDesca.SelStart = Len(xDesca.text)
+    xDesca.SelLength = 1
 Else
-    xdesca.SelLength = Len(xdesca.text)
+    xDesca.SelLength = Len(xDesca.text)
 End If
-xdesca.BackColor = &H80FFFF
+xDesca.BackColor = &H80FFFF
 End Sub
 Private Sub xcode_GotFocus()
 xCode.SelStart = 0
@@ -3996,7 +3998,7 @@ Private Sub xRedem_LostFocus()
 xRedem.BackColor = &H80000005
 End Sub
 Private Sub xDesca_LostFocus()
-xdesca.BackColor = &H80000005
+xDesca.BackColor = &H80000005
 End Sub
 Private Sub xcode_LostFocus()
 xCode.BackColor = &H80000005
@@ -4036,7 +4038,7 @@ cString = "select TOP 1 FILE1_10H.* , FILE4_10.DESCA AS SUPPNAME from file1_10H 
 If xModel.text <> "" Then cString = cString & turn(cString) & "FILE1_10H.MODEL = " & MyParn(xModel.text)
 If cFilter <> "" Then cString = cString & turn(cString) & cFilter
 cString = cString & " order by model desc"
-Set CardTable = New adodb.Recordset
+Set CardTable = New ADODB.Recordset
 CardTable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
 End Sub
 Private Function LastCol(pGrid As Variant) As Integer
@@ -4054,15 +4056,15 @@ For i = 1 To .Cols - 1
 Next
 End With
 End Sub
-Private Sub CalcCol(col As Long, Row As Long)
+Private Sub CalcCol(Col As Long, Row As Long)
 Dim sValue As String
 With vsScal
-If col > 1 Then
+If Col > 1 Then
     If Row = 0 Then
-       If IsNumeric(.TextMatrix(0, col - 1)) And IsNumeric(.TextMatrix(0, col - 2)) And Val(.TextMatrix(0, col - 1)) > Val(.TextMatrix(0, col - 2)) And .TextMatrix(0, col) = "" Then
-            sValue = Val(.TextMatrix(0, col - 1)) + (Val(.TextMatrix(0, col - 1)) - Val(.TextMatrix(0, col - 2)))
-        ElseIf (Not IsNumeric(.TextMatrix(0, col - 1))) And .TextMatrix(0, col) = "" Then
-            Select Case .TextMatrix(0, col - 1)
+       If IsNumeric(.TextMatrix(0, Col - 1)) And IsNumeric(.TextMatrix(0, Col - 2)) And Val(.TextMatrix(0, Col - 1)) > Val(.TextMatrix(0, Col - 2)) And .TextMatrix(0, Col) = "" Then
+            sValue = Val(.TextMatrix(0, Col - 1)) + (Val(.TextMatrix(0, Col - 1)) - Val(.TextMatrix(0, Col - 2)))
+        ElseIf (Not IsNumeric(.TextMatrix(0, Col - 1))) And .TextMatrix(0, Col) = "" Then
+            Select Case .TextMatrix(0, Col - 1)
                 Case "XS"
                     sValue = "S"
                 Case "S"
@@ -4081,19 +4083,19 @@ If col > 1 Then
                     sValue = "5XL"
             End Select
         End If
-        If sValue <> "" Then .TextMatrix(0, col) = sValue
+        If sValue <> "" Then .TextMatrix(0, Col) = sValue
     End If
-    If col < .Cols - 1 Then
-        If (Row = 1 Or Row = 2 Or Row = 3 Or Row = 4) And col > 1 Then
-            If IsNumeric(.TextMatrix(Row, col - 1)) And IsNumeric(.TextMatrix(Row, col - 2)) And Val(.TextMatrix(Row, col - 1)) >= Val(.TextMatrix(Row, col - 2)) And .TextMatrix(Row, col) = "" Then
-                .TextMatrix(Row, col) = Val(.TextMatrix(Row, col - 1)) + (Val(.TextMatrix(Row, col - 1)) - Val(.TextMatrix(Row, col - 2)))
-                .TextMatrix(4, col) = Val(.TextMatrix(4, col - 1)) + (Val(.TextMatrix(4, col - 1)) - Val(.TextMatrix(4, col - 2)))
+    If Col < .Cols - 1 Then
+        If (Row = 1 Or Row = 2 Or Row = 3 Or Row = 4) And Col > 1 Then
+            If IsNumeric(.TextMatrix(Row, Col - 1)) And IsNumeric(.TextMatrix(Row, Col - 2)) And Val(.TextMatrix(Row, Col - 1)) >= Val(.TextMatrix(Row, Col - 2)) And .TextMatrix(Row, Col) = "" Then
+                .TextMatrix(Row, Col) = Val(.TextMatrix(Row, Col - 1)) + (Val(.TextMatrix(Row, Col - 1)) - Val(.TextMatrix(Row, Col - 2)))
+                .TextMatrix(4, Col) = Val(.TextMatrix(4, Col - 1)) + (Val(.TextMatrix(4, Col - 1)) - Val(.TextMatrix(4, Col - 2)))
                  
             End If
          End If
     End If
 End If
-CalcRate col, Row
+CalcRate Col, Row
 End With
 End Sub
 Private Sub myAddModel()
@@ -4136,12 +4138,12 @@ End If
 cFilter = ""
 'cFilter = "FILE1_10H.MODEL = " & MyParn(sModel)
 End Sub
-Private Function retColValue(Row As Long, col As Long)
+Private Function retColValue(Row As Long, Col As Long)
 With vsScal
-If IsNumeric(.TextMatrix(0, col)) And IsNumeric(.TextMatrix(0, col - 1)) And Val(.TextMatrix(0, col)) > Val(.TextMatrix(0, col - 1)) And col < .Cols - 1 And .TextMatrix(0, col + 1) = "" Then
-    sValue = Val(.TextMatrix(0, col)) + (Val(.TextMatrix(0, col)) - Val(.TextMatrix(0, col - 1)))
-ElseIf (Not IsNumeric(.TextMatrix(0, col))) And .TextMatrix(0, col + 1) = "" Then
-    Select Case .TextMatrix(0, col)
+If IsNumeric(.TextMatrix(0, Col)) And IsNumeric(.TextMatrix(0, Col - 1)) And Val(.TextMatrix(0, Col)) > Val(.TextMatrix(0, Col - 1)) And Col < .Cols - 1 And .TextMatrix(0, Col + 1) = "" Then
+    sValue = Val(.TextMatrix(0, Col)) + (Val(.TextMatrix(0, Col)) - Val(.TextMatrix(0, Col - 1)))
+ElseIf (Not IsNumeric(.TextMatrix(0, Col))) And .TextMatrix(0, Col + 1) = "" Then
+    Select Case .TextMatrix(0, Col)
         Case "XS"
             sValue = "S"
         Case "S"
@@ -4167,23 +4169,23 @@ retColValue = sValue
 End With
 End Function
 Private Sub FixRate()
-Dim loctable As New adodb.Recordset
-loctable.Open "select * from ITEM_DEF WHERE CODE = 1", con, adOpenStatic, adLockReadOnly, adCmdText
-If Not loctable.EOF Then
-    sRate = Myvalue(loctable!Rate)
-    sRedem = Myvalue(loctable!Redem)
-    sOkaz = Myvalue(loctable!okaz)
-    sBig = Myvalue(loctable!bIg)
+Dim locTable As New ADODB.Recordset
+locTable.Open "select * from ITEM_DEF WHERE CODE = 1", con, adOpenStatic, adLockReadOnly, adCmdText
+If Not locTable.EOF Then
+    sRate = Myvalue(locTable!Rate)
+    sRedem = Myvalue(locTable!Redem)
+    sOkaz = Myvalue(locTable!okaz)
+    sBig = Myvalue(locTable!bIg)
 End If
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Sub
-Private Sub CalcRate(col, Row)
+Private Sub CalcRate(Col, Row)
 With vsScal
-If col < .Cols - 1 And col > 0 Then
+If Col < .Cols - 1 And Col > 0 Then
     'If Row <> 2 And Trim(.TextMatrix(2, Col)) = "" Then
      If Row <> 2 Then
-        If Val(xRate.text) <> 0 And Val(.TextMatrix(1, col)) > 0 And (Val(.TextMatrix(3, col)) = 0 Or Row = 1) Then
+        If Val(xRate.text) <> 0 And Val(.TextMatrix(1, Col)) > 0 And (Val(.TextMatrix(3, Col)) = 0 Or Row = 1) Then
 '            Dim nPrice As Single, nRem As Single
 '            nPrice = Val(.TextMatrix(1, Col)) * (100 + Val(xRate.Text)) / 100
 '            nRem = nPrice - Int(nPrice)
@@ -4268,7 +4270,7 @@ aInsert(1, 0) = "ModelNO"
 aInsert(1, 1) = addstring(cModelNo)
 
 aInsert(2, 0) = "Desca"
-aInsert(2, 1) = addstring(xdesca.text)
+aInsert(2, 1) = addstring(xDesca.text)
 
 aInsert(3, 0) = "FACT"
 aInsert(3, 1) = addstring(xFact.BoundText)
@@ -4426,18 +4428,18 @@ con.Execute " INSERT INTO NEW_ITEM_FR (ITEM, BRANCH) SELECT FILE1_10.ITEM, BRANC
 
 End Sub
 Private Sub ADDFILE(pFile As String)
-Dim loctable As New adodb.Recordset, cString As String
+Dim locTable As New ADODB.Recordset, cString As String
 cString = "SELECT TOP 1000 * FROM " & pFile
-loctable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
-cCaption = "from " & loctable.RecordCount
+locTable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
+cCaption = "from " & locTable.RecordCount
 con.BeginTrans
-Do Until loctable.EOF
+Do Until locTable.EOF
     i = i + 1
     Me.Caption = i & " " & cCaption
     cString = "UPDATE " & pFile & " SET TRIG = " & i & " FROM " & pFile
-    cString = cString & turn(cString) & "ID = " & loctable!ID
+    cString = cString & turn(cString) & "ID = " & locTable!ID
     con.Execute cString
-    loctable.MoveNext
+    locTable.MoveNext
 Loop
 con.CommitTrans
 End Sub
@@ -4466,8 +4468,8 @@ End If
 End With
 End Sub
 Sub FillItemFact(cModel)
-Dim ColorTable As New adodb.Recordset
-Dim ScalTable As New adodb.Recordset
+Dim ColorTable As New ADODB.Recordset
+Dim ScalTable As New ADODB.Recordset
 cStrColor = " SELECT FILE1_10.MODEL,  FILE1_10.COLOR, FILE1_10.C_COLOR , code_Color FROM FILE1_10 WHERE MODELFACT0 = " & MyParn(cModel) & " GROUP BY FILE1_10.MODEL, FILE1_10.COLOR, FILE1_10.C_COLOR , FILE1_10.DESCA , code_Color ORDER BY C_COLOR "
 cStrScal = " SELECT FILE1_10.DESCA ,FILE1_10.SCAL, FILE1_10.C_SCAL, FILE1_10.PRICE , FILE1_10.PRICE2 , file1_10.GrModel , file1_10.GrDesca FROM FILE1_10 WHERE MODELFACT0 = " & MyParn(cModel) & " GROUP BY FILE1_10.DESCA ,FILE1_10.SCAL, FILE1_10.C_SCAL, FILE1_10.PRICE, FILE1_10.PRICE2 , file1_10.GrModel , file1_10.GrDesca ORDER BY C_SCAL "
 ColorTable.Open cStrColor, conFact, adOpenKeyset, adLockReadOnly, adCmdText
@@ -4476,7 +4478,7 @@ If ScalTable.RecordCount > 0 Then
 With vsScal
     .Cols = 1
     ScalTable.MoveFirst
-    xdesca.text = ScalTable!DESCA & ""
+    xDesca.text = ScalTable!DESCA & ""
     XGRMODEL.text = ScalTable!GRMODEL & ""
     xGrDesca.text = ScalTable!GrDesca & ""
     Do While True
@@ -4509,8 +4511,8 @@ With vsScal
 End If
 End Sub
 Sub FillItemFact2(cModel)
-Dim ColorTable As New adodb.Recordset
-Dim ScalTable As New adodb.Recordset
+Dim ColorTable As New ADODB.Recordset
+Dim ScalTable As New ADODB.Recordset
 cStrColor = " SELECT FILE1_10.MODEL,  FILE1_10.COLOR, FILE1_10.C_COLOR FROM FILE1_10 WHERE MODEL = " & MyParn(cModel) & " GROUP BY FILE1_10.MODEL, FILE1_10.COLOR, FILE1_10.C_COLOR , FILE1_10.DESCA ORDER BY C_COLOR "
 cStrScal = " SELECT FILE1_10.DESCA ,FILE1_10.SCAL, FILE1_10.C_SCAL, FILE1_10.PRICE , FILE1_10.PRICE2 FROM FILE1_10 WHERE MODEL = " & MyParn(cModel) & " GROUP BY FILE1_10.DESCA ,FILE1_10.SCAL, FILE1_10.C_SCAL, FILE1_10.PRICE, FILE1_10.PRICE2 ORDER BY C_SCAL "
 ColorTable.Open cStrColor, confact2, adOpenKeyset, adLockReadOnly, adCmdText
@@ -4528,7 +4530,7 @@ If ScalTable.RecordCount > 0 Then
 With vsScal
     .Cols = 1
     ScalTable.MoveFirst
-    xdesca.text = ScalTable!DESCA
+    xDesca.text = ScalTable!DESCA
     Do While True
         .Cols = .Cols + 1
         .TextMatrix(6, .Cols - 1) = .Cols - 1
@@ -4567,10 +4569,10 @@ AddToDataSql2
 'Handlecontrols
 End Sub
 Private Function AddToDataSql() As Boolean
-Dim bytes() As Byte, nSize As Long, loctable As New adodb.Recordset
+Dim bytes() As Byte, nSize As Long, locTable As New ADODB.Recordset
 ImgX1.Export.ToMemoryFile bytes, ixmfJPG
 con.Execute " DELETE FROM PICT WHERE MODELNO = " & MyParn(xModelNo.text)
-Dim cmdUpdate As New adodb.command
+Dim cmdUpdate As New ADODB.command
 Set cmdUpdate.ActiveConnection = con
 cmdUpdate.CommandType = adCmdStoredProc
 cmdUpdate.Parameters.Append cmdUpdate.CreateParameter("pict", adLongVarBinary, adParamInput, UBound(bytes) + 1, bytes)
@@ -4580,10 +4582,10 @@ cmdUpdate.CommandText = "ADD_IMAGE"
 cmdUpdate.Execute
 End Function
 Private Function AddToDataSql2() As Boolean
-Dim bytes() As Byte, nSize As Long, loctable As New adodb.Recordset
+Dim bytes() As Byte, nSize As Long, locTable As New ADODB.Recordset
 ImgX1.Export.ToMemoryFile bytes, ixmfJPG
 con.Execute " DELETE FROM PICT WHERE MODELNO = " & MyParn(xModelNo.text)
-Dim cmdUpdate As New adodb.command
+Dim cmdUpdate As New ADODB.command
 Set cmdUpdate.ActiveConnection = con
 cmdUpdate.CommandType = adCmdStoredProc
 cmdUpdate.Parameters.Append cmdUpdate.CreateParameter("pict", adLongVarBinary, adParamInput, UBound(bytes) + 1, bytes)
@@ -4600,18 +4602,18 @@ Private Sub myLoadPicture(pModel As String)
     ImgX1.Images.Clear
     If pModel = "" Then Exit Sub
     If conPict Is Nothing Then Exit Sub
-    Dim loctable As Recordset
+    Dim locTable As Recordset
     Dim bytes() As Byte, nSize As Long
     ImgX1.Images.Clear
-    Set loctable = myRecordSet("select PICT,size from PICT where MODELNO = " & MyParn(pModel), conPict)
-    If loctable.EOF Then Exit Sub
-    nSize = CLng(loctable("size").Value)
-    bytes = loctable("PICT").GetChunk(nSize)
+    Set locTable = myRecordSet("select PICT,size from PICT where MODELNO = " & MyParn(pModel), conPict)
+    If locTable.EOF Then Exit Sub
+    nSize = CLng(locTable("size").Value)
+    bytes = locTable("PICT").GetChunk(nSize)
     ImgX1.Import.FromMemoryFile bytes, ixmfJPG
     Err.Clear
 End Sub
 Sub FixBarCode2_Fact(pModel)
-        Dim TableFact As New adodb.Recordset
+        Dim TableFact As New ADODB.Recordset
         Dim cScal As String, cModelFact As String
         TableFact.Open " SELECT * FROM FILE1_10 WHERE MODEL = " & MyParn(pModel) & " ORDER BY ITEM ", con, adOpenStatic, adCmdText
         If TableFact.RecordCount = 0 Then Exit Sub
@@ -4620,17 +4622,17 @@ Sub FixBarCode2_Fact(pModel)
             Me.Caption = !Item
             cModelFact = UCase(DelZero(!modelfact))
             cScal = !SCAL
-            Dim loctable As adodb.Recordset
-            Set loctable = ItemFind_Fact(cModelFact, cScal, conFact)
-            If Not (loctable.EOF And loctable.BOF) Then
-                con.Execute " UPDATE FILE1_10 SET BARCODE =  " & addstring(loctable!Item) & " , BARCODE2 = " & addstring(loctable!Item_BARCODE) & " , BARCODE13 = " & addstring(loctable!BARCODE13) & " , BARCODE_GS1 = " & addstring(loctable!BARCODE_GS1) & " WHERE ITEM = " & !Item
+            Dim locTable As ADODB.Recordset
+            Set locTable = ItemFind_Fact(cModelFact, cScal, conFact)
+            If Not (locTable.EOF And locTable.BOF) Then
+                con.Execute " UPDATE FILE1_10 SET BARCODE =  " & addstring(locTable!Item) & " , BARCODE2 = " & addstring(locTable!Item_BARCODE) & " , BARCODE13 = " & addstring(locTable!BARCODE13) & " , BARCODE_GS1 = " & addstring(locTable!BARCODE_GS1) & " WHERE ITEM = " & !Item
             End If
             .MoveNext
         Loop
         End With
 End Sub
 Sub FixBarCode2_Fact3(pModel)
-        Dim TableFact As New adodb.Recordset
+        Dim TableFact As New ADODB.Recordset
         Dim cScal As String, cModelFact As String
 '        TableFact.Open " SELECT * FROM FILE1_10 WHERE MODEL = " & MyParn(pModel) & " AND BARCODE2 IS NULL AND BARCODE13 IS NULL  AND BARCODE_GS1 IS NULL ORDER BY ITEM  ORDER BY ITEM ", con, adOpenStatic, adCmdText
         TableFact.Open " SELECT * FROM FILE1_10 WHERE MODEL = " & MyParn(pModel) & " ORDER BY ITEM ", con, adOpenStatic, adCmdText
@@ -4640,10 +4642,10 @@ Sub FixBarCode2_Fact3(pModel)
             Me.Caption = !Item
             cModelFact = UCase(DelZero(!modelfact))
             cScal = !SCAL
-            Dim loctable As adodb.Recordset
-            Set loctable = ItemFind_Fact(cModelFact, cScal, confact3)
-            If Not (loctable.EOF And loctable.BOF) Then
-                con.Execute " UPDATE FILE1_10 SET BARCODE =  " & addstring(loctable!Item) & " , BARCODE2 = " & addstring(loctable!Item_BARCODE) & " , BARCODE13 = " & addstring(loctable!BARCODE13) & " , BARCODE_GS1 = " & addstring(loctable!BARCODE_GS1) & " WHERE ITEM = " & !Item
+            Dim locTable As ADODB.Recordset
+            Set locTable = ItemFind_Fact(cModelFact, cScal, confact3)
+            If Not (locTable.EOF And locTable.BOF) Then
+                con.Execute " UPDATE FILE1_10 SET BARCODE =  " & addstring(locTable!Item) & " , BARCODE2 = " & addstring(locTable!Item_BARCODE) & " , BARCODE13 = " & addstring(locTable!BARCODE13) & " , BARCODE_GS1 = " & addstring(locTable!BARCODE_GS1) & " WHERE ITEM = " & !Item
             End If
             .MoveNext
         Loop
@@ -4651,7 +4653,7 @@ Sub FixBarCode2_Fact3(pModel)
 End Sub
 Private Sub FIXGRMODEL_Click()
     Dim i As Double
-    Dim GrModelFact As New adodb.Recordset, cModel As String, cMosmFact As String
+    Dim GrModelFact As New ADODB.Recordset, cModel As String, cMosmFact As String
     cMosmFact = InputBox("„Ê”„ «·„’‰⁄", , cPMosm)
     GrModelFact.Open " SELECT MODEL , GRMODEL , GRDESCA , MIN(BARCODE2) AS BARCODE2  FROM FILE1_10 WHERE GRMODEL IS NOT NULL  and mosm = " & MyParn(cMosmFact) & "  GROUP BY MODEL , GRMODEL , GRDESCA ", conFact, adOpenStatic, adCmdText
     If GrModelFact.RecordCount = 0 Then Exit Sub
@@ -4670,7 +4672,7 @@ Private Sub FIXGRMODEL_Click()
     Inform " „  ⁄œÌ· " & i & " „ÊœÌ· "
 End Sub
 Sub AddModelToShop(pModel, pMosm, pFact)
-    Dim ItemFactTable As New adodb.Recordset
+    Dim ItemFactTable As New ADODB.Recordset
     ItemFactTable.Open "SELECT * FROM FILE1_10 WHERE MODEL = " & MyParn(pModel) & " ORDER BY SCAL ", condef, adOpenStatic, adLockReadOnly, adCmdText
     With ItemFactTable
         .MoveFirst
@@ -4712,8 +4714,8 @@ End Sub
 
 
 Sub FillItemFact3(cModel)
-Dim ColorTable As New adodb.Recordset
-Dim ScalTable As New adodb.Recordset
+Dim ColorTable As New ADODB.Recordset
+Dim ScalTable As New ADODB.Recordset
 cStrColor = " SELECT FILE1_10.MODEL,  FILE1_10.COLOR, FILE1_10.C_COLOR , code_Color FROM FILE1_10 WHERE MODELFACT0 = " & MyParn(cModel) & " GROUP BY FILE1_10.MODEL, FILE1_10.COLOR, FILE1_10.C_COLOR , FILE1_10.DESCA , code_Color ORDER BY C_COLOR "
 cStrScal = " SELECT FILE1_10.DESCA ,FILE1_10.SCAL, FILE1_10.C_SCAL, FILE1_10.PRICE , FILE1_10.PRICE2 , file1_10.GrModel , file1_10.GrDesca FROM FILE1_10 WHERE MODELFACT0 = " & MyParn(cModel) & " GROUP BY FILE1_10.DESCA ,FILE1_10.SCAL, FILE1_10.C_SCAL, FILE1_10.PRICE, FILE1_10.PRICE2 , file1_10.GrModel , file1_10.GrDesca ORDER BY C_SCAL "
 ColorTable.Open cStrColor, conFact, adOpenKeyset, adLockReadOnly, adCmdText
@@ -4722,7 +4724,7 @@ If ScalTable.RecordCount > 0 Then
 With vsScal
     .Cols = 1
     ScalTable.MoveFirst
-    xdesca.text = ScalTable!DESCA & ""
+    xDesca.text = ScalTable!DESCA & ""
     XGRMODEL.text = ScalTable!GRMODEL & ""
     xGrDesca.text = ScalTable!GrDesca & ""
     Do While True
@@ -4755,7 +4757,7 @@ With vsScal
 End If
 End Sub
 Sub BACK_FixBarCode2_Fact3(pModel)
-        Dim TableFact As New adodb.Recordset
+        Dim TableFact As New ADODB.Recordset
         Dim cScal As String, cModelFact As String
         TableFact.Open " SELECT * FROM FILE1_10 WHERE MODEL = " & MyParn(pModel) & " ORDER BY ITEM ", con, adOpenStatic, adCmdText
         If TableFact.RecordCount = 0 Then Exit Sub
@@ -4808,7 +4810,7 @@ Sub BACK_FixBarCode2_Fact3(pModel)
         End With
 End Sub
 Private Sub myreplace_ItemFct(pModel, pMosm, pFact)
-Dim pItemTable As New adodb.Recordset
+Dim pItemTable As New ADODB.Recordset
 pItemTable.Open "select * from file1_10 where model = " & MyParn(pModel) & " order by item ", conFact, adOpenStatic, adLockReadOnly, adCmdText
 With pItemTable
 Dim aInsert(27, 1)

@@ -463,6 +463,9 @@ Begin VB.MDIForm main
       Begin VB.Menu tmbalstore_scal 
          Caption         =   " ›’Ì·Ì —’Ìœ „Œ«“‰ «Ê‰ ·«Ì‰"
       End
+      Begin VB.Menu tm_online_ship_rep1 
+         Caption         =   "»Ê«·’ «·‘Õ‰"
+      End
    End
    Begin VB.Menu mnMAINCash 
       Caption         =   "‰ﬁœÌ…"
@@ -1385,6 +1388,10 @@ End Sub
 
 Private Sub tm_online_collect_Click()
 online_collect_newfrm.Show
+End Sub
+
+Private Sub tm_online_ship_rep1_Click()
+online_ship_grd1frm.Show
 End Sub
 
 Private Sub tm_online_stage_Click()
@@ -3107,8 +3114,8 @@ Sub FixStoreCode()
 
 End Sub
 Sub Show_NewDoc()
-    Set grid1.DataSource = DATA1
-    DATA1.ConnectionString = strCon
+    Set grid1.DataSource = data1
+    data1.ConnectionString = strCon
     grid1.Rows = 1
     Fixgrd
     myload
@@ -3117,8 +3124,8 @@ End Sub
 Private Sub myload()
     Dim cWhere As String
     cString = " SELECT     flag, desca, DOC_NO, DATE, [name], QUANT, USERSEND, TIMESEND FROM         Q_DATA_SEND "
-    DATA1.RecordSource = cString
-    DATA1.Refresh
+    data1.RecordSource = cString
+    data1.Refresh
     Fixgrd
 End Sub
 Sub Fixgrd()

@@ -298,6 +298,49 @@ oSearch.nMax_records = 1000
 oSearch.Caption = "≈” ⁄·«„ «‰Ê⁄ »Ê«·’ ‘Õ‰ „”»ﬁ…"
 oSearch.Show 1
 End Sub
+Sub online_TypeLook(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "")
+Dim Generalarray(5)
+Dim listarray(0, 5)
+Dim GrdArray(2, 1)
+Dim cWhere As String
+Set Generalarray(0) = oForm
+
+'                       0                   1
+cString = "SELECT ONLINE_TYPES.CODE," & _
+          " ONLINE_TYPES.DESCA" & _
+          " FROM   ONLINE_TYPES"
+If cFilter <> "" Then cWhere = cWhere & Tr(cWhere) & cFilter
+If cWhere <> "" Then cString = cString & " WHERE " & cWhere
+Generalarray(1) = cString
+
+Generalarray(2) = "Order by ONLINE_TYPES.CODE"
+Generalarray(3) = 6000
+Generalarray(5) = True
+
+listarray(0, 0) = "«·«”„-«·ﬂÊœ"
+listarray(0, 1) = "(**CODE** OR %%DESCA%%)"
+
+GrdArray(0, 0) = "«·ﬂÊœ"
+GrdArray(0, 1) = 1500
+
+GrdArray(1, 0) = "«·»Ì«‰"
+GrdArray(1, 1) = 5000
+
+searchArray = Array(Generalarray, listarray, GrdArray)
+
+Dim aRow As Variant
+If sAddRow <> "" Then
+    aRow = AddFlag(Empty, "text", sAddRow)
+    aRow = AddFlag(aRow, "col", 1)
+End If
+oSearch.aAddRow = aRow
+
+searchArray = Array(Generalarray, listarray, GrdArray)
+oSearch.nMax_records = 1000
+oSearch.Caption = "≈” ⁄·«„ «‰Ê⁄ «·ÿ·»Ì« "
+oSearch.Show 1
+End Sub
+
 Public Sub ClientOrderLookup(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "")
 Dim Generalarray(5)
 Dim listarray(1, 5)
@@ -582,7 +625,7 @@ cString = "provider=SQLOLEDB;data source=" & cServerName & ";initial " _
                 ";Encrypt=True" & _
                 ";TrustServerCertificate=False" & _
                 ";Timeout=10"
-openConDoc = openCon(con, cString)
+openConDoc = OpenCon(con, cString)
 End Function
 Public Function CountFilesWithExt(DirectoryToSearch As String, Extension As String) As Long
     Dim lCounter As Long

@@ -1,5 +1,5 @@
 Attribute VB_Name = "data"
-Declare Function GetComputerNameA Lib "KERNEL32" (ByVal lpBuffer As String, nSize As Long) As Long
+Declare Function GetComputerNameA Lib "kernel32" (ByVal lpBuffer As String, nSize As Long) As Long
 Public strCon As String, cUserBox As String, lShowBranch As Boolean, lMainShow As Boolean, sCodeVisaBranch As String
 Public conShop As New ADODB.Connection, nMaxDisc2 As Double, conPict As New ADODB.Connection, lMainServer As Boolean
 Public pServerIp As String, lServerPict As Boolean, cServerNamePICT As String
@@ -13,7 +13,7 @@ Public strConShop As String
 Public strConShop_Fr As String
 Public GetCon As New ADODB.Connection
 Public sMdfName As String, sCatalog As String, cExpress As String
-Public Function OpenCon(ByRef cn As ADODB.Connection, Optional ByVal connectionString As String, Optional ByVal timeout As Long = 15, Optional ByVal Querytimeout As Long = 180) As String
+Public Function OpenCon(ByRef cn As ADODB.Connection, Optional ByVal ConnectionString As String, Optional ByVal TimeOut As Long = 15, Optional ByVal QueryTimeOut As Long = 180) As String
     'On Error GoTo ErrorHandler
     
     ' Initialize a new connection
@@ -27,9 +27,9 @@ Public Function OpenCon(ByRef cn As ADODB.Connection, Optional ByVal connectionS
     End If
     
     cn.CursorLocation = adUseClient
-    cn.ConnectionTimeout = timeout
-    cn.CommandTimeout = Querytimeout
-    cn.Open IIf(connectionString = "", strCon, connectionString)
+    cn.ConnectionTimeout = TimeOut
+    cn.CommandTimeout = QueryTimeOut
+    cn.Open IIf(ConnectionString = "", strCon, ConnectionString)
     
     OpenCon = "ok"
     Exit Function
@@ -52,16 +52,16 @@ ErrorHandler:
            
     Err.Clear
 End Function
-Public Function opencn(ByRef cn As ADODB.Connection, Optional ByVal connectionString As String, Optional ByVal timeout As Long = 15, Optional ByVal Querytimeout As Long = 180) As Boolean
+Public Function opencn(ByRef cn As ADODB.Connection, Optional ByVal ConnectionString As String, Optional ByVal TimeOut As Long = 15, Optional ByVal QueryTimeOut As Long = 180) As Boolean
     On Error GoTo ErrorHandler
         
     ' Set the connection timeout limit
     cn.CursorLocation = adUseClient
-    cn.ConnectionTimeout = timeout
-    cn.CommandTimeout = Querytimeout
+    cn.ConnectionTimeout = TimeOut
+    cn.CommandTimeout = QueryTimeOut
     
     ' Attempt to open the connection
-    cn.Open IIf(connectionString = "", strCon, connectionString)
+    cn.Open IIf(ConnectionString = "", strCon, ConnectionString)
     
     opencn = True
     Exit Function
@@ -78,18 +78,18 @@ ErrorHandler:
     
     opencn = False
 End Function
-Public Function openconEr(ByRef cn As ADODB.Connection, Optional ByVal connectionString As String, Optional ByVal timeout As Long = 15, Optional ByVal Querytimeout As Long = 180) As Boolean
+Public Function openconEr(ByRef cn As ADODB.Connection, Optional ByVal ConnectionString As String, Optional ByVal TimeOut As Long = 15, Optional ByVal QueryTimeOut As Long = 180) As Boolean
     On Error GoTo ErrorHandler
     
     ' Initialize a new connection
         
     ' Set the connection timeout limit
     cn.CursorLocation = adUseClient
-    cn.ConnectionTimeout = timeout
-    cn.CommandTimeout = Querytimeout
+    cn.ConnectionTimeout = TimeOut
+    cn.CommandTimeout = QueryTimeOut
     
     ' Attempt to open the connection
-    cn.Open IIf(connectionString = "", strCon, connectionString)
+    cn.Open IIf(ConnectionString = "", strCon, ConnectionString)
     
     openconEr = True
     Exit Function
@@ -311,7 +311,7 @@ For i = 0 To UBound(pString)
     retFormatString = retFormatString & turn(retFormatString, "|") & pString(i)
 Next
 End Function
-Function openConShop(ByRef pCon As ADODB.Connection, Optional ByVal pString As String = "", Optional ByVal lMsg As Boolean = True, Optional nTimeout As Integer = 600) As String
+Function openConShop(ByRef pCon As ADODB.Connection, Optional ByVal pString As String = "", Optional ByVal lMsg As Boolean = True, Optional nTimeOut As Integer = 600) As String
 On Error GoTo myerror
 Dim cString As String
 If pString = "" Then cString = strConShop Else cString = pString
@@ -348,16 +348,16 @@ LoadConStringshop = "provider=SQLOLEDB;data source=" & pServerIp & ";initial " _
 
 End Function
 Function Newflag_PurchBr(CTABLE, cField, pstore, pCon As ADODB.Connection) As String
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.Recordset
 'If pcon Is Nothing Then
 '    loctable.Open "Select Max(" & cField & ") as Maxof From " & CTABLE & " WHERE STORE = " & MyParn(pstore), GetCon, adOpenStatic, adLockReadOnly, adCmdText
 'Else
-    loctable.Open "Select Max(" & cField & ") as Maxof From " & CTABLE & " WHERE STORE = " & MyParn(pstore), pCon, adOpenStatic, adLockReadOnly, adCmdText
+    locTable.Open "Select Max(" & cField & ") as Maxof From " & CTABLE & " WHERE STORE = " & MyParn(pstore), pCon, adOpenStatic, adLockReadOnly, adCmdText
 'End If
-If Not (loctable.EOF And loctable.BOF) Then Newflag_PurchBr = IncRec(loctable!maxOf & "")
+If Not (locTable.EOF And locTable.BOF) Then Newflag_PurchBr = IncRec(locTable!maxOf & "")
 If Newflag_PurchBr = "" Then Newflag_PurchBr = pstore & "000001"
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 End Function
 Public Sub ToFileExel2(MyGrid, Optional aIg As Variant, Optional nRowHead As Long = 0, Optional aRowMerge As Variant = Empty, Optional aCol As Variant = Empty, Optional nRate As Double = 0, Optional aWidth As Variant = Empty, Optional arowHeight As Variant = Empty, Optional aSetUp As Variant = Empty, Optional nSize As Integer = 12, Optional acolSplit As Variant = Empty, Optional myForm As Form)
     Dim irow As Long, i As Long, i2 As Long, nCols As Long, nFixedCols As Long, nFixedRows As Long, n As Long
@@ -373,7 +373,7 @@ Public Sub ToFileExel2(MyGrid, Optional aIg As Variant, Optional nRowHead As Lon
     Set objWk = objExcl.Workbooks.Add
     Set objSht = objWk.Sheets(1)
     objExcl.Application.DisplayAlerts = False
-    Dim nRows As Long
+    Dim NROWS As Long
         
     objSht.PageSetup.TopMargin = 10
     objSht.PageSetup.LeftMargin = 10
@@ -410,23 +410,23 @@ Public Sub ToFileExel2(MyGrid, Optional aIg As Variant, Optional nRowHead As Lon
     
     If Not myForm Is Nothing Then
         myForm.prog1.Visible = True
-        myForm.prog1.value = 0
+        myForm.prog1.Value = 0
     End If
     
     For irow = 0 To MyGrid.Rows - 1
         If (Not myForm Is Nothing) And MyGrid.Rows > 1 Then
-            myForm.prog1.value = IIf((irow / (MyGrid.Rows - 1)) * 100 > 100, 100, (irow / (MyGrid.Rows - 1)) * 100)
+            myForm.prog1.Value = IIf((irow / (MyGrid.Rows - 1)) * 100 > 100, 100, (irow / (MyGrid.Rows - 1)) * 100)
         End If
         If Not MyGrid.RowHidden(irow) Then
-            nRows = nRows + 1
+            NROWS = NROWS + 1
             nCols = 0
             For icol = 0 To MyGrid.Cols - 1
                 If Not MyGrid.ColHidden(icol) Then
                     nCols = nCols + 1
                     If MyGrid.ColDataType(icol) = flexDTDate Then
-                        objSht.Cells(nRows, nCols) = myFormat_p(MyGrid.Cell(flexcpTextDisplay, irow, icol))
+                        objSht.Cells(NROWS, nCols) = myFormat_p(MyGrid.Cell(flexcpTextDisplay, irow, icol))
                     Else
-                        objSht.Cells(nRows, nCols) = MyGrid.Cell(flexcpTextDisplay, irow, icol)
+                        objSht.Cells(NROWS, nCols) = MyGrid.Cell(flexcpTextDisplay, irow, icol)
                     End If
                 End If
             Next icol
@@ -437,7 +437,7 @@ Public Sub ToFileExel2(MyGrid, Optional aIg As Variant, Optional nRowHead As Lon
     If Not IsEmpty(aCol) Then
         For nCol = 0 To UBound(aCol)
             nValue = 0
-            For nRow2 = 1 To nRows
+            For nRow2 = 1 To NROWS
                 If Trim(objSht.Cells(nRow2, aCol(nCol))) <> Trim(cValue & "") Then
                     If nValue <> 0 Then
                         objSht.Range(objSht.Cells(nBegin, aCol(nCol)), objSht.Cells(nBegin + nValue, aCol(nCol))).Merge
@@ -464,29 +464,29 @@ Public Sub ToFileExel2(MyGrid, Optional aIg As Variant, Optional nRowHead As Lon
         objSht.Range(objSht.Cells(1, 1), objSht.Cells(nFixedRows, nCols)).HorizontalAlignment = xlCenter
         objSht.Range(objSht.Cells(1, 1), objSht.Cells(nFixedRows, nCols)).Interior.ColorIndex = 40
     End If
-    If nRows > 0 Then
-        objSht.Range(objSht.Cells(1, 1), objSht.Cells(nRows, nCols)).VerticalAlignment = xlCenter
-        objSht.Range(objSht.Cells(1, 1), objSht.Cells(nRows, nCols)).Borders.ColorIndex = 0
-        objSht.Range(objSht.Cells(1, 1), objSht.Cells(nRows, nCols)).Font.Size = nSize
-        objSht.Range(objSht.Cells(1, 1), objSht.Cells(nRows, nCols)).Font.Bold = True
+    If NROWS > 0 Then
+        objSht.Range(objSht.Cells(1, 1), objSht.Cells(NROWS, nCols)).VerticalAlignment = xlCenter
+        objSht.Range(objSht.Cells(1, 1), objSht.Cells(NROWS, nCols)).Borders.ColorIndex = 0
+        objSht.Range(objSht.Cells(1, 1), objSht.Cells(NROWS, nCols)).Font.Size = nSize
+        objSht.Range(objSht.Cells(1, 1), objSht.Cells(NROWS, nCols)).Font.Bold = True
     End If
     
     nCol = 0
     For icol = 0 To MyGrid.Cols - 1
         If Not MyGrid.ColHidden(icol) Then
             nCol = nCol + 1
-            If nRows > 0 Then
+            If NROWS > 0 Then
                 If MyGrid.ColFormat(icol) = "(##,##.##" Then
-                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(nRows, nCols)).NumberFormat = "_(#,###.00_);[Red](#,###.00);0.00"
-                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(nRows, nCols)).HorizontalAlignment = xlRight
+                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(NROWS, nCols)).NumberFormat = "_(#,###.00_);[Red](#,###.00);0.00"
+                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(NROWS, nCols)).HorizontalAlignment = xlRight
                 ElseIf MyGrid.ColAlignment(icol) = flexAlignLeftCenter Then
-                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(nRows, nCols)).HorizontalAlignment = xlLeft
+                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(NROWS, nCols)).HorizontalAlignment = xlLeft
                 ElseIf MyGrid.ColAlignment(icol) = flexAlignRightCenter Then
-                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(nRows, nCols)).HorizontalAlignment = xlRight
+                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(NROWS, nCols)).HorizontalAlignment = xlRight
                 ElseIf MyGrid.ColAlignment(icol) = flexAlignCenterCenter Then
-                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(nRows, nCols)).HorizontalAlignment = xlCenter
+                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(NROWS, nCols)).HorizontalAlignment = xlCenter
                 Else
-                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(nRows, nCols)).HorizontalAlignment = xlLeft
+                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(NROWS, nCols)).HorizontalAlignment = xlLeft
                 End If
             End If
             If nRate > 0 Then objSht.Columns(nCol).ColumnWidth = (MyGrid.ColWidth(icol) / 100) * nRate
@@ -496,7 +496,7 @@ Public Sub ToFileExel2(MyGrid, Optional aIg As Variant, Optional nRowHead As Lon
     If Not IsEmpty(aWidth) Then
         For i = 0 To UBound(aWidth)
             If Val(retFlag(aWidth(i), "width")) = 0 Then
-                objSht.Range(objSht.Cells(1, retFlag(aWidth(i), "col")), objSht.Cells(nRows, retFlag(aWidth(i), "col"))).Columns.AutoFit
+                objSht.Range(objSht.Cells(1, retFlag(aWidth(i), "col")), objSht.Cells(NROWS, retFlag(aWidth(i), "col"))).Columns.AutoFit
             Else
                 objSht.Columns(retFlag(aWidth(i), "col")).ColumnWidth = Val(retFlag(aWidth(i), "width")) / 100
             End If
@@ -595,7 +595,7 @@ Public Sub ToFileExel2(MyGrid, Optional aIg As Variant, Optional nRowHead As Lon
     End If
     If Not myForm Is Nothing Then
         myForm.prog1.Visible = True
-        myForm.prog1.value = 0
+        myForm.prog1.Value = 0
     End If
     objExcl.Application.Visible = True
 '    If Not IsEmpty(aRowMerge) Then
@@ -671,13 +671,13 @@ Public Sub ToFileExelNew(MyGrid, Optional aIg As Variant, Optional nRowHead As L
     Dim objSht As Excel.Worksheet
     Dim iHead As Long
     Dim vHead As Variant
-    'On Error Resume Next
+    On Error Resume Next
     Set objExcl = Excel.Application
     objExcl.Application.Visible = False
     Set objWk = objExcl.Workbooks.Add
     Set objSht = objWk.Sheets(1)
     objExcl.Application.DisplayAlerts = False
-    Dim nRows As Long
+    Dim NROWS As Long
         
     objSht.PageSetup.TopMargin = 10
     objSht.PageSetup.LeftMargin = 10
@@ -715,34 +715,34 @@ Public Sub ToFileExelNew(MyGrid, Optional aIg As Variant, Optional nRowHead As L
     
     If Not myForm Is Nothing Then
         myForm.prog1.Visible = True
-        myForm.prog1.value = 0
+        myForm.prog1.Value = 0
     End If
     
     For irow = 0 To MyGrid.Rows - 1
         If (Not myForm Is Nothing) And MyGrid.Rows > 1 Then
-            myForm.prog1.value = IIf((irow / (MyGrid.Rows - 1)) * 100 > 100, 100, (irow / (MyGrid.Rows - 1)) * 100)
+            myForm.prog1.Value = IIf((irow / (MyGrid.Rows - 1)) * 100 > 100, 100, (irow / (MyGrid.Rows - 1)) * 100)
         End If
         
         If Not MyGrid.RowHidden(irow) Then
-            nRows = nRows + 1
+            NROWS = NROWS + 1
             nCols = 0
             
             For icol = 0 To MyGrid.Cols - 1
                 If Not MyGrid.ColHidden(icol) Then
                     nCols = nCols + 1
                     If MyGrid.ColDataType(icol) = flexDTDate And irow >= MyGrid.FixedRows Then
-                        With objSht.Cells(nRows, nCols)
+                        With objSht.Cells(NROWS, nCols)
                          If IsDate(myFormat_p(MyGrid.Cell(flexcpTextDisplay, irow, icol))) Then
                             '.NumberFormatLocal = "dd-mm-yyyy"
-                            .value = myFormat_p(MyGrid.Cell(flexcpTextDisplay, irow, icol))
+                            .Value = myFormat_p(MyGrid.Cell(flexcpTextDisplay, irow, icol))
                             .NumberFormat = "dd/mm/yyyy" ' Change this to your preferred Excel date format this cell format created will be custom not date how to make it data directely
                             'objSht.Cells(NROWS, nCols).value = myFormat_p(MyGrid.Cell(flexcpTextDisplay, irow, icol))
                          End If
                         End With
                     ElseIf MyGrid.ColDataType(icol) = flexDTBoolean And irow >= MyGrid.FixedRows And MyGrid.ValueMatrix(irow, icol) <> "" Then
-                        objSht.Cells(nRows, nCols) = IIf(MyGrid.ValueMatrix(irow, icol) = 0, "·«", "‰⁄„")
+                        objSht.Cells(NROWS, nCols) = IIf(MyGrid.ValueMatrix(irow, icol) = 0, "·«", "‰⁄„")
                     Else
-                        objSht.Cells(nRows, nCols) = MyGrid.Cell(flexcpTextDisplay, irow, icol)
+                        objSht.Cells(NROWS, nCols) = MyGrid.Cell(flexcpTextDisplay, irow, icol)
                     End If
                 End If
             Next icol
@@ -753,7 +753,7 @@ Public Sub ToFileExelNew(MyGrid, Optional aIg As Variant, Optional nRowHead As L
     If Not IsEmpty(aCol) Then
         For nCol = 0 To UBound(aCol)
             nValue = 0
-            For nRow2 = 1 To nRows
+            For nRow2 = 1 To NROWS
                 If Trim(objSht.Cells(nRow2, aCol(nCol))) <> Trim(cValue & "") Then
                     If nValue <> 0 Then
                         objSht.Range(objSht.Cells(nBegin, aCol(nCol)), objSht.Cells(nBegin + nValue, aCol(nCol))).Merge
@@ -780,29 +780,29 @@ Public Sub ToFileExelNew(MyGrid, Optional aIg As Variant, Optional nRowHead As L
         objSht.Range(objSht.Cells(1, 1), objSht.Cells(nFixedRows, nCols)).HorizontalAlignment = xlCenter
         objSht.Range(objSht.Cells(1, 1), objSht.Cells(nFixedRows, nCols)).Interior.ColorIndex = 40
     End If
-    If nRows > 0 Then
-        objSht.Range(objSht.Cells(1, 1), objSht.Cells(nRows, nCols)).VerticalAlignment = xlCenter
-        objSht.Range(objSht.Cells(1, 1), objSht.Cells(nRows, nCols)).Borders.ColorIndex = 0
-        objSht.Range(objSht.Cells(1, 1), objSht.Cells(nRows, nCols)).Font.Size = nSize
-        objSht.Range(objSht.Cells(1, 1), objSht.Cells(nRows, nCols)).Font.Bold = True
+    If NROWS > 0 Then
+        objSht.Range(objSht.Cells(1, 1), objSht.Cells(NROWS, nCols)).VerticalAlignment = xlCenter
+        objSht.Range(objSht.Cells(1, 1), objSht.Cells(NROWS, nCols)).Borders.ColorIndex = 0
+        objSht.Range(objSht.Cells(1, 1), objSht.Cells(NROWS, nCols)).Font.Size = nSize
+        objSht.Range(objSht.Cells(1, 1), objSht.Cells(NROWS, nCols)).Font.Bold = True
     End If
     
     nCol = 0
     For icol = 0 To MyGrid.Cols - 1
         If Not MyGrid.ColHidden(icol) Then
             nCol = nCol + 1
-            If nRows > 0 Then
+            If NROWS > 0 Then
                 If MyGrid.ColFormat(icol) = "(##,##.##" Then
-                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(nRows, nCols)).NumberFormat = "_(#,###.00_);[Red](#,###.00);0.00"
-                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(nRows, nCols)).HorizontalAlignment = xlRight
+                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(NROWS, nCols)).NumberFormat = "_(#,###.00_);[Red](#,###.00);0.00"
+                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(NROWS, nCols)).HorizontalAlignment = xlRight
                 ElseIf MyGrid.ColAlignment(icol) = flexAlignLeftCenter Then
-                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(nRows, nCols)).HorizontalAlignment = xlLeft
+                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(NROWS, nCols)).HorizontalAlignment = xlLeft
                 ElseIf MyGrid.ColAlignment(icol) = flexAlignRightCenter Then
-                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(nRows, nCols)).HorizontalAlignment = xlRight
+                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(NROWS, nCols)).HorizontalAlignment = xlRight
                 ElseIf MyGrid.ColAlignment(icol) = flexAlignCenterCenter Then
-                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(nRows, nCols)).HorizontalAlignment = xlCenter
+                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(NROWS, nCols)).HorizontalAlignment = xlCenter
                 Else
-                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(nRows, nCols)).HorizontalAlignment = xlLeft
+                    objSht.Range(objSht.Cells(nFixedRows + 1, nCol), objSht.Cells(NROWS, nCols)).HorizontalAlignment = xlLeft
                 End If
             End If
             If nRate > 0 Then objSht.Columns(nCol).ColumnWidth = (MyGrid.ColWidth(icol) / 100) * nRate
@@ -812,7 +812,7 @@ Public Sub ToFileExelNew(MyGrid, Optional aIg As Variant, Optional nRowHead As L
     If Not IsEmpty(aWidth) Then
         For i = 0 To UBound(aWidth)
             If Val(retFlag(aWidth(i), "width")) = 0 Then
-                objSht.Range(objSht.Cells(1, retFlag(aWidth(i), "col")), objSht.Cells(nRows, retFlag(aWidth(i), "col"))).Columns.AutoFit
+                objSht.Range(objSht.Cells(1, retFlag(aWidth(i), "col")), objSht.Cells(NROWS, retFlag(aWidth(i), "col"))).Columns.AutoFit
             Else
                 objSht.Columns(retFlag(aWidth(i), "col")).ColumnWidth = Val(retFlag(aWidth(i), "width")) / 100
             End If
@@ -910,7 +910,7 @@ Public Sub ToFileExelNew(MyGrid, Optional aIg As Variant, Optional nRowHead As L
     End If
     If Not myForm Is Nothing Then
         myForm.prog1.Visible = True
-        myForm.prog1.value = 0
+        myForm.prog1.Value = 0
     End If
     objExcl.Application.Visible = True
 '    If Not IsEmpty(aRowMerge) Then
