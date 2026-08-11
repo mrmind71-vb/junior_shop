@@ -1546,7 +1546,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim con As New ADODB.Connection
 Dim FieldTable As ADODB.Recordset
-Dim sOrder_No As String
+Dim sOrder_no As String
 Dim oSearch As New Search_abd
 Dim cString As String, aHeader()
 Private Sub chkSeason_Click()
@@ -1557,7 +1557,7 @@ End Sub
 Private Sub chkValue_Click()
 Dim i As Long
 For i = 1 To cmdRep.UBound
-    fixGrd i
+    Fixgrd i
 Next
 End Sub
 
@@ -1579,7 +1579,7 @@ For i = 1 To cmdRep.UBound
 Next
 Me.MousePointer = 0
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub CmdUndo_Click()
@@ -1592,7 +1592,7 @@ myLoadGrd
 Me.MousePointer = vbNormal
 End Sub
 Private Function myValid() As Boolean
-If Not IsDate(xdate1.text) Then
+If Not IsDate(xDate1.text) Then
     MsgBox " «—ÌŒ «·„œ… «·«Ê· €Ì— „Õœœ"
     Exit Function
 End If
@@ -1605,7 +1605,7 @@ Private Sub cmdPrint_Click()
 myPrint
 End Sub
 
-Private Sub cmdRep_Click(Index As Integer, Value As Integer)
+Private Sub cmdRep_Click(index As Integer, Value As Integer)
 Handlecontrols
 End Sub
 Private Sub Handlecontrols()
@@ -1621,15 +1621,15 @@ myLoadGrd True
 End Sub
 
 Private Sub Form_Load()
-openCon con
+OpenCon con
 
 Set data1.Recordset = mycmd("Select Code,DescA From File1_10SC ORDER BY code ", con)
-Set xSection.RowSource = data1
-xSection.ListField = "Desca"
-xSection.BoundColumn = "Code"
+Set XSECTION.RowSource = data1
+XSECTION.ListField = "Desca"
+XSECTION.BoundColumn = "Code"
 
-Set data2.Recordset = mycmd("SELECT CODE,DESCA FROM STORE_BR", con)
-Set xStore.RowSource = data2
+Set DATA2.Recordset = mycmd("SELECT CODE,DESCA FROM STORE_BR", con)
+Set xStore.RowSource = DATA2
 xStore.ListField = "Desca"
 xStore.BoundColumn = "Code"
 
@@ -1639,19 +1639,18 @@ Set xSupp.RowSource = DATA3
 xSupp.ListField = "Desca"
 xSupp.BoundColumn = "Code"
 
-Set data4.Recordset = mycmd("Select mosm ,descA From mosm ORDER BY date DESC ", con)
-Set xMosm.RowSource = data4
+Set DATA4.Recordset = mycmd("Select mosm ,descA From mosm ORDER BY date DESC ", con)
+Set xMosm.RowSource = DATA4
 xMosm.ListField = "Desca"
 xMosm.BoundColumn = "MOSM"
 
 Dim i As Long
 For i = 1 To grid1.UBound
     Set grid1(i).DataSource = DATA11(i)
-    fixGrd (i)
+    Fixgrd (i)
 Next
 
 grid1(1).Tag = "rp.sp_pur_demand"
-'grid1(2).Tag = "[rp].[sp_pur_demand_season]"
 grid1(2).Tag = "rp.sp_pur_demand_section"
 grid1(3).Tag = "rp.sp_pur_demand_items"
 
@@ -1665,19 +1664,19 @@ Private Sub myLoadGrd(Optional bString As Boolean = False, Optional bNoRemove As
 ReDim aHeader(13)
 
 Dim aPrm As Variant
-If IsDate(xdate1.text) Then
-    aPrm = AddFlag(aPrm, "DATE1", addDate(xdate1.text))
-    aHeader(0) = BetweenString(xdate1.text, xDate2.text)
+If IsDate(xDate1.text) Then
+    aPrm = AddFlag(aPrm, "DATE1", addDate(xDate1.text))
+    aHeader(0) = BetweenString(xDate1.text, xdate2.text)
 End If
 
-If IsDate(xDate2.text) Then
-    aPrm = AddFlag(aPrm, "DATE2", addDate(xDate2.text))
-    aHeader(0) = BetweenString(xdate1.text, xDate2.text)
+If IsDate(xdate2.text) Then
+    aPrm = AddFlag(aPrm, "DATE2", addDate(xdate2.text))
+    aHeader(0) = BetweenString(xDate1.text, xdate2.text)
 End If
 
-If xSection.MatchedWithList Then
-    aPrm = AddFlag(aPrm, "SECTION", addvalue(xSection.BoundText))
-    aHeader(1) = "«·ﬁ”„ : " & xSection.text
+If XSECTION.MatchedWithList Then
+    aPrm = AddFlag(aPrm, "SECTION", addvalue(XSECTION.BoundText))
+    aHeader(1) = "«·ﬁ”„ : " & XSECTION.text
 End If
 
 If xSupp.MatchedWithList Then
@@ -1690,10 +1689,10 @@ If Trim(xOrder_no.text) <> "" Then
     aHeader(2) = "—ﬁ„ «·ÿ·»Ì… : " & xOrder_no.text
 End If
 
-If sOrder_No <> "" Then
-    aPrm = AddFlag(aPrm, "ORDER_NO", addstring(sOrder_No))
-    aHeader(2) = "—ﬁ„ «·ÿ·»Ì… : " & sOrder_No
-    sOrder_No = ""
+If sOrder_no <> "" Then
+    aPrm = AddFlag(aPrm, "ORDER_NO", addstring(sOrder_no))
+    aHeader(2) = "—ﬁ„ «·ÿ·»Ì… : " & sOrder_no
+    sOrder_no = ""
 End If
 
 If xMosm.MatchedWithList Then
@@ -1729,7 +1728,7 @@ If Not bString Then
         cString = myPrcString(grid1(i).Tag, aPrm)
         If cmdRep(i).Value = -1 Then
             Set DATA11(i).Recordset = mycmd(cString, con, , , 600)
-            fixGrd i
+            Fixgrd i
             panel1(0).Caption = "⁄œœ «·”Ã·«  : " & grid1(i).Rows - 1
         ElseIf Not bNoRemove Then
             If DATA11(i).RecordSource <> cString Then grid1(i).Rows = 1
@@ -1744,9 +1743,9 @@ Else
     Next
 End If
 End Sub
-Sub fixGrd(Index As Long)
-With grid1(Index)
-If Index = 1 Then
+Sub Fixgrd(index As Long)
+With grid1(index)
+If index = 1 Then
     .RowHeight(0) = 700
     .TextMatrix(0, 0) = "«·›—⁄"
     .TextMatrix(0, 1) = "«·„Ê—œ"
@@ -1837,7 +1836,7 @@ If Index = 1 Then
     .ExplorerBar = flexExSort
     .Cell(flexcpAlignment, 0, 0, .Rows - 1, .Cols - 1) = 4
     .SubtotalPosition = flexSTAbove
-ElseIf Index = 2 Then
+ElseIf index = 2 Then
     .RowHeight(0) = 700
     .TextMatrix(0, 0) = "«·›—⁄"
     .TextMatrix(0, 1) = "«·„Ê—œ"
@@ -1924,7 +1923,7 @@ ElseIf Index = 2 Then
     .ExplorerBar = flexExSort
     .Cell(flexcpAlignment, 0, 0, .Rows - 1, .Cols - 1) = 4
     .SubtotalPosition = flexSTAbove
-ElseIf Index = 3 Then
+ElseIf index = 3 Then
     .RowHeight(0) = 700
     .TextMatrix(0, 0) = "«·›—⁄"
     .TextMatrix(0, 1) = "«·„Ê—œ"
@@ -2057,13 +2056,13 @@ Else
 End If
 End Sub
 
-Private Sub grid1_DblClick(Index As Integer)
-If Index = 1 Then
+Private Sub grid1_DblClick(index As Integer)
+If index = 1 Then
     If grid1(1).Row > 1 Then
         cmdRep(3).Value = True
         Handlecontrols
         'DATA11(3).Recordset.Filter = "ORDER_NO = " & grid1(Index).TextMatrix(grid1(Index).Row, 3)
-        sOrder_No = grid1(Index).TextMatrix(grid1(Index).Row, 3)
+        sOrder_no = grid1(index).TextMatrix(grid1(index).Row, 3)
         
         Me.MousePointer = vbHourglass
         myLoadGrd False, True
@@ -2150,18 +2149,18 @@ Private Sub xOrder_no_LostFocus()
 myLostFocus xOrder_no
 End Sub
 Private Sub xDate2_GotFocus()
-myGotFocus xDate2
+myGotFocus xdate2
 End Sub
 Private Sub xDate2_LostFocus()
-myLostFocus xDate2
-myValidDate xDate2
+myLostFocus xdate2
+myValidDate xdate2
 End Sub
-Private Sub xdate1_GotFocus()
-myGotFocus xdate1
+Private Sub xDate1_GotFocus()
+myGotFocus xDate1
 End Sub
-Private Sub xdate1_LostFocus()
-myLostFocus xdate1
-myValidDate xdate1
+Private Sub xDate1_LostFocus()
+myLostFocus xDate1
+myValidDate xDate1
 End Sub
 Private Sub xSupp_GotFocus()
 myGotFocus xSupp
@@ -2185,9 +2184,9 @@ myLostFocus xStore
 If Not xStore.MatchedWithList Then xStore.BoundText = ""
 End Sub
 Private Sub xSection_GotFocus()
-myGotFocus xSection
+myGotFocus XSECTION
 End Sub
 Private Sub xSection_LostFocus()
-myLostFocus xSection
-If Not xSection.MatchedWithList Then xSection.BoundText = ""
+myLostFocus XSECTION
+If Not XSECTION.MatchedWithList Then XSECTION.BoundText = ""
 End Sub

@@ -566,12 +566,12 @@ Begin VB.Form sales_onlinefrm
    End
    Begin VSFlex7Ctl.VSFlexGrid grdLading 
       Height          =   2445
-      Left            =   8280
+      Left            =   8325
       TabIndex        =   15
       TabStop         =   0   'False
-      Top             =   5805
-      Width           =   8070
-      _cx             =   14235
+      Top             =   5850
+      Width           =   7800
+      _cx             =   13758
       _cy             =   4313
       _ConvInfo       =   1
       Appearance      =   0
@@ -1175,10 +1175,10 @@ Begin VB.Form sales_onlinefrm
          Strikethrough   =   0   'False
       EndProperty
       Height          =   2580
-      Left            =   16380
+      Left            =   16155
       TabIndex        =   42
       Top             =   5715
-      Width           =   3885
+      Width           =   4155
       Begin VB.TextBox xTotal 
          Alignment       =   2  'Center
          Appearance      =   0  'Flat
@@ -1186,12 +1186,12 @@ Begin VB.Form sales_onlinefrm
          Enabled         =   0   'False
          ForeColor       =   &H00292952&
          Height          =   330
-         Left            =   90
+         Left            =   135
          Locked          =   -1  'True
          MaxLength       =   15
          TabIndex        =   56
          Top             =   2160
-         Width           =   2310
+         Width           =   2670
       End
       Begin VB.TextBox xDiscount 
          Alignment       =   2  'Center
@@ -1199,7 +1199,7 @@ Begin VB.Form sales_onlinefrm
          Enabled         =   0   'False
          ForeColor       =   &H00400000&
          Height          =   345
-         Left            =   1350
+         Left            =   1755
          MaxLength       =   15
          TabIndex        =   55
          Top             =   1800
@@ -1212,15 +1212,15 @@ Begin VB.Form sales_onlinefrm
          Enabled         =   0   'False
          ForeColor       =   &H00400000&
          Height          =   345
-         Left            =   495
+         Left            =   1080
          MaxLength       =   10
          TabIndex        =   53
          Top             =   1800
-         Width           =   825
+         Width           =   645
       End
       Begin Threed.SSCommand cmd_disc 
          Height          =   330
-         Left            =   90
+         Left            =   675
          TabIndex        =   89
          TabStop         =   0   'False
          Top             =   1800
@@ -1247,13 +1247,42 @@ Begin VB.Form sales_onlinefrm
          BevelWidth      =   0
          ShapeSize       =   1
       End
+      Begin Threed.SSCommand cmdSaveDiscount 
+         Height          =   330
+         Left            =   135
+         TabIndex        =   140
+         TabStop         =   0   'False
+         Top             =   1800
+         Width           =   510
+         _ExtentX        =   900
+         _ExtentY        =   582
+         _Version        =   196610
+         CaptionStyle    =   1
+         ForeColor       =   0
+         BackColor       =   16777215
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   9.75
+            Charset         =   178
+            Weight          =   700
+            Underline       =   -1  'True
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Caption         =   "save"
+         TagVariant      =   "«Œ «— ‰Ê⁄ «·ÿ·»Ì…"
+         ButtonStyle     =   3
+         PictureAlignment=   10
+         BevelWidth      =   0
+         ShapeSize       =   1
+      End
       Begin VB.Label Label55 
          AutoSize        =   -1  'True
          BackColor       =   &H00E0E0E0&
          BackStyle       =   0  'Transparent
          Caption         =   "’«›Ì «·›« Ê—…"
          Height          =   270
-         Left            =   2520
+         Left            =   2880
          RightToLeft     =   -1  'True
          TabIndex        =   57
          Top             =   2205
@@ -1265,7 +1294,7 @@ Begin VB.Form sales_onlinefrm
          BackStyle       =   0  'Transparent
          Caption         =   "Œ’„ ›« Ê—…"
          Height          =   270
-         Left            =   2520
+         Left            =   2880
          RightToLeft     =   -1  'True
          TabIndex        =   54
          Top             =   1845
@@ -1276,10 +1305,10 @@ Begin VB.Form sales_onlinefrm
          Appearance      =   0  'Flat
          BorderStyle     =   1  'Fixed Single
          Height          =   375
-         Left            =   90
+         Left            =   135
          TabIndex        =   52
          Top             =   1395
-         Width           =   2310
+         Width           =   2670
       End
       Begin VB.Label Label44 
          AutoSize        =   -1  'True
@@ -1287,7 +1316,7 @@ Begin VB.Form sales_onlinefrm
          BackStyle       =   0  'Transparent
          Caption         =   "≈Ã„«·Ï ›« Ê—…"
          Height          =   270
-         Left            =   2520
+         Left            =   2880
          RightToLeft     =   -1  'True
          TabIndex        =   51
          Top             =   1440
@@ -1298,10 +1327,10 @@ Begin VB.Form sales_onlinefrm
          Appearance      =   0  'Flat
          BorderStyle     =   1  'Fixed Single
          Height          =   375
-         Left            =   90
+         Left            =   135
          TabIndex        =   50
          Top             =   990
-         Width           =   2310
+         Width           =   2670
       End
       Begin VB.Label Label42 
          AutoSize        =   -1  'True
@@ -1309,7 +1338,7 @@ Begin VB.Form sales_onlinefrm
          BackStyle       =   0  'Transparent
          Caption         =   "Œ’„ √’‰«›"
          Height          =   270
-         Left            =   2520
+         Left            =   2880
          RightToLeft     =   -1  'True
          TabIndex        =   49
          Top             =   1080
@@ -1320,10 +1349,10 @@ Begin VB.Form sales_onlinefrm
          Appearance      =   0  'Flat
          BorderStyle     =   1  'Fixed Single
          Height          =   375
-         Left            =   90
+         Left            =   135
          TabIndex        =   48
          Top             =   585
-         Width           =   2310
+         Width           =   2670
       End
       Begin VB.Label Label40 
          AutoSize        =   -1  'True
@@ -1331,7 +1360,7 @@ Begin VB.Form sales_onlinefrm
          BackStyle       =   0  'Transparent
          Caption         =   "≈Ã„«·Ï «·ﬁÌ„…"
          Height          =   270
-         Left            =   2520
+         Left            =   2880
          RightToLeft     =   -1  'True
          TabIndex        =   47
          Top             =   675
@@ -1352,11 +1381,11 @@ Begin VB.Form sales_onlinefrm
          EndProperty
          ForeColor       =   &H0000FFFF&
          Height          =   375
-         Left            =   90
+         Left            =   135
          RightToLeft     =   -1  'True
          TabIndex        =   46
          Top             =   180
-         Width           =   780
+         Width           =   1140
       End
       Begin VB.Label Label38 
          AutoSize        =   -1  'True
@@ -1364,7 +1393,7 @@ Begin VB.Form sales_onlinefrm
          BackStyle       =   0  'Transparent
          Caption         =   "„— Ã⁄ "
          Height          =   270
-         Left            =   900
+         Left            =   1305
          RightToLeft     =   -1  'True
          TabIndex        =   45
          Top             =   225
@@ -1375,7 +1404,7 @@ Begin VB.Form sales_onlinefrm
          Appearance      =   0  'Flat
          BorderStyle     =   1  'Fixed Single
          Height          =   375
-         Left            =   1710
+         Left            =   2115
          TabIndex        =   44
          Top             =   180
          Width           =   690
@@ -1386,7 +1415,7 @@ Begin VB.Form sales_onlinefrm
          BackStyle       =   0  'Transparent
          Caption         =   "⁄œœ ﬁÿ⁄"
          Height          =   270
-         Left            =   2520
+         Left            =   2880
          RightToLeft     =   -1  'True
          TabIndex        =   43
          Top             =   225
@@ -3174,14 +3203,14 @@ Public bEdit As Boolean
 Dim nCountPrint As Double
 Dim bStopCell As Boolean
 Dim bEditRecord As Boolean
-Dim temptable As New ADODB.Recordset
+Dim temptable As New ADODB.RecordSet
 Dim cFilter As String, cFilterLook As String
 Dim bAct As Boolean
 Dim sDateSales As String
 Dim computerName As String
 Dim dbm As New DBManage
 Dim nRound As Long, lIsBoxOnline As Boolean
-Dim CardTable As ADODB.Recordset
+Dim CardTable As ADODB.RecordSet
 Dim cDefClient As String, cDefClientDesca As String
 Dim oSearchItem As New Search3, oSearchDoc  As New Search_abd
 Dim oSalesReturn As New sales_returnsfrm
@@ -3279,7 +3308,7 @@ If ActiveControl.Name = grid1.Name Then
         grid1.TextMatrix(grid1.Row, 1) = oSearchItem.grid1.TextMatrix(oSearchItem.grid1.Row, 0)
     End If
     GrdDesc grid1.TextMatrix(grid1.Row, 1), grid1.Row
-    Grid1_AfterEdit grid1.Row, grid1.col
+    Grid1_AfterEdit grid1.Row, grid1.Col
 ElseIf ActiveControl.Name = cmdInform.Name Then
     openCardTable tbMode.tbFind, oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
     Unload oSearchDoc
@@ -3312,10 +3341,6 @@ If subUserCode <> "" Then
     
     xDiscount.Enabled = True
     xRate.Enabled = True
-    
-    
-'    xNote_disc.Caption = ""
-'    xdoc_disc.Caption = ""
 End If
 End Sub
 
@@ -3386,36 +3411,48 @@ End If
 fixDateSales
 If Not openCardTable Then myDefine
 End Sub
-
-
-Private Sub grdLading_AfterEdit(ByVal Row As Long, ByVal col As Long)
+Private Sub cmdSaveDiscount_Click()
+If Not xDiscount.Enabled Then
+    Dim oUser As New sub_userfrm
+    Set oUser.myForm = Me
+    oUser.Show 1
+    If subUserCode <> "" Then
+        MsgBox "Ì„ﬂ‰  ”ÃÌ· «·Œ’„ "
+        xDiscount.Enabled = True
+        xRate.Enabled = True
+    End If
+Else
+    checkDiscount
+End If
+End Sub
+Private Sub grdLading_AfterEdit(ByVal Row As Long, ByVal Col As Long)
 Dim nAffect As Integer
 con.Execute "UPDATE LADING_BILL SET " & _
-            " DATE_DELIVERY = " & addDate(grdLading.TextMatrix(Row, col)) & _
+            " DATE_DELIVERY = " & addDate(grdLading.TextMatrix(Row, Col)) & _
             " WHERE ID = " & grdLading.TextMatrix(Row, grdLading.Cols - 1), nAffect
 
 If nAffect = 1 Then myInform " „  ⁄œÌ· «·„” ‰œ"
 End Sub
-Private Sub grdLading_CellButtonClick(ByVal Row As Long, ByVal col As Long)
-If col = 3 Then
-    If Not IsDate(grdLading.TextMatrix(Row, col)) Then
+Private Sub grdLading_CellButtonClick(ByVal Row As Long, ByVal Col As Long)
+If Col = 3 Then
+    If Not IsDate(grdLading.TextMatrix(Row, Col)) Then
         If MsgBox("«÷«›…  «—ÌŒ «” ·«„", vbYesNo + vbDefaultButton1) <> vbYes Then Exit Sub
-        grdLading.TextMatrix(Row, col) = myFormat_p(sDateSales)
-        grdLading_AfterEdit Row, col
+        grdLading.TextMatrix(Row, Col) = myFormat_p(sDateSales)
+        grdLading_AfterEdit Row, Col
     Else
         If MsgBox("Õ–›  «—ÌŒ «·«” ·«„ „‰ «·›« Ê—…", vbOKCancel + vbDefaultButton2) <> vbOK Then Exit Sub
         If Not isManager Then Exit Sub
-        grdLading.TextMatrix(Row, col) = ""
-        grdLading_AfterEdit Row, col
+        grdLading.TextMatrix(Row, Col) = ""
+        grdLading_AfterEdit Row, Col
     End If
-ElseIf col = 4 Then
+ElseIf Col = 4 Then
     
     If Not isManager Then Exit Sub
     If grdLading.TextMatrix(grdLading.Row, 1) = "0" Then
         createInvReturn xdoc_no.text, grdLading.TextMatrix(Row, grdLading.Cols - 1)
     Else
         oSalesReturn.sDoc_no_ret = xdoc_no.text
-        oSalesReturn.sOnline_doc = xOnline_doc.Caption
+        oSalesReturn.sOnline_doc = xonline_doc.Caption
         oSalesReturn.sid_lading = grdLading.TextMatrix(Row, grdLading.Cols - 1)
         Set oSalesReturn.myForm = Me
         oSalesReturn.Show 1
@@ -3440,11 +3477,11 @@ Dim bEditCell As Boolean
 'bEditCell = xPrinted.Value = 1 And xClosed.Value = 1
 'bEditCell = (XBRANCH.Caption = cBranch And cBranchBox <> "")
 With grdLading
-If .col = 4 And nUser = enUser.Casher And .ValueMatrix(.Row, 1) <= 2 And .TextMatrix(.Row, 4) = "" Then
+If .Col = 4 And nUser = enUser.Casher And .ValueMatrix(.Row, 1) <= 2 And .TextMatrix(.Row, 4) = "" Then
     .Editable = flexEDKbdMouse
-ElseIf .col = 3 And nUser = enUser.Casher And .ValueMatrix(.Row, 1) > 2 And (Not IsDate(grid1.TextMatrix(grid1.Row, 3))) And nUser = enUser.Casher Then
+ElseIf .Col = 3 And nUser = enUser.Casher And .ValueMatrix(.Row, 1) > 2 And (Not IsDate(grid1.TextMatrix(grid1.Row, 3))) And nUser = enUser.Casher Then
     .Editable = flexEDKbdMouse
-ElseIf .col = 3 And nUser = enUser.Admin And .ValueMatrix(.Row, 1) > 2 And IsDate(.TextMatrix(.Row, 3)) Then
+ElseIf .Col = 3 And nUser = enUser.Admin And .ValueMatrix(.Row, 1) > 2 And IsDate(.TextMatrix(.Row, 3)) Then
     .Editable = flexEDKbdMouse
 Else
     .Editable = flexEDNone
@@ -3461,12 +3498,12 @@ End Sub
 
 Private Sub grdLading_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 13 Then
-    CellPosLading KeyCode, grdLading.Row, grdLading.col
+    CellPosLading KeyCode, grdLading.Row, grdLading.Col
 End If
 End Sub
 
-Private Sub grdLading_ValidateEdit(ByVal Row As Long, ByVal col As Long, Cancel As Boolean)
-If col = 3 Then
+Private Sub grdLading_ValidateEdit(ByVal Row As Long, ByVal Col As Long, Cancel As Boolean)
+If Col = 3 Then
     grdLading.EditText = myFormat_p(grdLading.EditText)
     If Not IsDate(grdLading.EditText) Then
         Cancel = True
@@ -3545,13 +3582,13 @@ If Not isManager Then Exit Sub
         
         Dim nAffect As Integer
         
-        If xOnline_doc.Caption <> "" Then
+        If xonline_doc.Caption <> "" Then
             If xdoc_no_online.Caption = "" Then
                 con.Execute "UPDATE FILE6_90H SET " & _
                 "SHIP_NO = NULL," & _
                 "SALES_DOC = NULL," & _
                 "SALES_DATE = NULL " & _
-                "WHERE doc_no = " & MyParn(xOnline_doc.Caption) & _
+                "WHERE doc_no = " & MyParn(xonline_doc.Caption) & _
                 " AND SALES_DOC = " & MyParn(xdoc_no.text) _
                 , nAffect
             Else
@@ -3580,7 +3617,7 @@ con.RollbackTrans
 MsgBox Err.Description
 Err.Clear
 End Sub
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
     Unload Me
 End Sub
 Private Sub cmdGo_Click()
@@ -3682,54 +3719,54 @@ HandleMain
 FixAddress
 
 If nUser = enUser.Admin Then
-    Set data1.Recordset = mycmd("SELECT * FROM FILE0_40", con)
+    Set data1.RecordSet = mycmd("SELECT * FROM FILE0_40", con)
 Else
-    Set data1.Recordset = mycmd("SELECT * FROM FILE0_40 WHERE BRANCH = " & MyParn(cBranch), con)
+    Set data1.RecordSet = mycmd("SELECT * FROM FILE0_40 WHERE BRANCH = " & MyParn(cBranch), con)
 End If
 Set xStore.RowSource = data1
 xStore.ListField = "Desca"
 xStore.BoundColumn = "Code"
 xStore.BoundText = cBranchStore
 If cBranch = "00" Then
-    Set DATA2.Recordset = mycmd("SELECT * FROM FILE6_25 WHERE ISSTOP = 0 ORDER BY DESCA ", con)
+    Set data2.RecordSet = mycmd("SELECT * FROM FILE6_25 WHERE ISSTOP = 0 ORDER BY DESCA ", con)
 Else
-    Set DATA2.Recordset = mycmd("SELECT * FROM FILE6_25 WHERE ISSTOP = 0 AND (CODE = '0001' OR BRANCH = " & MyParn(cBranch) & " ) ORDER BY DESCA ", con)
+    Set data2.RecordSet = mycmd("SELECT * FROM FILE6_25 WHERE ISSTOP = 0 AND (CODE = '0001' OR BRANCH = " & MyParn(cBranch) & " ) ORDER BY DESCA ", con)
 End If
-Set xMan.RowSource = DATA2
+Set xMan.RowSource = data2
 xMan.ListField = "Desca"
 xMan.BoundColumn = "Code"
 
-Set DATA3.Recordset = mycmd("SELECT * FROM MOSM ", con)
+Set DATA3.RecordSet = mycmd("SELECT * FROM MOSM ", con)
 Set xMosm.RowSource = DATA3
 xMosm.ListField = "DESCA"
 xMosm.BoundColumn = "MOSM"
 
-Set data4.Recordset = mycmd("SELECT CODE,DESCA FROM SHIP ORDER BY  STOPED,DESCA", con)
+Set data4.RecordSet = mycmd("SELECT CODE,DESCA FROM SHIP ORDER BY  STOPED,DESCA", con)
 Set xship.RowSource = data4
 xship.ListField = "DESCA"
 xship.BoundColumn = "CODE"
 
 If nUser = enUser.Admin Then
-    Set data5.Recordset = mycmd("SELECT * FROM FILE0_50", con)
+    Set data5.RecordSet = mycmd("SELECT * FROM FILE0_50", con)
 Else
-    Set data5.Recordset = mycmd("SELECT * FROM FILE0_50 WHERE BRANCH = " & MyParn(cBranch), con)
+    Set data5.RecordSet = mycmd("SELECT * FROM FILE0_50 WHERE BRANCH = " & MyParn(cBranch), con)
 End If
 Set xBox.RowSource = data5
 xBox.ListField = "Desca"
 xBox.BoundColumn = "Code"
 xBox.BoundText = cBranchBox
 
-Set grid1.DataSource = data11
+Set grid1.DataSource = DATA11
 Set grdLading.DataSource = data12
 
 
-Set data20.Recordset = mycmd(YearsString(2023), con)
+Set data20.RecordSet = mycmd(YearsString(2023), con)
 Set xYear.RowSource = data20
 xYear.ListField = "CODE"
 xYear.BoundColumn = "CODE"
 
 
-Set data21.Recordset = mycmd(MonthString(12), con)
+Set data21.RecordSet = mycmd(MonthString(12), con)
 Set xMonth.RowSource = data21
 xMonth.ListField = "CODE"
 xMonth.BoundColumn = "CODE"
@@ -3757,7 +3794,7 @@ Set sales_onlinefrm = Nothing
 'If CBRAsBranchCode <> "00" Then End
 Err.Clear
 End Sub
-Public Sub Grid1_AfterEdit(ByVal Row As Long, ByVal col As Long)
+Public Sub Grid1_AfterEdit(ByVal Row As Long, ByVal Col As Long)
 On Error GoTo myerror
 
 Dim bNew As Boolean
@@ -3797,7 +3834,7 @@ Private Sub grid1_EnterCell()
 With grid1
     If Not bEditRecord Then
         .Editable = flexEDNone
-    ElseIf .col = 1 Or .col = 10 Or .col = 17 Or .col = 15 Then
+    ElseIf .Col = 1 Or .Col = 10 Or .Col = 17 Or .Col = 15 Then
         .Editable = flexEDKbdMouse
     Else
         .Editable = flexEDNone
@@ -3813,19 +3850,19 @@ If KeyAscii = 13 Then
     KeyAscii = 0
 End If
 End Sub
-Private Sub grid1_KeyUpEdit(ByVal Row As Long, ByVal col As Long, KeyCode As Integer, ByVal Shift As Integer)
+Private Sub grid1_KeyUpEdit(ByVal Row As Long, ByVal Col As Long, KeyCode As Integer, ByVal Shift As Integer)
 If KeyCode = 13 Then
     'If Col = 12 And grid1.TextMatrix(Row, Col) = "" Then Exit Sub
-    CellPos KeyCode, Row, col
+    CellPos KeyCode, Row, Col
 End If
 End Sub
-Private Sub grid1_ValidateEdit(ByVal Row As Long, ByVal col As Long, Cancel As Boolean)
+Private Sub grid1_ValidateEdit(ByVal Row As Long, ByVal Col As Long, Cancel As Boolean)
 Dim sBarCode As String
 Dim nSal As Double
 Dim nRet As Double
 Dim cPassword As String, aUser As Variant
 With grid1
-    If col = 10 And Val(.EditText) < 0 Then
+    If Col = 10 And Val(.EditText) < 0 Then
         Dim cString As String
         ManagPass.pPassWord = ""
         ManagPass.Show 1
@@ -3843,7 +3880,7 @@ With grid1
             Cancel = True
             Exit Sub
         End If
-    ElseIf col = 1 Then
+    ElseIf Col = 1 Then
         If Trim(grid1.EditText) = "" Then
             Cancel = True
             Exit Sub
@@ -3858,7 +3895,7 @@ With grid1
             Cancel = True
             Exit Sub
         End If
-    ElseIf col = 10 Then
+    ElseIf Col = 10 Then
         If Val(.EditText) > 0 And Val(.TextMatrix(Row, 10)) < 0 Then
             MsgBox "ÌÃ» Õ–› «·”Ã· ﬁ»·  ⁄œÌ·… „‰ „— Ã⁄ ≈·Ï „»Ì⁄« "
             Cancel = True
@@ -3881,7 +3918,7 @@ Private Sub xDiscount_LostFocus()
 myLostFocus xDiscount
 CalcTotals
 End Sub
-Private Function myValid(Optional bIgMsg As Boolean = False, Optional bClose As Boolean = False) As Boolean
+Private Function MYVALID(Optional bIgMsg As Boolean = False, Optional bClose As Boolean = False) As Boolean
 If Trim(xCode.text) = "" Then
     MsgBox "·« ÌÊÃœ ﬂÊœ ⁄„Ì· «Ê ﬂÊœ „Ê—œ"
     Exit Function
@@ -3936,7 +3973,7 @@ If xship.MatchedWithList Then
         Exit Function
     End If
 End If
-myValid = True
+MYVALID = True
 End Function
 Private Sub myload(Optional bLeaveBal As Boolean = False)
 xdoc_no.text = CardTable!doc_no
@@ -3972,7 +4009,7 @@ xship.BoundText = CardTable!SHIP & ""
 
 
 
-xOnline_doc.Caption = CardTable!ONLINE_DOC & ""
+xonline_doc.Caption = CardTable!ONLINE_DOC & ""
 xdoc_no_online.Caption = CardTable!doc_no_online & ""
 
 
@@ -4031,7 +4068,7 @@ xship.BoundText = ""
 xship_no.text = ""
 'xLading.Caption = ""
 'xLading.Tag = ""
-xOnline_doc.Caption = ""
+xonline_doc.Caption = ""
 xIpName.Caption = GetComputerName
 'XTRANS_DOC.Caption = ""
 XISRETS.Value = 0
@@ -4040,8 +4077,9 @@ sUserDisc = ""
 lIsDocRet = False
 xMan.BoundText = IIf(Not xMan.MatchedWithList, "0001", xMan.BoundText)
 'XUSERNAME_DISC.Caption = ""
-xRate.Locked = True
-xDiscount.Locked = True
+'xRate.Locked = True
+'xDiscount.Locked = True
+
 xdoc_ret.text = ""
 'cmd_closed.BackColor = &H8080FF
 'cmd_closed.Caption = "› Õ „” ‰œ"
@@ -4123,8 +4161,10 @@ bEditRecord = bEditRecord And (myFormat(xDate.text) = myFormat(sDateSales) Or nU
 cmdNewInv.Enabled = bEdit And nMode = LoadMode And nUser = enUser.Casher
 cmddel.Enabled = bEditRecord And nMode = LoadMode And nUser >= enUser.Casher
 cmdSave.Enabled = bEditRecord
-
+xDiscount.Enabled = False
+xRate.Enabled = False
 xClosed.Enabled = nUser = enUser.Admin And nMode = LoadMode
+cmdSaveDiscount.Enabled = nUser = enUser.Admin And nMode = LoadMode And xClosed.Value = 1
 
 'XISRET.Enabled = bSuperSales And nMode = LoadMode And XSALES_RET.Caption = "" And Val(xTotal.text) > 0
 'XISRET.Enabled = XISRET.Enabled And xPrinted.Value = 1 And xClosed.Value = 1
@@ -4216,7 +4256,7 @@ ElseIf KeyCode = 112 Then
 '    Grid1.Col = 1
     ItemsLookupAll Me, oSearchItem
 ElseIf KeyCode = 13 Then
-    CellPos KeyCode, grid1.Row, grid1.col
+    CellPos KeyCode, grid1.Row, grid1.Col
 End If
 End Sub
 Public Function GrdDesc(sitem As String, Row As Long) As Boolean
@@ -4240,29 +4280,29 @@ With grid1
 
     If Trim(sitem) = "" Then Exit Function
     
-    Set locTable = ItemFind(sitem, con)
-    If Not locTable.EOF Then
-        .TextMatrix(Row, 1) = locTable!Item
-        .TextMatrix(Row, 2) = locTable!MOSM
+    Set loctable = ItemFind(sitem, con)
+    If Not loctable.EOF Then
+        .TextMatrix(Row, 1) = loctable!Item
+        .TextMatrix(Row, 2) = loctable!MOSM
     
-        .TextMatrix(Row, 3) = locTable!Fact
-        .TextMatrix(Row, 4) = locTable!SUPP & ""
-        .TextMatrix(Row, 5) = locTable!MODELFACT0 & ""
-        .TextMatrix(Row, 6) = locTable!DESCA
-        .TextMatrix(Row, 7) = locTable!SCAL
-        .TextMatrix(Row, 8) = locTable!color
+        .TextMatrix(Row, 3) = loctable!Fact
+        .TextMatrix(Row, 4) = loctable!SUPP & ""
+        .TextMatrix(Row, 5) = loctable!MODELFACT0 & ""
+        .TextMatrix(Row, 6) = loctable!DESCA
+        .TextMatrix(Row, 7) = loctable!SCAL
+        .TextMatrix(Row, 8) = loctable!color
         
-        grid1.TextMatrix(Row, 9) = Format(locTable!price)
+        grid1.TextMatrix(Row, 9) = Format(loctable!price)
         
         If Trim(.TextMatrix(Row, 10)) = "" Then
             grid1.TextMatrix(Row, 10) = "1"
         End If
         
-        grid1.TextMatrix(Row, 11) = Format(locTable!price)
-        grid1.TextMatrix(Row, 19) = Format(locTable!price)
+        grid1.TextMatrix(Row, 11) = Format(loctable!price)
+        grid1.TextMatrix(Row, 19) = Format(loctable!price)
         grid1.TextMatrix(Row, 12) = 0
         grid1.TextMatrix(Row, 13) = Val(grid1.TextMatrix(Row, 10)) * Val(grid1.TextMatrix(Row, 11))
-        grid1.TextMatrix(Row, 17) = locTable!MODELNO & ""
+        grid1.TextMatrix(Row, 17) = loctable!MODELNO & ""
         GrdDesc = True
     End If
 End With
@@ -4561,7 +4601,7 @@ With grid1
               " FROM (FILE6_20 LEFT JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM) LEFT JOIN FACT ON FACT.CODE = FILE1_10.FACT LEFT JOIN FILE6_25 ON FILE6_20.MAN  = FILE6_25.CODE "
     cString = cString & turn(cString) & " DOC_NO = " & MyParn(xdoc_no.text)
     cString = cString & " ORDER BY FILE6_20.ID"
-    Set data11.Recordset = myRecordSet(cString, con)
+    Set DATA11.RecordSet = myRecordSet(cString, con)
     myAddItem
 End With
 CalcTotals
@@ -4582,12 +4622,12 @@ With grid1
               " LEFT JOIN FILE6_20H ON FILE6_20H.DOC_NO = LADING_BILL.DOC_NO" & _
               " WHERE LADING_BILL.DOC_NO = " & MyParn(xdoc_no.text)
     cString = cString & " ORDER BY LADING_BILL.ID"
-    Set data12.Recordset = mycmd(cString, con)
+    Set data12.RecordSet = mycmd(cString, con)
 End With
 fixGrdLading
 End Sub
 Private Function mysave(Optional bEnd As Boolean = True, Optional bPrint As Boolean = True, Optional bSendReceipt As Boolean) As Boolean
-If Not myValid(, True) Then Exit Function
+If Not MYVALID(, True) Then Exit Function
 
 CalcTotals
 
@@ -4624,7 +4664,7 @@ bEdit = bEdit And nUser >= enUser.Casher
 End Sub
 Private Function validRow(Row As Long, Optional bIgMsg As Boolean = False, Optional bIgMsgsub As Boolean = True) As Boolean
 With grid1
-If Not myValid(bIgMsg) Then Exit Function
+If Not MYVALID(bIgMsg) Then Exit Function
 If Not IsNumeric(.TextMatrix(Row, 1)) Then Exit Function
 If Not IsNumeric(.TextMatrix(Row, 10)) Then Exit Function
 If Not IsNumeric(.TextMatrix(Row, 11)) Then Exit Function
@@ -4632,30 +4672,30 @@ If Trim(grid1.TextMatrix(Row, 15)) = "" Then Exit Function
 End With
 validRow = True
 End Function
-Private Sub CellPos(ByRef KeyCode, ByVal Row As Long, ByVal col As Long)
+Private Sub CellPos(ByRef KeyCode, ByVal Row As Long, ByVal Col As Long)
 KeyCode = 0
 If bStopCell Then
     bStopCell = False
-ElseIf col < 10 Then
-    grid1.col = 10
+ElseIf Col < 10 Then
+    grid1.Col = 10
 ElseIf Row < grid1.Rows - 1 Then
     grid1.Select Row + 1, NextEmpty(grid1, Row + 1, 0, 10)
     grid1.ShowCell grid1.Row, 0
 Else
-    grid1.Select Row, col
+    grid1.Select Row, Col
 End If
 End Sub
-Private Sub CellPosLading(ByRef KeyCode, ByVal Row As Long, ByVal col As Long)
+Private Sub CellPosLading(ByRef KeyCode, ByVal Row As Long, ByVal Col As Long)
 KeyCode = 0
 If bStopCell Then
     bStopCell = False
-ElseIf col < 3 Then
-    grdLading.col = 3
+ElseIf Col < 3 Then
+    grdLading.Col = 3
 ElseIf Row < grdLading.Rows - 1 Then
     grdLading.Select Row + 1, NextEmpty(grdLading, Row + 1, 3, 3)
     grdLading.ShowCell grdLading.Row, 0
 Else
-    grdLading.Select Row, col
+    grdLading.Select Row, Col
 End If
 End Sub
 Private Sub myAddItem()
@@ -4673,8 +4713,8 @@ xDiscount.text = Round(Val(xTotalItem.Caption) - Val(xTotal.text), 2)
 CalcTotals
 End Sub
 Public Sub PrintTDay()
-Dim temptable As New ADODB.Recordset
-Dim sourcetable As New ADODB.Recordset
+Dim temptable As New ADODB.RecordSet
+Dim sourcetable As New ADODB.RecordSet
 ReDim aHeader(1)
 Dim pDate As Date, pstore As String
 Dim nFBalItem As Double
@@ -4682,7 +4722,7 @@ Dim nTInlItem As Double
 Dim nSallItem As Double
 Dim nBalItem As Double
 Dim nOverCash As Double, nVisa2 As Double
-Dim VisaTable As New ADODB.Recordset
+Dim VisaTable As New ADODB.RecordSet
 pDate = xDate.text
 pstore = xStore.BoundText
 contemp.Execute "DELETE * FROM TEMP"
@@ -5025,19 +5065,19 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub FixAddress()
-Dim locTable As New ADODB.Recordset
-Set locTable = mycmd("select * From Address where branch = " & MyParn(cBranch), con)
-If Not (locTable.EOF And locTable.BOF) Then
-    cComp_Name = locTable!DESCA & ""
-    cComp_address = locTable!Address & ""
-    cComp_Phone = locTable!Phone & ""
-    cComp_Head1 = locTable!HEAD1 & ""
-    cComp_Head2 = locTable!HEAD2 & ""
-    nCountPrint = Val(locTable!COUNTPRINT & "")
-    nLang_Boon = Val(locTable!lang & "")
+Dim loctable As New ADODB.RecordSet
+Set loctable = mycmd("select * From Address where branch = " & MyParn(cBranch), con)
+If Not (loctable.EOF And loctable.BOF) Then
+    cComp_Name = loctable!DESCA & ""
+    cComp_address = loctable!Address & ""
+    cComp_Phone = loctable!Phone & ""
+    cComp_Head1 = loctable!HEAD1 & ""
+    cComp_Head2 = loctable!HEAD2 & ""
+    nCountPrint = Val(loctable!COUNTPRINT & "")
+    nLang_Boon = Val(loctable!lang & "")
 End If
-locTable.Close
-Set locTable = Nothing
+loctable.Close
+Set loctable = Nothing
 End Sub
 Private Sub myUndo()
 If xdoc_no.Tag = DefineMode Then
@@ -5096,7 +5136,7 @@ On Error GoTo myerror
 
 retFilter pDoc_no_Filter
 
-Set CardTable = New ADODB.Recordset
+Set CardTable = New ADODB.RecordSet
 cString = "SELECT TOP 1 FILE6_20H.*," & _
           "FILE3_10.DESCA AS CLIENTDESCA," & _
           "FILE3_10.ISONEST" & _
@@ -5181,57 +5221,57 @@ sales_returnsfrm.Show
 End Sub
 Private Function doprint_online() As Boolean
 Dim aHeader(2)
-If Not myValid Then Exit Function
-Dim temptable As New ADODB.Recordset
-Dim sourcetable As New ADODB.Recordset
+If Not MYVALID Then Exit Function
+Dim temptable As New ADODB.RecordSet
+Dim sourcetable As New ADODB.RecordSet
 
-Dim locTable As New ADODB.Recordset, cString As String
+Dim loctable As New ADODB.RecordSet, cString As String
 cString = "SELECT FILE6_20.ITEM,FILE6_20.QUANT,FILE6_20.SKU  ,FILE6_20.PRICE,FILE1_10.DESCA AS ITEM_DESCA,FILE6_20.DESCA2 , FILE6_20.TOTAL,FILE6_20H.TIME, file1_10.modelfact0 , FACT.DESCA AS FACTDESCA , FILE1_10.COLOR , FILE1_10.SCAL , FILE1_10.C_SCAL , FILE1_10.MODEL   , file6_20h.[name] , file6_20h.phone , file6_20h.address , file6_20h.street , file6_20h.Payment_Method , CITY , Shipping_City , ONLINE_DOC  , CHARGE1 , CHARGE2 , ship_no FROM FILE6_20 INNER JOIN FILE6_20H ON FILE6_20.DOC_NO = FILE6_20H.DOC_NO INNER JOIN FILE1_10 ON FILE6_20.ITEM = FILE1_10.ITEM LEFT JOIN FACT ON FACT.CODE = FILE1_10.[FACT]  "
 cString = cString & turn(cString) & "FILE6_20.DOC_NO = " & MyParn(xdoc_no.text)
-locTable.Open cString, con, adOpenKeyset, adLockReadOnly, adCmdText
+loctable.Open cString, con, adOpenKeyset, adLockReadOnly, adCmdText
 
 contemp.Execute "DELETE * FROM TEMP"
 temptable.Open "temp", contemp, adOpenStatic, adLockOptimistic, adCmdTable
-Do While Not locTable.EOF
+Do While Not loctable.EOF
     temptable.AddNew
     temptable!str16 = xDoc_no2.text
-    temptable!STR6 = locTable!ONLINE_DOC
+    temptable!STR6 = loctable!ONLINE_DOC
     temptable!str12 = xStore.text
     temptable!Date1 = xDate.text
     
-    temptable!STR7 = locTable!Name
-    temptable!str8 = locTable!Phone
-    temptable!str9 = locTable!Shipping_City
-    temptable!str14 = locTable!city
-    temptable!str15 = locTable!Street
+    temptable!STR7 = loctable!Name
+    temptable!str8 = loctable!Phone
+    temptable!str9 = loctable!Shipping_City
+    temptable!str14 = loctable!city
+    temptable!str15 = loctable!Street
     
-    temptable!str2 = locTable!MODELFACT0
-    temptable!str3 = IIf(locTable!Desca2 <> "", locTable!Desca2, locTable!ITEM_DESCA & " " & locTable!color & " " & locTable!SCAL)
+    temptable!str2 = loctable!MODELFACT0
+    temptable!str3 = IIf(loctable!Desca2 <> "", loctable!Desca2, loctable!ITEM_DESCA & " " & loctable!color & " " & loctable!SCAL)
     
-    temptable!VAL3 = locTable!Quant
-    temptable!VAL1 = locTable!price
-    temptable!VAL2 = locTable!TOTAL
+    temptable!VAL3 = loctable!Quant
+    temptable!VAL1 = loctable!price
+    temptable!VAL2 = loctable!TOTAL
     
     temptable!val5 = Val(xDiscount.text)
     temptable!VAL7 = Val(xTotal.text)
-    temptable!val11 = Val(locTable!CHARGE1 & "") + Val(locTable!charge2 & "")
-    temptable!val12 = Val(xTotal.text) + Val(locTable!CHARGE1 & "") + Val(locTable!charge2 & "")
+    temptable!val11 = Val(loctable!CHARGE1 & "") + Val(loctable!charge2 & "")
+    temptable!val12 = Val(xTotal.text) + Val(loctable!CHARGE1 & "") + Val(loctable!charge2 & "")
     temptable!VAL6 = Val(xTotalQuant.Caption) - Val(xTotalQuant2.Caption)
-    temptable!str10 = locTable!ship_no
+    temptable!str10 = loctable!ship_no
     temptable!STR20 = xdoc_no.text
     
-    If Val(xTotal.text) + Val(locTable!CHARGE1 & "") + Val(locTable!charge2 & "") > 0 Then
-        temptable!str11 = MyOnly(Val(xTotal.text) + Val(locTable!CHARGE1 & "") + Val(locTable!charge2 & ""))
+    If Val(xTotal.text) + Val(loctable!CHARGE1 & "") + Val(loctable!charge2 & "") > 0 Then
+        temptable!str11 = MyOnly(Val(xTotal.text) + Val(loctable!CHARGE1 & "") + Val(loctable!charge2 & ""))
     End If
     
     temptable!STR4 = TurnValue(cId_NoDesca1)
     temptable!STR5 = TurnValue(cId_NoDesca2)
     temptable!str18 = TurnValue(cHeadBoon)
-    temptable!str17 = locTable!SKU
+    temptable!str17 = loctable!SKU
     
     temptable!VAL14 = i
     temptable.Update
-    locTable.MoveNext
+    loctable.MoveNext
 Loop
 
 If temptable.EOF And temptable.BOF Then
@@ -5283,7 +5323,7 @@ Next
 ValidQuantValue = True
 End Function
 Private Function retRecords(pDoc_no, ByRef nRecords As Long, ByRef nRecord As Long) As Variant
-Dim cString As String, locTable As New ADODB.Recordset
+Dim cString As String, loctable As New ADODB.RecordSet
 If pDoc_no <> "" Then
     cString = "SELECT Count(*) AS records," & _
                "SUM(CASE WHEN FILE6_20H.DOC_NO <= " & MyParn(pDoc_no) & " THEN 1 ELSE 0 END) AS record"
@@ -5298,10 +5338,10 @@ cString = cString & " FROM FILE6_20H " & _
 If cFilter <> "" Then
     cString = cString & " WHERE " & cFilter
 End If
-Set locTable = mycmd(cString, con)
-If Not locTable.EOF Then
-    nRecords = locTable!RECORDS
-    nRecord = Val(locTable!Record & "")
+Set loctable = mycmd(cString, con)
+If Not loctable.EOF Then
+    nRecords = loctable!RECORDS
+    nRecord = Val(loctable!Record & "")
 End If
 End Function
 Private Sub fixDateSales()
@@ -5785,11 +5825,11 @@ Err.Clear
 con.RollbackTrans
 End Function
 Private Function doprint() As Boolean
-Dim locTable As ADODB.Recordset
+Dim loctable As ADODB.RecordSet
 
 Dim db As New clsDb
-Set locTable = db.myRs("dbo.sp_invoice_print_online", adStoredProc, AddFlag(Empty, "DOC_NO", xdoc_no.text))
-If locTable Is Nothing Then Exit Function
+Set loctable = db.myRs("dbo.sp_invoice_print_online", adStoredProc, AddFlag(Empty, "DOC_NO", xdoc_no.text))
+If loctable Is Nothing Then Exit Function
 
 contemp.Execute "DELETE * FROM TEMP"
 If temptable.State = adStateOpen Then temptable.Close
@@ -5804,69 +5844,69 @@ End If
 
 Dim bLoadQr As Boolean
 
-With locTable
-Do Until locTable.EOF
+With loctable
+Do Until loctable.EOF
     temptable.AddNew
-    temptable!STR20 = locTable!doc_no
-    temptable!STR21 = locTable!company_name
+    temptable!STR20 = loctable!doc_no
+    temptable!STR21 = loctable!company_name
     
     If bCopy Then
         temptable!STR22 = "C  O  P  Y"
     End If
         
-    temptable!STR24 = locTable!Company_address
-    If Not IsNull(locTable!COMPANY_Phone) Then
-        temptable!STR25 = "Phone : " & locTable!COMPANY_Phone
+    temptable!STR24 = loctable!Company_address
+    If Not IsNull(loctable!COMPANY_Phone) Then
+        temptable!STR25 = "Phone : " & loctable!COMPANY_Phone
     End If
     
-    If Not IsNull(locTable!ID_NO1) Then
-        temptable!STR19 = "—ﬁ„  ”ÃÌ· ÷—Ì»Ì : " & locTable!ID_NO1
+    If Not IsNull(loctable!ID_NO1) Then
+        temptable!STR19 = "—ﬁ„  ”ÃÌ· ÷—Ì»Ì : " & loctable!ID_NO1
     End If
     
-    If Not IsNull(locTable!ID_NO2) Then
-        temptable!str13 = "”Ã·  Ã«—Ì : " & locTable!ID_NO2
+    If Not IsNull(loctable!ID_NO2) Then
+        temptable!str13 = "”Ã·  Ã«—Ì : " & loctable!ID_NO2
     End If
     
-    temptable!str1 = myFormat_p(locTable!Date)
-    temptable!str2 = locTable!ONLINE_DOC & ""
-    temptable!str3 = locTable!Doc_no2
-    temptable!STR4 = locTable!Name
-    temptable!STR5 = locTable!Phone
-    temptable!STR6 = locTable!Shipping_City
-    temptable!STR7 = locTable!city
-    temptable!str8 = locTable!Street
+    temptable!str1 = myFormat_p(loctable!Date)
+    temptable!str2 = loctable!ONLINE_DOC & ""
+    temptable!str3 = loctable!Doc_no2
+    temptable!STR4 = loctable!Name
+    temptable!STR5 = loctable!Phone
+    temptable!STR6 = loctable!Shipping_City
+    temptable!STR7 = loctable!city
+    temptable!str8 = loctable!Street
     
-    temptable!str10 = locTable!Item
-    temptable!str11 = locTable!DESCA
-    temptable!VAL1 = locTable!Quant
-    temptable!VAL2 = locTable!price_c
-    temptable!VAL3 = locTable!total_c
-    temptable!VAL4 = locTable!price
-    temptable!val5 = locTable!TOTAL
+    temptable!str10 = loctable!Item
+    temptable!str11 = loctable!DESCA
+    temptable!VAL1 = loctable!Quant
+    temptable!VAL2 = loctable!price_c
+    temptable!VAL3 = loctable!total_c
+    temptable!VAL4 = loctable!price
+    temptable!val5 = loctable!TOTAL
     
-    temptable!VAL6 = locTable!total_inv_c
-    temptable!VAL7 = locTable!items_discount
-    temptable!Val8 = locTable!total_inv
+    temptable!VAL6 = loctable!total_inv_c
+    temptable!VAL7 = loctable!items_discount
+    temptable!Val8 = loctable!total_inv
     
-    temptable!val9 = locTable!DISCOUNT_OFFER
-    temptable!Val10 = locTable!discount_add
-    temptable!val11 = locTable!discount
-    temptable!val12 = locTable!discount + locTable!items_discount
-    temptable!val13 = locTable!total_net
-    temptable!VAL14 = locTable!charge2
-    temptable!val15 = locTable!total_net + locTable!charge2
+    temptable!val9 = loctable!DISCOUNT_OFFER
+    temptable!Val10 = loctable!discount_add
+    temptable!val11 = loctable!discount
+    temptable!val12 = loctable!discount + loctable!items_discount
+    temptable!val13 = loctable!total_net
+    temptable!VAL14 = loctable!charge2
+    temptable!val15 = loctable!total_net + loctable!charge2
     
     
-    temptable!Val21 = IIf(IsNull(locTable!OFFER_NO), -1, locTable!OFFER_NO)
-    If Not IsNull(locTable!OFFER_NO) Then
-        If locTable!OFFER_NO = 0 Then
+    temptable!Val21 = IIf(IsNull(loctable!OFFER_NO), -1, loctable!OFFER_NO)
+    If Not IsNull(loctable!OFFER_NO) Then
+        If loctable!OFFER_NO = 0 Then
             temptable!str9 = "Direct Discount"
-            temptable!val18 = locTable!total_c - locTable!TOTAL
-            temptable!VAL19 = locTable!discount_offer_rate_direct
+            temptable!val18 = loctable!total_c - loctable!TOTAL
+            temptable!VAL19 = loctable!discount_offer_rate_direct
         Else
-            temptable!str9 = locTable!offer_desca
-            temptable!val18 = locTable!discount_offer_Sub
-            temptable!VAL19 = locTable!discount_offer_Rate_Sub
+            temptable!str9 = loctable!offer_desca
+            temptable!val18 = loctable!discount_offer_Sub
+            temptable!VAL19 = loctable!discount_offer_Rate_Sub
         End If
     End If
        
@@ -5889,14 +5929,14 @@ Do Until locTable.EOF
     End If
     
     If bLoadQr Then
-        temptable!STR30 = locTable!UUID_RC
+        temptable!STR30 = loctable!UUID_RC
         SaveImageToRs ImgxPrint.Picture, temptable, "picture1"
     End If
     
     If lRePrint Then temptable!str1 = "C  O  P  Y"
     
     temptable.Update
-    locTable.MoveNext
+    loctable.MoveNext
 Loop
 End With
 
@@ -5926,4 +5966,33 @@ myerror:
 MsgBox Err.Description
 Err.Clear
 GoTo Finllay
+End Function
+Private Function checkDiscount() As Boolean
+Dim db As New clsDb
+Dim loctable As ADODB.RecordSet
+
+Set loctable = db.myRs("SELECT INV_TYPE_ONLINE,DISCOUNT FROM FILE6_20H WHERE DOC_NO = " & MyParn(xdoc_no.text))
+
+If loctable Is Nothing Then Exit Function
+
+If loctable.EOF Then
+    MsgBox "”Ã· €Ì— „ÊÃÊœ"
+    GoTo cleanUp
+End If
+
+If loctable!discount = Val(xDiscount.text) Then
+    MsgBox "‰›” «·Œ’„"
+    GoTo cleanUp
+End If
+
+db.Sql = "update file6_20h set file6_20h.discount = " & Val(xDiscount.text) & " where doc_no = " & MyParn(xdoc_no.text)
+If loctable!inv_type_online = "0" Then
+    db.Sql = "update file6_90h set discount = " & Val(xDiscount.text) & " where doc_no = " & MyParn(xonline_doc.Caption)
+Else
+    db.Sql = "update file6_90bh set discount = " & Val(xDiscount.text) & " where doc_no = " & xdoc_no_online.Caption
+End If
+If db.ExecuteTransaction Then MsgBox " „  ⁄œÌ· Œ’„ «·›« Ê—… Ê«·ÿ·»Ì…"
+checkDiscount = True
+cleanUp:
+Set db = Nothing
 End Function

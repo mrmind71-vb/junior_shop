@@ -380,7 +380,7 @@ If (success <> 1) Then
     Exit Function
 End If
 getToken_rc = json.StringOf("access_token")
-If getToken_rc = "" Then pError = "Empty Token"
+If getToken_rc = "" Then pError = respB.BodyStr & vbCrLf & "Empty Token"
 End Function
 Public Function GetContX(pFile As String, pPath As String, Optional ByRef pError As String)
 Dim xml As New ChilkatXml
@@ -568,7 +568,7 @@ Set locTable = mycmd("[dbo].[sp_invoice_data]", con, adStoredProc, AddFlag(aPrm,
 If locTable.EOF Then
     invField = Empty
 Else
-    invField = locTable(pField).value
+    invField = locTable(pField).Value
 End If
 locTable.Close
 Set locTable = Nothing
@@ -588,11 +588,11 @@ Dim i As Long
 If Not locTable.EOF Then
     For i = 0 To locTable.Fields.Count - 1
         If locTable.Fields(i).Type = adInteger Or locTable.Fields(i).Type = adDecimal Or locTable.Fields(i).Type = adDouble Or locTable.Fields(i).Type = 131 Then
-            json.AddNumberAt i, LCase(locTable.Fields(i).Name), IIf(IsNull(locTable.Fields(i).value), "null", locTable.Fields(i).value)
+            json.AddNumberAt i, LCase(locTable.Fields(i).Name), IIf(IsNull(locTable.Fields(i).Value), "null", locTable.Fields(i).Value)
         ElseIf locTable.Fields(i).Type = adBoolean Then
-            json.AddBoolAt i, LCase(locTable.Fields(i).Name), IIf(IsNull(locTable.Fields(i).value), False, locTable.Fields(i).value)
+            json.AddBoolAt i, LCase(locTable.Fields(i).Name), IIf(IsNull(locTable.Fields(i).Value), False, locTable.Fields(i).Value)
         Else
-            json.AddStringAt i, LCase(locTable.Fields(i).Name), IIf(IsNull(locTable.Fields(i).value), "null", locTable.Fields(i).value)
+            json.AddStringAt i, LCase(locTable.Fields(i).Name), IIf(IsNull(locTable.Fields(i).Value), "null", locTable.Fields(i).Value)
         End If
     Next
 End If

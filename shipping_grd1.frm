@@ -843,7 +843,7 @@ Begin VB.Form online_ship_grd1frm
       GridLinesFixed  =   1
       GridLineWidth   =   1
       Rows            =   1
-      Cols            =   15
+      Cols            =   14
       FixedRows       =   1
       FixedCols       =   1
       RowHeightMin    =   0
@@ -1530,6 +1530,7 @@ Fixgrd
 End Sub
 Private Sub Fixgrd()
 With grid1
+.TextMatrix(0, 0) = "„”·”·"
 .TextMatrix(0, 1) = "—ﬁ„ «·»Ê·Ì’…"
 .TextMatrix(0, 2) = "‰Ê⁄ «·»Ê·Ì’…"
 .TextMatrix(0, 3) = " «—ÌŒ «·‘Õ‰"
@@ -1585,13 +1586,7 @@ For i = 0 To .Cols - 1
     ElseIf .ColDataType(i) = flexDTDouble Then
         .Subtotal flexSTSum, -1, i, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
     End If
-
 Next
-
-'If .Rows > 2 Then
-'   .TextMatrix(2, 0) = "«·≈Ã„«·Ì"
-'End If
-
 End With
 End Sub
 Private Sub optclose_Click(index As Integer)

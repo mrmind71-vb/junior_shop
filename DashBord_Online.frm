@@ -9,7 +9,7 @@ Begin VB.Form dashBord_Online
    ClientHeight    =   11055
    ClientLeft      =   165
    ClientTop       =   510
-   ClientWidth     =   20370
+   ClientWidth     =   22920
    BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.25
@@ -22,7 +22,7 @@ Begin VB.Form dashBord_Online
    LinkTopic       =   "Form1"
    RightToLeft     =   -1  'True
    ScaleHeight     =   11055
-   ScaleWidth      =   20370
+   ScaleWidth      =   22920
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
    Begin VB.Frame Frame7 
@@ -1082,8 +1082,8 @@ Begin VB.Form dashBord_Online
       TabIndex        =   19
       Top             =   10845
       Visible         =   0   'False
-      Width           =   20370
-      _ExtentX        =   35930
+      Width           =   22920
+      _ExtentX        =   40428
       _ExtentY        =   370
       _Version        =   393216
       Appearance      =   1
@@ -1100,20 +1100,20 @@ Dim oSearch_Total As New Search_total
 Private Sub cmd_excel_Click()
     ToFileExel2 GridTotal, , , , , 1.1, , , , , , Me
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
     Unload Me
 End Sub
 Private Sub cmdGo_Click()
-    If Not MYVALID Then Exit Sub
+    If Not myValid Then Exit Sub
     MyLOadTotal
     MYLOAD1
     MYLOAD2
-    MYLOAD3
+    myload3
     MYLOAD4
     myload5
 End Sub
-Private Function MYVALID() As Boolean
-If Not IsDate(xdate1.text) Then
+Private Function myValid() As Boolean
+If Not IsDate(xDate1.text) Then
     MsgBox "«· «—ÌŒ «·«Ê· €Ì— „”Ã·"
     Exit Function
 End If
@@ -1121,28 +1121,28 @@ If Not IsDate(xdate2.text) Then
     MsgBox "«· «—ÌŒ «·À«‰Ì €Ì— „”Ã·"
     Exit Function
 End If
-MYVALID = True
+myValid = True
 End Function
 Private Sub Form_Load()
-    openCon con
+    OpenCon con
         
-    xdate1.text = myFormat_p(Format(DateValue("1-" & Month(Date) & "-" & Year(Date)), "DD-MM-YYYY"))
-    xdate2.text = myFormat_p(DateAdd("D", -1, DateAdd("M", 1, DateValue(xdate1.text))))
+    xDate1.text = myFormat_p(Format(DateValue("1-" & Month(Date) & "-" & Year(Date)), "DD-MM-YYYY"))
+    xdate2.text = myFormat_p(DateAdd("D", -1, DateAdd("M", 1, DateValue(xDate1.text))))
     
     Set GridTotal.DataSource = data1
-    Set grid1.DataSource = data2
-    Set grid2.DataSource = DATA3
-    Set GRID3.DataSource = data4
-    Set GRID4.DataSource = data5
-    Set grid5.DataSource = DATA6
+    Set GRID1.DataSource = DATA2
+    Set GRID2.DataSource = DATA3
+    Set GRID3.DataSource = DATA4
+    Set GRID4.DataSource = DATA5
+    Set GRID5.DataSource = data6
     
     
     GridTotal.Rows = 2
-    grid1.Rows = 2
-    grid2.Rows = 2
+    GRID1.Rows = 2
+    GRID2.Rows = 2
     GRID3.Rows = 2
     GRID4.Rows = 2
-    grid5.Rows = 2
+    GRID5.Rows = 2
     
     fixGrdTotal
     FixGrid1
@@ -1295,7 +1295,7 @@ End Sub
 Sub MyLOadTotal()
 Dim cString As String
 Dim cWhere As String
-If IsDate(xdate1.text) Then cWhere = " AND DATE >= " & DateSq(xdate1.text)
+If IsDate(xDate1.text) Then cWhere = " AND DATE >= " & DateSq(xDate1.text)
 If IsDate(xdate2.text) Then cWhere = cWhere & " AND DATE <= " & DateSq(xdate2.text)
 cString = " SELECT  COUNT(DISTINCT DOC_NO) AS COUNT1 , SUM(QUANT) AS QTY1 , SUM(TOTALITEM) AS TOTAL1 " & _
             " , 0 " & _
@@ -1318,22 +1318,22 @@ cString = " SELECT  COUNT(DISTINCT DOC_NO) AS COUNT1 , SUM(QUANT) AS QTY1 , SUM(
             " , 0 " & _
             " FROM QFILE6_90 WHERE DOC_NO IS NOT NULL " & cWhere
 
-Set data1.Recordset = myRecordSet(cString, con)
+Set data1.RecordSet = myRecordSet(cString, con)
 fixGrdTotal
 End Sub
 Sub MYLOAD1()
 Dim cString As String
 Dim cWhere As String
-If IsDate(xdate1.text) Then cWhere = " AND DATE >= " & DateSq(xdate1.text)
+If IsDate(xDate1.text) Then cWhere = " AND DATE >= " & DateSq(xDate1.text)
 If IsDate(xdate2.text) Then cWhere = cWhere & " AND DATE <= " & DateSq(xdate2.text)
 cString = " SELECT  Shipping_City ,   COUNT(DOC_NO) , SUM(QUANT) , SUM(TOTALITEM) FROM            QFILE6_90 " & _
             " WHERE DOC_NO IS NOT NULL " & cWhere & _
             " GROUP BY Shipping_City ORDER BY COUNT(DOC_NO) DESC"
-Set data2.Recordset = myRecordSet(cString, con)
+Set DATA2.RecordSet = myRecordSet(cString, con)
 FixGrid1
 End Sub
 Private Sub FixGrid1()
-With grid1
+With GRID1
 .Cols = 5
 .RowHeight(0) = 500
 
@@ -1369,15 +1369,15 @@ End Sub
 Sub MYLOAD2()
 Dim cString As String
 Dim cWhere As String
-If IsDate(xdate1.text) Then cWhere = " AND DATE >= " & DateSq(xdate1.text)
+If IsDate(xDate1.text) Then cWhere = " AND DATE >= " & DateSq(xDate1.text)
 If IsDate(xdate2.text) Then cWhere = cWhere & " AND DATE <= " & DateSq(xdate2.text)
 cString = " SELECT        FACT.DESCA, FILE1_10.MOSM, FILE1_10.MODELFACT0, FILE1_10.desca, SUM(FILE6_90.QUANT) FROM            FACT INNER JOIN FILE1_10 ON FACT.CODE = FILE1_10.code INNER JOIN FILE6_90 ON FILE1_10.ITEM = FILE6_90.ITEM INNER JOIN FILE6_90H ON FILE6_90.DOC_NO = FILE6_90H.DOC_NO WHERE MODELFACT0 IS NOT NULL " & cWhere & _
             " GROUP BY FACT.DESCA, FILE1_10.MODELFACT0, FILE1_10.desca, FILE1_10.MOSM  ORDER BY SUM(FILE6_90.QUANT ) DESC"
-Set DATA3.Recordset = myRecordSet(cString, con)
+Set DATA3.RecordSet = myRecordSet(cString, con)
 FixGrid2
 End Sub
 Private Sub FixGrid2()
-With grid2
+With GRID2
 .Cols = 6
 .RowHeight(0) = 500
 
@@ -1411,14 +1411,14 @@ End If
 End With
 End Sub
 
-Sub MYLOAD3()
+Sub myload3()
 Dim cString As String
 Dim cWhere As String
-If IsDate(xdate1.text) Then cWhere = " AND DATE >= " & DateSq(xdate1.text)
+If IsDate(xDate1.text) Then cWhere = " AND DATE >= " & DateSq(xDate1.text)
 If IsDate(xdate2.text) Then cWhere = cWhere & " AND DATE <= " & DateSq(xdate2.text)
 cString = " SELECT  FILE1_10SC.DESCA, SUM(FILE6_90.QUANT) FROM  FILE1_10SC INNER JOIN FILE1_10 ON FILE1_10SC.[CODE] = FILE1_10.[SECTION] INNER JOIN FILE6_90 ON FILE1_10.ITEM = FILE6_90.ITEM INNER JOIN FILE6_90H ON FILE6_90.DOC_NO = FILE6_90H.DOC_NO WHERE MODELFACT0 IS NOT NULL " & cWhere & _
             " GROUP BY FILE1_10SC.DESCA  ORDER BY SUM(FILE6_90.QUANT) DESC"
-Set data4.Recordset = myRecordSet(cString, con)
+Set DATA4.RecordSet = myRecordSet(cString, con)
 FixGrid3
 End Sub
 Private Sub FixGrid3()
@@ -1456,7 +1456,7 @@ Dim cString As String
             " FROM QFILE6_90 LEFT JOIN FILE0_40 ON FILE0_40.CODE = QFILE6_90.STORE " & _
             " Where DelOrder_Date Is Null And SALES_DOC Is Null " & _
             " GROUP BY file0_40.desca , file0_40.CODE  ORDER BY file0_40.CODE"
-    Set data5.Recordset = myRecordSet(cString, con)
+    Set DATA5.RecordSet = myRecordSet(cString, con)
     FIXGRID4
 End Sub
 Private Sub FIXGRID4()
@@ -1498,7 +1498,7 @@ Sub myload5_OLD2()
 
 
 Dim cWhere As String, cF1 As String, cF2 As String
-If IsDate(xdate1.text) Then cWhere = " where DATE >= " & DateSq(xdate1.text)
+If IsDate(xDate1.text) Then cWhere = " where DATE >= " & DateSq(xDate1.text)
 If IsDate(xdate2.text) Then cWhere = cWhere & " AND DATE <= " & DateSq(xdate2.text)
 
 cF1 = " , (SELECT COUNT(FILE6_90H_2.DOC_NO) FROM FILE6_90H AS FILE6_90H_2 WHERE (FILE6_90H_2.SALES_DATE >= Q_DATE_ORDER.DATE OR FILE6_90H_2.SALES_DATE IS NULL ) AND (FILE6_90H_2.DELORDER_DATE IS NULL OR CONVERT(VARCHAR(10), FILE6_90H_2.DELORDER_DATE, 111) >= Q_DATE_ORDER.DATE)  AND FILE6_90H_2.DATE < Q_DATE_ORDER.DATE  )   AS OLDORDER "
@@ -1512,15 +1512,15 @@ cF5 = " , (SELECT COUNT(FILE6_90H_2.DOC_NO) FROM FILE6_90H AS FILE6_90H_2 WHERE 
 Dim cString As String
     cString = " select Q_DATE_ORDER.date  " & cF1 & cF2 & cF3 & cF4 & cF5 & _
             "   FROM Q_DATE_ORDER " & _
-            "   where DATE >= " & DateSq(xdate1.text) & _
+            "   where DATE >= " & DateSq(xDate1.text) & _
             "   AND DATE <= " & DateSq(xdate2.text) & _
             "   GROUP BY Q_DATE_ORDER.date " & _
             "   ORDER BY Q_DATE_ORDER.date "
-    Set DATA6.Recordset = myRecordSet(cString, con)
+    Set data6.RecordSet = myRecordSet(cString, con)
     FIXGRID5
 End Sub
 Private Sub FIXGRID5_old()
-    With grid5
+    With GRID5
     .Cols = 6
     .RowHeight(0) = 500
     .WordWrap = True
@@ -1553,7 +1553,7 @@ Private Sub FIXGRID5_old()
 End Sub
 
 Private Sub FIXGRID5()
-    With grid5
+    With GRID5
     .RowHeight(0) = 500
     .WordWrap = True
     .MergeCells = flexMergeFixedOnly
@@ -1586,7 +1586,7 @@ Private Sub FIXGRID5()
     .Subtotal flexSTSum, -1, 5, "#0", vbYellow, , , "≈Ã„«·Ì"
     
     .AddItem "", 1
-     cStr1 = "SELECT COUNT(FILE6_90H.DOC_NO) FROM FILE6_90H WHERE FILE6_90H.SALES_DATE IS NULL AND FILE6_90H.DELORDER_DATE IS NULL AND FILE6_90H.DATE < " & DateSq(xdate1.text)
+     cStr1 = "SELECT COUNT(FILE6_90H.DOC_NO) FROM FILE6_90H WHERE FILE6_90H.SALES_DATE IS NULL AND FILE6_90H.DELORDER_DATE IS NULL AND FILE6_90H.DATE < " & DateSq(xDate1.text)
     .TextMatrix(1, 0) = "—’Ìœ ”«»ﬁ"
     .TextMatrix(1, 3) = GetDesca(cStr1, con)
     
@@ -1629,12 +1629,12 @@ cString.Append "(SELECT COUNT(FILE6_90H.DOC_NO) FROM FILE6_90H WHERE FILE6_90H.D
 cString.Append "(SELECT COUNT(FILE6_20H.DOC_NO) FROM FILE6_20H WHERE FILE6_20H.DATE_SHIP = Q_DATE_ORDER.DATE),"
 cString.Append "(SELECT COUNT(FILE6_90H.DOC_NO) FROM FILE6_90H WHERE FILE6_90H.DELORDER_DATE = Q_DATE_ORDER.DATE)"
 cString.Append " FROM Q_DATE_ORDER "
-cString.Append " WHERE DATE >= " & DateSq(xdate1.text)
+cString.Append " WHERE DATE >= " & DateSq(xDate1.text)
 cString.Append " AND DATE <= " & DateSq(xdate2.text)
 cString.Append " GROUP BY Q_DATE_ORDER.DATE"
 cString.Append " ORDER BY Q_DATE_ORDER.DATE"
 
-Set DATA6.Recordset = mycmd(cString.GetAsString, con)
+Set data6.RecordSet = mycmd(cString.GetAsString, con)
 FIXGRID5
 End Sub
 Private Sub SearchManOrder(pWhere As String, pCaption As String, sFieldName As String)
@@ -1693,10 +1693,10 @@ Sub myProc()
 End Sub
 Sub myPrint(pFlag As String)
 Dim sCaption As String
-If grid5.Row = 1 Then
-    sCaption = "ÿ·»Ì«  „‰œÊ»Ì‰ „‰›–… „‰ " & BetweenString(xdate1.text, xdate2.text)
-ElseIf grid5.Row > 1 Then
-    sCaption = "ÿ·»Ì«  „‰œÊ»Ì‰ „‰›–… ›Ì " & myFormat_p(grid5.TextMatrix(grid5.Row, 0))
+If GRID5.Row = 1 Then
+    sCaption = "ÿ·»Ì«  „‰œÊ»Ì‰ „‰›–… „‰ " & BetweenString(xDate1.text, xdate2.text)
+ElseIf GRID5.Row > 1 Then
+    sCaption = "ÿ·»Ì«  „‰œÊ»Ì‰ „‰›–… ›Ì " & myFormat_p(GRID5.TextMatrix(GRID5.Row, 0))
 End If
 
 ReDim aRow(0) As Variant
@@ -1704,24 +1704,24 @@ aRow(0) = AddFlag(Empty, "row", 1)
 aRow(0) = AddFlag(aRow(0), "col", 0)
 aRow(0) = AddFlag(aRow(0), "cols", 1)
 aRow(0) = AddFlag(aRow(0), "text", "«·≈Ã„«·Ì")
-printGrd_abd.doprint oSearch_Total.grid1, 1, -2, sCaption, , , , False, False, 10, , aRow
+printGrd_abd.doprint oSearch_Total.GRID1, 1, -2, sCaption, , , , False, False, 10, , aRow
 printGrd_abd.Show 1
 End Sub
 Private Sub grid5_DblClick()
 Dim cWhere As String
 Dim sCaption As String
-If grid5.Row = 1 Then
-    If IsDate(xdate1.text) Then
-        cWhere = "FILE6_90H.SALES_dATE >= " & DateSq(xdate1.text)
+If GRID5.Row = 1 Then
+    If IsDate(xDate1.text) Then
+        cWhere = "FILE6_90H.SALES_dATE >= " & DateSq(xDate1.text)
     End If
 
     If IsDate(xdate2.text) Then
         cWhere = cWhere & Tr(cWhere) & "FILE6_90H.SALES_DATE <= " & DateSq(xdate2.text)
     End If
-    sCaption = "ÿ·»Ì«  „‰œÊ»Ì‰ „‰›–… „‰ " & BetweenString(xdate1.text, xdate2.text)
-ElseIf grid5.Row > 1 Then
-    cWhere = "FILE6_90H.SALES_DATE = " & DateSq(grid5.TextMatrix(grid5.Row, 0))
-    sCaption = "ÿ·»Ì«  „‰œÊ»Ì‰ „‰›–… ›Ì " & myFormat_p(grid5.TextMatrix(grid5.Row, 0))
+    sCaption = "ÿ·»Ì«  „‰œÊ»Ì‰ „‰›–… „‰ " & BetweenString(xDate1.text, xdate2.text)
+ElseIf GRID5.Row > 1 Then
+    cWhere = "FILE6_90H.SALES_DATE = " & DateSq(GRID5.TextMatrix(GRID5.Row, 0))
+    sCaption = "ÿ·»Ì«  „‰œÊ»Ì‰ „‰›–… ›Ì " & myFormat_p(GRID5.TextMatrix(GRID5.Row, 0))
 End If
 
 SearchManOrder cWhere, sCaption, "«·ÿ·»Ì«  «·„‰›–…"

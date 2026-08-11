@@ -961,7 +961,7 @@ Private Sub cmd_tmsalesrepall_Click()
 tmsalesrepall_Click
 End Sub
 Private Sub MDIForm_Load()
-Dim TableAddress As New ADODB.Recordset
+Dim TableAddress As New ADODB.RecordSet
 If cUserName <> "Aymen Junior" Then
     If Not bSupermode Then LoadMenu
 Else
@@ -1045,11 +1045,11 @@ If cPMosm = "" Then cPMosm = GetDesca("select mosm from mosm order by date desc 
 
 'ClosedCashDoc
 
-Dim PriceTable As New ADODB.Recordset
+Dim PriceTable As New ADODB.RecordSet
 'PriceTable.Open "PRICE", con, adOpenStatic, adLockReadOnly, adCmdTable
 Set PriceTable = mycmd("SELECT TOP 1 * FROM PRICE", con)
 
-Dim File0_00Table As New ADODB.Recordset
+Dim File0_00Table As New ADODB.RecordSet
 File0_00Table.Open "FILE0_00", con, adOpenStatic, adLockReadOnly, adCmdTable
 
 If Not PriceTable.EOF Then
@@ -1130,7 +1130,7 @@ Else
    OpenCon con
 End If
 
-Dim sectable As New ADODB.Recordset
+Dim sectable As New ADODB.RecordSet
 cString = "SELECT users.code,users.title1,users.title2, users.Password, users.desca,USERS.option1,users.option2,users.option3,users.option4,users.option5 ,Menusetting.Visible, Menusetting.Editable, Menu.Control, Menu.MenuNo,Menu.mainMenu " & _
           " FROM (users INNER JOIN Menusetting ON users.Code = Menusetting.code) INNER JOIN Menu ON Menusetting.control = Menu.Control " & _
           " where users.code = " & nusercode
@@ -1743,37 +1743,30 @@ End Sub
 Private Sub tmDashBoard_Click()
 TSal_DashBoard.Show
 End Sub
-
 Private Sub tmdashonline_Click()
-    DashBord_Online.Show
+DashBord_Online.Show
+'online_dash_board.Show
 End Sub
-
 Private Sub tmdataitem_Click()
 DataItem_All.Show
 End Sub
-
 Private Sub tmdisccardprint_Click()
-    PrintDiscBarcode.Show
+PrintDiscBarcode.Show
 End Sub
-
 Private Sub tmdiscshop_Click()
-    DiscoutFrm.Show 1
+DiscoutFrm.Show 1
 End Sub
-
 Private Sub tmdocinout_Click()
-    rbdoc_trans_brach2.Show 1
+rbdoc_trans_brach2.Show 1
 End Sub
 Private Sub tmdocsend_Click()
-    DocNotAccept.Show
+DocNotAccept.Show
 End Sub
 Private Sub tmdocsendFR_Click()
-    DocNotAccept_FR.Show
+DocNotAccept_FR.Show
 End Sub
 Private Sub tmfact_Click()
-    FactFrm.Show 1
-End Sub
-Private Sub TMGRCUST_Click()
-    'VsTBalCustGR.Show
+FactFrm.Show 1
 End Sub
 Private Sub tmfixcostsales_Click()
     OpenCon con
@@ -3114,9 +3107,9 @@ Sub FixStoreCode()
 
 End Sub
 Sub Show_NewDoc()
-    Set grid1.DataSource = data1
+    Set GRID1.DataSource = data1
     data1.ConnectionString = strCon
-    grid1.Rows = 1
+    GRID1.Rows = 1
     Fixgrd
     myload
     
@@ -3129,7 +3122,7 @@ Private Sub myload()
     Fixgrd
 End Sub
 Sub Fixgrd()
-    With grid1
+    With GRID1
     .ExplorerBar = flexExSortShow
     .FixedRows = 1
     .WordWrap = True
