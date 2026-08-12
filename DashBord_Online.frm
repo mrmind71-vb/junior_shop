@@ -9,7 +9,7 @@ Begin VB.Form dashBord_Online
    ClientHeight    =   11055
    ClientLeft      =   165
    ClientTop       =   510
-   ClientWidth     =   22920
+   ClientWidth     =   20370
    BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.25
@@ -22,7 +22,7 @@ Begin VB.Form dashBord_Online
    LinkTopic       =   "Form1"
    RightToLeft     =   -1  'True
    ScaleHeight     =   11055
-   ScaleWidth      =   22920
+   ScaleWidth      =   20370
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
    Begin VB.Frame Frame7 
@@ -1082,8 +1082,8 @@ Begin VB.Form dashBord_Online
       TabIndex        =   19
       Top             =   10845
       Visible         =   0   'False
-      Width           =   22920
-      _ExtentX        =   40428
+      Width           =   20370
+      _ExtentX        =   35930
       _ExtentY        =   370
       _Version        =   393216
       Appearance      =   1
@@ -1130,7 +1130,7 @@ Private Sub Form_Load()
     xdate2.text = myFormat_p(DateAdd("D", -1, DateAdd("M", 1, DateValue(xDate1.text))))
     
     Set GridTotal.DataSource = data1
-    Set GRID1.DataSource = DATA2
+    Set grid1.DataSource = DATA2
     Set GRID2.DataSource = DATA3
     Set GRID3.DataSource = DATA4
     Set GRID4.DataSource = DATA5
@@ -1138,7 +1138,7 @@ Private Sub Form_Load()
     
     
     GridTotal.Rows = 2
-    GRID1.Rows = 2
+    grid1.Rows = 2
     GRID2.Rows = 2
     GRID3.Rows = 2
     GRID4.Rows = 2
@@ -1333,7 +1333,7 @@ Set DATA2.RecordSet = myRecordSet(cString, con)
 FixGrid1
 End Sub
 Private Sub FixGrid1()
-With GRID1
+With grid1
 .Cols = 5
 .RowHeight(0) = 500
 
@@ -1704,7 +1704,7 @@ aRow(0) = AddFlag(Empty, "row", 1)
 aRow(0) = AddFlag(aRow(0), "col", 0)
 aRow(0) = AddFlag(aRow(0), "cols", 1)
 aRow(0) = AddFlag(aRow(0), "text", "«·≈Ã„«·Ì")
-printGrd_abd.doprint oSearch_Total.GRID1, 1, -2, sCaption, , , , False, False, 10, , aRow
+printGrd_abd.doprint oSearch_Total.grid1, 1, -2, sCaption, , , , False, False, 10, , aRow
 printGrd_abd.Show 1
 End Sub
 Private Sub grid5_DblClick()

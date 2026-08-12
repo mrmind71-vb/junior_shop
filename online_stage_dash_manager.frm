@@ -1203,7 +1203,7 @@ Private Sub chkEdit_Click()
 myloadGrdDone
 End Sub
 
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
     Unload Me
 End Sub
 Private Sub cmdGo_Click()
@@ -1261,7 +1261,7 @@ End If
 
 If Not IsNull(aRet) Then
     Set online_Stage_order.myForm = Me
-    online_Stage_order.sOrder_No = retFlag(aRet, "order_no")
+    online_Stage_order.sOrder_no = retFlag(aRet, "order_no")
     online_Stage_order.sDoc_no = retFlag(aRet, "doc_no")
     online_Stage_order.sManCode = sManCode
     online_Stage_order.Show 1
@@ -1276,7 +1276,7 @@ Resume Finally
 End Sub
 Private Sub GetError(sManCode As String)
 Set online_Stage_order.myForm = Me
-online_Stage_order.sOrder_No = grdError.TextMatrix(grdError.Row, 0)
+online_Stage_order.sOrder_no = grdError.TextMatrix(grdError.Row, 0)
 online_Stage_order.sDoc_no = Val(grdError.TextMatrix(grdError.Row, 1))
 online_Stage_order.sManCode = sManCode
 online_Stage_order.Show 1
@@ -1288,14 +1288,14 @@ With grid1
     aPrm = AddFlag(aPrm, "DATE", sDateSales)
     Set grid1.DataSource = myRs("sp_manager_stage", , , adStoredProc, aPrm)
 End With
-fixGrd
+Fixgrd
 'grid1.Cell(flexcpAlignment, 0, 0, grid1.Rows - 1, grid1.Cols - 1) = 7
 Exit Sub
 myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Sub fixGrd()
+Sub Fixgrd()
 With grid1
     .TextMatrix(0, 0) = "«·„—Õ·…"
     .TextMatrix(0, 1) = "«·„—Õ·…"
@@ -1325,18 +1325,19 @@ With grid1
     End If
     End With
 End Sub
+
 Private Sub Form_Unload(Cancel As Integer)
     On Error Resume Next
     'closeCon con
     'If cBranch <> "00" Then closeCon con_MyShop
     Set online_stage_manager = Nothing
     Set dmb = Nothing
-    SaveText Me, , Array(xDate1.Name, xdate2.Name)
+    SaveText Me, , Array(xdate1.Name, xdate2.Name)
 End Sub
 
 Private Sub grdDone_DblClick()
 If grdDone.Row > 1 Then
-    online_stage_invoice_trans.sOrder_No = grdDone.TextMatrix(grdDone.Row, 0)
+    online_stage_invoice_trans.sOrder_no = grdDone.TextMatrix(grdDone.Row, 0)
     online_stage_invoice_trans.sDoc_no = Val(grdDone.TextMatrix(grdDone.Row, 1))
     online_stage_invoice_trans.Show 1
 End If
@@ -1358,7 +1359,7 @@ End If
 End Sub
 Private Sub grdRefund_DblClick()
 If grdRefund.Row > 1 Then
-    online_stage_invoice_trans.sOrder_No = grdRefund.TextMatrix(grdRefund.Row, 0)
+    online_stage_invoice_trans.sOrder_no = grdRefund.TextMatrix(grdRefund.Row, 0)
     online_stage_invoice_trans.sDoc_no = Val(grdRefund.TextMatrix(grdRefund.Row, 1))
     online_stage_invoice_trans.Show 1
 End If
@@ -1366,7 +1367,7 @@ End Sub
 
 Private Sub grdRefund2_DblClick()
 If grdRefund2.Row > 1 Then
-    online_stage_invoice_trans.sOrder_No = grdRefund2.TextMatrix(grdRefund2.Row, 0)
+    online_stage_invoice_trans.sOrder_no = grdRefund2.TextMatrix(grdRefund2.Row, 0)
     online_stage_invoice_trans.sDoc_no = Val(grdRefund2.TextMatrix(grdRefund2.Row, 1))
     online_stage_invoice_trans.Show 1
 End If
@@ -1399,13 +1400,13 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub fixGrdError()
-Dim i As Long
+Dim I As Long
 With grdError
     '.RowHeight(0) = 400
     '.RowHeight(1) = 600
-    For i = 0 To .Cols - 1
-        .TextMatrix(0, i) = "ÿ·»Ì«  »Â« „‘ﬂ·« "
-        .ColAlignment(i) = flexAlignCenterCenter
+    For I = 0 To .Cols - 1
+        .TextMatrix(0, I) = "ÿ·»Ì«  »Â« „‘ﬂ·« "
+        .ColAlignment(I) = flexAlignCenterCenter
     Next
     
     .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"
@@ -1462,13 +1463,13 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub fixgrdPrep()
-Dim i As Long
+Dim I As Long
 With grdPrep
     '.RowHeight(0) = 400
     '.RowHeight(1) = 600
-    For i = 0 To .Cols - 1
-        .TextMatrix(0, i) = "»Ì«‰ ÿ·»Ì«   Õ  «· ÃÂÌ“"
-        .ColAlignment(i) = flexAlignCenterCenter
+    For I = 0 To .Cols - 1
+        .TextMatrix(0, I) = "»Ì«‰ ÿ·»Ì«   Õ  «· ÃÂÌ“"
+        .ColAlignment(I) = flexAlignCenterCenter
     Next
     
     .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"
@@ -1535,13 +1536,13 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub fixGrdDone()
-Dim i As Long
+Dim I As Long
 With grdDone
     '.RowHeight(0) = 400
     '.RowHeight(1) = 600
-    For i = 0 To .Cols - 1
-        .TextMatrix(0, i) = "ÿ·»Ì«   „  ÃÂÌ“Â«"
-        .ColAlignment(i) = flexAlignCenterCenter
+    For I = 0 To .Cols - 1
+        .TextMatrix(0, I) = "ÿ·»Ì«   „  ÃÂÌ“Â«"
+        .ColAlignment(I) = flexAlignCenterCenter
     Next
     
     .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"
@@ -1608,11 +1609,11 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub fixGrdRefund()
-Dim i As Long
+Dim I As Long
 With grdRefund
-For i = 0 To .Cols - 1
-    .TextMatrix(0, i) = "ÿ·»Ì«  ﬁÌœ «·«” ·«„ »›« Ê—…"
-    .ColAlignment(i) = flexAlignCenterCenter
+For I = 0 To .Cols - 1
+    .TextMatrix(0, I) = "ÿ·»Ì«  ﬁÌœ «·«” ·«„ »›« Ê—…"
+    .ColAlignment(I) = flexAlignCenterCenter
 Next
 
 .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"
@@ -1683,11 +1684,11 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub fixGrdRefund2()
-Dim i As Long
+Dim I As Long
 With grdRefund2
-For i = 0 To .Cols - 1
-    .TextMatrix(0, i) = "ÿ·»Ì«  ﬁÌœ «·«” ·«„ »œÊ‰ ›« Ê—…"
-    .ColAlignment(i) = flexAlignCenterCenter
+For I = 0 To .Cols - 1
+    .TextMatrix(0, I) = "ÿ·»Ì«  ﬁÌœ «·«” ·«„ »œÊ‰ ›« Ê—…"
+    .ColAlignment(I) = flexAlignCenterCenter
 Next
 
 .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"
@@ -1756,11 +1757,11 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub fixGrdInvoices()
-Dim i As Long
+Dim I As Long
 With grdInvoices
-For i = 0 To .Cols - 1
-    .TextMatrix(0, i) = "≈Ã„«·Ì ›Ê« Ì— „»Ì⁄« "
-    .ColAlignment(i) = flexAlignCenterCenter
+For I = 0 To .Cols - 1
+    .TextMatrix(0, I) = "≈Ã„«·Ì ›Ê« Ì— „»Ì⁄« "
+    .ColAlignment(I) = flexAlignCenterCenter
 Next
 
 .TextMatrix(1, 0) = "—ﬁ„ «·›« Ê—…"
@@ -1816,11 +1817,11 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub fixGrdInvoicesReturn()
-Dim i As Long
+Dim I As Long
 With grdInvoicesReturn
-For i = 0 To .Cols - 1
-    .TextMatrix(0, i) = "≈Ã„«·Ì ›Ê« Ì— „— Ã⁄…"
-    .ColAlignment(i) = flexAlignCenterCenter
+For I = 0 To .Cols - 1
+    .TextMatrix(0, I) = "≈Ã„«·Ì ›Ê« Ì— „— Ã⁄…"
+    .ColAlignment(I) = flexAlignCenterCenter
 Next
 
 .TextMatrix(1, 0) = "—ﬁ„ «·›« Ê—…"
@@ -1876,11 +1877,11 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub fixGrdReplace()
-Dim i As Long
+Dim I As Long
 With grdReplace
-For i = 0 To .Cols - 1
-    .TextMatrix(0, i) = "ÿ·»Ì… «” »œ«· Ê«” —Ã«⁄ »œÊ‰ ›« Ê—…"
-    .ColAlignment(i) = flexAlignCenterCenter
+For I = 0 To .Cols - 1
+    .TextMatrix(0, I) = "ÿ·»Ì… «” »œ«· Ê«” —Ã«⁄ »œÊ‰ ›« Ê—…"
+    .ColAlignment(I) = flexAlignCenterCenter
 Next
 
 .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"

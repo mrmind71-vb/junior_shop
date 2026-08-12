@@ -3107,9 +3107,9 @@ Sub FixStoreCode()
 
 End Sub
 Sub Show_NewDoc()
-    Set GRID1.DataSource = data1
+    Set grid1.DataSource = data1
     data1.ConnectionString = strCon
-    GRID1.Rows = 1
+    grid1.Rows = 1
     Fixgrd
     myload
     
@@ -3122,7 +3122,7 @@ Private Sub myload()
     Fixgrd
 End Sub
 Sub Fixgrd()
-    With GRID1
+    With grid1
     .ExplorerBar = flexExSortShow
     .FixedRows = 1
     .WordWrap = True

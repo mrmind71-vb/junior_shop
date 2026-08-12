@@ -25,118 +25,6 @@ Begin VB.Form online_dash_board
    ScaleWidth      =   20370
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
-   Begin VB.Frame Frame7 
-      Caption         =   "«·√Ì«„"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   9.75
-         Charset         =   178
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   7800
-      Left            =   10575
-      RightToLeft     =   -1  'True
-      TabIndex        =   9
-      Top             =   5670
-      Width           =   5955
-      Begin VSFlex7Ctl.VSFlexGrid GRID5 
-         Height          =   7440
-         Left            =   90
-         TabIndex        =   10
-         Top             =   270
-         Width           =   5775
-         _cx             =   10186
-         _cy             =   13123
-         _ConvInfo       =   1
-         Appearance      =   0
-         BorderStyle     =   1
-         Enabled         =   -1  'True
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   9.75
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         MousePointer    =   0
-         BackColor       =   -2147483643
-         ForeColor       =   -2147483640
-         BackColorFixed  =   14737632
-         ForeColorFixed  =   0
-         BackColorSel    =   16761024
-         ForeColorSel    =   -2147483634
-         BackColorBkg    =   -2147483636
-         BackColorAlternate=   16777215
-         GridColor       =   12632256
-         GridColorFixed  =   -2147483632
-         TreeColor       =   -2147483632
-         FloodColor      =   192
-         SheetBorder     =   -2147483642
-         FocusRect       =   2
-         HighLight       =   1
-         AllowSelection  =   -1  'True
-         AllowBigSelection=   -1  'True
-         AllowUserResizing=   0
-         SelectionMode   =   1
-         GridLines       =   1
-         GridLinesFixed  =   1
-         GridLineWidth   =   1
-         Rows            =   50
-         Cols            =   6
-         FixedRows       =   1
-         FixedCols       =   0
-         RowHeightMin    =   0
-         RowHeightMax    =   0
-         ColWidthMin     =   0
-         ColWidthMax     =   0
-         ExtendLastCol   =   0   'False
-         FormatString    =   ""
-         ScrollTrack     =   0   'False
-         ScrollBars      =   3
-         ScrollTips      =   0   'False
-         MergeCells      =   0
-         MergeCompare    =   0
-         AutoResize      =   0   'False
-         AutoSizeMode    =   0
-         AutoSearch      =   0
-         AutoSearchDelay =   2
-         MultiTotals     =   -1  'True
-         SubtotalPosition=   1
-         OutlineBar      =   0
-         OutlineCol      =   0
-         Ellipsis        =   0
-         ExplorerBar     =   0
-         PicturesOver    =   0   'False
-         FillStyle       =   0
-         RightToLeft     =   -1  'True
-         PictureType     =   0
-         TabBehavior     =   1
-         OwnerDraw       =   0
-         Editable        =   0
-         ShowComboButton =   -1  'True
-         WordWrap        =   0   'False
-         TextStyle       =   0
-         TextStyleFixed  =   0
-         OleDragMode     =   0
-         OleDropMode     =   0
-         DataMode        =   0
-         VirtualData     =   -1  'True
-         DataMember      =   ""
-         ComboSearch     =   3
-         AutoSizeMouse   =   0   'False
-         FrozenRows      =   0
-         FrozenCols      =   0
-         AllowUserFreezing=   0
-         BackColorFrozen =   0
-         ForeColorFrozen =   0
-         WallPaperAlignment=   9
-      End
-   End
    Begin VB.Frame Frame6 
       Caption         =   "—’Ìœ ÿ·»»«  €Ì— „‰›–… ··›—Ê⁄"
       BeginProperty Font 
@@ -149,15 +37,15 @@ Begin VB.Form online_dash_board
          Strikethrough   =   0   'False
       EndProperty
       Height          =   4425
-      Left            =   6075
+      Left            =   20385
       RightToLeft     =   -1  'True
-      TabIndex        =   7
-      Top             =   6345
+      TabIndex        =   5
+      Top             =   5715
       Width           =   3885
       Begin VSFlex7Ctl.VSFlexGrid GRID4 
          Height          =   4065
          Left            =   90
-         TabIndex        =   8
+         TabIndex        =   6
          Top             =   270
          Width           =   3705
          _cx             =   6535
@@ -195,118 +83,6 @@ Begin VB.Form online_dash_board
          AllowBigSelection=   -1  'True
          AllowUserResizing=   0
          SelectionMode   =   1
-         GridLines       =   1
-         GridLinesFixed  =   1
-         GridLineWidth   =   1
-         Rows            =   50
-         Cols            =   10
-         FixedRows       =   1
-         FixedCols       =   0
-         RowHeightMin    =   0
-         RowHeightMax    =   0
-         ColWidthMin     =   0
-         ColWidthMax     =   0
-         ExtendLastCol   =   0   'False
-         FormatString    =   ""
-         ScrollTrack     =   0   'False
-         ScrollBars      =   3
-         ScrollTips      =   0   'False
-         MergeCells      =   0
-         MergeCompare    =   0
-         AutoResize      =   0   'False
-         AutoSizeMode    =   0
-         AutoSearch      =   0
-         AutoSearchDelay =   2
-         MultiTotals     =   -1  'True
-         SubtotalPosition=   1
-         OutlineBar      =   0
-         OutlineCol      =   0
-         Ellipsis        =   0
-         ExplorerBar     =   0
-         PicturesOver    =   0   'False
-         FillStyle       =   0
-         RightToLeft     =   -1  'True
-         PictureType     =   0
-         TabBehavior     =   1
-         OwnerDraw       =   0
-         Editable        =   0
-         ShowComboButton =   -1  'True
-         WordWrap        =   0   'False
-         TextStyle       =   0
-         TextStyleFixed  =   0
-         OleDragMode     =   0
-         OleDropMode     =   0
-         DataMode        =   0
-         VirtualData     =   -1  'True
-         DataMember      =   ""
-         ComboSearch     =   3
-         AutoSizeMouse   =   0   'False
-         FrozenRows      =   0
-         FrozenCols      =   0
-         AllowUserFreezing=   0
-         BackColorFrozen =   0
-         ForeColorFrozen =   0
-         WallPaperAlignment=   9
-      End
-   End
-   Begin VB.Frame Frame4 
-      Caption         =   "„ÊœÌ·« "
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   9.75
-         Charset         =   178
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   7755
-      Left            =   3735
-      RightToLeft     =   -1  'True
-      TabIndex        =   5
-      Top             =   5670
-      Width           =   6675
-      Begin VSFlex7Ctl.VSFlexGrid GRID2 
-         Height          =   7395
-         Left            =   405
-         TabIndex        =   6
-         Top             =   2205
-         Width           =   6585
-         _cx             =   11615
-         _cy             =   13044
-         _ConvInfo       =   1
-         Appearance      =   0
-         BorderStyle     =   1
-         Enabled         =   -1  'True
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Arial"
-            Size            =   9.75
-            Charset         =   178
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         MousePointer    =   0
-         BackColor       =   -2147483643
-         ForeColor       =   -2147483640
-         BackColorFixed  =   14737632
-         ForeColorFixed  =   0
-         BackColorSel    =   -2147483635
-         ForeColorSel    =   -2147483634
-         BackColorBkg    =   -2147483636
-         BackColorAlternate=   16777215
-         GridColor       =   12632256
-         GridColorFixed  =   -2147483632
-         TreeColor       =   -2147483632
-         FloodColor      =   192
-         SheetBorder     =   -2147483642
-         FocusRect       =   2
-         HighLight       =   1
-         AllowSelection  =   -1  'True
-         AllowBigSelection=   -1  'True
-         AllowUserResizing=   0
-         SelectionMode   =   0
          GridLines       =   1
          GridLinesFixed  =   1
          GridLineWidth   =   1
@@ -488,7 +264,7 @@ Begin VB.Form online_dash_board
          Height          =   285
          Left            =   6480
          RightToLeft     =   -1  'True
-         TabIndex        =   12
+         TabIndex        =   8
          Top             =   270
          Width           =   645
       End
@@ -779,7 +555,7 @@ Begin VB.Form online_dash_board
       Align           =   2  'Align Bottom
       Height          =   210
       Left            =   0
-      TabIndex        =   11
+      TabIndex        =   7
       Top             =   10845
       Visible         =   0   'False
       Width           =   20370
@@ -789,13 +565,13 @@ Begin VB.Form online_dash_board
       Appearance      =   1
    End
    Begin VSFlex7Ctl.VSFlexGrid grdTotal 
-      Height          =   3075
-      Left            =   4950
-      TabIndex        =   13
+      Height          =   2895
+      Left            =   2925
+      TabIndex        =   9
       Top             =   765
-      Width           =   17835
-      _cx             =   31459
-      _cy             =   5424
+      Width           =   19860
+      _cx             =   35031
+      _cy             =   5106
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -833,7 +609,7 @@ Begin VB.Form online_dash_board
       GridLinesFixed  =   1
       GridLineWidth   =   1
       Rows            =   2
-      Cols            =   15
+      Cols            =   16
       FixedRows       =   2
       FixedCols       =   1
       RowHeightMin    =   0
@@ -843,7 +619,7 @@ Begin VB.Form online_dash_board
       ExtendLastCol   =   0   'False
       FormatString    =   ""
       ScrollTrack     =   0   'False
-      ScrollBars      =   3
+      ScrollBars      =   0
       ScrollTips      =   0   'False
       MergeCells      =   0
       MergeCompare    =   0
@@ -882,14 +658,14 @@ Begin VB.Form online_dash_board
       ForeColorFrozen =   0
       WallPaperAlignment=   9
    End
-   Begin VSFlex7Ctl.VSFlexGrid VSFlexGrid1 
-      Height          =   3840
+   Begin VSFlex7Ctl.VSFlexGrid grdShip 
+      Height          =   7035
       Left            =   45
-      TabIndex        =   14
-      Top             =   0
-      Width           =   4875
-      _cx             =   8599
-      _cy             =   6773
+      TabIndex        =   10
+      Top             =   3690
+      Width           =   7080
+      _cx             =   12488
+      _cy             =   12409
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -927,9 +703,9 @@ Begin VB.Form online_dash_board
       GridLinesFixed  =   1
       GridLineWidth   =   1
       Rows            =   2
-      Cols            =   15
+      Cols            =   7
       FixedRows       =   2
-      FixedCols       =   1
+      FixedCols       =   0
       RowHeightMin    =   0
       RowHeightMax    =   0
       ColWidthMin     =   0
@@ -937,7 +713,102 @@ Begin VB.Form online_dash_board
       ExtendLastCol   =   0   'False
       FormatString    =   ""
       ScrollTrack     =   0   'False
-      ScrollBars      =   3
+      ScrollBars      =   2
+      ScrollTips      =   0   'False
+      MergeCells      =   0
+      MergeCompare    =   0
+      AutoResize      =   0   'False
+      AutoSizeMode    =   0
+      AutoSearch      =   0
+      AutoSearchDelay =   2
+      MultiTotals     =   -1  'True
+      SubtotalPosition=   1
+      OutlineBar      =   0
+      OutlineCol      =   0
+      Ellipsis        =   0
+      ExplorerBar     =   0
+      PicturesOver    =   0   'False
+      FillStyle       =   0
+      RightToLeft     =   -1  'True
+      PictureType     =   0
+      TabBehavior     =   1
+      OwnerDraw       =   0
+      Editable        =   0
+      ShowComboButton =   -1  'True
+      WordWrap        =   -1  'True
+      TextStyle       =   0
+      TextStyleFixed  =   0
+      OleDragMode     =   0
+      OleDropMode     =   0
+      DataMode        =   0
+      VirtualData     =   -1  'True
+      DataMember      =   ""
+      ComboSearch     =   3
+      AutoSizeMouse   =   0   'False
+      FrozenRows      =   0
+      FrozenCols      =   0
+      AllowUserFreezing=   0
+      BackColorFrozen =   0
+      ForeColorFrozen =   0
+      WallPaperAlignment=   9
+   End
+   Begin VSFlex7Ctl.VSFlexGrid grid1 
+      Height          =   3615
+      Left            =   45
+      TabIndex        =   11
+      TabStop         =   0   'False
+      Top             =   45
+      Width           =   2850
+      _cx             =   5027
+      _cy             =   6376
+      _ConvInfo       =   1
+      Appearance      =   0
+      BorderStyle     =   1
+      Enabled         =   -1  'True
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Arial"
+         Size            =   11.25
+         Charset         =   178
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      MousePointer    =   0
+      BackColor       =   -2147483643
+      ForeColor       =   -2147483640
+      BackColorFixed  =   14737632
+      ForeColorFixed  =   0
+      BackColorSel    =   -2147483635
+      ForeColorSel    =   -2147483634
+      BackColorBkg    =   16777215
+      BackColorAlternate=   16777215
+      GridColor       =   12632256
+      GridColorFixed  =   -2147483632
+      TreeColor       =   -2147483632
+      FloodColor      =   192
+      SheetBorder     =   -2147483642
+      FocusRect       =   2
+      HighLight       =   1
+      AllowSelection  =   -1  'True
+      AllowBigSelection=   -1  'True
+      AllowUserResizing=   0
+      SelectionMode   =   0
+      GridLines       =   1
+      GridLinesFixed  =   1
+      GridLineWidth   =   1
+      Rows            =   2
+      Cols            =   3
+      FixedRows       =   2
+      FixedCols       =   0
+      RowHeightMin    =   0
+      RowHeightMax    =   0
+      ColWidthMin     =   0
+      ColWidthMax     =   0
+      ExtendLastCol   =   0   'False
+      FormatString    =   ""
+      ScrollTrack     =   0   'False
+      ScrollBars      =   2
       ScrollTips      =   0   'False
       MergeCells      =   0
       MergeCompare    =   0
@@ -960,6 +831,100 @@ Begin VB.Form online_dash_board
       Editable        =   0
       ShowComboButton =   -1  'True
       WordWrap        =   0   'False
+      TextStyle       =   0
+      TextStyleFixed  =   0
+      OleDragMode     =   0
+      OleDropMode     =   0
+      DataMode        =   0
+      VirtualData     =   -1  'True
+      DataMember      =   ""
+      ComboSearch     =   3
+      AutoSizeMouse   =   -1  'True
+      FrozenRows      =   0
+      FrozenCols      =   0
+      AllowUserFreezing=   0
+      BackColorFrozen =   0
+      ForeColorFrozen =   0
+      WallPaperAlignment=   9
+   End
+   Begin VSFlex7Ctl.VSFlexGrid grdModel 
+      Height          =   7035
+      Left            =   7155
+      TabIndex        =   12
+      Top             =   3690
+      Width           =   7800
+      _cx             =   13758
+      _cy             =   12409
+      _ConvInfo       =   1
+      Appearance      =   0
+      BorderStyle     =   1
+      Enabled         =   -1  'True
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Arial"
+         Size            =   11.25
+         Charset         =   178
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      MousePointer    =   0
+      BackColor       =   -2147483643
+      ForeColor       =   -2147483640
+      BackColorFixed  =   14737632
+      ForeColorFixed  =   0
+      BackColorSel    =   12648447
+      ForeColorSel    =   -2147483630
+      BackColorBkg    =   -2147483636
+      BackColorAlternate=   -2147483643
+      GridColor       =   12632256
+      GridColorFixed  =   -2147483632
+      TreeColor       =   -2147483632
+      FloodColor      =   192
+      SheetBorder     =   -2147483642
+      FocusRect       =   2
+      HighLight       =   1
+      AllowSelection  =   -1  'True
+      AllowBigSelection=   0   'False
+      AllowUserResizing=   0
+      SelectionMode   =   3
+      GridLines       =   1
+      GridLinesFixed  =   1
+      GridLineWidth   =   1
+      Rows            =   2
+      Cols            =   6
+      FixedRows       =   2
+      FixedCols       =   0
+      RowHeightMin    =   0
+      RowHeightMax    =   0
+      ColWidthMin     =   0
+      ColWidthMax     =   0
+      ExtendLastCol   =   0   'False
+      FormatString    =   ""
+      ScrollTrack     =   0   'False
+      ScrollBars      =   2
+      ScrollTips      =   0   'False
+      MergeCells      =   0
+      MergeCompare    =   0
+      AutoResize      =   0   'False
+      AutoSizeMode    =   0
+      AutoSearch      =   0
+      AutoSearchDelay =   2
+      MultiTotals     =   -1  'True
+      SubtotalPosition=   1
+      OutlineBar      =   0
+      OutlineCol      =   0
+      Ellipsis        =   0
+      ExplorerBar     =   0
+      PicturesOver    =   0   'False
+      FillStyle       =   0
+      RightToLeft     =   -1  'True
+      PictureType     =   0
+      TabBehavior     =   1
+      OwnerDraw       =   0
+      Editable        =   0
+      ShowComboButton =   -1  'True
+      WordWrap        =   -1  'True
       TextStyle       =   0
       TextStyleFixed  =   0
       OleDragMode     =   0
@@ -988,14 +953,17 @@ Dim oSearch_Total As New Search_total
 Private Sub cmd_excel_Click()
     ToFileExel2 GridTotal, , , , , 1.1, , , , , , Me
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
     Unload Me
 End Sub
 Private Sub cmdGo_Click()
-    If Not MYVALID Then Exit Sub
+    If Not myValid Then Exit Sub
     myLoadGrdTotal
+    myLoadGrd
+    myLoadGrdShip
+    myLoadGrdModel
 End Sub
-Private Function MYVALID() As Boolean
+Private Function myValid() As Boolean
 If Not IsDate(xDate1.text) Then
     MsgBox "«· «—ÌŒ «·«Ê· €Ì— „”Ã·"
     Exit Function
@@ -1004,7 +972,7 @@ If Not IsDate(xdate2.text) Then
     MsgBox "«· «—ÌŒ «·À«‰Ì €Ì— „”Ã·"
     Exit Function
 End If
-MYVALID = True
+myValid = True
 End Function
 Private Sub MYLOAD1()
 
@@ -1013,8 +981,21 @@ Private Sub Form_Load()
 xDate1.text = myFormat_p(Year(Date) & "-" & Month(Date) & "-" & "01")
 xdate2.text = myFormat_p(DateAdd("d", -1, myFormat(DateAdd("m", 1, myFormat(xDate1.text)))))
 fixGrdTotal
+Fixgrd
+FixgrdShip
+FixgrdModel
 End Sub
 Private Sub myLoadGrdTotal()
+Dim aPrm As Variant
+If IsDate(xDate1.text) Then
+    aPrm = AddFlag(aPrm, "DATE1", myFormat_sp(xDate1.text))
+    aPrm = AddFlag(aPrm, "DATE2", myFormat_sp(xdate2.text))
+End If
+
+Dim db As New clsDb
+Set grdTotal.DataSource = db.myRs("[dbo].[sp_dash_board_total]", adStoredProc, aPrm)
+Set db = Nothing
+
 fixGrdTotal
 End Sub
 Private Sub fixGrdTotal()
@@ -1034,24 +1015,30 @@ Next
 
 .TextMatrix(1, 1) = "⁄œœ"
 .ColWidth(1) = 1000
+.ColFormat(1) = "#,##0"
 .TextMatrix(1, 2) = "ﬁÿ€"
 .ColWidth(2) = 1000
+.ColFormat(2) = "#,##0"
 .TextMatrix(1, 3) = "≈Ã„«·Ï"
 .ColWidth(3) = 1500
+.ColFormat(3) = "#,##0"
 .TextMatrix(1, 4) = "„ Ê”ÿ"
-.ColWidth(4) = 1000
 
 For i = 5 To 9
     .TextMatrix(0, i) = "«·„»«⁄"
 Next
 .TextMatrix(1, 5) = "⁄œœ"
 .ColWidth(5) = 1000
+.ColFormat(5) = "#,##0"
 .TextMatrix(1, 6) = "ﬁÿ⁄"
 .ColWidth(6) = 1000
+.ColFormat(6) = "#,##0"
 .TextMatrix(1, 7) = "ﬁÌ„…"
 .ColWidth(7) = 1500
+.ColFormat(7) = "#,##0"
 .TextMatrix(1, 8) = "‰”Ì…"
 .ColWidth(8) = 1000
+.ColFormat(8) = "0.00%"
 .TextMatrix(1, 9) = "„ Ê”ÿ"
 .ColWidth(9) = 1000
 
@@ -1060,14 +1047,20 @@ For i = 10 To 14
 Next
 .TextMatrix(1, 10) = "⁄œœ"
 .ColWidth(10) = 1000
+.ColFormat(10) = "#,##0"
 .TextMatrix(1, 11) = "ﬁÿ⁄"
 .ColWidth(11) = 1000
+.ColFormat(11) = "#,##0"
 .TextMatrix(1, 12) = "ﬁÌ„…"
 .ColWidth(12) = 1500
+.ColFormat(12) = "#,##0"
 .TextMatrix(1, 13) = "‰”Ì…"
 .ColWidth(13) = 1000
+.ColFormat(13) = "0.00%"
 .TextMatrix(1, 14) = "„ Ê”ÿ"
 .ColWidth(14) = 1000
+
+.ColHidden(.Cols - 1) = True
 
 .MergeCells = flexMergeFixedOnly
 .MergeRow(0) = True
@@ -1076,51 +1069,178 @@ Next
 .Cell(flexcpAlignment, 1, 0, 1, .Cols - 1) = 4
 
 
-.WordWrap = True
+For i = 2 To .Rows - 1
+    If .ValueMatrix(i, .Cols - 1) = 2 Or .ValueMatrix(i, .Cols - 1) = 4 Then
+        .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &HE0E0E0
+    End If
+Next
 
-'For nRow = 2 To .Rows - 1
-'    If Val(.TextMatrix(nRow, 1)) > 0 Then
-'        nPrice = Round(Val(.TextMatrix(nRow, 2)) / Val(.TextMatrix(nRow, 0)), 2)
-'        .TextMatrix(nRow, 3) = nPrice
-'    End If
-'
-'    If Val(.TextMatrix(nRow, 5)) > 0 Then
-'        nPrice = Round(Val(.TextMatrix(nRow, 6)) / Val(.TextMatrix(nRow, 4)), 2)
-'        .TextMatrix(nRow, 8) = nPrice
-'    End If
-'
-'    If Val(.TextMatrix(nRow, 9)) > 0 Then
-'        nPrice = Round(Val(.TextMatrix(nRow, 11)) / Val(.TextMatrix(nRow, 9)), 2)
-'        .TextMatrix(nRow, 13) = nPrice
-'    End If
-'
-'
-'    If Val(.TextMatrix(nRow, 15)) > 0 Then
-'        nPrice = Round(Val(.TextMatrix(nRow, 16)) / Val(.TextMatrix(nRow, 14)), 2)
-'        .TextMatrix(nRow, 18) = nPrice
-'    End If
-'
-'    .TextMatrix(nRow, 2) = Round(Val(.TextMatrix(nRow, 2)), 0)
-'    .TextMatrix(nRow, 6) = Round(Val(.TextMatrix(nRow, 6)), 0)
-'    .TextMatrix(nRow, 11) = Round(Val(.TextMatrix(nRow, 11)), 0)
-'    .TextMatrix(nRow, 16) = Round(Val(.TextMatrix(nRow, 16)), 0)
-'
-'    If Val(.TextMatrix(nRow, 0)) > 0 Then
-'        nRate = Round((Val(.TextMatrix(nRow, 4)) / Val(.TextMatrix(nRow, 0))) * 100, 2)
-'        .TextMatrix(nRow, 7) = nRate
-'
-'        nRate = Round((Val(.TextMatrix(nRow, 9)) / Val(.TextMatrix(nRow, 0))) * 100, 2)
-'        .TextMatrix(nRow, 12) = nRate
-'
-'        nRate = Round((Val(.TextMatrix(nRow, 14)) / Val(.TextMatrix(nRow, 0))) * 100, 2)
-'        .TextMatrix(nRow, 17) = nRate
-'    End If
-'    If Val(.TextMatrix(nRow, 4)) > 0 Then
-'        nRate = Round((Val(.TextMatrix(nRow, 19)) / Val(.TextMatrix(nRow, 4))) * 100, 2)
-'        .TextMatrix(nRow, 20) = nRate
-'    End If
-'Next nRow
-.ExplorerBar = flexExSortShow
-.SubtotalPosition = flexSTBelow
+.WordWrap = True
 End With
 End Sub
+Public Sub myLoadGrd()
+On Error GoTo myerror
+With grid1
+    Dim aPrm As Variant
+    aPrm = AddFlag(aPrm, "DATE1", myFormat_sp(xDate1.text))
+    aPrm = AddFlag(aPrm, "DATE2", myFormat_sp(xdate2.text))
+    Dim db As New clsDb
+    Set grid1.DataSource = db.myRs("[dbo].[sp_dash_stage]", adStoredProc, aPrm)
+    Set db = Nothing
+End With
+Fixgrd
+Exit Sub
+myerror:
+MsgBox Err.Description
+Err.Clear
+End Sub
+Sub Fixgrd()
+With grid1
+    .TextMatrix(0, 0) = " ÃÂÌ“ ÿ·»Ì« "
+    .TextMatrix(0, 1) = " ÃÂÌ“ ÿ·»Ì« "
+    .TextMatrix(0, 2) = " ÃÂÌ“ ÿ·»Ì« "
+    
+    .TextMatrix(1, 0) = "«·„—Õ·…"
+    .TextMatrix(1, 1) = "«·„—Õ·…"
+    .TextMatrix(1, 2) = "«·⁄œœ"
+    
+    .MergeCells = flexMergeFixedOnly
+    .MergeRow(0) = True
+    
+    .ColHidden(0) = True
+    .ColWidth(1) = 1600
+    .ColWidth(2) = 700
+    
+    '.ExplorerBar = flexExSort
+     .Cell(flexcpAlignment, 0, 0, 1, .Cols - 1) = flexAlignCenterCenter
+    .SubtotalPosition = flexSTBelow
+    .Subtotal flexSTSum, -1, 2, "#", vbYellow, , True, ""
+    If grid1.Rows > 1 Then
+        grid1.TextMatrix(grid1.Rows - 1, 1) = "«·≈Ã„«·Ì"
+    End If
+    End With
+End Sub
+Public Sub myLoadGrdShip()
+On Error GoTo myerror
+With grid1
+    Dim aPrm As Variant
+    aPrm = AddFlag(aPrm, "DATE1", myFormat_sp(xDate1.text))
+    aPrm = AddFlag(aPrm, "DATE2", myFormat_sp(xdate2.text))
+    Dim db As New clsDb
+    Set grdShip.DataSource = db.myRs("[dbo].[sp_dash_board_ship]", adStoredProc, aPrm)
+    Set db = Nothing
+End With
+FixgrdShip
+Exit Sub
+myerror:
+MsgBox Err.Description
+Err.Clear
+End Sub
+Sub FixgrdShip()
+With grdShip
+    For i = 0 To .Cols - 1
+        .TextMatrix(0, i) = "»Ê«·’ «·‘Õ‰"
+        .ColWidth(i) = 900
+    Next
+    .ColWidth(0) = 1300
+    
+    .MergeCells = flexMergeFixedOnly
+    .MergeRow(0) = True
+    
+    .RowHeight(1) = 800
+                
+    .TextMatrix(1, 0) = "«·ÌÊ„"
+    .TextMatrix(1, 1) = "⁄œœ «·»Ê«·’"
+    .TextMatrix(1, 2) = "»Ê«·’ „€·ﬁ…"
+    .TextMatrix(1, 3) = "»Ê«·’ „› ÊÕ…"
+    .TextMatrix(1, 4) = "» «—ÌŒ ‘Õ‰"
+    .TextMatrix(1, 5) = "»œÊ‰ ‘Õ‰"
+    .TextMatrix(1, 6) = "„€·ﬁ… »œÊ‰ ‘Õ‰"
+    
+    .ColDataType(0) = flexDTDate
+    For i = 1 To .Cols - 1
+        .ColDataType(i) = flexDTDouble
+    Next
+    
+    .ExplorerBar = flexExSort
+    .Cell(flexcpAlignment, 0, 0, 1, .Cols - 1) = flexAlignCenterCenter
+    .SubtotalPosition = flexSTBelow
+    
+    For i = 0 To .Cols - 1
+        If .ColDataType(i) = flexDTDate Then
+            .ColFormat(i) = "yyyy/m/d"
+        ElseIf .ColDataType(i) = flexDTDouble Then
+            .Subtotal flexSTSum, -1, i, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
+        End If
+    Next
+        
+    If .Rows > 2 Then
+        .TextMatrix(2, 0) = "„« ﬁ»·Â"
+    End If
+        
+    If grid1.Rows > 1 Then
+        grid1.TextMatrix(grid1.Rows - 1, 1) = "«·≈Ã„«·Ì"
+    End If
+End With
+End Sub
+Public Sub myLoadGrdModel()
+With grid1
+    Dim aPrm As Variant
+    aPrm = AddFlag(aPrm, "DATE1", myFormat_sp(xDate1.text))
+    aPrm = AddFlag(aPrm, "DATE2", myFormat_sp(xdate2.text))
+    Dim db As New clsDb
+    Set grdModel.DataSource = db.myRs("[dbo].[sp_dash_board_model]", adStoredProc, aPrm)
+    Set db = Nothing
+End With
+FixgrdModel
+End Sub
+Sub FixgrdModel()
+With grdModel
+    For i = 0 To .Cols - 1
+        .TextMatrix(0, i) = "„ÊœÌ·«  «·ÿ·»Ì« "
+    Next
+    
+    .ColWidth(0) = 1000
+    .ColWidth(1) = 700
+    .ColWidth(2) = 1500
+    .ColWidth(3) = 2400
+    .ColWidth(4) = 1000
+    .ColWidth(5) = 700
+    
+    
+    .MergeCells = flexMergeFixedOnly
+    .MergeRow(0) = True
+    
+    .RowHeight(1) = 800
+                
+    .TextMatrix(1, 0) = "«·„’‰⁄"
+    .TextMatrix(1, 1) = "«·„Ê”„"
+    .TextMatrix(1, 2) = "„ÊœÌ· «·„’‰⁄"
+    .TextMatrix(1, 3) = "«·’‰›"
+    .TextMatrix(1, 4) = "«·ﬂ„Ì…"
+    .TextMatrix(1, 5) = "«·‰”»…"
+    
+    For i = 4 To 4
+        .ColDataType(i) = flexDTDouble
+    Next
+    
+    
+    .ColFormat(5) = "0.00%"
+    
+    .ExplorerBar = flexExSort
+    .Cell(flexcpAlignment, 0, 0, 1, .Cols - 1) = flexAlignCenterCenter
+    .SubtotalPosition = flexSTBelow
+    
+    For i = 0 To .Cols - 1
+        .ColAlignment(i) = flexAlignRightCenter
+        If .ColDataType(i) = flexDTDate Then
+            .ColFormat(i) = "yyyy/m/d"
+        ElseIf .ColDataType(i) = flexDTDouble Then
+            .Subtotal flexSTSum, -1, i, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
+        End If
+    Next
+End With
+End Sub
+
+
+
