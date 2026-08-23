@@ -1234,7 +1234,7 @@ Dim con As New ADODB.Connection
 If Not opencn(con) Then Exit Sub
 
 
-Dim aRet As Variant
+Dim aret As Variant
 Dim cString As String
 cString = "SELECT TOP 1 " & _
         " vw_online_order.ORDER_NO, " & _
@@ -1244,10 +1244,10 @@ cString = "SELECT TOP 1 " & _
         " AND MAN = " & MyParn(sManCode) & _
         "  ORDER BY PR_ORDER, DATE,PAYMOB DESC"
 
-aRet = rsValues(cString, con)
+aret = rsValues(cString, con)
 
 Dim sStage As String
-If Not IsNull(aRet) Then
+If Not IsNull(aret) Then
     If MsgBox("ÿ·»Ì…  Õ  «· ÃÂÌ“ ··„‰œÊ» !! ÕœÌÀ", vbOKCancel) <> vbOK Then GoTo Finally
 Else
     cString = "SELECT TOP 1 " & _
@@ -1256,13 +1256,13 @@ Else
             " FROM vw_online_order " & _
             " WHERE vw_online_order.STAGE = 1" & _
             " ORDER BY PR_ORDER, DATE,PAYMOB DESC"
-    aRet = rsValues(cString, con)
+    aret = rsValues(cString, con)
 End If
 
-If Not IsNull(aRet) Then
+If Not IsNull(aret) Then
     Set online_Stage_order.myForm = Me
-    online_Stage_order.sOrder_no = retFlag(aRet, "order_no")
-    online_Stage_order.sDoc_no = retFlag(aRet, "doc_no")
+    online_Stage_order.sOrder_no = retFlag(aret, "order_no")
+    online_Stage_order.sDoc_no = retFlag(aret, "doc_no")
     online_Stage_order.sManCode = sManCode
     online_Stage_order.Show 1
 End If
@@ -1332,7 +1332,7 @@ Private Sub Form_Unload(Cancel As Integer)
     'If cBranch <> "00" Then closeCon con_MyShop
     Set online_stage_manager = Nothing
     Set dmb = Nothing
-    SaveText Me, , Array(xdate1.Name, xdate2.Name)
+    SaveText Me, , Array(xDate1.Name, xdate2.Name)
 End Sub
 
 Private Sub grdDone_DblClick()
@@ -1400,13 +1400,13 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub fixGrdError()
-Dim I As Long
+Dim i As Long
 With grdError
     '.RowHeight(0) = 400
     '.RowHeight(1) = 600
-    For I = 0 To .Cols - 1
-        .TextMatrix(0, I) = "ÿ·»Ì«  »Â« „‘ﬂ·« "
-        .ColAlignment(I) = flexAlignCenterCenter
+    For i = 0 To .Cols - 1
+        .TextMatrix(0, i) = "ÿ·»Ì«  »Â« „‘ﬂ·« "
+        .ColAlignment(i) = flexAlignCenterCenter
     Next
     
     .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"
@@ -1463,13 +1463,13 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub fixgrdPrep()
-Dim I As Long
+Dim i As Long
 With grdPrep
     '.RowHeight(0) = 400
     '.RowHeight(1) = 600
-    For I = 0 To .Cols - 1
-        .TextMatrix(0, I) = "»Ì«‰ ÿ·»Ì«   Õ  «· ÃÂÌ“"
-        .ColAlignment(I) = flexAlignCenterCenter
+    For i = 0 To .Cols - 1
+        .TextMatrix(0, i) = "»Ì«‰ ÿ·»Ì«   Õ  «· ÃÂÌ“"
+        .ColAlignment(i) = flexAlignCenterCenter
     Next
     
     .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"
@@ -1513,8 +1513,8 @@ strSql = "SELECT v.ORDER_NO, " & _
          "FORMAT(v.[DATE],'yyyy/M/d'), " & _
          "FILE6_25.DESCA, " & _
          "FORMAT(v.TIME2,'yyyy/M/d HH:mm'), " & _
-         "FORMAT(v.TIME3,'yyyy/M/d HH:mm'), " & _
-         "  dbo.fn_time_diff(time2, time3) AS TimePeriod," & _
+         "FORMAT(v.TIME_STAGE,'yyyy/M/d HH:mm'), " & _
+         "  dbo.fn_time_diff(time2, time_stage) AS TimePeriod," & _
          " v.TOTAL_QUANT, " & _
          " v.TOTAL_ITEM, " & _
          " v.DISCOUNT, " & _
@@ -1522,7 +1522,7 @@ strSql = "SELECT v.ORDER_NO, " & _
          " FROM vw_online_order v" & _
          " INNER JOIN ONLINE_TYPES t ON v.TYPE = t.CODE" & _
          " INNER JOIN STAGES_CODES s ON v.STAGE = s .CODE" & _
-         " INNER JOIN FILE6_25 ON v.MAN = FILE6_25.CODE " & _
+         " INNER JOIN FILE6_25 ON v.MAN_STAGE = FILE6_25.CODE " & _
          " WHERE (v.STAGE = 3 OR v.STAGE = 8)" & _
          " ORDER BY STAGE DESC,DATE ,V.DOC_NO"
          
@@ -1536,13 +1536,13 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub fixGrdDone()
-Dim I As Long
+Dim i As Long
 With grdDone
     '.RowHeight(0) = 400
     '.RowHeight(1) = 600
-    For I = 0 To .Cols - 1
-        .TextMatrix(0, I) = "ÿ·»Ì«   „  ÃÂÌ“Â«"
-        .ColAlignment(I) = flexAlignCenterCenter
+    For i = 0 To .Cols - 1
+        .TextMatrix(0, i) = "ÿ·»Ì«   „  ÃÂÌ“Â«"
+        .ColAlignment(i) = flexAlignCenterCenter
     Next
     
     .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"
@@ -1569,10 +1569,10 @@ With grdDone
     .ColWidth(1) = 1000
     .ColWidth(2) = 2000
     .ColWidth(3) = 1250
-    .ColWidth(4) = 2000
+    .ColWidth(4) = 1250
     .ColWidth(5) = 1700
     .ColWidth(6) = 1700
-    .ColWidth(7) = 1000
+    .ColWidth(7) = 1700
     .ColWidth(8) = 700
     .ColWidth(9) = 1100
     .ColWidth(10) = 1000
@@ -1609,11 +1609,11 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub fixGrdRefund()
-Dim I As Long
+Dim i As Long
 With grdRefund
-For I = 0 To .Cols - 1
-    .TextMatrix(0, I) = "ÿ·»Ì«  ﬁÌœ «·«” ·«„ »›« Ê—…"
-    .ColAlignment(I) = flexAlignCenterCenter
+For i = 0 To .Cols - 1
+    .TextMatrix(0, i) = "ÿ·»Ì«  ﬁÌœ «·«” ·«„ »›« Ê—…"
+    .ColAlignment(i) = flexAlignCenterCenter
 Next
 
 .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"
@@ -1684,11 +1684,11 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub fixGrdRefund2()
-Dim I As Long
+Dim i As Long
 With grdRefund2
-For I = 0 To .Cols - 1
-    .TextMatrix(0, I) = "ÿ·»Ì«  ﬁÌœ «·«” ·«„ »œÊ‰ ›« Ê—…"
-    .ColAlignment(I) = flexAlignCenterCenter
+For i = 0 To .Cols - 1
+    .TextMatrix(0, i) = "ÿ·»Ì«  ﬁÌœ «·«” ·«„ »œÊ‰ ›« Ê—…"
+    .ColAlignment(i) = flexAlignCenterCenter
 Next
 
 .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"
@@ -1757,11 +1757,11 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub fixGrdInvoices()
-Dim I As Long
+Dim i As Long
 With grdInvoices
-For I = 0 To .Cols - 1
-    .TextMatrix(0, I) = "≈Ã„«·Ì ›Ê« Ì— „»Ì⁄« "
-    .ColAlignment(I) = flexAlignCenterCenter
+For i = 0 To .Cols - 1
+    .TextMatrix(0, i) = "≈Ã„«·Ì ›Ê« Ì— „»Ì⁄« "
+    .ColAlignment(i) = flexAlignCenterCenter
 Next
 
 .TextMatrix(1, 0) = "—ﬁ„ «·›« Ê—…"
@@ -1817,11 +1817,11 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub fixGrdInvoicesReturn()
-Dim I As Long
+Dim i As Long
 With grdInvoicesReturn
-For I = 0 To .Cols - 1
-    .TextMatrix(0, I) = "≈Ã„«·Ì ›Ê« Ì— „— Ã⁄…"
-    .ColAlignment(I) = flexAlignCenterCenter
+For i = 0 To .Cols - 1
+    .TextMatrix(0, i) = "≈Ã„«·Ì ›Ê« Ì— „— Ã⁄…"
+    .ColAlignment(i) = flexAlignCenterCenter
 Next
 
 .TextMatrix(1, 0) = "—ﬁ„ «·›« Ê—…"
@@ -1877,11 +1877,11 @@ MsgBox Err.Description
 Err.Clear
 End Sub
 Sub fixGrdReplace()
-Dim I As Long
+Dim i As Long
 With grdReplace
-For I = 0 To .Cols - 1
-    .TextMatrix(0, I) = "ÿ·»Ì… «” »œ«· Ê«” —Ã«⁄ »œÊ‰ ›« Ê—…"
-    .ColAlignment(I) = flexAlignCenterCenter
+For i = 0 To .Cols - 1
+    .TextMatrix(0, i) = "ÿ·»Ì… «” »œ«· Ê«” —Ã«⁄ »œÊ‰ ›« Ê—…"
+    .ColAlignment(i) = flexAlignCenterCenter
 Next
 
 .TextMatrix(1, 0) = "—ﬁ„ «·ÿ·»Ì…"

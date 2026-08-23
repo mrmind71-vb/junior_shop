@@ -1247,7 +1247,7 @@ End Sub
 Private Sub chkEcit_Click()
 myloadGrdDone
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub cmdGet_Click()
@@ -1302,7 +1302,7 @@ If sManCode = "" Then Exit Sub
 Dim con As New ADODB.Connection
 If Not opencn(con) Then Exit Sub
 
-Dim aRet As Variant
+Dim aret As Variant
 Dim cString As String
 cString = "SELECT TOP 1 " & _
         " vw_online_order.ORDER_NO, " & _
@@ -1310,12 +1310,12 @@ cString = "SELECT TOP 1 " & _
         " FROM vw_online_order " & _
         " WHERE STAGE = 2" & _
         " AND MAN = " & MyParn(sManCode) & _
-        "  ORDER BY PAYMOB DESC,DATE "
+        " ORDER BY PAYMOB DESC,DATE "
 
-aRet = rsValues(cString, con)
+aret = rsValues(cString, con)
 
 Dim sStage As String
-If Not IsNull(aRet) Then
+If Not IsNull(aret) Then
     If MsgBox("ÿ·»Ì…  Õ  «· ÃÂÌ“ ··„‰œÊ» !! ÕœÌÀ", vbOKCancel) <> vbOK Then GoTo Finally
 Else
     cString = "SELECT TOP 1 " & _
@@ -1325,13 +1325,13 @@ Else
             " WHERE vw_online_order.STAGE = 1" & _
             " AND vw_online_order.PREP = 1" & _
             " ORDER BY PAYMOB DESC,DATE"
-    aRet = rsValues(cString, con)
+    aret = rsValues(cString, con)
 End If
 
-If Not IsNull(aRet) Then
+If Not IsNull(aret) Then
     Set online_Stage_order.myForm = Me
-    online_Stage_order.sOrder_No = retFlag(aRet, "order_no")
-    online_Stage_order.sDoc_no = retFlag(aRet, "doc_no")
+    online_Stage_order.sOrder_no = retFlag(aret, "order_no")
+    online_Stage_order.sDoc_no = retFlag(aret, "doc_no")
     online_Stage_order.sManCode = sManCode
     online_Stage_order.Show 1
 End If
@@ -1345,7 +1345,7 @@ Resume Finally
 End Sub
 Private Sub GetError(Optional pManCode As String = "")
 Set online_Stage_order.myForm = Me
-online_Stage_order.sOrder_No = grdError.TextMatrix(grdError.Row, 0)
+online_Stage_order.sOrder_no = grdError.TextMatrix(grdError.Row, 0)
 online_Stage_order.sDoc_no = Val(grdError.TextMatrix(grdError.Row, 1))
 online_Stage_order.sManCode = pManCode
 online_Stage_order.bShowMsg = True
@@ -1353,21 +1353,21 @@ online_Stage_order.Show 1
 End Sub
 Private Sub GetErrorRp(Optional pManCode As String = "")
 Set online_Stage_order.myForm = Me
-online_Stage_order.sOrder_No = grdDone.TextMatrix(grdDone.Row, 0)
+online_Stage_order.sOrder_no = grdDone.TextMatrix(grdDone.Row, 0)
 online_Stage_order.sDoc_no = Val(grdDone.TextMatrix(grdDone.Row, 1))
 online_Stage_order.sManCode = pManCode
 online_Stage_order.Show 1
 End Sub
 Private Sub GetEditDoneValue(Optional pManCode As String = "")
 Set online_Stage_order.myForm = Me
-online_Stage_order.sOrder_No = grdEditDone.TextMatrix(grdEditDone.Row, 0)
+online_Stage_order.sOrder_no = grdEditDone.TextMatrix(grdEditDone.Row, 0)
 online_Stage_order.sDoc_no = Val(grdEditDone.TextMatrix(grdEditDone.Row, 1))
 online_Stage_order.sManCode = pManCode
 online_Stage_order.Show 1
 End Sub
 Private Sub GetEditValue(Optional pManCode As String = "")
 Set online_Stage_order.myForm = Me
-online_Stage_order.sOrder_No = grdEdit.TextMatrix(grdEdit.Row, 0)
+online_Stage_order.sOrder_no = grdEdit.TextMatrix(grdEdit.Row, 0)
 online_Stage_order.sDoc_no = Val(grdEdit.TextMatrix(grdEdit.Row, 1))
 online_Stage_order.sManCode = pManCode
 online_Stage_order.bShowMsg = True
@@ -1387,14 +1387,14 @@ cString = "SELECT  STAGES_CODES.CODE, " & _
     " ORDER BY STAGES_CODES.CODE "
     Set grid1.DataSource = myRs(cString)
 End With
-fixGrd
+Fixgrd
 'grid1.Cell(flexcpAlignment, 0, 0, grid1.Rows - 1, grid1.Cols - 1) = 7
 Exit Sub
 myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Sub fixGrd()
+Sub Fixgrd()
 With grid1
     '.RowHeight(0) = 400
     .RowHeight(1) = 400
@@ -1435,7 +1435,7 @@ Private Sub Form_Unload(Cancel As Integer)
 End Sub
 Private Sub GetErrorCancel(Optional pManCode As String = "")
 Set online_Stage_order.myForm = Me
-online_Stage_order.sOrder_No = grdCancel.TextMatrix(grdCancel.Row, 0)
+online_Stage_order.sOrder_no = grdCancel.TextMatrix(grdCancel.Row, 0)
 online_Stage_order.sDoc_no = grdCancel.TextMatrix(grdCancel.Row, 1)
 online_Stage_order.sManCode = pManCode
 online_Stage_order.Show 1
@@ -1693,12 +1693,12 @@ strSql = "SELECT v.ORDER_NO, " & _
          "t.desca, " & _
          "FILE6_25.DESCA, " & _
          "FORMAT(v.TIME2,'yyyy/M/d HH:mm'), " & _
-         "FORMAT(v.TIME3,'yyyy/M/d HH:mm'), " & _
-         "  dbo.fn_time_diff(time2, time3) AS TimePeriod," & _
+         "FORMAT(v.TIME6,'yyyy/M/d HH:mm'), " & _
+         "  dbo.fn_time_diff(time2, time6) AS TimePeriod," & _
          " v.TOTAL_QUANT " & _
          " FROM vw_online_order v" & _
          " INNER JOIN ONLINE_TYPES t ON v.TYPE = t.CODE" & _
-         " INNER JOIN FILE6_25 ON v.MAN = FILE6_25.CODE " & _
+         " INNER JOIN FILE6_25 ON v.MAN_STAGE = FILE6_25.CODE " & _
          " WHERE v.STAGE = 8"
 
 On Error GoTo myerror

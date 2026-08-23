@@ -1,56 +1,14 @@
-Private Sub xNote_branch_GotFocus()
-mygotFocus xNote_branch
+Private Sub xdate2_GotFocus()
+mygotFocus xdate2
 End Sub
-Private Sub xNote_branch_LostFocus()
-myLostFocus xNote_branch
+Private Sub xdate2_LostFocus()
+myLostFocus xdate2
+myvalidDate xdate2
 End Sub
-Private Sub xNote_main_GotFocus()
-mygotFocus xNote_main
+Private Sub xDate1_GotFocus()
+mygotFocus xDate1
 End Sub
-Private Sub xNote_main_LostFocus()
-myLostFocus xNote_main
-End Sub
-Private Sub xNotes_GotFocus()
-mygotFocus xNotes
-End Sub
-Private Sub xNotes_LostFocus()
-myLostFocus xNotes
-End Sub
-Private Sub xDelOrder_Date_GotFocus()
-mygotFocus xDelOrder_Date
-End Sub
-Private Sub xDelOrder_Date_LostFocus()
-myLostFocus xDelOrder_Date
-myvalidDate xDelOrder_Date
-End Sub
-Private Sub xphone_GotFocus()
-mygotFocus xphone
-End Sub
-Private Sub xphone_LostFocus()
-myLostFocus xphone
-End Sub
-Private Sub xcity_GotFocus()
-mygotFocus xcity
-End Sub
-Private Sub xcity_LostFocus()
-myLostFocus xcity
-End Sub
-Private Sub xship_date_GotFocus()
-mygotFocus xship_date
-End Sub
-Private Sub xship_date_LostFocus()
-myLostFocus xship_date
-myvalidDate xship_date
-End Sub
-Private Sub xStreet_GotFocus()
-mygotFocus xStreet
-End Sub
-Private Sub xStreet_LostFocus()
-myLostFocus xStreet
-End Sub
-Private Sub xName_GotFocus()
-mygotFocus xName
-End Sub
-Private Sub xName_LostFocus()
-myLostFocus xName
+Private Sub xDate1_LostFocus()
+myLostFocus xDate1
+myvalidDate xDate1
 End Sub

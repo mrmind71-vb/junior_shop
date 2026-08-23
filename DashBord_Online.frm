@@ -1131,7 +1131,7 @@ Private Sub Form_Load()
     
     Set GridTotal.DataSource = data1
     Set grid1.DataSource = DATA2
-    Set GRID2.DataSource = DATA3
+    Set grid2.DataSource = DATA3
     Set GRID3.DataSource = DATA4
     Set GRID4.DataSource = DATA5
     Set GRID5.DataSource = data6
@@ -1139,7 +1139,7 @@ Private Sub Form_Load()
     
     GridTotal.Rows = 2
     grid1.Rows = 2
-    GRID2.Rows = 2
+    grid2.Rows = 2
     GRID3.Rows = 2
     GRID4.Rows = 2
     GRID5.Rows = 2
@@ -1377,7 +1377,7 @@ Set DATA3.RecordSet = myRecordSet(cString, con)
 FixGrid2
 End Sub
 Private Sub FixGrid2()
-With GRID2
+With grid2
 .Cols = 6
 .RowHeight(0) = 500
 

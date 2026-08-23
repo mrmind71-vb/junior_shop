@@ -1004,7 +1004,7 @@ FIXDATA
 '''''''  ADDRESS
 TableAddress.Open "ADDRESS", con, adOpenStatic, adLockReadOnly, adCmdTable
 If TableAddress.RecordCount > 0 Then
-    cComp_Name = TableAddress!DESCA
+    cComp_Name = TableAddress!desca
 End If
 
 If lSupperVisor Or bOpt5 Or cBranch <> "00" Then
@@ -1135,29 +1135,29 @@ cString = "SELECT users.code,users.title1,users.title2, users.Password, users.de
           " FROM (users INNER JOIN Menusetting ON users.Code = Menusetting.code) INNER JOIN Menu ON Menusetting.control = Menu.Control " & _
           " where users.code = " & nusercode
 sectable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
-For i = 0 To Main.Count - 1
-    If TypeOf Main(i) Is Menu And Mid(Main(i).Name, 1, 2) = "mn" Then
-        Main(i).Visible = False
+For I = 0 To Main.Count - 1
+    If TypeOf Main(I) Is Menu And Mid(Main(I).Name, 1, 2) = "mn" Then
+        Main(I).Visible = False
     End If
 Next
 Err.Clear
 On Error Resume Next
 
-For i = 0 To Main.Count - 1
-    If "tmonline_order" = Main(i).Name Then
+For I = 0 To Main.Count - 1
+    If "tmonline_order" = Main(I).Name Then
         A = A
     End If
-    If TypeOf Main(i) Is Menu And Mid(Main(i).Name, 1, 2) <> "mn" Then
-        sectable.Find "control = " & MyParn(Main(i).Name), , adSearchForward, adBookmarkFirst
+    If TypeOf Main(I) Is Menu And Mid(Main(I).Name, 1, 2) <> "mn" Then
+        sectable.Find "control = " & MyParn(Main(I).Name), , adSearchForward, adBookmarkFirst
         If Not sectable.EOF Then
             If sectable!Visible Then
                 Main(sectable!MainMenu).Visible = True
-                Main(i).Visible = True
+                Main(I).Visible = True
             Else
-                Main(i).Visible = False
+                Main(I).Visible = False
             End If
         Else
-            Main(i).Visible = False
+            Main(I).Visible = False
         End If
     End If
 Next
@@ -1744,8 +1744,8 @@ Private Sub tmDashBoard_Click()
 TSal_DashBoard.Show
 End Sub
 Private Sub tmdashonline_Click()
-DashBord_Online.Show
-'online_dash_board.Show
+'DashBord_Online.Show
+online_dash_board.Show
 End Sub
 Private Sub tmdataitem_Click()
 DataItem_All.Show
@@ -2921,8 +2921,8 @@ aString(8) = "file4_10"
 aString(9) = "file6_10"
 aString(10) = "file6_20"
 aString(11) = "file7_20"
-For i = 0 To UBound(aString) - 1
-    cString = "Delete Distinctrow " & aString(i) & ".*" & " From " & aString(i)
+For I = 0 To UBound(aString) - 1
+    cString = "Delete Distinctrow " & aString(I) & ".*" & " From " & aString(I)
     mydb.Execute cString
 Next
 End Sub
@@ -3107,9 +3107,9 @@ Sub FixStoreCode()
 
 End Sub
 Sub Show_NewDoc()
-    Set grid1.DataSource = data1
+    Set GRID1.DataSource = data1
     data1.ConnectionString = strCon
-    grid1.Rows = 1
+    GRID1.Rows = 1
     Fixgrd
     myload
     
@@ -3122,7 +3122,7 @@ Private Sub myload()
     Fixgrd
 End Sub
 Sub Fixgrd()
-    With grid1
+    With GRID1
     .ExplorerBar = flexExSortShow
     .FixedRows = 1
     .WordWrap = True
@@ -3573,16 +3573,16 @@ aCommand = AddFlag(aCommand, aCommandSub)
 Dim nLeft As Long, nColor As Byte
 nLeft = 50
 
-For i = 0 To UBound(aCommand)
-    If retFlag(aCommand(i), "visible") Then
-        Main(retFlag(aCommand(i), "name")).Visible = True
-        Main(retFlag(aCommand(i), "name")).Left = nLeft
-        nLeft = nLeft + Main(retFlag(aCommand(i), "name")).Width + 50
-        Main(retFlag(aCommand(i), "name")).BackColor = IIf(nColor = 0, vbWhite, &H80000004)
+For I = 0 To UBound(aCommand)
+    If retFlag(aCommand(I), "visible") Then
+        Main(retFlag(aCommand(I), "name")).Visible = True
+        Main(retFlag(aCommand(I), "name")).Left = nLeft
+        nLeft = nLeft + Main(retFlag(aCommand(I), "name")).Width + 50
+        Main(retFlag(aCommand(I), "name")).BackColor = IIf(nColor = 0, vbWhite, &H80000004)
         nColor = IIf(nColor = 0, 1, 0)
         If Not Picture1.Visible Then Picture1.Visible = True
     Else
-        Main(retFlag(aCommand(i), "name")).Visible = False
+        Main(retFlag(aCommand(I), "name")).Visible = False
     End If
 Next
 End Sub

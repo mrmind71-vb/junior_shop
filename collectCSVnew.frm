@@ -545,7 +545,7 @@ End If
 Me.MousePointer = 0
 End Sub
 
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub cmdShipping_Click()
@@ -566,7 +566,7 @@ If GRID2.Rows > 1 Then
     SSTab1.Tab = 0
 End If
 
-Option1(0).value = True
+Option1(0).Value = True
 End Sub
 
 Private Sub cmdWeb_Click()
@@ -579,7 +579,7 @@ getDataWeb
 cmdWeb.Enabled = True
 SSTab1.TabEnabled(0) = True
 SSTab1.TabEnabled(1) = True
-Option1(0).value = True
+Option1(0).Value = True
 Fixgrd
 End Sub
 Private Function getDataWeb()
@@ -611,7 +611,7 @@ If sBank = "" Then
     Exit Function
 End If
 
-Dim locTable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 Set locTable = mycmd("SELECT * FROM FILE5_10 WHERE CODE = " & MyParn(sBank), con)
 If locTable.EOF Then
     MsgBox "»Ì«‰ «·»‰ﬂ €Ì— ’«·Õ"
@@ -657,7 +657,7 @@ End If
 
 Dim Tb As New ChilkatStringBuilder
 Dim cString As New ChilkatStringBuilder
-prog1.Visible = True
+PROG1.Visible = True
 Dim sCaption As String
 sCaption = Me.Caption
 
@@ -667,7 +667,7 @@ Dim nGross As Double
 
 For i = 0 To cSv.NumRows - 1
     Me.Caption = sCaption & " - " & "”Ã· " & (i + 1) & " „‰ " & cSv.NumRows
-    prog1.value = Round(i / (cSv.NumRows), 2) * 100
+    PROG1.Value = Round(i / (cSv.NumRows), 2) * 100
     
     sid = cSv.GetCellByName(i, id_header)
     If sid <> "" Then
@@ -701,7 +701,7 @@ For i = 0 To cSv.NumRows - 1
         End If
     End If
 Next
-prog1.Visible = False
+PROG1.Visible = False
 Me.Caption = sCaption
 End Function
 Private Sub Form_Load()
@@ -803,7 +803,7 @@ If sOrder_no = "" Then
 End If
 
 
-Dim locTable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 Set locTable = myRs("SELECT FILE6_90H.*," & _
                     "vw_online_order_total.total," & _
                     "vw_online_order_total.total_plus ," & _
@@ -823,7 +823,7 @@ End If
 grid1.TextMatrix(Row, 0) = locTable!PAYMENT_ID & ""
 grid1.TextMatrix(Row, 1) = locTable!doc_no & ""
 grid1.TextMatrix(Row, 2) = locTable!Name & ""
-grid1.TextMatrix(Row, 3) = locTable!phone & ""
+grid1.TextMatrix(Row, 3) = locTable!Phone & ""
 grid1.TextMatrix(Row, 4) = locTable!count_of & ""
 grid1.TextMatrix(Row, 5) = locTable!total_plus & ""
 grid1.TextMatrix(Row, 6) = locTable!total_minus & ""
@@ -849,21 +849,21 @@ End Sub
 Private Sub Option1_Click(index As Integer)
 Dim i As Long
 For i = 1 To grid1.Rows - 1
-    If Option1(0).value Then
+    If Option1(0).Value Then
         grid1.RowHidden(i) = False
-    ElseIf Option1(1).value Then
+    ElseIf Option1(1).Value Then
         grid1.RowHidden(i) = grid1.ValueMatrix(i, grid1.Cols - 1) = 0
-    ElseIf Option1(2).value Then
+    ElseIf Option1(2).Value Then
         grid1.RowHidden(i) = grid1.ValueMatrix(i, grid1.Cols - 1) <> 0
     End If
 Next
 
 For i = 1 To GRID2.Rows - 1
-    If Option1(0).value Then
+    If Option1(0).Value Then
         GRID2.RowHidden(i) = False
-    ElseIf Option1(1).value Then
+    ElseIf Option1(1).Value Then
         GRID2.RowHidden(i) = GRID2.ValueMatrix(i, GRID2.Cols - 1) = 0
-    ElseIf Option1(2).value Then
+    ElseIf Option1(2).Value Then
         GRID2.RowHidden(i) = GRID2.ValueMatrix(i, GRID2.Cols - 1) <> 0
     End If
 Next
@@ -876,12 +876,12 @@ On Error GoTo myerror
 Dim sCaption As String
 
 sCaption = Me.Caption
-prog1.Visible = True
+PROG1.Visible = True
 With grid1
 con.BeginTrans
 For i = 1 To .Rows - 1
     Me.Caption = sCaption & " - " & "”Ã· " & (i + 1) & " „‰ " & grid1.Rows - 1
-    prog1.value = Round(i / (grid1.Rows - 1), 2) * 100
+    PROG1.Value = Round(i / (grid1.Rows - 1), 2) * 100
     If .ValueMatrix(i, .Cols - 1) <> 0 Then
         aInsert = AddFlag(Empty, "DOC_NO", addstring(sDoc_no))
         aInsert = AddFlag(aInsert, "PAYMENT_ID", addstring(grid1.TextMatrix(i, 0)))
@@ -897,12 +897,12 @@ End With
 
 
 Me.Caption = Caption
-prog1.Visible = True
+PROG1.Visible = True
 
 With GRID2
 For i = 1 To .Rows - 1
     Me.Caption = sCaption & " - " & "”Ã· " & (i + 1) & " „‰ " & GRID2.Rows - 1
-    prog1.value = Round(i / (GRID2.Rows - 1), 2) * 100
+    PROG1.Value = Round(i / (GRID2.Rows - 1), 2) * 100
     If .ValueMatrix(i, .Cols - 1) <> 0 Then
         aInsert = AddFlag(Empty, "DOC_NO", addstring(sDoc_no))
         aInsert = AddFlag(aInsert, "SHIP_NO", addstring(.TextMatrix(i, 0)))
@@ -918,7 +918,7 @@ End With
 con.CommitTrans
 Finally:
 Me.Caption = sCaption
-prog1.Visible = False
+PROG1.Visible = False
 Exit Function
 myerror:
 MsgBox Err.Description
@@ -959,7 +959,7 @@ If sOrder_no = "" Then
     Exit Function
 End If
 
-Dim locTable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 Set locTable = myRs("SELECT FILE6_90H.*," & _
                     "vw_online_order_total.total," & _
                     "vw_online_order_total.total_plus ," & _
@@ -971,8 +971,8 @@ Set locTable = myRs("SELECT FILE6_90H.*," & _
                     " LEFT JOIN vw_online_order_pay ON FILE6_90H.DOC_NO = vw_online_order_pay.ORDER_NO" & _
                     " WHERE DOC_NO = " & MyParn(sOrder_no), con)
 GRID2.TextMatrix(Row, 1) = locTable!doc_no & ""
-GRID2.TextMatrix(Row, 2) = locTable!Name
-GRID2.TextMatrix(Row, 3) = locTable!phone & ""
+GRID2.TextMatrix(Row, 2) = locTable!Name & ""
+GRID2.TextMatrix(Row, 3) = locTable!Phone & ""
 GRID2.TextMatrix(Row, 4) = locTable!count_of & ""
 GRID2.TextMatrix(Row, 5) = locTable!total_plus & ""
 GRID2.TextMatrix(Row, 6) = locTable!total_minus & ""
@@ -1002,7 +1002,7 @@ If nAccess = 0 Then
     Exit Function
 End If
 
-Dim locTable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 Set locTable = mycmd("SELECT * FROM SHIP WHERE CODE = " & MyParn(sShip), con)
 If locTable.EOF Then
     MsgBox "»Ì«‰ ‘—ﬂ… «·‘Õ‰ €Ì— ’«·Õ"
@@ -1047,7 +1047,7 @@ Dim Tb As New ChilkatStringBuilder
 Dim cString As New ChilkatStringBuilder
 
 
-prog1.Visible = True
+PROG1.Visible = True
 Dim sCaption As String
 sCaption = Me.Caption
 
@@ -1058,11 +1058,11 @@ Dim bDone As Boolean
 Dim cod As Double
 Dim fee As Double
 Dim vat As Double
-Dim value As Double
+Dim Value As Double
 
 For i = 0 To cSv.NumRows - 1
     Me.Caption = sCaption & " - " & "”Ã· " & (i + 1) & " „‰ " & cSv.NumRows
-    prog1.value = Round(i / (cSv.NumRows), 2) * 100
+    PROG1.Value = Round(i / (cSv.NumRows), 2) * 100
     
     ship_no = cSv.GetCellByName(i, order_header)
     If ship_no <> "" Then
@@ -1089,6 +1089,6 @@ For i = 0 To cSv.NumRows - 1
             End If
     End If
 Next
-prog1.Visible = False
+PROG1.Visible = False
 Me.Caption = sCaption
 End Function

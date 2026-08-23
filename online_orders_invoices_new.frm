@@ -1346,7 +1346,7 @@ Dim bIg As Boolean
 Dim bStopCell As Boolean
 Dim cFilterLook As String
 Dim nRound As Long
-Dim CardTable As ADODB.Recordset
+Dim CardTable As ADODB.RecordSet
 Dim oSearchItem As New Search_abd, oSearchDoc   As New Search_abd
 Dim oSearchDocRet As New Search_abd
 Dim bEditRecord As Boolean
@@ -1369,13 +1369,13 @@ Dim aInsert As Variant
 aInsert = AddFlag(aInsert, "[DISCOUNT]", Val(xDiscount.text))
 aInsert = AddFlag(aInsert, "[TYPE]", addvalue(xtype.Tag))
 aInsert = AddFlag(aInsert, "[SHIP]", addstring(xship.BoundText))
-aInsert = AddFlag(aInsert, "[SHIP_NO]", addstring(xShip_no.text))
+aInsert = AddFlag(aInsert, "[SHIP_NO]", addstring(xship_no.text))
 aInsert = AddFlag(aInsert, "[ORDER_NO]", addstring(sOrder_no))
 aInsert = AddFlag(aInsert, "[SALES_REPLACE]", addstring(xSales_Replace.Caption))
 aInsert = AddFlag(aInsert, "[PAYMENT_ID]", addstring(xPayment_id.text))
 aInsert = AddFlag(aInsert, "DATE_MAIL", addDate(xDate_mail.text))
 aInsert = AddFlag(aInsert, "[DATE]", addDate(xDate.text))
-aInsert = AddFlag(aInsert, "[charge2]", Val(xCharge2.text))
+aInsert = AddFlag(aInsert, "[charge2]", Val(xcharge2.text))
 aInsert = AddFlag(aInsert, "[VALUE]", Val(xValue.text))
 aInsert = AddFlag(aInsert, "[NOTES]", addstring(xNotes.text))
 'aInsert = AddFlag(aInsert, "[DATE1]", addDate(xdate1.Caption))
@@ -1385,7 +1385,7 @@ Dim con As New ADODB.Connection
 If OpenCon(con) <> "ok" Then Exit Function
 con.BeginTrans
 If xdoc_no.Tag = DefineMode Then
-    xdoc_no.Caption = Newflag("FILE6_90BH", "DOC_NO", con)
+    xdoc_no.Caption = NewFlag("FILE6_90BH", "DOC_NO", con)
     aInsert = AddFlag(aInsert, "DOC_NO", addstring(xdoc_no.Caption))
     aInsert = AddFlag(aInsert, "[USERNAME]", addstring(cUserName))
     aInsert = AddFlag(aInsert, "[USER_IP]", addstring(GetComputerName))
@@ -1456,7 +1456,7 @@ ElseIf sControl = "inv_ret_all" Then
     myReplaceRefundAll sDoc
 ElseIf ActiveControl.Name = xtype.Name Then
     xSales_Replace.Caption = ""
-    xSales_ret.Caption = ""
+    XSALES_RET.Caption = ""
     xdoc_no_sales.Caption = ""
     xMan.Tag = ""
     xMan.Caption = ""
@@ -1629,7 +1629,7 @@ oSearchDocRet.sControl = sControl
 oSearchDocRet.Show 1
 End Sub
 Private Function addRefundOrder(pDoc_no, pType As String) As Boolean
-Dim locTable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 Dim cString As String
 cString = "select TOP 1 FILE6_20H.BRANCH," & _
           " FILE6_20H.PRINTED," & _
@@ -1687,7 +1687,7 @@ Dim db As New clsDb
 
 Dim inv_no As Variant
 If Not db.rsValue("Select INV_NO from file6_90BH WHERE DOC_NO = " & xdoc_no.Caption, inv_no) Then
-    GoTo CleanUp
+    GoTo cleanUp
 End If
 
 If Not IsNull(inv_no) Then
@@ -1698,7 +1698,7 @@ End If
 db.Sql = "Delete  From FILE6_90B where Doc_No = " & xdoc_no.Caption
 db.Sql = "Delete  From FILE6_90BH where Doc_No = " & xdoc_no.Caption
 
-If Not db.ExecuteTransaction Then GoTo CleanUp
+If Not db.ExecuteTransaction Then GoTo cleanUp
 
 Inform " „ «·Õ–› »‰Ã«Õ"
 
@@ -1708,7 +1708,7 @@ If Not openCardTable(tbMode.tbPrevious, xdoc_no.Caption) Then
     End If
 End If
 bUpdated = True
-CleanUp:
+cleanUp:
 Set db = Nothing
 End Sub
 Private Sub cmdEdit_Click()
@@ -1842,7 +1842,7 @@ Private Sub cmdSavePayment_Click()
 If dbm.OpenCon Then
     If dbm.Execute("update file6_90BH " & _
                    " SET PAYMENT_ID = " & addstring(xPayment_id.text) & "," & _
-                   " Ship_no = " & addstring(GetNumbersFromString(xShip_no.text)) & "," & _
+                   " Ship_no = " & addstring(GetNumbersFromString(xship_no.text)) & "," & _
                    " DATE_MAIL = " & addDate(xDate_mail.text) & _
                    " WHERE DOC_NO = " & MyParn(xdoc_no.Caption)) Then
         Inform " „ Õ›Ÿ —ﬁ„ «·”œ«œ »‰Ã«Õ"
@@ -2059,7 +2059,7 @@ End If
 'End If
 
 If Not bIgShip Then
-    If Trim(xShip_no.text) = "" Then
+    If Trim(xship_no.text) = "" Then
         MsgBox "—ﬁ„ »Ê·Ì’… «·‘Õ‰ „ÿ·Ê»"
         Exit Function
     End If
@@ -2086,20 +2086,20 @@ End Function
 Private Sub myload()
 xdoc_no.Caption = CardTable!doc_no
 xDate.text = myFormat_p(CardTable!Date)
-xdate1.Caption = myFormat_p(CardTable!Date1)
+xDate1.Caption = myFormat_p(CardTable!Date1)
 xDate_mail.text = myFormat_p(CardTable!DATE_MAIL)
 xtype.Tag = CardTable!Type
 xtype.Caption = CardTable!TYPE_dESCA
 xDiscount.text = CardTable!discount & ""
-xShip_no.text = CardTable!ship_no & ""
+xship_no.text = CardTable!ship_no & ""
 xship.BoundText = CardTable!SHIP & ""
 xdoc_no_sales.Caption = CardTable!doc_no_sales & ""
 xSales_Replace.Caption = CardTable!sales_replace & ""
 xValue.text = CardTable!Value & ""
-xSales_ret.Caption = CardTable!SALES_RET & ""
+XSALES_RET.Caption = CardTable!SALES_RET & ""
 xClosed.Value = IIf(CardTable!CLOSED, 1, 0)
 xStage.Tag = CardTable!Stage & ""
-xCharge2.text = CardTable!charge2 & ""
+xcharge2.text = CardTable!charge2 & ""
 xStage.Caption = CardTable!stage_Desca & ""
 xPayment_id.text = CardTable!PAYMENT_ID & ""
 xNotes.text = CardTable!NOTES & ""
@@ -2125,22 +2125,22 @@ xDate.text = myFormat_p(Date)
 xDate_mail.text = ""
 xdoc_no_sales.Caption = ""
 xSales_Replace.Caption = ""
-xSales_ret.Caption = ""
+XSALES_RET.Caption = ""
 xtype.Caption = xtype.TagVariant
 xNotes.text = ""
 xValue.text = ""
 xtype.Tag = ""
 
 xship.BoundText = ""
-xShip_no.text = ""
-xCharge2.text = ""
+xship_no.text = ""
+xcharge2.text = ""
 xValue.text = ""
 
 addShip
 bIg = True
 xtotal_item.Caption = ""
 xDiscount.text = ""
-xtotal.Caption = ""
+xTotal.Caption = ""
 bIg = False
 xClosed.Value = 0
 
@@ -2168,7 +2168,7 @@ cmdSave.Enabled = bEditRecord
 cmdSavePayment.Enabled = nMode = LoadMode And cmdSave.Enabled = False
 cmdNewInv.Enabled = bEdit And cBranch = "00"
 
-cmddel.Enabled = bEditRecord And nMode = LoadMode And cBranch = "00" And (Trim(xdate1.Caption) = "" Or xtype.Tag <> "3")
+cmddel.Enabled = bEditRecord And nMode = LoadMode And cBranch = "00" And (Trim(xDate1.Caption) = "" Or xtype.Tag <> "3")
 
 'cmdSaveDateMail.Enabled = xtype.Tag = "2" Or xtype.Tag = "3" Or xtype.Tag = "12"
 xDate_mail.Enabled = xtype.Tag = "2" Or xtype.Tag = "3" Or xtype.Tag = "12"
@@ -2306,7 +2306,7 @@ For i = 1 To grid1.Rows - 2
     nTotalItemDiscount = nTotalItemDiscount + nDisountRow
 Next
 
-xtotalQuant.Caption = Myvalue(nTotalQuant)
+xTotalQuant.Caption = Myvalue(nTotalQuant)
 'xTotal_itemNoDiscount.Caption = Myvalue(nTotalItemNoDiscount)
 'xTotal_itemDiscount.Caption = Myvalue(nTotalItemDiscount)
 xtotal_item.Caption = Myvalue(nTotalItem)
@@ -2347,7 +2347,7 @@ Else
     xRate.text = ""
 End If
 
-xtotal.Caption = mRound(nTotalItem - Val(xDiscount.text), 2)
+xTotal.Caption = mRound(nTotalItem - Val(xDiscount.text), 2)
 bIg = False
 End With
 End Function
@@ -2524,7 +2524,7 @@ aInsert = AddFlag(aInsert, "[DATE]", addDate(Date))
 aInsert = AddFlag(aInsert, "[TYPE]", oSalesRefund.sFlag)
 aInsert = AddFlag(aInsert, "[SHIP]", addstring(xship.BoundText))
 aInsert = AddFlag(aInsert, "[MAN]", addstring(xMan.Tag))
-aInsert = AddFlag(aInsert, "[SHIP_NO]", addstring(xShip_no.text))
+aInsert = AddFlag(aInsert, "[SHIP_NO]", addstring(xship_no.text))
 aInsert = AddFlag(aInsert, "[USERNAME]", addstring(cUserName))
 aInsert = AddFlag(aInsert, "[USER_IP]", addstring(GetComputerName))
 If oSalesRefund.sFlag = "2" Or oSalesRefund.sFlag = "3" Then
@@ -2583,7 +2583,7 @@ End Function
 Public Function myReplaceRefundAll(pDoc_no As String) As Boolean
 
 dbm.OpenCon
-Dim locTable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 Set locTable = dbm.myRs("SELECT * FROM FILE6_20H WHERE DOC_NO = " & MyParn(pDoc_no))
 
 Dim aInsert As Variant
@@ -2608,7 +2608,7 @@ aInsert = AddFlag(aInsert, "[STAGE]", "7")
 On Error GoTo myerror
 dbm.addSql addInsert(aInsert, "FILE6_90BH")
 
-Set locTable = New ADODB.Recordset
+Set locTable = New ADODB.RecordSet
 Set locTable = dbm.myRs("SELECT * FROM FILE6_20 WHERE DOC_NO = " & MyParn(pDoc_no))
 
 Do Until locTable.EOF
@@ -2737,7 +2737,7 @@ Me.MousePointer = vbHourglass
 'On Error GoTo myerror
 cFilter = retFilter
 
-Set CardTable = New ADODB.Recordset
+Set CardTable = New ADODB.RecordSet
 cString = "SELECT TOP 1 FILE6_90BH.*," & _
           " FILE6_90BH.INV_NO AS DOC_NO_SALES," & _
           " ONLINE_TYPE_CODES.DESCA AS TYPE_DESCA," & _
@@ -2794,7 +2794,7 @@ End With
 ValidQuant = True
 End Function
 Private Function retRecords(pDoc_no, ByRef nRecords As Long, ByRef nRecord As Long) As Variant
-Dim cString As String, locTable As New ADODB.Recordset
+Dim cString As String, locTable As New ADODB.RecordSet
 If pDoc_no <> "" Then
     cString = "SELECT Count(FILE6_90BH.DOC_NO) AS records,COUNT(CASE WHEN FILE6_90BH.DOC_NO <= " & MyParn(pDoc_no) & " THEN 1 END) AS record"
 Else
@@ -2907,7 +2907,7 @@ cString = " SELECT FILE6_90BH.DOC_NO," & _
           " INNER JOIN FILE6_90H ON FILE6_90BH.ORDER_NO = FILE6_90H.DOC_NO" & _
           " WHERE FILE6_90BH.DOC_NO = " & MyParn(xdoc_no.Caption)
        
-Dim locTable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 Set locTable = myRs(cString)
 
 If locTable.EOF And locTable.BOF Then
@@ -3023,11 +3023,11 @@ sdoc_no_new = ""
 GoTo Finally
 End Function
 Private Sub xDate1_GotFocus()
-myGotFocus xdate1
+myGotFocus xDate1
 End Sub
 Private Sub xDate1_LostFocus()
-myLostFocus xdate1
-myValidDate xdate1
+myLostFocus xDate1
+myValidDate xDate1
 End Sub
 
 Private Sub xRate_Change()
@@ -3122,7 +3122,7 @@ cString = "SELECT " & _
           " WHERE FILE6_90BH.ORDER_NO = " & MyParn(sOrder_no) & _
           " AND FILE6_90BH.CLOSED = 0"
 
-Dim locTable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 Set locTable = myRs(cString)
 If Not locTable.EOF Then
     If locTable!type1 + locTable!type3 + locTable!type11 + locTable!type12 = 0 And locTable!type2 > 0 Then filterType = "1"
@@ -3176,11 +3176,11 @@ CalcTotals
 Fixgrd
 End Sub
 Private Sub addShip()
-Dim locTable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 On Error GoTo myerror
 Set locTable = myRs("SELECT TOP 1 * FROM FILE6_90BH WHERE ORDER_NO = " & MyParn(sOrder_no) & " AND  CLOSED = 0 AND (TYPE = 2 OR TYPE = 11 OR TYPE = 12)")
 If Not locTable.EOF Then
-    xShip_no.text = locTable!ship_no & ""
+    xship_no.text = locTable!ship_no & ""
     xship.BoundText = locTable!SHIP & ""
 End If
 Exit Sub
