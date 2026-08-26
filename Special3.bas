@@ -274,7 +274,7 @@ If cBranch = "00" Then
     Exit Function
 End If
 
-Dim locTable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 Dim cString As String
 Set locTable = cmd("SELECT dSales FROM DSALES" & _
             " WHERE BRANCH = " & MyParn(cBranch), con).Execute
@@ -305,7 +305,7 @@ fnBalance = Val(cmBalance.Parameters("@BALANCE") & "")
 Set cmBalance = Nothing
 End Function
 Public Function rsBalance(pItem As String, Optional pstore As String = "", Optional pDate As String = "", Optional pId As String = "") As Long
-Dim locTable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 Dim aPrm As Variant
 aPrm = AddFlag(aPrm, "ITEM", pItem)
 If pstore <> "" Then aPrm = AddFlag(aPrm, "STORE", pstore)
@@ -530,15 +530,15 @@ For i = 1 To pGrid.Rows - 1
 Next
 ValidMinus = True
 End Function
-Public Function fn_order_Sates(sOrder_no As String, sType As String) As Variant
-Dim locTable As New ADODB.Recordset
+Public Function fn_order_Sates(sOrder_No As String, sType As String) As Variant
+Dim locTable As New ADODB.RecordSet
 Dim aPrm As Variant
 'aPrm = AddFlag(Empty, "DOC_NO", sOrder_no)
 'aPrm = AddFlag(aPrm, "DOC_NO", sOrder_no)
 End Function
 ' ???? ?? ????? ????? Microsoft Scripting Runtime ?? ????? References
 ' ?? ???? ??????? ??? Late Binding ??? ?? ???? ?? ????? ?????
-Public Function CompareGrids(grid1 As Variant, grid2 As Variant, col1 As Integer, col2 As Integer, col11 As Integer, col12 As Integer) As Boolean
+Public Function CompareGrids(grid1 As Variant, GRID2 As Variant, col1 As Integer, col2 As Integer, col11 As Integer, col12 As Integer) As Boolean
     Dim dict1 As Object
     Dim dict2 As Object
     Dim i As Long
@@ -567,10 +567,10 @@ Public Function CompareGrids(grid1 As Variant, grid2 As Variant, col1 As Integer
     Next i
 
     ' 2. ????? ????? ????? ?????? ??????? (Grid 2)
-    For i = grid2.FixedRows To grid2.Rows - 1
-        code = Trim(grid2.TextMatrix(i, col11))
+    For i = GRID2.FixedRows To GRID2.Rows - 1
+        code = Trim(GRID2.TextMatrix(i, col11))
         If code <> "" Then
-            qty = Val(grid2.TextMatrix(i, col12))
+            qty = Val(GRID2.TextMatrix(i, col12))
             If dict2.Exists(code) Then
                 dict2(code) = dict2(code) + qty
             Else
@@ -686,7 +686,7 @@ Public Function GetTextFileEncoding(ByVal FileName As String) As String
         GetTextFileEncoding = "ANSI"
     End If
 End Function
-Public Sub SaveImageToRs(pPic As Picture, rs As ADODB.Recordset, pColName As String)
+Public Sub SaveImageToRs(pPic As Picture, rs As ADODB.RecordSet, pColName As String)
 Dim pb As PropertyBag
 Set pb = New PropertyBag
 pb.WriteProperty "MyImage", pPic, 100
@@ -726,6 +726,57 @@ myerror:
     MsgBox "Error: " & Err.Description
     retDimImg = Empty
 End Function
+Sub ReasonCancelLookup(oForm As Form, oSearch As Form, Optional cFilter As String = "", Optional bFilter As Boolean = False, Optional sAddRow As String = "")
+Dim Generalarray(5)
+Dim listarray(0, 5)
+Dim GrdArray(1, 1)
+Dim cWhere As String
+Set Generalarray(0) = oForm
+
+'                       0
+cString = "SELECT CANCEL_CODES.CODE," & _
+          " CANCEL_CODES.desca" & _
+          " FROM  CANCEL_CODES"
+
+If cFilter <> "" Then cWhere = cWhere & Tr(cWhere) & cFilter
+If cWhere <> "" Then cString = cString & " WHERE " & cWhere
+
+Generalarray(1) = cString
+
+Generalarray(2) = "Order by CANCEL_CODES.code"
+Generalarray(3) = 4000
+Generalarray(5) = True
+
+listarray(0, 0) = "”»» «·«·€«¡"
+listarray(0, 1) = "(%%CANCEL_CODES.DESCA%%)"
+
+
+GrdArray(0, 0) = "«·ﬂÊœ"
+GrdArray(0, 1) = 0
+
+GrdArray(1, 0) = "«·»Ì«‰"
+GrdArray(1, 1) = 7000
+
+searchArray = Array(Generalarray, listarray, GrdArray)
+If bFilter Then
+    Dim aFilter As Variant
+    aFilter = AddFlag(aFilter, "FILTER", False)
+    aFilter = AddFlag(aFilter, "FIELD", "CANCEL_CODES.CODE")
+    oSearch.aFilter = aFilter
+End If
+
+Dim aRow As Variant
+If sAddRow <> "" Then
+    aRow = AddFlag(Empty, "text", sAddRow)
+    aRow = AddFlag(aRow, "col", 1)
+End If
+oSearch.aAddRow = aRow
+
+searchArray = Array(Generalarray, listarray, GrdArray)
+oSearch.nMax_records = 1000
+oSearch.Caption = "≈” ⁄·«„ «·«ﬁ”«„"
+oSearch.Show 1
+End Sub
 
 
 

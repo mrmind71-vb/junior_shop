@@ -1100,11 +1100,11 @@ Dim oSearch_Total As New Search_total
 Private Sub cmd_excel_Click()
     ToFileExel2 GridTotal, , , , , 1.1, , , , , , Me
 End Sub
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
     Unload Me
 End Sub
 Private Sub cmdGo_Click()
-    If Not myValid Then Exit Sub
+    If Not MYVALID Then Exit Sub
     MyLOadTotal
     MYLOAD1
     MYLOAD2
@@ -1112,7 +1112,7 @@ Private Sub cmdGo_Click()
     MYLOAD4
     myload5
 End Sub
-Private Function myValid() As Boolean
+Private Function MYVALID() As Boolean
 If Not IsDate(xDate1.text) Then
     MsgBox "«· «—ÌŒ «·«Ê· €Ì— „”Ã·"
     Exit Function
@@ -1121,7 +1121,7 @@ If Not IsDate(xdate2.text) Then
     MsgBox "«· «—ÌŒ «·À«‰Ì €Ì— „”Ã·"
     Exit Function
 End If
-myValid = True
+MYVALID = True
 End Function
 Private Sub Form_Load()
     OpenCon con
@@ -1131,7 +1131,7 @@ Private Sub Form_Load()
     
     Set GridTotal.DataSource = data1
     Set grid1.DataSource = DATA2
-    Set grid2.DataSource = DATA3
+    Set GRID2.DataSource = DATA3
     Set GRID3.DataSource = DATA4
     Set GRID4.DataSource = DATA5
     Set GRID5.DataSource = data6
@@ -1139,7 +1139,7 @@ Private Sub Form_Load()
     
     GridTotal.Rows = 2
     grid1.Rows = 2
-    grid2.Rows = 2
+    GRID2.Rows = 2
     GRID3.Rows = 2
     GRID4.Rows = 2
     GRID5.Rows = 2
@@ -1377,7 +1377,7 @@ Set DATA3.RecordSet = myRecordSet(cString, con)
 FixGrid2
 End Sub
 Private Sub FixGrid2()
-With grid2
+With GRID2
 .Cols = 6
 .RowHeight(0) = 500
 

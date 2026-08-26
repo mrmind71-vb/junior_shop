@@ -1,6 +1,7 @@
 VERSION 5.00
 Object = "{D76D7128-4A96-11D3-BD95-D296DC2DD072}#1.0#0"; "Vsflex7.ocx"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
+Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
 Begin VB.Form orders_online_items 
    BackColor       =   &H00FFFFFF&
@@ -124,7 +125,7 @@ Begin VB.Form orders_online_items
       BackColor       =   &H80000005&
       ForeColor       =   &H80000008&
       Height          =   1230
-      Left            =   1665
+      Left            =   1080
       RightToLeft     =   -1  'True
       TabIndex        =   32
       Top             =   810
@@ -172,7 +173,7 @@ Begin VB.Form orders_online_items
       EndProperty
       Height          =   1185
       Index           =   4
-      Left            =   3330
+      Left            =   2745
       RightToLeft     =   -1  'True
       TabIndex        =   30
       Top             =   855
@@ -243,40 +244,62 @@ Begin VB.Form orders_online_items
    Begin VB.Frame Frame2 
       BackColor       =   &H00FFFFFF&
       Height          =   1050
-      Left            =   4725
+      Left            =   4140
       RightToLeft     =   -1  'True
       TabIndex        =   26
       Top             =   990
-      Width           =   6585
+      Width           =   7170
       Begin VB.TextBox xNotes 
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
          Height          =   330
-         Left            =   135
+         Left            =   1215
          RightToLeft     =   -1  'True
          TabIndex        =   9
-         Top             =   630
-         Width           =   5190
+         Top             =   585
+         Width           =   4740
       End
       Begin VB.TextBox xDelOrder_Date 
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
          Height          =   330
-         Left            =   4005
+         Left            =   4635
          MaxLength       =   10
          RightToLeft     =   -1  'True
          TabIndex        =   7
          Top             =   225
          Width           =   1320
       End
+      Begin MSDataListLib.DataCombo xReason_code 
+         Height          =   330
+         Left            =   720
+         TabIndex        =   8
+         Top             =   225
+         Width           =   3885
+         _ExtentX        =   6853
+         _ExtentY        =   582
+         _Version        =   393216
+         Appearance      =   0
+         Text            =   ""
+         RightToLeft     =   -1  'True
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Tahoma"
+            Size            =   9
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+      End
       Begin Threed.SSCommand cmdDelCancel 
          Height          =   330
-         Left            =   2340
-         TabIndex        =   8
+         Left            =   90
+         TabIndex        =   51
          TabStop         =   0   'False
-         Top             =   225
-         Width           =   1635
-         _ExtentX        =   2884
+         Top             =   585
+         Width           =   1095
+         _ExtentX        =   1931
          _ExtentY        =   582
          _Version        =   196610
          CaptionStyle    =   1
@@ -291,7 +314,36 @@ Begin VB.Form orders_online_items
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Caption         =   " —«Ã⁄ ⁄‰ «·«·€«¡"
+         Caption         =   "«·€«¡ «·Õ–›"
+         TagVariant      =   "«Œ «— ‰Ê⁄ «·ÿ·»Ì…"
+         ButtonStyle     =   3
+         PictureAlignment=   10
+         BevelWidth      =   0
+         ShapeSize       =   1
+      End
+      Begin Threed.SSCommand cmdAddReason 
+         Height          =   330
+         Left            =   90
+         TabIndex        =   52
+         TabStop         =   0   'False
+         Top             =   225
+         Width           =   600
+         _ExtentX        =   1058
+         _ExtentY        =   582
+         _Version        =   196610
+         CaptionStyle    =   1
+         ForeColor       =   0
+         BackColor       =   16777215
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   9
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Caption         =   "..."
          TagVariant      =   "«Œ «— ‰Ê⁄ «·ÿ·»Ì…"
          ButtonStyle     =   3
          PictureAlignment=   10
@@ -302,17 +354,17 @@ Begin VB.Form orders_online_items
          BackColor       =   &H00FFFFFF&
          Caption         =   "”»» «·«·€«¡"
          Height          =   330
-         Left            =   5445
+         Left            =   6030
          RightToLeft     =   -1  'True
          TabIndex        =   28
-         Top             =   675
+         Top             =   630
          Width           =   960
       End
       Begin VB.Label Label6 
          BackColor       =   &H00FFFFFF&
          Caption         =   " «—ÌŒ «·«·€«¡"
          Height          =   330
-         Left            =   5445
+         Left            =   6030
          RightToLeft     =   -1  'True
          TabIndex        =   27
          Top             =   270
@@ -725,18 +777,18 @@ Begin VB.Form orders_online_items
    Begin VB.Frame Frame3 
       BackColor       =   &H00FFFFFF&
       Height          =   1050
-      Left            =   4725
+      Left            =   4140
       RightToLeft     =   -1  'True
       TabIndex        =   29
       Top             =   -45
-      Width           =   6585
+      Width           =   7170
       Begin VB.TextBox xPayment_Method 
          Appearance      =   0  'Flat
          Height          =   330
          Left            =   675
          TabIndex        =   5
          Top             =   585
-         Width           =   4605
+         Width           =   5235
       End
       Begin VB.TextBox xPayment_id 
          Alignment       =   1  'Right Justify
@@ -745,7 +797,7 @@ Begin VB.Form orders_online_items
          Left            =   675
          TabIndex        =   4
          Top             =   225
-         Width           =   4605
+         Width           =   5235
       End
       Begin Threed.SSCommand cmdSavePayment 
          Height          =   690
@@ -780,7 +832,7 @@ Begin VB.Form orders_online_items
          BackColor       =   &H00FFFFFF&
          Caption         =   "ÿ—Ìﬁ… «·”œ«œ"
          Height          =   330
-         Left            =   5400
+         Left            =   6030
          RightToLeft     =   -1  'True
          TabIndex        =   50
          Top             =   630
@@ -790,7 +842,7 @@ Begin VB.Form orders_online_items
          BackColor       =   &H00FFFFFF&
          Caption         =   "—ﬁ„ ”œ«œ"
          Height          =   330
-         Left            =   5490
+         Left            =   6030
          RightToLeft     =   -1  'True
          TabIndex        =   48
          Top             =   270
@@ -902,6 +954,19 @@ Begin VB.Form orders_online_items
       TabIndex        =   37
       Top             =   6795
       Width           =   4335
+      Begin VB.CheckBox xCanceled 
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000005&
+         Caption         =   "„·€«…"
+         Enabled         =   0   'False
+         ForeColor       =   &H80000008&
+         Height          =   285
+         Left            =   135
+         RightToLeft     =   -1  'True
+         TabIndex        =   53
+         Top             =   315
+         Width           =   780
+      End
       Begin VB.CheckBox xClosed 
          Appearance      =   0  'Flat
          BackColor       =   &H80000005&
@@ -1028,17 +1093,33 @@ Public bAllStore As Boolean
 Public sMsg As String
 Dim dbm As New DBManager
 Dim bEditRecord As Boolean, bAct As Boolean
-Dim oSalesRefund As New sales_refundfrm
+Dim oSalesRefund As New sales_refundfrm, oSearchReason As New Search_rs
 Dim con As New ADODB.Connection
 Dim bUpdated As Boolean
 Dim formMode
 Const LoadMode = 0, DefineMode = 1
 Private Sub cmdAddInvoice_Click()
 orders_online_invoices.bEdit = True
-orders_online_invoices.sOrder_no = sDoc_no
+orders_online_invoices.sOrder_No = sDoc_no
 orders_online_invoices.sStore = sStoreOnline
 Set orders_online_invoices.myForm = Me
 orders_online_invoices.Show 1
+End Sub
+
+Private Sub cmdAddReason_Click()
+Dim oFlagfrm As New flag_dbfrm
+Dim sBound As String
+sBound = xReason_code.BoundText
+oFlagfrm.sTable = "cancel_Codes"
+oFlagfrm.sCaption = "«”»«» «·«·€«¡"
+oFlagfrm.nZero = -1
+oFlagfrm.bEdit = True
+oFlagfrm.Show 1
+
+listReason
+
+xReason_code.BoundText = sBound
+If Not xReason_code.MatchedWithList Then xReason_code.BoundText = ""
 End Sub
 
 Private Sub cmdDelCancel_Click()
@@ -1055,6 +1136,7 @@ OpenCon con
 On Error GoTo myerror:
 con.Execute "UPDATE FILE6_90H " & _
             " SET FILE6_90H.DELORDER_DATE = NULL," & _
+            " FILE6_90H.REASON_CODE = NULL," & _
             " FILE6_90H.NOTES = NULL" & _
             " FROM FILE6_90H WHERE DOC_NO = " & MyParn(sDoc_no)
 cancelDelete = True
@@ -1146,7 +1228,7 @@ End If
 dbm.closeCon
 End Sub
 
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
 Unload Me
 End Sub
 Private Sub CmdInform_Click()
@@ -1163,12 +1245,31 @@ Private Sub cmdOnlineShipCash_Click()
 End Sub
 
 Private Sub cmdSave_Click()
+If Not MYVALID Then Exit Sub
 If MsgBox("Õ›Ÿ", vbOKCancel + vbDefaultButton2) <> vbOK Then Exit Sub
 If myreplace Then
     myload
     Inform " „ «·Õ›Ÿ »‰Ã«Õ"
 End If
 End Sub
+Private Function MYVALID() As Boolean
+If IsDate(xDelOrder_Date.text) Then
+    If Not (xstage.Tag = "0" Or xstage.Tag = "1" Or xstage.Tag = 5) Then
+        MsgBox "«·€«¡ «·ÿ·»Ì… ›Ï „—Õ·… : " & xstage.Caption
+        Exit Function
+    End If
+    If Not xReason_code.MatchedWithList Then
+        MsgBox "·«·€«¡ «·ÿ·»Ì… »œÊ‰ ”»» «·€«¡ " & xstage.Caption
+        Exit Function
+    End If
+Else
+    If xReason_code.MatchedWithList Then
+        MsgBox "”»» ··«·€«¡ »œÊ‰  «—ÌŒ «·€«¡"
+        Exit Function
+    End If
+End If
+MYVALID = True
+End Function
 Private Function myreplace() As Boolean
 Dim aInsert As Variant
 aInsert = AddFlag(aInsert, "[NAME]", addstring(xName.text))
@@ -1178,6 +1279,7 @@ aInsert = AddFlag(aInsert, "[street]", addstring(xStreet.text))
 'aInsert = AddFlag(aInsert, "[NOTE_MAIN]", addstring(xNote_main.text))
 aInsert = AddFlag(aInsert, "[DELORDER_DATE]", addDate(xDelOrder_Date.text))
 aInsert = AddFlag(aInsert, "[PAYMENT_ID]", addstring(xPayment_id.text))
+aInsert = AddFlag(aInsert, "[REASON_CODE]", addvalue(xReason_code.BoundText))
 aInsert = AddFlag(aInsert, "[PAYMENT_METHOD]", addstring(xPayment_Method.text))
 aInsert = AddFlag(aInsert, "[NOTES]", addstring(xNotes.text))
 On Error GoTo myerror
@@ -1198,9 +1300,11 @@ Private Sub Handlecontrols()
 cmdSave.Enabled = xClosed.Value = 0
 fmAddInvoice.Visible = xSales_doc.Caption <> "" And Trim(xDelOrder_Date.text) = "" And cBranch = "00"
 xDelOrder_Date.Enabled = xClosed.Value = 0
-cmdDelCancel.Visible = IsDate(xDelOrder_Date.text)
+xReason_code.Enabled = xClosed.Value = 0
+
 cmdSavePayment.ActiveColors = Not cmdSave.Enabled
-If cmdDelCancel.Visible Then cmdDelCancel.Enabled = xClosed.Value = 1
+cmdDelCancel.Enabled = xCanceled.Value = 1
+cmdDelCancel.Visible = True
 xNotes.Enabled = xSales_doc.Caption = ""
 End Sub
 
@@ -1248,6 +1352,10 @@ End If
 Set db = Nothing
 End Sub
 
+Private Sub cmdUndo_Click()
+myload
+End Sub
+
 Private Sub Form_KeyPress(KeyAscii As Integer)
 If KeyAscii = 13 Then
     If TypeOf ActiveControl Is TextBox Or TypeOf ActiveControl Is DataCombo Then KeyAscii = 0
@@ -1262,10 +1370,9 @@ If KeyCode = 13 Then
 End If
 End Sub
 Private Sub Form_Load()
+listReason
 cmdAddInvoice.TagVariant = cmdAddInvoice.Caption
 myload
-myloadGrdError
-myLoadCount
 cmdEdit.Enabled = xstage.Tag = "6"
 cmdError.Enabled = xstage.Tag = "6"
 End Sub
@@ -1273,10 +1380,11 @@ Public Sub myload()
 myLoadHeader
 myLoadCount
 myLoadGrd
+myloadGrdError
 Handlecontrols
 End Sub
 Private Sub myLoadHeader()
-Dim locTable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 Set locTable = myRs("SELECT f.*," & _
                     "s.desca as stage_desca" & _
                     " FROM FILE6_90H f " & _
@@ -1301,7 +1409,9 @@ If Not locTable.EOF Then
     'xNote_main.text = loctable!note_main & ""
     xDelOrder_Date.text = myFormat_p(locTable!delorder_date)
     xSales_doc.Caption = locTable!sales_Doc & ""
+    xReason_code.BoundText = locTable!REASON_CODE & ""
     xClosed.Value = IIf(locTable!CLOSED, 1, 0)
+    xCanceled.Value = IIf(locTable!CANCELED, 1, 0)
 End If
 locTable.Close
 Set locTable = Nothing
@@ -1328,7 +1438,7 @@ With grid1
     Set grid1.DataSource = myRs(cString)
 End With
 
-Fixgrd
+fixGrd
 
 grid1.Cell(flexcpAlignment, 0, 0, grid1.Rows - 1, grid1.Cols - 1) = 7
 
@@ -1337,7 +1447,7 @@ myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Sub Fixgrd()
+Sub fixGrd()
 Dim bShowColAll As Boolean, bShowCol As Boolean
 With grid1
         
@@ -1407,10 +1517,6 @@ If grdError.Row > 0 Then
 End If
 End Sub
 
-Private Sub SSCommand1_Click()
-
-End Sub
-
 Private Sub xdoc_no_Click()
 Clipboard.Clear
 Clipboard.SetText xdoc_no.Caption
@@ -1448,6 +1554,10 @@ Private Sub xship_date_LostFocus()
 myLostFocus xship_date
 myValidDate xship_date
 End Sub
+Private Sub xReason_code_KeyUp(KeyCode As Integer, Shift As Integer)
+If KeyCode = 112 Then ReasonCancelLookup Me, oSearchReason
+End Sub
+
 Private Sub xStreet_GotFocus()
 myGotFocus xStreet
 End Sub
@@ -1502,5 +1612,22 @@ myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-
+Private Sub listReason()
+Dim db As New clsDb
+Set xReason_code.RowSource = db.myRs("select code,desca from CANCEL_CODES order by case when code = 1 then 0 else 1 end, desca")
+xReason_code.ListField = "Desca"
+xReason_code.BoundColumn = "code"
+Set db = Nothing
+End Sub
+Private Sub xReason_code_GotFocus()
+myGotFocus xReason_code
+End Sub
+Private Sub xReason_code_LostFocus()
+myLostFocus xReason_code
+If Not xReason_code.MatchedWithList Then xReason_code.BoundText = ""
+End Sub
+Sub myProc()
+xReason_code.BoundText = oSearchReason.grid1.TextMatrix(oSearchReason.grid1.Row, 0)
+Unload oSearchReason
+End Sub
 

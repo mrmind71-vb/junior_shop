@@ -9,7 +9,7 @@ Begin VB.Form online_dash_board
    ClientHeight    =   11055
    ClientLeft      =   165
    ClientTop       =   510
-   ClientWidth     =   22920
+   ClientWidth     =   20370
    BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.25
@@ -22,7 +22,7 @@ Begin VB.Form online_dash_board
    LinkTopic       =   "Form1"
    RightToLeft     =   -1  'True
    ScaleHeight     =   11055
-   ScaleWidth      =   22920
+   ScaleWidth      =   20370
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
    Begin VB.Frame Frame1 
@@ -288,8 +288,8 @@ Begin VB.Form online_dash_board
       TabIndex        =   5
       Top             =   10845
       Visible         =   0   'False
-      Width           =   22920
-      _ExtentX        =   40428
+      Width           =   20370
+      _ExtentX        =   35930
       _ExtentY        =   370
       _Version        =   393216
       Appearance      =   1
@@ -954,13 +954,13 @@ Begin VB.Form online_dash_board
       WallPaperAlignment=   9
    End
    Begin VSFlex7Ctl.VSFlexGrid grdMan2 
-      Height          =   3975
+      Height          =   4155
       Left            =   15030
       TabIndex        =   13
       Top             =   7425
       Width           =   7755
       _cx             =   13679
-      _cy             =   7011
+      _cy             =   7329
       _ConvInfo       =   1
       Appearance      =   0
       BorderStyle     =   1
@@ -998,7 +998,7 @@ Begin VB.Form online_dash_board
       GridLinesFixed  =   1
       GridLineWidth   =   1
       Rows            =   2
-      Cols            =   8
+      Cols            =   4
       FixedRows       =   2
       FixedCols       =   0
       RowHeightMin    =   0
@@ -1056,11 +1056,11 @@ Attribute VB_Exposed = False
 Private Sub cmd_excel_Click()
     ToFileExel2 GridTotal, , , , , 1.1, , , , , , Me
 End Sub
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
     Unload Me
 End Sub
 Private Sub cmdGo_Click()
-    If Not myValid Then Exit Sub
+    If Not MYVALID Then Exit Sub
     Dim db As New clsDb
     myLoadGrdTotal db
     myloadgrdPrep db
@@ -1072,7 +1072,7 @@ Private Sub cmdGo_Click()
     myLoadGrdMan2 db
     Set db = Nothing
 End Sub
-Private Function myValid() As Boolean
+Private Function MYVALID() As Boolean
 If Not IsDate(xDate1.text) Then
     MsgBox "ÇáÊÇÑíÎ ÇáÇæá ÛíÑ ãÓÌá"
     Exit Function
@@ -1081,7 +1081,7 @@ If Not IsDate(xdate2.text) Then
     MsgBox "ÇáÊÇÑíÎ ÇáËÇäí ÛíÑ ãÓÌá"
     Exit Function
 End If
-myValid = True
+MYVALID = True
 End Function
 Private Sub MYLOAD1()
 
@@ -1090,7 +1090,7 @@ Private Sub Form_Load()
 xDate1.text = myFormat_p(Year(Date) & "-" & Month(Date) & "-" & "01")
 xdate2.text = myFormat_p(DateAdd("d", -1, myFormat(DateAdd("m", 1, myFormat(xDate1.text)))))
 fixGrdTotal
-Fixgrd
+fixGrd
 FixgrdShip
 fixGrdModel
 fixGrdCity
@@ -1203,15 +1203,17 @@ With grid1
     Dim locTable As New ADODB.RecordSet
     Set locTable = db.myRs("[dbo].[sp_dash_stage]", adStoredProc, aPrm)
     
-    Dim Col As Long
+    If locTable Is Nothing Then Exit Sub
+    
+    Dim col As Long
     Dim Row As Long
     Dim nTotal As Long
     
     .Rows = 2
     Row = 1
     Do Until locTable.EOF
-        If Row > 6 And Col = 0 Then
-            Col = 2
+        If Row > 6 And col = 0 Then
+            col = 2
             Row = 1
         End If
         
@@ -1221,28 +1223,28 @@ With grid1
             .AddItem ""
         End If
         
-        .TextMatrix(Row, Col) = locTable!DESCA
-        .TextMatrix(Row, Col + 1) = locTable!count_order
-        nTotal = nTotal + .ValueMatrix(Row, Col + 1)
+        .TextMatrix(Row, col) = locTable!DESCA
+        .TextMatrix(Row, col + 1) = locTable!count_order
+        nTotal = nTotal + .ValueMatrix(Row, col + 1)
         
         locTable.MoveNext
     Loop
 
-    .ColHidden(2) = Col = 0
-    .ColHidden(3) = Col = 0
+    .ColHidden(2) = col = 0
+    .ColHidden(3) = col = 0
     
-    .ColWidth(0) = IIf(Col = 0, 2500, 1450)
-    .ColWidth(1) = IIf(Col = 0, 1000, 700)
+    .ColWidth(0) = IIf(col = 0, 2500, 1450)
+    .ColWidth(1) = IIf(col = 0, 1000, 700)
     
     If .Rows > 3 Then
         .AddItem ""
         .TextMatrix(.Rows - 1, 0) = "ÇáÅÌãÇáí"
-        .TextMatrix(.Rows - 1, Col + 1) = nTotal
+        .TextMatrix(.Rows - 1, col + 1) = nTotal
         .Cell(flexcpBackColor, .Rows - 1, 0, .Rows - 1, .Cols - 1) = &H8000000F
     End If
 End With
 End Sub
-Sub Fixgrd()
+Sub fixGrd()
 With grid1
     .TextMatrix(0, 0) = "ÊÌåíÒ ØáÈíÇÊ"
     .TextMatrix(0, 1) = "ÊÌåíÒ ØáÈíÇÊ"
@@ -1500,6 +1502,53 @@ For i = 2 To .Rows - 2
     .TextMatrix(i, 4) = Round(.ValueMatrix(i, 1) / .ValueMatrix(.Rows - 1, 1), 4)
 Next
 End With
+End Sub
+
+Private Sub grdDays_DblClick()
+Dim cWhere As String
+cWhere = "V.DATE = " & DateSq(grdDays.TextMatrix(grdDays.Row, 0))
+If grdDays.col = 2 Then
+    cWhere = cWhere & " AND v.CLOSED = 1"
+ElseIf grdDays.col = 3 Then
+    cWhere = cWhere & " AND v.CLOSED = 0 AND v.CANCELED = 0"
+ElseIf grdDays.col = 4 Then
+    cWhere = cWhere & " AND v.CANCELED = 1"
+ElseIf grdDays.col = 5 Then
+    'cWhere = cWhere & " AND (s.date_pick IS NOT NULL OR (CLOSED = 1 AND v.[TYPE] IN(2,3,12)))"
+    cWhere = cWhere & " AND s.date_pick IS NOT NULL"
+ElseIf grdDays.col = 6 Then
+    cWhere = cWhere & " AND s.date_pick IS NULL AND v.TYPE IN(0,1) AND CANCELED = 0"
+'ElseIf grdShip.col = 5 Then
+'    cWhere = cWhere & " AND DATE_SHIP IS NULL"
+'ElseIf grdShip.col = 6 Then
+'    cWhere = cWhere & " AND CLOSED = 1 AND DATE_SHIP IS NULL"
+End If
+'
+online_orders_popUp.myWhere = cWhere
+online_orders_popUp.Show 1
+End Sub
+
+Private Sub grdShip_DblClick()
+If IsDate(grdShip.TextMatrix(grdShip.Row, 0)) And grdShip.col > 0 Then
+    
+    Dim cWhere As String
+    cWhere = " CANCELED = 0" & _
+             " AND ORDER_DATE = " & DateSq(grdShip.TextMatrix(grdShip.Row, 0))
+    If grdShip.col = 2 Then
+        cWhere = cWhere & " AND CLOSED = 1"
+    ElseIf grdShip.col = 3 Then
+        cWhere = cWhere & " AND CLOSED = 0"
+    ElseIf grdShip.col = 4 Then
+        cWhere = cWhere & " AND DATE_SHIP IS NOT NULL"
+    ElseIf grdShip.col = 5 Then
+        cWhere = cWhere & " AND DATE_SHIP IS NULL"
+    ElseIf grdShip.col = 6 Then
+        cWhere = cWhere & " AND CLOSED = 1 AND DATE_SHIP IS NULL"
+    End If
+    
+    online_ship_popUp.myWhere = cWhere
+    online_ship_popUp.Show 1
+End If
 End Sub
 
 Private Sub xDate2_GotFocus()
