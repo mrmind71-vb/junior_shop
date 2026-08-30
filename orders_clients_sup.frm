@@ -5,7 +5,7 @@ Object = "{065E6FD1-1BF9-11D2-BAE8-00104B9E0792}#3.0#0"; "ssa3d30.ocx"
 Object = "{00025600-0000-0000-C000-000000000046}#5.2#0"; "Crystl32.OCX"
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "Comdlg32.ocx"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
-Begin VB.Form orders_clients_sub 
+Begin VB.Form orders_clients_sup 
    Appearance      =   0  'Flat
    BackColor       =   &H80000005&
    BorderStyle     =   1  'Fixed Single
@@ -43,19 +43,19 @@ Begin VB.Form orders_clients_sub
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   780
-      Left            =   315
+      Height          =   735
+      Left            =   360
       RightToLeft     =   -1  'True
-      TabIndex        =   52
+      TabIndex        =   53
       Top             =   -45
-      Width           =   9330
+      Width           =   9285
       Begin Threed.SSCommand cmdExcelImport 
          Height          =   510
-         Left            =   6795
-         TabIndex        =   53
+         Left            =   7110
+         TabIndex        =   54
          Top             =   180
-         Width           =   2445
-         _ExtentX        =   4313
+         Width           =   2130
+         _ExtentX        =   3757
          _ExtentY        =   900
          _Version        =   196610
          CaptionStyle    =   1
@@ -78,11 +78,11 @@ Begin VB.Form orders_clients_sub
       End
       Begin Threed.SSCommand cmdPrintScal 
          Height          =   510
-         Left            =   3960
-         TabIndex        =   54
+         Left            =   4185
+         TabIndex        =   55
          Top             =   180
-         Width           =   2805
-         _ExtentX        =   4948
+         Width           =   2895
+         _ExtentX        =   5106
          _ExtentY        =   900
          _Version        =   196610
          CaptionStyle    =   1
@@ -105,11 +105,11 @@ Begin VB.Form orders_clients_sub
       End
       Begin Threed.SSCommand SSCommand4 
          Height          =   510
-         Left            =   1845
-         TabIndex        =   55
+         Left            =   2025
+         TabIndex        =   56
          Top             =   180
-         Width           =   2085
-         _ExtentX        =   3678
+         Width           =   2130
+         _ExtentX        =   3757
          _ExtentY        =   900
          _Version        =   196610
          CaptionStyle    =   1
@@ -133,10 +133,10 @@ Begin VB.Form orders_clients_sub
       Begin Threed.SSCommand cmdBalanceApp 
          Height          =   510
          Left            =   45
-         TabIndex        =   65
+         TabIndex        =   66
          Top             =   180
-         Width           =   1770
-         _ExtentX        =   3122
+         Width           =   1950
+         _ExtentX        =   3440
          _ExtentY        =   900
          _Version        =   196610
          CaptionStyle    =   1
@@ -151,7 +151,7 @@ Begin VB.Form orders_clients_sub
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Caption         =   "—’Ìœ «’‰«› «·ÿ·»Ì« "
+         Caption         =   "—’Ìœ «’‰«› «·ÿ·»Ì…"
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
@@ -172,7 +172,7 @@ Begin VB.Form orders_clients_sub
       Height          =   735
       Left            =   3870
       RightToLeft     =   -1  'True
-      TabIndex        =   38
+      TabIndex        =   43
       Top             =   1620
       Width           =   2670
       Begin VB.CheckBox xClosed 
@@ -184,14 +184,14 @@ Begin VB.Form orders_clients_sub
          Height          =   375
          Left            =   1305
          RightToLeft     =   -1  'True
-         TabIndex        =   39
+         TabIndex        =   44
          Top             =   270
          Width           =   1230
       End
       Begin Threed.SSCommand cmdClosePeriod 
          Height          =   420
          Left            =   90
-         TabIndex        =   40
+         TabIndex        =   45
          Top             =   225
          Width           =   1095
          _ExtentX        =   1931
@@ -230,13 +230,13 @@ Begin VB.Form orders_clients_sub
       Index           =   4
       Left            =   6570
       RightToLeft     =   -1  'True
-      TabIndex        =   27
+      TabIndex        =   32
       Top             =   1215
       Width           =   1275
       Begin Threed.SSCommand cmdSave 
          Height          =   465
          Left            =   45
-         TabIndex        =   5
+         TabIndex        =   10
          Top             =   135
          Width           =   1185
          _ExtentX        =   2090
@@ -254,19 +254,19 @@ Begin VB.Form orders_clients_sub
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "orders_clients_sub.frx":0000
+         Picture         =   "orders_clients_sup.frx":0000
          Alignment       =   8
          ButtonStyle     =   2
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "orders_clients_sub.frx":2925
+         PictureDisabled =   "orders_clients_sup.frx":2925
       End
       Begin Threed.SSCommand cmdUndo 
          Height          =   465
          Left            =   45
-         TabIndex        =   6
+         TabIndex        =   11
          TabStop         =   0   'False
          Top             =   630
          Width           =   1185
@@ -285,14 +285,14 @@ Begin VB.Form orders_clients_sub
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "orders_clients_sub.frx":5179
+         Picture         =   "orders_clients_sup.frx":5179
          Alignment       =   8
          ButtonStyle     =   2
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "orders_clients_sub.frx":72D9
+         PictureDisabled =   "orders_clients_sup.frx":72D9
       End
    End
    Begin VB.Frame Frame1 
@@ -309,13 +309,13 @@ Begin VB.Form orders_clients_sub
       Height          =   735
       Left            =   13320
       RightToLeft     =   -1  'True
-      TabIndex        =   26
+      TabIndex        =   31
       Top             =   -45
       Width           =   6900
       Begin Threed.SSCommand cmdInform 
          Height          =   510
          Left            =   5760
-         TabIndex        =   12
+         TabIndex        =   17
          Top             =   180
          Width           =   1095
          _ExtentX        =   1931
@@ -333,19 +333,19 @@ Begin VB.Form orders_clients_sub
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "orders_clients_sub.frx":95C6
+         Picture         =   "orders_clients_sup.frx":95C6
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "orders_clients_sub.frx":B991
+         PictureDisabled =   "orders_clients_sup.frx":B991
       End
       Begin Threed.SSCommand cmdNewInv 
          Height          =   510
          Left            =   4635
-         TabIndex        =   13
+         TabIndex        =   18
          TabStop         =   0   'False
          Top             =   180
          Width           =   1095
@@ -364,19 +364,19 @@ Begin VB.Form orders_clients_sub
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "orders_clients_sub.frx":DA3A
+         Picture         =   "orders_clients_sup.frx":DA3A
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "orders_clients_sub.frx":FA42
+         PictureDisabled =   "orders_clients_sup.frx":FA42
       End
       Begin Threed.SSCommand cmddelInv 
          Height          =   510
          Left            =   3510
-         TabIndex        =   14
+         TabIndex        =   19
          TabStop         =   0   'False
          Top             =   180
          Width           =   1095
@@ -395,19 +395,19 @@ Begin VB.Form orders_clients_sub
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "orders_clients_sub.frx":119F9
+         Picture         =   "orders_clients_sup.frx":119F9
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
          ShapeSize       =   1
-         PictureDisabled =   "orders_clients_sub.frx":14195
+         PictureDisabled =   "orders_clients_sup.frx":14195
       End
       Begin Threed.SSCommand cmdExit 
          Height          =   510
          Left            =   45
-         TabIndex        =   16
+         TabIndex        =   21
          TabStop         =   0   'False
          Top             =   180
          Width           =   1050
@@ -426,7 +426,7 @@ Begin VB.Form orders_clients_sub
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "orders_clients_sub.frx":16629
+         Picture         =   "orders_clients_sup.frx":16629
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
@@ -436,7 +436,7 @@ Begin VB.Form orders_clients_sub
       Begin Threed.SSCommand cmdPrint 
          Height          =   510
          Left            =   2340
-         TabIndex        =   15
+         TabIndex        =   20
          TabStop         =   0   'False
          Top             =   180
          Width           =   1140
@@ -454,17 +454,17 @@ Begin VB.Form orders_clients_sub
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "orders_clients_sub.frx":1894C
+         Picture         =   "orders_clients_sup.frx":1894C
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "orders_clients_sub.frx":1ACC2
+         PictureDisabled =   "orders_clients_sup.frx":1ACC2
       End
       Begin Threed.SSCommand cmdExcel 
          Height          =   510
          Left            =   1125
-         TabIndex        =   37
+         TabIndex        =   42
          Top             =   180
          Width           =   1185
          _ExtentX        =   2090
@@ -482,7 +482,7 @@ Begin VB.Form orders_clients_sub
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "orders_clients_sub.frx":1CE45
+         Picture         =   "orders_clients_sup.frx":1CE45
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
@@ -505,10 +505,10 @@ Begin VB.Form orders_clients_sub
       Height          =   1680
       Left            =   7875
       RightToLeft     =   -1  'True
-      TabIndex        =   17
+      TabIndex        =   22
       Top             =   675
       Width           =   12345
-      Begin VB.TextBox xOrder_Main 
+      Begin VB.TextBox xOrder_no_Main 
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
          BeginProperty Font 
@@ -524,7 +524,7 @@ Begin VB.Form orders_clients_sub
          Left            =   9810
          MaxLength       =   6
          RightToLeft     =   -1  'True
-         TabIndex        =   66
+         TabIndex        =   3
          Top             =   540
          Width           =   1275
       End
@@ -532,23 +532,23 @@ Begin VB.Form orders_clients_sub
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
          Height          =   330
-         Left            =   1260
+         Left            =   1935
          MaxLength       =   10
          RightToLeft     =   -1  'True
-         TabIndex        =   48
+         TabIndex        =   4
          Top             =   540
-         Width           =   2265
+         Width           =   1590
       End
       Begin VB.TextBox xDate 
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
          Height          =   330
-         Left            =   1260
+         Left            =   1935
          MaxLength       =   10
          RightToLeft     =   -1  'True
-         TabIndex        =   1
+         TabIndex        =   2
          Top             =   180
-         Width           =   2265
+         Width           =   1590
       End
       Begin VB.TextBox xDoc_No 
          Alignment       =   1  'Right Justify
@@ -578,17 +578,17 @@ Begin VB.Form orders_clients_sub
          Left            =   6345
          MaxLength       =   75
          RightToLeft     =   -1  'True
-         TabIndex        =   3
+         TabIndex        =   7
          Top             =   1260
          Width           =   4740
       End
       Begin MSDataListLib.DataCombo xMosm 
          Height          =   330
-         Left            =   1260
-         TabIndex        =   2
+         Left            =   90
+         TabIndex        =   6
          Top             =   900
-         Width           =   2265
-         _ExtentX        =   3995
+         Width           =   3435
+         _ExtentX        =   6059
          _ExtentY        =   582
          _Version        =   393216
          Appearance      =   0
@@ -607,7 +607,7 @@ Begin VB.Form orders_clients_sub
       Begin MSDataListLib.DataCombo xCode 
          Height          =   315
          Left            =   6345
-         TabIndex        =   41
+         TabIndex        =   5
          Top             =   900
          Width           =   4740
          _ExtentX        =   8361
@@ -629,7 +629,7 @@ Begin VB.Form orders_clients_sub
       Begin MSDataListLib.DataCombo xsalesman 
          Height          =   330
          Left            =   90
-         TabIndex        =   44
+         TabIndex        =   8
          Top             =   1260
          Width           =   3435
          _ExtentX        =   6059
@@ -668,7 +668,7 @@ Begin VB.Form orders_clients_sub
          Height          =   270
          Left            =   3600
          RightToLeft     =   -1  'True
-         TabIndex        =   47
+         TabIndex        =   49
          Top             =   585
          Width           =   960
       End
@@ -679,7 +679,7 @@ Begin VB.Form orders_clients_sub
          Height          =   270
          Left            =   11205
          RightToLeft     =   -1  'True
-         TabIndex        =   46
+         TabIndex        =   48
          Top             =   1350
          Width           =   660
       End
@@ -690,7 +690,7 @@ Begin VB.Form orders_clients_sub
          Height          =   270
          Left            =   3600
          RightToLeft     =   -1  'True
-         TabIndex        =   45
+         TabIndex        =   47
          Top             =   1305
          Width           =   1095
       End
@@ -702,7 +702,7 @@ Begin VB.Form orders_clients_sub
          Height          =   330
          Left            =   6390
          RightToLeft     =   -1  'True
-         TabIndex        =   43
+         TabIndex        =   1
          Top             =   180
          Width           =   2175
       End
@@ -714,7 +714,7 @@ Begin VB.Form orders_clients_sub
          Height          =   240
          Left            =   8640
          RightToLeft     =   -1  'True
-         TabIndex        =   42
+         TabIndex        =   46
          Top             =   225
          Width           =   1065
       End
@@ -725,7 +725,7 @@ Begin VB.Form orders_clients_sub
          Height          =   270
          Left            =   3645
          RightToLeft     =   -1  'True
-         TabIndex        =   21
+         TabIndex        =   26
          Top             =   945
          Width           =   525
       End
@@ -738,7 +738,7 @@ Begin VB.Form orders_clients_sub
          Height          =   270
          Left            =   11205
          RightToLeft     =   -1  'True
-         TabIndex        =   20
+         TabIndex        =   25
          Top             =   900
          Width           =   450
       End
@@ -750,7 +750,7 @@ Begin VB.Form orders_clients_sub
          Height          =   240
          Left            =   11175
          RightToLeft     =   -1  'True
-         TabIndex        =   19
+         TabIndex        =   24
          Top             =   210
          Width           =   840
       End
@@ -762,7 +762,7 @@ Begin VB.Form orders_clients_sub
          Height          =   270
          Left            =   3645
          RightToLeft     =   -1  'True
-         TabIndex        =   18
+         TabIndex        =   23
          Top             =   225
          Width           =   510
       End
@@ -791,7 +791,7 @@ Begin VB.Form orders_clients_sub
    Begin VSFlex7Ctl.VSFlexGrid grid20 
       Height          =   405
       Left            =   0
-      TabIndex        =   22
+      TabIndex        =   27
       Top             =   0
       Visible         =   0   'False
       Width           =   465
@@ -893,7 +893,7 @@ Begin VB.Form orders_clients_sub
    Begin VSFlex7Ctl.VSFlexGrid grid1 
       Height          =   6180
       Left            =   45
-      TabIndex        =   4
+      TabIndex        =   9
       TabStop         =   0   'False
       Top             =   2385
       Width           =   20175
@@ -999,7 +999,7 @@ Begin VB.Form orders_clients_sub
       Height          =   645
       Left            =   14490
       RightToLeft     =   -1  'True
-      TabIndex        =   23
+      TabIndex        =   28
       Top             =   8550
       Width           =   5775
       Begin VB.Label lblTotalQuant 
@@ -1008,7 +1008,7 @@ Begin VB.Form orders_clients_sub
          Height          =   240
          Left            =   1755
          RightToLeft     =   -1  'True
-         TabIndex        =   29
+         TabIndex        =   34
          Top             =   270
          Width           =   1365
       End
@@ -1021,7 +1021,7 @@ Begin VB.Form orders_clients_sub
          Height          =   360
          Left            =   135
          RightToLeft     =   -1  'True
-         TabIndex        =   28
+         TabIndex        =   33
          Top             =   180
          Width           =   1515
       End
@@ -1035,7 +1035,7 @@ Begin VB.Form orders_clients_sub
          Height          =   375
          Left            =   3420
          RightToLeft     =   -1  'True
-         TabIndex        =   25
+         TabIndex        =   30
          Top             =   180
          Width           =   1095
       End
@@ -1046,7 +1046,7 @@ Begin VB.Form orders_clients_sub
          Height          =   270
          Left            =   4635
          RightToLeft     =   -1  'True
-         TabIndex        =   24
+         TabIndex        =   29
          Top             =   225
          Width           =   930
       End
@@ -1062,21 +1062,22 @@ Begin VB.Form orders_clients_sub
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   735
+      Height          =   780
       Left            =   2295
       RightToLeft     =   -1  'True
-      TabIndex        =   30
-      Top             =   1620
+      TabIndex        =   35
+      Top             =   1575
+      Visible         =   0   'False
       Width           =   1545
       Begin Threed.SSCommand cmdAddModel 
-         Height          =   510
+         Height          =   555
          Left            =   45
-         TabIndex        =   7
+         TabIndex        =   12
          TabStop         =   0   'False
          Top             =   180
          Width           =   1455
          _ExtentX        =   2566
-         _ExtentY        =   900
+         _ExtentY        =   979
          _Version        =   196610
          ForeColor       =   0
          BackColor       =   16777215
@@ -1100,7 +1101,7 @@ Begin VB.Form orders_clients_sub
       Align           =   2  'Align Bottom
       Height          =   375
       Left            =   0
-      TabIndex        =   31
+      TabIndex        =   36
       Top             =   9690
       Width           =   20400
       _ExtentX        =   35983
@@ -1122,7 +1123,7 @@ Begin VB.Form orders_clients_sub
          Height          =   270
          Index           =   0
          Left            =   0
-         TabIndex        =   32
+         TabIndex        =   37
          Top             =   45
          Width           =   3195
          _ExtentX        =   5636
@@ -1146,7 +1147,7 @@ Begin VB.Form orders_clients_sub
          Height          =   330
          Index           =   1
          Left            =   3240
-         TabIndex        =   33
+         TabIndex        =   38
          Top             =   45
          Width           =   3855
          _ExtentX        =   6800
@@ -1170,7 +1171,7 @@ Begin VB.Form orders_clients_sub
          Height          =   330
          Index           =   2
          Left            =   7110
-         TabIndex        =   34
+         TabIndex        =   39
          Top             =   45
          Width           =   4365
          _ExtentX        =   7699
@@ -1195,7 +1196,7 @@ Begin VB.Form orders_clients_sub
       Align           =   2  'Align Bottom
       Height          =   105
       Left            =   0
-      TabIndex        =   35
+      TabIndex        =   40
       Top             =   9585
       Visible         =   0   'False
       Width           =   20400
@@ -1219,13 +1220,13 @@ Begin VB.Form orders_clients_sub
       Height          =   600
       Left            =   45
       RightToLeft     =   -1  'True
-      TabIndex        =   36
+      TabIndex        =   41
       Top             =   8505
       Width           =   3570
       Begin Threed.SSCommand cmdFirst 
          Height          =   420
          Left            =   2700
-         TabIndex        =   8
+         TabIndex        =   13
          TabStop         =   0   'False
          Top             =   135
          Width           =   825
@@ -1243,18 +1244,18 @@ Begin VB.Form orders_clients_sub
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "orders_clients_sub.frx":1F2AB
+         Picture         =   "orders_clients_sup.frx":1F2AB
          Caption         =   "√Ê·"
          ButtonStyle     =   3
          PictureAlignment=   10
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "orders_clients_sub.frx":21452
+         PictureDisabled =   "orders_clients_sup.frx":21452
       End
       Begin Threed.SSCommand cmdPrevious 
          Height          =   420
          Left            =   1800
-         TabIndex        =   9
+         TabIndex        =   14
          TabStop         =   0   'False
          Top             =   135
          Width           =   870
@@ -1272,18 +1273,18 @@ Begin VB.Form orders_clients_sub
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "orders_clients_sub.frx":23499
+         Picture         =   "orders_clients_sup.frx":23499
          Caption         =   "”«»ﬁ"
          ButtonStyle     =   3
          PictureAlignment=   10
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "orders_clients_sub.frx":25584
+         PictureDisabled =   "orders_clients_sup.frx":25584
       End
       Begin Threed.SSCommand cmdNext 
          Height          =   420
          Left            =   945
-         TabIndex        =   10
+         TabIndex        =   15
          TabStop         =   0   'False
          Top             =   135
          Width           =   825
@@ -1301,18 +1302,18 @@ Begin VB.Form orders_clients_sub
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "orders_clients_sub.frx":2757E
+         Picture         =   "orders_clients_sup.frx":2757E
          Caption         =   "·«Õﬁ"
          ButtonStyle     =   3
          PictureAlignment=   9
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "orders_clients_sub.frx":2968F
+         PictureDisabled =   "orders_clients_sup.frx":2968F
       End
       Begin Threed.SSCommand cmdLast 
          Height          =   420
          Left            =   45
-         TabIndex        =   11
+         TabIndex        =   16
          TabStop         =   0   'False
          Top             =   135
          Width           =   870
@@ -1330,13 +1331,13 @@ Begin VB.Form orders_clients_sub
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "orders_clients_sub.frx":2B689
+         Picture         =   "orders_clients_sup.frx":2B689
          Caption         =   "√ŒÌ—"
          ButtonStyle     =   3
          PictureAlignment=   9
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "orders_clients_sub.frx":2D8AD
+         PictureDisabled =   "orders_clients_sup.frx":2D8AD
       End
    End
    Begin VB.Frame Frame6 
@@ -1353,13 +1354,13 @@ Begin VB.Form orders_clients_sub
       Height          =   735
       Left            =   9675
       RightToLeft     =   -1  'True
-      TabIndex        =   49
+      TabIndex        =   50
       Top             =   -45
       Width           =   3615
       Begin Threed.SSCommand cmdClear 
          Height          =   420
          Left            =   90
-         TabIndex        =   51
+         TabIndex        =   52
          Top             =   225
          Visible         =   0   'False
          Width           =   1725
@@ -1383,7 +1384,7 @@ Begin VB.Form orders_clients_sub
       Begin Threed.SSCommand cmdPaste 
          Height          =   420
          Left            =   1845
-         TabIndex        =   50
+         TabIndex        =   51
          Top             =   225
          Visible         =   0   'False
          Width           =   1680
@@ -1407,7 +1408,7 @@ Begin VB.Form orders_clients_sub
       Begin Threed.SSCommand cmdCopy 
          Height          =   420
          Left            =   90
-         TabIndex        =   56
+         TabIndex        =   57
          Top             =   225
          Width           =   3435
          _ExtentX        =   6059
@@ -1432,7 +1433,7 @@ Begin VB.Form orders_clients_sub
       BackColor       =   &H00FFFFFF&
       Height          =   645
       Left            =   7020
-      TabIndex        =   57
+      TabIndex        =   58
       Top             =   8550
       Width           =   4425
       Begin VB.OptionButton optChanged 
@@ -1444,7 +1445,7 @@ Begin VB.Form orders_clients_sub
          Height          =   270
          Index           =   0
          Left            =   3555
-         TabIndex        =   60
+         TabIndex        =   61
          TabStop         =   0   'False
          Top             =   225
          Value           =   -1  'True
@@ -1459,7 +1460,7 @@ Begin VB.Form orders_clients_sub
          Height          =   270
          Index           =   2
          Left            =   225
-         TabIndex        =   59
+         TabIndex        =   60
          TabStop         =   0   'False
          Top             =   225
          Width           =   1095
@@ -1473,7 +1474,7 @@ Begin VB.Form orders_clients_sub
          Height          =   270
          Index           =   1
          Left            =   1755
-         TabIndex        =   58
+         TabIndex        =   59
          TabStop         =   0   'False
          Top             =   225
          Width           =   1590
@@ -1483,7 +1484,7 @@ Begin VB.Form orders_clients_sub
       BackColor       =   &H00FFFFFF&
       Height          =   645
       Left            =   11475
-      TabIndex        =   61
+      TabIndex        =   62
       Top             =   8550
       Width           =   2985
       Begin VB.OptionButton optclosed 
@@ -1495,7 +1496,7 @@ Begin VB.Form orders_clients_sub
          Height          =   270
          Index           =   1
          Left            =   990
-         TabIndex        =   64
+         TabIndex        =   65
          TabStop         =   0   'False
          Top             =   270
          Width           =   915
@@ -1509,7 +1510,7 @@ Begin VB.Form orders_clients_sub
          Height          =   270
          Index           =   2
          Left            =   135
-         TabIndex        =   63
+         TabIndex        =   64
          TabStop         =   0   'False
          Top             =   270
          Width           =   735
@@ -1523,7 +1524,7 @@ Begin VB.Form orders_clients_sub
          Height          =   270
          Index           =   0
          Left            =   2115
-         TabIndex        =   62
+         TabIndex        =   63
          TabStop         =   0   'False
          Top             =   270
          Value           =   -1  'True
@@ -1531,7 +1532,7 @@ Begin VB.Form orders_clients_sub
       End
    End
 End
-Attribute VB_Name = "orders_clients_sub"
+Attribute VB_Name = "orders_clients_sup"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
@@ -1544,6 +1545,7 @@ Dim bEditRecord As Boolean
 Dim CardTable As ADODB.RecordSet, cFileHeader As String
 Dim cFilter As String
 Dim osearchDoc As New Search_db, oSearchClient As New Search_db
+Dim oSearchOrder As New Search_db
 Dim con As New ADODB.Connection
 Dim formMode
 Public myPublic As Integer
@@ -1555,14 +1557,14 @@ aInsert = AddFlag(aInsert, "[CODE]", addstring(xCode.BoundText))
 aInsert = AddFlag(aInsert, "[MOSM]", addstring(xMosm.BoundText))
 aInsert = AddFlag(aInsert, "[delivery_date]", addDate(xdelivery_date.text))
 aInsert = AddFlag(aInsert, "[DESCA]", addstring(xdesca.text))
-aInsert = AddFlag(aInsert, "[Deposit]", Val(xdeposit.text))
+aInsert = AddFlag(aInsert, "[ORDER_NO_MAIN]", addstring(xOrder_no_Main.text))
 aInsert = AddFlag(aInsert, "[USERNAME]", addstring(sUserName))
 aInsert = AddFlag(aInsert, "[CHANGED]", "1")
 aInsert = AddFlag(aInsert, "[ISNEW]", "1")
 Dim db As New clsDb
 If xDoc_No.Tag = DefineMode Then
     xDoc_No.text = db.NewFlag("FILE6_50H", "doc_no", 6)
-    If xDoc_No.text = "" Then GoTo CleanUp
+    If xDoc_No.text = "" Then GoTo cleanUp
     
     aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_No.text))
     db.Sql = addInsert(aInsert, "FILE6_50H")
@@ -1570,10 +1572,10 @@ Else
     db.Sql = addUpdate(aInsert, "FILE6_50H", "doc_no = " & addstring(xDoc_No.text))
 End If
 
-If Not db.ExecuteTransaction Then GoTo CleanUp
+If Not db.ExecuteTransaction Then GoTo cleanUp
 
 myreplace = True
-CleanUp:
+cleanUp:
 Set db = Nothing
 End Function
 Private Sub myreplaceGrd(Row As Long, db As clsDb)
@@ -1598,6 +1600,14 @@ If ActiveControl.Name = cmdInform.Name Then
 ElseIf ActiveControl.Name = xCode.Name Then
     xCode.BoundText = oSearchClient.grid1.TextMatrix(oSearchClient.grid1.Row, 0)
     Unload oSearchClient
+ElseIf ActiveControl.Name = xOrder_no_Main.Name Then
+    xOrder_no_Main.text = oSearchOrder.grid1.TextMatrix(oSearchOrder.grid1.Row, 0)
+    Unload oSearchOrder
+ElseIf ActiveControl.Name = xOrder_no_Main.Name Then
+    xOrder_no_Main.text = oSearchOrder.grid1.TextMatrix(oSearchOrder.grid1.Row, 0)
+    Unload oSearchOrder
+ElseIf ActiveControl.Name = cmdExcelImport.Name Then
+    myLoadGrd
 End If
 End Sub
 Private Sub cmdAddGroup_Click()
@@ -1616,25 +1626,15 @@ If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
 End If
 End Sub
 Private Sub cmdAddModel_Click()
-'Set addmodelOrder.myform = Me
-'Set addmodelOrder.pGrid = grid1
-'addmodelOrder.pCol1 = 1
-'addmodelOrder.pCol2 = 5
-'addmodelOrder.Show 1
 On Error GoTo myerror
 If xDoc_No.text = "" Then
     If Not mySave Then Exit Sub
 End If
 
-Dim db As New clsDb
-db.Execute "UPDATE FILE6_50H SET TIME_POST = NULL , time_save = getdate() WHERE DOC_NO = " & MyParn(xDoc_No.text)
-Set db = Nothing
+addmodelClientSubOrder.sDoc_No = xDoc_No.text
+Set addmodelClientSubOrder.myform = Me
+addmodelClientSubOrder.Show 1
 
-Set addmodel2.myform = Me
-Set addmodel2.pGrid = Me.grid1
-addmodel2.pCol1 = 1
-addmodel2.pCol2 = 5
-addmodel2.Show 1
 Exit Sub
 myerror:
 MsgBox Err.Description
@@ -1642,7 +1642,8 @@ Err.Clear
 End Sub
 
 Private Sub cmdBalanceApp_Click()
-grdBalanceAppfrm.Show
+grdBalanceAppSup.sOrder_no_main = xOrder_no_Main.text
+grdBalanceAppSup.Show
 End Sub
 
 Private Sub cmdClosePeriod_Click()
@@ -1670,7 +1671,7 @@ If MsgBox("Õ–› ?", vbOKCancel + vbDefaultButton2 + vbCritical) <> vbOK Then Exit
 Dim db As New clsDb
 db.Sql = "Delete From FILE6_50 where Doc_No = " & addstring(xDoc_No.text)
 db.Sql = "Delete From FILE6_50H where Doc_No = " & addstring(xDoc_No.text)
-If Not db.ExecuteTransaction Then GoTo CleanUp
+If Not db.ExecuteTransaction Then GoTo cleanUp
 
 If sDoc_No <> "" Then Exit Sub
 
@@ -1679,7 +1680,7 @@ If Not openCardTable(tbMode.tbPrevious, xDoc_No.text) Then
         myDefine
     End If
 End If
-CleanUp:
+cleanUp:
 Set db = Nothing
 End Sub
 Private Sub cmdExcel_Click()
@@ -1694,104 +1695,28 @@ ToFileExelNew grid1, , , aRow, , 0.9, , , , , , Me, Array(Me.Caption, "„” ‰œ —ﬁ„
 grid1.RowHidden(grid1.Rows - 1) = False
 End Sub
 Private Sub cmdExcelImport_Click()
-    If grid1.Rows > 1 Then Exit Sub
-    
-    Dim xl1 As New Excel.Application, lAddOrder As Boolean
-    Dim xlsheet1 As Excel.Worksheet
-    Dim xlwbook1 As Excel.Workbook
-    
-    Dim xl2 As New Excel.Application
-    Dim xlsheet2 As Excel.Worksheet
-    Dim xlwbook2 As Excel.Workbook
-    
-    Dim cBacode1 As String, cBacode2 As String, nCount As Double
-     
-    Dim cFileName1 As String
-    Dim cFileName2 As String
-    Dim nCount1 As Double
-    
-    If xDoc_No.Tag = DefineMode Then
-        If Not mySave Then Exit Sub
-    End If
-    
-    If MsgBox("≈÷«›…  ›’Ì·Ï «’‰«› «·ÿ·»Ì«  „·› Excel", vbYesNo) = vbYes Then
-        Common2.InitDir = ""
-        Common2.FileName = ""
-        Common2.Filter = "Excel (*.XLS*)|*.XLS*"
-        Common2.ShowOpen
-        cFileName2 = Common2.FileName
+If grid1.Rows > 1 Then
+    MsgBox " ÊÃœ «’‰«› »«·„” ‰œ"
+    Exit Sub
+End If
 
-'''''''''''''''''''''
+If xDoc_No.Tag = DefineMode Then
+    If Not mySave Then Exit Sub
+End If
 
-        Set xlwbook2 = xl2.Workbooks.Open(cFileName2)
-        Set xlsheet2 = xlwbook2.Sheets.item(1)
-        
-        For nRow = 2 To 10000
-            nCount = nCount + 1
-            If Trim(xlsheet2.Cells(nRow, 1)) = "" Then Exit For
-             
-        Next nRow
-        prog1.Visible = True
-        prog1.Min = 0
-        prog1.Value = 0
-        prog1.Max = nCount
-        cStr1 = ""
-        
-        For nRow = 2 To nCount
-            If Trim(xlsheet2.Cells(nRow, 1)) <> "" Then
-                Me.Caption = nRow
-                prog1.Value = nRow
-                 
-                cBacode1 = xlsheet2.Cells(nRow, 1)
-                cBacode2 = xlsheet2.Cells(nRow, 2)
-                If cBacode1 <> "" Then
-                    
-                    Dim ItemTable As New ADODB.RecordSet
-                    Set ItemTable = ItemFind(cBacode1, con)
-                    If Not ItemTable.EOF Then
-                        If ItemTable!ISDOZ Then
-                            nQuant = Round(Val(xlsheet2.Cells(nRow, 3)) / 12, 2)
-                        Else
-                            nQuant = Val(xlsheet2.Cells(nRow, 3))
-                        End If
-                        cString = "Insert into FILE6_50 (DOC_NO,ITEM,QUANT)" & _
-                               "Values(" & _
-                               addstring(xDoc_No.text) & "," & _
-                               addstring(ItemTable!item) & "," & _
-                               nQuant & _
-                               ")"
-                        cStr1 = cStr1 & cString & " ; "
-                        nCount1 = nCount1 + 1
-                        If nCount1 = 500 Then
-                            nCount1 = 0
-                            If cStr1 <> "" Then con.Execute cStr1
-                            Inform " ≈÷«›… 500 "
-                            cStr1 = ""
-                        End If
-                    Else
-                        MsgBox " ﬂÊœ €Ì— ’ÕÌÕ  " & cBacode1 & " ”ÿ—  " & nRow
-                    End If
-                End If
-            End If
-        Next nRow
-        If cStr1 <> "" Then
-            Dim db As New clsDb
-            db.Execute cStr1
-            Set db = Nothing
-        End If
-        
-        MsgBox "   „  «·√÷«›… "
-        
-        myUndo
-        
-    End If
+If xDoc_No.text <> "" And xDoc_No.Tag = LoadMode Then
+    Set orders_clients_csv_sup.myform = Me
+    orders_clients_csv_sup.sDoc_No = xDoc_No.text
+    orders_clients_csv_sup.sOrder_no_main = xOrder_no_Main.text
+    orders_clients_csv_sup.Show 1
+End If
 End Sub
 
 Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub CmdInform_Click()
-ordersLookup Me, osearchDoc, cFilter
+ordersSupLookup Me, osearchDoc, cFilter
 End Sub
 Private Sub CmdNewInv_Click()
 'On Error Resume Next
@@ -1921,7 +1846,7 @@ Dim comBalance As command
 prog1.Visible = True
 Do Until ModelsTable.EOF
     prog1.Value = (ModelsTable.AbsolutePosition / ModelsTable.RecordCount) * 100
-    cModel = ModelsTable!MODEL & ""
+    cModel = ModelsTable!model & ""
     
     If ScalTable.State = adStateOpen Then ScalTable.Close
     strSql = "SELECT C_SCAL , SCAL FROM FILE1_10 WHERE MODEL =  " & MyParn(cModel) & " GROUP BY FILE1_10.C_SCAL , SCAL ORDER BY C_SCAL "
@@ -1939,7 +1864,7 @@ Do Until ModelsTable.EOF
                     
         !str17 = cModel
         !str14 = ModelsTable!MODELNO & cModel
-        !str18 = ArbString(ModelsTable!DESCA)  '& " " & TurnValue(ModelsTable!UNIT, Null, "  "))
+        !str18 = ArbString(ModelsTable!desca)  '& " " & TurnValue(ModelsTable!UNIT, Null, "  "))
         !STR13 = TurnValue(xdesca.text, "", Null)
         !STR19 = " «—ÌŒ «· ”·Ì„ :  " & xdelivery_date.text
         
@@ -2044,31 +1969,40 @@ End Sub
 Private Sub grid1_DblClick()
 If Not bEditRecord Then Exit Sub
 If grid1.Row > 0 And grid1.Row < grid1.Rows - 1 Then
-    Set addmodelOrder.myform = Me
-    Set addmodelOrder.pGrid = grid1
-    addmodelOrder.sModel = grid1.TextMatrix(grid1.Row, 0)
-    addmodelOrder.pCol1 = 1
-    addmodelOrder.pCol2 = 5
-    addmodelOrder.Show 1
+    addmodelClientSubOrder.sDoc_No = xDoc_No.text
+    addmodelClientSubOrder.sOrder_no_main = xOrder_no_Main.text
+    addmodelClientSubOrder.sModel = grid1.TextMatrix(grid1.Row, 0)
+    Set addmodelClientSubOrder.myform = Me
+    addmodelClientSubOrder.Show 1
 End If
+
+'If Not bEditRecord Then Exit Sub
+'If grid1.Row > 0 And grid1.Row < grid1.Rows - 1 Then
+'    Set addmodelOrder.myform = Me
+'    Set addmodelOrder.pGrid = grid1
+'    addmodelOrder.sModel = grid1.TextMatrix(grid1.Row, 0)
+'    addmodelOrder.pCol1 = 1
+'    addmodelOrder.pCol2 = 5
+'    addmodelOrder.Show 1
+'End If
 End Sub
 Private Sub grid1_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 13 Then
     CellPos KeyCode, grid1.Row, grid1.col
 ElseIf KeyCode = 46 And grid1.Row <> grid1.Rows - 1 And cmdSave.Enabled Then
-    If MsgBox("Õ–› «·’‰› „‰ «·„” ‰œ ?, Â· «‰  „Ê«›ﬁ ø", 1 + 256) = vbOK Then
-        If grid1.TextMatrix(grid1.Row, grid1.Cols - 1) <> "" Then
-            Dim db As New clsDb
-            If db.Execute("delete from FILE6_50 where ID = " & grid1.TextMatrix(grid1.Row, grid1.Cols - 1)) = -1 Then GoTo CleanUp
-            db.Execute "UPDATE FILE6_50H SET CHANGED = 1 WHERE DOC_NO = " & MyParn(myform.xDoc_No.text)
-            Set db = Nothing
-        End If
-        grid1.RemoveItem grid1.Row
-        CalcTotals
-    End If
+'    If MsgBox("Õ–› «·’‰› „‰ «·„” ‰œ ?, Â· «‰  „Ê«›ﬁ ø", 1 + 256) = vbOK Then
+'        If grid1.TextMatrix(grid1.Row, grid1.Cols - 1) <> "" Then
+'            Dim db As New clsDb
+'            If db.Execute("delete from FILE6_50 where ID = " & grid1.TextMatrix(grid1.Row, grid1.Cols - 1)) = -1 Then GoTo cleanUp
+'            db.Execute "UPDATE FILE6_50H SET CHANGED = 1 WHERE DOC_NO = " & MyParn(myform.xDoc_No.text)
+'            Set db = Nothing
+'        End If
+'        grid1.RemoveItem grid1.Row
+'        CalcTotals
+'    End If
 End If
 Exit Sub
-CleanUp:
+cleanUp:
 Set db = Nothing
 End Sub
 Private Function myValid(Optional bIgMsg As Boolean = True) As Boolean
@@ -2086,16 +2020,23 @@ If Not xMosm.MatchedWithList Then
     MsgBox "·„ Ì „  ”ÃÌ· «·„Ê”„"
     Exit Function
 End If
+
+If Trim(xOrder_no_Main.text) = "" Then
+    MsgBox "·„ Ì „  ”ÃÌ· «·"
+    Exit Function
+End If
+
 myValid = True
 End Function
-Private Sub myload()
+Private Sub myLoad()
 xDoc_No.text = CardTable!doc_no & ""
 xDate.text = myFormat_p(CardTable!Date)
 xCode.BoundText = CardTable!Code & ""
 xDoc_No.text = CardTable!doc_no & ""
 XDOC_APP.Caption = CardTable!DOC_APP & ""
 xdelivery_date.text = myFormat_p(CardTable!delivery_date)
-xdeposit.text = Myvalue(CardTable!deposit)
+xOrder_no_Main.text = CardTable!order_no_main & ""
+'xdeposit.text = Myvalue(CardTable!deposit)
 xsalesman.BoundText = CardTable!salesman_id & ""
 xMosm.BoundText = CardTable!MOSM & ""
 xcount_model.Caption = CardTable!count_model & ""
@@ -2132,7 +2073,7 @@ panel1(1).Caption = sUserName
 grid1.Rows = 1
 
 Handlecontrols DefineMode
-Fixgrd
+fixGrd
 End Sub
 Private Sub Handlecontrols(nMode)
 xDoc_No.Enabled = (nMode = DefineMode)
@@ -2149,7 +2090,8 @@ cmdPrint.Enabled = nMode = LoadMode
 cmdSave.Enabled = bEditRecord
 cmddelInv.Enabled = nMode = LoadMode And bEditRecord
 cmdAddModel.Enabled = bEditRecord And nMode = LoadMode
-cmdAddGroup.Enabled = bEditRecord And nMode = LoadMode
+
+'cmdAddGroup.Enabled = bEditRecord And nMode = LoadMode
 cmdExcelImport.Enabled = bEditRecord And nMode = LoadMode
 cmdPaste.Enabled = nMode = LoadMode
 
@@ -2245,7 +2187,7 @@ If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
     End If
 End If
 End Sub
-Private Sub Fixgrd()
+Private Sub fixGrd()
 With grid1
 .FormatString = "«·„ÊœÌ·|" & "«·’‰›|" & "«·’‰›|" & "«··Ê‰|" & "«·„ﬁ«”|" & "«·ﬂ„Ì…|" & "”⁄— „’‰⁄|" & "| " & "»«—ﬂÊœ|" & "”⁄— „” Â·ﬂ|"
 .ColWidth(0) = 1500
@@ -2307,7 +2249,7 @@ strSql = "SELECT FILE1_10.MODEL," & _
 Dim db As New clsDb
 Set grid1.DataSource = db.myRs(strSql)
 Set db = Nothing
-Fixgrd
+fixGrd
 CalcTotals
 End Sub
 Sub myaddModel()
@@ -2339,11 +2281,11 @@ Next
 
 db.Execute "UPDATE FILE6_50H SET CHANGED = 1 WHERE DOC_NO = " & MyParn(xDoc_No.text)
 
-If Not db.ExecuteTransaction Then GoTo CleanUp
+If Not db.ExecuteTransaction Then GoTo cleanUp
 
 End With
 myLoadGrd
-CleanUp:
+cleanUp:
 Set db = Nothing
 End Sub
 Sub myaddModel2()
@@ -2383,7 +2325,7 @@ Me.MousePointer = vbHourglass
 
 If Not myreplace Then Exit Function
 
-'UpdateMobil
+UpdateMobil
 
 Me.MousePointer = vbNormal
 
@@ -2474,7 +2416,7 @@ ElseIf pMode = tbMode.tbNext Then
     cOrder = "Order by FILE6_50H.DOC_NO"
 End If
 
-cFilter = ""
+cFilter = "FILE6_50H.IS_SUP = 1"
 If optclosed(1).Value Then
     cFilter = cFilter & Tr(cFilter) & "FILE6_50H.CLOSED = 0"
 ElseIf optclosed(2).Value Then
@@ -2499,13 +2441,13 @@ strSql = strSql & " " & cOrder
 Dim db As New clsDb
 Set CardTable = db.myRs(strSql)
 
-If CardTable Is Nothing Then GoTo CleanUp
+If CardTable Is Nothing Then GoTo cleanUp
 
 If (Not CardTable.EOF) Then
-    myload
+    myLoad
     openCardTable = True
 End If
-CleanUp:
+cleanUp:
 Me.MousePointer = vbNormal
 Set db = Nothing
 Exit Function
@@ -2513,7 +2455,7 @@ myerror:
 Me.MousePointer = vbNormal
 MsgBox Err.Description
 Err.Clear
-Resume CleanUp:
+Resume cleanUp:
 End Function
 Private Sub CellPos(ByRef KeyCode, ByVal Row As Long, ByVal col As Long)
 KeyCode = 0
@@ -2532,7 +2474,7 @@ End If
 End Sub
 Private Function retRecords(pDoc_no, ByRef nRecords As Long, ByRef nRecord As Long) As Variant
 Dim cString As String
-Dim loctable As New ADODB.RecordSet
+Dim locTable As New ADODB.RecordSet
 If pDoc_no <> "" Then
     cString = "SELECT Count(*) AS records,COUNT(CASE WHEN DOC_NO <= " & MyParn(pDoc_no) & " THEN 1 END) AS record"
 Else
@@ -2543,11 +2485,11 @@ cString = cString & " FROM FILE6_50H"
 If cFilter <> "" Then cString = cString & " WHERE " & cFilter
 
 Dim db As New clsDb
-Set loctable = db.myRs(cString)
-If Not loctable Is Nothing Then
-    If Not loctable.EOF Then
-        nRecords = loctable!records
-        nRecord = Val(loctable!Record & "")
+Set locTable = db.myRs(cString)
+If Not locTable Is Nothing Then
+    If Not locTable.EOF Then
+        nRecords = locTable!records
+        nRecord = Val(locTable!Record & "")
     End If
 End If
 Set db = Nothing
@@ -2600,13 +2542,13 @@ Dim nCount As Long
 Dim db As New clsDb
 
 If xDone.Value = 1 Then
-    If Not db.rsValue("SELECT COUNT(*) FROM FILE1_61H WHERE ORDER_BRANCH = " & xDoc_No.text & " AND ISCLOSED = 0", nCount) Then GoTo CleanUp
+    If Not db.rsValue("SELECT COUNT(*) FROM FILE1_61H WHERE ORDER_BRANCH = " & xDoc_No.text & " AND ISCLOSED = 0", nCount) Then GoTo cleanUp
     If nCount > 0 Then
         MsgBox "⁄œœ " & nCount & "  „” ‰œ  ÕÊÌ· €Ì— „€·ﬁ ·Â–… «·ÿ·»Ì…"
         Exit Sub
     End If
     
-    If Not db.rsValue("SELECT COUNT(*) FROM FILE1_61H WHERE ORDER_BRANCH = " & xDoc_No.text & " AND ISACCEPT = 0", nCount) Then GoTo CleanUp
+    If Not db.rsValue("SELECT COUNT(*) FROM FILE1_61H WHERE ORDER_BRANCH = " & xDoc_No.text & " AND ISACCEPT = 0", nCount) Then GoTo cleanUp
     If nCount > 0 Then
         MsgBox "⁄œœ " & nCount & "  „” ‰œ  ÕÊÌ· ·„ Ìﬁ»· »⁄œ ·Â–… «·ÿ·»Ì…"
         Exit Sub
@@ -2619,7 +2561,7 @@ If db.Execute("UPDATE FILE6_50H" & _
     Inform " „ " & IIf(xClosed.Value = 0, " —«Ã⁄ ⁄‰ «·«‰Â«¡", "«‰Â«¡ «·„” ‰œ")
     myUndo
 End If
-CleanUp:
+cleanUp:
 Set db = Nothing
 End Sub
 Private Sub xMosm_GotFocus()
@@ -2630,11 +2572,11 @@ myLostFocus xMosm
 If Not xMosm.MatchedWithList Then xMosm.BoundText = ""
 End Sub
 Private Sub xStore_GotFocus()
-myGotFocus xStore
+myGotFocus xstore
 End Sub
 Private Sub xstore_LostFocus()
-myLostFocus xStore
-If Not xStore.MatchedWithList Then xStore.BoundText = ""
+myLostFocus xstore
+If Not xstore.MatchedWithList Then xstore.BoundText = ""
 End Sub
 Private Sub xdelivery_date_GotFocus()
 myGotFocus xdelivery_date
@@ -2669,6 +2611,10 @@ If Not IsDgt(Trim(xCode.text)) Then xCode.BoundText = ""
 xCode.BoundText = RetZero(Trim(xCode.text))
 If Not xCode.MatchedWithList Then xCode.BoundText = ""
 End Sub
+Private Sub xOrder_no_Main_KeyUp(KeyCode As Integer, Shift As Integer)
+If KeyCode = 112 Then ordersLookup Me, oSearchOrder
+End Sub
+
 Private Sub xsalesman_GotFocus()
 myGotFocus xsalesman
 End Sub
