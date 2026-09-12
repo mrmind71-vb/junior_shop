@@ -1004,7 +1004,7 @@ FIXDATA
 '''''''  ADDRESS
 TableAddress.Open "ADDRESS", con, adOpenStatic, adLockReadOnly, adCmdTable
 If TableAddress.RecordCount > 0 Then
-    cComp_Name = TableAddress!desca
+    cComp_Name = TableAddress!DESCA
 End If
 
 If lSupperVisor Or bOpt5 Or cBranch <> "00" Then
@@ -1135,29 +1135,30 @@ cString = "SELECT users.code,users.title1,users.title2, users.Password, users.de
           " FROM (users INNER JOIN Menusetting ON users.Code = Menusetting.code) INNER JOIN Menu ON Menusetting.control = Menu.Control " & _
           " where users.code = " & nusercode
 sectable.Open cString, con, adOpenStatic, adLockReadOnly, adCmdText
-For I = 0 To Main.Count - 1
-    If TypeOf Main(I) Is Menu And Mid(Main(I).Name, 1, 2) = "mn" Then
-        Main(I).Visible = False
+For i = 0 To Main.Count - 1
+    If TypeOf Main(i) Is Menu And Mid(Main(i).Name, 1, 2) = "mn" Then
+        Main(i).Visible = False
     End If
 Next
 Err.Clear
 On Error Resume Next
 
-For I = 0 To Main.Count - 1
-    If "tmonline_order" = Main(I).Name Then
+For i = 0 To Main.Count - 1
+    If "tmonline_order" = Main(i).Name Then
         A = A
     End If
-    If TypeOf Main(I) Is Menu And Mid(Main(I).Name, 1, 2) <> "mn" Then
-        sectable.Find "control = " & MyParn(Main(I).Name), , adSearchForward, adBookmarkFirst
+    If TypeOf Main(i) Is Menu And Mid(Main(i).Name, 1, 2) <> "mn" Then
+        sectable.Find "control = " & MyParn(Main(i).Name), , adSearchForward, adBookmarkFirst
         If Not sectable.EOF Then
             If sectable!Visible Then
                 Main(sectable!MainMenu).Visible = True
-                Main(I).Visible = True
+                Main(i).Visible = True
+                Main(i).Tag = IIf(sectable!Editable, "1", "0")
             Else
-                Main(I).Visible = False
+                Main(i).Visible = False
             End If
         Else
-            Main(I).Visible = False
+            Main(i).Visible = False
         End If
     End If
 Next
@@ -2184,6 +2185,7 @@ Private Sub tmPuechSUPear_Click()
 End Sub
 Private Sub tmpurchases_Click()
     purchasefrm.myPublic = 0
+    purchasefrm.bEdit = tmpurchases.Tag <> "0"
     purchasefrm.Show
 End Sub
 Private Sub tmrepdaysalestax_Click()
@@ -2203,11 +2205,13 @@ End Sub
 
 Private Sub tmpurchbr_Click()
     purchasefrm.myPublic = 2
+    purchasefrm.bEdit = tmpurchbr.Tag <> "0"
     purchasefrm.Show
 End Sub
 
 Private Sub tmpurchbrret_Click()
     purchasefrm.myPublic = 3
+    purchasefrm.bEdit = tmpurchbrret.Tag <> "0"
     purchasefrm.Show
 End Sub
 
@@ -2363,6 +2367,7 @@ Private Sub tmret_sales_Click()
 End Sub
 Private Sub tmRETPURCH_Click()
     purchasefrm.myPublic = 1
+    purchasefrm.bEdit = tmRETPURCH.Tag <> "0"
     purchasefrm.Show
 End Sub
 Private Sub tmsalcustsub_Click()
@@ -2921,8 +2926,8 @@ aString(8) = "file4_10"
 aString(9) = "file6_10"
 aString(10) = "file6_20"
 aString(11) = "file7_20"
-For I = 0 To UBound(aString) - 1
-    cString = "Delete Distinctrow " & aString(I) & ".*" & " From " & aString(I)
+For i = 0 To UBound(aString) - 1
+    cString = "Delete Distinctrow " & aString(i) & ".*" & " From " & aString(i)
     mydb.Execute cString
 Next
 End Sub
@@ -3107,10 +3112,10 @@ Sub FixStoreCode()
 
 End Sub
 Sub Show_NewDoc()
-    Set GRID1.DataSource = data1
-    data1.ConnectionString = strCon
-    GRID1.Rows = 1
-    Fixgrd
+    Set grid1.DataSource = data1
+    data1.connectionString = strCon
+    grid1.Rows = 1
+    fixGrd
     myload
     
 End Sub
@@ -3119,10 +3124,10 @@ Private Sub myload()
     cString = " SELECT     flag, desca, DOC_NO, DATE, [name], QUANT, USERSEND, TIMESEND FROM         Q_DATA_SEND "
     data1.RecordSource = cString
     data1.Refresh
-    Fixgrd
+    fixGrd
 End Sub
-Sub Fixgrd()
-    With GRID1
+Sub fixGrd()
+    With grid1
     .ExplorerBar = flexExSortShow
     .FixedRows = 1
     .WordWrap = True
@@ -3573,16 +3578,16 @@ aCommand = AddFlag(aCommand, aCommandSub)
 Dim nLeft As Long, nColor As Byte
 nLeft = 50
 
-For I = 0 To UBound(aCommand)
-    If retFlag(aCommand(I), "visible") Then
-        Main(retFlag(aCommand(I), "name")).Visible = True
-        Main(retFlag(aCommand(I), "name")).Left = nLeft
-        nLeft = nLeft + Main(retFlag(aCommand(I), "name")).Width + 50
-        Main(retFlag(aCommand(I), "name")).BackColor = IIf(nColor = 0, vbWhite, &H80000004)
+For i = 0 To UBound(aCommand)
+    If retFlag(aCommand(i), "visible") Then
+        Main(retFlag(aCommand(i), "name")).Visible = True
+        Main(retFlag(aCommand(i), "name")).Left = nLeft
+        nLeft = nLeft + Main(retFlag(aCommand(i), "name")).Width + 50
+        Main(retFlag(aCommand(i), "name")).BackColor = IIf(nColor = 0, vbWhite, &H80000004)
         nColor = IIf(nColor = 0, 1, 0)
         If Not Picture1.Visible Then Picture1.Visible = True
     Else
-        Main(retFlag(aCommand(I), "name")).Visible = False
+        Main(retFlag(aCommand(i), "name")).Visible = False
     End If
 Next
 End Sub

@@ -676,8 +676,8 @@ Begin VB.Form online_dash_board
       Left            =   7245
       TabIndex        =   10
       Top             =   3420
-      Width           =   7755
-      _cx             =   13679
+      Width           =   7395
+      _cx             =   13044
       _cy             =   7011
       _ConvInfo       =   1
       Appearance      =   0
@@ -861,11 +861,11 @@ Begin VB.Form online_dash_board
    End
    Begin VSFlex7Ctl.VSFlexGrid grdMan 
       Height          =   3975
-      Left            =   15030
+      Left            =   14715
       TabIndex        =   12
       Top             =   3420
-      Width           =   7755
-      _cx             =   13679
+      Width           =   8070
+      _cx             =   14235
       _cy             =   7011
       _ConvInfo       =   1
       Appearance      =   0
@@ -904,7 +904,7 @@ Begin VB.Form online_dash_board
       GridLinesFixed  =   1
       GridLineWidth   =   1
       Rows            =   2
-      Cols            =   8
+      Cols            =   9
       FixedRows       =   2
       FixedCols       =   0
       RowHeightMin    =   0
@@ -914,7 +914,7 @@ Begin VB.Form online_dash_board
       ExtendLastCol   =   0   'False
       FormatString    =   ""
       ScrollTrack     =   0   'False
-      ScrollBars      =   2
+      ScrollBars      =   3
       ScrollTips      =   0   'False
       MergeCells      =   0
       MergeCompare    =   0
@@ -1054,23 +1054,23 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub cmd_excel_Click()
-    ToFileExel2 GridTotal, , , , , 1.1, , , , , , Me
+ToFileExel2 GridTotal, , , , , 1.1, , , , , , Me
 End Sub
 Private Sub cmdExit_Click()
-    Unload Me
+Unload Me
 End Sub
 Private Sub cmdGo_Click()
-    If Not MYVALID Then Exit Sub
-    Dim db As New clsDb
-    myLoadGrdTotal db
-    myloadgrdPrep db
-    myLoadGrdShip db
-    myloadGrdModel db
-    myloadGrdCity db
-    myLoadGrdDays db
-    myLoadGrdMan db
-    myLoadGrdMan2 db
-    Set db = Nothing
+If Not MYVALID Then Exit Sub
+Dim db As New clsDb
+myLoadGrdTotal db
+myloadgrdPrep db
+myLoadGrdShip db
+myloadGrdModel db
+myloadGrdCity db
+myLoadGrdDays db
+myLoadGrdMan db
+myLoadGrdMan2 db
+Set db = Nothing
 End Sub
 Private Function MYVALID() As Boolean
 If Not IsDate(xDate1.text) Then
@@ -1083,9 +1083,6 @@ If Not IsDate(xdate2.text) Then
 End If
 MYVALID = True
 End Function
-Private Sub MYLOAD1()
-
-End Sub
 Private Sub Form_Load()
 xDate1.text = myFormat_p(Year(Date) & "-" & Month(Date) & "-" & "01")
 xdate2.text = myFormat_p(DateAdd("d", -1, myFormat(DateAdd("m", 1, myFormat(xDate1.text)))))
@@ -1471,7 +1468,7 @@ Next
 .ColFormat(2) = "#,##0"
 .ColFormat(3) = "#,##0"
     
-.ColWidth(0) = 3000
+.ColWidth(0) = 2400
 .ColWidth(1) = 1000
 .ColWidth(2) = 1000
 .ColWidth(3) = 1500
@@ -1569,8 +1566,9 @@ Sub fixGrdMan()
 With grdMan
     For i = 0 To .Cols - 1
         .TextMatrix(0, i) = "≈‰Ã«“ «·ÿ·»Ì«  ··„ÊŸ›Ì‰"
-        .ColWidth(i) = 900
+        .ColWidth(i) = 800
     Next
+    .ColWidth(8) = 900
     .ColWidth(0) = 1300
     .ColWidth(1) = 2000
     .ColHidden(0) = True
@@ -1588,12 +1586,13 @@ With grdMan
     .TextMatrix(1, 5) = "„⁄·ﬁ…"
     .TextMatrix(1, 6) = " „ «· ÃÂÌ“"
     .TextMatrix(1, 7) = "„·€«…"
+    .TextMatrix(1, 8) = "„⁄œ· «·Êﬁ "
     
     .ColDataType(0) = flexDTDate
-    For i = 2 To .Cols - 1
+    For i = 2 To .Cols - 2
         .ColDataType(i) = flexDTDouble
     Next
-    
+    .ColAlignment(8) = flexAlignCenterCenter
     .ExplorerBar = flexExSort
     .Cell(flexcpAlignment, 0, 0, 1, .Cols - 1) = flexAlignCenterCenter
     .SubtotalPosition = flexSTBelow

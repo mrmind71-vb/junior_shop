@@ -207,12 +207,12 @@ aInsert = AddFlag(aInsert, sFieldDesca, addstring(.TextMatrix(Row, 1)))
 If grid1.TextMatrix(Row, 0) = "" Then
     .TextMatrix(Row, 0) = IIf(nZero = -1, db.NewFlag(sTable, sFieldCode), RetZero(db.NewFlag(sTable, sFieldCode), nZero))
     aInsert = AddFlag(aInsert, sFieldCode, IIf(nZero = -1, addvalue(.TextMatrix(Row, 0)), addstring(.TextMatrix(Row, 0))))
-   If db.Execute(addInsert(aInsert, sTable)) = -1 Then myload
+   If Not db.Execute(addInsert(aInsert, sTable)) Then myload
 Else
-   If db.Execute(addUpdate(aInsert, sTable, "CODE = " & IIf(nZero = -1, .TextMatrix(Row, 0), MyParn(.TextMatrix(Row, 0))))) = -1 Then myload
+   If Not db.Execute(addUpdate(aInsert, sTable, "CODE = " & IIf(nZero = -1, .TextMatrix(Row, 0), MyParn(.TextMatrix(Row, 0))))) Then myload
 End If
 End With
-cleanUp:
+cleanUP:
 Set db = Nothing
 End Sub
 Private Sub grid1_EnterCell()
@@ -227,7 +227,7 @@ Dim db As New clsDb
 If KeyCode = 46 And bEdit Then
     If Trim(grid1.TextMatrix(grid1.Row, 0)) <> "" Then
         If MsgBox("«·€«¡ «·”Ã· ?? Â· «‰  „ √ﬂœ", vbYesNo) = vbYes Then
-                If db.Execute("Delete  from " & sTable & "  where code = " & IIf(nZero = -1, grid1.TextMatrix(grid1.Row, 0), MyParn(grid1.TextMatrix(grid1.Row, 0)))) <> -1 Then
+            If db.Execute("Delete  from " & sTable & "  where code = " & IIf(nZero = -1, grid1.TextMatrix(grid1.Row, 0), MyParn(grid1.TextMatrix(grid1.Row, 0)))) Then
                 grid1.RemoveItem grid1.Row
             End If
         End If

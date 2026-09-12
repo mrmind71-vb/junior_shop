@@ -1132,7 +1132,7 @@ Private Sub Form_Load()
     Set GridTotal.DataSource = data1
     Set grid1.DataSource = DATA2
     Set GRID2.DataSource = DATA3
-    Set GRID3.DataSource = DATA4
+    Set GRID3.DataSource = data4
     Set GRID4.DataSource = DATA5
     Set GRID5.DataSource = data6
     
@@ -1418,7 +1418,7 @@ If IsDate(xDate1.text) Then cWhere = " AND DATE >= " & DateSq(xDate1.text)
 If IsDate(xdate2.text) Then cWhere = cWhere & " AND DATE <= " & DateSq(xdate2.text)
 cString = " SELECT  FILE1_10SC.DESCA, SUM(FILE6_90.QUANT) FROM  FILE1_10SC INNER JOIN FILE1_10 ON FILE1_10SC.[CODE] = FILE1_10.[SECTION] INNER JOIN FILE6_90 ON FILE1_10.ITEM = FILE6_90.ITEM INNER JOIN FILE6_90H ON FILE6_90.DOC_NO = FILE6_90H.DOC_NO WHERE MODELFACT0 IS NOT NULL " & cWhere & _
             " GROUP BY FILE1_10SC.DESCA  ORDER BY SUM(FILE6_90.QUANT) DESC"
-Set DATA4.RecordSet = myRecordSet(cString, con)
+Set data4.RecordSet = myRecordSet(cString, con)
 FixGrid3
 End Sub
 Private Sub FixGrid3()

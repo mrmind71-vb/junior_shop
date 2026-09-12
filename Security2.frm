@@ -1924,7 +1924,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim formMode As Byte
-Dim CardTable As New ADODB.Recordset, oSearch As New Search3
+Dim CardTable As New ADODB.RecordSet, oSearch As New Search3
 Const LoadMode = 1, DefineMode = 2
 Dim cFilter As String
 Dim con As New ADODB.Connection
@@ -1957,7 +1957,7 @@ cmdFirst.Enabled = (nMode = LoadMode) And nRecord > 1 And nRecords > 2 And sCode
 xCode.Enabled = Not (nMode = LoadMode)
 End Sub
 Sub myDefine()
-xCode.text = Val(Newflag("USERS", "CODE", con))
+xCode.text = Val(NewFlag("USERS", "CODE", con))
 xStore.BoundText = ""
 XBRANCH.BoundText = ""
 XISBRANCH.Value = 0
@@ -1975,7 +1975,7 @@ End Sub
 Sub myload()
 xCode.text = CardTable!code
 xPassword.text = CardTable!PassWord & ""
-xDesca.text = CardTable!desca & ""
+xDesca.text = CardTable!DESCA & ""
 XBRANCH.BoundText = CardTable!branch & ""
 xBox.BoundText = CardTable!BOX & ""
 
@@ -2014,16 +2014,16 @@ End If
 
 
 sBound = xStore.BoundText
-DATA3.ConnectionString = strCon
+DATA3.connectionString = strCon
 
 If XBRANCH.BoundText = "" Then
     If cBranch = "00" Or lIsBranchStore Then
-        Set DATA3.Recordset = myRecordSet("SELECT * FROM FILE0_40 WHERE BRANCH IS NULL ", con)
+        Set DATA3.RecordSet = myRecordSet("SELECT * FROM FILE0_40 WHERE BRANCH IS NULL ", con)
     Else
-        Set DATA3.Recordset = myRecordSet("SELECT * FROM FILE0_40 ", con)
+        Set DATA3.RecordSet = myRecordSet("SELECT * FROM FILE0_40 ", con)
     End If
 Else
-    Set DATA3.Recordset = myRecordSet("SELECT * FROM FILE0_40 WHERE BRANCH = " & MyParn(XBRANCH.BoundText), con)
+    Set DATA3.RecordSet = myRecordSet("SELECT * FROM FILE0_40 WHERE BRANCH = " & MyParn(XBRANCH.BoundText), con)
 End If
 
 Set xStore.RowSource = DATA3
@@ -2064,7 +2064,7 @@ aInsert = AddFlag(aInsert, "[BRANCH]", addstring(XBRANCH.BoundText))
 aInsert = AddFlag(aInsert, "[isbranch]", IIf(XISBRANCH.Value, 1, 0))
 
 con.BeginTrans
-On Error GoTo myError
+On Error GoTo myerror
 If xCode.Enabled Then
     Dim nCode As Long
     aInsert = AddFlag(aInsert, "code", xCode.text)
@@ -2077,12 +2077,12 @@ MyReplaceShop
 con.CommitTrans
 myreplace = True
 Exit Function
-myError:
+myerror:
 MsgBox Err.Description
 con.RollbackTrans
 Err.Clear
 End Function
-Function myValid() As Boolean
+Function MYVALID() As Boolean
 If Not IsNumeric(xCode.text) Then
     MsgBox "—ﬁ„ «·„” Œœ„ €Ì— ”·Ì„"
     Exit Function
@@ -2097,7 +2097,7 @@ If xPassword.text = "" Then
     MsgBox "ﬂ·„… «·”— €Ì— „”Ã·…"
     Exit Function
 End If
-myValid = True
+MYVALID = True
 End Function
 Private Sub CmdAdd_Click()
     myDefine
@@ -2128,7 +2128,7 @@ Private Sub cmdExit_Click()
     Unload Me
 End Sub
 Private Sub CmdDel_Click()
-On Error GoTo myError
+On Error GoTo myerror
 If MsgBox("«·€«¡ «·”Ã· «·Õ«·Ï : Â· «‰  „Ê«›ﬁ ø", 4) = 6 Then
     con.BeginTrans
     
@@ -2144,7 +2144,7 @@ If MsgBox("«·€«¡ «·”Ã· «·Õ«·Ï : Â· «‰  „Ê«›ﬁ ø", 4) = 6 Then
     End If
 End If
 Exit Sub
-myError:
+myerror:
     MsgBox Err.Description
     Err.Clear
     con.RollbackTrans
@@ -2186,7 +2186,7 @@ Private Sub CmdInform_Click()
     CardLookup
 End Sub
 Private Sub cmdSave_Click()
-If Not myValid Then Exit Sub
+If Not MYVALID Then Exit Sub
 If Not myreplace Then Exit Sub
 Inform " „ Õ›Ÿ «·»Ì«‰«  »‰Ã«Õ"
 If Not openCardTable(tbMode.tbFind, xCode.text) Then
@@ -2216,9 +2216,9 @@ Filloption
 myload
 End Sub
 Private Sub Form_Load()
-Dim ShopTable As New ADODB.Recordset
-On Error GoTo myError
-openCon con
+Dim ShopTable As New ADODB.RecordSet
+On Error GoTo myerror
+OpenCon con
 If bSupermode And cBranch = "00" Then
     nUser = enUser.Admin
 Else
@@ -2243,13 +2243,13 @@ cmdDate.Caption = myFormat_p(dSalesDate)
 'If GetDesca("select id from [option] where id = 9  ", con) = "" Then con.Execute "   insert INTO [option] (desca) VALUES        ('’·«ÕÌ… › Õ „»»Ì⁄«  ”«»ﬁ…')"
 'If GetDesca("select id from [option] where id = 10 ", con) = "" Then con.Execute "   insert INTO [option] (desca) VALUES        ('’·«ÕÌ…  ﬂ·›… „»»Ì⁄«  ')"
 
-Set data4.Recordset = cmd("SELECT * FROM BRANCH WHERE ISBRANCH = 1 ORDER BY DESCA", con).Execute
+Set data4.RecordSet = cmd("SELECT * FROM BRANCH WHERE ISBRANCH = 1 ORDER BY DESCA", con).Execute
 
 Set XBRANCH.RowSource = data4
 XBRANCH.ListField = "Desca"
 XBRANCH.BoundColumn = "Code"
 
-Set VSSHOP.DataSource = data5
+Set VSSHOP.DataSource = DATA5
 
 For ntab = 0 To SSTab1.Tabs - 1
     grid1(ntab).Cols = 5
@@ -2263,7 +2263,7 @@ For ntab = 0 To SSTab1.Tabs - 1
     grid1(ntab).TextMatrix(0, 3) = " ⁄œÌ·"
     grid1(ntab).ColHidden(0) = True
     grid1(ntab).ColHidden(grid1(ntab).Cols - 1) = True
-    grid1(ntab).ColHidden(3) = True
+    'grid1(ntab).ColHidden(3) = True
     For i = 0 To 3
         grid1(ntab).ColAlignment(i) = flexAlignRightCenter
     Next
@@ -2291,7 +2291,7 @@ If Not openCardTable Then myDefine
 'End If
 
 Exit Sub
-myError:
+myerror:
 End Sub
 Private Function openCardTable(Optional pMode As Integer = tbMode.tblast, Optional pCode As String = "", Optional bDefine As Boolean = True) As Boolean
 Dim cString As String
@@ -2305,7 +2305,7 @@ End If
 
 Me.MousePointer = vbHourglass
 
-On Error GoTo myError
+On Error GoTo myerror
 cFilter = ""
 
 If lServerOnLine Then
@@ -2355,7 +2355,7 @@ If (Not CardTable.EOF) Then
 End If
 Me.MousePointer = 0
 Exit Function
-myError:
+myerror:
 Me.MousePointer = vbNormal
 MsgBox Err.Description
 Err.Clear
@@ -2367,18 +2367,18 @@ Set CardTable = Nothing
 closeCon con
 End Sub
 
-Private Sub Grid1_AfterEdit(Index As Integer, ByVal Row As Long, ByVal Col As Long)
+Private Sub Grid1_AfterEdit(index As Integer, ByVal Row As Long, ByVal col As Long)
 If Row = 0 Then
-    With grid1(Index)
+    With grid1(index)
     For i = 1 To .Rows - 1
-        .TextMatrix(i, Col) = IIf(grid1(Index).Cell(flexcpChecked, 0, Col) = 1, -1, 0)
+        .TextMatrix(i, col) = IIf(grid1(index).Cell(flexcpChecked, 0, col) = 1, -1, 0)
     Next
     End With
 End If
 End Sub
 
 Private Sub VSSHOP_EnterCell()
-If VSSHOP.Col = VSSHOP.Cols - 1 Then
+If VSSHOP.col = VSSHOP.Cols - 1 Then
     VSSHOP.Editable = flexEDKbdMouse
 Else
     VSSHOP.Editable = flexEDNone
@@ -2433,7 +2433,7 @@ For ntab = 0 To SSTab1.Tabs - 1
 Next
 End Sub
 Private Sub FillMenu()
-Dim GrdTable As New ADODB.Recordset
+Dim GrdTable As New ADODB.RecordSet
 Set GrdTable = cmd("Select * from menu  Order by [Order]", con).Execute
 
 If GrdTable.EOF And GrdTable.BOF Then Exit Sub
@@ -2446,7 +2446,7 @@ For ntab = 0 To 8
         Do Until GrdTable.EOF
             .AddItem ""
             .TextMatrix(.Rows - 1, 0) = GrdTable!Control & ""
-            .TextMatrix(.Rows - 1, 1) = GrdTable!desca & ""
+            .TextMatrix(.Rows - 1, 1) = GrdTable!DESCA & ""
             .TextMatrix(.Rows - 1, 2) = 0
             .TextMatrix(.Rows - 1, 3) = 0
             GrdTable.MoveNext
@@ -2457,7 +2457,7 @@ GrdTable.Close
 Set GrdTable = Nothing
 End Sub
 Private Sub Filloption()
-Dim GrdTable As New ADODB.Recordset
+Dim GrdTable As New ADODB.RecordSet
 Set GrdTable = cmd("select * from [Option] order by id", con, adText).Execute
 If Not GrdTable.EOF Then
     With grid1(SSTab1.Tabs - 1)
@@ -2465,7 +2465,7 @@ If Not GrdTable.EOF Then
         Do Until GrdTable.EOF
             .AddItem ""
             .TextMatrix(.Rows - 1, 0) = ""
-            .TextMatrix(.Rows - 1, 1) = GrdTable!desca
+            .TextMatrix(.Rows - 1, 1) = GrdTable!DESCA
             .TextMatrix(.Rows - 1, 2) = 0
             .TextMatrix(.Rows - 1, 3) = 0
             GrdTable.MoveNext
@@ -2477,7 +2477,7 @@ GrdTable.Close
 Set GrdTable = Nothing
 End Sub
 Private Sub myLoadGrd()
-Dim GrdTable As New ADODB.Recordset
+Dim GrdTable As New ADODB.RecordSet
 Set GrdTable = cmd("select * From menusetting where code = " & Val(xCode.text), con).Execute
 If GrdTable.EOF And GrdTable.BOF Then Exit Sub
 For ntab = 0 To SSTab1.Tabs - 2
@@ -2525,7 +2525,7 @@ End With
 End Sub
 Private Function FillMenuFile() As Boolean
 Dim MenuNo As Integer, Order As Integer
-On Error GoTo myError
+On Error GoTo myerror
 con.BeginTrans
 con.Execute "Delete  from menu"
 For i = 0 To Main.Count - 1
@@ -2550,29 +2550,29 @@ Next
 con.CommitTrans
 FillMenuFile = True
 Exit Function
-myError:
+myerror:
     MsgBox Err.Description
     Err.Clear
     con.RollbackTrans
 End Function
 Private Function FixControl() As Boolean
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 Dim cString As String
 cString = "select menusetting.Id " & _
            " from menusetting left join menu on menu.control = menusetting.control " & _
             "where (menu.control is null)"
-Set loctable = cmd(cString, con).Execute
-On Error GoTo myError
+Set locTable = cmd(cString, con).Execute
+On Error GoTo myerror
 con.BeginTrans
-Do Until loctable.EOF
-    con.Execute "delete  from menusetting where ID = " & loctable!ID
-    loctable.MoveNext
+Do Until locTable.EOF
+    con.Execute "delete  from menusetting where ID = " & locTable!ID
+    locTable.MoveNext
 Loop
 con.CommitTrans
-loctable.Close
-Set loctable = Nothing
+locTable.Close
+Set locTable = Nothing
 Exit Function
-myError:
+myerror:
     MsgBox Err.Description
     Err.Clear
     con.RollbackTrans
@@ -2593,7 +2593,7 @@ Else
               " FROM FILE0_40 LEFT JOIN USERSHOP ON FILE0_40.CODE = USERSHOP.STORE" & _
               " AND USERSHOP.CODE = " & addvalue(xCode.text)
 End If
-Set data5.Recordset = cmd(cString, con).Execute
+Set DATA5.RecordSet = cmd(cString, con).Execute
 fixGrdShop
 End Sub
 Sub MyReplaceShop()
@@ -2647,10 +2647,10 @@ If pBranch <> "" Then
     cString = cString & " WHERE BRANCH = " & MyParn(pBranch)
 End If
 
-If data1.Recordset Is Nothing Then
-    Set data1.Recordset = cmd(cString, con).Execute
-ElseIf data1.Recordset.Source <> cString Then
-    Set data1.Recordset = cmd(cString, con).Execute
+If data1.RecordSet Is Nothing Then
+    Set data1.RecordSet = cmd(cString, con).Execute
+ElseIf data1.RecordSet.Source <> cString Then
+    Set data1.RecordSet = cmd(cString, con).Execute
 Else
     Exit Sub
 End If
@@ -2670,10 +2670,10 @@ If pBranch <> "" Then
     cString = cString & " WHERE BRANCH = " & MyParn(pBranch)
 End If
 
-If DATA3.Recordset Is Nothing Then
-    Set DATA3.Recordset = cmd(cString, con).Execute
-ElseIf DATA3.Recordset.Source <> cString Then
-    Set DATA3.Recordset = cmd(cString, con).Execute
+If DATA3.RecordSet Is Nothing Then
+    Set DATA3.RecordSet = cmd(cString, con).Execute
+ElseIf DATA3.RecordSet.Source <> cString Then
+    Set DATA3.RecordSet = cmd(cString, con).Execute
 Else
     Exit Sub
 End If
@@ -2684,7 +2684,7 @@ End If
 End Sub
 
 Private Function retRecords(pCode, ByRef nRecords As Long, ByRef nRecord As Long) As Variant
-Dim cString As String, loctable As New ADODB.Recordset
+Dim cString As String, locTable As New ADODB.RecordSet
 If ValidNum(pCode) Then
     cString = "SELECT Count(*) AS records,COUNT(CASE WHEN CODE <= " & pCode & " THEN 1 END) AS record"
 Else
@@ -2693,10 +2693,10 @@ End If
 
 cString = cString & " FROM USERS " & Tr(cFilter, " WHERE ") & cFilter
 
-Set loctable = mycmd(cString, con)
-If Not loctable.EOF Then
-    nRecords = loctable!RECORDS
-    nRecord = Val(loctable!Record & "")
+Set locTable = mycmd(cString, con)
+If Not locTable.EOF Then
+    nRecords = locTable!RECORDS
+    nRecord = Val(locTable!Record & "")
 End If
 End Function
 Private Sub fixGrdShop()

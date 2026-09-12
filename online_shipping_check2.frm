@@ -539,7 +539,7 @@ ElseIf TabStrip1.SelectedItem.index = 3 Then
 End If
 End Sub
 
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
 Unload Me
 End Sub
 
@@ -581,12 +581,12 @@ Dim db As New clsDb
 For i = 1 To .Rows - 1
     Me.Caption = sCaption & " - " & "ÓÌב " & (i + 1) & " דה " & grid1.Rows - 1
     prog1.Value = Round(i / (.Rows - 1), 2) * 100
-    If db.Execute("UPDATE FILE6_90S " & _
+    If Not db.Execute("UPDATE FILE6_90S " & _
                  " SET DATE_PICK = " & addDate(.TextMatrix(i, 10)) & "," & _
                  " COD = " & .ValueMatrix(i, 11) & "," & _
                  " TYPE = " & addstring(.TextMatrix(i, 13)) & _
                  " FROM FILE6_90s " & _
-                 " WHERE ID = " & .TextMatrix(i, .Cols - 1)) = -1 Then Exit Function
+                 " WHERE ID = " & .TextMatrix(i, .Cols - 1)) Then Exit Function
 Next
 End With
 prog1.Visible = False
@@ -601,12 +601,12 @@ prog1.Visible = True
 Dim db As New clsDb
 For i = 1 To .Rows - 1
     prog1.Value = Round(i / (.Rows - 1), 2) * 100
-    If db.Execute("UPDATE FILE6_90S " & _
+    If Not db.Execute("UPDATE FILE6_90S " & _
                  " SET DATE_PICK = " & addDate(.TextMatrix(i, 10)) & "," & _
                  " COD = " & .ValueMatrix(i, 11) & "," & _
                  " TYPE = " & addstring(.TextMatrix(i, 13)) & _
                  " FROM FILE6_90s " & _
-                 " WHERE ID = " & .TextMatrix(i, .Cols - 1)) = -1 Then Exit Function
+                 " WHERE ID = " & .TextMatrix(i, .Cols - 1)) Then Exit Function
 Next
 End With
 prog1.Visible = False
@@ -654,7 +654,7 @@ Private Sub Form_Unload(Cancel As Integer)
 Set dbm = Nothing
 Set online_ship_checkfrm = Nothing
 End Sub
-Private Sub grid3_DblClick()
+Private Sub GRID3_DblClick()
 If grid3.col = 1 And grid3.Row > 0 Then
     Clipboard.Clear
     Clipboard.SetText grid3.TextMatrix(grid3.Row, grid3.col)
@@ -768,7 +768,7 @@ grid2.Redraw = flexRDNone
              
              Set locTable = db.myRs(strSql)
                       
-             If locTable Is Nothing Then GoTo cleanUp
+             If locTable Is Nothing Then GoTo cleanUP
                       
              If Not locTable.EOF Then
                 If IsNull(locTable!date_Pick) Then
@@ -807,7 +807,7 @@ grid2.Redraw = flexRDNone
              End If
         End If
     Next
-cleanUp:
+cleanUP:
 grid1.Redraw = flexRDBuffered
 grid2.Redraw = flexRDBuffered
 prog1.Visible = False
@@ -866,9 +866,9 @@ strSql = "SELECT " & _
           " WHERE s.SHIP_NO in (" & sb.GetAsString & ")"
                        
 Dim db As New clsDb
-Dim locTable As ADODB.Recordset
+Dim locTable As ADODB.RecordSet
 Set locTable = db.myRs(strSql)
-If locTable Is Nothing Then GoTo cleanUp
+If locTable Is Nothing Then GoTo cleanUP
 
 For i = 0 To cSv.NumRows - 1
     Me.Caption = sCaption & " - " & "ÓÌב " & (i + 1) & " דה " & cSv.NumRows
@@ -944,7 +944,7 @@ For i = 0 To cSv.NumRows - 1
          End If
     End If
 Next
-cleanUp:
+cleanUP:
 grid1.Redraw = flexRDBuffered
 grid2.Redraw = flexRDBuffered
 grid3.Redraw = flexRDBuffered

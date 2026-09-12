@@ -1940,7 +1940,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim con As New ADODB.Connection
-Dim FieldTable As ADODB.Recordset
+Dim FieldTable As ADODB.RecordSet
 Dim cString As String, aHeader()
 Private Sub CMD_EXEL_Click()
 End Sub
@@ -1953,7 +1953,7 @@ aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
 aSub = AddFlag(aSub, "word_wrap", True)
 aRow = AddFlag(aRow, aSub)
-If GRID1.Rows > 1 Then
+If grid1.Rows > 1 Then
     aSub = AddFlag(Empty, "row", 1)
     aSub = AddFlag(aSub, "bold", True)
     aSub = AddFlag(aSub, "word_wrap", False)
@@ -1961,9 +1961,9 @@ If GRID1.Rows > 1 Then
     aRow = AddFlag(aRow, aSub)
 End If
 If SSTab1.Tab = 1 Then
-    ToFileExelNew GRID1, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption & " " & SSTab1.TabCaption(1), retHeader(aHeader, 0, 4), retHeader(aHeader, 4, 4), retHeader(aHeader, 8, 4))
+    ToFileExelNew grid1, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption & " " & SSTab1.TabCaption(1), retHeader(aHeader, 0, 4), retHeader(aHeader, 4, 4), retHeader(aHeader, 8, 4))
 Else
-    ToFileExelNew grid2, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption & " " & SSTab1.TabCaption(1), retHeader(aHeader, 0, 4), retHeader(aHeader, 4, 4), retHeader(aHeader, 8, 4))
+    ToFileExelNew GRID2, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption & " " & SSTab1.TabCaption(1), retHeader(aHeader, 0, 4), retHeader(aHeader, 4, 4), retHeader(aHeader, 8, 4))
 End If
 Me.MousePointer = 0
 End Sub
@@ -1975,23 +1975,23 @@ Private Sub CmdUndo_Click()
     Unload Me
 End Sub
 Private Sub cmdGo_Click()
-If Not myValid Then Exit Sub
+If Not MYVALID Then Exit Sub
 Me.MousePointer = vbHourglass
 myload
 MYLOAD2
-MYLOAD3
+myload3
 Me.MousePointer = vbNormal
 End Sub
-Private Function myValid() As Boolean
+Private Function MYVALID() As Boolean
 If Not IsDate(xDate1.text) Then
     MsgBox " «—ÌŒ «·„œ… «·«Ê· €Ì— „Õœœ"
     Exit Function
 End If
-If Not IsDate(xDate2.text) Then
+If Not IsDate(xdate2.text) Then
     MsgBox " «—ÌŒ «·„œ… «·À«‰Ì €Ì— „Õœœ"
     Exit Function
 End If
-myValid = True
+MYVALID = True
 End Function
 Private Sub cmdPdf_Click()
 myPrint "1", True
@@ -2009,45 +2009,45 @@ End If
 End Sub
 
 Private Sub Form_Load()
-openCon con
+OpenCon con
 
-Set data1.Recordset = mycmd("Select Code,DescA From File1_10SC ORDER BY code ", con)
-Set xSection.RowSource = data1
-xSection.ListField = "Desca"
-xSection.BoundColumn = "Code"
+Set data1.RecordSet = mycmd("Select Code,DescA From File1_10SC ORDER BY code ", con)
+Set XSECTION.RowSource = data1
+XSECTION.ListField = "Desca"
+XSECTION.BoundColumn = "Code"
 
-Set DATA2.Recordset = mycmd("SELECT CODE,DESCA FROM FILE0_40 UNION ALL SELECT CODE,DESCA FROM BRANCH WHERE STORE IS NULL  " & cWhere, con)
+Set DATA2.RecordSet = mycmd("SELECT CODE,DESCA FROM FILE0_40 UNION ALL SELECT CODE,DESCA FROM BRANCH WHERE STORE IS NULL  " & cWhere, con)
 Set xStore.RowSource = DATA2
 xStore.ListField = "Desca"
 xStore.BoundColumn = "Code"
 
-Set DATA3.Recordset = mycmd("Select Code,DescA From File4_10 order by Desca", con)
+Set DATA3.RecordSet = mycmd("Select Code,DescA From File4_10 order by Desca", con)
 Set xSupp.RowSource = DATA3
 xSupp.ListField = "Desca"
 xSupp.BoundColumn = "Code"
 
-Set data4.Recordset = mycmd("Select Code,DescA From File1_50 ORDER BY DESCA", con)
-Set xgroup.RowSource = data4
-xgroup.ListField = "Desca"
-xgroup.BoundColumn = "Code"
+Set data4.RecordSet = mycmd("Select Code,DescA From File1_50 ORDER BY DESCA", con)
+Set xGroup.RowSource = data4
+xGroup.ListField = "Desca"
+xGroup.BoundColumn = "Code"
 
-Set DATA5.Recordset = mycmd("Select mosm ,descA From mosm ORDER BY date DESC ", con)
+Set DATA5.RecordSet = mycmd("Select mosm ,descA From mosm ORDER BY date DESC ", con)
 Set xMosm.RowSource = DATA5
 xMosm.ListField = "Desca"
 xMosm.BoundColumn = "MOSM"
 'xMosm.BoundText = cPMosm
 
-Set DATA6.Recordset = mycmd("Select code ,desca From fact ORDER BY DESCA ", con)
-Set xFact.RowSource = DATA6
+Set data6.RecordSet = mycmd("Select code ,desca From fact ORDER BY DESCA ", con)
+Set xFact.RowSource = data6
 xFact.ListField = "Desca"
 xFact.BoundColumn = "Code"
 
-Set DATA7.Recordset = mycmd("Select Code,DescA From File0_81  order by Desca", con)
+Set DATA7.RecordSet = mycmd("Select Code,DescA From File0_81  order by Desca", con)
 Set xsex.RowSource = DATA7
 xsex.ListField = "Desca"
 xsex.BoundColumn = "Code"
 
-Set data8.Recordset = mycmd("Select Code,DescA From STORE_ALL WHERE " & cUserStore, con)
+Set data8.RecordSet = mycmd("Select Code,DescA From STORE_ALL WHERE " & cUserStore, con)
 Set xStore.RowSource = data8
 xStore.ListField = "Desca"
 xStore.BoundColumn = "Code"
@@ -2056,24 +2056,24 @@ If cBranch <> "00" Then
     xStore.Enabled = False
 End If
 
-Set data9.Recordset = mycmd("Select Code,Desca From File0_82  order by Desca", con)
+Set data9.RecordSet = mycmd("Select Code,Desca From File0_82  order by Desca", con)
 Set xage.RowSource = data9
 xage.ListField = "Desca"
 xage.BoundColumn = "Code"
 
-Set DATA10.Recordset = mycmd("Select 'S' AS Code UNION ALL Select 'W' UNION ALL Select 'M'", con)
-Set xmosm20.RowSource = DATA10
+Set data10.RecordSet = mycmd("Select 'S' AS Code UNION ALL Select 'W' UNION ALL Select 'M'", con)
+Set xmosm20.RowSource = data10
 xmosm20.ListField = "code"
 xmosm20.BoundColumn = "Code"
 
-Set data12.Recordset = mycmd("Select Code,DescA From File0_81  order by Desca", con)
+Set data12.RecordSet = mycmd("Select Code,DescA From File0_81  order by Desca", con)
 Set xsex.RowSource = data12
 xsex.ListField = "Desca"
 xsex.BoundColumn = "Code"
 
 
-Set GRID1.DataSource = DATA11
-Set grid2.DataSource = DATA14
+Set grid1.DataSource = data11
+Set GRID2.DataSource = DATA14
 Set GRID3.DataSource = DATA15
 
 fixGrd
@@ -2082,7 +2082,7 @@ Fixgrd3
 LoadText Me
 End Sub
 Private Sub myload(Optional bString As Boolean = False)
-With GRID1
+With grid1
 ReDim aHeader(13)
 
 Dim aPrm As Variant
@@ -2090,23 +2090,23 @@ Dim aPrm2 As Variant
 If IsDate(xDate1.text) Then
     aPrm = AddFlag(aPrm, "DATE1", myFormat_sp(xDate1.text))
     aPrm2 = AddFlag(aPrm2, "DATE1", addDate(xDate1.text))
-    aHeader(0) = BetweenString(xDate1.text, xDate2.text)
+    aHeader(0) = BetweenString(xDate1.text, xdate2.text)
 End If
 
-If IsDate(xDate2.text) Then
-    aPrm = AddFlag(aPrm, "DATE2", myFormat_sp(xDate2.text))
-    aPrm2 = AddFlag(aPrm2, "DATE2", addDate(xDate2.text))
-    aHeader(1) = BetweenString(xDate1.text, xDate2.text)
+If IsDate(xdate2.text) Then
+    aPrm = AddFlag(aPrm, "DATE2", myFormat_sp(xdate2.text))
+    aPrm2 = AddFlag(aPrm2, "DATE2", addDate(xdate2.text))
+    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
 End If
 
-If xSection.MatchedWithList Then
-    aPrm = AddFlag(aPrm, "SECTION", xSection.BoundText)
-    aPrm2 = AddFlag(aPrm2, "SECTION", xSection.BoundText)
-    aHeader(2) = "«·ﬁ”„ : " & xSection.text
+If XSECTION.MatchedWithList Then
+    aPrm = AddFlag(aPrm, "SECTION", XSECTION.BoundText)
+    aPrm2 = AddFlag(aPrm2, "SECTION", XSECTION.BoundText)
+    aHeader(2) = "«·ﬁ”„ : " & XSECTION.text
 Else
-    aPrm = AddFlag(aPrm, "SECTION", xSection.BoundText)
-    aPrm2 = AddFlag(aPrm2, "SECTION", addvalue(xSection.BoundText))
-    aHeader(2) = "«·ﬁ”„ : " & xSection.text
+    aPrm = AddFlag(aPrm, "SECTION", XSECTION.BoundText)
+    aPrm2 = AddFlag(aPrm2, "SECTION", addvalue(XSECTION.BoundText))
+    aHeader(2) = "«·ﬁ”„ : " & XSECTION.text
 End If
 
 If xSupp.MatchedWithList Then
@@ -2115,10 +2115,10 @@ If xSupp.MatchedWithList Then
     aHeader(3) = "«·„Ê—œ : " & xSupp.text
 End If
 
-If xgroup.MatchedWithList Then
-    aPrm = AddFlag(aPrm, "GROUP", xgroup.BoundText)
-    aPrm2 = AddFlag(aPrm2, "GROUP", addstring(xgroup.BoundText))
-    aHeader(4) = "„Ã„Ê⁄… «·’‰› : " & xgroup.text
+If xGroup.MatchedWithList Then
+    aPrm = AddFlag(aPrm, "GROUP", xGroup.BoundText)
+    aPrm2 = AddFlag(aPrm2, "GROUP", addstring(xGroup.BoundText))
+    aHeader(4) = "„Ã„Ê⁄… «·’‰› : " & xGroup.text
 End If
 
 If xFact.MatchedWithList Then
@@ -2183,14 +2183,13 @@ If bString Then
     Exit Sub
 End If
 
-'Set DATA11.Recordset = myCmd("dbo.sp_items_month", con, adStoredProc, aPrm, 600)
-Set DATA11.Recordset = mycmd(cString, con, , , 600)
+Set data11.RecordSet = mycmd(cString, con, , , 600)
 End With
 fixGrd
-panel1(0).Caption = "⁄œœ ”Ã·«  «Ã„«·Ì «·«Ê‰·«Ì‰ : " & DATA11.Recordset.RecordCount
+panel1(0).Caption = "⁄œœ ”Ã·«  «Ã„«·Ì «·«Ê‰·«Ì‰ : " & data11.RecordSet.RecordCount
 End Sub
 Sub fixGrd()
-With GRID1
+With grid1
 .RowHeight(0) = 850
 .WordWrap = True
 .TextMatrix(0, 0) = "«·‘Â—"
@@ -2313,7 +2312,7 @@ End If
 End With
 End Sub
 Private Sub MYLOAD2(Optional bString As Boolean = False)
-With grid2
+With GRID2
 ReDim aHeader(13)
 
 Dim aPrm As Variant
@@ -2321,23 +2320,23 @@ Dim aPrm2 As Variant
 If IsDate(xDate1.text) Then
     aPrm = AddFlag(aPrm, "DATE1", myFormat_sp(xDate1.text))
     aPrm2 = AddFlag(aPrm2, "DATE1", addDate(xDate1.text))
-    aHeader(0) = BetweenString(xDate1.text, xDate2.text)
+    aHeader(0) = BetweenString(xDate1.text, xdate2.text)
 End If
 
-If IsDate(xDate2.text) Then
-    aPrm = AddFlag(aPrm, "DATE2", myFormat_sp(xDate2.text))
-    aPrm2 = AddFlag(aPrm2, "DATE2", addDate(xDate2.text))
-    aHeader(1) = BetweenString(xDate1.text, xDate2.text)
+If IsDate(xdate2.text) Then
+    aPrm = AddFlag(aPrm, "DATE2", myFormat_sp(xdate2.text))
+    aPrm2 = AddFlag(aPrm2, "DATE2", addDate(xdate2.text))
+    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
 End If
 
-If xSection.MatchedWithList Then
-    aPrm = AddFlag(aPrm, "SECTION", xSection.BoundText)
-    aPrm2 = AddFlag(aPrm2, "SECTION", xSection.BoundText)
-    aHeader(2) = "«·ﬁ”„ : " & xSection.text
+If XSECTION.MatchedWithList Then
+    aPrm = AddFlag(aPrm, "SECTION", XSECTION.BoundText)
+    aPrm2 = AddFlag(aPrm2, "SECTION", XSECTION.BoundText)
+    aHeader(2) = "«·ﬁ”„ : " & XSECTION.text
 Else
-    aPrm = AddFlag(aPrm, "SECTION", xSection.BoundText)
-    aPrm2 = AddFlag(aPrm2, "SECTION", addvalue(xSection.BoundText))
-    aHeader(2) = "«·ﬁ”„ : " & xSection.text
+    aPrm = AddFlag(aPrm, "SECTION", XSECTION.BoundText)
+    aPrm2 = AddFlag(aPrm2, "SECTION", addvalue(XSECTION.BoundText))
+    aHeader(2) = "«·ﬁ”„ : " & XSECTION.text
 End If
 
 If xSupp.MatchedWithList Then
@@ -2346,10 +2345,10 @@ If xSupp.MatchedWithList Then
     aHeader(3) = "«·„Ê—œ : " & xSupp.text
 End If
 
-If xgroup.MatchedWithList Then
-    aPrm = AddFlag(aPrm, "GROUP", xgroup.BoundText)
-    aPrm2 = AddFlag(aPrm2, "GROUP", addstring(xgroup.BoundText))
-    aHeader(4) = "„Ã„Ê⁄… «·’‰› : " & xgroup.text
+If xGroup.MatchedWithList Then
+    aPrm = AddFlag(aPrm, "GROUP", xGroup.BoundText)
+    aPrm2 = AddFlag(aPrm2, "GROUP", addstring(xGroup.BoundText))
+    aHeader(4) = "„Ã„Ê⁄… «·’‰› : " & xGroup.text
 End If
 
 If xFact.MatchedWithList Then
@@ -2414,13 +2413,13 @@ If bString Then
     Exit Sub
 End If
 
-Set DATA14.Recordset = mycmd(cString, con, , , 600)
+Set DATA14.RecordSet = mycmd(cString, con, , , 600)
 End With
 Fixgrd2
-panel1(1).Caption = "⁄œœ ”Ã·«   ›’Ì·Ì «·«Ê‰·«Ì‰ : " & DATA14.Recordset.RecordCount
+panel1(1).Caption = "⁄œœ ”Ã·«   ›’Ì·Ì «·«Ê‰·«Ì‰ : " & DATA14.RecordSet.RecordCount
 End Sub
 Sub Fixgrd2()
-With grid2
+With GRID2
 .RowHeight(0) = 850
 .WordWrap = True
 .TextMatrix(0, 0) = "«·‘Â—"
@@ -2507,7 +2506,7 @@ If .Rows > 1 Then
 End If
 End With
 End Sub
-Private Sub MYLOAD3(Optional bString As Boolean = False)
+Private Sub myload3(Optional bString As Boolean = False)
 With GRID3
 ReDim aHeader(13)
 
@@ -2516,23 +2515,23 @@ Dim aPrm2 As Variant
 If IsDate(xDate1.text) Then
     aPrm = AddFlag(aPrm, "DATE1", myFormat_sp(xDate1.text))
     aPrm2 = AddFlag(aPrm2, "DATE1", addDate(xDate1.text))
-    aHeader(0) = BetweenString(xDate1.text, xDate2.text)
+    aHeader(0) = BetweenString(xDate1.text, xdate2.text)
 End If
 
-If IsDate(xDate2.text) Then
-    aPrm = AddFlag(aPrm, "DATE2", myFormat_sp(xDate2.text))
-    aPrm2 = AddFlag(aPrm2, "DATE2", addDate(xDate2.text))
-    aHeader(1) = BetweenString(xDate1.text, xDate2.text)
+If IsDate(xdate2.text) Then
+    aPrm = AddFlag(aPrm, "DATE2", myFormat_sp(xdate2.text))
+    aPrm2 = AddFlag(aPrm2, "DATE2", addDate(xdate2.text))
+    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
 End If
 
-If xSection.MatchedWithList Then
-    aPrm = AddFlag(aPrm, "SECTION", xSection.BoundText)
-    aPrm2 = AddFlag(aPrm2, "SECTION", xSection.BoundText)
-    aHeader(2) = "«·ﬁ”„ : " & xSection.text
+If XSECTION.MatchedWithList Then
+    aPrm = AddFlag(aPrm, "SECTION", XSECTION.BoundText)
+    aPrm2 = AddFlag(aPrm2, "SECTION", XSECTION.BoundText)
+    aHeader(2) = "«·ﬁ”„ : " & XSECTION.text
 Else
-    aPrm = AddFlag(aPrm, "SECTION", xSection.BoundText)
-    aPrm2 = AddFlag(aPrm2, "SECTION", addvalue(xSection.BoundText))
-    aHeader(2) = "«·ﬁ”„ : " & xSection.text
+    aPrm = AddFlag(aPrm, "SECTION", XSECTION.BoundText)
+    aPrm2 = AddFlag(aPrm2, "SECTION", addvalue(XSECTION.BoundText))
+    aHeader(2) = "«·ﬁ”„ : " & XSECTION.text
 End If
 
 If xSupp.MatchedWithList Then
@@ -2541,10 +2540,10 @@ If xSupp.MatchedWithList Then
     aHeader(3) = "«·„Ê—œ : " & xSupp.text
 End If
 
-If xgroup.MatchedWithList Then
-    aPrm = AddFlag(aPrm, "GROUP", xgroup.BoundText)
-    aPrm2 = AddFlag(aPrm2, "GROUP", addstring(xgroup.BoundText))
-    aHeader(4) = "„Ã„Ê⁄… «·’‰› : " & xgroup.text
+If xGroup.MatchedWithList Then
+    aPrm = AddFlag(aPrm, "GROUP", xGroup.BoundText)
+    aPrm2 = AddFlag(aPrm2, "GROUP", addstring(xGroup.BoundText))
+    aHeader(4) = "„Ã„Ê⁄… «·’‰› : " & xGroup.text
 End If
 
 If xFact.MatchedWithList Then
@@ -2610,10 +2609,10 @@ If bString Then
 End If
 
 'Set DATA11.Recordset = myCmd("dbo.sp_items_month", con, adStoredProc, aPrm, 600)
-Set DATA15.Recordset = mycmd(cString, con, , , 600)
+Set DATA15.RecordSet = mycmd(cString, con, , , 600)
 End With
 Fixgrd3
-panel1(0).Caption = "⁄œœ ”Ã·«  «Ã„«·Ì «·«Ê‰·«Ì‰ : " & DATA11.Recordset.RecordCount
+panel1(0).Caption = "⁄œœ ”Ã·«  «Ã„«·Ì «·«Ê‰·«Ì‰ : " & data11.RecordSet.RecordCount
 End Sub
 Sub Fixgrd3()
 With GRID3
@@ -2763,7 +2762,7 @@ End With
 End Sub
 
 Private Sub MYLOAD2_INCASE(Optional bString As Boolean = False)
-With grid2
+With GRID2
 ReDim aHeader(13)
 
 Dim aPrm As Variant
@@ -2771,23 +2770,23 @@ Dim aPrm2 As Variant
 If IsDate(xDate1.text) Then
     aPrm = AddFlag(aPrm, "DATE1", myFormat_sp(xDate1.text))
     aPrm2 = AddFlag(aPrm2, "DATE1", addDate(xDate1.text))
-    aHeader(0) = BetweenString(xDate1.text, xDate2.text)
+    aHeader(0) = BetweenString(xDate1.text, xdate2.text)
 End If
 
-If IsDate(xDate2.text) Then
-    aPrm = AddFlag(aPrm, "DATE2", myFormat_sp(xDate2.text))
-    aPrm2 = AddFlag(aPrm2, "DATE2", addDate(xDate2.text))
-    aHeader(1) = BetweenString(xDate1.text, xDate2.text)
+If IsDate(xdate2.text) Then
+    aPrm = AddFlag(aPrm, "DATE2", myFormat_sp(xdate2.text))
+    aPrm2 = AddFlag(aPrm2, "DATE2", addDate(xdate2.text))
+    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
 End If
 
-If xSection.MatchedWithList Then
-    aPrm = AddFlag(aPrm, "SECTION", xSection.BoundText)
-    aPrm2 = AddFlag(aPrm2, "SECTION", xSection.BoundText)
-    aHeader(2) = "«·ﬁ”„ : " & xSection.text
+If XSECTION.MatchedWithList Then
+    aPrm = AddFlag(aPrm, "SECTION", XSECTION.BoundText)
+    aPrm2 = AddFlag(aPrm2, "SECTION", XSECTION.BoundText)
+    aHeader(2) = "«·ﬁ”„ : " & XSECTION.text
 Else
-    aPrm = AddFlag(aPrm, "SECTION", xSection.BoundText)
-    aPrm2 = AddFlag(aPrm2, "SECTION", addvalue(xSection.BoundText))
-    aHeader(2) = "«·ﬁ”„ : " & xSection.text
+    aPrm = AddFlag(aPrm, "SECTION", XSECTION.BoundText)
+    aPrm2 = AddFlag(aPrm2, "SECTION", addvalue(XSECTION.BoundText))
+    aHeader(2) = "«·ﬁ”„ : " & XSECTION.text
 End If
 
 If xSupp.MatchedWithList Then
@@ -2796,10 +2795,10 @@ If xSupp.MatchedWithList Then
     aHeader(3) = "«·„Ê—œ : " & xSupp.text
 End If
 
-If xgroup.MatchedWithList Then
-    aPrm = AddFlag(aPrm, "GROUP", xgroup.BoundText)
-    aPrm2 = AddFlag(aPrm2, "GROUP", addstring(xgroup.BoundText))
-    aHeader(4) = "„Ã„Ê⁄… «·’‰› : " & xgroup.text
+If xGroup.MatchedWithList Then
+    aPrm = AddFlag(aPrm, "GROUP", xGroup.BoundText)
+    aPrm2 = AddFlag(aPrm2, "GROUP", addstring(xGroup.BoundText))
+    aHeader(4) = "„Ã„Ê⁄… «·’‰› : " & xGroup.text
 End If
 
 If xFact.MatchedWithList Then
@@ -2865,13 +2864,13 @@ If bString Then
 End If
 
 'Set DATA2.Recordset = myCmd("dbo.sp_items_month", con, adStoredProc, aPrm, 600)
-Set DATA14.Recordset = mycmd(cString, con, , , 600)
+Set DATA14.RecordSet = mycmd(cString, con, , , 600)
 End With
 Fixgrd2
-panel1(1).Caption = "⁄œœ ”Ã·«   ›’Ì·Ì «·«Ê‰·«Ì‰ : " & DATA14.Recordset.RecordCount
+panel1(1).Caption = "⁄œœ ”Ã·«   ›’Ì·Ì «·«Ê‰·«Ì‰ : " & DATA14.RecordSet.RecordCount
 End Sub
 Sub Fixgrd2_INCASE()
-With grid2
+With GRID2
 .RowHeight(0) = 600
 .WordWrap = True
 .TextMatrix(0, 0) = "«·‘Â—"
@@ -2957,24 +2956,24 @@ closeCon con
 Set grdOnlineMonth = Nothing
 End Sub
 
-Private Sub Option1_Click(Index As Integer)
+Private Sub Option1_Click(index As Integer)
 myload
 End Sub
 Private Sub myPrint(Optional pDevice As String = "", Optional bIgPreview As Boolean = False)
-If GRID1.Rows < 3 Then Exit Sub
+If grid1.Rows < 3 Then Exit Sub
 Dim aRow As Variant, aSub As Variant
 
-For i = 1 To GRID1.Rows - 2
-    If GRID1.TextMatrix(i, 2) = "" Then
+For i = 1 To grid1.Rows - 2
+    If grid1.TextMatrix(i, 2) = "" Then
         aSub = AddFlag(Empty, "row", i)
         aSub = AddFlag(aSub, "col", 1)
         aSub = AddFlag(aSub, "cols", 2)
-        aSub = AddFlag(aSub, "text", GRID1.TextMatrix(i, 1))
+        aSub = AddFlag(aSub, "text", grid1.TextMatrix(i, 1))
         aRow = AddFlag(aRow, aSub)
     End If
 Next
 
-aSub = AddFlag(Empty, "row", GRID1.Rows - 1)
+aSub = AddFlag(Empty, "row", grid1.Rows - 1)
 aSub = AddFlag(aSub, "col", 1)
 aSub = AddFlag(aSub, "cols", 2)
 aSub = AddFlag(aSub, "text", "≈Ã„«·Ì")
@@ -2983,7 +2982,7 @@ aRow = AddFlag(aRow, aSub)
 'PrintGrdNew.sDeviceType = pDevice
 'PrintGrdNew.Vp.Preview = Not bIgPreview
 'PrintGrdNew.bIgPreview = bIgPreview
-printGrdNew.doprint Me.GRID1, 0.95, 0, "ÃÊ‰ÌÊ—", Me.Caption, retHeader(aHeader, 0, 2), , False, True, 10, , aRow, Array(1)
+printGrdNew.doprint Me.grid1, 0.95, 0, "ÃÊ‰ÌÊ—", Me.Caption, retHeader(aHeader, 0, 2), , False, True, 10, , aRow, Array(1)
 If Not bIgPreview Then
     printGrdNew.Show 1
 Else
@@ -2994,19 +2993,19 @@ End If
 End Sub
 
 
-Private Sub xdate1_GotFocus()
+Private Sub xDate1_GotFocus()
 myGotFocus xDate1
 End Sub
-Private Sub xdate1_LostFocus()
+Private Sub xDate1_LostFocus()
 myLostFocus xDate1
 myValidDate xDate1
 End Sub
 Private Sub xDate2_GotFocus()
-myGotFocus xDate2
+myGotFocus xdate2
 End Sub
 Private Sub xDate2_LostFocus()
-myLostFocus xDate2
-myValidDate xDate2
+myLostFocus xdate2
+myValidDate xdate2
 End Sub
 Private Sub XMOSM2_GotFocus()
 myGotFocus XMOSM2
@@ -3021,11 +3020,11 @@ Private Sub XModelFACT_LostFocus()
 myLostFocus xModelFact
 End Sub
 Private Sub xGroup_GotFocus()
-myGotFocus xgroup
+myGotFocus xGroup
 End Sub
 Private Sub xgroup_LostFocus()
-myLostFocus xgroup
-If Not xgroup.MatchedWithList Then xgroup.BoundText = ""
+myLostFocus xGroup
+If Not xGroup.MatchedWithList Then xGroup.BoundText = ""
 End Sub
 Private Sub xFact_GotFocus()
 myGotFocus xFact
@@ -3070,11 +3069,11 @@ myLostFocus xStore
 If Not xStore.MatchedWithList Then xStore.BoundText = ""
 End Sub
 Private Sub xSection_GotFocus()
-myGotFocus xSection
+myGotFocus XSECTION
 End Sub
 Private Sub xSection_LostFocus()
-myLostFocus xSection
-If Not xSection.MatchedWithList Then xSection.BoundText = ""
+myLostFocus XSECTION
+If Not XSECTION.MatchedWithList Then XSECTION.BoundText = ""
 End Sub
 Private Sub xmosm20_GotFocus()
 myGotFocus xmosm20

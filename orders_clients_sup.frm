@@ -649,6 +649,57 @@ Begin VB.Form orders_clients_sup
             Strikethrough   =   0   'False
          EndProperty
       End
+      Begin Threed.SSCommand cmdPurOrder 
+         Height          =   330
+         Left            =   5940
+         TabIndex        =   68
+         Top             =   540
+         Width           =   420
+         _ExtentX        =   741
+         _ExtentY        =   582
+         _Version        =   196610
+         CaptionStyle    =   1
+         ForeColor       =   0
+         BackColor       =   16777215
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Caption         =   "..."
+         TagVariant      =   "«Œ «— «·ÿ·»Ì…"
+         ButtonStyle     =   3
+         PictureAlignment=   11
+         BevelWidth      =   0
+         ShapeSize       =   1
+      End
+      Begin VB.Label Label10 
+         AutoSize        =   -1  'True
+         BackColor       =   &H00FFFFFF&
+         Caption         =   "ÿ·»Ì… ‘—«¡"
+         Height          =   270
+         Left            =   8730
+         RightToLeft     =   -1  'True
+         TabIndex        =   70
+         Top             =   585
+         Width           =   840
+      End
+      Begin VB.Label XPUR_ORDER 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BorderStyle     =   1  'Fixed Single
+         ForeColor       =   &H80000008&
+         Height          =   330
+         Left            =   6390
+         RightToLeft     =   -1  'True
+         TabIndex        =   69
+         Top             =   540
+         Width           =   2175
+      End
       Begin VB.Label Label4 
          Appearance      =   0  'Flat
          BackColor       =   &H80000005&
@@ -1531,6 +1582,28 @@ Begin VB.Form orders_clients_sup
          Width           =   690
       End
    End
+   Begin Threed.SSCommand cmdFilter 
+      Height          =   420
+      Left            =   3645
+      TabIndex        =   71
+      Top             =   8640
+      Width           =   2085
+      _ExtentX        =   3678
+      _ExtentY        =   741
+      _Version        =   196610
+      BackColor       =   16777215
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Arial"
+         Size            =   9.75
+         Charset         =   178
+         Weight          =   700
+         Underline       =   -1  'True
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Caption         =   "Undo Filter"
+      ButtonStyle     =   3
+   End
 End
 Attribute VB_Name = "orders_clients_sup"
 Attribute VB_GlobalNameSpace = False
@@ -1546,6 +1619,7 @@ Dim CardTable As ADODB.RecordSet, cFileHeader As String
 Dim cFilter As String
 Dim osearchDoc As New Search_db, oSearchClient As New Search_db
 Dim oSearchOrder As New Search_db
+Dim oSearchPurOrder As New Search_db
 Dim con As New ADODB.Connection
 Dim formMode
 Public myPublic As Integer
@@ -1606,6 +1680,13 @@ ElseIf ActiveControl.Name = xOrder_no_Main.Name Then
 ElseIf ActiveControl.Name = xOrder_no_Main.Name Then
     xOrder_no_Main.text = oSearchOrder.grid1.TextMatrix(oSearchOrder.grid1.Row, 0)
     Unload oSearchOrder
+ElseIf ActiveControl.Name = cmdPurOrder.Name Then
+    Set orders_clients_tex.myform = Me
+    orders_clients_tex_sup.sDoc_No = xDoc_No.text
+    orders_clients_tex_sup.sdoc_no_copy = oSearchPurOrder.grid1.TextMatrix(oSearchPurOrder.grid1.Row, 0)
+    orders_clients_tex_sup.sorder_no_main = xOrder_no_Main.text
+    Unload oSearchPurOrder
+    orders_clients_tex_sup.Show 1
 ElseIf ActiveControl.Name = cmdExcelImport.Name Then
     myLoadGrd
 End If
@@ -1642,7 +1723,7 @@ Err.Clear
 End Sub
 
 Private Sub cmdBalanceApp_Click()
-grdBalanceAppSup.sOrder_no_main = xOrder_no_Main.text
+grdBalanceAppSup.sorder_no_main = xOrder_no_Main.text
 grdBalanceAppSup.Show
 End Sub
 
@@ -1707,7 +1788,7 @@ End If
 If xDoc_No.text <> "" And xDoc_No.Tag = LoadMode Then
     Set orders_clients_csv_sup.myform = Me
     orders_clients_csv_sup.sDoc_No = xDoc_No.text
-    orders_clients_csv_sup.sOrder_no_main = xOrder_no_Main.text
+    orders_clients_csv_sup.sorder_no_main = xOrder_no_Main.text
     orders_clients_csv_sup.Show 1
 End If
 End Sub
@@ -1715,8 +1796,16 @@ End Sub
 Private Sub CmdExit_Click()
 Unload Me
 End Sub
+
+Private Sub cmdFilter_Click()
+cmdFilter.Tag = ""
+If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable Then myDefine
+End If
+End Sub
+
 Private Sub CmdInform_Click()
-ordersSupLookup Me, osearchDoc, cFilter
+ordersSupLookup Me, osearchDoc, cFilter, True
 End Sub
 Private Sub CmdNewInv_Click()
 'On Error Resume Next
@@ -1750,7 +1839,7 @@ If MsgBox(cmdCopy.Tag & "   ”ÃÌ·  ﬂ—«— «·ÿ·»Ì…", vbYesNo + vbDefaultButton2) = v
              "PRICE" & _
              " FROM FILE6_50 WHERE DOC_NO = " & MyParn(cmdCopy.Tag)
     Dim db As New clsDb
-    If db.Execute(strSql) > 0 Then
+    If db.Execute(strSql) Then
         MsgBox " „ ≈÷«›… ‰”Œ… ··ÿ·»Ì…"
         myUndo
         CmdClear_Click
@@ -1783,7 +1872,7 @@ Private Sub cmdPrintModels_Click()
 End Sub
 Private Sub cmdPrintScal_Click()
 Dim temptable As ADODB.RecordSet
-Dim sourcetable As ADODB.RecordSet, nBalance As Single
+Dim sourceTable As ADODB.RecordSet, nBalance As Single
 Dim ModelsTable As New ADODB.RecordSet
 Dim ScalTable As New ADODB.RecordSet
 Dim ColorTable As New ADODB.RecordSet
@@ -1917,10 +2006,18 @@ Set temptable = Nothing
 Set ModelsTable = Nothing
 Set ScalTable = Nothing
 Set ColorTable = Nothing
-Set sourcetable = Nothing
+Set sourceTable = Nothing
 Set db = Nothing
 End Sub
 
+Private Sub cmdPurOrder_Click()
+If grid1.Rows > 1 Then
+    MsgBox "«·ÿ·»Ì… »Â« «’‰«›"
+    Exit Sub
+End If
+oSearchPurOrder.searchConString = getConShopString
+PurOrderLook Me, oSearchPurOrder
+End Sub
 Private Sub cmdSave_Click()
 mySave
 End Sub
@@ -1970,7 +2067,7 @@ Private Sub grid1_DblClick()
 If Not bEditRecord Then Exit Sub
 If grid1.Row > 0 And grid1.Row < grid1.Rows - 1 Then
     addmodelClientSubOrder.sDoc_No = xDoc_No.text
-    addmodelClientSubOrder.sOrder_no_main = xOrder_no_Main.text
+    addmodelClientSubOrder.sorder_no_main = xOrder_no_Main.text
     addmodelClientSubOrder.sModel = grid1.TextMatrix(grid1.Row, 0)
     Set addmodelClientSubOrder.myform = Me
     addmodelClientSubOrder.Show 1
@@ -2028,7 +2125,7 @@ End If
 
 myValid = True
 End Function
-Private Sub myLoad()
+Private Sub myload()
 xDoc_No.text = CardTable!doc_no & ""
 xDate.text = myFormat_p(CardTable!Date)
 xCode.BoundText = CardTable!Code & ""
@@ -2076,6 +2173,8 @@ Handlecontrols DefineMode
 fixGrd
 End Sub
 Private Sub Handlecontrols(nMode)
+cmdFilter.Visible = cmdFilter.Tag <> ""
+
 xDoc_No.Enabled = (nMode = DefineMode)
 xDoc_No.Tag = nMode
 
@@ -2146,7 +2245,7 @@ strSql = "UPDATE FILE6_50H" & _
           " SET FILE6_50H.CLOSED = " & xClosed.Value & _
           " WHERE FILE6_50H.DOC_NO = " & MyParn(xDoc_No.text)
 
-If db.Execute(strSql) > 0 Then
+If db.Execute(strSql) Then
     Inform " „ " & IIf(xClosed.Value = 0, "«€·«ﬁ «·„” ‰œ", "› Õ «·„” ‰œ")
 End If
 Set db = Nothing
@@ -2189,7 +2288,7 @@ End If
 End Sub
 Private Sub fixGrd()
 With grid1
-.FormatString = "«·„ÊœÌ·|" & "«·’‰›|" & "«·’‰›|" & "«··Ê‰|" & "«·„ﬁ«”|" & "«·ﬂ„Ì…|" & "”⁄— „’‰⁄|" & "| " & "»«—ﬂÊœ|" & "”⁄— „” Â·ﬂ|"
+.FormatString = "«·„ÊœÌ·|" & "«·’‰›|" & "«·’‰›|" & "«··Ê‰|" & "«·„ﬁ«”|" & "«·ﬂ„Ì…|" & "”⁄— „’‰⁄|" & "| " & "»«—ﬂÊœ|" & "”⁄— „” Â·ﬂ|" & "≈Ã„«·Ì|"
 .ColWidth(0) = 1500
 .ColWidth(1) = 4000
 .ColWidth(2) = 6000
@@ -2217,14 +2316,12 @@ Next
 .ColHidden(.Cols - 1) = True
 
 .SubtotalPosition = flexSTBelow
-For i = 5 To 7
-    .Subtotal flexSTSum, -1, i, "##0.00", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
-Next
-
+.Subtotal flexSTSum, -1, 5, "##0.00", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
+.Subtotal flexSTSum, -1, 10, "##0.00", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
+    
 If .Rows > 1 Then
-    For i = 5 To 7
-        grid1.TextMatrix(grid1.Rows - 1, i) = mRound(grid1.ValueMatrix(grid1.Rows - 1, i))
-    Next
+    .TextMatrix(grid1.Rows - 1, 5) = mRound(.ValueMatrix(.Rows - 1, 5))
+    .TextMatrix(grid1.Rows - 1, 10) = mRound(.ValueMatrix(.Rows - 1, 10))
 End If
 End With
 End Sub
@@ -2240,7 +2337,8 @@ strSql = "SELECT FILE1_10.MODEL," & _
           "FILE1_10.GRITEM," & _
           "FILE1_10.BARCODE13," & _
           "FILE1_10.PRICE2," & _
-          "FILE6_50.ID " & _
+          "FILE6_50.QUANT * FILE6_50.PRICE," & _
+          "FILE6_50.ID" & _
           " FROM FILE6_50 " & _
           " INNER JOIN FILE1_10 ON FILE6_50.ITEM = FILE1_10.ITEM" & _
           " WHERE FILE6_50.DOC_NO = " & MyParn(xDoc_No.text) & _
@@ -2429,6 +2527,10 @@ ElseIf optChanged(2).Value Then
     cFilter = cFilter & Tr(cFilter) & "FILE6_50H.CHANGED = 0"
 End If
 
+If cmdFilter.Tag <> "" Then
+    cFilter = cFilter & Tr(cFilter) & "FILE6_50H.DOC_NO IN(" & cmdFilter.Tag & ")"
+End If
+
 If cWhere <> "" Then
     strSql = strSql & " WHERE " & cWhere
 End If
@@ -2444,7 +2546,7 @@ Set CardTable = db.myRs(strSql)
 If CardTable Is Nothing Then GoTo cleanUp
 
 If (Not CardTable.EOF) Then
-    myLoad
+    myload
     openCardTable = True
 End If
 cleanUp:
@@ -2513,6 +2615,13 @@ If KeyAscii = 13 Then
     If TypeOf ActiveControl Is TextBox Or TypeOf ActiveControl Is DataCombo Then KeyAscii = 0
 End If
 End Sub
+Sub myproc2(pFilter As String)
+osearchDoc.Hide
+cmdFilter.Tag = pFilter
+If Not openCardTable(tbMode.tbFirst, xDoc_No.text) Then
+    If Not openCardTable Then myDefine
+End If
+End Sub
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 13 Then
     If TypeOf ActiveControl Is TextBox Or TypeOf ActiveControl Is DataCombo Then
@@ -2529,7 +2638,7 @@ For i = 1 To grid1.Rows - 2
 Next
 xtotal_Quant.Caption = Round(nTotal, 2)
 End Sub
-Private Sub xdesca_GotFocus()
+Private Sub xDescA_GotFocus()
 myGotFocus xdesca
 End Sub
 Private Sub xdesca_LostFocus()
@@ -2557,7 +2666,7 @@ End If
 
 If db.Execute("UPDATE FILE6_50H" & _
             " SET FILE6_50H.DONE = " & xDone.Value & _
-            " WHERE FILE6_50H.DOC_NO = " & MyParn(xDoc_No.text)) > -1 Then
+            " WHERE FILE6_50H.DOC_NO = " & MyParn(xDoc_No.text)) Then
     Inform " „ " & IIf(xClosed.Value = 0, " —«Ã⁄ ⁄‰ «·«‰Â«¡", "«‰Â«¡ «·„” ‰œ")
     myUndo
 End If

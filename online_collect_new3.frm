@@ -382,7 +382,7 @@ Begin VB.Form online_collect_newfrm
          ScrollTips      =   0   'False
          MergeCells      =   0
          MergeCompare    =   0
-         AutoResize      =   0   'False
+         AutoResize      =   -1  'True
          AutoSizeMode    =   0
          AutoSearch      =   0
          AutoSearchDelay =   2
@@ -1702,7 +1702,7 @@ Dim bEditRecord As Boolean, bAct As Boolean
 Dim bStopCell As Boolean
 Dim oSeachCode As New Search_abd, oSearchDoc As New Search_abd, oSearchProject As New Search, oSearchSup As New Search
 Dim cFilter As String, cSelect As String
-Dim con As New ADODB.Connection, CardTable As ADODB.Recordset
+Dim con As New ADODB.Connection, CardTable As ADODB.RecordSet
 Dim cFile As String, cFileHeader As String, aBoxs As Variant
 Dim clist1 As String, cList2 As String, cList3 As String, sDef As String
 Dim formMode
@@ -1713,16 +1713,16 @@ aInsert = AddFlag(Empty, "[DATE]", addDate(xDate.text))
 aInsert = AddFlag(aInsert, "[BANK]", addstring(xBank.BoundText))
 aInsert = AddFlag(aInsert, "[SHIP]", addstring(xship.BoundText))
 aInsert = AddFlag(aInsert, "[PAYMENT_TYPE]", addvalue(xPayment_type.BoundText))
-aInsert = AddFlag(aInsert, IIf(xDoc_No.Tag = DefineMode, "[USERNAME]", "[USERNAME2]"), addstring(GetComputerName))
-aInsert = AddFlag(aInsert, IIf(xDoc_No.Tag = DefineMode, "[TIME]", "[TIME2]"), "getdate()")
+aInsert = AddFlag(aInsert, IIf(xdoc_no.Tag = DefineMode, "[USERNAME]", "[USERNAME2]"), addstring(GetComputerName))
+aInsert = AddFlag(aInsert, IIf(xdoc_no.Tag = DefineMode, "[TIME]", "[TIME2]"), "getdate()")
 con.BeginTrans
 On Error GoTo myerror
-If xDoc_No.Tag = DefineMode Then
-    xDoc_No.text = Newflag(cFileHeader, "DOC_NO", con)
-    aInsert = AddFlag(aInsert, "DOC_NO", addvalue(xDoc_No.text))
+If xdoc_no.Tag = DefineMode Then
+    xdoc_no.text = NewFlag(cFileHeader, "DOC_NO", con)
+    aInsert = AddFlag(aInsert, "DOC_NO", addvalue(xdoc_no.text))
     con.Execute addInsert(aInsert, cFileHeader)
 Else
-    con.Execute addUpdate(aInsert, cFileHeader, "doc_no = " & addvalue(xDoc_No.text))
+    con.Execute addUpdate(aInsert, cFileHeader, "doc_no = " & addvalue(xdoc_no.text))
 End If
 
 If Row = -1 Then prog1.Visible = True
@@ -1757,14 +1757,14 @@ If ActiveControl.Name = grid1.Name Then
     Unload oSeachCode
     Grid1_AfterEdit grid1.Row, grid1.col
     CellPos 13, grid1.Row, grid1.col
-ElseIf ActiveControl.Name = grid2.Name Then
-    If Not GrdDesc(oSeachCode.grid1.TextMatrix(oSeachCode.grid1.Row, 0), "", grid2.Row, sMsg) Then
+ElseIf ActiveControl.Name = GRID2.Name Then
+    If Not GrdDesc(oSeachCode.grid1.TextMatrix(oSeachCode.grid1.Row, 0), "", GRID2.Row, sMsg) Then
         If sMsg <> "" Then MsgBox sMsg
         Exit Sub
     End If
     Unload oSeachCode
-    grid2_AfterEdit grid2.Row, grid2.col
-    CellPos2 13, grid2.Row, grid2.col
+    grid2_AfterEdit GRID2.Row, GRID2.col
+    CellPos2 13, GRID2.Row, GRID2.col
 ElseIf ActiveControl.Name = cmdInform.Name Then
     openCardTable tbMode.tbFind, oSearchDoc.grid1.TextMatrix(oSearchDoc.grid1.Row, 0)
     Unload oSearchDoc
@@ -1776,7 +1776,7 @@ ElseIf ActiveControl.Name = cmdBank.Name Then
         cmdCont.Tag = oSearchSup.grid1.TextMatrix(oSearchSup.grid1.Row, 0)
         cmdCont.Caption = oSearchSup.grid1.TextMatrix(oSearchSup.grid1.Row, 1)
     End If
-    If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
         If Not openCardTable Then myDefine
     End If
     oSearchSup.Hide
@@ -1788,7 +1788,7 @@ ElseIf ActiveControl.Name = cmdProject.Name Then
         cmdProject.Tag = oSearchProject.grid1.TextMatrix(oSearchProject.grid1.Row, 0)
         cmdProject.Caption = oSearchProject.grid1.TextMatrix(oSearchProject.grid1.Row, 1)
     End If
-    If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
         If Not openCardTable Then myDefine
     End If
     oSearchProject.Hide
@@ -1825,13 +1825,13 @@ If MsgBox("Õ–› ?", vbOKCancel + vbDefaultButton2 + vbCritical) <> vbOK Then Exit
 
 con.BeginTrans
 On Error GoTo myerror
-con.Execute "Delete  From " & cFile & " where Doc_No = " & addvalue(xDoc_No.text)
-con.Execute "Delete  From " & cFileHeader & " where Doc_No = " & addvalue(xDoc_No.text)
+con.Execute "Delete  From " & cFile & " where Doc_No = " & addvalue(xdoc_no.text)
+con.Execute "Delete  From " & cFileHeader & " where Doc_No = " & addvalue(xdoc_no.text)
 con.CommitTrans
 
 If sDoc_no <> "" Then Exit Sub
 
-If Not openCardTable(tbMode.tbPrevious, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbPrevious, xdoc_no.text) Then
     If Not openCardTable(tbMode.tbFirst) Then
         myDefine
     End If
@@ -1847,12 +1847,12 @@ If MsgBox("Õ–› ?", vbOKCancel + vbDefaultButton2 + vbCritical) <> vbOK Then Exit
 
 con.BeginTrans
 On Error GoTo myerror
-con.Execute "Delete  From " & cFile & " where Doc_No = " & addvalue(xDoc_No.text)
+con.Execute "Delete  From " & cFile & " where Doc_No = " & addvalue(xdoc_no.text)
 con.CommitTrans
 
 If sDoc_no <> "" Then Exit Sub
 
-If Not openCardTable(tbMode.tbFind, , xDoc_No.text) Then
+If Not openCardTable(tbMode.tbFind, , xdoc_no.text) Then
     If Not openCardTable(tbMode.tbFirst) Then
         myDefine
     End If
@@ -1865,11 +1865,11 @@ con.RollbackTrans
 End Sub
 Private Sub cmdExcel_Click()
 Me.MousePointer = 11
-Dim arow As Variant
+Dim aRow As Variant
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
 aSub = AddFlag(aSub, "word_wrap", True)
-arow = AddFlag(arow, aSub)
+aRow = AddFlag(aRow, aSub)
 
 For i = 1 To grid1.Rows - 2
     If grid1.TextMatrix(i, 2) = "" Then
@@ -1877,10 +1877,10 @@ For i = 1 To grid1.Rows - 2
         aSub = AddFlag(aSub, "bold", True)
         aSub = AddFlag(aSub, "word_wrap", False)
         aSub = AddFlag(aSub, "back_color", 19)
-        arow = AddFlag(arow, aSub)
+        aRow = AddFlag(aRow, aSub)
     End If
 Next
-ToFileExelNew grid2, , , arow, Array(1), 0.9, , , , , , Me, Array(Me.Caption, "„” ‰œ ÿ·»Ì… —ﬁ„ : " & xDoc_No.text, "» «—ÌŒ : " & xDate.text)
+ToFileExelNew GRID2, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption, "„” ‰œ ÿ·»Ì… —ﬁ„ : " & xdoc_no.text, "» «—ÌŒ : " & xDate.text)
 Me.MousePointer = 0
 End Sub
 Private Sub cmdExit_Click()
@@ -1955,7 +1955,7 @@ If Not openCardTable Then
 End If
 End Sub
 Private Sub CmdNext_Click()
-If Not openCardTable(tbMode.tbNext, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbNext, xdoc_no.text) Then
     If Not openCardTable(tbMode.tblast) Then
         myDefine
     End If
@@ -1971,13 +1971,13 @@ oFlagfrm.sCaption = "‰Ê⁄ «·”œ«œ"
 oFlagfrm.nZero = -1
 oFlagfrm.bEdit = True
 oFlagfrm.Show 1
-DATA3.Recordset.Requery
+DATA3.RecordSet.Requery
 xPayment_type.BoundText = sBound
 If Not xPayment_type.MatchedWithList Then xPayment_type.BoundText = ""
 End Sub
 
 Private Sub CmdPrevious_Click()
-If Not openCardTable(tbMode.tbPrevious, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbPrevious, xdoc_no.text) Then
     If Not openCardTable(tbMode.tbFirst) Then
         myDefine
     End If
@@ -1987,7 +1987,7 @@ Private Sub CmdNewInv_Click()
 myDefine
 End Sub
 Private Sub cmdSave_Click()
-If Not myValid(True) Then Exit Sub
+If Not MYVALID(True) Then Exit Sub
 'If Not validRows Then Exit Sub
 Me.MousePointer = vbHourglass
 If Not myreplace Then Exit Sub
@@ -1997,7 +1997,7 @@ If sDoc_no <> "" Then
     Unload Me
     Exit Sub
 End If
-If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
     If Not openCardTable Then myDefine
 End If
 End Sub
@@ -2005,13 +2005,13 @@ Private Sub cmdCont_Click()
 'contlookup Me, oSearchSup, , , cmdCont.Tag <> ""
 End Sub
 Private Sub cmdScv_Click()
-If Not myValid Then Exit Sub
-If grid1.Rows > 2 Or grid2.Rows > 2 Then
+If Not MYVALID Then Exit Sub
+If grid1.Rows > 2 Or GRID2.Rows > 2 Then
     MsgBox "ÌÊÃœ »Ì«‰«  ›Ï «·„” ‰œ"
     Exit Sub
 End If
 
-onlineCollectCSVnewfrm.sDoc_no = xDoc_No.text
+onlineCollectCSVnewfrm.sDoc_no = xdoc_no.text
 onlineCollectCSVnewfrm.sBank = xBank.BoundText
 onlineCollectCSVnewfrm.sShip = xship.BoundText
 onlineCollectCSVnewfrm.Show 1
@@ -2021,7 +2021,7 @@ myloadgrd2
 
 If grid1.Rows > 2 Then
     SSTab1.Tab = 1
-ElseIf grid2.Rows > 2 Then
+ElseIf GRID2.Rows > 2 Then
     SSTab1.Tab = 0
 End If
 End Sub
@@ -2037,10 +2037,10 @@ Private Sub Form_Activate()
 If Not bAct Then
     bAct = True
     On Error Resume Next
-    If xDoc_No.Tag = LoadMode Then
-        If grid2.Rows > 2 Then
+    If xdoc_no.Tag = LoadMode Then
+        If GRID2.Rows > 2 Then
             SSTab1.Tab = 0
-            grid2.SetFocus
+            GRID2.SetFocus
         Else
             SSTab1.Tab = 1
             grid1.SetFocus
@@ -2071,23 +2071,23 @@ cFileHeader = "FILE9_10H"
 
 OpenCon con
 
-Set data1.Recordset = mycmd("SELECT * FROM FILE5_10 WHERE ISSHIP = 1 ORDER BY DESCA", con)
+Set data1.RecordSet = mycmd("SELECT * FROM FILE5_10 WHERE ISSHIP = 1 ORDER BY DESCA", con)
 Set xBank.RowSource = data1
 xBank.ListField = "Desca"
 xBank.BoundColumn = "Code"
 
-Set DATA2.Recordset = mycmd("SELECT * FROM SHIP WHERE STOPED = 0 ORDER BY DESCA ", con)
+Set DATA2.RecordSet = mycmd("SELECT * FROM SHIP WHERE STOPED = 0 ORDER BY DESCA ", con)
 Set xship.RowSource = DATA2
 xship.ListField = "Desca"
 xship.BoundColumn = "Code"
 
-Set DATA3.Recordset = mycmd("SELECT * FROM PAYMENT_TYPE ORDER BY DESCA ", con)
+Set DATA3.RecordSet = mycmd("SELECT * FROM PAYMENT_TYPE ORDER BY DESCA ", con)
 Set xPayment_type.RowSource = DATA3
 xPayment_type.ListField = "Desca"
 xPayment_type.BoundColumn = "Code"
 
 Set grid1.DataSource = data10
-Set grid2.DataSource = DATA11
+Set GRID2.DataSource = data11
 
 If Not openCardTable Then myDefine
 End Sub
@@ -2100,8 +2100,8 @@ closeCon con
 Set online_collectfrm = Nothing
 Err.Clear
 End Sub
-Private Function myValid(Optional bMsg As Boolean = False) As Boolean
-If Trim(xDoc_No.text) = "" Then
+Private Function MYVALID(Optional bMsg As Boolean = False) As Boolean
+If Trim(xdoc_no.text) = "" Then
     MsgBox "—ﬁ„ «·„” ‰œ ·„ Ì”Ã·"
     Exit Function
 End If
@@ -2116,7 +2116,7 @@ If Not xBank.MatchedWithList Then
     Exit Function
 End If
 
-myValid = True
+MYVALID = True
 End Function
 Private Function validRows(Optional bMsg As Boolean = True) As Boolean
 Dim i As Long
@@ -2128,7 +2128,7 @@ Next
 validRows = True
 End Function
 Private Sub myload()
-xDoc_No.text = CardTable!doc_no
+xdoc_no.text = CardTable!doc_no
 xDate.text = myFormat_p(CardTable!Date)
 xBank.BoundText = CardTable!BANK & ""
 xship.BoundText = CardTable!SHIP & ""
@@ -2142,10 +2142,10 @@ myloadgrd2
 CalcTotals
 'CellPos2 13, GRID2.Rows - 2, GRID2.Cols - 1
 On Error Resume Next
-If grid2.Rows > 2 Then
+If GRID2.Rows > 2 Then
     SSTab1.Tab = 0
-    grid2.SetFocus
-    CellPos2 13, grid2.Rows - 2, grid2.Cols - 1
+    GRID2.SetFocus
+    CellPos2 13, GRID2.Rows - 2, GRID2.Cols - 1
 Else
     'If grid1.Enabled Then grid1.SetFocus
     SSTab1.Tab = 1
@@ -2154,7 +2154,7 @@ Else
 End If
 End Sub
 Private Sub myDefine()
-xDoc_No.text = Newflag(cFileHeader, "DOC_NO", con)
+xdoc_no.text = NewFlag(cFileHeader, "DOC_NO", con)
 xDate.text = myFormat_p(Date)
 xBank.BoundText = ""
 xship.BoundText = ""
@@ -2165,7 +2165,7 @@ grid1.Rows = 1
 myAddItem
 fixGrd
 
-grid2.Rows = 1
+GRID2.Rows = 1
 myAddItem2
 Fixgrd2
 
@@ -2178,7 +2178,7 @@ CellPos 13, grid1.Rows - 2, grid1.Cols - 1
 
 On Error Resume Next
 If SSTab1.Tab = 1 Then
-    grid2.SetFocus
+    GRID2.SetFocus
 Else
     grid1.SetFocus
 End If
@@ -2195,7 +2195,7 @@ cmdDelRows.Enabled = nMode = LoadMode And bEditRecord
 cmdScv.Enabled = nMode = LoadMode And bEditRecord
 
 Dim nRecord As Long, nRecords As Long
-retRecords xDoc_No.text, nRecords, nRecord
+retRecords xdoc_no.text, nRecords, nRecord
 
 If nMode = LoadMode Then
     panel1(1).Caption = "”Ã· " & nRecord & " „‰ " & nRecords
@@ -2208,8 +2208,8 @@ cmdNext.Enabled = (nMode = LoadMode) And nRecord < nRecords And sDoc_no = ""
 cmdLast.Enabled = (nMode = LoadMode) And nRecord < nRecords And nRecords > 2 And sDoc_no = ""
 cmdFirst.Enabled = (nMode = LoadMode) And nRecord > 1 And nRecords > 2 And sDoc_no = ""
 
-xDoc_No.Enabled = (nMode = DefineMode)
-xDoc_No.Tag = nMode
+'xdoc_no.Enabled = (nMode = DefineMode)
+xdoc_no.Tag = nMode
 End Sub
 
 Private Sub Text1_Change()
@@ -2217,27 +2217,24 @@ Private Sub Text1_Change()
 End Sub
 
 Private Sub xDoc_No_LostFocus()
-myLostFocus xDoc_No
-If Not ValidNum(xDoc_No.text) Then
-     If xDoc_No.Tag = LoadMode Then
+myLostFocus xdoc_no
+If Not ValidNum(xdoc_no.text) Then
+     If xdoc_no.Tag = LoadMode Then
         myDefine
     Else
-        xDoc_No.text = ""
+        xdoc_no.text = ""
     End If
 Else
-    If (Not (CardTable.EOF)) And xDoc_No.Tag = LoadMode Then
-        If CardTable!doc_no = xDoc_No.text Then
+    If (Not (CardTable.EOF)) And xdoc_no.Tag = LoadMode Then
+        If CardTable!doc_no = xdoc_no.text Then
             Exit Sub
         End If
     End If
     
-    openCardTable xDoc_No.text
-    If Not CardTable.EOF Then
-        myload
-    ElseIf xDoc_No.Tag = LoadMode Then
-        myDefine
-    Else
-'        xDoc_No.Text = ""
+    If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
+        If Not openCardTable Then
+            myDefine
+        End If
     End If
 End If
 End Sub
@@ -2253,7 +2250,7 @@ For i = 1 To grid1.Rows - 2
 Next
 End With
 
-With grid2
+With GRID2
 For i = 1 To .Rows - 2
     .TextMatrix(i, 6) = .ValueMatrix(i, 4) - .ValueMatrix(i, 5)
     '.TextMatrix(i, 11) = Round(.ValueMatrix(i, 9) - .ValueMatrix(i, 10), 2)
@@ -2323,12 +2320,12 @@ MsgBox Err.Description
 Err.Clear
 End Function
 Private Sub myUndo()
-If xDoc_No.Tag = DefineMode Then
+If xdoc_no.Tag = DefineMode Then
     If Not openCardTable Then
         CmdNewInv_Click
     End If
 Else
-    If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
         If Not openCardTable Then
             myDefine
         End If
@@ -2336,7 +2333,7 @@ Else
 End If
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xDoc_No
+myGotFocus xdoc_no
 End Sub
 Private Sub xdate_GotFocus()
 myGotFocus xDate
@@ -2350,33 +2347,33 @@ Set datefrm.oDate = xDate
 datefrm.Show 1
 End Sub
 Private Sub chkDay_Click()
-If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
     If Not openCardTable Then myDefine
 End If
 End Sub
 Private Sub chkMonth_Click()
 If Not bCheck Then
-    If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
         If Not openCardTable Then myDefine
     End If
 End If
 End Sub
 Private Sub chkOpen_Click()
 If Not bCheck Then
-    If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
         If Not openCardTable Then myDefine
     End If
 End If
 End Sub
 Private Sub chkYear_Click()
 If Not bCheck Then
-    If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
         If Not openCardTable Then myDefine
     End If
 End If
 End Sub
 Private Function retRecords(pDoc_no, ByRef nRecords As Long, ByRef nRecord As Long) As Variant
-Dim cString As String, loctable As New ADODB.Recordset
+Dim cString As String, locTable As New ADODB.RecordSet
 If pDoc_no <> "" Then
     cString = "SELECT Count(*) AS records,SUM(CASE WHEN DOC_NO <= " & pDoc_no & " THEN 1 ELSE 0 END) AS record"
 Else
@@ -2385,22 +2382,22 @@ End If
 
 cString = cString & " FROM " & cFileHeader & Tr(cFilter, " WHERE ") & cFilter
 
-Set loctable = mycmd(cString, con)
-If Not loctable.EOF Then
-    nRecords = loctable!RECORDS
-    nRecord = Val(loctable!Record & "")
+Set locTable = mycmd(cString, con)
+If Not locTable.EOF Then
+    nRecords = locTable!RECORDS
+    nRecord = Val(locTable!Record & "")
 End If
 End Function
 Private Sub cmdFilter_Click()
 cmdFilter.Tag = ""
-If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbFind, xdoc_no.text) Then
     If Not openCardTable Then myDefine
 End If
 End Sub
 Sub myproc2(pFilter As String)
 oSearchDoc.Hide
 cmdFilter.Tag = pFilter
-If Not openCardTable(tbMode.tbFirst, xDoc_No.text) Then
+If Not openCardTable(tbMode.tbFirst, xdoc_no.text) Then
     If Not openCardTable Then myDefine
 End If
 End Sub
@@ -2409,7 +2406,7 @@ Dim aInsert As Variant
 With grid1
     For i = IIf(Row = -1, 1, Row) To IIf(Row = -1, grid1.Rows - 2, Row)
         If Row = -1 Then prog1.Value = Round(i / (.Rows - 1), 2) * 100
-        aInsert = AddFlag(Empty, "DOC_NO", addstring(xDoc_No.text))
+        aInsert = AddFlag(Empty, "DOC_NO", addstring(xdoc_no.text))
         aInsert = AddFlag(aInsert, "PAYMENT_ID", addstring(grid1.TextMatrix(i, 0)))
         aInsert = AddFlag(aInsert, "ORDER_NO", addstring(grid1.TextMatrix(i, 1)))
         aInsert = AddFlag(aInsert, "[TOTAL]", grid1.ValueMatrix(i, 4))
@@ -2434,7 +2431,7 @@ Dim i As Long
 '    End If
 'Next
 
-If Not myValid(True) Then
+If Not MYVALID(True) Then
     On Error Resume Next
     grid1.SetFocus
     Err.Clear
@@ -2460,7 +2457,7 @@ If Row = grid1.Rows - 1 Then
 End If
 
 If myreplace(Row) Then
-    If xDoc_No.Tag = DefineMode Then
+    If xdoc_no.Tag = DefineMode Then
         Handlecontrols LoadMode
         myLoadGrd
     ElseIf grid1.TextMatrix(Row, grid1.Cols - 1) = "" Then
@@ -2476,7 +2473,7 @@ End Sub
 Private Sub grid1_EnterCell()
 If Not bEditRecord Then
     grid1.Editable = flexEDNone
-ElseIf grid2.Row > 2 Then
+ElseIf GRID2.Row > 2 Then
     grid1.Editable = flexEDNone
 ElseIf ((grid1.col = 0 Or grid1.col = 1 Or grid1.col = 2) And grid1.TextMatrix(grid1.Row, grid1.Cols - 1) = "") Or grid1.col = 4 Or grid1.col = 5 Then
     grid1.Editable = flexEDKbdMouse
@@ -2508,7 +2505,7 @@ Private Sub myLoadGrd()
 '         " LEFT JOIN vw_online_order_total ON FILE9_10.ORDER_NO = vw_online_order_total.ORDER_NO" & _
 '         " WHERE FILE9_10.DOC_NO = " & addvalue(xDoc_No.text) & _
 '         " AND FILE9_10.TYPE = 1"
-aPrm = AddFlag(aPrm, "DOC_NO", xDoc_No.text)
+aPrm = AddFlag(aPrm, "DOC_NO", xdoc_no.text)
 Set grid1.DataSource = myRs("sp_oline_pay_grd", con, , adStoredProc, aPrm)
 myAddItem
 CalcTotals
@@ -2672,60 +2669,60 @@ If KeyAscii = 13 Then
     KeyAscii = 0
 End If
 End Sub
-Private Function GrdDesc(ByVal sOrder_No As String, sPayment_id As String, Row As Long, ByRef pMsg As String) As Boolean
-If sOrder_No = "" Then
-    sOrder_No = rsFunc("[dbo].[fn_order_collect]", con, addstring(sPayment_id), "default")
-    If sOrder_No = "" Then
+Private Function GrdDesc(ByVal sOrder_no As String, sPayment_id As String, Row As Long, ByRef pMsg As String) As Boolean
+If sOrder_no = "" Then
+    sOrder_no = rsFunc("[dbo].[fn_order_collect]", con, addstring(sPayment_id), "default")
+    If sOrder_no = "" Then
         MsgBox "—ﬁ„ " & "Payment id" & " €Ì— ’ÕÌÕ"
         Exit Function
     End If
 End If
 
 
-Dim loctable As New ADODB.Recordset
-Set loctable = myRs("SELECT * " & _
+Dim locTable As New ADODB.RecordSet
+Set locTable = myRs("SELECT * " & _
                     " FROM FILE6_90H " & _
-                    " WHERE DOC_NO = " & MyParn(sOrder_No), con)
+                    " WHERE DOC_NO = " & MyParn(sOrder_no), con)
 
-If loctable.EOF Then
+If locTable.EOF Then
     MsgBox "—ﬁ„ ÿ·»»… €Ì— ’ÕÌÕ"
     Exit Function
 End If
 
-grid1.TextMatrix(Row, 0) = loctable!PAYMENT_ID & ""
-grid1.TextMatrix(Row, 1) = loctable!doc_no & ""
-grid1.TextMatrix(Row, 2) = loctable!Name & ""
-grid1.TextMatrix(Row, 3) = loctable!phone & ""
+grid1.TextMatrix(Row, 0) = locTable!PAYMENT_ID & ""
+grid1.TextMatrix(Row, 1) = locTable!doc_no & ""
+grid1.TextMatrix(Row, 2) = locTable!Name & ""
+grid1.TextMatrix(Row, 3) = locTable!Phone & ""
 GrdDesc = True
 End Function
-Private Function grdDesc2(ByVal sOrder_No As String, sShip_no As String, Row As Long, ByRef pMsg As String) As Boolean
-If sOrder_No = "" Then
-    sOrder_No = rsFunc("[dbo].[fn_order_collect]", con, "default", addstring(sShip_no))
-    If sOrder_No = "" Then
+Private Function grdDesc2(ByVal sOrder_no As String, sShip_no As String, Row As Long, ByRef pMsg As String) As Boolean
+If sOrder_no = "" Then
+    sOrder_no = rsFunc("[dbo].[fn_order_collect]", con, "default", addstring(sShip_no))
+    If sOrder_no = "" Then
         MsgBox "—ﬁ„ »Ê·Ì’… «·‘Õ‰ €Ì— ’ÕÌÕ"
     End If
 End If
 
-Dim loctable As New ADODB.Recordset
-Set loctable = myRs("SELECT * " & _
-                    " FROM FILE6_90H WHERE DOC_NO = " & MyParn(sOrder_No), con)
+Dim locTable As New ADODB.RecordSet
+Set locTable = myRs("SELECT * " & _
+                    " FROM FILE6_90H WHERE DOC_NO = " & MyParn(sOrder_no), con)
        
-If loctable.EOF Then
+If locTable.EOF Then
         MsgBox "—ﬁ„ ÿ·»Ì… €Ì— ’ÕÌÕ"
         Exit Function
 End If
-grid2.TextMatrix(Row, 0) = ""
-grid2.TextMatrix(Row, 1) = loctable!doc_no & ""
-grid2.TextMatrix(Row, 2) = loctable!Name
-grid2.TextMatrix(Row, 3) = loctable!phone & ""
+GRID2.TextMatrix(Row, 0) = ""
+GRID2.TextMatrix(Row, 1) = locTable!doc_no & ""
+GRID2.TextMatrix(Row, 2) = locTable!Name
+GRID2.TextMatrix(Row, 3) = locTable!Phone & ""
 grdDesc2 = True
 End Function
 Private Sub myreplaceGrd2(Row As Long)
 Dim aInsert As Variant
-With grid2
+With GRID2
     For i = IIf(Row = -1, 1, Row) To IIf(Row = -1, .Rows - 2, Row)
         If Row = -1 Then prog1.Value = Round(i / (.Rows - 1), 2) * 100
-        aInsert = AddFlag(Empty, "DOC_NO", addstring(xDoc_No.text))
+        aInsert = AddFlag(Empty, "DOC_NO", addstring(xdoc_no.text))
         aInsert = AddFlag(aInsert, "SHIP_NO", addstring(.TextMatrix(i, 0)))
         aInsert = AddFlag(aInsert, "ORDER_NO", addstring(.TextMatrix(i, 1)))
         aInsert = AddFlag(aInsert, "[COD]", .ValueMatrix(i, 4))
@@ -2750,15 +2747,15 @@ Dim i As Long
 '    End If
 'Next
 
-If Not myValid Then
+If Not MYVALID Then
     On Error Resume Next
-    grid2.SetFocus
+    GRID2.SetFocus
     Err.Clear
     myloadgrd2
-    If Row < grid2.Rows - 1 Then
-        grid2.Select Row, col
+    If Row < GRID2.Rows - 1 Then
+        GRID2.Select Row, col
     Else
-        CellPos2 13, grid2.Rows - 2, grid2.Cols - 1
+        CellPos2 13, GRID2.Rows - 2, GRID2.Cols - 1
     End If
     Exit Sub
 End If
@@ -2768,16 +2765,16 @@ If Not validrow2(Row, False) Then
     Exit Sub
 End If
 
-With grid2
-If Row = grid2.Rows - 1 Then
+With GRID2
+If Row = GRID2.Rows - 1 Then
     myAddItem2
 End If
 
 If myreplace(, Row) Then
-    If xDoc_No.Tag = DefineMode Then
+    If xdoc_no.Tag = DefineMode Then
         Handlecontrols LoadMode
         myloadgrd2
-    ElseIf grid2.TextMatrix(Row, grid2.Cols - 1) = "" Then
+    ElseIf GRID2.TextMatrix(Row, GRID2.Cols - 1) = "" Then
         myloadgrd2
     Else
         CalcTotals
@@ -2789,13 +2786,13 @@ End With
 End Sub
 Private Sub grid2_EnterCell()
 If Not bEditRecord Then
-    grid2.Editable = flexEDNone
+    GRID2.Editable = flexEDNone
 ElseIf grid1.Row > 2 Then
-    grid2.Editable = flexEDNone
-ElseIf ((grid2.col = 0 Or grid2.col = 1) And grid2.TextMatrix(grid2.Row, grid2.Cols - 1) = "") Or grid2.col = 4 Or grid2.col = 5 Then
-    grid2.Editable = flexEDKbdMouse
+    GRID2.Editable = flexEDNone
+ElseIf ((GRID2.col = 0 Or GRID2.col = 1) And GRID2.TextMatrix(GRID2.Row, GRID2.Cols - 1) = "") Or GRID2.col = 4 Or GRID2.col = 5 Then
+    GRID2.Editable = flexEDKbdMouse
 Else
-    grid2.Editable = flexEDNone
+    GRID2.Editable = flexEDNone
 End If
 End Sub
 Private Sub myloadgrd2()
@@ -2823,8 +2820,8 @@ Private Sub myloadgrd2()
 '         " WHERE FILE9_10.DOC_NO = " & addvalue(xDoc_No.text) & _
 '         " AND FILE9_10.TYPE = 2"
 
-aPrm = AddFlag(aPrm, "DOC_NO", xDoc_No.text)
-Set grid2.DataSource = myRs("sp_oline_pay_grd2", con, , adStoredProc, aPrm)
+aPrm = AddFlag(aPrm, "DOC_NO", xdoc_no.text)
+Set GRID2.DataSource = myRs("sp_oline_pay_grd2", con, , adStoredProc, aPrm)
 'Set data11.Recordset = myRs(cString, con)
 
 myAddItem2
@@ -2837,20 +2834,20 @@ grid2_EnterCell
 End Sub
 Private Sub Grid2_KeyUp(KeyCode As Integer, Shift As Integer)
 If KeyCode = 13 Then
-    CellPos2 KeyCode, grid2.Row, grid2.col
+    CellPos2 KeyCode, GRID2.Row, GRID2.col
 ElseIf Not bEditRecord Then
     Exit Sub
-ElseIf KeyCode = 46 And grid2.Row <> grid2.Rows - 1 Then
-    If grid2.TextMatrix(grid2.Row, grid2.Cols - 1) = "" Then
-        myRemove2 grid2.Row
+ElseIf KeyCode = 46 And GRID2.Row <> GRID2.Rows - 1 Then
+    If GRID2.TextMatrix(GRID2.Row, GRID2.Cols - 1) = "" Then
+        myRemove2 GRID2.Row
     ElseIf MsgBox("Õ–› „‰ «·„” ‰œ ?, Â· «‰  „Ê«›ﬁ ø", vbOKCancel) = vbOK Then
         On Error GoTo myerror
         con.BeginTrans
-        If grid2.TextMatrix(grid2.Row, grid2.Cols - 1) <> "" Then
-            con.Execute "Delete from " & cFile & " where ID = " & grid2.TextMatrix(grid2.Row, grid2.Cols - 1)
+        If GRID2.TextMatrix(GRID2.Row, GRID2.Cols - 1) <> "" Then
+            con.Execute "Delete from " & cFile & " where ID = " & GRID2.TextMatrix(GRID2.Row, GRID2.Cols - 1)
         End If
         con.CommitTrans
-        myRemove2 grid2.Row
+        myRemove2 GRID2.Row
     End If
 End If
 Exit Sub
@@ -2860,12 +2857,12 @@ con.RollbackTrans
 Err.Clear
 End Sub
 Private Sub GRID2_ValidateEdit(ByVal Row As Long, ByVal col As Long, Cancel As Boolean)
-With grid2
+With GRID2
 Dim sMsg As String
 If col = 1 Then
-    If Trim(grid2.EditText) = "" Then
+    If Trim(GRID2.EditText) = "" Then
         Cancel = True
-    ElseIf Not grdDesc2(grid2.EditText, "", Row, sMsg) Then
+    ElseIf Not grdDesc2(GRID2.EditText, "", Row, sMsg) Then
         MsgBox sMsg
         Cancel = True
     End If
@@ -2873,7 +2870,7 @@ End If
 End With
 End Sub
 Private Sub Fixgrd2()
-With grid2
+With GRID2
 .TextMatrix(0, 0) = "»Ê·Ì’… «·‘Õ‰"
 .TextMatrix(0, 1) = "—ﬁ„ «·ÿ·»Ì…"
 .TextMatrix(0, 2) = "«·«”„"
@@ -2911,19 +2908,19 @@ Next
 End With
 End Sub
 Private Sub myAddItem2()
-With grid2
+With GRID2
 .AddItem ""
-If grid2.Rows > 2 Then
+If GRID2.Rows > 2 Then
     '.TextMatrix(.Rows - 1, 0) = .TextMatrix(.Rows - 2, 0)
 End If
 End With
 End Sub
 Private Sub myRemove2(Row As Long)
-grid2.RemoveItem Row
+GRID2.RemoveItem Row
 CalcTotals
 End Sub
 Private Function validrow2(Row As Long, Optional bMsg As Boolean = False) As Boolean
-With grid2
+With GRID2
 If Trim(.TextMatrix(Row, 0)) = "" Then
     If bMsg Then
         MsgBox "—ﬁ„ »Ê·Ì÷… «·‘Õ‰ €Ì— „”Ã·"
@@ -2952,26 +2949,26 @@ KeyCode = 0
 If bStopCell Then
     bStopCell = False
 ElseIf col = 0 Then
-    If NextEmpty(grid2, Row, col, 4) <= 2 Then
-        If grid2.TextMatrix(Row, col) = "" Then
-            grid2.Select Row, 1
+    If NextEmpty(GRID2, Row, col, 4) <= 2 Then
+        If GRID2.TextMatrix(Row, col) = "" Then
+            GRID2.Select Row, 1
         Else
-            grid2.Select Row, 2
+            GRID2.Select Row, 2
         End If
     Else
-        grid2.Select Row, NextEmpty(grid2, Row, col, 4)
+        GRID2.Select Row, NextEmpty(GRID2, Row, col, 4)
     End If
 ElseIf col = 1 Then
-    grid2.Select Row, NextEmpty(grid2, Row, col + 1, 4)
+    GRID2.Select Row, NextEmpty(GRID2, Row, col + 1, 4)
 ElseIf col < 4 Then
-    grid2.col = 4
-ElseIf col < grid2.Cols - 9 Then
-    grid2.col = col + 1
-ElseIf Row < grid2.Rows - 1 Then
-    grid2.Select Row + 1, NextEmpty(grid2, Row + 1, 1, 4)
-    grid2.ShowCell grid2.Row, 0
+    GRID2.col = 4
+ElseIf col < GRID2.Cols - 9 Then
+    GRID2.col = col + 1
+ElseIf Row < GRID2.Rows - 1 Then
+    GRID2.Select Row + 1, NextEmpty(GRID2, Row + 1, 1, 4)
+    GRID2.ShowCell GRID2.Row, 0
 Else
-    grid2.Select Row, col
+    GRID2.Select Row, col
 End If
 End Sub
 Private Sub GRID2_KeyUpEdit(ByVal Row As Long, ByVal col As Long, KeyCode As Integer, ByVal Shift As Integer)
@@ -2988,7 +2985,11 @@ Private Sub xInvoice_Search_Change()
 SearchGrd grid1, LCase(Trim(xInvoice_Search.text)), 2, False
 End Sub
 Private Sub xShip_No_search_Change()
-SearchGrd grid2, LCase(Trim(xShip_No_search.text)), 0, False
+If SSTab1.Tab = 0 Then
+    SearchGrd GRID2, LCase(Trim(xShip_No_search.text)), 0, False
+Else
+    SearchGrd grid1, LCase(Trim(xShip_No_search.text)), 1, False
+End If
 End Sub
 Private Sub xYear_GotFocus()
 myGotFocus xYear

@@ -1203,7 +1203,7 @@ Private Sub chkEdit_Click()
 myloadGrdDone
 End Sub
 
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
     Unload Me
 End Sub
 Private Sub cmdGo_Click()
@@ -1288,14 +1288,14 @@ With grid1
     aPrm = AddFlag(aPrm, "DATE", sDateSales)
     Set grid1.DataSource = myRs("sp_manager_stage", , , adStoredProc, aPrm)
 End With
-Fixgrd
+fixGrd
 'grid1.Cell(flexcpAlignment, 0, 0, grid1.Rows - 1, grid1.Cols - 1) = 7
 Exit Sub
 myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Sub Fixgrd()
+Sub fixGrd()
 With grid1
     .TextMatrix(0, 0) = "«·„—Õ·…"
     .TextMatrix(0, 1) = "«·„—Õ·…"

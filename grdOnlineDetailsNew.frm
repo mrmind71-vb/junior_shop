@@ -11,7 +11,7 @@ Begin VB.Form grdOnlineDetailsNewfrm
    ClientHeight    =   10290
    ClientLeft      =   75
    ClientTop       =   450
-   ClientWidth     =   20370
+   ClientWidth     =   10830
    BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.25
@@ -25,7 +25,7 @@ Begin VB.Form grdOnlineDetailsNewfrm
    MDIChild        =   -1  'True
    RightToLeft     =   -1  'True
    ScaleHeight     =   10290
-   ScaleWidth      =   20370
+   ScaleWidth      =   10830
    WindowState     =   2  'Maximized
    Begin TabDlg.SSTab SSTab1 
       Height          =   8700
@@ -36,9 +36,7 @@ Begin VB.Form grdOnlineDetailsNewfrm
       _ExtentX        =   35745
       _ExtentY        =   15346
       _Version        =   393216
-      Tabs            =   2
-      Tab             =   1
-      TabsPerRow      =   2
+      Tab             =   2
       TabHeight       =   520
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -56,10 +54,15 @@ Begin VB.Form grdOnlineDetailsNewfrm
       Tab(0).ControlCount=   1
       TabCaption(1)   =   "≈Ã„«·Ì „ «»⁄… «·ÿ·»Ì« "
       TabPicture(1)   =   "grdOnlineDetailsNew.frx":001C
-      Tab(1).ControlEnabled=   -1  'True
+      Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "grid2"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
+      TabCaption(2)   =   "≈Ã„«·Ì „ «»⁄… «·ÿ·»Ì«  ‘Â—Ì"
+      TabPicture(2)   =   "grdOnlineDetailsNew.frx":0038
+      Tab(2).ControlEnabled=   -1  'True
+      Tab(2).Control(0)=   "grid3"
+      Tab(2).Control(0).Enabled=   0   'False
+      Tab(2).ControlCount=   1
       Begin VSFlex7Ctl.VSFlexGrid grid1 
          Height          =   8250
          Left            =   -74955
@@ -156,7 +159,7 @@ Begin VB.Form grdOnlineDetailsNewfrm
       End
       Begin VSFlex7Ctl.VSFlexGrid grid2 
          Height          =   8250
-         Left            =   45
+         Left            =   -74955
          TabIndex        =   26
          Top             =   360
          Width           =   20130
@@ -201,6 +204,100 @@ Begin VB.Form grdOnlineDetailsNewfrm
          Rows            =   1
          Cols            =   17
          FixedRows       =   1
+         FixedCols       =   0
+         RowHeightMin    =   0
+         RowHeightMax    =   0
+         ColWidthMin     =   0
+         ColWidthMax     =   0
+         ExtendLastCol   =   0   'False
+         FormatString    =   ""
+         ScrollTrack     =   0   'False
+         ScrollBars      =   3
+         ScrollTips      =   0   'False
+         MergeCells      =   0
+         MergeCompare    =   0
+         AutoResize      =   0   'False
+         AutoSizeMode    =   0
+         AutoSearch      =   0
+         AutoSearchDelay =   2
+         MultiTotals     =   -1  'True
+         SubtotalPosition=   1
+         OutlineBar      =   0
+         OutlineCol      =   0
+         Ellipsis        =   0
+         ExplorerBar     =   0
+         PicturesOver    =   0   'False
+         FillStyle       =   0
+         RightToLeft     =   -1  'True
+         PictureType     =   0
+         TabBehavior     =   1
+         OwnerDraw       =   0
+         Editable        =   0
+         ShowComboButton =   -1  'True
+         WordWrap        =   0   'False
+         TextStyle       =   0
+         TextStyleFixed  =   0
+         OleDragMode     =   0
+         OleDropMode     =   0
+         DataMode        =   0
+         VirtualData     =   -1  'True
+         DataMember      =   ""
+         ComboSearch     =   3
+         AutoSizeMouse   =   -1  'True
+         FrozenRows      =   0
+         FrozenCols      =   0
+         AllowUserFreezing=   0
+         BackColorFrozen =   0
+         ForeColorFrozen =   0
+         WallPaperAlignment=   9
+      End
+      Begin VSFlex7Ctl.VSFlexGrid grid3 
+         Height          =   8250
+         Left            =   90
+         TabIndex        =   27
+         Top             =   360
+         Width           =   20130
+         _cx             =   35507
+         _cy             =   14552
+         _ConvInfo       =   1
+         Appearance      =   0
+         BorderStyle     =   1
+         Enabled         =   -1  'True
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         MousePointer    =   0
+         BackColor       =   -2147483643
+         ForeColor       =   -2147483640
+         BackColorFixed  =   14737632
+         ForeColorFixed  =   0
+         BackColorSel    =   12640511
+         ForeColorSel    =   0
+         BackColorBkg    =   -2147483636
+         BackColorAlternate=   16777215
+         GridColor       =   12632256
+         GridColorFixed  =   -2147483632
+         TreeColor       =   -2147483632
+         FloodColor      =   192
+         SheetBorder     =   -2147483642
+         FocusRect       =   2
+         HighLight       =   1
+         AllowSelection  =   -1  'True
+         AllowBigSelection=   -1  'True
+         AllowUserResizing=   0
+         SelectionMode   =   1
+         GridLines       =   1
+         GridLinesFixed  =   1
+         GridLineWidth   =   1
+         Rows            =   2
+         Cols            =   71
+         FixedRows       =   2
          FixedCols       =   0
          RowHeightMin    =   0
          RowHeightMax    =   0
@@ -628,7 +725,7 @@ Begin VB.Form grdOnlineDetailsNewfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "grdOnlineDetailsNew.frx":0038
+         Picture         =   "grdOnlineDetailsNew.frx":0054
          Alignment       =   8
          ButtonStyle     =   3
          PictureAlignment=   11
@@ -656,12 +753,12 @@ Begin VB.Form grdOnlineDetailsNewfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "grdOnlineDetailsNew.frx":235B
+         Picture         =   "grdOnlineDetailsNew.frx":2377
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "grdOnlineDetailsNew.frx":46D1
+         PictureDisabled =   "grdOnlineDetailsNew.frx":46ED
       End
       Begin Threed.SSCommand cmdGo 
          Height          =   555
@@ -684,7 +781,7 @@ Begin VB.Form grdOnlineDetailsNewfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "grdOnlineDetailsNew.frx":6854
+         Picture         =   "grdOnlineDetailsNew.frx":6870
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
@@ -711,7 +808,7 @@ Begin VB.Form grdOnlineDetailsNewfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "grdOnlineDetailsNew.frx":9707
+         Picture         =   "grdOnlineDetailsNew.frx":9723
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
@@ -738,7 +835,7 @@ Begin VB.Form grdOnlineDetailsNewfrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "grdOnlineDetailsNew.frx":BC32
+         Picture         =   "grdOnlineDetailsNew.frx":BC4E
          ButtonStyle     =   3
          PictureAlignment=   11
          BevelWidth      =   0
@@ -846,8 +943,8 @@ Begin VB.Form grdOnlineDetailsNewfrm
       TabIndex        =   12
       Top             =   10095
       Visible         =   0   'False
-      Width           =   20370
-      _ExtentX        =   35930
+      Width           =   10830
+      _ExtentX        =   19103
       _ExtentY        =   344
       _Version        =   327682
       BorderStyle     =   1
@@ -1014,12 +1111,12 @@ End Sub
 Private Sub toExcel2()
 Me.MousePointer = 11
 
-Dim arow As Variant
+Dim aRow As Variant
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
 aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "height", 20)
-arow = AddFlag(arow, aSub)
+aRow = AddFlag(aRow, aSub)
 
 aSub = AddFlag(Empty, "row", 1)
 aSub = AddFlag(aSub, "bold", True)
@@ -1027,23 +1124,23 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "cols", 2)
 aSub = AddFlag(aSub, "text", "«·≈Ã„«·Ì")
 aSub = AddFlag(aSub, "height", 20)
-arow = AddFlag(arow, aSub)
+aRow = AddFlag(aRow, aSub)
 
-ToFileExelNew grid2, , , arow, , 1.2, , , , , , Me
+ToFileExelNew GRID2, , , aRow, , 1.2, , , , , , Me
 
 Me.MousePointer = 0
 End Sub
 Private Sub toExcel1()
 Me.MousePointer = 11
 
-Dim arow As Variant
+Dim aRow As Variant
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
 aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 0)
 aSub = AddFlag(aSub, "cols", 4)
 aSub = AddFlag(aSub, "height", 20)
-arow = AddFlag(arow, aSub)
+aRow = AddFlag(aRow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1051,7 +1148,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 4)
 aSub = AddFlag(aSub, "cols", 9)
 aSub = AddFlag(aSub, "height", 20)
-arow = AddFlag(arow, aSub)
+aRow = AddFlag(aRow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1059,7 +1156,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 13)
 aSub = AddFlag(aSub, "cols", 12)
 aSub = AddFlag(aSub, "height", 20)
-arow = AddFlag(arow, aSub)
+aRow = AddFlag(aRow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1067,7 +1164,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 25)
 aSub = AddFlag(aSub, "cols", 9)
 aSub = AddFlag(aSub, "height", 20)
-arow = AddFlag(arow, aSub)
+aRow = AddFlag(aRow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1075,7 +1172,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 34)
 aSub = AddFlag(aSub, "cols", 9)
 aSub = AddFlag(aSub, "height", 20)
-arow = AddFlag(arow, aSub)
+aRow = AddFlag(aRow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1083,7 +1180,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 43)
 aSub = AddFlag(aSub, "cols", 9)
 aSub = AddFlag(aSub, "height", 20)
-arow = AddFlag(arow, aSub)
+aRow = AddFlag(aRow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1091,7 +1188,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 52)
 aSub = AddFlag(aSub, "cols", 9)
 aSub = AddFlag(aSub, "height", 20)
-arow = AddFlag(arow, aSub)
+aRow = AddFlag(aRow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1099,7 +1196,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 61)
 aSub = AddFlag(aSub, "cols", 6)
 aSub = AddFlag(aSub, "height", 20)
-arow = AddFlag(arow, aSub)
+aRow = AddFlag(aRow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1107,7 +1204,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 67)
 aSub = AddFlag(aSub, "cols", 6)
 aSub = AddFlag(aSub, "height", 20)
-arow = AddFlag(arow, aSub)
+aRow = AddFlag(aRow, aSub)
 
 aSub = AddFlag(Empty, "row", 0)
 aSub = AddFlag(aSub, "bold", True)
@@ -1115,7 +1212,7 @@ aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "col", 73)
 aSub = AddFlag(aSub, "cols", 6)
 aSub = AddFlag(aSub, "height", 20)
-arow = AddFlag(arow, aSub)
+aRow = AddFlag(aRow, aSub)
 
 
 aSub = AddFlag(Empty, "row", 1)
@@ -1123,7 +1220,7 @@ aSub = AddFlag(aSub, "bold", True)
 aSub = AddFlag(aSub, "word_wrap", True)
 aSub = AddFlag(aSub, "back_color", 40)
 aSub = AddFlag(aSub, "height", 60)
-arow = AddFlag(arow, aSub)
+aRow = AddFlag(aRow, aSub)
 
 If grid1.Rows > 2 Then
     aSub = AddFlag(Empty, "row", 2)
@@ -1132,10 +1229,10 @@ If grid1.Rows > 2 Then
     aSub = AddFlag(aSub, "bold", True)
     aSub = AddFlag(aSub, "back_color", 40)
     aSub = AddFlag(aSub, "text", "«·≈Ã„«·Ì")
-    arow = AddFlag(arow, aSub)
+    aRow = AddFlag(aRow, aSub)
 End If
 
-ToFileExelNew grid1, , , arow, , 1.2, , , , , , Me
+ToFileExelNew grid1, , , aRow, , 1.2, , , , , , Me
 
 Me.MousePointer = 0
 End Sub
@@ -1148,12 +1245,14 @@ End Sub
 Private Sub cmdGo_Click()
 Me.MousePointer = vbHourglass
 grid1.ExplorerBar = flexExSortShow
-grid2.ExplorerBar = flexExSortShow
+GRID2.ExplorerBar = flexExSortShow
 
 If SSTab1.Tab = 0 Then
     myload
 ElseIf SSTab1.Tab = 1 Then
     MYLOAD2
+ElseIf SSTab1.Tab = 2 Then
+    myload3
 End If
 Me.MousePointer = vbNormal
 End Sub
@@ -1168,18 +1267,6 @@ End Sub
 Private Sub cmdSql_Click()
 myload True
 End Sub
-Private Sub Form_Resize()
-'SSTab1.Height = IIf(Me.Height - SSTab1.Top - 1000 < 3000, 3000, Me.Height - SSTab1.Top - 500)
-'SSTab1.Width = IIf(Me.Width - SSTab1.Left - 150 < 5000, 5000, Me.Width - SSTab1.Left - 150)
-'grid1.Height = IIf(SSTab1.Height - grid1.Top - 1000 < 3000, 3000, SSTab1.Height - grid1.Top - 200)
-'grid1.Width = IIf(SSTab1.Width - grid1.Left - 150 < 5000, 5000, SSTab1.Width - grid1.Left - 150)
-'grid2.Height = IIf(SSTab1.Height - grid2.Top - 1000 < 3000, 3000, SSTab1.Height - grid2.Top - 200)
-'grid2.Width = IIf(SSTab1.Width - grid2.Left - 150 < 5000, 5000, SSTab1.Width - grid2.Left - 150)
-
-'Frame1.Left = SSTab1.Width - Frame1.Width - 150
-'Frame2.Left = IIf(300 + Me.Width - Frame2.Width - Frame1.Left < 0, 0, 300 + Me.Width - Frame2.Width - Frame1.Left)
-'Frame2.Left = Frame1.Left - Frame2.Width - 50
-End Sub
 Private Sub Form_Load()
 Set xStore.RowSource = dbm.myRs("Select code ,descA From file0_40 ORDER BY CODE")
 xStore.ListField = "Desca"
@@ -1187,6 +1274,7 @@ xStore.BoundColumn = "CODE"
 
 fixGrd
 Fixgrd2
+Fixgrd3
 End Sub
 Private Sub myload(Optional bString As Boolean = False)
 Dim aPrm As Variant
@@ -1200,12 +1288,12 @@ End If
 
 If IsDate(xDate1.text) Then
     aPrm = AddFlag(aPrm, "DATE1", addDate(xDate1.text))
-    aHeader(1) = BetweenString(xDate1.text, xDate2.text)
+    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
 End If
 
 If IsDate(xDate1.text) Then
-    aPrm = AddFlag(aPrm, "DATE2", addDate(xDate2.text))
-    aHeader(1) = BetweenString(xDate1.text, xDate2.text)
+    aPrm = AddFlag(aPrm, "DATE2", addDate(xdate2.text))
+    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
 End If
 
 If xtype(1).Value Then
@@ -1229,9 +1317,9 @@ If Trim(xOrder_No.text) <> "" Then
     aHeader(4) = "ÿ·»Ì… : " & xOrder_No.text
 End If
 
-If Trim(xShip_no.text) <> "" Then
-    aPrm = AddFlag(aPrm, "SHIP_NO", addstring(xShip_no.text))
-    aHeader(5) = "»Ê·Ì’… ‘Õ‰ : " & xShip_no.text
+If Trim(xship_no.text) <> "" Then
+    aPrm = AddFlag(aPrm, "SHIP_NO", addstring(xship_no.text))
+    aHeader(5) = "»Ê·Ì’… ‘Õ‰ : " & xship_no.text
 End If
 
 Dim cString As String
@@ -1489,6 +1577,244 @@ With grid1
     .SubtotalPosition = flexSTAbove
 
     For i = 2 To .Cols - 2
+        If .ColDataType(i) = flexDTDouble And i <> 33 Then
+            .Subtotal flexSTSum, -1, i, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
+        End If
+    Next
+    If .Rows > 2 Then
+       .TextMatrix(2, 0) = "«·≈Ã„«·Ì"
+    End If
+End With
+End Sub
+Private Sub myload3(Optional bString As Boolean = False)
+Dim aPrm As Variant
+
+ReDim aHeader(5)
+
+If xStore.MatchedWithList Then
+    aPrm = AddFlag(aPrm, "STORE", addstring(xStore.BoundText))
+    aHeader(0) = "«·›—⁄ : " & xStore.text
+End If
+
+If IsDate(xDate1.text) Then
+    aPrm = AddFlag(aPrm, "DATE1", addDate(xDate1.text))
+    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
+End If
+
+If IsDate(xDate1.text) Then
+    aPrm = AddFlag(aPrm, "DATE2", addDate(xdate2.text))
+    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
+End If
+
+If xtype(1).Value Then
+    aPrm = AddFlag(aPrm, "CLOSED", "1")
+    aHeader(2) = "ÿ·»Ì«  " & xtype(1).Caption
+ElseIf xtype(2).Value Then
+    aPrm = AddFlag(aPrm, "OPENED", "1")
+    aHeader(2) = "ÿ·»Ì«  " & xtype(2).Caption
+ElseIf xtype(3).Value Then
+    aPrm = AddFlag(aPrm, "CANCELED", "1")
+    aHeader(2) = "ÿ·»Ì«  " & xtype(3).Caption
+End If
+
+If Trim(xdoc_no.text) <> "" Then
+    aPrm = AddFlag(aPrm, "DOC_NO", addstring(xdoc_no.text))
+    aHeader(3) = "›« Ê—… : " & xdoc_no.text
+End If
+
+If Trim(xOrder_No.text) <> "" Then
+    aPrm = AddFlag(aPrm, "ORDER_NO", addstring(xOrder_No.text))
+    aHeader(4) = "ÿ·»Ì… : " & xOrder_No.text
+End If
+
+If Trim(xship_no.text) <> "" Then
+    aPrm = AddFlag(aPrm, "SHIP_NO", addstring(xship_no.text))
+    aHeader(5) = "»Ê·Ì’… ‘Õ‰ : " & xship_no.text
+End If
+
+Dim cString As String
+cString = myPrcString("dbo.sp_online_pay_month", aPrm)
+
+If bString Then
+    Clipboard.Clear
+    Clipboard.SetText cString
+    Exit Sub
+End If
+
+Set GRID3.DataSource = dbm.myRs(cString)
+Fixgrd3
+End Sub
+Sub Fixgrd3()
+With GRID3
+    .RowHeight(1) = 1000
+    .WordWrap = True
+    .FrozenCols = 5
+    
+    For i = 0 To 2
+        .TextMatrix(0, i) = "«·ÿ·»Ì… «·«”«”Ì…"
+    Next
+        
+    If .Rows > 2 Then
+        .Cell(flexcpBackColor, 1, 3, .Rows - 1, 4) = &HE0E0E0
+        .Cell(flexcpBackColor, 1, 14, .Rows - 1, 16) = &HE0E0E0
+        .Cell(flexcpBackColor, 1, 26, .Rows - 1, 34) = &HE0E0E0
+        .Cell(flexcpBackColor, 1, 44, .Rows - 1, 52) = &HE0E0E0
+        .Cell(flexcpBackColor, 1, 59, .Rows - 1, 64) = &HE0E0E0
+    End If
+
+    
+    For i = 3 To 5
+        .TextMatrix(0, i) = "«·›« Ê—… «·—∆Ì”Ì…"
+    Next
+    
+    For i = 5 To 13
+        .TextMatrix(0, i) = "›Ê« Ì— «” »œ«· Ê«” —Ã«⁄"
+    Next
+    
+    For i = 14 To 16
+        .TextMatrix(0, i) = "≈Ã„«·Ì «·›Ê« Ì—"
+    Next
+    
+    For i = 17 To 25
+        .TextMatrix(0, i) = "»Ì«‰«  «· Õ’Ì·"
+    Next
+    
+    For i = 26 To 34
+        .TextMatrix(0, i) = "ÿ·»Ì«  «” »œ«·"
+    Next
+    
+    For i = 35 To 43
+        .TextMatrix(0, i) = "ÿ·»Ì«  „— Ã⁄"
+    Next
+    
+    For i = 44 To 52
+        .TextMatrix(0, i) = "ÿ·»Ì«  —›÷ «” ·«„"
+    Next
+    
+    For i = 53 To 58
+        .TextMatrix(0, i) = "ÿ·»Ì«  «” »œ«· »œÊ‰ ›« Ê—…"
+    Next
+    
+    For i = 59 To 64
+        .TextMatrix(0, i) = "ÿ·»Ì«  „— Ã⁄ »œÊ‰ ›« Ê—…"
+    Next
+    
+    For i = 65 To 70
+        .TextMatrix(0, i) = "≈Ã„«·Ì «·ÿ·»Ì« "
+    Next
+        
+    .TextMatrix(1, 0) = "«·ÌÊ„-«·‘Â—"
+    .TextMatrix(1, 1) = "⁄œœ «·ﬁÿ⁄"
+    .TextMatrix(1, 2) = "ﬁÌ„… «·ÿ·»Ì…"
+    .TextMatrix(1, 3) = "⁄œœ «·ﬁÿ⁄"
+    .TextMatrix(1, 4) = "ﬁÌ„… «·›« Ê—…"
+    .TextMatrix(1, 5) = "⁄œœ ›Ê« Ì— «” »œ«·"
+    .TextMatrix(1, 6) = "ﬂ„Ì«  ›Ê« Ì— «” »œ«·"
+    .TextMatrix(1, 7) = "≈Ã„«·Ì ›Ê« Ì— «” »œ«·"
+    
+    .TextMatrix(1, 8) = "⁄œœ ›Ê« Ì— „— Ã⁄"
+    .TextMatrix(1, 9) = "ﬂ„Ì«  ›Ê« Ì— „— Ã⁄"
+    .TextMatrix(1, 10) = "≈Ã„«·Ì ›Ê« Ì— „— Ã⁄"
+    
+    .TextMatrix(1, 11) = "⁄œœ ›Ê« Ì— —›÷ «” ·«„"
+    .TextMatrix(1, 12) = "ﬂ„Ì«  ›Ê« Ì— —›÷ «” ·«„"
+    .TextMatrix(1, 13) = "≈Ã„«·Ì ›Ê« Ì— —›÷ «” ·«„"
+            
+    .TextMatrix(1, 14) = "⁄œœ ›Ê« Ì— »Ì⁄"
+    .TextMatrix(1, 15) = "ﬂ„Ì«  ›Ê« Ì— »Ì⁄"
+    .TextMatrix(1, 16) = "ﬁÌ„… ›Ê« Ì— »Ì⁄"
+    
+    .TextMatrix(1, 17) = "”œ«œ «Ê‰ ·«Ì‰"
+    .TextMatrix(1, 18) = "⁄„Ê·…  Õ’Ì·"
+    
+    .TextMatrix(1, 19) = "≈Ã„«·Ì ›Ê« Ì— »Ì⁄"
+    .TextMatrix(1, 20) = "≈Ã„«·Ì ›Ê« Ì— „— Ã⁄"
+    .TextMatrix(1, 21) = "’«›Ì «·›Ê« Ì—"
+    
+    .TextMatrix(1, 22) = "COD"
+    .TextMatrix(1, 23) = "„’«—Ì› ‘Õ‰ „Õ’·…"
+    .TextMatrix(1, 24) = "„’«—Ì› ÿ·»Ì…"
+    .TextMatrix(1, 25) = "⁄œœ „” ‰œ«  «· Õ’Ì·"
+    
+    .TextMatrix(1, 26) = "⁄œœ «” »œ«· »›« Ê—…"
+    .TextMatrix(1, 27) = "⁄œœ «” »œ«· »›« Ê—… „‰›–…"
+    .TextMatrix(1, 28) = "⁄œœ «” »œ«· »›« Ê—… €Ì— „‰›–…"
+    
+    .TextMatrix(1, 29) = "ﬂ„Ì«  «” »œ«· »›« Ê—…"
+    .TextMatrix(1, 30) = "ﬂ„Ì«  «” »œ«· »›« Ê—… „‰›–…"
+    .TextMatrix(1, 31) = "ﬂ„Ì«  «” »œ«· »›« Ê—… €Ì— „‰›–…"
+    
+    .TextMatrix(1, 32) = "ﬁÌ„ «” »œ«· »›« Ê—…"
+    .TextMatrix(1, 33) = "ﬁÌ„ «” »œ«· »›« Ê—… „‰›–…"
+    .TextMatrix(1, 34) = "ﬁÌ„ «” »œ«· »›« Ê—… €Ì— „‰›–…"
+    
+    .TextMatrix(1, 35) = "⁄œœ „— Ã⁄ »›« Ê—…"
+    .TextMatrix(1, 36) = "⁄œœ „— Ã⁄ »›« Ê—… „‰›–…"
+    .TextMatrix(1, 37) = "⁄œœ „— Ã⁄ »›« Ê—… €Ì— „‰›–…"
+        
+    .TextMatrix(1, 38) = "ﬂ„Ì«  „— Ã⁄ »›« Ê—…"
+    .TextMatrix(1, 39) = "ﬂ„Ì«  „— Ã⁄ »›« Ê—… „‰›–…"
+    .TextMatrix(1, 40) = "ﬂ„Ì«  „— Ã⁄ »›« Ê—… €Ì— „‰›–…"
+    
+    .TextMatrix(1, 41) = "ﬁÌ„ „— Ã⁄ »›« Ê—…"
+    .TextMatrix(1, 42) = "ﬁÌ„ „— Ã⁄ »›« Ê—… „‰›–…"
+    .TextMatrix(1, 43) = "ﬁÌ„ „— Ã⁄ »›« Ê—… €Ì— „‰›–…"
+    
+    .TextMatrix(1, 44) = "⁄œœ —›÷ «” ·«„"
+    .TextMatrix(1, 45) = "⁄œœ —›÷ «” ·«„ „‰›–…"
+    .TextMatrix(1, 46) = "⁄œœ —›÷ «” ·«„ €Ì— „‰›–…"
+        
+    .TextMatrix(1, 47) = "ﬂ„Ì«  —›÷ «” ·«„"
+    .TextMatrix(1, 48) = "ﬂ„Ì«  —›÷ «” ·«„ „‰›–…"
+    .TextMatrix(1, 49) = "ﬂ„Ì«  —›÷ «” ·«„ €Ì— „‰›–…"
+    
+    .TextMatrix(1, 50) = "ﬁÌ„ —›÷ «” ·«„"
+    .TextMatrix(1, 51) = "ﬁÌ„ —›÷ «” ·«„ „‰›–…"
+    .TextMatrix(1, 52) = "ﬁÌ„ —›÷ «” ·«„ €Ì— „‰›–…"
+        
+    .TextMatrix(1, 53) = "⁄œœ «” »œ«· »œÊ‰ ›« Ê—…"
+    .TextMatrix(1, 54) = "⁄œœ «” »œ«· »œÊ‰ ›« Ê—… „‰›–…"
+    .TextMatrix(1, 55) = "⁄œœ «” »œ«· »œÊ‰ ›« Ê—… €Ì— „‰›–…"
+    
+    .TextMatrix(1, 56) = "ﬂ„Ì«  «” »œ«· »œÊ‰ ›« Ê—…"
+    .TextMatrix(1, 57) = "ﬂ„Ì«  «” »œ«· »œÊ‰ ›« Ê—… „‰›–…"
+    .TextMatrix(1, 58) = "ﬂ„Ì«  «” »œ«· »œÊ‰ ›« Ê—… €Ì— „‰›–…"
+    
+    .TextMatrix(1, 59) = "⁄œœ „— Ã⁄ »œÊ‰ ›« Ê—…"
+    .TextMatrix(1, 60) = "⁄œœ „— Ã⁄ »œÊ‰ ›« Ê—… „‰›–…"
+    .TextMatrix(1, 61) = "⁄œœ „— Ã⁄ »œÊ‰ ›« Ê—… €Ì— „‰›–…"
+    
+    .TextMatrix(1, 62) = "ﬂ„Ì«  „— Ã⁄ »œÊ‰ ›« Ê—…"
+    .TextMatrix(1, 63) = "ﬂ„Ì«  „— Ã⁄ »œÊ‰ ›« Ê—… „‰›–…"
+    .TextMatrix(1, 64) = "ﬂ„Ì«  „— Ã⁄ »œÊ‰ ›« Ê—… €Ì— „‰›–…"
+    
+    .TextMatrix(1, 65) = "⁄œœ «·ÿ·»Ì« "
+    .TextMatrix(1, 66) = "⁄œœ «·ÿ·»Ì«  «·„‰›–…"
+    .TextMatrix(1, 67) = "⁄œœ «·ÿ·»Ì«  «·€Ì—«·„‰›–…"
+    
+    .TextMatrix(1, 68) = "ﬁÌ„ «·ÿ·»Ì« "
+    .TextMatrix(1, 69) = "ﬁÌ„ «·ÿ·»Ì«  «·„‰›–…"
+    .TextMatrix(1, 70) = "ﬁÌ„ «·ÿ·»Ì«  «·€Ì— „‰›–…"
+    
+    
+    
+    .ColWidth(0) = 1300
+        
+    .ColAlignment(0) = flexAlignCenterCenter
+    For i = 1 To .Cols - 1
+        .ColDataType(i) = flexDTDouble
+        .ColAlignment(i) = flexAlignCenterCenter
+        .ColWidth(i) = 1400
+    Next
+            
+            
+    .MergeCells = flexMergeFixedOnly
+    .MergeRow(0) = True
+    .MergeCol(.Cols - 1) = True
+    
+    .SubtotalPosition = flexSTAbove
+
+    For i = 1 To .Cols - 1
         If .ColDataType(i) = flexDTDouble Then
             .Subtotal flexSTSum, -1, i, "##,##", &HC0FFC0, vbBlack, True, "«·≈Ã„«·Ï"
         End If
@@ -1501,21 +1827,21 @@ End Sub
 Private Sub Form_Unload(Cancel As Integer)
 Set grdOnlineDetailsNewfrm = Nothing
 End Sub
-Private Function myValid() As Boolean
-myValid = True
+Private Function MYVALID() As Boolean
+MYVALID = True
 End Function
 Private Sub myPrint(Optional pDevice As String = "", Optional bIgPreview As Boolean = False)
 If grid1.Rows < 3 Then Exit Sub
-Dim arow As Variant, aSub As Variant
+Dim aRow As Variant, aSub As Variant
 
 aSub = AddFlag(Empty, "row", grid1.Rows - 1)
 aSub = AddFlag(aSub, "col", 1)
 aSub = AddFlag(aSub, "cols", 2)
 aSub = AddFlag(aSub, "text", "≈Ã„«·Ì")
-arow = AddFlag(arow, aSub)
+aRow = AddFlag(aRow, aSub)
 
 Set printGrdNew.myForm = Me
-printGrdNew.doprint Me.grid1, 0.75, 0, "ÃÊ‰ÌÊ—", Me.Caption, retHeader(aHeader, 0, 2), , True, True, 8, , arow, Array(1)
+printGrdNew.doprint Me.grid1, 0.75, 0, "ÃÊ‰ÌÊ—", Me.Caption, retHeader(aHeader, 0, 2), , True, True, 8, , aRow, Array(1)
 
 If Not bIgPreview Then
     printGrdNew.Show 1
@@ -1566,63 +1892,64 @@ Private Sub xcode_KeyUp(KeyCode As Integer, Shift As Integer)
 'If KeyCode = 112 Then CLIENTLOOKUP Me, oSearchCode
 End Sub
 Private Sub Grid2_dblClick()
-If grid2.Row < 2 Then
+If GRID2.Row < 2 Then
     Exit Sub
-ElseIf grid2.col = 0 Or grid2.col = 1 Or grid2.col = 2 Or grid2.col = 3 Or grid2.col = 4 Then
+ElseIf GRID2.col = 0 Or GRID2.col = 1 Or GRID2.col = 2 Or GRID2.col = 3 Or GRID2.col = 4 Then
     ShowOrdersfrm.bNoInvoice = False
-    ShowOrdersfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
+    ShowOrdersfrm.sOrder_no = GRID2.TextMatrix(GRID2.Row, 1)
     ShowOrdersfrm.Show 1
-ElseIf grid2.col = 5 Or grid2.col = 6 Then
+ElseIf GRID2.col = 5 Or GRID2.col = 6 Then
     ShowOrdersfrm.bNoInvoice = True
-    ShowOrdersfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
+    ShowOrdersfrm.sOrder_no = GRID2.TextMatrix(GRID2.Row, 1)
     ShowOrdersfrm.Show 1
-ElseIf grid2.col = 7 Or grid2.col = 8 Or grid2.col = 9 Then
-    ShowOrdersInvoicesfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
+ElseIf GRID2.col = 7 Or GRID2.col = 8 Or GRID2.col = 9 Then
+    ShowOrdersInvoicesfrm.sOrder_no = GRID2.TextMatrix(GRID2.Row, 1)
     ShowOrdersInvoicesfrm.Show 1
-ElseIf grid2.col = 11 Then
+ElseIf GRID2.col = 11 Then
     ShowOrdersChargesfrm.sCaption = "≈Ã„«·Ì  Õ’Ì· ÿ·»Ì« "
-    ShowOrdersChargesfrm.sDesca = grid2.TextMatrix(0, grid2.col)
-    ShowOrdersChargesfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
+    ShowOrdersChargesfrm.sDesca = GRID2.TextMatrix(0, GRID2.col)
+    ShowOrdersChargesfrm.sOrder_no = GRID2.TextMatrix(GRID2.Row, 1)
     ShowOrdersChargesfrm.sWhere = "(FLAG = 1 OR FLAG = 3 OR FLAG = 6)"
     ShowOrdersChargesfrm.bIncome = True
     ShowOrdersChargesfrm.Show 1
-ElseIf grid2.col = 12 Then
+ElseIf GRID2.col = 12 Then
     ShowOrdersChargesfrm.sCaption = "⁄„Ê·…  Õ’Ì· ÿ·»Ì« "
-    ShowOrdersChargesfrm.sDesca = grid2.TextMatrix(0, grid2.col)
-    ShowOrdersChargesfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
+    ShowOrdersChargesfrm.sDesca = GRID2.TextMatrix(0, GRID2.col)
+    ShowOrdersChargesfrm.sOrder_no = GRID2.TextMatrix(GRID2.Row, 1)
     ShowOrdersChargesfrm.sWhere = "(FLAG = 2)"
     ShowOrdersChargesfrm.bCharge = True
     ShowOrdersChargesfrm.Show 1
-ElseIf grid2.col = 13 Then
-    ShowOrdersInvoicesfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
+ElseIf GRID2.col = 13 Then
+    ShowOrdersInvoicesfrm.sOrder_no = GRID2.TextMatrix(GRID2.Row, 1)
     ShowOrdersInvoicesfrm.sWhere = "PRINTED = 1"
     ShowOrdersInvoicesfrm.Show 1
-ElseIf grid2.col = 14 Then
+ElseIf GRID2.col = 14 Then
     ShowOrdersChargesfrm.sCaption = "„’«—Ì›  Ê’Ì· ⁄‰œ «·«” ·«„"
-    ShowOrdersChargesfrm.sDesca = grid2.TextMatrix(0, grid2.col)
-    ShowOrdersChargesfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
+    ShowOrdersChargesfrm.sDesca = GRID2.TextMatrix(0, GRID2.col)
+    ShowOrdersChargesfrm.sOrder_no = GRID2.TextMatrix(GRID2.Row, 1)
     ShowOrdersChargesfrm.sWhere = "(FLAG = 7)"
     ShowOrdersChargesfrm.bCharge = True
     ShowOrdersChargesfrm.Show 1
-ElseIf grid2.col = 15 Then
+ElseIf GRID2.col = 15 Then
     ShowOrdersChargesfrm.sCaption = "≈Ã„«·Ì „’«—Ì› ÿ·»Ì…"
-    ShowOrdersChargesfrm.sOrder_No = grid2.TextMatrix(grid2.Row, 1)
+    ShowOrdersChargesfrm.sOrder_no = GRID2.TextMatrix(GRID2.Row, 1)
     ShowOrdersChargesfrm.Show 1
 End If
 End Sub
-Private Sub xdate1_GotFocus()
+
+Private Sub xDate1_GotFocus()
 myGotFocus xDate1
 End Sub
 Private Sub xDate1_LostFocus()
 myLostFocus xDate1
 myValidDate xDate1
 End Sub
-Private Sub xdate2_GotFocus()
-myGotFocus xDate2
+Private Sub xDate2_GotFocus()
+myGotFocus xdate2
 End Sub
 Private Sub xDate2_LostFocus()
-myLostFocus xDate2
-myValidDate xDate2
+myLostFocus xdate2
+myValidDate xdate2
 End Sub
 Private Sub XPO_NO_GotFocus()
 myGotFocus XPO_NO
@@ -1653,10 +1980,10 @@ Private Sub xDoc_No_LostFocus()
 myLostFocus xdoc_no
 End Sub
 Private Sub xship_no_GotFocus()
-myGotFocus xShip_no
+myGotFocus xship_no
 End Sub
 Private Sub xship_no_LostFocus()
-myLostFocus xShip_no
+myLostFocus xship_no
 End Sub
 Private Sub xOrder_no_GotFocus()
 myGotFocus xOrder_No
@@ -1675,12 +2002,12 @@ End If
 
 If IsDate(xDate1.text) Then
     aPrm = AddFlag(aPrm, "DATE1", addDate(xDate1.text))
-    aHeader(1) = BetweenString(xDate1.text, xDate2.text)
+    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
 End If
 
 If IsDate(xDate1.text) Then
-    aPrm = AddFlag(aPrm, "DATE2", addDate(xDate2.text))
-    aHeader(1) = BetweenString(xDate1.text, xDate2.text)
+    aPrm = AddFlag(aPrm, "DATE2", addDate(xdate2.text))
+    aHeader(1) = BetweenString(xDate1.text, xdate2.text)
 End If
 
 If xtype(1).Value Then
@@ -1704,9 +2031,9 @@ If Trim(xOrder_No.text) <> "" Then
     aHeader(4) = "ÿ·»Ì… : " & xOrder_No.text
 End If
 
-If Trim(xShip_no.text) <> "" Then
-    aPrm = AddFlag(aPrm, "SHIP_NO", addstring(xShip_no.text))
-    aHeader(5) = "»Ê·Ì’… ‘Õ‰ : " & xShip_no.text
+If Trim(xship_no.text) <> "" Then
+    aPrm = AddFlag(aPrm, "SHIP_NO", addstring(xship_no.text))
+    aHeader(5) = "»Ê·Ì’… ‘Õ‰ : " & xship_no.text
 End If
 
 Dim cString As String
@@ -1718,11 +2045,11 @@ If bString Then
     Exit Sub
 End If
 
-Set grid2.DataSource = dbm.myRs(cString)
+Set GRID2.DataSource = dbm.myRs(cString)
 Fixgrd2
 End Sub
 Sub Fixgrd2()
-With grid2
+With GRID2
 .RowHeight(0) = 600
 .WordWrap = True
 .TextMatrix(0, 0) = "«· «—ÌŒ"

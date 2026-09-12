@@ -1339,7 +1339,7 @@ End Sub
 Private Sub cmdExcel_Click()
 ToFileExelNew grid1, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption)
 End Sub
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
     Unload Me
 End Sub
 Private Sub CmdUndo_Click()
@@ -1358,17 +1358,7 @@ Set onlineCSVfrm.myForm = Me
 onlineCSVfrm.bNoItems = True
 onlineCSVfrm.Show 1
 End Sub
-
 Private Sub Form_Load()
-    
-'    opt(0).Visible = cBranch = "00"
-'    opt(2).Visible = cBranch = "00"
-'    opt(3).Visible = cBranch = "00"
-'    opt(6).Visible = cBranch = "00"
-    
-'    Check1.Visible = (cBranch = "00")
-'    cmdCSV.Enabled = (cBranch = "00")
-    
 Dim db As New clsDb
 Set xpay.RowSource = db.myRs("SELECT Payment_type " & _
                              "FROM file6_90h " & _
@@ -1377,14 +1367,12 @@ Set xpay.RowSource = db.myRs("SELECT Payment_type " & _
 
 xpay.ListField = "Payment_type"
 xpay.BoundColumn = "Payment_type"
-
-    
 Set xMan.RowSource = db.myRs("SELECT CODE,DESCA FROM FILE6_25 WHERE FILE6_25.BRANCH IN (SELECT FILE0_40.BRANCH FROM FILE0_40 WHERE FILE0_40.online =  1) AND FILE6_25.ISSTOP = 0 ORDER BY CODE")
 xMan.ListField = "Desca"
 xMan.BoundColumn = "Code"
 Set db = Nothing
 
-Fixgrd
+fixGrd
 End Sub
 Public Sub myload()
 Dim i As Double
@@ -1440,29 +1428,13 @@ cString = cString & _
         cWhere = cWhere & Tr(cWhere) & "(FILE6_90H.STAGE = " & cmdStage.Tag & _
                  " OR (FILE6_90H.DOC_NO IN(SELECT ORDER_NO FROM FILE6_90BH WHERE FILE6_90BH.STAGE = " & cmdStage.Tag & ")))"
     End If
-
-'    If opt(2).Value Then
-'        cString = cString & _
-'                 " INNER JOIN vw_online_orders_closed as v on FILE6_90H.DOC_NO = v.ORDER_NO"
-'    ElseIf opt(3).Value Then
-'        cWhere = cWhere & Tr(cWhere) & "CANCELED = 1"
-'    ElseIf opt(4).Value Then
-'        cString = cString & _
-'                 " INNER JOIN vw_online_invoices_open as v on FILE6_90H.DOC_NO = v.ORDER_NO"
-'    ElseIf opt(5).Value Then
-'        cString = cString & _
-'                 " INNER JOIN vw_online_orders_open as v on FILE6_90H.DOC_NO = v.ORDER_NO"
-'    ElseIf opt(6).Value Then
-'        cString = cString & _
-'                 " INNER JOIN vw_online_invoices_closed as v on FILE6_90H.DOC_NO = v.ORDER_NO"
-'    End If
     
-    If xdoc_no.text <> "" Then
-        cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(xdoc_no.text)
+    If XDOC_NO.text <> "" Then
+        cWhere = cWhere & Tr(cWhere) & " [DOC_NO] = " & MyParn(XDOC_NO.text)
     End If
     
-    If xPhone.text <> "" Then
-        cWhere = cWhere & Tr(cWhere) & " [phone] = " & MyParn(xPhone.text)
+    If xphone.text <> "" Then
+        cWhere = cWhere & Tr(cWhere) & " [phone] = " & MyParn(xphone.text)
     End If
     
     If xpay.BoundText <> "" Then
@@ -1474,8 +1446,8 @@ cString = cString & _
         cWhere = cWhere & Tr(cWhere) & "MAN = " & MyParn(xMan.BoundText)
     End If
     
-    If IsDate(xdate1.text) Then
-        cWhere = cWhere & Tr(cWhere) & " [DATE] >= " & DateSq(xdate1.text)
+    If IsDate(xDate1.text) Then
+        cWhere = cWhere & Tr(cWhere) & " [DATE] >= " & DateSq(xDate1.text)
     End If
     
     If IsDate(xdate2.text) Then
@@ -1492,14 +1464,14 @@ cString = cString & _
     'On Error GoTo myerror
     Set grid1.DataSource = myRs(cString)
 End With
-Fixgrd
+fixGrd
 grid1.Cell(flexcpAlignment, 0, 0, grid1.Rows - 1, grid1.Cols - 1) = 7
 Exit Sub
 myerror:
 MsgBox Err.Description
 Err.Clear
 End Sub
-Sub Fixgrd()
+Sub fixGrd()
 With grid1
     .RowHeight(0) = 600
     .WordWrap = True
@@ -1612,7 +1584,7 @@ Private Sub Form_Unload(Cancel As Integer)
     On Error Resume Next
     'closeCon con
     'If cBranch <> "00" Then closeCon con_MyShop
-    SaveText Me, , Array(xdate1.Name, xdate2.Name)
+    SaveText Me, , Array(xDate1.Name, xdate2.Name)
 End Sub
 Private Sub grid1_DblClick()
 If grid1.Row < 1 Or grid1.Row = grid1.Rows - 1 Then Exit Sub
@@ -1669,16 +1641,16 @@ Private Sub SSCommand1_Click()
 End Sub
 
 Private Sub xPhone_GotFocus()
-myGotFocus xPhone
+myGotFocus xphone
 End Sub
 Private Sub XPHONE_LostFocus()
-myLostFocus xPhone
+myLostFocus xphone
 End Sub
 Private Sub xDoc_No_GotFocus()
-myGotFocus xdoc_no
+myGotFocus XDOC_NO
 End Sub
 Private Sub xDoc_No_LostFocus()
-myLostFocus xdoc_no
+myLostFocus XDOC_NO
 End Sub
 Private Sub xDate2_GotFocus()
 myGotFocus xdate2
@@ -1688,11 +1660,11 @@ myLostFocus xdate2
 myValidDate xdate2
 End Sub
 Private Sub xDate1_GotFocus()
-myGotFocus xdate1
+myGotFocus xDate1
 End Sub
 Private Sub xDate1_LostFocus()
-myLostFocus xdate1
-myValidDate xdate1
+myLostFocus xDate1
+myValidDate xDate1
 End Sub
 Private Sub xPay_GotFocus()
 myGotFocus xpay
