@@ -677,6 +677,34 @@ Begin VB.Form orders_clients_sup
          BevelWidth      =   0
          ShapeSize       =   1
       End
+      Begin Threed.SSCommand cmdDelZone 
+         Height          =   330
+         Left            =   5445
+         TabIndex        =   72
+         TabStop         =   0   'False
+         ToolTipText     =   "Õ–›"
+         Top             =   540
+         Width           =   465
+         _ExtentX        =   820
+         _ExtentY        =   582
+         _Version        =   196610
+         BackColor       =   16777215
+         PictureFrames   =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Arial"
+            Size            =   11.25
+            Charset         =   178
+            Weight          =   700
+            Underline       =   -1  'True
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Picture         =   "orders_clients_sup.frx":1F2AB
+         ButtonStyle     =   3
+         BevelWidth      =   0
+         PictureDisabledFrames=   1
+         PictureDisabled =   "orders_clients_sup.frx":2162E
+      End
       Begin VB.Label Label10 
          AutoSize        =   -1  'True
          BackColor       =   &H00FFFFFF&
@@ -1295,13 +1323,13 @@ Begin VB.Form orders_clients_sup
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "orders_clients_sup.frx":1F2AB
+         Picture         =   "orders_clients_sup.frx":238DC
          Caption         =   "√Ê·"
          ButtonStyle     =   3
          PictureAlignment=   10
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "orders_clients_sup.frx":21452
+         PictureDisabled =   "orders_clients_sup.frx":25A83
       End
       Begin Threed.SSCommand cmdPrevious 
          Height          =   420
@@ -1324,13 +1352,13 @@ Begin VB.Form orders_clients_sup
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "orders_clients_sup.frx":23499
+         Picture         =   "orders_clients_sup.frx":27ACA
          Caption         =   "”«»ﬁ"
          ButtonStyle     =   3
          PictureAlignment=   10
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "orders_clients_sup.frx":25584
+         PictureDisabled =   "orders_clients_sup.frx":29BB5
       End
       Begin Threed.SSCommand cmdNext 
          Height          =   420
@@ -1353,13 +1381,13 @@ Begin VB.Form orders_clients_sup
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "orders_clients_sup.frx":2757E
+         Picture         =   "orders_clients_sup.frx":2BBAF
          Caption         =   "·«Õﬁ"
          ButtonStyle     =   3
          PictureAlignment=   9
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "orders_clients_sup.frx":2968F
+         PictureDisabled =   "orders_clients_sup.frx":2DCC0
       End
       Begin Threed.SSCommand cmdLast 
          Height          =   420
@@ -1382,13 +1410,13 @@ Begin VB.Form orders_clients_sup
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Picture         =   "orders_clients_sup.frx":2B689
+         Picture         =   "orders_clients_sup.frx":2FCBA
          Caption         =   "√ŒÌ—"
          ButtonStyle     =   3
          PictureAlignment=   9
          BevelWidth      =   0
          PictureDisabledFrames=   1
-         PictureDisabled =   "orders_clients_sup.frx":2D8AD
+         PictureDisabled =   "orders_clients_sup.frx":31EDE
       End
    End
    Begin VB.Frame Frame6 
@@ -1667,7 +1695,7 @@ With grid1
     Next
 End With
 End Sub
-Sub myProc()
+Public Sub myProc(Optional pFlag As String = "")
 If ActiveControl.Name = cmdInform.Name Then
     openCardTable tbMode.tbFind, osearchDoc.grid1.TextMatrix(osearchDoc.grid1.Row, 0)
     Unload osearchDoc
@@ -1680,8 +1708,10 @@ ElseIf ActiveControl.Name = xOrder_no_Main.Name Then
 ElseIf ActiveControl.Name = xOrder_no_Main.Name Then
     xOrder_no_Main.text = oSearchOrder.grid1.TextMatrix(oSearchOrder.grid1.Row, 0)
     Unload oSearchOrder
+ElseIf pFlag = "PUR_ORDER" Then
+    If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then Exit Sub
 ElseIf ActiveControl.Name = cmdPurOrder.Name Then
-    Set orders_clients_tex.myform = Me
+    Set orders_clients_tex_sup.myform = Me
     orders_clients_tex_sup.sDoc_No = xDoc_No.text
     orders_clients_tex_sup.sdoc_no_copy = oSearchPurOrder.grid1.TextMatrix(oSearchPurOrder.grid1.Row, 0)
     orders_clients_tex_sup.sorder_no_main = xOrder_no_Main.text
@@ -1751,19 +1781,35 @@ Private Sub cmdDelinv_Click()
 If MsgBox("Õ–› ?", vbOKCancel + vbDefaultButton2 + vbCritical) <> vbOK Then Exit Sub
 Dim db As New clsDb
 db.Sql = "Delete From FILE6_50 where Doc_No = " & addstring(xDoc_No.text)
-db.Sql = "Delete From FILE6_50H where Doc_No = " & addstring(xDoc_No.text)
+'db.Sql = "Delete From FILE6_50H where Doc_No = " & addstring(xDoc_No.text)
 If Not db.ExecuteTransaction Then GoTo cleanUp
 
 If sDoc_No <> "" Then Exit Sub
 
-If Not openCardTable(tbMode.tbPrevious, xDoc_No.text) Then
-    If Not openCardTable(tbMode.tbFirst) Then
-        myDefine
-    End If
+If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable Then myDefine
 End If
 cleanUp:
 Set db = Nothing
 End Sub
+Private Sub cmdDelZone_Click()
+If grid1.Rows > 1 Then
+    MsgBox "ÌÊÃœ ”Ã·«  »«·„” ‰œ"
+    Exit Sub
+End If
+If MsgBox("Õ–› ?", vbOKCancel + vbDefaultButton2 + vbCritical) <> vbOK Then Exit Sub
+Dim db As New clsDb
+If Not db.Execute("UPDATE FILE6_50H SET PUR_ORDER = NULL WHERE DOC_NO = " & MyParn(xDoc_No.text)) Then GoTo cleanUp
+
+myInform " „ «·Õ–› »‰Ã«Õ"
+
+If Not openCardTable(tbMode.tbFind, xDoc_No.text) Then
+    If Not openCardTable Then myDefine
+End If
+cleanUp:
+Set db = Nothing
+End Sub
+
 Private Sub cmdExcel_Click()
 Dim aRow As Variant
 aSub = AddFlag(Empty, "row", 0)
@@ -2137,13 +2183,13 @@ xOrder_no_Main.text = CardTable!order_no_main & ""
 xsalesman.BoundText = CardTable!salesman_id & ""
 xMosm.BoundText = CardTable!MOSM & ""
 xcount_model.Caption = CardTable!count_model & ""
-
+XPUR_ORDER.Caption = CardTable!PUR_ORDER & ""
 bIg = True
 xClosed.Value = IIf(CardTable!CLOSED, 1, 0)
 bIg = False
 
 panel1(1).Caption = CardTable!UserName & ""
-'panel1(1).Caption = CardTable!USERNAME2 & " " & myFormat_p(CardTable!TIME2, True)
+
 Handlecontrols LoadMode
 myLoadGrd
 CellPos 13, grid1.Rows - 2, grid1.Cols - 1
@@ -2160,6 +2206,7 @@ xMosm.BoundText = cPMosm
 xCode.BoundText = ""
 xcount_model.Caption = ""
 xtotal_Quant.Caption = ""
+XPUR_ORDER.Caption = ""
 xdesca.text = ""
 
 bIg = True
@@ -2184,6 +2231,7 @@ xClosed.Enabled = bopt1 And nMode = LoadMode
 'cmdFilter.Visible = cmdFilter.Tag <> ""
 cmdNewInv.Enabled = nMode = LoadMode And bedit
 cmddelInv.Enabled = nMode = LoadMode And bEditRecord
+cmdDelZone.Enabled = nMode = LoadMode And bEditRecord
 
 cmdPrint.Enabled = nMode = LoadMode
 cmdSave.Enabled = bEditRecord

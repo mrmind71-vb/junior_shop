@@ -3440,8 +3440,6 @@ Begin VB.Form purchasefrm
          BeginProperty Panel1 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
             Object.Width           =   7056
             MinWidth        =   7056
-            TextSave        =   ""
-            Key             =   ""
             Object.Tag             =   ""
          EndProperty
       EndProperty
@@ -4332,11 +4330,6 @@ Private Sub Form_Load()
     CMD_SENDTRANS.Visible = (cBranch = "00")
     CMD_LOOK2.Visible = lIsBranchStore Or (cBranch = "00")
     GRD_REC.Visible = (cBranch = "00" And myPublic = 0)
-    cmd_exRET.Enabled = bEditRecord
-    cmdCSV.Enabled = bEditRecord
-    cmd_ex.Enabled = bEditRecord
-    reprice_inv.Enabled = bEditRecord
-    CMD_ADDINV.Enabled = bEditRecord
     
     If cBranch = "00" Then
         If myPublic = 0 Or myPublic = 1 Then
@@ -4910,14 +4903,17 @@ Private Sub Handlecontrols(nMode)
     cmdcopy.Enabled = bEdit
     cmdSave.Enabled = (xClosed.Value = 0) And (xReceived.Value = 0) And bEdit
     cmdpast.Enabled = (xClosed.Value = 0) And (xReceived.Value = 0) And bEdit
+    
     If lIsBranchStore Then
         CMD_ACCEPT.Enabled = (XISACCEPT.Value = 0)
     End If
+    
     If cBranch = "00" Then
         CMD_SENDTRANS.Enabled = (xIssend.Value = 0)
     End If
     
     bEditRecord = bEdit And xClosed.Value = 0 And (xReceived.Value = 0)
+    
     cmd_editonest.Enabled = bEditRecord
     cmdAddItems.Enabled = bEditRecord
     cmdpast.Enabled = bEditRecord
@@ -4928,7 +4924,13 @@ Private Sub Handlecontrols(nMode)
     cmd_barcode_fix.Enabled = bEditRecord
     FIX_COST_SALES.Enabled = bEditRecord
     FIX_PRICE.Enabled = bEditRecord
-
+    CMD_ADDINV.Enabled = bEditRecord
+    cmd_exRET.Enabled = bEditRecord
+    cmdCSV.Enabled = bEditRecord
+    cmd_ex.Enabled = bEditRecord
+    reprice_inv.Enabled = bEditRecord
+    CMD_ADDINV.Enabled = bEditRecord
+    
     CmdDelInv.Enabled = nMode = LoadMode And (xClosed.Value = 0) And (xReceived.Value = 0) And beitrecord
     cmdCSV.Enabled = nMode = LoadMode And (xClosed.Value = 0) And (xReceived.Value = 0) And bEditRecord
     cmdAddItems.Enabled = (xClosed.Value = 0) And (xReceived.Value = 0) And bEditRecord

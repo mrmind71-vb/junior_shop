@@ -93,7 +93,12 @@ If cBranch <> "00" Then
     If Len(sStore) = 2 Then sStore = Val(sStore)
     If Len(sStore) = 3 Then sStore = Val(sStore)
     
-    If Not locTable.EOF Then cString = sStore & RetZero(Val(locTable!maxOfDocNo & "") + 1, 3) Else cString = sStore & RetZero(1, 3)
+    If Not locTable.EOF Then
+        cString = sStore & RetZero(Val(locTable!maxOfDocNo & "") + 1, 3)
+    Else
+        cString = sStore & RetZero(1, 3)
+    End If
+        
     NewflagDocRs = RetZero(Day(sDate), 2) & RetZero(Month(sDate), 2) & RetZero(Format(sDate, "YY"), 2) & cString
     locTable.Close
     Set locTable = Nothing
@@ -576,7 +581,7 @@ Myvalue = IIf(Val(pValue & "") = 0, "", pValue)
 If pFormat <> "" Then Myvalue = Format(Myvalue)
 End Function
 Private Sub xDate_Validate(Cancel As Boolean)
-With xDate
+With xdate
 If (Not IsDate(.text)) And Trim(.text) <> "" Then .text = ""
 .text = Format(.text, "dd-mm-yyyy")
 End With
@@ -1009,14 +1014,14 @@ If UBound(aString) >= nPos - 1 Then
     mySplit = aString(nPos - 1)
 End If
 End Function
-Public Function copyGrd(grid1 As Object, GRID2 As Object)
-GRID2.Rows = grid1.FixedRows
-GRID2.Rows = grid1.Rows
-GRID2.Cols = grid1.Cols
+Public Function copyGrd(grid1 As Object, grid2 As Object)
+grid2.Rows = grid1.FixedRows
+grid2.Rows = grid1.Rows
+grid2.Cols = grid1.Cols
 Dim Row As Long, col As Long
 For Row = grid1.FixedRows To grid1.Rows - 1
-    For col = grid1.FixedCols To GRID2.Cols - 1
-        GRID2.TextMatrix(Row, col) = grid1.TextMatrix(Row, col)
+    For col = grid1.FixedCols To grid2.Cols - 1
+        grid2.TextMatrix(Row, col) = grid1.TextMatrix(Row, col)
     Next
 Next
 End Function

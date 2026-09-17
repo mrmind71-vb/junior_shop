@@ -598,7 +598,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Dim nTimes As Integer, nTime, userTable As Recordset
+Dim nTimes As Integer, nTime, userTable As RecordSet
 Dim con As New ADODB.Connection
 Dim nUser As Integer
 Private Enum enUser
@@ -734,7 +734,7 @@ If lShowBranch Then
     GRBRANCH.Visible = True
 Else
     SaveSetting
-    If xEditLogin.value = 1 And bopt2 Then
+    If xEditLogin.Value = 1 And bopt2 Then
         confFrm.Show 1
     Else
         If sBranchCode = "00" Or lSupperVisor Or (cBranch > "60" And bopt2) Then
@@ -757,7 +757,7 @@ LocalError:
     MsgBox Err.Description
     Err.Clear
 End Sub
-Private Sub CmdExit_Click()
+Private Sub cmdExit_Click()
 Unload Me
 End Sub
 Private Sub Form_Activate()
@@ -871,7 +871,7 @@ If strConPICT <> "" Then openConPICT conPict
 
 Set grid1.DataSource = DATA2
 cString = "SELECT MOSM , DESCA FROM MOSM WHERE CLOSED = 0 ORDER BY DATE DESC "
-Set DATA2.Recordset = myRecordSet(cString, con)
+Set DATA2.RecordSet = myRecordSet(cString, con)
 
 Set GRBRANCH.DataSource = DATA3
 If cBranch = "00" Then
@@ -880,7 +880,7 @@ Else
     cString = "SELECT CODE , DESCA FROM  QBRANCH_ALL WHERE CODE = " & MyParn(cBranch)
 End If
 
-Set DATA3.Recordset = myRecordSet(cString, con)
+Set DATA3.RecordSet = myRecordSet(cString, con)
 
 With grid1
     .Cols = 2
@@ -897,11 +897,11 @@ With GRBRANCH
 End With
 
 If lIsBranchStore Then
-    Set DATA1.Recordset = myRecordSet("SELECT * FROM USERS WHERE BRANCH = " & MyParn(cBranch) & " order by desca", con)
+    Set data1.RecordSet = myRecordSet("SELECT * FROM USERS WHERE BRANCH = " & MyParn(cBranch) & " order by desca", con)
 Else
-    Set DATA1.Recordset = myRecordSet("SELECT * FROM USERS WHERE BRANCH IS NULL ORDER BY DESCA ", con)
+    Set data1.RecordSet = myRecordSet("SELECT * FROM USERS WHERE BRANCH IS NULL ORDER BY DESCA ", con)
 End If
-Set xUser.RowSource = DATA1
+Set xUser.RowSource = data1
 xUser.ListField = "Desca"
 xUser.BoundColumn = "Code"
 xUser.BoundText = RetSetting("user", tempPath & "\password.txt")
@@ -982,7 +982,7 @@ Private Sub SSTab1_DblClick()
 End Sub
 
 Private Sub xEditLogin_Click()
-    If xEditLogin.value = 1 And xPass.text = "20122012" Then
+    If xEditLogin.Value = 1 And xPass.text = "20122012" Then
         confFrm.Show 1
     End If
 End Sub
@@ -1363,7 +1363,7 @@ End Function
 
 
 Sub FixAddress()
-Dim locTable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 locTable.Open "select * From Address", con, adOpenStatic, adLockReadOnly
 If Not (locTable.EOF And locTable.BOF) Then
     cComp_Name = locTable!DESCA & ""
@@ -1439,13 +1439,13 @@ Else
     nUser = enUser.User
 End If
 'If DefUser Or True Then
-    servername_vpn = "MRMIND\MRMIND71"
+    'servername_vpn = "MRMIND\MRMIND71"
 'Else
     servername_vpn = "154.236.187.105"
 'End If
 End Sub
 Private Sub HandleOnline()
-Dim locTable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 On Error GoTo myerror
 Set locTable = myRs("SELECT TOP 1 CODE,BRANCH FROM FILE0_40 WHERE ONLINE = 1")
 If Not locTable.EOF Then

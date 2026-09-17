@@ -76,11 +76,11 @@ Begin VB.Form online_stage_invoice_trans
       Width           =   4425
       Begin Threed.SSCommand cmdSend 
          Height          =   600
-         Left            =   90
+         Left            =   45
          TabIndex        =   19
          Top             =   180
-         Width           =   4335
-         _ExtentX        =   7646
+         Width           =   4380
+         _ExtentX        =   7726
          _ExtentY        =   1058
          _Version        =   196610
          ForeColor       =   0
@@ -728,13 +728,13 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Public sOrder_No As String
+Public sOrder_no As String
 Public sDoc_no As String
 Public myForm As Form
 Dim bStopCell As Boolean
 
 Private Sub cmdAccept_Click()
-If myValid Then
+If MYVALID Then
     Dim con As New ADODB.Connection
     nCount = rsEx("update file6_90bh " & _
             "set date1 = " & addDate(xDate1.text) & _
@@ -750,7 +750,7 @@ Private Sub cmdExit_Click()
 Unload Me
 End Sub
 Private Sub cmdSendInvoice_Click()
-If Not myValid Then Exit Sub
+If Not MYVALID Then Exit Sub
 Dim sNewDoc As String
 If xtype.Tag = "1" Or xtype.Tag = 3 Then
     sNewDoc = myReplaceOnline
@@ -761,7 +761,8 @@ myForm.myload
 Unload Me
 End Sub
 Private Sub cmdsend_Click()
-If myValid Then
+If MYVALID Then
+    cmdSend.Enabled = False
     Me.MousePointer = vbHourglass
     If xtype.Tag = "0" Or xtype.Tag = "1" Or xtype.Tag = "2" Or xtype.Tag = 3 Then
         Dim sDoc_New As String
@@ -783,14 +784,16 @@ If myValid Then
         End If
     End If
     Me.MousePointer = vbNormal
+    cmdSend.Enabled = True
 End If
 End Sub
+
 Private Sub Form_Load()
 Set xship.RowSource = myRs("SELECT CODE,DESCA FROM SHIP ORDER BY  STOPED,DESCA")
 xship.ListField = "DESCA"
 xship.BoundColumn = "CODE"
 
-Fixgrd
+fixGrd
 fixGrdTotal
 myAddItem
 
@@ -824,7 +827,7 @@ cString = "SELECT v.ITEM," & _
           " From vw_online_items v" & _
           " INNER JOIN FILE1_10 ON v.ITEM = FILE1_10.ITEM " & _
           " INNER JOIN FACT ON FILE1_10.code = FACT.CODE " & _
-          " WHERE v.ORDER_NO = " & MyParn(sOrder_No) & _
+          " WHERE v.ORDER_NO = " & MyParn(sOrder_no) & _
           " AND v.DOC_NO = " & Val(sDoc_no)
 
 cString = cString & _
@@ -837,9 +840,9 @@ cString = cString & _
 
 On Error GoTo myerror
 
-Set grid2.DataSource = myRs(cString)
+Set GRID2.DataSource = myRs(cString)
 Finally:
-Set loctable = Nothing
+Set locTable = Nothing
 Exit Sub
 myerror:
 MsgBox Err.Description
@@ -847,7 +850,7 @@ Err.Clear
 Resume Finally
 End Sub
 Sub Fixgrd2()
-With grid2
+With GRID2
     .RowHeight(0) = 600
     '.Cols = 13
     .TextMatrix(0, 0) = "ﬂÊœ"
@@ -871,7 +874,7 @@ With grid2
     .ColWidth(5) = 1000
     .ColWidth(6) = 1000
     
-    .ColWidth(grid2.Cols - 1) = 1000
+    .ColWidth(GRID2.Cols - 1) = 1000
     
     
     Dim i As Long
@@ -887,7 +890,7 @@ With grid2
     .Subtotal flexSTSum, -1, .Cols - 1, "#", &HE0E0E0, , True, "«·≈Ã„«·Ì"
 End With
 End Sub
-Sub Fixgrd()
+Sub fixGrd()
 With grid1
     .RowHeight(0) = 600
     .TextMatrix(0, 0) = "ﬂÊœ"
@@ -912,7 +915,7 @@ End With
 End Sub
 Private Sub myLoadDiffer()
 Dim i As Long
-With grid2
+With GRID2
 
 .Subtotal flexSTClear
 If .Rows < 2 Then Exit Sub
@@ -921,14 +924,14 @@ For i = 1 To .Rows - 1
     nFound = grdTotal.FindRow(.TextMatrix(i, 0), , 0)
     If nFound = -1 Then
          .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = vbWhite
-         .TextMatrix(i, grid2.Cols - 2) = 0
-         .TextMatrix(i, grid2.Cols - 1) = .ValueMatrix(i, 6)
+         .TextMatrix(i, GRID2.Cols - 2) = 0
+         .TextMatrix(i, GRID2.Cols - 1) = .ValueMatrix(i, 6)
     Else
-        .TextMatrix(i, grid2.Cols - 2) = grdTotal.ValueMatrix(nFound, 1)
-        .TextMatrix(i, grid2.Cols - 1) = .ValueMatrix(i, 6) - .ValueMatrix(i, grid2.Cols - 2)
-        If .ValueMatrix(i, grid2.Cols - 1) = 0 Then
+        .TextMatrix(i, GRID2.Cols - 2) = grdTotal.ValueMatrix(nFound, 1)
+        .TextMatrix(i, GRID2.Cols - 1) = .ValueMatrix(i, 6) - .ValueMatrix(i, GRID2.Cols - 2)
+        If .ValueMatrix(i, GRID2.Cols - 1) = 0 Then
             .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &HC0FFC0
-        ElseIf .ValueMatrix(i, grid2.Cols - 1) > 0 Then
+        ElseIf .ValueMatrix(i, GRID2.Cols - 1) > 0 Then
             .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &H80FFFF
         Else
             .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &H8080FF
@@ -939,14 +942,14 @@ End With
 
 With grid1
 For i = 1 To .Rows - 2
-    nFound = grid2.FindRow(.TextMatrix(i, 0), , 0)
+    nFound = GRID2.FindRow(.TextMatrix(i, 0), , 0)
     If nFound = -1 Then
         .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &H8080FF
         '.TextMatrix(i, 5) = "e1"
     Else
-        If grid2.ValueMatrix(nFound, grid2.Cols - 1) = 0 Then
+        If GRID2.ValueMatrix(nFound, GRID2.Cols - 1) = 0 Then
             .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &HC0FFC0
-        ElseIf grid2.ValueMatrix(nFound, grid2.Cols - 1) > 0 Then
+        ElseIf GRID2.ValueMatrix(nFound, GRID2.Cols - 1) > 0 Then
             .Cell(flexcpBackColor, i, 0, i, .Cols - 1) = &H80FFFF
              '.TextMatrix(i, 8) = "w"
         Else
@@ -972,7 +975,7 @@ If Row = grid1.Rows - 1 Then
 End If
 
 myLoadGrdTotal
-Fixgrd
+fixGrd
 End Sub
 Private Sub grid1_EnterCell()
 If grid1.col = 0 Or grid1.col = 5 Then
@@ -997,7 +1000,7 @@ With grid1
     
     If Trim(sitem) = "" Then Exit Function
                
-    Dim loctable As New ADODB.Recordset
+    Dim locTable As New ADODB.RecordSet
     Dim cString As String
     cString = "SELECT FILE1_10.ITEM," & _
           "FACT.DESCA AS FACT," & _
@@ -1009,13 +1012,13 @@ With grid1
           "ON FILE1_10.code = FACT.CODE " & _
           "WHERE FILE1_10.ITEM = " & sitem
     
-    Set loctable = myRs(cString)
-    If loctable.EOF Then Exit Function
+    Set locTable = myRs(cString)
+    If locTable.EOF Then Exit Function
     
-    .TextMatrix(Row, 1) = loctable!Fact & ""
-    .TextMatrix(Row, 2) = loctable!DESCA & ""
-    .TextMatrix(Row, 3) = loctable!color & ""
-    .TextMatrix(Row, 4) = loctable!SCAL & ""
+    .TextMatrix(Row, 1) = locTable!Fact & ""
+    .TextMatrix(Row, 2) = locTable!DESCA & ""
+    .TextMatrix(Row, 3) = locTable!color & ""
+    .TextMatrix(Row, 4) = locTable!SCAL & ""
     If .TextMatrix(Row, 0) = "" Then .TextMatrix(Row, 5) = 1
     GrdDesc = True
 End With
@@ -1074,7 +1077,7 @@ ElseIf KeyCode = 46 And grid1.Row <> grid1.Rows - 1 Then
     If MsgBox("Õ–› „‰ «·„” ‰œ ?, Â· «‰  „Ê«›ﬁ ø", vbOKCancel) = vbOK Then
         myRemove grid1.Row
         myLoadGrdTotal
-        Fixgrd
+        fixGrd
         bStopCell = True
     End If
 End If
@@ -1137,7 +1140,7 @@ With grdTotal
 End With
 End Sub
 Private Sub myload()
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 Dim strSql As String
 strSql = "SELECT v.ORDER_NO," & _
           " NULLIF(v.DOC_NO,0) AS DOC_NO," & _
@@ -1152,35 +1155,35 @@ strSql = "SELECT v.ORDER_NO," & _
           " FROM vw_online_order v " & _
           " INNER JOIN STAGES_CODES ON v.STAGE = STAGES_CODES.CODE" & _
           " LEFT JOIN FILE6_25 ON v.MAN = FILE6_25.CODE" & _
-          " WHERE v.ORDER_NO = " & MyParn(sOrder_No) & _
+          " WHERE v.ORDER_NO = " & MyParn(sOrder_no) & _
           " AND v.doc_no = " & Val(sDoc_no)
 
 On Error GoTo myerror
-Set loctable = myRs(strSql)
-If Not loctable.EOF Then
-    xorder_no.Caption = loctable!ORDER_NO & ""
-    XDOC_NO.Caption = loctable!DOC_NO & ""
-    xDate.Caption = myFormat_p(loctable!Date)
-    xtype.Caption = loctable!TYPE_dESCA
-    xtype.Tag = loctable!Type
-    xDate.Caption = myFormat_p(loctable!Date)
-    xship_no.text = loctable!ship_no & ""
-    xship.BoundText = loctable!SHIP & ""
-    If loctable!Type = 0 Or loctable!Type = 1 Then
+Set locTable = myRs(strSql)
+If Not locTable.EOF Then
+    xOrder_No.Caption = locTable!ORDER_NO & ""
+    xdoc_no.Caption = locTable!doc_no & ""
+    xDate.Caption = myFormat_p(locTable!Date)
+    xtype.Caption = locTable!TYPE_dESCA
+    xtype.Tag = locTable!Type
+    xDate.Caption = myFormat_p(locTable!Date)
+    xship_no.text = locTable!ship_no & ""
+    xship.BoundText = locTable!SHIP & ""
+    If locTable!Type = 0 Or locTable!Type = 1 Then
         cmdSend.Caption = " ÕÊÌ· «·Ì „»Ì⁄« "
-    ElseIf loctable!Type = 2 Then
+    ElseIf locTable!Type = 2 Then
         cmdSend.Caption = " ÕÊÌ· «·Ì „— Ã⁄"
-    ElseIf loctable!Type = 3 Then
+    ElseIf locTable!Type = 3 Then
         cmdSend.Caption = "«—”«· ··«” »œ«·"
-    ElseIf loctable!Type = 4 Then
+    ElseIf locTable!Type = 4 Then
         cmdSend.Caption = "«” »œ«· «·„— Ã⁄"
     End If
     
-    lbldoc.Visible = loctable!Type <> 0
-    XDOC_NO.Visible = loctable!Type <> 0
+    lbldoc.Visible = locTable!Type <> 0
+    xdoc_no.Visible = locTable!Type <> 0
 End If
 Finally:
-Set loctable = Nothing
+Set locTable = Nothing
 Exit Sub
 myerror:
 MsgBox Err.Description
@@ -1216,18 +1219,26 @@ Private Function myReplaceOnline() As String
               " FILE6_90H.PAYMENT_ID" & _
               " FROM FILE6_90H " & _
               " INNER JOIN vw_online_order v ON v.ORDER_NO =  FILE6_90H.DOC_NO " & _
-              " WHERE v.ORDER_NO = " & MyParn(sOrder_No) & _
+              " WHERE v.ORDER_NO = " & MyParn(sOrder_no) & _
               " AND v.DOC_NO = " & sDoc_no
     
     On Error GoTo myerror
     
     Dim con As New ADODB.Connection
-    If Not openCn(con) Then Exit Function
+    If Not opencn(con) Then Exit Function
     
-    Dim loctable As New ADODB.Recordset
-    Set loctable = myRs(cString.GetAsString, con)
+    Dim rsSource As New ADODB.RecordSet
+    Set rsSource = myRs("select total_item," & _
+                        " total_quant " & _
+                        " from vw_online_order " & _
+                        " where order_no = " & MyParn(sOrder_no) & _
+                        " and doc_no =  " & sDoc_no)
+                        
     
-    If loctable.EOF And loctable.BOF Then
+    Dim locTable As New ADODB.RecordSet
+    Set locTable = myRs(cString.GetAsString, con)
+            
+    If locTable.EOF And locTable.BOF Then
         MsgBox "«·„” ‰œ €Ì— „”Ã·"
         Exit Function
     End If
@@ -1235,7 +1246,7 @@ Private Function myReplaceOnline() As String
     sDate = rsDateBranch(sBranchOnline)
     sDoc_New = NewflagDocRs(sDate, cManBox)
     
-    sMan = loctable!MAN & ""
+    sMan = locTable!MAN & ""
  
     aInsert = AddFlag(Empty, "[doc_no]", addstring(sDoc_New))
     aInsert = AddFlag(aInsert, "CODE", addstring("0000"))
@@ -1243,43 +1254,42 @@ Private Function myReplaceOnline() As String
     aInsert = AddFlag(aInsert, "STORE", addstring(sStoreOnline))
     aInsert = AddFlag(aInsert, "BRANCH", addstring(sBranchOnline))
     aInsert = AddFlag(aInsert, "BOX", addstring(cManBox))
-    aInsert = AddFlag(aInsert, "DISCOUNT", IIf(xtype.Tag = "0" Or xtype.Tag = "1", 1, -1) * Val(loctable!discount))
+    aInsert = AddFlag(aInsert, "DISCOUNT", IIf(xtype.Tag = "0" Or xtype.Tag = "1", 1, -1) * Val(locTable!discount))
     aInsert = AddFlag(aInsert, "USERNAME", addstring(cUserName))
-    aInsert = AddFlag(aInsert, "MAN", addstring(loctable!MAN))
-    aInsert = AddFlag(aInsert, "PHONE", addstring(loctable!phone))
-    aInsert = AddFlag(aInsert, "PAYMENT_ID", addstring(loctable!PAYMENT_ID))
+    aInsert = AddFlag(aInsert, "MAN", addstring(locTable!MAN))
+    aInsert = AddFlag(aInsert, "PHONE", addstring(locTable!Phone))
+    aInsert = AddFlag(aInsert, "PAYMENT_ID", addstring(locTable!PAYMENT_ID))
     
-    aInsert = AddFlag(aInsert, "INV_TYPE_ONLINE", loctable!Type)
-    aInsert = AddFlag(aInsert, "ONLINE_DOC", addstring(loctable!ORDER_NO))
-    aInsert = AddFlag(aInsert, "SALES_RET", addstring(loctable!SALES_RET))
+    aInsert = AddFlag(aInsert, "INV_TYPE_ONLINE", locTable!Type)
+    aInsert = AddFlag(aInsert, "ONLINE_DOC", addstring(locTable!ORDER_NO))
+    aInsert = AddFlag(aInsert, "SALES_RET", addstring(locTable!SALES_RET))
     
-    If Val(loctable!discount & "") <> 0 Then
+    If Val(locTable!discount & "") <> 0 Then
         aInsert = AddFlag(aInsert, "username_disc", addstring("«Ê‰·«Ì‰"))
-        aInsert = AddFlag(aInsert, "NOTE_DISC", addstring(loctable!discount_code))
+        aInsert = AddFlag(aInsert, "NOTE_DISC", addstring(locTable!discount_code))
     End If
     
     aInsert = AddFlag(aInsert, "ONLINE", "2")
     aInsert = AddFlag(aInsert, "USER_IP", addstring(GetComputerName))
     
-    cAddress = loctable!Shipping_City & ""
-    If loctable!Street & "" <> "" Then cAddress = cAddress & Tr(cAddress, " ") & loctable!Street
+    cAddress = locTable!Shipping_City & ""
+    If locTable!Street & "" <> "" Then cAddress = cAddress & Tr(cAddress, " ") & locTable!Street
     
     aInsert = AddFlag(aInsert, "ADDRESS", addstring(cAddress))
-    aInsert = AddFlag(aInsert, "[NAME]", addstring(loctable!Name))
+    aInsert = AddFlag(aInsert, "[NAME]", addstring(locTable!Name))
     
-    aInsert = AddFlag(aInsert, "[CHARGE2]", IIf(xtype.Tag = "0" Or xtype.Tag = "1", 1, -1) * Val(loctable!charge2 & ""))
+    aInsert = AddFlag(aInsert, "[CHARGE2]", IIf(xtype.Tag = "0" Or xtype.Tag = "1", 1, -1) * Val(locTable!charge2 & ""))
     
     If xtype.Tag <> "0" Then
         aInsert = AddFlag(aInsert, "[doc_no_online]", addvalue(sDoc_no))
     End If
         
-    aInsert = AddFlag(aInsert, "[city]", addstring(loctable!city))
-    aInsert = AddFlag(aInsert, "[Shipping_City]", addstring(loctable!Shipping_City))
-    aInsert = AddFlag(aInsert, "[street]", addstring(loctable!Street))
-    aInsert = AddFlag(aInsert, "[Payment_Method]", addstring(loctable!Payment_Method))
+    aInsert = AddFlag(aInsert, "[city]", addstring(locTable!city))
+    aInsert = AddFlag(aInsert, "[Shipping_City]", addstring(locTable!Shipping_City))
+    aInsert = AddFlag(aInsert, "[street]", addstring(locTable!Street))
+    aInsert = AddFlag(aInsert, "[Payment_Method]", addstring(locTable!Payment_Method))
     aInsert = AddFlag(aInsert, "[ship_no]", addstring(xship_no.text))
     aInsert = AddFlag(aInsert, "[ship]", addstring(xship.BoundText))
-    'aInsert = AddFlag(aInsert, "[ISCLOSED]", "1")
     
     con.BeginTrans
     con.Execute addInsert(aInsert, "FILE6_20H"), nAffect
@@ -1296,34 +1306,58 @@ Private Function myReplaceOnline() As String
             "v.DISCOUNT_OFFER" & _
             " FROM vw_online_items v" & _
             " INNER JOIN FILE1_10 f ON v.ITEM = f.ITEM" & _
-            " WHERE v.ORDER_NO = " & MyParn(sOrder_No) & _
+            " WHERE v.ORDER_NO = " & MyParn(sOrder_no) & _
             " and v.doc_no = " & sDoc_no
     
-    Set loctable = New ADODB.Recordset
-    Set loctable = myRs(strSql, con)
-    Do Until loctable.EOF
+    Set locTable = New ADODB.RecordSet
+    Set locTable = myRs(strSql, con)
+    Do Until locTable.EOF
         aInsert = AddFlag(Empty, "DOC_NO", addstring(sDoc_New))
-        aInsert = AddFlag(aInsert, "ITEM", loctable!Item)
-        aInsert = AddFlag(aInsert, "QUANT", IIf(xtype.Tag = "0" Or xtype.Tag = "1", 1, -1) * Val(loctable!Quant))
-        aInsert = AddFlag(aInsert, "PRICE", Val(loctable!price))
+        aInsert = AddFlag(aInsert, "ITEM", locTable!Item)
+        aInsert = AddFlag(aInsert, "QUANT", IIf(xtype.Tag = "0" Or xtype.Tag = "1", 1, -1) * Val(locTable!Quant))
+        aInsert = AddFlag(aInsert, "PRICE", Val(locTable!price))
         aInsert = AddFlag(aInsert, "MAN", addstring(sMan))
         aInsert = AddFlag(aInsert, "USER_IP", addstring(addstring(GetComputerName)))
-        aInsert = AddFlag(aInsert, "PRICE_C", Val(loctable!price_c & ""))
-        aInsert = AddFlag(aInsert, "COST", Val(loctable!costitem & ""))
-        aInsert = AddFlag(aInsert, "DOC_OFFER", addstring(loctable!DOC_OFFER))
-        aInsert = AddFlag(aInsert, "OFFER_NO", addstring(loctable!OFFER_NO))
-        aInsert = AddFlag(aInsert, "DISCOUNT_OFFER", IIf(xtype.Tag = "0" Or xtype.Tag = "1", Val(loctable!DISCOUNT_OFFER & ""), -1 * Val(loctable!DISCOUNT_OFFER & "")))
+        aInsert = AddFlag(aInsert, "PRICE_C", Val(locTable!price_c & ""))
+        aInsert = AddFlag(aInsert, "COST", Val(locTable!costitem & ""))
+        aInsert = AddFlag(aInsert, "DOC_OFFER", addstring(locTable!DOC_OFFER))
+        aInsert = AddFlag(aInsert, "OFFER_NO", addstring(locTable!OFFER_NO))
+        aInsert = AddFlag(aInsert, "DISCOUNT_OFFER", IIf(xtype.Tag = "0" Or xtype.Tag = "1", Val(locTable!DISCOUNT_OFFER & ""), -1 * Val(locTable!DISCOUNT_OFFER & "")))
+        aInsert = AddFlag(aInsert, "FROM_ONLINE", "1")
         
         con.Execute addInsert(aInsert, "FILE6_20"), nAffect
-        loctable.MoveNext
+        locTable.MoveNext
     Loop
+
+    Dim rsTarget As New ADODB.RecordSet
+    Set rsTarget = myRs("select sum(total) as total," & _
+                        "sum(quant) as quant " & _
+                        " from file6_20 where doc_no = " & MyParn(sDoc_New), con)
+
+    If rsTarget.EOF Then
+        MsgBox "·„ Ì „ «÷«›… «Ì «’‰«›"
+        GoTo myCancel
+    End If
+    
+    If Not rsSource.EOF Then
+        If rsSource!total_Quant <> rsTarget!Quant * IIf(xtype.Tag = "0" Or xtype.Tag = "1", 1, -1) Then
+            MsgBox "ﬂ„Ì… «·›« Ê—… ·« ”«ÊÌ ﬂ„»Ì… «·ÿ·»Ì…"
+            GoTo myCancel
+        End If
+    
+        If rsSource!total_item <> rsTarget!TOTAL * IIf(xtype.Tag = "0" Or xtype.Tag = "1", 1, -1) Then
+            MsgBox "≈Ã„«·Ì ﬁÌ„… «’‰«› «·›« Ê—… ·« ”«ÊÌ ﬁÌ„… «’‰«› «·ÿ·»Ì…"
+            GoTo myCancel
+        End If
+    End If
+    
 
     If Not IsNull(rsValue("SELECT DOC_NO FROM FILE6_20H WHERE DOC_NO = " & MyParn(sDoc_New), con)) Then
         If sDoc_no = "0" Then
             con.Execute " UPDATE FILE6_90H " & _
                         "  SET SALES_DOC = " & addstring(sDoc_New) & _
                         ", SALES_DATE = " & addDate(sDate) & _
-                        " WHERE DOC_NO = " & MyParn(sOrder_No)
+                        " WHERE DOC_NO = " & MyParn(sOrder_no)
         Else
             con.Execute " UPDATE FILE6_90BH " & _
                         "  SET INV_NO = " & addstring(sDoc_New) & _
@@ -1331,6 +1365,8 @@ Private Function myReplaceOnline() As String
                         " WHERE DOC_NO = " & sDoc_no
         End If
     End If
+    
+    
     con.CommitTrans
     myReplaceOnline = sDoc_New
 Finally:
@@ -1338,11 +1374,12 @@ closeCon con
 Exit Function
 myerror:
 MsgBox Err.Description
+myCancel:
 If TransCount(con) > 0 Then con.RollbackTrans
 Err.Clear
 Resume Finally
 End Function
-Private Function myValid() As Boolean
+Private Function MYVALID() As Boolean
 Dim i As Long
 Dim nFound As Long
 If Trim(xship_no.text) = "" Then
@@ -1362,12 +1399,12 @@ End If
 
 If cBranch <> sBranchOnline Then
    MsgBox "«·›—⁄ ·Ì” ›—⁄ «Ê‰·«Ì‰"
-   Exit Function
+   'Exit Function
 End If
 
 With grid1
 For i = 1 To .Rows - 2
-    nFound = grid2.FindRow(.TextMatrix(i, 0), , 0)
+    nFound = GRID2.FindRow(.TextMatrix(i, 0), , 0)
     If nFound = -1 Then
         MsgBox "«·’‰› " & .TextMatrix(i, 0) & " €Ì— „ÊÃÊœ ›Ï «·ÿ·»Ì…"
         Exit Function
@@ -1375,26 +1412,26 @@ For i = 1 To .Rows - 2
 Next
 End With
 
-With grid2
+With GRID2
 For i = 1 To .Rows - 2
     nFound = grid1.FindRow(.TextMatrix(i, 0), , 0)
     If nFound = -1 Then
         'If MsgBox("«·’‰› " & .TextMatrix(i, 0) & " ·„ Ì”Ã· ›Ï «·›« Ê—…", vbOKCancel + vbDefaultButton2) <> vbOK Then Exit Function
         MsgBox "«·’‰› " & .TextMatrix(i, 0) & " ·„ Ì”Ã· ›Ï «·›« Ê—…"
         Exit Function
-    ElseIf .TextMatrix(i, grid2.Cols - 1) < 0 Then
-        MsgBox "«·’‰› " & .TextMatrix(i, 0) & " «ﬂ»— „‰ «·›« Ê—… » " & Abs(.ValueMatrix(i, grid2.Cols - 1))
+    ElseIf .TextMatrix(i, GRID2.Cols - 1) < 0 Then
+        MsgBox "«·’‰› " & .TextMatrix(i, 0) & " «ﬂ»— „‰ «·›« Ê—… » " & Abs(.ValueMatrix(i, GRID2.Cols - 1))
         Exit Function
-    ElseIf .TextMatrix(i, grid2.Cols - 1) > 0 Then
-       MsgBox "«·’‰› " & .TextMatrix(i, 0) & " «ﬁ· „‰ «·›« Ê—… » " & Abs(.ValueMatrix(i, grid2.Cols - 1))
+    ElseIf .TextMatrix(i, GRID2.Cols - 1) > 0 Then
+       MsgBox "«·’‰› " & .TextMatrix(i, 0) & " «ﬁ· „‰ «·›« Ê—… » " & Abs(.ValueMatrix(i, GRID2.Cols - 1))
        Exit Function
     End If
 Next
-myValid = True
+MYVALID = True
 End With
 End Function
 Private Sub grid2_EnterCell()
-grid2.Editable = flexEDKbdMouse
+GRID2.Editable = flexEDKbdMouse
 End Sub
 Private Sub xdate1_Change()
 cmdAccept.Enabled = IsDate(xDate1.text)
@@ -1402,6 +1439,6 @@ End Sub
 
 Private Sub xorder_no_Click()
 Clipboard.Clear
-Clipboard.SetText xorder_no.Caption
+Clipboard.SetText xOrder_No.Caption
 Inform " „ «·‰”Œ"
 End Sub

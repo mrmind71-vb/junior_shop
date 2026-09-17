@@ -812,9 +812,9 @@ Dim strSql As String
 strSql = "SELECT * " & _
          " FROM VW_ITEMS_ORDERS " & _
          " WHERE ITEM IN(" & sb.GetAsString & ")"
-Dim itemTable As ADODB.RecordSet
-Set itemTable = db.myRs(strSql)
-If itemTable Is Nothing Then GoTo cleanUp
+Dim ItemTable As ADODB.RecordSet
+Set ItemTable = db.myRs(strSql)
+If ItemTable Is Nothing Then GoTo cleanUp
 
 
 strSql = "SELECT * " & _
@@ -869,16 +869,16 @@ Do Until sourceTable.EOF
             grid2.TextMatrix(grid2.Rows - 1, 9) = IIf(locTable!balance > 0, locTable!balance, 0)
         End If
     Else
-       itemTable.Find "ITEM = " & MyParn(sourceTable!item), , adSearchForward, adBookmarkFirst
-       If Not itemTable.EOF Then
+       ItemTable.Find "ITEM = " & MyParn(sourceTable!item), , adSearchForward, adBookmarkFirst
+       If Not ItemTable.EOF Then
            grid3.AddItem ""
            grid3.TextMatrix(grid3.Rows - 1, 0) = grid2.Rows - 1
-           grid3.TextMatrix(grid3.Rows - 1, 1) = itemTable!item & ""
-           grid3.TextMatrix(grid3.Rows - 1, 2) = itemTable!desca & ""
-           grid3.TextMatrix(grid3.Rows - 1, 3) = itemTable!model & ""
-           grid3.TextMatrix(grid3.Rows - 1, 4) = itemTable!color & ""
-           grid3.TextMatrix(grid3.Rows - 1, 5) = itemTable!SCAL & ""
-           grid3.TextMatrix(grid3.Rows - 1, 6) = itemTable!price & ""
+           grid3.TextMatrix(grid3.Rows - 1, 1) = ItemTable!item & ""
+           grid3.TextMatrix(grid3.Rows - 1, 2) = ItemTable!desca & ""
+           grid3.TextMatrix(grid3.Rows - 1, 3) = ItemTable!model & ""
+           grid3.TextMatrix(grid3.Rows - 1, 4) = ItemTable!color & ""
+           grid3.TextMatrix(grid3.Rows - 1, 5) = ItemTable!SCAL & ""
+           grid3.TextMatrix(grid3.Rows - 1, 6) = ItemTable!price & ""
            grid3.TextMatrix(grid3.Rows - 1, 7) = 0
            grid3.TextMatrix(grid3.Rows - 1, 8) = nQuant
            grid3.TextMatrix(grid3.Rows - 1, 9) = 0
