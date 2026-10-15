@@ -370,7 +370,7 @@ addvalue = IIf(IsNumeric(pValue & ""), pValue, "null")
 End Function
 Function RetSeek(pTable, pIndex, pFind, pField) As String
 If Trim(pFind) = "" Then Exit Function
-Dim loctable As New ADODB.Recordset
+Dim loctable As New ADODB.RecordSet
 loctable.CursorLocation = adUseServer
 loctable.index = pIndex
 loctable.Open pTable, con, adOpenDynamic, adLockOptimistic, adCmdTableDirect

@@ -609,7 +609,7 @@ User = 0
 End Enum
 Private Sub cmdApply_Click()
 'On Error GoTo LOCALERROR
-If Not xUser.MatchedWithList Then Exit Sub
+If Not XUSER.MatchedWithList Then Exit Sub
 cComputerName = GetComputerName
 If UCase(Trim(xPass.text)) = "DATA@2023" Or (Trim(xPass.text)) = "jun!0R@95" Or DefUser Then
 'If UCase(Trim(xPass.text)) = "1" Then
@@ -660,7 +660,7 @@ ElseIf UCase(Trim(xPass.text)) = UCase("Aymen@Junior") Then
     grid1.Visible = True
     lSupperVisor = True
 Else
-    nusercode = GetDesca("select code from users where Code = " & xUser.BoundText & " and password Like " & MyParn(LCase(Trim(xPass.text))), con)
+    nusercode = GetDesca("select code from users where Code = " & XUSER.BoundText & " and password Like " & MyParn(LCase(Trim(xPass.text))), con)
     If nusercode = "" Then
        nTime = nTime + 1
        If nTime = nTimes Then
@@ -757,7 +757,7 @@ LocalError:
     MsgBox Err.Description
     Err.Clear
 End Sub
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub Form_Activate()
@@ -873,14 +873,14 @@ Set grid1.DataSource = DATA2
 cString = "SELECT MOSM , DESCA FROM MOSM WHERE CLOSED = 0 ORDER BY DATE DESC "
 Set DATA2.RecordSet = myRecordSet(cString, con)
 
-Set GRBRANCH.DataSource = DATA3
+Set GRBRANCH.DataSource = data3
 If cBranch = "00" Then
     cString = "SELECT CODE , DESCA FROM  QBRANCH_ALL WHERE CODE <> '00' AND DATA IS NOT NULL ORDER BY CODE"
 Else
     cString = "SELECT CODE , DESCA FROM  QBRANCH_ALL WHERE CODE = " & MyParn(cBranch)
 End If
 
-Set DATA3.RecordSet = myRecordSet(cString, con)
+Set data3.RecordSet = myRecordSet(cString, con)
 
 With grid1
     .Cols = 2
@@ -901,10 +901,10 @@ If lIsBranchStore Then
 Else
     Set data1.RecordSet = myRecordSet("SELECT * FROM USERS WHERE BRANCH IS NULL ORDER BY DESCA ", con)
 End If
-Set xUser.RowSource = data1
-xUser.ListField = "Desca"
-xUser.BoundColumn = "Code"
-xUser.BoundText = RetSetting("user", tempPath & "\password.txt")
+Set XUSER.RowSource = data1
+XUSER.ListField = "Desca"
+XUSER.BoundColumn = "Code"
+XUSER.BoundText = RetSetting("user", tempPath & "\password.txt")
 
 Set rsBranch = createRs(cmd("select * from branch where code = " & MyParn(cBranch), con).Execute)
 Set rsBranches = createRs(cmd("select * from BRANCH", con).Execute)
@@ -1008,7 +1008,7 @@ Private Sub xPass_MouseDown(Button As Integer, Shift As Integer, X As Single, Y 
     Err.Clear
 End Sub
 Private Sub xUser_Click(Area As Integer)
-If Not xUser.MatchedWithList Then xUser.BoundText = ""
+If Not XUSER.MatchedWithList Then XUSER.BoundText = ""
 'CmdApply.Enabled = xUser.BoundText <> ""
 End Sub
 
@@ -1017,8 +1017,8 @@ Private Sub xUser_GotFocus()
 End Sub
 
 Private Sub xUser_LostFocus()
-If Not xUser.MatchedWithList Then xUser.BoundText = ""
-myLostFocus xUser
+If Not XUSER.MatchedWithList Then XUSER.BoundText = ""
+myLostFocus XUSER
 'CmdApply.Enabled = xUser.BoundText <> ""
 End Sub
 Private Sub myLoadVar()
@@ -1032,7 +1032,7 @@ closeCon con
 Set PassWord = Nothing
 End Sub
 Private Sub SaveSetting()
-addSetting "user", xUser.BoundText, tempPath & "\password.txt"
+addSetting "user", XUSER.BoundText, tempPath & "\password.txt"
 End Sub
 Private Sub grid1_DblClick()
     On Error GoTo myerror
@@ -1399,7 +1399,7 @@ sMarker = "GO"
 For i = 2 To 10
     success = sb.LoadFile(App.Path & "\sql_fix\fix" & i & ".sql", "utf-8")
     If success = 1 Then
-        Do Until sb.length = 0
+        Do Until sb.Length = 0
             cString = sb.GetBefore(sMarker, True)
             If cString <> "" Then
                 'On Error Resume Next
@@ -1439,9 +1439,9 @@ Else
     nUser = enUser.User
 End If
 'If DefUser Or True Then
-    'servername_vpn = "MRMIND\MRMIND71"
+    servername_vpn = "MRMIND\MRMIND71"
 'Else
-    servername_vpn = "154.236.187.105"
+    'servername_vpn = "154.236.187.105"
 'End If
 End Sub
 Private Sub HandleOnline()

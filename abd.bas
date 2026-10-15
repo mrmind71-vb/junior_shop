@@ -5,14 +5,14 @@ Public contemp As New ADODB.Connection, consec As New ADODB.Connection, condef A
 Public bSupermode As Boolean
 Public aBranch As Variant
 Public searchArray
-Function NewFlag(sTable, cField, pCon As ADODB.Connection, Optional pWhere As String = "") As Long
+Function Newflag(sTable, cField, pCon As ADODB.Connection, Optional pWhere As String = "") As Long
 Dim locTable As New ADODB.RecordSet
 Dim cSql As String
 cSql = "Select Max(" & cField & ") as Maxof From " & sTable
 If pWhere <> "" Then cSql = cSql & " where " & pWhere
 locTable.Open cSql, pCon, adOpenStatic, adLockReadOnly, adCmdText
 If Not (locTable.EOF And locTable.BOF) Then
-    NewFlag = Val(locTable!maxOf & "") + 1
+    Newflag = Val(locTable!maxOf & "") + 1
 End If
 locTable.Close
 Set locTable = Nothing
@@ -581,7 +581,7 @@ Myvalue = IIf(Val(pValue & "") = 0, "", pValue)
 If pFormat <> "" Then Myvalue = Format(Myvalue)
 End Function
 Private Sub xDate_Validate(Cancel As Boolean)
-With xdate
+With xDate
 If (Not IsDate(.text)) And Trim(.text) <> "" Then .text = ""
 .text = Format(.text, "dd-mm-yyyy")
 End With
@@ -969,7 +969,7 @@ Public Function Tr(pString As Variant, Optional pReturn As String = " AND ") As 
 Tr = IIf(Trim(pString & "") = "", "", pReturn)
 End Function
 Public Function Ts(sb As ChilkatStringBuilder, Optional pReturn As String = " AND ") As String
-Ts = IIf(sb.length = 0, "", pReturn)
+Ts = IIf(sb.Length = 0, "", pReturn)
 End Function
 Sub SaveImageToDB(pPic As Picture, rs As ADODB.RecordSet, pColName As String)
 Dim pb As PropertyBag
@@ -1014,19 +1014,19 @@ If UBound(aString) >= nPos - 1 Then
     mySplit = aString(nPos - 1)
 End If
 End Function
-Public Function copyGrd(grid1 As Object, grid2 As Object)
-grid2.Rows = grid1.FixedRows
-grid2.Rows = grid1.Rows
-grid2.Cols = grid1.Cols
+Public Function copyGrd(grid1 As Object, GRID2 As Object)
+GRID2.Rows = grid1.FixedRows
+GRID2.Rows = grid1.Rows
+GRID2.Cols = grid1.Cols
 Dim Row As Long, col As Long
 For Row = grid1.FixedRows To grid1.Rows - 1
-    For col = grid1.FixedCols To grid2.Cols - 1
-        grid2.TextMatrix(Row, col) = grid1.TextMatrix(Row, col)
+    For col = grid1.FixedCols To GRID2.Cols - 1
+        GRID2.TextMatrix(Row, col) = grid1.TextMatrix(Row, col)
     Next
 Next
 End Function
 Public Function DefUser() As Boolean
-DefUser = RetSetting("DefUser", "C:\USERS\Users.txt") = "1"
+'DefUser = RetSetting("DefUser", "C:\USERS\Users.txt") = "1"
 End Function
 Function isNum(pNumber As Variant) As Boolean
 If Round(Val(pNumber & ""), 0) & "" <> Trim(pNumber & "") Then Exit Function

@@ -2,7 +2,7 @@ VERSION 5.00
 Begin VB.Form receipt_companyfrm 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "÷»ÿ «⁄œ«œ   ÿ»Ìﬁ «·„Õ„Ê·"
-   ClientHeight    =   4410
+   ClientHeight    =   4440
    ClientLeft      =   -15
    ClientTop       =   435
    ClientWidth     =   11685
@@ -20,7 +20,7 @@ Begin VB.Form receipt_companyfrm
    MaxButton       =   0   'False
    MinButton       =   0   'False
    RightToLeft     =   -1  'True
-   ScaleHeight     =   4410
+   ScaleHeight     =   4440
    ScaleWidth      =   11685
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default

@@ -89,6 +89,7 @@ Begin VB.Form Security
       _ExtentY        =   8837
       _Version        =   393216
       Tabs            =   10
+      Tab             =   7
       TabsPerRow      =   10
       TabHeight       =   520
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -102,9 +103,8 @@ Begin VB.Form Security
       EndProperty
       TabCaption(0)   =   "«Œ—Ì"
       TabPicture(0)   =   "Security2.frx":0000
-      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "Grid1(9)"
-      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).ControlCount=   1
       TabCaption(1)   =   "Œœ„« "
       TabPicture(1)   =   "Security2.frx":001C
@@ -138,8 +138,9 @@ Begin VB.Form Security
       Tab(6).ControlCount=   1
       TabCaption(7)   =   "„Ê—œÌ‰"
       TabPicture(7)   =   "Security2.frx":00C4
-      Tab(7).ControlEnabled=   0   'False
+      Tab(7).ControlEnabled=   -1  'True
       Tab(7).Control(0)=   "Grid1(2)"
+      Tab(7).Control(0).Enabled=   0   'False
       Tab(7).ControlCount=   1
       TabCaption(8)   =   "⁄„·«¡"
       TabPicture(8)   =   "Security2.frx":00E0
@@ -338,7 +339,7 @@ Begin VB.Form Security
       Begin VSFlex7LCtl.VSFlexGrid Grid1 
          Height          =   4605
          Index           =   2
-         Left            =   -74955
+         Left            =   45
          TabIndex        =   32
          TabStop         =   0   'False
          Top             =   360
@@ -707,7 +708,7 @@ Begin VB.Form Security
       Begin VSFlex7LCtl.VSFlexGrid Grid1 
          Height          =   4605
          Index           =   9
-         Left            =   45
+         Left            =   -74955
          TabIndex        =   36
          Top             =   360
          Width           =   9780
@@ -2014,7 +2015,7 @@ End If
 
 
 sBound = xStore.BoundText
-DATA3.connectionString = strCon
+DATA3.ConnectionString = strCon
 
 If XBRANCH.BoundText = "" Then
     If cBranch = "00" Or lIsBranchStore Then

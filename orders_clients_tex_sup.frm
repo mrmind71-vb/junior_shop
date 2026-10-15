@@ -201,10 +201,10 @@ Begin VB.Form orders_clients_tex_sup
       TabCaption(1)   =   "ÇÕäÇÝ ÑÕíÏåÇ ÇÞá ãä ÇáØáÈíÉ Çæ ÈÏæä ÑÕíÏ"
       TabPicture(1)   =   "orders_clients_tex_sup.frx":103EE
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Option2(0)"
-      Tab(1).Control(1)=   "Option2(1)"
-      Tab(1).Control(2)=   "Option2(2)"
-      Tab(1).Control(3)=   "grid2"
+      Tab(1).Control(0)=   "grid2"
+      Tab(1).Control(1)=   "Option2(2)"
+      Tab(1).Control(2)=   "Option2(1)"
+      Tab(1).Control(3)=   "Option2(0)"
       Tab(1).ControlCount=   4
       TabCaption(2)   =   "ÇÕäÇÝ ÕÇáÍÉ ááØáÈíÉ"
       TabPicture(2)   =   "orders_clients_tex_sup.frx":1040A
@@ -670,10 +670,10 @@ End Sub
 Private Sub cmdExcel_Click()
 If SSTab1.Tab = 1 Then
     ToFileExelNew grid1, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption, SSTab1.TabCaption(1))
-ElseIf SSTab1.Tab = 1 = 2 Then
+ElseIf SSTab1.Tab = 2 Then
     ToFileExelNew grid2, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption, SSTab1.TabCaption(2))
-ElseIf SSTab1.Tab = 1 = 3 Then
-    ToFileExelNew grid3, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption, SSTab1.TabCaption(3))
+ElseIf SSTab1.Tab = 3 Then
+    ToFileExelNew Grid3, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption, SSTab1.TabCaption(3))
 End If
 End Sub
 Private Sub CmdExit_Click()
@@ -686,7 +686,7 @@ If SSTab1.Tab = 1 Then
 ElseIf SSTab1.Tab = 2 Then
     printGrdNew.doPrint grid2, 0.85, 0, "ÌæäíæÑ", Me.Caption, ArbString(retHeader(aHeader, 0, 5)), SSTab1.TabCaption(2), False, True, 10
 ElseIf SSTab1.Tab = 3 Then
-    printGrdNew.doPrint grid3, 0.95, 0, "ÌæäíæÑ", Me.Caption, ArbString(retHeader(aHeader, 0, 5)), SSTab1.TabCaption(2), False, False, 10
+    printGrdNew.doPrint Grid3, 0.95, 0, "ÌæäíæÑ", Me.Caption, ArbString(retHeader(aHeader, 0, 5)), SSTab1.TabCaption(2), False, False, 10
 End If
 printGrdNew.Show 1
 End Sub
@@ -697,18 +697,19 @@ Dim i As Long
 prog1.Visible = True
 Dim db As New clsDb
 Dim sb As New ChilkatStringBuilder
+
+db.myform = Me
+
 Dim nCount As Long
-For i = 1 To .Rows - 1
+For i = 1 To .Rows - 2
     Me.Caption = sCaption & " - " & "ÓÌá " & (i + 1) & " ãä " & grid1.Rows - 1
     prog1.Value = Round(i / (.Rows - 1), 2) * 100
-    
     If nCount >= 1000 Then
         sb.Prepend "insert into file6_50(doc_no,ITEM,MODEL,QUANT,PRICE)" & _
                    "VALUES"
         db.Sql = sb.GetAsString
         sb.Clear
         nCount = 1
-        Exit For
     Else
         nCount = nCount + 1
     End If
@@ -733,6 +734,7 @@ db.Sql = "UPDATE FILE6_50H " & _
          " SET  FILE6_50H.Pur_Order = " & MyParn(sdoc_no_copy) & _
          ", CHANGED = 1 " & _
          " WHERE DOC_NO = " & MyParn(sDoc_No)
+
 If Not db.ExecuteTransaction Then GoTo cleanUp
 
 End With
@@ -754,17 +756,16 @@ End Sub
 Private Sub Form_Load()
 Fixgrd1
 Fixgrd2
-Fixgrd3
+fixgrd3
 myload
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
-Set dbm = Nothing
-Set orders_clients_csv = Nothing
+Set orders_clients_tex_sup = Nothing
 End Sub
 Private Sub grid3_DblClick()
-If grid3.col = 1 And grid3.Row > 0 Then
+If Grid3.col = 1 And Grid3.Row > 0 Then
     Clipboard.Clear
-    Clipboard.SetText grid3.TextMatrix(grid3.Row, grid3.col)
+    Clipboard.SetText Grid3.TextMatrix(Grid3.Row, Grid3.col)
     Inform "Êã ÇáäÓÎ"
 End If
 End Sub
@@ -780,8 +781,8 @@ grid1.Redraw = flexRDNone
 grid2.Rows = 1
 grid2.Redraw = flexRDNone
 
-grid3.Rows = 1
-grid3.Redraw = flexRDNone
+Grid3.Rows = 1
+Grid3.Redraw = flexRDNone
 
 
 Dim dbTex As New clsDb
@@ -793,8 +794,7 @@ Set sourceTable = dbTex.myRs("SELECT FILE6_50.QUANT," & _
                              " FROM FILE6_50 " & _
                              " INNER JOIN FILE1_10 ON FILE6_50.ITEM = FILE1_10.ITEM " & _
                              " WHERE FILE6_50.DOC_NO = " & MyParn(sdoc_no_copy))
-                             
-If sourceTable Is Nothing Then GoTo cleanUp
+If dbTex.Error Then Exit Function
 If sourceTable.EOF Then GoTo cleanUp
 
 Dim sb As New ChilkatStringBuilder
@@ -821,83 +821,83 @@ strSql = "SELECT * " & _
           " FROM vw_items_orders_sup" & _
           " where doc_no = " & MyParn(sorder_no_main)
 
-Dim locTable As ADODB.RecordSet
-Set locTable = db.myRs(strSql): If locTable Is Nothing Then GoTo cleanUp
+Dim loctable As ADODB.RecordSet
+Set loctable = db.myRs(strSql): If loctable Is Nothing Then GoTo cleanUp
 
 prog1.Visible = True
 Do Until sourceTable.EOF
-    Me.Caption = sCaption & " - " & "ÓÌá " & (i + 1) & " ãä " & locTable.RecordCount
+    Me.Caption = sCaption & " - " & "ÓÌá " & (i + 1) & " ãä " & loctable.RecordCount
     prog1.Value = Round(i / sourceTable.RecordCount, 2) * 100
-    locTable.Find "ITEM = " & MyParn(sourceTable!item), , adSearchForward, adBookmarkFirst
-    If Not locTable.EOF Then
-        If locTable!ISDOZ Then
+    loctable.Find "ITEM = " & MyParn(sourceTable!item), , adSearchForward, adBookmarkFirst
+    If Not loctable.EOF Then
+        If loctable!ISDOZ Then
             nQuant = Round(sourceTable!Quant / 12, 2)
         Else
             nQuant = sourceTable!Quant
         End If
         
-        If Val(locTable!balance) > 0 Or Not locTable!check_Bal Then
+        If Val(loctable!balance) > 0 Or Not loctable!check_Bal Then
             grid1.AddItem ""
             grid1.TextMatrix(grid1.Rows - 1, 0) = grid1.Rows - 1
-            grid1.TextMatrix(grid1.Rows - 1, 1) = locTable!item & ""
-            grid1.TextMatrix(grid1.Rows - 1, 2) = locTable!desca & ""
-            grid1.TextMatrix(grid1.Rows - 1, 3) = locTable!model & ""
-            grid1.TextMatrix(grid1.Rows - 1, 4) = locTable!color & ""
-            grid1.TextMatrix(grid1.Rows - 1, 5) = locTable!SCAL & ""
-            grid1.TextMatrix(grid1.Rows - 1, 6) = locTable!price & ""
-            grid1.TextMatrix(grid1.Rows - 1, 7) = locTable!balance
+            grid1.TextMatrix(grid1.Rows - 1, 1) = loctable!item & ""
+            grid1.TextMatrix(grid1.Rows - 1, 2) = loctable!desca & ""
+            grid1.TextMatrix(grid1.Rows - 1, 3) = loctable!model & ""
+            grid1.TextMatrix(grid1.Rows - 1, 4) = loctable!color & ""
+            grid1.TextMatrix(grid1.Rows - 1, 5) = loctable!SCAL & ""
+            grid1.TextMatrix(grid1.Rows - 1, 6) = loctable!price & ""
+            grid1.TextMatrix(grid1.Rows - 1, 7) = loctable!balance
             grid1.TextMatrix(grid1.Rows - 1, 8) = nQuant
-            If Val(locTable!balance) >= nQuant Or Not locTable!check_Bal Then
+            If Val(loctable!balance) >= nQuant Or Not loctable!check_Bal Then
                 grid1.TextMatrix(grid1.Rows - 1, 9) = nQuant
             Else
-                grid1.TextMatrix(grid1.Rows - 1, 9) = Val(locTable!balance)
+                grid1.TextMatrix(grid1.Rows - 1, 9) = Val(loctable!balance)
             End If
-            grid1.TextMatrix(grid1.Rows - 1, 10) = IIf(locTable!check_Bal, 1, 0)
+            grid1.TextMatrix(grid1.Rows - 1, 10) = IIf(loctable!check_Bal, 1, 0)
         End If
         
-        If Val(locTable!balance) < nQuant And locTable!check_Bal Then
+        If Val(loctable!balance) < nQuant And loctable!check_Bal Then
             grid2.AddItem ""
             grid2.TextMatrix(grid2.Rows - 1, 0) = grid2.Rows - 1
-            grid2.TextMatrix(grid2.Rows - 1, 1) = locTable!item & ""
-            grid2.TextMatrix(grid2.Rows - 1, 2) = locTable!desca & ""
-            grid2.TextMatrix(grid2.Rows - 1, 3) = locTable!model & ""
-            grid2.TextMatrix(grid2.Rows - 1, 4) = locTable!color & ""
-            grid2.TextMatrix(grid2.Rows - 1, 5) = locTable!SCAL & ""
-            grid2.TextMatrix(grid2.Rows - 1, 6) = locTable!price & ""
-            grid2.TextMatrix(grid2.Rows - 1, 7) = locTable!balance
+            grid2.TextMatrix(grid2.Rows - 1, 1) = loctable!item & ""
+            grid2.TextMatrix(grid2.Rows - 1, 2) = loctable!desca & ""
+            grid2.TextMatrix(grid2.Rows - 1, 3) = loctable!model & ""
+            grid2.TextMatrix(grid2.Rows - 1, 4) = loctable!color & ""
+            grid2.TextMatrix(grid2.Rows - 1, 5) = loctable!SCAL & ""
+            grid2.TextMatrix(grid2.Rows - 1, 6) = loctable!price & ""
+            grid2.TextMatrix(grid2.Rows - 1, 7) = loctable!balance
             grid2.TextMatrix(grid2.Rows - 1, 8) = nQuant
-            grid2.TextMatrix(grid2.Rows - 1, 9) = IIf(locTable!balance > 0, locTable!balance, 0)
+            grid2.TextMatrix(grid2.Rows - 1, 9) = IIf(loctable!balance > 0, loctable!balance, 0)
         End If
     Else
        ItemTable.Find "ITEM = " & MyParn(sourceTable!item), , adSearchForward, adBookmarkFirst
        If Not ItemTable.EOF Then
-           grid3.AddItem ""
-           grid3.TextMatrix(grid3.Rows - 1, 0) = grid2.Rows - 1
-           grid3.TextMatrix(grid3.Rows - 1, 1) = ItemTable!item & ""
-           grid3.TextMatrix(grid3.Rows - 1, 2) = ItemTable!desca & ""
-           grid3.TextMatrix(grid3.Rows - 1, 3) = ItemTable!model & ""
-           grid3.TextMatrix(grid3.Rows - 1, 4) = ItemTable!color & ""
-           grid3.TextMatrix(grid3.Rows - 1, 5) = ItemTable!SCAL & ""
-           grid3.TextMatrix(grid3.Rows - 1, 6) = ItemTable!price & ""
-           grid3.TextMatrix(grid3.Rows - 1, 7) = 0
-           grid3.TextMatrix(grid3.Rows - 1, 8) = nQuant
-           grid3.TextMatrix(grid3.Rows - 1, 9) = 0
+           Grid3.AddItem ""
+           Grid3.TextMatrix(Grid3.Rows - 1, 0) = grid2.Rows - 1
+           Grid3.TextMatrix(Grid3.Rows - 1, 1) = ItemTable!item & ""
+           Grid3.TextMatrix(Grid3.Rows - 1, 2) = ItemTable!desca & ""
+           Grid3.TextMatrix(Grid3.Rows - 1, 3) = ItemTable!model & ""
+           Grid3.TextMatrix(Grid3.Rows - 1, 4) = ItemTable!color & ""
+           Grid3.TextMatrix(Grid3.Rows - 1, 5) = ItemTable!SCAL & ""
+           Grid3.TextMatrix(Grid3.Rows - 1, 6) = ItemTable!price & ""
+           Grid3.TextMatrix(Grid3.Rows - 1, 7) = 0
+           Grid3.TextMatrix(Grid3.Rows - 1, 8) = nQuant
+           Grid3.TextMatrix(Grid3.Rows - 1, 9) = 0
        Else
-           grid3.AddItem ""
-           grid3.TextMatrix(grid3.Rows - 1, 0) = grid3.Rows - 1
-           grid3.TextMatrix(grid3.Rows - 1, 1) = sItem
-           grid3.TextMatrix(grid3.Rows - 1, 9) = nQuant
+           Grid3.AddItem ""
+           Grid3.TextMatrix(Grid3.Rows - 1, 0) = Grid3.Rows - 1
+           Grid3.TextMatrix(Grid3.Rows - 1, 1) = sourceTable!item
+           Grid3.TextMatrix(Grid3.Rows - 1, 9) = nQuant
        End If
     End If
     sourceTable.MoveNext
 Loop
 cleanUp:
 Set sourceTable = Nothing
-Set locTable = Nothing
+Set loctable = Nothing
 
 grid1.Redraw = flexRDBuffered
 grid2.Redraw = flexRDBuffered
-grid3.Redraw = flexRDBuffered
+Grid3.Redraw = flexRDBuffered
 Fixgrd1
 Fixgrd2
 prog1.Visible = False
@@ -959,6 +959,12 @@ For i = 1 To .Rows - 1
         .RowHidden(i) = False
     End If
 Next
+.SubtotalPosition = flexSTBelow
+.Subtotal flexSTSum, -1, 7, "##0.00", , RGB(255, 0, 0), True
+.Subtotal flexSTSum, -1, 8, "##0.00", , RGB(255, 0, 0), True
+.Subtotal flexSTSum, -1, 9, "##0.00", , RGB(255, 0, 0), True
+
+
 .Redraw = flexRDBuffered
 End With
 End Sub
@@ -1014,8 +1020,8 @@ Next
 
 End With
 End Sub
-Private Sub Fixgrd3()
-With grid3
+Private Sub fixgrd3()
+With Grid3
 .Redraw = flexRDNone
 
 .RowHeight(0) = 500

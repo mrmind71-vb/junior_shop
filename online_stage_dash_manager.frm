@@ -868,7 +868,7 @@ Begin VB.Form online_stage_manager
       MergeCompare    =   0
       AutoResize      =   0   'False
       AutoSizeMode    =   0
-      AutoSearch      =   0
+      AutoSearch      =   1
       AutoSearchDelay =   2
       MultiTotals     =   -1  'True
       SubtotalPosition=   1
@@ -1244,7 +1244,7 @@ cString = "SELECT TOP 1 " & _
         " AND MAN = " & MyParn(sManCode) & _
         "  ORDER BY PR_ORDER, DATE,PAYMOB DESC"
 
-aret = rsValues(cString, con)
+aret = rsvalues(cString, con)
 
 Dim sStage As String
 If Not IsNull(aret) Then
@@ -1256,7 +1256,7 @@ Else
             " FROM vw_online_order " & _
             " WHERE vw_online_order.STAGE = 1" & _
             " ORDER BY PR_ORDER, DATE,PAYMOB DESC"
-    aret = rsValues(cString, con)
+    aret = rsvalues(cString, con)
 End If
 
 If Not IsNull(aret) Then
@@ -1357,6 +1357,7 @@ If grdError.Row > 1 Then
     oPassword.Show 1
 End If
 End Sub
+
 Private Sub grdRefund_DblClick()
 If grdRefund.Row > 1 Then
     online_stage_invoice_trans.sOrder_no = grdRefund.TextMatrix(grdRefund.Row, 0)
