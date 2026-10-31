@@ -1014,19 +1014,19 @@ If UBound(aString) >= nPos - 1 Then
     mySplit = aString(nPos - 1)
 End If
 End Function
-Public Function copyGrd(grid1 As Object, GRID2 As Object)
-GRID2.Rows = grid1.FixedRows
-GRID2.Rows = grid1.Rows
-GRID2.Cols = grid1.Cols
+Public Function copyGrd(grid1 As Object, grid2 As Object)
+grid2.Rows = grid1.FixedRows
+grid2.Rows = grid1.Rows
+grid2.Cols = grid1.Cols
 Dim Row As Long, col As Long
 For Row = grid1.FixedRows To grid1.Rows - 1
-    For col = grid1.FixedCols To GRID2.Cols - 1
-        GRID2.TextMatrix(Row, col) = grid1.TextMatrix(Row, col)
+    For col = grid1.FixedCols To grid2.Cols - 1
+        grid2.TextMatrix(Row, col) = grid1.TextMatrix(Row, col)
     Next
 Next
 End Function
 Public Function DefUser() As Boolean
-'DefUser = RetSetting("DefUser", "C:\USERS\Users.txt") = "1"
+DefUser = RetSetting("DefUser", "C:\USERS\Users.txt") = "1"
 End Function
 Function isNum(pNumber As Variant) As Boolean
 If Round(Val(pNumber & ""), 0) & "" <> Trim(pNumber & "") Then Exit Function

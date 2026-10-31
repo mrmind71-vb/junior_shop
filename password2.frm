@@ -869,18 +869,18 @@ strConPICT = LoadConStringPICT
 If strConPICT <> "" Then openConPICT conPict
 
 
-Set grid1.DataSource = DATA2
+Set grid1.DataSource = data2
 cString = "SELECT MOSM , DESCA FROM MOSM WHERE CLOSED = 0 ORDER BY DATE DESC "
-Set DATA2.RecordSet = myRecordSet(cString, con)
+Set data2.RecordSet = myRecordSet(cString, con)
 
-Set GRBRANCH.DataSource = data3
+Set GRBRANCH.DataSource = DATA3
 If cBranch = "00" Then
     cString = "SELECT CODE , DESCA FROM  QBRANCH_ALL WHERE CODE <> '00' AND DATA IS NOT NULL ORDER BY CODE"
 Else
     cString = "SELECT CODE , DESCA FROM  QBRANCH_ALL WHERE CODE = " & MyParn(cBranch)
 End If
 
-Set data3.RecordSet = myRecordSet(cString, con)
+Set DATA3.RecordSet = myRecordSet(cString, con)
 
 With grid1
     .Cols = 2
@@ -1441,7 +1441,7 @@ End If
 'If DefUser Or True Then
     servername_vpn = "MRMIND\MRMIND71"
 'Else
-    'servername_vpn = "154.236.187.105"
+    servername_vpn = "154.236.187.105"
 'End If
 End Sub
 Private Sub HandleOnline()

@@ -274,14 +274,14 @@ If cBranch = "00" Then
     Exit Function
 End If
 
-Dim locTable As New ADODB.RecordSet
+Dim loctable As New ADODB.RecordSet
 Dim cString As String
-Set locTable = cmd("SELECT dSales FROM DSALES" & _
+Set loctable = cmd("SELECT dSales FROM DSALES" & _
             " WHERE BRANCH = " & MyParn(cBranch), con).Execute
-If Not locTable.EOF Then
-    fnDateSales = myFormat(locTable!dSales)
+If Not loctable.EOF Then
+    fnDateSales = myFormat(loctable!dSales)
 End If
-locTable.Close
+loctable.Close
 End Function
 Public Function rsDateBranch(Optional pBranch As String, Optional con As ADODB.Connection) As String
 If pBranch = "00" Then
@@ -305,19 +305,19 @@ fnBalance = Val(cmBalance.Parameters("@BALANCE") & "")
 Set cmBalance = Nothing
 End Function
 Public Function rsBalance(pItem As String, Optional pstore As String = "", Optional pDate As String = "", Optional pId As String = "") As Long
-Dim locTable As New ADODB.RecordSet
+Dim loctable As New ADODB.RecordSet
 Dim aPrm As Variant
 aPrm = AddFlag(aPrm, "ITEM", pItem)
 If pstore <> "" Then aPrm = AddFlag(aPrm, "STORE", pstore)
 If IsDate(pDate) Then aPrm = AddFlag(aPrm, "DATE", myFormat_sp(pDate))
 If pId <> "" Then aPrm = AddFlag(aPrm, "ID", pId)
 
-Set locTable = myRs("dbo.sp_balance_rs", , , adStoredProc, aPrm)
-If Not locTable.EOF Then
-    rsBalance = Val(locTable!balance & "")
+Set loctable = myRs("dbo.sp_balance_rs", , , adStoredProc, aPrm)
+If Not loctable.EOF Then
+    rsBalance = Val(loctable!BALANCE & "")
 End If
-locTable.Close
-Set locTable = Nothing
+loctable.Close
+Set loctable = Nothing
 End Function
 Public Function IsFormOpen(ByVal FormName As String) As Boolean
     Dim frm As Form
@@ -530,8 +530,8 @@ For i = 1 To pGrid.Rows - 1
 Next
 ValidMinus = True
 End Function
-Public Function fn_order_Sates(sOrder_No As String, sType As String) As Variant
-Dim locTable As New ADODB.RecordSet
+Public Function fn_order_Sates(sOrder_no As String, sType As String) As Variant
+Dim loctable As New ADODB.RecordSet
 Dim aPrm As Variant
 'aPrm = AddFlag(Empty, "DOC_NO", sOrder_no)
 'aPrm = AddFlag(aPrm, "DOC_NO", sOrder_no)
@@ -777,7 +777,17 @@ oSearch.nMax_records = 1000
 oSearch.Caption = "≈” ⁄·«„ «·«ﬁ”«„"
 oSearch.Show 1
 End Sub
-
+Public Function LoadConStringfact()
+Dim cServerName As String, cUserId As String, cPassword As String, sCatalogFACT As String
+cServerName = RetSetting("server", App.Path & "\conffact.txt")
+cUserId = decrypt(RetSetting("userId", App.Path & "\conffact.txt"), "dr")
+cPassword = decrypt(RetSetting("Password", App.Path & "\conffact.txt"), "dr")
+sCatalogFACT = RetSetting("Catalog", App.Path & "\conffact.txt")
+If cServerName = "" Then cServerName = "."
+cServerName = MyParn(cServerName & turn(cExpress, "\") & cExpress)
+LoadConStringfact = "provider=SQLOLEDB;data source=" & cServerName & ";initial " _
+        & "catalog=" & sCatalogFACT & ";user id = " & cUserId & ";" & "password = " & cPassword & ";Timeout=10"
+End Function
 
 
 

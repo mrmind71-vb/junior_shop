@@ -27,11 +27,11 @@ pError = Err.Description
 Err.Clear
 End Function
 Private Function CreateIssuer(con As ADODB.Connection, ByRef json As ChilkatJsonObject, ByRef pError As String) As Boolean
-Dim loctable As ADODB.Recordset
+Dim locTable As ADODB.RecordSet
 
 On Error GoTo myerror
-Set loctable = mycmd("select * from SettingCompany", con)
-If loctable.EOF Then
+Set locTable = mycmd("select * from SettingCompany", con)
+If locTable.EOF Then
     pError = "Invoice data user not found"
     Exit Function
 End If
@@ -45,20 +45,20 @@ success = Juser.AddObjectAt(-1, "address")
 Dim Detail As ChilkatJsonObject
 Set Detail = Juser.ObjectAt(Juser.Size - 1)
 
-success = Detail.AddStringAt(-1, "branchID", loctable!branchId & "")
-success = Detail.AddStringAt(-1, "country", loctable!Country & "")
-success = Detail.AddStringAt(-1, "governate", loctable!GOVERNATE & "")
-success = Detail.AddStringAt(-1, "regionCity", loctable!RegionCity & "")
-success = Detail.AddStringAt(-1, "street", loctable!Street & "")
-success = Detail.AddStringAt(-1, "buildingNumber", loctable!building & "")
-success = Detail.AddStringAt(-1, "postalCode", loctable!Postal & "")
-success = Detail.AddStringAt(-1, "floor", loctable!Floor & "")
-success = Detail.AddStringAt(-1, "landmark", loctable!LandMark & "")
-success = Detail.AddStringAt(-1, "additionalInformation", loctable!Additional & "")
+success = Detail.AddStringAt(-1, "branchID", locTable!branchId & "")
+success = Detail.AddStringAt(-1, "country", locTable!Country & "")
+success = Detail.AddStringAt(-1, "governate", locTable!GOVERNATE & "")
+success = Detail.AddStringAt(-1, "regionCity", locTable!RegionCity & "")
+success = Detail.AddStringAt(-1, "street", locTable!Street & "")
+success = Detail.AddStringAt(-1, "buildingNumber", locTable!building & "")
+success = Detail.AddStringAt(-1, "postalCode", locTable!Postal & "")
+success = Detail.AddStringAt(-1, "floor", locTable!Floor & "")
+success = Detail.AddStringAt(-1, "landmark", locTable!LandMark & "")
+success = Detail.AddStringAt(-1, "additionalInformation", locTable!Additional & "")
 
 success = Juser.AddStringAt(-1, "type", "B" & "")
-success = Juser.AddStringAt(-1, "id", loctable!user_id & "")
-success = Juser.AddStringAt(-1, "name", loctable!Name & "")
+success = Juser.AddStringAt(-1, "id", locTable!user_id & "")
+success = Juser.AddStringAt(-1, "name", locTable!Name & "")
 CreateIssuer = True
 Exit Function
 myerror:
@@ -66,13 +66,13 @@ pError = Err.Description
 Err.Clear
 End Function
 Private Function CreateReceiver(pDoc_no As String, ByRef json As ChilkatJsonObject, con As ADODB.Connection, ByRef pError As String) As Boolean
-Dim loctable As ADODB.Recordset
+Dim locTable As ADODB.RecordSet
 Dim aPrm As Variant
 aPrm = AddFlag(aPrm, "DOC_NO", TurnValue(pDoc_no))
-Set loctable = mycmd("einv.sp_receiver", con, adStoredProc, aPrm)
+Set locTable = mycmd("einv.sp_receiver", con, adStoredProc, aPrm)
 
 On Error GoTo myerror
-If loctable.EOF Then
+If locTable.EOF Then
     pError = "Invoice data receiver not found"
     Exit Function
 End If
@@ -85,24 +85,24 @@ success = JReceiver.AddObjectAt(-1, "address")
 
 Dim JAddress As ChilkatJsonObject
 Set JAddress = JReceiver.ObjectAt(JReceiver.Size - 1)
-success = JAddress.AddStringAt(-1, "country", loctable!Country & "")
-success = JAddress.AddStringAt(-1, "governate", loctable!GOVERNATE & "")
-success = JAddress.AddStringAt(-1, "regionCity", loctable!RegionCity & "")
-success = JAddress.AddStringAt(-1, "Street", loctable!Street & "")
-success = JAddress.AddStringAt(-1, "buildingNumber", loctable!buildingNumber & "")
+success = JAddress.AddStringAt(-1, "country", locTable!Country & "")
+success = JAddress.AddStringAt(-1, "governate", locTable!GOVERNATE & "")
+success = JAddress.AddStringAt(-1, "regionCity", locTable!RegionCity & "")
+success = JAddress.AddStringAt(-1, "Street", locTable!Street & "")
+success = JAddress.AddStringAt(-1, "buildingNumber", locTable!buildingNumber & "")
 success = JAddress.AddStringAt(-1, "postalCode", "")
 success = JAddress.AddStringAt(-1, "floor", "")
 success = JAddress.AddStringAt(-1, "landmark", "")
 success = JAddress.AddStringAt(-1, "additionalInformation", "")
 
-If Not IsNull(loctable!fileNo) Then
+If Not IsNull(locTable!fileNo) Then
     success = JReceiver.AddStringAt(-1, "type", "B")
-    success = JReceiver.AddStringAt(-1, "id", loctable!fileNo)
+    success = JReceiver.AddStringAt(-1, "id", locTable!fileNo)
 Else
     success = JReceiver.AddStringAt(-1, "type", "P")
-    success = JReceiver.AddStringAt(-1, "id", loctable!id_no & "")
+    success = JReceiver.AddStringAt(-1, "id", locTable!id_no & "")
 End If
-success = JReceiver.AddStringAt(-1, "name", loctable!Name & "")
+success = JReceiver.AddStringAt(-1, "name", locTable!Name & "")
 CreateReceiver = True
 Exit Function
 myerror:
@@ -110,10 +110,10 @@ pError = Err.Description
 Err.Clear
 End Function
 Private Function CreateDocHeader(pDoc_no As String, ByRef json As ChilkatJsonObject, con As ADODB.Connection, ByRef pError As String, pType As String) As Boolean
-Dim loctable As ADODB.Recordset
+Dim locTable As ADODB.RecordSet
 Dim aPrm As Variant
 aPrm = AddFlag(aPrm, "DOC_NO", TurnValue(pDoc_no))
-Set loctable = mycmd("einv.sp_inv_header", con, adStoredProc, aPrm)
+Set locTable = mycmd("einv.sp_inv_header", con, adStoredProc, aPrm)
 On Error GoTo myerror
 success = json.AddStringAt(-1, "documentType", pType)
 success = json.AddStringAt(-1, "documentTypeVersion", inv_version)
@@ -122,8 +122,8 @@ success = json.AddStringAt(-1, "documentTypeVersion", inv_version)
 'sDate = DateGreen(loctable!dateTax)
 success = json.AddStringAt(-1, "dateTimeIssued", myFormat_z(DateGreen(Now)))
 success = json.AddStringAt(-1, "taxpayerActivityCode", taxpayerActivityCode)
-success = json.AddStringAt(-1, "internalID", loctable!inv_tax & "")
-success = json.AddStringAt(-1, "purchaseOrderReference", loctable!purchaseOrderReference & "")
+success = json.AddStringAt(-1, "internalID", locTable!inv_tax & "")
+success = json.AddStringAt(-1, "purchaseOrderReference", locTable!purchaseOrderReference & "")
 success = json.AddStringAt(-1, "purchaseOrderDescription", "")
 success = json.AddStringAt(-1, "salesOrderReference", "")
 success = json.AddStringAt(-1, "proformaInvoiceNumber", "")
@@ -165,14 +165,14 @@ success = Jdelivery.AddStringAt(-1, "terms", "")
 CreateDocDelivery = True
 End Function
 Private Function CreateDocLines(pDoc_no As String, ByRef json As ChilkatJsonObject, con As ADODB.Connection, ByRef pError As String, bGroup As Boolean) As Boolean
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 Dim aPrm As Variant
 aPrm = AddFlag(aPrm, "DOC_NO", TurnValue(pDoc_no))
 aPrm = AddFlag(aPrm, "TAX", mRound(taxRate / 100, 2))
 aPrm = AddFlag(aPrm, "GROUP", IIf(bGroup, 1, 0))
 
-Set loctable = mycmd("einv.sp_inv_lines", con, adStoredProc, aPrm)
-If loctable.EOF Then
+Set locTable = mycmd("einv.sp_inv_lines", con, adStoredProc, aPrm)
+If locTable.EOF Then
     pError = "»Ì«‰«  «·„” ‰œ €Ì— ”„Ã·…"
     Exit Function
 End If
@@ -183,32 +183,32 @@ Set aLines = json.ArrayAt(json.Size - 1)
 
 Dim oLine As ChilkatJsonObject
 Dim osub As ChilkatJsonObject
-Do Until loctable.EOF
+Do Until locTable.EOF
     success = aLines.AddObjectAt(-1)
     Set oLine = aLines.ObjectAt(aLines.Size - 1)
     
-    success = oLine.AddStringAt(-1, "description", loctable!Description & "")
-    success = oLine.AddStringAt(-1, "itemType", loctable!itemType)
-    success = oLine.AddStringAt(-1, "itemCode", loctable!itemCode & "")
-    success = oLine.AddStringAt(-1, "unitType", loctable!unitType)
-    success = oLine.AddNumberAt(-1, "quantity", loctable!quantity)
-    success = oLine.AddStringAt(-1, "internalCode", loctable!internalCode)
-    success = oLine.AddNumberAt(-1, "salesTotal", loctable!SalesTotal)
-    success = oLine.AddNumberAt(-1, "total", loctable!total)
+    success = oLine.AddStringAt(-1, "description", locTable!Description & "")
+    success = oLine.AddStringAt(-1, "itemType", locTable!itemType)
+    success = oLine.AddStringAt(-1, "itemCode", locTable!itemCode & "")
+    success = oLine.AddStringAt(-1, "unitType", locTable!unitType)
+    success = oLine.AddNumberAt(-1, "quantity", locTable!quantity)
+    success = oLine.AddStringAt(-1, "internalCode", locTable!internalCode)
+    success = oLine.AddNumberAt(-1, "salesTotal", locTable!SalesTotal)
+    success = oLine.AddNumberAt(-1, "total", locTable!TOTAL)
     success = oLine.AddNumberAt(-1, "valueDifference", 0)
     success = oLine.AddNumberAt(-1, "totalTaxableFees", 0)
-    success = oLine.AddNumberAt(-1, "netTotal", loctable!netTotal)
+    success = oLine.AddNumberAt(-1, "netTotal", locTable!netTotal)
     success = oLine.AddNumberAt(-1, "itemsDiscount", 0)
     
     success = oLine.AddObjectAt(-1, "unitValue")
     Set osub = oLine.ObjectAt(oLine.Size - 1)
     success = osub.AddStringAt(-1, "currencySold", "EGP")
-    success = osub.AddNumberAt(-1, "amountEGP", loctable!amountEGP)
+    success = osub.AddNumberAt(-1, "amountEGP", locTable!amountEGP)
 '
     success = oLine.AddObjectAt(-1, "discount")
     Set osub = oLine.ObjectAt(oLine.Size - 1)
-    success = osub.AddNumberAt(-1, "rate", loctable!Rate)
-    success = osub.AddNumberAt(-1, "amount", loctable!discount)
+    success = osub.AddNumberAt(-1, "rate", locTable!Rate)
+    success = osub.AddNumberAt(-1, "amount", locTable!discount)
     
     Dim aTax As ChilkatJsonArray
     success = oLine.AddArrayAt(-1, "taxableItems")
@@ -219,11 +219,11 @@ Do Until loctable.EOF
     Set oTax = aTax.ObjectAt(aTax.Size - 1)
     
     success = oTax.AddStringAt(-1, "taxType", "T1")
-    success = oTax.AddNumberAt(-1, "amount", loctable!tax)
+    success = oTax.AddNumberAt(-1, "amount", locTable!tax)
     success = oTax.AddStringAt(-1, "subType", subType)
     success = oTax.AddNumberAt(-1, "rate", taxRate)
                             
-    loctable.MoveNext
+    locTable.MoveNext
 Loop
 CreateDocLines = True
 Exit Function
@@ -233,21 +233,21 @@ Err.Clear
 End Function
 Public Function CreateDocFooter(pDoc_no As String, ByRef json As ChilkatJsonObject, con As ADODB.Connection, ByRef pError As String, bGroup As Boolean) As Boolean
 Dim cString As String
-Dim loctable As New ADODB.Recordset
+Dim locTable As New ADODB.RecordSet
 Dim aPrm As Variant
 aPrm = AddFlag(aPrm, "DOC_NO", TurnValue(pDoc_no))
 aPrm = AddFlag(aPrm, "TAX", mRound(taxRate / 100, 2))
 aPrm = AddFlag(aPrm, "GROUP", IIf(bGroup, 1, 0))
 
-Set loctable = mycmd("einv.sp_inv_totals", con, adStoredProc, aPrm)
-If loctable.EOF Then
+Set locTable = mycmd("einv.sp_inv_totals", con, adStoredProc, aPrm)
+If locTable.EOF Then
     pError = "Invoice data receiver not found"
     Exit Function
 End If
 
-success = json.AddNumberAt(-1, "totalDiscountAmount", loctable!totalDiscountAmount)
-success = json.AddNumberAt(-1, "totalSalesAmount", loctable!totalSalesAmount)
-success = json.AddNumberAt(-1, "netAmount", loctable!netAmount)
+success = json.AddNumberAt(-1, "totalDiscountAmount", locTable!totalDiscountAmount)
+success = json.AddNumberAt(-1, "totalSalesAmount", locTable!totalSalesAmount)
+success = json.AddNumberAt(-1, "netAmount", locTable!netAmount)
 
 Dim aTaxes As ChilkatJsonArray
 success = json.AddArrayAt(-1, "taxTotals")
@@ -257,9 +257,9 @@ success = aTaxes.AddObjectAt(-1)
 Dim oTax As ChilkatJsonObject
 Set oTax = aTaxes.ObjectAt(aTaxes.Size - 1)
 success = oTax.AddStringAt(-1, "taxType", "T1")
-success = oTax.AddNumberAt(-1, "amount", loctable!tax)
+success = oTax.AddNumberAt(-1, "amount", locTable!tax)
 
-success = json.AddNumberAt(-1, "totalAmount", loctable!totalAmount)
+success = json.AddNumberAt(-1, "totalAmount", locTable!totalAmount)
 success = json.AddNumberAt(-1, "extraDiscountAmount", 0)
 success = json.AddNumberAt(-1, "totalItemsDiscountAmount", 0)
 
@@ -584,36 +584,36 @@ End If
 SubmitDocumentString = jsonResponseStr
 End Function
 Private Function validSend(pDoc_no As String, con As ADODB.Connection, pType As String) As Boolean
-Dim loctable As ADODB.Recordset
+Dim locTable As ADODB.RecordSet
 aPrm = AddFlag(aPrm, "DOC_NO", TurnValue(pDoc_no))
-Set loctable = mycmd("einv.sp_valid_send", con, adStoredProc, aPrm)
+Set locTable = mycmd("einv.sp_valid_send", con, adStoredProc, aPrm)
 
-If loctable.EOF Then
+If locTable.EOF Then
     MsgBox "·«  ÊÃœ „” ‰œ »Â–« «·—ﬁ„"
     Exit Function
 End If
 
-If IsNull(loctable!inv_tax) Then
+If IsNull(locTable!inv_tax) Then
     MsgBox "—ﬁ„ «·„” ‰œ «·÷—Ì»Ì €Ì— „”Ã·"
     Exit Function
 End If
 
-If IsNull(loctable!dateTax) Then
+If IsNull(locTable!dateTax) Then
     MsgBox " «—ÌŒ «·„” ‰œ «·÷—Ì»Ì €Ì— „”Ã·"
     Exit Function
 End If
 
-If IsNull(loctable!Name) Then
+If IsNull(locTable!Name) Then
     MsgBox "≈”„ «·⁄„Ì· «·÷—Ì»Ì €Ì— „”Ã·"
     Exit Function
 End If
 
-If IsNull(loctable!fileNo) And IsNull(loctable!id_no) Then
+If IsNull(locTable!fileNo) And IsNull(locTable!id_no) Then
     MsgBox "·« ÌÊÃœ —ﬁ„ „·› ÷—Ì»Ì «Ê —ﬁ„ ÂÊÌ…"
     Exit Function
 End If
 
-If IsNull(loctable!GOVERNATE) Then
+If IsNull(locTable!GOVERNATE) Then
     MsgBox "„Õ«›Ÿ… «·⁄„Ì· €Ì— „”Ã·…"
     Exit Function
 End If

@@ -1656,20 +1656,20 @@ Public bIg As Boolean
 Dim bEditRecord As Boolean, bAct As Boolean
 Dim oSeachCode As New Search_abd, oSearchDoc As New Search_abd, oSearchProject As New Search_abd, osearchClient As New Search_abd
 Dim cFilter As String, cSelect As String
-Dim con As New ADODB.Connection, CardTable As ADODB.Recordset
+Dim con As New ADODB.Connection, CardTable As ADODB.RecordSet
 Dim cFile As String, cFileHeader As String, aBoxs As Variant
 Dim clist1 As String, cList2 As String, cList3 As String, sDef As String
 Dim formMode
 Const LoadMode = 0, DefineMode = 1
 Private Function myreplace(Optional Row As Long = -1, Optional Row2 As Long = -1, Optional bNewOnly As Boolean = False) As Boolean
 Dim aInsert As Variant
-aInsert = AddFlag(Empty, "[DATE]", addDate(xdate.text))
+aInsert = AddFlag(Empty, "[DATE]", addDate(xDate.text))
 aInsert = AddFlag(aInsert, "[CODE]", addstring(xCode.text))
 aInsert = AddFlag(aInsert, "[NOTES]", addstring(xNotes.text))
 aInsert = AddFlag(aInsert, IIf(xDoc_no.Tag = DefineMode, "[USERNAME]", "[USERNAME2]"), addstring(cUserName))
 aInsert = AddFlag(aInsert, IIf(xDoc_no.Tag = DefineMode, "[TIME]", "[TIME2]"), "getdate()")
 con.BeginTrans
-On Error GoTo myerror
+On Error GoTo myError
 If xDoc_no.Tag = DefineMode Then
     xDoc_no.text = Newflag(cFileHeader, "DOC_NO", con)
     aInsert = AddFlag(aInsert, "DOC_NO", addstring(xDoc_no.text))
@@ -1682,7 +1682,7 @@ If Row2 <> -1 Then myreplaceGrdDate Row2
 con.CommitTrans
 myreplace = True
 Exit Function
-myerror:
+myError:
 MsgBox Err.Description
 con.RollbackTrans
 Err.Clear
@@ -1749,12 +1749,12 @@ Me.MousePointer = vbNormal
 cmdAmzon.Enabled = True
 End Sub
 
-Private Sub cmdClosePeriod_Click(Index As Integer)
+Private Sub cmdClosePeriod_Click(index As Integer)
 Dim oClosefrm As New closefrm
 oClosefrm.sFile = "FILE6_51h"
 oClosefrm.sCaption = DocTitle
 oClosefrm.sFieldClose = "isclosed"
-oClosefrm.nMode = Index
+oClosefrm.nMode = index
 oClosefrm.Show 1
 End Sub
 
@@ -1762,7 +1762,7 @@ Private Sub CmdDel_Click()
 If MsgBox("Õ–› ?", vbOKCancel + vbDefaultButton2 + vbCritical) <> vbOK Then Exit Sub
 
 con.BeginTrans
-On Error GoTo myerror
+On Error GoTo myError
 con.Execute "Delete  From " & cFile & " where Doc_No = " & addstring(xDoc_no.text)
 con.Execute "Delete  From " & cFileHeader & " where Doc_No = " & addstring(xDoc_no.text)
 con.Execute "Delete  From FILE6_51E where Doc_No = " & addstring(xDoc_no.text)
@@ -1776,7 +1776,7 @@ If Not openCardTable(tbMode.tbPrevious, XFLAG.Caption) Then
     End If
 End If
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 con.RollbackTrans
@@ -1806,11 +1806,11 @@ If grid1.Rows > 1 Then
     aSub = AddFlag(aSub, "back_color", 40)
     aRow = AddFlag(aRow, aSub)
 End If
-ToFileExelNew grid1, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption, "„” ‰œ ÿ·»Ì… —ﬁ„ : " & xDoc_no.text, "» «—ÌŒ : " & xdate.text)
+ToFileExelNew grid1, , , aRow, Array(1), 0.9, , , , , , Me, Array(Me.Caption, "„” ‰œ ÿ·»Ì… —ﬁ„ : " & xDoc_no.text, "» «—ÌŒ : " & xDate.text)
 Me.MousePointer = 0
 End Sub
 
-Private Sub cmdExit_Click()
+Private Sub CmdExit_Click()
 Unload Me
 End Sub
 Private Sub cmdFix_Click()
@@ -1872,7 +1872,7 @@ myUndo
 End Sub
 
 Private Sub cmdYear_Click()
-Set oSearchYear.myForm = Me
+Set oSearchYear.myform = Me
 oSearchYear.bEmpty = cmdYear.Tag <> ""
 oSearchYear.Show 1
 End Sub
@@ -1884,7 +1884,7 @@ If Not bAct Then
     If xDoc_no.Tag = LoadMode Then
         grid1.SetFocus
     Else
-        xdate.SetFocus
+        xDate.SetFocus
     End If
     Err.Clear
 End If
@@ -1906,11 +1906,11 @@ Private Sub Form_Load()
 bEdit = True
 cFile = "FILE6_51"
 cFileHeader = "FILE6_51H"
-openCon con
+OpenCon con
 
-Set grid1.DataSource = data1
-Set grid2.DataSource = DATA2
-Set grdDate.DataSource = data3
+Set grid1.DataSource = DATA1
+Set grid2.DataSource = data2
+Set grdDate.DataSource = DATA3
 
 If Not openCardTable Then myDefine
 End Sub
@@ -1928,7 +1928,7 @@ If Trim(xDoc_no.text) = "" Then
     Exit Function
 End If
 
-If Not IsDate(xdate.text) Then
+If Not IsDate(xDate.text) Then
     MsgBox "«· «—ÌŒ €Ì— ”·Ì„"
     Exit Function
 End If
@@ -1946,9 +1946,9 @@ End If
 MYVALID = True
 End Function
 Private Sub myload()
-xDoc_no.text = CardTable!DOC_NO
+xDoc_no.text = CardTable!doc_no
 XFLAG.Caption = CardTable!Flag
-xdate.text = myFormat_p(CardTable!Date)
+xDate.text = myFormat_p(CardTable!Date)
 xCode.text = CardTable!code & ""
 xCode_desca.Caption = CardTable!code_desca & ""
 xNotes.text = CardTable!NOTES & ""
@@ -1972,7 +1972,7 @@ End Sub
 Private Sub myDefine()
 xDoc_no.text = ""
 XFLAG.Caption = ""
-xdate.text = myFormat_p(Date)
+xDate.text = myFormat_p(Date)
 xCode.text = ""
 xCode_desca.Caption = ""
 
@@ -2042,7 +2042,7 @@ End Sub
 Private Sub SSCommand5_Click()
 End Sub
 
-Private Sub Option1_Click(Index As Integer)
+Private Sub Option1_Click(index As Integer)
 grid1.Visible = Option1(0).Value Or Option1(2).Value
 grid2.Visible = Option1(1).Value
 If grid1.Visible Then
@@ -2068,7 +2068,7 @@ con.Execute "update " & cFileHeader & _
 Inform " „ " & IIf(xCancel.Value = 0, " —«Ã⁄ ⁄‰ «·«·€«¡", "«·€«¡ «·ÿ·»Ì…") & " »‰Ã«Õ"
 myUndo
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 
@@ -2088,7 +2088,7 @@ If xDoc_no.text = "" Then
     End If
 Else
     If (Not (CardTable.EOF)) And xDoc_no.Tag = LoadMode Then
-        If CardTable!DOC_NO = xDoc_no.text Then
+        If CardTable!doc_no = xDoc_no.text Then
             Exit Sub
         End If
     End If
@@ -2136,7 +2136,7 @@ End If
 
 Me.MousePointer = vbHourglass
 
-On Error GoTo myerror
+On Error GoTo myError
 cFilter = ""
 If cmdFilter.Tag <> "" Then cFilter = cFilter & Tr(cFilter) & "DOC_NO IN (" & cmdFilter.Tag & ")"
 If cmdClient.Tag <> "" Then cFilter = cFilter & Tr(cFilter) & "FILE6_51H.CODE = " & MyParn(cmdClient.Tag)
@@ -2181,7 +2181,7 @@ If (Not CardTable.EOF) Then
 End If
 Me.MousePointer = 0
 Exit Function
-myerror:
+myError:
 Me.MousePointer = vbNormal
 MsgBox Err.Description
 Err.Clear
@@ -2235,7 +2235,7 @@ If Not bCheck Then
 End If
 End Sub
 Private Function retRecords(pDoc_no, ByRef nRecords As Long, ByRef nRecord As Long) As Variant
-Dim cString As String, loctable As New ADODB.Recordset
+Dim cString As String, loctable As New ADODB.RecordSet
 If pDoc_no <> "" Then
     cString = "SELECT Count(*) AS records,COUNT(CASE WHEN FLAG <= " & MyParn(pDoc_no) & " THEN 1  END) AS record"
 Else
@@ -2370,7 +2370,7 @@ cString = "SELECT " & arString(aFields, ",") & _
          " FROM FILE6_51 inner join file1_10 on file1_10.item = FILE6_51.item INNER JOIN FACT ON FACT.CODE = FILE1_10.FACT INNER JOIN FILE4_10 ON FILE4_10.CODE = FILE1_10.CODE " & _
          " WHERE  DOC_NO = " & MyParn(xDoc_no.text) & _
          " ORDER BY FILE4_10.DESCA , FILE1_10.FACT , FILE1_10.MODELFACT0 , FILE1_10.C_SCAL, FILE1_10.COLOR "
-Set data1.Recordset = mycmd(cString, con)
+Set DATA1.RecordSet = mycmd(cString, con)
 myAddItem
 
 CalcTotals
@@ -2379,7 +2379,7 @@ End Sub
 Private Sub myloadgrd3()
 Dim cString As String
 aPrm = AddFlag(aPrm, "DOC_NO", xDoc_no.text)
-Set data1.Recordset = cmd("[dbo].[sp_client_order_scal]", con, adStoredProc, aPrm).Execute
+Set DATA1.RecordSet = cmd("[dbo].[sp_client_order_scal]", con, adStoredProc, aPrm).Execute
 myAddItem
 CalcTotals
 fixGrd
@@ -2401,7 +2401,7 @@ ElseIf Not bEditRecord Then
     Exit Sub
 ElseIf KeyCode = 46 And grid1.Row <> grid1.Rows - 1 Then
     If MsgBox("Õ–› „‰ «·„” ‰œ ?, Â· «‰  „Ê«›ﬁ ø", vbOKCancel) = vbOK Then
-        On Error GoTo myerror
+        On Error GoTo myError
         con.BeginTrans
         If grid1.TextMatrix(grid1.Row, grid1.Cols - 1) <> "" Then
             con.Execute "Delete from " & cFile & " where ID = " & grid1.TextMatrix(grid1.Row, grid1.Cols - 1)
@@ -2411,7 +2411,7 @@ ElseIf KeyCode = 46 And grid1.Row <> grid1.Rows - 1 Then
     End If
 End If
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 con.RollbackTrans
 Err.Clear
@@ -2552,7 +2552,7 @@ aFields(6) = "FILE6_51E.ID"
 cString = "SELECT " & arString(aFields, ",") & _
          " FROM FILE6_51E " & _
          " WHERE  DOC_NO = " & MyParn(xDoc_no.text)
-Set DATA2.Recordset = mycmd(cString, con)
+Set data2.RecordSet = mycmd(cString, con)
 Fixgrd2
 End Sub
 Private Sub Fixgrd2()
@@ -2608,28 +2608,28 @@ End Sub
 Private Sub xIsClosed_Click()
 If bIg Then Exit Sub
 If MsgBox(IIf(xisClosed.Value = 0, "› Õ «·„” ‰œ", "«€·«ﬁ «·„” ‰œ"), vbDefaultButton2 + vbOKCancel) <> vbOK Then Exit Sub
-On Error GoTo myerror
+On Error GoTo myError
 con.Execute "update " & cFileHeader & _
             " SET ISCLOSED = " & xisClosed.Value & _
             " WHERE DOC_NO = " & MyParn(xDoc_no.text)
 Inform " „ " & IIf(xisClosed.Value = 0, "› Õ «·„” ‰œ", "«€·«ﬁ «·„” ‰œ") & " »‰Ã«Õ"
 myUndo
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
 Private Sub xisPosted_Click()
 If bIg Then Exit Sub
 If MsgBox(IIf(xIsPosted.Value = 0, "› Õ «·„” ‰œ", "«€·«ﬁ «·„” ‰œ"), vbDefaultButton2 + vbOKCancel) <> vbOK Then Exit Sub
-On Error GoTo myerror
+On Error GoTo myError
 con.Execute "update " & cFileHeader & _
             " SET isPosted = " & xIsPosted.Value & _
             " WHERE DOC_NO = " & MyParn(xDoc_no.text)
 Inform " „ " & IIf(xIsPosted.Value = 0, "› Õ «·„” ‰œ", "«€·«ﬁ «·„” ‰œ") & " »‰Ã«Õ"
 myUndo
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -2713,7 +2713,7 @@ cString.Append addstring(cSv.GetCellByName(0, store_))
 cString.Append ");"
 
 con.BeginTrans
-On Error GoTo myerror
+On Error GoTo myError
 con.Execute cString.GetAsString
 
 For i = 0 To cSv.NumRows - 1
@@ -2797,7 +2797,7 @@ prog1.Visible = False
 Me.Caption = sCaption
 getAmazon = cSv.GetCellByName(0, Doc_No_)
 Exit Function
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 If TransCount(con) > 0 Then
@@ -2806,11 +2806,11 @@ End If
 End Function
 
 Private Sub xdate_GotFocus()
-myGotFocus xdate
+myGotFocus xDate
 End Sub
 Private Sub xDate_LostFocus()
-myLostFocus xdate
-myValidDate xdate
+myLostFocus xDate
+myValidDate xDate
 End Sub
 Private Sub xcode_GotFocus()
 myGotFocus xCode
@@ -2895,7 +2895,7 @@ cString = "SELECT FORMAT(DATE,'yyyy/M/d'),ID" & _
          " FROM FILE6_51D " & _
          " WHERE  DOC_NO = " & MyParn(xDoc_no.text) & _
          " ORDER BY DATE DESC"
-Set data3.Recordset = mycmd(cString, con)
+Set DATA3.RecordSet = mycmd(cString, con)
 myAddItemDate
 
 fixGrdDate
@@ -2910,7 +2910,7 @@ ElseIf Not bEditRecord Then
     Exit Sub
 ElseIf KeyCode = 46 And grdDate.Row <> grdDate.Rows - 1 Then
     If MsgBox("Õ–› „‰ «·„” ‰œ ?, Â· «‰  „Ê«›ﬁ ø", vbOKCancel) = vbOK Then
-        On Error GoTo myerror
+        On Error GoTo myError
         If grdDate.TextMatrix(grdDate.Row, grdDate.Cols - 1) <> "" Then
             con.Execute "Delete from FILE6_51D where ID = " & grdDate.TextMatrix(grdDate.Row, grdDate.Cols - 1)
         End If
@@ -2918,7 +2918,7 @@ ElseIf KeyCode = 46 And grdDate.Row <> grdDate.Rows - 1 Then
     End If
 End If
 Exit Sub
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Sub
@@ -2986,22 +2986,85 @@ If KeyAscii = 13 Then
     KeyAscii = 0
 End If
 End Sub
-Private Function addBalance(pDoc_no As String) As Boolean
+Private Function addBalanceOld(pDoc_no As String) As Boolean
 Dim nAffect As Long
-On Error GoTo myerror
+On Error GoTo myError
 con.Execute "update file6_51 SET " & _
             " FILE6_51.BALANCE_FACT = FILE1_10.BALANCE_FACT" & _
             " FROM FILE6_51 INNER JOIN FILE1_10 ON FILE6_51.ITEM = FILE1_10.ITEM" & _
             " WHERE FILE6_51.DOC_NO = " & MyParn(pDoc_no), nAffect
 Inform " „ «÷«›… —’Ìœ " & nAffect & " ”Ã·"
-addBalance = True
+addBalanceOld = True
 Exit Function
-myerror:
+myError:
 MsgBox Err.Description
 Err.Clear
 End Function
+Private Function addBalance(pDoc_no As String) As Boolean
+Dim nAffect As Long
+On Error GoTo myError
+
+Dim db As New clsData
+Dim loctable As New ADODB.RecordSet
+
+Set loctable = db.rs("select file1_10.barcode2 " & _
+              " from file6_51 " & _
+              " inner join file1_10 on file6_51.item = file1_10.item where doc_no = " & MyParn(pDoc_no) & _
+              " and file1_10.barcode2 is not null")
+
+If loctable.EOF Then
+    GoTo cleanUp
+End If
+
+Dim sb As New ChilkatStringBuilder
+Do Until loctable.EOF
+    sb.Append MyParn(loctable!BARCODE2) & ","
+    loctable.MoveNext
+Loop
+
+sb.Shorten 1
+If sb.length = 0 Then GoTo cleanUp
+
+strSql = "SELECT * " & _
+         " FROM VW_ITEMS_ORDERS " & _
+         " WHERE BARCODE2 IN(" & sb.GetAsString & ")"
+
+Dim dbFact As New clsData
+dbFact.connectionString = LoadConStringfact
+
+Dim balanceTable As New ADODB.RecordSet
+Set balanceTable = dbFact.rs(strSql)
+If balanceTable.EOF Then GoTo cleanUp
+
+prog1.Visible = True
+loctable.MoveFirst
+Do Until loctable.EOF
+    prog1.Value = (loctable.AbsolutePosition / (loctable.RecordCount)) * 100
+    balanceTable.Find "BARCODE2 = " & MyParn(loctable!BARCODE2), , adSearchForward, adBookmarkFirst
+    If Not balanceTable.EOF Then
+        db.Execute "update file6_51 " & _
+                    "set file6_51.balance_Fact = " & Val(balanceTable!balance) & _
+                    " from file6_51 " & _
+                    " inner join file1_10 on file6_51.item = file1_10.item" & _
+                    " where file6_51.doc_no = " & MyParn(pDoc_no) & _
+                    " and file1_10.barcode2 =  " & MyParn(loctable!BARCODE2)
+    End If
+    loctable.MoveNext
+Loop
+cleanUp:
+prog1.Visible = False
+Set loctable = Nothing
+Set db = Nothing
+Set dbFact = Nothing
+
+Exit Function
+myError:
+MsgBox Err.Description
+Err.Clear
+GoTo cleanUp
+End Function
 Private Function getFixed() As Long
-Dim loctable As New ADODB.Recordset
+Dim loctable As New ADODB.RecordSet
 Dim cString As String
 Dim sb As New ChilkatStringBuilder
 Dim aFields(8)
@@ -3039,7 +3102,7 @@ Do Until loctable.EOF
             sb.Append addvalue(loctable!Item) & ","
             sb.Append addstring(loctable!BARCODE) & ","
             sb.Append addstring(loctable!Asin) & ","
-            sb.Append addstring(loctable!DESCA2) & ","
+            sb.Append addstring(loctable!Desca2) & ","
             sb.Append Val(loctable!Balance_fact & "") & ","
             sb.Append Val(loctable!Quant) & ","
             sb.Append Val(loctable!Quant & "") & ","
